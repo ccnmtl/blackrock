@@ -87,6 +87,14 @@ function initGraph() {
 
 var ForestData = new ForestGraphData();
 
+function updateColors() {
+  var colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#202020'];
+  forEach(getElementsByTagAndClassName('div', 'scenario'), function(scenario) {
+    var color = colors.shift();
+    ForestData.updateScenario(scenario.id,color);
+  });
+}
+
 function forestGraph() {
     // have to re-init, because g.clear() doesn't reset legend
     //removeElementClass('plotGraph','needsupdate');
@@ -174,3 +182,5 @@ LeafGraphData.prototype.updateFields = function() {
 	//leafGraph();
 	//global.TemperatureSliders.updateCursorVals();
 //}
+
+addLoadEvent(updateColors);
