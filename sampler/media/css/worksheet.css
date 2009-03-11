@@ -1,0 +1,26 @@
+table#worksheet
+{
+	width: 100%;
+	font-size: 12px;
+	border-collapse: collapse;
+	line-height: 18px;
+	text-align: center;
+}
+
+table#worksheet td, table#worksheet tr
+{
+	border: 1px solid #999;
+}
+
+table#worksheet thead { background-color: #666; color: #fff;}
+table#worksheet tbody { background-color: #eee; }
+
+
+table#worksheet tr.selected { background-color: #ff9; }
+
+table#worksheet .delete a
+{
+	font-weight: bold;
+	text-decoration: none;
+	color: black;
+}

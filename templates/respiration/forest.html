@@ -1,0 +1,209 @@
+{% extends "respiration/base_respiration.html" %}
+
+{% block tabname %}tab-forest{% endblock %}
+
+{% block js %}
+{{ block.super }}
+	<script type="text/javascript" src="media/js/scenario.js"></script> 
+	<script type="text/javascript" src="media/js/species.js"></script> 
+	<script type="text/javascript" src="media/js/forestgraph.js"></script> 
+	<script type="text/javascript">
+	    function calculateKelvin(elem) {
+	       var parent = getFirstParentByTagAndClassName(elem, "td", "");
+	       var kelvin = getFirstElementByTagAndClassName("span", "kelvin", parent);
+		 kelvin.innerHTML = parseFloat(this.value) + 273.15;
+	    }
+	    
+	    function toggle(e) {
+	      var elem = e.src();
+	      var parent = getFirstParentByTagAndClassName(elem, "div", "togglecontainer");
+	      var sibs = getElementsByTagAndClassName("*", "togglechild", parent);
+	      if(hasElementClass(elem, "toggle-open")) {
+	        removeElementClass(elem, "toggle-open");
+	        addElementClass(elem, "toggle-closed");
+	        forEach(sibs, function(sib) {
+                hideElement(sib);
+	        });
+	      }
+	      else {
+	        removeElementClass(elem, "toggle-closed");
+	        addElementClass(elem, "toggle-open");
+	        forEach(sibs, function(sib) {
+                showElement(sib);
+	        });
+	      }
+	    }
+	    
+	    function initNav() {
+	      connect("tab-forest", "onclick", function() { location.href="leaf";});
+	      forEach(getElementsByTagAndClassName("div", "toggler"), function(elem) {
+	            connect(elem, "onclick", toggle);
+	      });
+	    }
+	    addLoadEvent(initNav);
+	</script> 
+{% endblock %}
+
+{% block instructions %}
+Explore how climate fluctuations and changes in species composition affect the respiration output of a forest using actual temperature data from Black Rock Forest. Enter the following scenario parameters into the fields below. Click on the Graph button to determine and view the total amount (moles) of carbon respired from a m<sup>2</sup> of forest for each of your scenarios. 
+<br /><br />
+Advanced options include a forest leaf area index that takes into consideration the canopy layers of the forest as well as a delta function that modifies the temperature data points across the board.
+{% endblock %}
+
+{% block leftlegend %}
+Set Scenario Variables
+{% endblock %}
+
+{% block left %}
+<form id="leaf-form" name="leaf-form" action="forest" method="POST">
+	<div id="forestgraph">
+		<input type="button" value="Graph &gt;&gt;" onclick="javascript:forestGraph();" />
+	</div>
+	<div id="scenariocontainer">
+		<div id="scenarioheader">
+			<span class="button" onClick="addScenario();">
+				Add Scenario 
+			</span>
+			Scenario List 
+		</div>
+		<div id="scenariobox">
+			<div class="scenario" id="scenario1">
+				<div class="scenariotitle">
+				<div class="colorswatch" id="scenario1-swatch">
+					&nbsp;&nbsp;&nbsp;&nbsp;
+				</div>
+					<span class="button" onClick="delScenario('scenario1');">
+						Delete Scenario 
+					</span>
+					<input type="text" class="scenario-name" id="scenario1-name" name="scenario1-name" value="Scenario 1" />
+				</div>
+				<div class="scenariotemp">
+					<table>
+						<tr>
+							<td>
+								<span style="font-weight: bold;">
+									Base Temperature 
+								</span>
+							</td>
+							<td>
+								T<sub>0 
+								</sub>
+								= 
+								<input type="text" size="5" id="scenario1-base-temp" name="scenario1-base-temp" value="15" onchange="javascript:calculateKelvin(this);" class="t-zero arr-field" />
+								C = 
+								<span class="kelvin">
+									288 
+								</span>
+								K 
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="speciesbox togglecontainer">
+					<div class="speciesheader">
+						<span class="button" onClick="addSpecies(this);">
+							Add Species 
+						</span>
+						<div class="toggler toggle-open"></div>
+						Species List 
+					</div>
+					<div class="speciescontainer togglechild">
+						<div class="species" id="species1">
+							<span class="button" onClick="delSpecies('species1');">
+								Delete Species 
+							</span>
+							<input type="text" class="species-name" id="species1-name" name="species1-name" value="Your Tree #1" />
+							SC= 
+							<input type="text" id="species1-percent" name="species1-percent" size="5" value="100" />
+							% 
+							<table>
+								<tr>
+									<td>
+										R<sub>0 </sub>=
+									</td>
+									<td>
+										<input type="text" size="5" id="species1-R0" name="species1-R0" class="r-zero arr-field" />
+									</td>
+									<td>
+										umol&nbsp;m<sup>-2</sup>s<sup>-1</sup>
+									</td>
+									<td>
+									&nbsp;&nbsp;
+									</td>
+									<td>
+										E<sub>0</sub>= 
+									</td>
+									<td>
+										<input type="text" size="5" id="species1-E0" name="species1-E0" class="e-zero arr-field" />
+									</td>
+									<td>
+										Jmol<sup>-1</sup>&nbsp;K<sup>-1 
+										</sup>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<!-- end species div -->
+					</div>
+				</div>
+				<div class="advancedoptionscontainer togglecontainer">
+					<div class="advancedoptionsheader">
+					      <div class="toggler toggle-open"></div>
+						Advanced Options 
+					</div>
+					<div class="togglechild">
+						Forest Leaf Area Index = 
+						<input type="text" id="scenario1-leafarea" name="scenario1-leafarea" size="5" value="1"/>
+					</div>
+					<table class="togglechild">
+						<tr>
+							<td colspan='2'>
+								Field Station: 
+								<select id="scenario1-fieldstation" name="scenario1-fieldstation">
+									{% for station in stations %} 
+									<option value="{{ station }}">
+										{{station}} 
+									</option>
+									{% endfor %} 
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Season Start (mm/dd/yyyy): 
+							</td>
+							<td>
+								<input type="text" id="scenario1-startdate" name="scenario1-startdate" size="10" value="01/01/2002" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Season End (mm/dd/yyyy): 
+							</td>
+							<td>
+								<input type="text" id="scenario1-enddate" name="scenario1-enddate" size="10" value="01/01/2003" />
+							</td>
+						</tr>
+					</table>
+					<div class="togglechild">
+						&Delta;T<sub>a</sub>= 
+						<input type="text" id="scenario1-delta-t" name="scenario1-delta-t" size='5' />
+						K 
+					</div>
+				</div>
+			</div>
+<!-- end class "scenario" -->
+		</div>
+<!-- end div "scenariobox" -->
+	</div>
+<!-- end div "scenariocontainer" -->
+</form>
+
+{% endblock %}
+
+{% block rightlegend %}
+ Scenario Graph
+{% endblock %}
+
+{% block right %}
+{% endblock %}

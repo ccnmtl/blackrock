@@ -1,0 +1,97 @@
+div#transect
+{
+	height: 450px;
+	width: 1px;
+	border-left: 1px black solid;
+	margin: 75px auto;
+	z-index: 1000;
+}
+
+div.box
+{
+	width: 40px;
+	height: 40px;
+	margin: 0px auto;
+	position: absolute;
+	left: 281px;
+}
+
+div.quadrant
+{
+	background-color: #FFFFFF;
+	border: 1px black solid;
+	width: 18px;
+	height: 18px;
+	position: absolute;
+	font-size: 9px;
+	line-height: 18px;
+	text-align: center;
+	cursor: pointer;
+}
+
+div.box .selected {
+   background-color: #ff9;
+}
+
+.nw_quadrant
+{
+	top: 0px;
+	left: 0px;
+}
+
+.ne_quadrant
+{
+	top: 0px;
+	left: 18px;
+}
+
+.sw_quadrant
+{
+	top: 18px;
+	left: 0px;
+}
+
+.se_quadrant
+{
+	top: 18px;
+	left: 18px;
+}
+
+div#box1
+{
+	position: absolute;
+	top: 440px;
+}
+
+div#box2
+{
+	position: absolute;
+   top: 355px;
+}
+
+div#box3
+{
+	position: absolute;
+	top: 270px;
+}
+
+div#box4
+{
+	position: absolute;
+	top: 185px;
+}
+div#box5
+{
+	position: absolute;
+	top: 100px;
+}
+
+div#transect-start {
+   left: 288px !important;
+   top: 515px !important;
+}
+
+div#transect-end {
+   left: 287px !important;
+   top: 60px !important;
+}

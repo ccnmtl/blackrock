@@ -1,0 +1,26 @@
+<html>
+<head><title>{% block title %}{% endblock %}</title>
+
+<style media="screen" type="text/css">
+@import "/site_media/css/site.css" ;
+@import "/site_media/css/style.css" ;
+</style>
+
+{% block css %}{% endblock %}
+{% block js %}{% endblock %}
+{% block feeds %}{% endblock %}
+</head>
+<body class="{% block bodyclass %}{% endblock %}">
+
+<a href="/"><div id="brf"></div></a>
+<div id="ccnmtl"></div>
+
+<div id="wrapper">
+<h1 id="masthead"><span>{% block masthead %}{% endblock %}</span></h1>
+<div id="breadcrumbs">{% block breadcrumbs %}{% endblock %}</div>
+<div id="nav">{% block nav %}{% endblock %}</div>
+
+{% block content %}{% endblock %}
+</div>
+{% block footer %}{% endblock %}
+</body></html>

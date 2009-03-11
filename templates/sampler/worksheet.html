@@ -1,0 +1,120 @@
+{% extends "sampler/base_sampler.html" %}
+
+<!-- set active tab for breadcrumbs -->
+{% block tabname %}tab-worksheet{% endblock %}
+
+{% block css %}
+  {{ block.super }}
+  
+  <style type="text/css">
+    @import 'media/css/transect.css';
+    @import 'media/css/worksheet.css';
+  </style>
+  
+{% endblock %}
+
+{% block js %}
+  {{ block.super }}
+
+  <script type="text/javascript">
+  function adjustTrees() {
+    {% for tree in trees %}
+      // adjust for offset and scale
+      var location_x = getFirstElementByTagAndClassName("span","info-x","info-tree"+{{ tree.id}});
+      //log(location_x.innerHTML);
+      //location_x.innerHTML = {{tree.location.x}} + {{x_offset}} / {{scale}};
+      //location_x.innerHTML = {{ xlocs.tree.id }} + ({{x_offset}} / {{scale}});
+      var location_y = getFirstElementByTagAndClassName("span","info-y","info-tree"+{{ tree.id }});
+      //location_y.innerHTML = {{ ylocs.tree.id }} - (({{plot_h}} - {{view_height}} + {{y_offset}}) / {{scale}});
+    {% endfor %}
+  }
+  
+  //addLoadEvent(adjustTrees);
+
+  </script>
+  <script type="text/javascript" src="media/js/worksheet.js"></script>
+  <script type="text/javascript">
+    xOffset = {{x_offset}};
+    yOffset = {{y_offset}};
+  </script>
+{% endblock %}
+
+{% block plot %}
+  {{ block.super }}
+
+  <div id="transect"></div>
+    <div id="transect-start"></div>
+    {% for x in range %}
+      <!-- needlessly obtuse, but it gets the job done -->
+      {% if x|add:"3"|divisibleby:"4" %}
+        <div class="box" id="{% cycle 'box1' 'box2' 'box3' 'box4' 'box5' %}">
+      {% endif %}
+
+        <div class="quadrant {% cycle 'sw_quadrant' 'se_quadrant' 'nw_quadrant' 'ne_quadrant' %}"
+             id="quadrant{{ x }}" onClick="selectRow({{ x }});">{{ x }}</div>
+             
+      {% if x|divisibleby:"4" %}
+        </div>
+      {% endif %}
+
+    {% endfor %} 
+    <div id="transect-end"></div>   
+{% endblock %}
+
+{% block worksheet %}
+  <form action="csv" id="data" name="data" method="POST">
+  <table id="worksheet">
+    <thead>
+      <tr>
+        <td>Select</td>
+        <!--td>Sample Point</td-->
+        <td>Quadrant Number</td>
+        <!--td>Station #</td-->
+        <td>Tree Species</td>
+        <td>Distance (m)</td>
+        <td>DBH (in)</td>
+        <td>Clear</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for x in range %}
+      <tr id='row{{ x }}'>
+        <td><input type="radio" id="radio{{ x }}" name="row" onClick="selectRow({{ x }});"></input></td>
+        <td>
+          {{ x }}
+          <input type="hidden" class="id" name="{{ x }}-id" id="{{ x }}-id"></input>
+          <input type="hidden" class="distance-form" name="{{ x }}-distance" id="{{ x }}-distance"></input>
+        </td>
+        <td class="species"></td>
+        <td class="distance"></td>
+        <td class="dbh"></td>
+        <td><span class="delete" style="display:none;"><a href="javascript:clearRow({{ x }});">X</a></span></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </form>
+  
+  <form action="transect" id="back" name="back" method="POST">
+    <input type="hidden" id="scale" name="scale" value="{{ scale }}"></input>
+    <input type="hidden" id="x-offset" name="x-offset" value="{{ x_offset }}"></input>
+    <input type="hidden" id="y-offset" name="y-offset" value="{{ y_offset }}"></input>
+    <input type="hidden" id="plot-h" name="plot-h" value="{{ plot_h }}"></input>
+    <input type="hidden" id="plot-w" name="plot-w" value="{{ plot_w }}"></input>
+
+    <input type="hidden" id="view-width" name="view-width" value="{{ view_width }}"></input>
+    <input type="hidden" id="view-height" name="view-height" value="{{ view_height }}"></input>
+    
+    <input type="hidden" id="transect-start-x" name="transect-start-x" value="{{ transect_start_x }}"></input>
+    <input type="hidden" id="transect-start-y" name="transect-start-y" value="{{ transect_start_y }}"></input>
+    <input type="hidden" id="transect-end-x" name="transect-end-x" value="{{ transect_end_x }}"></input>
+    <input type="hidden" id="transect-end-y" name="transect-end-y" value="{{ transect_end_y }}"></input>
+  </form>
+  
+  <span style="font-size:12px;">Working with transect: ({{ transect_start_x }}, {{ transect_start_y }}) to ({{ transect_end_x }}, {{ transect_end_y }}).</span>
+
+  <div id="nav-buttons">
+    <input type="button" id="back" value="&lt;&lt; Back to Instructions" onClick="goBack();"></input>
+    <input type="button" id="next" value="Export Data &gt;&gt;" onClick="javascript:$('data').submit();"></input>
+  </div>
+{% endblock %}

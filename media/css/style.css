@@ -1,0 +1,84 @@
+body
+{
+	background-color: #fff;
+	margin: 0;
+	padding: 0;
+	font-family: "lucida grande";
+}
+
+h1#masthead
+{
+	background-color: #A18F83;
+	color: #fff;
+	margin: 0px 0px 0px 0px;
+	padding: 10px;
+	font-size: 24px;
+	border-top: 3px #435142 solid;
+}
+
+#brf
+{
+	background-color: #1F2A1E;
+	margin: 0;
+	padding: 0;
+	background-image: url(../images/logo_brd.gif);
+	background-repeat: no-repeat;
+	background-position: top left;
+	height: 88px;
+}
+
+#ccnmtl
+{
+	margin: 0;
+	padding: 0;
+	background-image: url(../images/logo_ccnmtl.gif);
+	background-repeat: no-repeat;
+	width: 105px;
+	height: 41px;
+	top: 24px;
+	right: 20px;
+	position: absolute;
+}
+
+#wrapper
+{
+	background-color: #fff;
+	margin: 0;
+	padding: 0;
+}
+
+#content
+{
+	background-color: #fff;
+	margin: 0;
+	padding: 20px;
+	padding: 30px;
+	height: 130px;
+}
+
+
+#breadcrumbs
+{
+	background-color: #dcd3c2;
+	padding: 10px;
+}
+
+div#breadcrumbs ol
+{
+	margin-left: -40px;
+	display: inline;
+	font-size: 12px;
+}
+
+div#breadcrumbs ol li
+{
+	margin-left: 0;
+	margin-bottom: 0;
+	padding: 5px 50px 5px 5px;
+	display: inline;
+	font-weight: bold;
+	/*cursor: pointer;*/
+	color: #999;
+}
+
+div#breadcrumbs ol li.active { color: #996734; }

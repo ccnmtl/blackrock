@@ -1,0 +1,86 @@
+{% extends "sampler/base_sampler.html" %}
+
+<!-- set active tab for breadcrumbs -->
+{% block tabname %}tab-transect{% endblock %}
+
+{% block css %}
+    {{ block.super }}
+
+    <style type="text/css">
+    input#clear {
+      display: block;
+      margin: 25px auto;
+      text-align: center;
+    }
+    </style>
+
+{% endblock %}
+
+{% block js %}
+
+{{ block.super }}
+
+  <script type="text/javascript">
+    scale = {{ scale }};  
+  </script>
+
+  <script type="text/javascript" src="media/js/transect.js"></script>
+
+{% endblock %}
+
+{% block plot %}
+
+   <div id="plot_inner">
+    {% for tree in trees %}
+      <div class="tree" id="tree{{ tree.id }}"></div>
+    {% endfor %}
+
+    <div id='transect-start'></div>
+    <div id='transect-end'></div>
+
+   </div>
+  
+{% endblock %}
+
+
+{% block right %}
+  <h3>Step 2: Set Transect</h3>
+  
+  <form id="transect-form" action="worksheet" method="POST">
+
+  <strong>A. The green circle in the center of the map represents the beginning of your transect.</strong><br /><br />
+
+  <strong>B. Click and drag the red diamond to set the end point of your transect.</strong>
+  
+  <ul><li>Note that your transect will stay the same length regardless of where you drag the diamond.</li></ul>
+  
+  <ul><li>At any point, you may start over by clicking the "Reset" button below.</li></ul>
+  
+    <input type="button" id="clear" value="Reset Transect"></input>
+  
+  <strong>C. When you are satisfied with your transect, click the "Collect Sample Data" button below.</strong><br>
+<br>
+    <fieldset><legend>Transect</legend>
+    Start: <input type="text" size="5" id="transect-start-x" name="transect-start-x" value="{{ transect_start_x }}"></input>, 
+    <input type="text" size="5" id="transect-start-y" name="transect-start-y" value="{{ transect_start_y }}"></input><br>
+    
+    End: &nbsp;<input type="text" size="5" id="transect-end-x" name="transect-end-x" value="{{ transect_end_x }}"></input>,
+    <input type="text" size="5" id="transect-end-y" name="transect-end-y" value="{{ transect_end_y }}"></input><br><br>
+    </fieldset>
+
+    <input type="hidden" id="scale" name="scale" value="{{ scale }}"></input>
+    <input type="hidden" id="x-offset" name="x-offset" value="{{ x_offset }}"></input>
+    <input type="hidden" id="y-offset" name="y-offset" value="{{ y_offset }}"></input>
+    <input type="hidden" id="plot-h" name="plot-h" value="{{ plot_h }}"></input>
+    <input type="hidden" id="plot-w" name="plot-w" value="{{ plot_w }}"></input>
+
+    <input type="hidden" id="view-width" name="view-width"></input>
+    <input type="hidden" id="view-height" name="view-height"></input>
+
+  </form>
+    
+{% endblock %}
+{% block nav-buttons %}
+    <input type="button" id="back" value="&lt;&lt; Adjust Plot Area"></input>
+    <input type="button" id="next" value="Collect Sample Data &gt;&gt;" disabled></input>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}The Virtual Forest Initiative{% endblock %}
+
+{% block css %}
+<style type='text/css'>
+  @import "site_media/css/style.css";
+</style>
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+
+{% block masthead %}
+<span style="float:right;font-size:14px;padding-top:10px;"><a href="../admin/">Admin</a></span>
+{% endblock %}
+
+{% block content %}
+
+<div id="content">
+
+<h3>Modules</h3>
+
+{% for app in apps %}
+  {% if app.admin %}
+    {% if user.is_staff %}
+      <p><a href="{{ app.path }}">{{ app.name }}</a></p>
+    {% endif %}
+  {% else %}
+    <p><a href="{{ app.path }}">{{ app.name }}</a></p>
+  {% endif %}
+{% endfor %}
+
+{% if user.is_staff %}
+  {% if not apps %}
+    There are currently no modules enabled.
+  {% endif %}
+{% else %}
+  {% ifequal num_public_apps 0 %}
+    There are currently no modules enabled.
+  {% endifequal %}
+{% endif %}
+
+</div>
+{% endblock %}

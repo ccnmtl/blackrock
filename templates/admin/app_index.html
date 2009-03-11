@@ -1,0 +1,40 @@
+{% extends "admin/index.html" %} 
+{% load i18n %} 
+
+{% if not is_popup %}
+
+{% block branding %}
+<h1>Blackrock Forest: Virtual Sampling Simulation</h1>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="../../sampler/">{% trans "Home" %}</a> &rsaquo;
+{% trans "Admin" %}
+</div>{% endblock %}
+
+{% endif %} 
+
+{% block content_title %}{% endblock %}
+
+{% block content %}
+  <br/>
+  <div class="module">
+    <form action="../../sampler/import_csv" enctype="multipart/form-data" method="POST">
+    <table style="width:100%;">
+      <caption>  {{ app.name }}
+Import Tree Data From CSV</caption>
+      <tbody><tr><td>
+    <input type="file" name="csvfile" size="45"></input>
+    </td><td>
+       <input type="submit" value="Import"></input>
+    </td>
+</tr><tr><td align='right' colspan='2'><a href="../../sampler/csv_info">How to Format CSV Data for Import</a></td></tr></tbody></table>  </form>
+</div>
+  <br/><br/>
+
+  {{ block.super }}
+  
+{% endblock %}
+
+{% block sidebar %}{% endblock %}

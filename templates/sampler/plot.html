@@ -1,0 +1,62 @@
+{% extends "sampler/base_sampler.html" %}
+
+<!-- set active tab for breadcrumbs -->
+{% block tabname %}tab-plot{% endblock %}
+
+{% block js %}
+  {{ block.super }}
+
+  <script type="text/javascript">
+    // set default scale based on max x and y values
+    addLoadEvent(function () {
+       updateScale(getDefaultScale({{ max_x }}, {{ max_y }}));
+    });
+  </script>
+  
+  <script type="text/javascript" src="media/js/plot.js"></script>
+
+  <script type="text/javascript">
+    // set view to previous, if arguments were passed
+    {% if x_offset %}
+      addLoadEvent(function() { setView({{ x_offset }}, {{ y_offset }}, {{ scale }}, {{ plot_w }}, {{ plot_h }} )});
+    {% endif %}
+  </script>
+
+{% endblock %}
+
+{% block controls %}
+    <div class="control" onClick="javascript:zoomIn();">+</div>
+    <div class="control" onClick="javascript:zoomOut();">-</div>
+{% endblock %}
+
+{% block right %}
+    <h3>Step 1: Choose Plot Area</h3>
+    
+    <p><strong>Explore the map until you find an area you'd like to sample.</strong></p>
+    
+    <ul>
+      <li>The green dot in the center of the map will be the start of your transect.</li>
+      <!--li>You can change the length of your station gaps using the switch at the bottom
+      of the screen.  Based on this choice, the length of your transect will change accordingly.</li-->
+      <!--li>You can also change the year you are viewing by clicking the year tabs along the top of the map.</li-->
+      <li>Click any tree for details about its species, size and position within the plot.</li>
+    </ul>    
+    <strong>When you are ready to set your transect, click the "Set Transect" button below.</strong>
+    
+{% endblock %}
+
+{% block nav-buttons %}
+  <form action="transect" method="POST" id="view-form">
+
+    <input type="hidden" id="scale" name="scale"></input>
+    <input type="hidden" id="x-offset" name="x-offset"></input>
+    <input type="hidden" id="y-offset" name="y-offset"></input>
+    <input type="hidden" id="view-width" name="view-width"></input>
+    <input type="hidden" id="view-height" name="view-height"></input>
+    <input type="hidden" id="plot-w" name="plot-w"></input>
+    <input type="hidden" id="plot-h" name="plot-h"></input>
+
+    <!--input type="button" id="back" value="&lt;&lt; Select Different Long Term Plot"></input-->
+    <input type="button" id="next" value="Set Transect &gt;&gt;" onClick="submitForm();"></input>
+  </form>
+{% endblock %}

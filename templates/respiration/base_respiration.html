@@ -1,0 +1,145 @@
+{% extends "base.html" %} 
+
+{% block title %}
+Tree Respiration 
+{% endblock %} 
+
+{% block css %} 
+<style type='text/css'>
+  @import "media/css/style.css";
+</style> 
+{% endblock %} 
+
+{% block js %} 
+<script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script> 
+<script type="text/javascript" src="/site_media/js/mochikit/MochiKit/Signal.js"></script> 
+<script type="text/javascript" src="/site_media/js/bluff/js-class.js"></script> 
+<script type="text/javascript" src="/site_media/js/bluff/excanvas.js"></script> 
+<script type="text/javascript" src="/site_media/js/bluff/bluff-src.js"></script> 
+<script type="text/javascript" src="media/js/graph.js"></script> 
+{% endblock %} 
+
+{% block masthead %} 
+Tree Respiration 
+{% endblock %} 
+
+{% block content %} 
+<div id="content">
+
+	<div id="tab-bar">
+	<div class="tab" id="tab-forest">
+		Forest Level
+	</div>
+	
+	<div class="tab" id="tab-leaf">
+		Leaf Level
+	</div>
+	
+	<div class="tab" style="display:none;">
+		How To (Media)
+	</div>
+	
+	</div>
+	
+	<script type="text/javascript">
+	  function initTabs() {
+	    connect("tab-forest", "onclick", function() { document.location = "forest"; });
+	    connect("tab-leaf", "onclick", function() { document.location = "leaf"; });
+	  }
+	  addLoadEvent(initTabs);
+	
+	  function setActiveTab() { addElementClass("{% block tabname %}leaf{% endblock %}", "tab-selected"); }
+	  addLoadEvent(setActiveTab);
+	</script> 
+	
+	<!-- Print -->
+	<span class="button" style="position: absolute; top: 152px; left: 8px;">Print</span>
+
+
+		<div id="instructions">
+			<strong>Instructions:</strong>
+			{% block instructions %}
+			{% endblock %}
+		</div>
+		<div id="equation">
+			<div class="caption">
+				Arrhenius Function
+			</div>
+			<div class="equation not-IE">
+				<table id="equation-right">
+					<tr class="top">
+						<td id="arr-e-zero" class="numerator arr-variable">
+							E<sub>0</sub>
+						</td>
+						<td class="eq-big" rowspan="2">
+							( 
+						</td>
+						<td class="numerator">
+							1
+						</td>
+						<td rowspan="2">
+							&minus; 
+						</td>
+						<td class="numerator">
+							1
+						</td>
+						<td class="eq-big" rowspan="2">
+							) 
+						</td>
+					</tr>
+					<tr>
+						<td id="arr-r-g" class="arr-variable">
+							R<sub>g</sub>
+						</td>
+						<td id="arr-t-zero" class="arr-variable">
+							T<sub>0</sub>
+						</td>
+						<td id="arr-t-a" class="arr-variable">
+							T<sub>a</sub>
+						</td>
+					</tr>
+				</table>
+				<div id="equation-left" style="">
+					<span id="arr-r-result" class="arr-variable">
+						R
+					</span>
+					= 
+					<span id="arr-r-zero" class="arr-variable">
+						R<sub>0</sub></span>e 
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="container">
+	
+	<div id="left">
+		<fieldset id="leftfield"><legend>{% block leftlegend %}
+      Set Respiration Rate Variables
+      {% endblock %}</legend>
+		
+		{% block left %} 
+		LEFT PANE REPORTING FOR DUTY 
+		{% endblock %} 
+		</fieldset>
+	</div>
+	
+
+	<div id="right">
+	  <fieldset id="rightfield"><legend>{% block rightlegend %}
+	    Respiration Rate Graph
+	    {% endblock %}</legend>
+	    {% block graph %} 
+		<div id="graph-cursor"><div id="unfreeze"></div></div>
+		<canvas id="graph"></canvas>
+	    {% endblock %} 
+	    {% block right %} 
+		RIGHT PANE SIR YES SIR 
+	    {% endblock %} 
+	  </fieldset>
+	</div>
+</div>
+<!-- end div "container" -->
+</div>
+{% endblock %} 

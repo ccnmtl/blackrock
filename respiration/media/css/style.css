@@ -1,0 +1,396 @@
+body { font-family: "lucida grande"; }
+#breadcrumbs { height: 20px; }
+
+div#tab-bar
+{
+	position: absolute;
+	right: 0;
+	top: 154px;
+}
+
+div.tab
+{
+	/*background-color: #DCD3C2;*/
+	background-color: #a18f83;
+	color: black;
+	z-index: 100;
+	float: right;
+	padding: 5px 10px 5px 10px;
+	margin: 0px 25px 0 0;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+div.tab-selected
+{
+	background-color: white;
+	border-bottom: 3px white solid;
+}
+
+div#top-box
+{
+	margin: 70px 350px 0px 30px;
+	border: 1px solid red;
+}
+
+div#instructions
+{
+	font-size: 12px;
+	line-height: 18px;
+	margin-right: 330px;
+}
+
+div#equation
+{
+	font-style: italic;
+	border: 1px gray solid;
+	width: 280px;
+	padding: 5px;
+	position: absolute;
+	right: 30px;
+	top: 210px;
+	font-size: 24px;
+	height: 90px;
+	background-color: #CCC;
+	background-image: url(../images/background_panel.jpg);
+	background-repeat: repeat-x;
+	background-position: -50px -50px;
+}
+
+div#equation .caption
+{
+	font-style: normal;
+	font-weight: bold;
+	font-size: 12px;
+	text-align: left;
+	position: absolute;
+	left: 3px;
+	top: 3px;
+}
+
+/*HACK: taking advantage of IE not supporting double classes*/
+#equation .equation.not-IE { width: 9.4em; }
+
+#equation .equation
+{
+	width: 8.4em;
+	margin-left: 30px;
+	margin-top: 5px;
+	position: relative;
+	height: 3.4em;
+}
+
+.selected { background-color: #FFFF77; }
+
+.equation td
+{
+	padding: 0;
+	margin: 0;
+}
+
+td.eq-big { font-size: 3em; }
+.equation td.numerator { border-bottom: 2px solid red; }
+
+div#equation-left
+{
+	display: inline;
+	position: absolute;
+	left: 0;
+	bottom: 0px;
+	font-size: 26px;
+}
+
+#equation-right
+{
+	position: absolute;
+	right: 0;
+	top: 0;
+	float: right;
+	color: red;
+}
+
+div#equation-inner
+{
+	display: inline;
+	color: blue;
+}
+
+div#container { margin: 0px 30px 0px 30px; }
+
+div#left
+{
+	min-width: 375px;
+	padding-right: 570px;
+}
+
+div#left fieldset#leftfield { }
+
+div#right
+{
+	position: absolute;
+	height: 500px;
+	top: 373px;
+	right: 75px;
+	width: 520px;
+}
+
+canvas
+{
+	border: 1px gray solid;
+	/*we CANNOT set the width here
+     it is set in respiration/media/js/graph.js
+     with Bluff.Line command
+     */
+}
+
+.bluff-wrapper { margin-left: 40px; }
+
+#y-grid-leaf
+{
+	background-image: url(../images/ygridleaf.gif);
+	width: 29px;
+	height: 192px;
+	position: absolute;
+	left: 20px;
+	top: 100px;
+}
+
+form#leaf-form, form#leaf-form table { font-size: 11px; }
+form#leaf-form fieldset { margin-bottom: 10px; }
+
+fieldset
+{
+	background-color: #ccc;
+	background-image: url(../images/background_panel.jpg);
+	background-repeat: repeat-x;
+	border: 1px gray solid;
+}
+
+legend
+{
+	padding: 6px;
+	border: 1px gray solid;
+	background-image: url(../images/background_panel.jpg);
+	background-repeat: repeat-x;
+}
+
+#scenariocontainer, .speciescontainer { border-top: 1px solid gray; }
+
+#scenarioheader, .speciesheader,.advancedoptionsheader
+{
+	padding: 10px;
+	font-weight: bold;
+	background-color: #bbb;
+}
+
+.speciesheader
+{
+	border-right: 1px solid gray;
+	border-left: 1px solid gray;
+}
+
+.advancedoptionsheader { border-bottom: 1px solid gray; }
+
+.advancedoptionscontainer
+{
+	border-right: 1px solid gray;
+	border-bottom: 1px solid gray;
+	border-left: 1px solid gray;
+}
+
+#scenarioheader
+{
+	background-color: #666;
+	color: white;
+}
+
+#scenariobox
+{
+	border: 1px solid gray;
+	padding: 10px;
+}
+
+.scenariotitle
+{
+	border-top: 1px solid gray;
+	border-right: 1px solid gray;
+	border-left: 1px solid gray;
+	background-color: #999;
+}
+
+.scenariotemp
+{
+	border-top: 1px solid gray;
+	border-right: 1px solid gray;
+	border-left: 1px solid gray;
+	padding: 6px 10px 6px 10px;
+	background-color: #bbb;
+}
+
+.speciestemp
+{
+	border-top: 1px solid gray;
+	border-right: 1px solid gray;
+	border-left: 1px solid gray;
+	background-color: #bbb;
+}
+
+.speciesbox { border-top: 1px solid gray; }
+
+.speciescontainer
+{
+	overflow: auto;
+	max-height: 293px;
+}
+
+.species
+{
+	padding: 10px 10px 10px 0px;
+	border-right: 1px solid #999;
+	border-bottom: 1px solid #999;
+	border-left: 1px solid #999;
+}
+
+.species, .species td { font-size: 11px; }
+
+.species-name
+{
+	display: inline;
+	font-size: 11px;
+	width: 140px;
+}
+
+#forestgraph
+{
+	padding: 10px 0px 10px 10px;
+	text-align: right;
+	margin-top: -18px;
+}
+
+.button
+{
+	font-size: 10px;
+	text-align: center;
+	padding: 2px;
+	border: 1px gray solid;
+	text-decoration: none;
+	color: gray;
+	margin: 0px;
+	background-color: #eee;
+	float: right;
+	font-weight: bold;
+}
+
+#temp-slider
+{
+	width: 500px;
+	position: relative;
+	/*PUT BACKGROUND IMAGE FOR SLIDER HERE */
+	background-image: url(../images/background_slider.gif);
+	background-repeat: repeat-x;
+	background-position: center center;
+	margin-top: 10px;
+	background-color: #eee;
+	height: 26px;
+}
+
+#temp-slider .range
+{
+	position: absolute;
+	top: 8px;
+	background-color: red;
+	height: 10px;
+	margin-left: 12px;
+	/*width of left cursor*/
+}
+
+input#plotGraph.needsupdate
+{
+	background-color: #ffe;
+	border-color: red;
+}
+
+#temp_label
+{
+	margin-top: 10px;
+	font-weight: bold;
+	text-align: center;
+	font-size: 10px;
+}
+
+#temp_manual_controls
+{
+	display: inline;
+	font-weight: normal;
+}
+
+#temperature_adjustment
+{
+	padding: 0px;
+	margin-left: 20px;
+	width: 500px;
+}
+
+#graph-cursor
+{
+	position: absolute;
+	width: 1px;
+	height: 270px;
+	/*canvas's height + border - label margin*/
+	top: 70px;
+	/*#right's padding + label margin*/
+	left: 0px;
+	background-color: #f00;
+	z-index: 9000;
+	display: none;
+	/*initial state*/
+	margin-left: 50px;
+	/*.bluff-wrapper margin-left + #rightfield padding-left*/
+}
+
+#graph-cursor #unfreeze
+{
+	display: none;
+	/*default*/
+	/*for Marc to change*/
+	height: 9px;
+	width: 9px;
+	position: absolute;
+	top: 0px;
+	left: -5px;
+	border: 1px solid red;
+	background-color: #CCC;
+	background-image: url(../images/cursorswitch.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+#leftslider { }
+#rightslider { margin-left: -5px; }
+
+/*The mouse updated values*/
+input[disabled='disabled']
+{
+	background-color: #fff;
+	border: 1px solid #f00;
+}
+
+.colorswatch
+{
+	height: 20px;
+	width: 20px;
+	background-color: #000;
+	display: inline;
+	margin-left: 4px;
+}
+
+div.toggler {
+  width: 12px;
+  height: 12px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  float: left;
+}
+
+div.toggle-open { background-image: url(../images/toggle_open.gif); }
+div.toggle-closed { background-image: url(../images/toggle_closed.gif); }

@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% load extras %}
+
+{% block title %}Forest Sampling{% endblock %}
+
+{% block masthead %}Forest Sampling{% endblock %}
+
+{% block breadcrumbs %}
+  <!-- set active tab for breadcrumbs -->
+  <script type="text/javascript">
+    function setActiveTab() { addElementClass("{% block tabname %}{% endblock %}", "active"); }
+    addLoadEvent(setActiveTab);
+  </script>  
+  
+  
+  <ol>
+    <li id='tab-plot'>1. Choose Plot Area</li>
+    <li id='tab-transect'>2. Set Transect</li>
+    <li id='tab-worksheet'>3. Collect Sample Data</li>
+  </ol>
+{% endblock %}
+
+{% block css %}
+<style type='text/css'>
+  @import "media/css/plot.css";
+  @import "media/css/style.css";
+</style>
+{% endblock %}
+
+{% block js %}
+  <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script>
+  <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/Signal.js"></script>
+  <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/Visual.js"></script>
+  <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/DragAndDrop.js"></script>
+  <script type="text/javascript" src="media/js/shared.js"></script>
+  
+{% endblock %}
+
+{% block content %}
+
+<div id="container">
+
+  <div id="left">
+  {% block plot_outer %}
+    {% for tree in trees %}
+          <div class="tree_info invisible" id="info-tree{{ tree.id }}">
+            <div class="img_tree img_{{tree.species}}"></div>
+            <div class="tree_info_inner">
+              <strong>tree #{{ tree.id }}</strong><br>
+              species: <span class='info-species'>{{ tree.species }}</span><br>
+              dbh: <span class='info-dbh'>{{ tree.dbh }}</span><br>
+              <span style="display:none;" class='info-x'>
+                 {% if xlocs %}
+                   {{ xlocs|hash:tree.id }}
+                 {% else %}
+                   {{ tree.location.x }}
+                 {% endif %}
+              </span>
+              <span style="display:none;" class='info-y'>
+                 {% if ylocs %}
+                   {{ ylocs|hash:tree.id }}
+                 {% else %}
+                   {{ tree.location.y }}
+                 {% endif %}
+              </span>
+            </div>
+          </div>
+    {% endfor %}
+  {% endblock %}
+  
+  <div id="controls" class="controlbox">
+    {% block controls %}{% endblock %}
+  </div>
+
+  <div id="plot" class="imagecontainer">
+    {% block plot %}
+       <div id="plot_inner">
+        {% for tree in trees %}
+          <div class="tree" id="tree{{ tree.id }}"></div>
+        {% endfor %}
+       </div>
+
+       <div id='transect-start'></div>
+    {% endblock %}
+  </div>
+
+    <div id="legend">
+      1m (<span id="scale-legend">{{ scale }}</span>px)
+      <div id="scale-bar"></div>
+    </div> 
+
+
+  </div><!-- end div "left" -->
+ 
+  <div id="right-outer">
+    {% block worksheet %}
+    <div id="right-inner">
+      {% block right %}
+      {% endblock %}
+    </div> <!-- end div "right-inner" -->
+
+    <div id="nav-buttons">
+      {% block nav-buttons %}
+      {% endblock %}
+    </div> <!-- end div "nav-buttons" -->
+    {% endblock %}
+    
+  </div> <!-- end div "right-outer" -->
+</div> <!-- end div "container" -->
+
+{% endblock %}

@@ -1,0 +1,165 @@
+div#plot
+{
+	width: 600px;
+	height: 600px;
+	/*border: 2px black solid;*/
+	margin: 10px;
+	background-color: #84a383;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+div#plot_inner
+{
+	width: 600px;
+	height: 600px;
+	position: absolute;
+}
+
+div.imagecontainer
+{
+	/*
+	height:610px !important;
+	width:610px !important;
+	*/
+	clip: rect(0px,600px,600px,0px);
+	display: block;
+	overflow: hidden;
+	position: absolute;
+}
+
+div.tree_info
+{
+	background-color: #EEE;
+	position: absolute;
+	left: 0px;
+	border-top: 1px solid #999;
+	border-right: 1px solid #666;
+	border-bottom: 1px solid #000;
+	border-left: 1px solid #666;
+	width: 250px;
+	text-align: right;
+	padding: 5px;
+	z-index: 10;
+	background-image: url('../images/closebox.gif');
+	background-repeat: no-repeat;
+	background-position: 99% 2%;
+}
+
+div.tree_info_inner
+{
+	width: 115px;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	padding: 25px;
+}
+
+.img_tree {
+   /* fallback in case we don't have an image for that species */
+	background-image: url('../images/trees/tree2.jpg');
+	width: 100px;
+	height: 100px;
+	border: 1px black solid;
+}
+
+/* specific tree species */
+.img_bb {
+	background-image: url('../images/trees/bb.jpg') !important;
+}
+
+.img_be {
+	background-image: url('../images/trees/be.jpg') !important;
+}
+
+.img_bg {
+	background-image: url('../images/trees/bg.jpg') !important;
+}
+
+.img_co {
+	background-image: url('../images/trees/co.jpg') !important;
+}
+
+.img_hm {
+	background-image: url('../images/trees/hm.jpg') !important;
+}
+
+.img_mw {
+	background-image: url('../images/trees/mw.jpg') !important;
+}
+
+.img_rm {
+	background-image: url('../images/trees/rm.jpg') !important;
+}
+
+.img_ro {
+	background-image: url('../images/trees/ro.jpg') !important;
+}
+
+.img_sh {
+	background-image: url('../images/trees/sh.jpg') !important;
+}
+
+.img_sm {
+	background-image: url('../images/trees/sm.jpg') !important;
+}
+
+.img_wo {
+	background-image: url('../images/trees/wo.jpg') !important;
+}
+
+div.tree
+{
+	clip: inherit;
+	background-image: url('../images/tree_icon_sm.png');
+	width: 32px;
+	height: 32px;
+	position: absolute;
+}
+
+div.tree-selected { background-image: url('../images/tree_icon_sel.png'); }
+
+.invisible { display: none; }
+
+div.controlbox
+{
+	position: absolute;
+	right: 12px;
+	margin: 12px auto;
+	z-index: 1;
+}
+
+div.control
+{
+	width: 25px;
+	border-top: 1px #fff solid;
+	border-right: 1px #ccc solid;
+	border-bottom: 1px #666 solid;
+	border-left: 1px #999 solid;
+	text-align: center;
+	background-color: eee;
+	float: left;
+	cursor: pointer;
+}
+
+div#transect-start
+{
+  width: 24px;
+  height: 24px;
+  background-image: url('../images/circle.png');
+  background-repeat: no-repeat;
+  position: absolute;
+  top: -24px;
+  left: -24px;
+}
+div#transect-end
+{
+  width: 24px;
+  height: 24px;
+  background-image: url('../images/diamond.png');
+  background-repeat: no-repeat;
+  position: absolute;
+  top: -24px;
+  left: -24px;
+}

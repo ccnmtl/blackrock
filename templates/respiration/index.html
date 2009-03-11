@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Tree Respiration {% endblock %}
+
+{% block css %}
+<style type='text/css'>
+  @import "media/css/style.css";
+</style>
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+
+{% block masthead %}
+Tree Respiration
+{% endblock %}
+
+{% block content %}
+
+<div id="content">
+
+<h3>Welcome to the Tree Respiration Module!</h3>
+
+<h4>
+Overview
+</h4>
+
+<p>
+The Tree Respiration module allows students to explore concepts related to respiration, an important physiological process that regulates life on Earth. The interactive graphing feature of the interface allows close examination of the characteristics of tree and forest respiration. Students discover how respiration may respond to global temperature fluctuations and changes in the tree species distribution brought on by human activities. This module also utilizes actual Black Rock Forest temperature data from the forest's Environmental Monitoring Network. Hence, students learn how strongly respiration is regulated by temperature and how temperature responses can vary from one plant species to the next from real world examples.
+</p>
+
+<p>
+This module is currently being developed by the Center for New Media Teaching and Learning in collaboration with Professor Kevin Griffin of the Department of Earth and Environmental Sciences at Columbia University.
+</p>
+
+<h4>
+Technical Specifications
+</h4>
+
+<p>
+Use the latest Firefox browser to access the Tree Respiration Module.
+</p>
+
+<p><a href="leaf">Start Module</a></p>
+
+<br />
+{% if user.is_staff %}
+<fieldset style="width:360px;">
+  <legend>Admin Options</legend>
+  <form action="loadcsv" method="post" enctype="multipart/form-data">
+    <label>Import respiration data from CSV:</label> <input type="file" name="csvfile" size="20"></input>
+    <input type="submit" value="Import"></input>
+  </form>
+  {{ admin_messages }}
+  <a href="/admin/respiration/temperature/">View Data</a><br />
+</fieldset>
+{% endif %}
+
+<!-- p><a href="../admin/">Administration</a></p-->
+
+</div>
+{% endblock %}

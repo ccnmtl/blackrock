@@ -1,0 +1,88 @@
+div#container
+{
+	position: relative;
+	width: 1000px;
+	margin: 0px auto;
+	margin-top: 15px;
+	height: 755px;
+}
+
+div#left
+{
+	width: 620px;
+	height: 650px;
+	background: #eee;
+	position: absolute;
+}
+
+div#right-outer
+{
+	width: 370px;
+	height: 650px;
+	background-color: #eee;
+	position: absolute;
+	right: 0px;
+}
+
+div#right-inner
+{
+	background-color: #ffc;
+	border-top: 1px #eee solid;
+	border-right: 1px #ccc solid;
+	border-bottom: 1px #666 solid;
+	border-left: 1px #ccc solid;
+	width: 320px;
+	position: absolute;
+	right: 20px;
+	top: 10px;
+	margin: 0px;
+	padding: 5px;
+	font-size: 12px;
+}
+
+div#legend {
+	background-color: #fff;
+	text-align: center;
+	border-top: 1px #eee solid;
+	border-right: 1px #ccc solid;
+	border-bottom: 1px #666 solid;
+	border-left: 1px #ccc solid;
+	font-size: 10px;
+   width: 600px;
+   position: absolute;
+   bottom: 0px;
+   left: 10px;
+   margin: 5px auto;
+   padding-bottom: 5px;
+}
+
+div#scale-bar {
+   border-bottom: 1px black solid;
+   width: 100px;
+   border-left: 1px black solid;
+   border-right: 1px black solid;
+   height: 8px;
+   margin: 0px auto;
+}
+
+div#nav-buttons
+{
+	width: 370px;
+	position: absolute;
+	bottom: 0px;
+	margin: 5px auto;
+}
+
+div#nav-buttons #next
+{
+	position: absolute;
+	right: 0.5em;
+	bottom: 0.5em;
+}
+
+div#nav-buttons #back
+{
+	position: absolute;
+	left: 0.5em;
+	bottom: 0.5em;
+}
