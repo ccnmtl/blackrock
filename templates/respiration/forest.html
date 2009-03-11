@@ -9,7 +9,7 @@
 	<script type="text/javascript" src="media/js/forestgraph.js"></script> 
 	<script type="text/javascript">
 	    function calculateKelvin(elem) {
-	       var parent = getFirstParentByTagAndClassName(elem, "td", "");
+	       var parent = getFirstParentByTagAndClassName(elem, "td", null);
 	       var kelvin = getFirstElementByTagAndClassName("span", "kelvin", parent);
 		 kelvin.innerHTML = parseFloat(elem.value) + 273.15;
 	    }
@@ -90,7 +90,7 @@ Set Scenario Variables
 								</sub>
 								= 
 								<input type="text" size="5" id="scenario1-base-temp" name="scenario1-base-temp" value="15" onchange="javascript:calculateKelvin(this);" class="t-zero arr-field" />
-								C = 
+								&deg;C = 
 								<span class="kelvin">
 									288 
 								</span>
@@ -188,7 +188,7 @@ Set Scenario Variables
 					<div class="togglechild">
 						&Delta;T<sub>a</sub>= 
 						<input type="text" id="scenario1-delta-t" name="scenario1-delta-t" size='5' />
-						K 
+						&deg;C 
 					</div>
 				</div>
 			</div>
