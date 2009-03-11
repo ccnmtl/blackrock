@@ -1109,8 +1109,13 @@ Bluff.Bar = new JS.Class(Bluff.Base, {
   _draw_bars: function() {
     // Setup spacing.
     //
-    // Columns sit side-by-side.
-    var spacing_factor = 0.9; // space between the bars
+    // space between the bars
+    // Columns sit side-by-side except when there are two or fewer columns
+    var spacing_factor = (this._column_count<3) ? 0.3: 0.9;
+    if (this.spacing_factor) {
+      spacing_factor = this.spacing_factor;
+    }
+
     this._bar_width = this._graph_width / (this._column_count * this._data.length);
     var padding = (this._bar_width * (1 - spacing_factor)) / 2;
 
