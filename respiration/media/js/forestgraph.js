@@ -73,11 +73,12 @@ function initGraph() {
   g.hide_dots = true;
   g.hide_title = true;
   g.x_axis_label = "Scenarios";
+  g.sort = false;
 
   //g.labels = {0: '0', 30: '30'};
   //g.hide_legend = true;  // breaks IE
   //g.hide_line_markers = true;
-  g.set_margins(50);
+  g.set_margins(10);
   //g.top_margin = 10;
   //g.bottom_margin = 10;
   g.no_data_message = "Press 'Graph' to graph data.";
@@ -90,7 +91,7 @@ function forestGraph() {
     // have to re-init, because g.clear() doesn't reset legend
     //removeElementClass('plotGraph','needsupdate');
     g = initGraph();
-    var colors = ['#202020', '#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', 'black'];
+    var colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#202020'];
 
     forEach(getElementsByTagAndClassName('div', 'scenario'),
        function(scenario) {
@@ -152,7 +153,6 @@ function forestGraph() {
 	     //g.labels = {};
 	     //g.labels[LeafData.t_a_min] = LeafData.t_a_min;
 	     //g.labels[LeafData.t_a_max] = LeafData.t_a_max;
-	     //g.labels.push(scid);
 	     g.data(ForestData.scenarios[scid].name, data, color );
 	   }
     });

@@ -5,6 +5,7 @@ div#plot
 	/*border: 2px black solid;*/
 	margin: 10px;
 	background-color: #84a383;
+	/*background: url('../images/grid2.jpg');*/
 	position: absolute;
 	top: 0px;
 	left: 0px;
