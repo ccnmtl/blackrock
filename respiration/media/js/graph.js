@@ -6,19 +6,29 @@ function LeafGraphData() {
     this.t0 = null; //base temp
     this.t_a_min = 0; //celsius
     this.t_a_max = 30;
+
+    this.colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#202020'];
 }
 
-LeafGraphData.prototype.updateSpecies = function(species_id,color) {
+var LeafData = new LeafGraphData();
+
+LeafGraphData.prototype.updateSpecies = function(species_id) {
     //init
-    if (typeof(this.species[species_id]) == 'undefined') this.species[species_id] = {};
+    if (typeof(this.species[species_id]) == 'undefined') {
+      this.species[species_id] = {};
+      this.species[species_id]['color'] = LeafData.colors.shift();
+    }
 
     this.species[species_id]['name'] = $(species_id + "-name").value;
     this.species[species_id]['R0'] = $(species_id + "-R0").value;
     this.species[species_id]['E0'] = $(species_id + "-E0").value;
-    if (color) {
-	this.species[species_id]['color'] = color;
-	$(species_id + "-swatch").style.backgroundColor = color;
-    }
+    $(species_id + "-swatch").style.backgroundColor = this.species[species_id]['color'];
+}
+
+function updateColors() {
+  forEach(getElementsByTagAndClassName('div', 'species'), function(species) {
+    LeafData.updateSpecies(species.id);
+  });
 }
 
 LeafGraphData.prototype.updateFields = function() {
@@ -39,21 +49,18 @@ LeafGraphData.prototype.arrhenius = function(species_id, t_a) {
     return Rval;
 }
 
-var LeafData = new LeafGraphData();
-
 function leafGraph() {
     // have to re-init, because g.clear() doesn't reset legend
     removeElementClass('plotGraph','needsupdate');
     g = initGraph();
     LeafData.updateFields();
-    var colors = ['#202020', '#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', 'black'];
 
     forEach(getElementsByTagAndClassName('div', 'species'),
        function(species) {
 	   var spid = species.id;
 	   var data = [];
-	   var color = colors.shift();
-	   LeafData.updateSpecies(spid,color);
+	   //var color = colors.shift();
+	   LeafData.updateSpecies(spid);
 
 	   g.labels = {};
 	   g.labels[LeafData.t_a_min] = LeafData.t_a_min;
@@ -71,7 +78,7 @@ function leafGraph() {
 		   throw "non valid data";
 	       }
 	   }
-	   g.data(LeafData.species[spid].name, data, color );
+	   g.data(LeafData.species[spid].name, data, LeafData.species[spid]['color'] );
 
        });
     //g.data('Oaks', [1, 2, 3, 4, 4, 3]);
@@ -90,8 +97,6 @@ function arrhenius(R0, E0, Rg, T0, Ta) {
 function initGraph() {
   var g = new Bluff.Line('graph', 460);
   g.set_theme({
-      ///note: not used since we do this in leafGraph() now.
-  colors: ['#202020', '#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', 'black'],
     marker_color: '#aea9a9',
     font_color: 'black',
     background_colors: ['white', 'white']

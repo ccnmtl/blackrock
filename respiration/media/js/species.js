@@ -29,6 +29,7 @@
 	var namediv = getFirstElementByTagAndClassName("input", "species-name", newDiv);
 	namediv.value = "Your Tree #" + numSpecies;
 	global.EquationHighlighter.initSpecies(newDiv);
+	updateColors();
     }
     
     function setDefaults() {
