@@ -23,6 +23,9 @@
 	   forEach(getElementsByTagAndClassName("div", "species", newDiv), function(elem) {
 	      global.EquationHighlighter.initSpecies(elem);
 	   });
+      forEach(getElementsByTagAndClassName("div", "toggler", newDiv), function(elem) {
+	        connect(elem, "onclick", toggle);
+	});
    }
    
    function delScenario(id) {
