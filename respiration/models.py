@@ -66,9 +66,9 @@ class Temperature(models.Model):
                   """ % (e0,t0,reading_field,Rg,
                          tablename,
                          date_field,
-                         start_date.strftime('%d/%m/%Y'),
+                         start_date.strftime('%m/%d/%Y'),
                          date_field,
-                         end_date.strftime('%d/%m/%Y'),
+                         end_date.strftime('%m/%d/%Y'),
                          precalc_field,
                          station_field,
                          station, #beware SQL injection!!!
