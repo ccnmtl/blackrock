@@ -3,22 +3,22 @@ function ForestGraphData() {
 
     this.scenarios = {};
     this.species = {};
-
+    this.colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#202020'];
     //this.t_a_min = 0; //celsius
     //this.t_a_max = 30;
 }
 
-ForestGraphData.prototype.updateScenario = function(scenario_id,color) {
+var ForestData = new ForestGraphData();
+
+ForestGraphData.prototype.updateScenario = function(scenario_id) {
     var obj = this;
     if (typeof(this.scenarios[scenario_id]) == 'undefined') {
       this.scenarios[scenario_id] = {};
+	this.scenarios[scenario_id]['color'] = ForestData.colors.shift();
     }
 
     this.scenarios[scenario_id]['name'] = $(scenario_id + "-name").value;
-    if (color) {
-	this.scenarios[scenario_id]['color'] = color;
-	$(scenario_id + "-swatch").style.backgroundColor = color;
-    }
+    $(scenario_id + "-swatch").style.backgroundColor = this.scenarios[scenario_id]['color'];
     
     this.scenarios[scenario_id].t0 = parseFloat($(scenario_id + "-base-temp").value) + 273.15;
     this.scenarios[scenario_id].leafarea = $(scenario_id + "-leafarea").value;
@@ -65,7 +65,6 @@ function initGraph() {
   var g = new Bluff.Bar('graph', 460);
   g.set_theme({
       ///note: not used since we do this in leafGraph() now.
-  colors: ['#202020', '#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', 'black'],
     marker_color: '#aea9a9',
     font_color: 'black',
     background_colors: ['white', 'white']
@@ -85,13 +84,9 @@ function initGraph() {
   return g;
 }
 
-var ForestData = new ForestGraphData();
-
 function updateColors() {
-  var colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#202020'];
   forEach(getElementsByTagAndClassName('div', 'scenario'), function(scenario) {
-    var color = colors.shift();
-    ForestData.updateScenario(scenario.id,color);
+    ForestData.updateScenario(scenario.id);
   });
 }
 
@@ -99,14 +94,13 @@ function forestGraph() {
     // have to re-init, because g.clear() doesn't reset legend
     //removeElementClass('plotGraph','needsupdate');
     g = initGraph();
-    var colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#202020'];
 
     forEach(getElementsByTagAndClassName('div', 'scenario'),
        function(scenario) {
          var data = [];
 	   var scid = scenario.id;
-	   var color = colors.shift();
-	   ForestData.updateScenario(scid,color);
+	   //var color = ForestData.colors.shift();
+	   ForestData.updateScenario(scid);
 	   
 	   if(ForestData.scenarios[scid].valid) {
 
@@ -161,7 +155,7 @@ function forestGraph() {
 	     //g.labels = {};
 	     //g.labels[LeafData.t_a_min] = LeafData.t_a_min;
 	     //g.labels[LeafData.t_a_max] = LeafData.t_a_max;
-	     g.data(ForestData.scenarios[scid].name, data, color );
+	     g.data(ForestData.scenarios[scid].name, data, ForestData.scenarios[scid]['color'] );
 	   }
     });
     g.minimum_value = 0;

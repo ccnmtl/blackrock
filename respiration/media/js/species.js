@@ -35,11 +35,19 @@
 	$('species1-name').value = "Your Tree #1";
 	$('species1-R0').value = 0.84;
 	$('species1-E0').value = 27210;
-	
+
 	addSpecies();
 	$('species2-name').value = "Your Tree #2";
 	$('species2-R0').value = 0.86;
 	$('species2-E0').value = 40073;
+
+      if($('species1-percent')) {
+	  $('species1-percent').value = 50;
+	}
+	if($('species2-percent')) {
+	  $('species2-percent').value = 50;
+	}
+
     }
     
     function delSpecies(id) {
