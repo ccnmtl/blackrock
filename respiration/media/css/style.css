@@ -119,8 +119,8 @@ div#container { margin: 0px 30px 0px 30px; }
 
 div#left
 {
-	min-width: 375px;
-	padding-right: 570px;
+	min-width: 395px;
+	padding-right: 550px;
 }
 
 div#left fieldset#leftfield { }
@@ -130,7 +130,7 @@ div#right
 	position: absolute;
 	height: 500px;
 	top: 373px;
-	right: 75px;
+	right: 50px;
 	width: 520px;
 }
 
@@ -174,28 +174,18 @@ legend
 	background-repeat: repeat-x;
 }
 
-#scenariocontainer, .speciescontainer { border-top: 1px solid gray; }
+#forestgraph
+{
+	padding: 10px 0px 10px 10px;
+	text-align: right;
+	margin-top: -18px;
+}
 
 #scenarioheader, .speciesheader,.advancedoptionsheader
 {
 	padding: 10px;
 	font-weight: bold;
 	background-color: #bbb;
-}
-
-.speciesheader
-{
-	border-right: 1px solid gray;
-	border-left: 1px solid gray;
-}
-
-.advancedoptionsheader { border-bottom: 1px solid gray; }
-
-.advancedoptionscontainer
-{
-	border-right: 1px solid gray;
-	border-bottom: 1px solid gray;
-	border-left: 1px solid gray;
 }
 
 #scenarioheader
@@ -208,7 +198,11 @@ legend
 {
 	border: 1px solid gray;
 	padding: 10px;
+	overflow: auto;
+	max-height: 450px;
 }
+
+.scenario { }
 
 .scenariotitle
 {
@@ -227,15 +221,12 @@ legend
 	background-color: #bbb;
 }
 
-.speciestemp
-{
-	border-top: 1px solid gray;
-	border-right: 1px solid gray;
-	border-left: 1px solid gray;
-	background-color: #bbb;
-}
+.speciesbox {}
 
-.speciesbox { border-top: 1px solid gray; }
+.speciesheader
+{
+	border: 1px solid gray;
+}
 
 .speciescontainer
 {
@@ -245,13 +236,21 @@ legend
 
 .species
 {
-	padding: 10px 10px 10px 0px;
+	padding: 4px;
 	border-right: 1px solid #999;
 	border-bottom: 1px solid #999;
 	border-left: 1px solid #999;
 }
 
 .species, .species td { font-size: 11px; }
+
+.speciestemp
+{
+	border-top: 1px solid gray;
+	border-right: 1px solid gray;
+	border-left: 1px solid gray;
+	background-color: #bbb;
+}
 
 .species-name
 {
@@ -260,12 +259,26 @@ legend
 	width: 140px;
 }
 
-#forestgraph
+.advancedoptionscontainer
 {
-	padding: 10px 0px 10px 10px;
-	text-align: right;
-	margin-top: -18px;
+	border-right: 1px solid gray;
+	border-bottom: 1px solid gray;
+	border-left: 1px solid gray;
+	padding: 0;
 }
+
+table#advancedoptionstable
+{
+	width: 100%;
+	border: 0;
+}
+
+table#advancedoptionstable td
+{
+	border-bottom: 1px solid gray;
+}
+
+.advancedoptionsheader { border-bottom: 1px solid gray; }
 
 .button
 {
@@ -381,15 +394,16 @@ input[disabled='disabled']
 	width: 20px;
 	background-color: #000;
 	display: inline;
-	margin-left: 4px;
+	margin: 4px;
 }
 
-div.toggler {
-  width: 12px;
-  height: 12px;
-  background-repeat: no-repeat;
-  background-position: center center;
-  float: left;
+div.toggler
+{
+	width: 12px;
+	height: 12px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	float: left;
 }
 
 div.toggle-open { background-image: url(../images/toggle_open.gif); }
@@ -431,4 +445,5 @@ a.tooltip:hover span
 	width: 10em;
 	padding: 3px;
 }
+
 /* end - tooltip css */

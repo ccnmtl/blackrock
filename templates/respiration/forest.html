@@ -69,12 +69,12 @@ Set Scenario Variables
 		<div id="scenariobox">
 			<div class="scenario" id="scenario1">
 				<div class="scenariotitle">
-				<div class="colorswatch" id="scenario1-swatch">
-					&nbsp;&nbsp;&nbsp;&nbsp;
-				</div>
 					<span class="button" onClick="delScenario('scenario1');">
 						Delete Scenario 
 					</span>
+					<div class="colorswatch" id="scenario1-swatch">
+						&nbsp;&nbsp;&nbsp;&nbsp;
+					</div>
 					<input type="text" class="scenario-name" id="scenario1-name" name="scenario1-name" value="Scenario 1" />
 				</div>
 				<div class="scenariotemp">
@@ -86,9 +86,7 @@ Set Scenario Variables
 								</span>
 							</td>
 							<td>
-								T<sub>0 
-								</sub>
-								= 
+								T<sub>0 </sub>= 
 								<input type="text" size="5" id="scenario1-base-temp" name="scenario1-base-temp" value="15" onchange="javascript:calculateKelvin(this);" class="t-zero arr-field" />
 								&deg;C = 
 								<span class="kelvin">
@@ -148,14 +146,13 @@ Set Scenario Variables
 				</div>
 				<div class="advancedoptionscontainer togglecontainer">
 					<div class="advancedoptionsheader">
-					      <div class="toggler toggle-open"></div>
-						Advanced Options 
+					      <div class="toggler toggle-open"></div> Advanced Options 
 					</div>
 					<div class="togglechild">
 						Forest Leaf Area Index = 
 						<input type="text" id="scenario1-leafarea" name="scenario1-leafarea" size="5" value="1"/>
 					</div>
-					<table class="togglechild">
+					<table cellspacing="0" id="advancedoptionstable" class="togglechild">
 						<tr>
 							<td colspan='2'>
 								Field Station: 
