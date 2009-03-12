@@ -22,9 +22,10 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
     
     this.scenarios[scenario_id].t0 = parseFloat($(scenario_id + "-base-temp").value) + 273.15;
     this.scenarios[scenario_id].leafarea = $(scenario_id + "-leafarea").value;
+    var year = $(scenario_id + "-year").value;
     this.scenarios[scenario_id].station = $(scenario_id + "-fieldstation").value;
-    this.scenarios[scenario_id].start = $(scenario_id + "-startdate").value;
-    this.scenarios[scenario_id].end = $(scenario_id + "-enddate").value;
+    this.scenarios[scenario_id].start = $(scenario_id + "-startdate").value + "/" + year;
+    this.scenarios[scenario_id].end = $(scenario_id + "-enddate").value + "/" + year;
     this.scenarios[scenario_id].deltaT = $(scenario_id + "-delta-t").value;
     if(this.scenarios[scenario_id].deltaT == "")
       this.scenarios[scenario_id].deltaT = 0;
@@ -69,7 +70,6 @@ function initGraph() {
     font_color: 'black',
     background_colors: ['white', 'white']
   });
-  g.hide_dots = true;
   g.hide_title = true;
   g.x_axis_label = "Scenarios";
   g.sort = false;
@@ -119,7 +119,7 @@ function forestGraph() {
 	         var R0 = ForestData.species[species.id].R0;
 	         var E0 = ForestData.species[species.id].E0;
 	         var http_request = new XMLHttpRequest();
-	         var params = "R0="+R0+"&E0="+E0+"&t0="+t0+"&station="+station+"&start="+start+"&end="+end;
+	         var params = "R0="+R0+"&E0="+E0+"&t0="+t0+"&station="+station+"&start="+start+"&end="+end+"&delta="+deltaT;
 	         http_request.open("GET", "getsum?"+params, false);  // blocking AJAX request
 	         http_request.send(null);
 	         //http_request.send({'R0':R0, 'E0':E0, 't0':t0, 'station':station});

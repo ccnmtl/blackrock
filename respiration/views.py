@@ -23,6 +23,11 @@ def getsum(request):
   R0 = float(request.REQUEST['R0'])
   E0 = float(request.REQUEST['E0'])
   T0 = float(request.REQUEST['t0'])
+  deltaT = 0.0;
+  try:
+    deltaT = float(request.REQUEST['delta'])
+  except:
+    deltaT = 0.0;
 
   start = request.REQUEST['start']
   startpieces = start.split('/')
@@ -32,7 +37,7 @@ def getsum(request):
   endfinal = datetime.datetime(int(endpieces[2]), int(endpieces[0]), int(endpieces[1]))
 
   station = request.REQUEST['station']
-  (total, time) = Temperature.arrhenius_sum(E0,R0,T0,startfinal,endfinal,station)
+  (total, time) = Temperature.arrhenius_sum(E0,R0,T0,deltaT,startfinal,endfinal,station)
   json = '{"total": %s}' % round(total,2)
   return HttpResponse(json, mimetype="application/javascript")
   
@@ -87,9 +92,11 @@ def loadcsv(request):
        hour = row[hour_idx]
        temp = row[temp_idx]
 
-       # adjust hour from "military" to 0-23, and 2400 becomes 0
+       # adjust hour from "military" to 0-23, and 2400 becomes 0 of the next day
        normalized_hour = int(hour)/100
-       if normalized_hour == 24: normalized_hour = 0
+       if normalized_hour == 24:
+         normalized_hour = 0
+         julian_days = int(julian_days) + 1
 
        delta = datetime.timedelta(days=int(julian_days)-1)
        dt = datetime.datetime(year=int(year), month=1, day=1, hour=normalized_hour)

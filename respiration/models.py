@@ -29,7 +29,7 @@ class Temperature(models.Model):
     return super(Temperature, self).save(*args, **kwargs)
 
   @classmethod
-  def arrhenius_sum(self,e0,r0,t0,start_date,end_date,station,use_python=False):
+  def arrhenius_sum(self,e0,r0,t0,delta_t,start_date,end_date,station,use_python=False):
     """ returns tuple with value and time it took
     >>>from datetime import datetime
     >>>Temperature.arrhenius_sum(27210.0,0.84,288.0,datetime(2002,1,1),datetime(2003,1,1),'Ridgetop')

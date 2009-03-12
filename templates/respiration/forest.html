@@ -167,21 +167,28 @@ Set Scenario Variables
 									{% endfor %} 
 								</select>
 							</td>
+							<td>
+							      Year:
+							      <select id="scenario1-year" name="scenario1-year">
+							            <option value="1996">1996</option>
+							            <option value="2002">2002</option>
+							      </select>
+							</td>
 						</tr>
 						<tr>
 							<td>
-								Season Start (mm/dd/yyyy): 
+								Season Start (mm/dd): 
 							</td>
 							<td>
-								<input type="text" id="scenario1-startdate" name="scenario1-startdate" size="10" value="01/01/2002" />
+								<input type="text" id="scenario1-startdate" name="scenario1-startdate" size="5" value="01/01" />
 							</td>
 						</tr>
 						<tr>
 							<td>
-								Season End (mm/dd/yyyy): 
+								Season End (mm/dd): 
 							</td>
 							<td>
-								<input type="text" id="scenario1-enddate" name="scenario1-enddate" size="10" value="01/01/2003" />
+								<input type="text" id="scenario1-enddate" name="scenario1-enddate" size="5" value="12/31" />
 							</td>
 						</tr>
 					</table>
@@ -189,7 +196,7 @@ Set Scenario Variables
 						 
 						<a href="#" class="tooltip">&Delta;T<sub>a</sub>=<span>Increase or decrease temperature data points by this amount.</span></a>
 						<input type="text" id="scenario1-delta-t" name="scenario1-delta-t" size='5' />
-						&deg;C 
+						&deg;C
 					</div>
 				</div>
 			</div>
