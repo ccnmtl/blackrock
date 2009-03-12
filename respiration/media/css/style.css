@@ -196,10 +196,8 @@ legend
 
 #scenariobox
 {
-	border: 1px solid gray;
-	padding: 10px;
 	overflow: auto;
-	max-height: 450px;
+	max-height: 300px;
 }
 
 .scenario { }
@@ -210,6 +208,7 @@ legend
 	border-right: 1px solid gray;
 	border-left: 1px solid gray;
 	background-color: #999;
+	padding: 4px 4px 4px 0px;
 }
 
 .scenariotemp
@@ -231,7 +230,9 @@ legend
 .speciescontainer
 {
 	overflow: auto;
-	max-height: 293px;
+	max-height: 200px;
+	background-image: url(../images/background_panel.jpg);
+	background-repeat: repeat-x;
 }
 
 .species
@@ -262,20 +263,31 @@ legend
 .advancedoptionscontainer
 {
 	border-right: 1px solid gray;
-	border-bottom: 1px solid gray;
 	border-left: 1px solid gray;
 	padding: 0;
+	background-image: url(../images/background_panel.jpg);
+	background-repeat: repeat-x;
 }
 
-table#advancedoptionstable
+table.temptable
 {
 	width: 100%;
-	border: 0;
 }
 
-table#advancedoptionstable td
+table.temptable td
+{
+	padding: 3px;
+}
+
+table.advancedoptionstable
+{
+	width: 100%;
+}
+
+table.advancedoptionstable td
 {
 	border-bottom: 1px solid gray;
+	padding: 3px;
 }
 
 .advancedoptionsheader { border-bottom: 1px solid gray; }
@@ -287,11 +299,22 @@ table#advancedoptionstable td
 	padding: 2px;
 	border: 1px gray solid;
 	text-decoration: none;
-	color: gray;
 	margin: 0px;
-	background-color: #eee;
 	float: right;
 	font-weight: bold;
+}
+
+.deletebutton
+{
+	background-color: #f99;
+	color: fff;
+}
+
+
+.addbutton
+{
+	background-color: #cf9;
+	color: gray;
 }
 
 #temp-slider
@@ -395,6 +418,7 @@ input[disabled='disabled']
 	background-color: #000;
 	display: inline;
 	margin: 4px;
+	border: 1px solid #fff;
 }
 
 div.toggler
@@ -404,6 +428,7 @@ div.toggler
 	background-repeat: no-repeat;
 	background-position: center center;
 	float: left;
+	margin-right: 10px;
 }
 
 div.toggle-open { background-image: url(../images/toggle_open.gif); }
