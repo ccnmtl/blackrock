@@ -302,6 +302,7 @@ table.advancedoptionstable td
 	margin: 0px;
 	float: right;
 	font-weight: bold;
+	cursor: pointer;
 }
 
 .deletebutton
