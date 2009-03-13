@@ -30,17 +30,22 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
     if(this.scenarios[scenario_id].deltaT == "")
       this.scenarios[scenario_id].deltaT = 0;
 
+    var validSpecies = false;
+    forEach(getElementsByTagAndClassName("div", "species", scenario_id), function(elem) {
+      obj.updateSpecies(elem.id);
+      if(ForestData.species[elem.id].valid) {
+        validSpecies = true;
+      }
+    });
+
     this.scenarios[scenario_id].valid = false;      
     if(this.scenarios[scenario_id].t0 != "" &&
        this.scenarios[scenario_id].leafarea != "" &&
        this.scenarios[scenario_id].start != "" &&
-       this.scenarios[scenario_id].end != ""){
+       this.scenarios[scenario_id].end != "" &&
+       validSpecies){
          this.scenarios[scenario_id].valid = true;
     }
-    
-    forEach(getElementsByTagAndClassName("div", "species", scenario_id), function(elem) {
-      obj.updateSpecies(elem.id);
-    });
 }
 
 ForestGraphData.prototype.updateSpecies = function(species_id) {
@@ -94,72 +99,70 @@ function forestGraph() {
     // have to re-init, because g.clear() doesn't reset legend
     //removeElementClass('plotGraph','needsupdate');
     g = initGraph();
+    var scenario_count = 0;
 
     forEach(getElementsByTagAndClassName('div', 'scenario'),
        function(scenario) {
          var data = [];
 	   var scid = scenario.id;
-	   //var color = ForestData.colors.shift();
 	   ForestData.updateScenario(scid);
 	   
 	   if(ForestData.scenarios[scid].valid) {
+	     scenario_count++;  // closure
+	     log(scenario_count);
 
 	     var t0 = ForestData.scenarios[scid].t0;
 	     var station = ForestData.scenarios[scid].station;
 	     var start = ForestData.scenarios[scid].start;
 	     var end = ForestData.scenarios[scid].end;
 	     var deltaT = ForestData.scenarios[scid].deltaT;
+           var leafarea = ForestData.scenarios[scid].leafarea;
 
-	     var total = 0;
+	     data[scenario_count-1] = 0;
+           var species_count = 0; // closure
 
 	     forEach(getElementsByTagAndClassName('div', 'species', scenario), function(species) {
-	       var species_total = 0;
-	     
 	       if(ForestData.species[species.id].valid) {
+	         species_count++;
 	         var R0 = ForestData.species[species.id].R0;
 	         var E0 = ForestData.species[species.id].E0;
-	         var http_request = new XMLHttpRequest();
+               var percent = ForestData.species[species.id].percent;
 	         var params = "R0="+R0+"&E0="+E0+"&t0="+t0+"&station="+station+"&start="+start+"&end="+end+"&delta="+deltaT;
-	         http_request.open("GET", "getsum?"+params, false);  // blocking AJAX request
-	         http_request.send(null);
-	         //http_request.send({'R0':R0, 'E0':E0, 't0':t0, 'station':station});
-	         //http_request.onreadystatechange = function() {
-	         if(http_request.readyState == 4) {
-	           if(http_request.status == 200) {
-	             var answer = eval("(" + http_request.responseText + ")" );
-	             species_total = answer.total;
-	           //}// else {
-	           //  alert ("AJAX error...");
-	           //}
+	         var http_request = doXHR("getsum", {'method':'POST', 'sendContent':params,
+	                                             'headers':[["Content-Type", 'application/x-www-form-urlencoded']]
+	                                            });
+
+	         
+	         function my_callback(scenario_num,scid,percent,http_request) {
+  	           var answer = evalJSON(http_request.responseText);
+  	           //log(data[scenario_num-1]);
+	           data[scenario_num-1] += answer.total * (percent/100.0);
+	           species_count--;
+	           //log(data[scenario_num-1],answer.total);
+                 if(species_count == 0) {  // got all species totals for this scenario
+	             data[scenario_num-1] = data[scenario_num-1] * leafarea;
+	             g.data(ForestData.scenarios[scid].name, data[scenario_num-1], ForestData.scenarios[scid]['color'] );
+	             scenario_count--;
+	             log(scenario_count);
+                 
+	             if(scenario_count == 0) {   // that's all, folks
+	                   g.minimum_value = 0;
+	                   g.draw();
+	             }
 	           }
-	           http_request = null;
 	         }
-	         //};
-	         //var d = doXHR("getsum", {'method':'POST',
-	         //                                'sendContent':{'R0':R0,
-	         //                                               'E0':E0,
-	         //                                               't0':t0,
-	         //                                               'station':station
-	         //                                              }
-	         //                               });
-	         //d.addCallback( function() { alert(species.id + " returned"); } );
-	         //var species_total = 100;
-	         var percent = ForestData.species[species.id].percent;
-	         total += species_total * (percent/100.0);
+	         http_request.addCallback(partial(my_callback,scenario_count,scid,percent)); 
+
+	         //total += species_total * (percent/100.0);
 	       }
 	     });
-	     var leafarea = ForestData.scenarios[scid].leafarea;
-	     total = total * leafarea;
-	     data.push(total);
+	     //data.push(total);
 
-	     //g.labels = {};
-	     //g.labels[LeafData.t_a_min] = LeafData.t_a_min;
-	     //g.labels[LeafData.t_a_max] = LeafData.t_a_max;
-	     g.data(ForestData.scenarios[scid].name, data, ForestData.scenarios[scid]['color'] );
+	     //g.data(ForestData.scenarios[scid].name, data, ForestData.scenarios[scid]['color'] );
 	   }
     });
-    g.minimum_value = 0;
-    g.draw();
+    //g.minimum_value = 0;
+    //g.draw();
 }
 
 // overrides function in graph.js
