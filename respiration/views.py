@@ -15,7 +15,13 @@ def leaf(request):
 def forest(request):
   stations = Temperature.objects.values('station').order_by('station').distinct()
   station_names = [item['station'] for item in stations]
-  return render_to_response('respiration/forest.html', {'stations':station_names})
+  # get valid years for each station
+  year_options = {}
+  for station in station_names:
+    years = [item.year for item in Temperature.objects.filter(station=station).dates('date','year')]
+    year_options[station] = str(years).replace('[','(').replace(']',')')
+  return render_to_response('respiration/forest.html', {'stations':station_names,
+                                                        'years':year_options})
 
 def getsum(request):
   #if request.method != 'POST':

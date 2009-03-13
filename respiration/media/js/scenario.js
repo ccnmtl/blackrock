@@ -27,6 +27,7 @@
       forEach(getElementsByTagAndClassName("div", "toggler", newDiv), function(elem) {
 	        connect(elem, "onclick", toggle);
 	});
+	connect(newDiv.id + "-fieldstation", "onchange", "updateYears");
 	updateColors();
    }
    

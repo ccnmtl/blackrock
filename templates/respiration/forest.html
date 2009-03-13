@@ -1,4 +1,5 @@
 {% extends "respiration/base_respiration.html" %}
+{% load extras %}
 
 {% block tabname %}tab-forest{% endblock %}
 
@@ -7,39 +8,14 @@
 	<script type="text/javascript" src="media/js/scenario.js"></script> 
 	<script type="text/javascript" src="media/js/species.js"></script> 
 	<script type="text/javascript" src="media/js/forestgraph.js"></script> 
+	<script type="text/javascript" src="media/js/foresthelpers.js"></script> 
+	
 	<script type="text/javascript">
-		function calculateKelvin(elem) {
-			var parent = getFirstParentByTagAndClassName(elem, "td", null);
-			var kelvin = getFirstElementByTagAndClassName("span", "kelvin", parent);
-			kelvin.innerHTML = parseFloat(elem.value) + 273.15;
-		}
-		function toggle(e) {
-			var elem = e.src();
-			var parent = getFirstParentByTagAndClassName(elem, "div", "togglecontainer");
-			var sibs = getElementsByTagAndClassName("*", "togglechild", parent);
-			if(hasElementClass(elem, "toggle-open")) {
-				removeElementClass(elem, "toggle-open");
-				addElementClass(elem, "toggle-closed");
-				forEach(sibs, function(sib) {
-				hideElement(sib);
-				});
-			}
-			else {
-				removeElementClass(elem, "toggle-closed");
-				addElementClass(elem, "toggle-open");
-				forEach(sibs, function(sib) {
-				showElement(sib);
-				});
-			}
-		}
-		function initNav() {
-			connect("tab-forest", "onclick", function() { location.href="leaf";});
-			forEach(getElementsByTagAndClassName("div", "toggler"), function(elem) {
-			connect(elem, "onclick", toggle);
-			});
-	    }
-	    addLoadEvent(initNav);
-	</script> 
+       {% for station in stations %}
+         addYears("{{station}}", new Array{{years|hash:station}});
+       {% endfor %}
+      </script>
+
 {% endblock %}
 
 {% block instructions %}
@@ -162,7 +138,7 @@ Set Scenario Variables
 							<tr>
 								<td>
 									Field Station: 
-									<select id="scenario1-fieldstation" name="scenario1-fieldstation">
+									<select id="scenario1-fieldstation" name="scenario1-fieldstation" class="fieldstation-select">
 										{% for station in stations %} 
 										<option value="{{ station }}">
 											{{station}} 
@@ -171,10 +147,8 @@ Set Scenario Variables
 									</select>
 								</td>
 								<td>
-									 Year:
+   								 Year:
 									 <select id="scenario1-year" name="scenario1-year">
-										  <option value="1996">1996</option>
-										  <option value="2002">2002</option>
 									 </select>
 								</td>
 							</tr>
