@@ -109,7 +109,7 @@ function forestGraph() {
 	   
 	   if(ForestData.scenarios[scid].valid) {
 	     scenario_count++;  // closure
-	     log(scenario_count);
+	     //log(scenario_count);
 
 	     var t0 = ForestData.scenarios[scid].t0;
 	     var station = ForestData.scenarios[scid].station;
@@ -143,7 +143,7 @@ function forestGraph() {
 	             data[scenario_num-1] = data[scenario_num-1] * leafarea;
 	             g.data(ForestData.scenarios[scid].name, data[scenario_num-1], ForestData.scenarios[scid]['color'] );
 	             scenario_count--;
-	             log(scenario_count);
+	             //log(scenario_count);
                  
 	             if(scenario_count == 0) {   // that's all, folks
 	                   g.minimum_value = 0;

@@ -51,6 +51,7 @@ LeafGraphData.prototype.arrhenius = function(species_id, t_a) {
 
 function leafGraph() {
     // have to re-init, because g.clear() doesn't reset legend
+    if($("plotGraph") == null) { return; }
     removeElementClass('plotGraph','needsupdate');
     g = initGraph();
     LeafData.updateFields();

@@ -76,7 +76,9 @@
 	    forEach(getElementsByTagAndClassName(null,a),function(elt) {
 		connect(elt,'onfocus',bind(self.hiliteVar,self,a,addElementClass));
 		connect(elt,'onblur',bind(self.hiliteVar,self,a,removeElementClass));
-		connect(elt,'onchange',self.needsUpdate);
+		if($("plotGraph") != null) {
+		  connect(elt,'onchange',self.needsUpdate);
+		}
 	    });
 	}
     }
@@ -91,8 +93,10 @@
 	r_zero = getFirstElementByTagAndClassName(null,"r-zero",elt);
 	connect(e_zero,'onfocus',function(){self.hiliteVar("e-zero");});
 	connect(r_zero,'onfocus',function(){self.hiliteVar("r-zero");});
-	connect(e_zero,'onchange',self.needsUpdate);
-	connect(r_zero,'onchange',self.needsUpdate);
+	if($("plotGraph") != null) {
+	  connect(e_zero,'onchange',self.needsUpdate);
+	  connect(r_zero,'onchange',self.needsUpdate);
+	}
     }
     EquationHighlighter.prototype.hiliteVar = function(arr_var,select_func) {
 	var self = this;
