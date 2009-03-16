@@ -10,6 +10,33 @@ function ForestGraphData() {
 
 var ForestData = new ForestGraphData();
 
+function showError() { setStyle("error", {'display':'block'}); }
+
+function clearError() { setStyle("error", {'display':'none'}); }
+
+function errorHighlight(elem) {
+  addElementClass(elem, "errorHighlight");
+  connect(elem, "onfocus", clearHighlight);
+  showError();
+}
+
+function clearHighlight(e) {
+  removeElementClass(e.src(), "errorHighlight");
+}
+
+function isValidMMDD(str) {
+  var bits = str.split(/[/,-]/);
+  if(bits.length != 2 ||
+     bits[0] == "" || isNaN(bits[0]) ||
+     bits[1] == "" || isNaN(bits[1]) ||
+     bits[0] < 1 || bits[0] > 12 ||
+     bits[1] < 1 || bits[1] > 31
+  ){
+    return false;
+  }
+  return true;
+}
+
 ForestGraphData.prototype.updateScenario = function(scenario_id) {
     var obj = this;
     if (typeof(this.scenarios[scenario_id]) == 'undefined') {
@@ -20,17 +47,53 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
     this.scenarios[scenario_id]['name'] = $(scenario_id + "-name").value;
     $(scenario_id + "-swatch").style.backgroundColor = this.scenarios[scenario_id]['color'];
     
-    this.scenarios[scenario_id].t0 = parseFloat($(scenario_id + "-base-temp").value) + 273.15;
-    this.scenarios[scenario_id].leafarea = $(scenario_id + "-leafarea").value;
-    var year = $(scenario_id + "-year").value;
-    this.scenarios[scenario_id].station = $(scenario_id + "-fieldstation").value;
-    this.scenarios[scenario_id].start = $(scenario_id + "-startdate").value + "/" + year;
-    this.scenarios[scenario_id].end = $(scenario_id + "-enddate").value + "/" + year;
-    this.scenarios[scenario_id].deltaT = $(scenario_id + "-delta-t").value;
-    if(this.scenarios[scenario_id].deltaT == "")
-      this.scenarios[scenario_id].deltaT = 0;
+    var t0 = $(scenario_id + "-base-temp").value;
+    if(t0 == "" || isNaN(t0)) {
+      errorHighlight(scenario_id + "-base-temp");
+      t0 = 15;
+    }
 
-    var validSpecies = false;
+    this.scenarios[scenario_id].t0 = parseFloat($(scenario_id + "-base-temp").value) + 273.15;
+
+    var leafarea = $(scenario_id + "-leafarea").value;
+    if(leafarea == "" || isNaN(leafarea)) {
+      errorHighlight(scenario_id + "-leafarea");
+      leafarea = 1;
+    }
+    this.scenarios[scenario_id].leafarea = leafarea;
+
+    this.scenarios[scenario_id].station = $(scenario_id + "-fieldstation").value;
+
+    var year = $(scenario_id + "-year").value;
+    var start = $(scenario_id + "-startdate").value;
+    var end = $(scenario_id + "-enddate").value;
+
+    // we'll be nice and allow dashes as well as slashes, even though we say to use "mm/dd".
+    start = start.replace("-","/");
+    end = end.replace("-","/");
+
+    if(! isValidMMDD(start)) {
+      errorHighlight(scenario_id + "-startdate");
+      start = "1/1";
+    }
+    this.scenarios[scenario_id].start = start + "/" + year;
+
+    if(! isValidMMDD(end)) {
+      errorHighlight(scenario_id + "-enddate");
+      end = "12/31";
+    }    
+    this.scenarios[scenario_id].end = end + "/" + year;
+
+    /* delta-t is optional */
+    this.scenarios[scenario_id].deltaT = $(scenario_id + "-delta-t").value;
+    if(this.scenarios[scenario_id].deltaT == "" || isNaN(this.scenarios[scenario_id].deltaT)) {
+      // NaN still does indicates an error, since the user tried to enter something
+      if(isNaN(this.scenarios[scenario_id].deltaT)) { errorHighlight(scenario_id + "-delta-t"); }
+      // but either way, we use 0 for it
+      this.scenarios[scenario_id].deltaT = 0;
+    }
+
+    var validSpecies = false;  // make sure the scenario contains at least one valid species
     forEach(getElementsByTagAndClassName("div", "species", scenario_id), function(elem) {
       obj.updateSpecies(elem.id);
       if(ForestData.species[elem.id].valid) {
@@ -38,6 +101,7 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
       }
     });
 
+    // scenarios with missing information are not valid for graphing
     this.scenarios[scenario_id].valid = false;      
     if(this.scenarios[scenario_id].t0 != "" &&
        this.scenarios[scenario_id].leafarea != "" &&
@@ -68,6 +132,7 @@ ForestGraphData.prototype.updateSpecies = function(species_id) {
 
 // overrides function in graph.js
 function initGraph() {
+  clearError();
   var g = new Bluff.Bar('graph', 460);
   g.set_theme({
       ///note: not used since we do this in leafGraph() now.
@@ -90,6 +155,7 @@ function initGraph() {
 }
 
 function updateColors() {
+  clearError();
   forEach(getElementsByTagAndClassName('div', 'scenario'), function(scenario) {
     ForestData.updateScenario(scenario.id);
   });

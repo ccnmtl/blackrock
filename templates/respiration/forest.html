@@ -29,6 +29,8 @@ Set Scenario Variables
 {% endblock %}
 
 {% block left %}
+<div id="error">Some errors occurred while graphing.  You might want to double-check the boxes highlighted in red.</div>
+
 <form id="leaf-form" name="leaf-form" action="forest" method="POST">
 	<div id="forestgraph">
 		<input type="button" value="Graph &gt;&gt;" onclick="javascript:forestGraph();" />

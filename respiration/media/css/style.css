@@ -473,3 +473,16 @@ a.tooltip:hover span
 }
 
 /* end - tooltip css */
+
+div#error {
+  /*background-color: #FF4040;*/
+  padding: 5px;
+  border: 1px black solid;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.errorHighlight {
+  background-color: #FF4040;
+  color: white;
+}
