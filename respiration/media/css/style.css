@@ -1,4 +1,5 @@
 body { font-family: "lucida grande"; }
+
 #breadcrumbs { height: 20px; }
 
 div#tab-bar
@@ -474,11 +475,14 @@ div#error
 
 @media print
 {
-	div#instructions { display: none; }
+	
+	h1 {color: #000;}
+	
+	#instructions { display: none; }
 	
 	.button { display: none; }
 	
-	#equation { display: none; }
+	#content { display: none; }
 	
 	#tab-bar { display: none; }
 	
@@ -488,15 +492,19 @@ div#error
 	
 	#tab-bar { display: none; }
 	
-	#left { }
-	
-	div#right
-	{
-		height: 500px;
-		width: 520px;
-	}
-	
 	#forestgraph { display: none; }
 	
-	/* */
+	#left {
+	page-break-before: always;
+	position: relative;
+	}
+	
+	#right
+	{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	margin-top: -250px;
+	}
+	
 }
