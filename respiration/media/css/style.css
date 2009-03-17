@@ -220,12 +220,8 @@ legend
 	background-color: #bbb;
 }
 
-.speciesbox {}
-
-.speciesheader
-{
-	border: 1px solid gray;
-}
+.speciesbox { }
+.speciesheader { border: 1px solid gray; }
 
 .speciescontainer
 {
@@ -269,20 +265,9 @@ legend
 	background-repeat: repeat-x;
 }
 
-table.temptable
-{
-	width: 100%;
-}
-
-table.temptable td
-{
-	padding: 3px;
-}
-
-table.advancedoptionstable
-{
-	width: 100%;
-}
+table.temptable { width: 100%; }
+table.temptable td { padding: 3px; }
+table.advancedoptionstable { width: 100%; }
 
 table.advancedoptionstable td
 {
@@ -310,7 +295,6 @@ table.advancedoptionstable td
 	background-color: #f99;
 	color: fff;
 }
-
 
 .addbutton
 {
@@ -473,16 +457,46 @@ a.tooltip:hover span
 }
 
 /* end - tooltip css */
-
-div#error {
-  /*background-color: #FF4040;*/
-  padding: 5px;
-  border: 1px black solid;
-  font-size: 14px;
-  font-weight: bold;
+div#error
+{
+	/*background-color: #FF4040;*/
+	padding: 5px;
+	border: 1px black solid;
+	font-size: 14px;
+	font-weight: bold;
 }
 
-.errorHighlight {
-  background-color: #FF4040;
-  color: white;
+.errorHighlight
+{
+	background-color: #FF4040;
+	color: white;
+}
+
+@media print
+{
+	div#instructions { display: none; }
+	
+	.button { display: none; }
+	
+	#equation { display: none; }
+	
+	#tab-bar { display: none; }
+	
+	img.slider { display: none; }
+	
+	#equation { display: none; }
+	
+	#tab-bar { display: none; }
+	
+	#left { }
+	
+	div#right
+	{
+		height: 500px;
+		width: 520px;
+	}
+	
+	#forestgraph { display: none; }
+	
+	/* */
 }
