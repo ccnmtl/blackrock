@@ -483,6 +483,8 @@ div#error
 	.button { display: none; }
 	
 	#content { display: none; }
+	fieldset { border: none; }
+	legend { border: none; font-weight: bold; margin-bottom: 20px;}
 	
 	#tab-bar { display: none; }
 	
@@ -494,11 +496,20 @@ div#error
 	
 	#forestgraph { display: none; }
 	
+	.speciescontainer,#scenariobox {max-height: 100%;}
+	
+	#scenarioheader {display: none;}
+	
+	.scenariotitle {border: 3px solid #000; font-weight: bold;}
+
+	/* data */
 	#left {
 	page-break-before: always;
+	width: 50%;
 	position: relative;
 	}
 	
+	/* graph */
 	#right
 	{
 	position: absolute;
