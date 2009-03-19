@@ -61,11 +61,30 @@ Tree Respiration
 			{% block instructions %}
 			{% endblock %}
 		</div>
+		
 		<div id="equation">
+		
 			<div class="caption">
 				Arrhenius Function
 			</div>
-			<div class="equation not-IE">
+			
+			<table class="equation">
+			<tr>
+			<td style="vertical-align: bottom;">
+			
+				<div id="equation-left">
+					<span id="arr-r-result" class="arr-variable">
+						R
+					</span>
+					= 
+					<span id="arr-r-zero" class="arr-variable">
+						R<sub>0</sub></span>e 
+				</div>
+				
+			</td>
+			<td>&nbsp;</td>
+			<td style="vertical-align: top;">
+				
 				<table id="equation-right">
 					<tr class="top">
 						<td id="arr-e-zero" class="numerator arr-variable">
@@ -99,17 +118,16 @@ Tree Respiration
 						</td>
 					</tr>
 				</table>
-				<div id="equation-left" style="">
-					<span id="arr-r-result" class="arr-variable">
-						R
-					</span>
-					= 
-					<span id="arr-r-zero" class="arr-variable">
-						R<sub>0</sub></span>e 
-				</div>
-			</div>
+				
+				
+			</td>
+			</tr>
+			</table>
+				
 		</div>
+		
 	</div>
+	
 </div>
 
 <div id="container">

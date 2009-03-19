@@ -43,15 +43,14 @@ div#instructions
 
 div#equation
 {
-	font-style: italic;
 	border: 1px gray solid;
 	width: 280px;
-	padding: 5px;
+	margin: 0px;
+	padding: 0px;
 	position: absolute;
 	right: 30px;
 	top: 210px;
-	font-size: 24px;
-	height: 90px;
+	height: 100px;
 	background-color: #CCC;
 	background-image: url(../images/background_panel.jpg);
 	background-repeat: repeat-x;
@@ -69,19 +68,15 @@ div#equation .caption
 	top: 3px;
 }
 
-/*HACK: taking advantage of IE not supporting double classes*/
-#equation .equation.not-IE { width: 9.4em; }
-
-#equation .equation
+#equation table.equation
 {
-	width: 8.4em;
 	margin-left: 30px;
-	margin-top: 5px;
-	position: relative;
-	height: 3.4em;
+	margin-top: 10px;
+	font-style: italic;
+	height: 90px;
 }
 
-.selected { background-color: #FFFF77; }
+.selected { background-color: #ff7; }
 
 .equation td
 {
@@ -89,23 +84,18 @@ div#equation .caption
 	margin: 0;
 }
 
-td.eq-big { font-size: 3em; }
+td.eq-big { font-size: 3em; vertical-align: bottom;}
+
 .equation td.numerator { border-bottom: 2px solid red; }
 
 div#equation-left
 {
 	display: inline;
-	position: absolute;
-	left: 0;
-	bottom: 0px;
 	font-size: 26px;
 }
 
 #equation-right
 {
-	position: absolute;
-	right: 0;
-	top: 0;
 	float: right;
 	color: red;
 }
