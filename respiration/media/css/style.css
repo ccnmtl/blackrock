@@ -336,6 +336,12 @@ input#plotGraph.needsupdate
 	font-weight: normal;
 }
 
+#temp_manual_controls input
+{
+	
+	width: 30px;
+}
+
 #temperature_adjustment
 {
 	padding: 0px;

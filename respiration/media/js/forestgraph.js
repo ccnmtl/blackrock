@@ -50,7 +50,7 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
     var t0 = $(scenario_id + "-base-temp").value;
     if(t0 == "" || isNaN(t0)) {
       errorHighlight(scenario_id + "-base-temp");
-      t0 = 15;
+      t0 = 0;
     }
 
     this.scenarios[scenario_id].t0 = parseFloat($(scenario_id + "-base-temp").value) + 273.15;
