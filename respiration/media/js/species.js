@@ -256,9 +256,11 @@
     TemperatureSliders.prototype.updateCursorVals = function(evt) {
 	var lf = global.LeafData;
 	var real_temp = lf.t_a_min + (lf.t_a_max-lf.t_a_min)*this.temp/this.canvas_length;
-	$('temp_mouse').value = real_temp;
-	for (a in lf.species) {
-	    $(a+'-R').value = lf.arrhenius(a,real_temp);
+	if (!isNaN(real_temp)) {
+	    $('temp_mouse').value = real_temp;
+	    for (a in lf.species) {
+		$(a+'-R').value = lf.arrhenius(a,real_temp);
+	    }
 	}
     }
     

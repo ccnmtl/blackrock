@@ -64,8 +64,9 @@ function leafGraph() {
 	   LeafData.updateSpecies(spid);
 
 	   g.labels = {};
-	   g.labels[LeafData.t_a_min] = LeafData.t_a_min;
-	   g.labels[LeafData.t_a_max] = LeafData.t_a_max;
+	   //#54006 (LEAF) Remove x-axis labels...
+	   //g.labels[LeafData.t_a_min] = LeafData.t_a_min;
+	   //g.labels[LeafData.t_a_max] = LeafData.t_a_max;
 	   for(var i=LeafData.t_a_min; i<=LeafData.t_a_max; i++) {
 	       try {
 		   var Rval = LeafData.arrhenius(spid, i);
@@ -106,7 +107,7 @@ function initGraph() {
   g.hide_title = true;
   g.x_axis_label = "Ambient Temperature (Ta)";
 
-  g.labels = {0: '0', 30: '30'};
+  //g.labels = {0: '0', 30: '30'};
   //g.hide_legend = true;  // breaks IE
   //g.hide_line_markers = true;
   g.set_margins(0);

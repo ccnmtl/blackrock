@@ -19,13 +19,7 @@ class Temperature(models.Model):
     "This is mainly just to weed out insane values when arrhenius sums are calculated"
     self.precalc = None
     if -100 < self.reading < 100: #not crazy
-      try:
-        bottom = math.exp(self.reading+273.15)
-        if bottom:
-          self.precalc = bottom
-      except:
-        #print "holy shit, that's a crazy temperature: %f" % self.reading
-        pass
+      self.precalc = 1
     return super(Temperature, self).save(*args, **kwargs)
 
   @classmethod
