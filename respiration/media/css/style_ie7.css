@@ -1,0 +1,29 @@
+div#right
+{
+	right: 20px;
+}
+
+div#left
+{
+	padding-right: 570px;
+}
+
+#y-grid-leaf
+{
+	left: 5px;
+}
+
+#temp-slider
+{
+	margin-right: 15px;
+}
+
+#temp-slider .range 
+{ 
+	background-position: 0px 2px; 
+}
+
+fieldset
+{
+	padding: 5px;
+}

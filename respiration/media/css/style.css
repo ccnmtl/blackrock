@@ -310,7 +310,8 @@ table.advancedoptionstable td
 {
 	position: absolute;
 	top: 8px;
-	background-color: red;
+	background-image: url(../images/slider.gif);
+	background-repeat: repeat-x;
 	height: 10px;
 	margin-left: 12px;
 	/*width of left cursor*/
