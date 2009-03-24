@@ -7,12 +7,15 @@ function addYears(stationName, yearlist) {
 }
 
 function updateYears(e) {
-  var baseID = e.src().id.split('-')[0]
+  var baseID = e.src().id.split('-')[0];
   var sel = $(baseID + "-year");
   var stationName = e.src().value;
 
   replaceChildNodes(sel, null);
-  for each (year in years[stations.indexOf(stationName)]) {
+  var yrs = years[stations.indexOf(stationName)];
+  for(var i=0; i<yrs.length; i++) {
+  //forEach (year in years[stations.indexOf(stationName)]) {
+    var year = yrs[i];
     appendChildNodes(sel, OPTION({'value':year}, year));
   }
 }
@@ -21,7 +24,9 @@ function initYearHelper() {
   forEach(getElementsByTagAndClassName("select", "fieldstation-select"), function(elem) {
     connect(elem, "onchange", updateYears);
     var scid = elem.id.split('-')[0];
-    for each(year in years[0]) {
+    //for each(year in years[0]) {
+    for(var i=0; i<years[0].length; i++) {
+      var year = years[0][i];
       appendChildNodes(scid + "-year", OPTION({'value':year}, year));
     }
   });
