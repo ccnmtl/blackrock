@@ -129,7 +129,8 @@
 	this.MIN_TEMP_WIDTH = 10;
 	this.length=null;
 	this.margin = 25;
-	this.graph_left_margin = 45;
+	this.graph_left_margin = 40;
+	this.graph_right_margin = 2;
 	this.freeze = false;
     }
     TemperatureSliders.prototype.onLoad = function() {
@@ -153,7 +154,7 @@
 
 	this.canvas = getElement('graph');
 	this.graph_cursor = getElement('graph-cursor');
-	this.canvas_length = getElementDimensions(this.canvas).w-this.graph_left_margin;
+	this.canvas_length = getElementDimensions(this.canvas).w-this.graph_left_margin-this.graph_right_margin;
 
 	/// Temperature Sliders
 	connect(this.input_low,'onchange',function(){self.low = self.input_low.value;
@@ -234,6 +235,9 @@
 	var coords = getElementPosition(this.canvas);
 	var pos_x = mouse.page.x - coords.x;
 	this.temp = pos_x - this.graph_left_margin;
+	//log(this.temp);
+	if (this.temp < 0) { this.temp = 0; }
+	if (this.temp > this.canvas_length - this.graph_right_margin) { this.temp = this.canvas_length - this.graph_right_margin; }
 	if (this.temp > 0) {
 	    this.graph_cursor.style.left = (pos_x)+'px';
 	    var self = this;
@@ -255,7 +259,7 @@
     }
     TemperatureSliders.prototype.updateCursorVals = function(evt) {
 	var lf = global.LeafData;
-	var real_temp = lf.t_a_min + (lf.t_a_max-lf.t_a_min)*this.temp/this.canvas_length;
+	var real_temp = lf.t_a_min + (lf.t_a_max-lf.t_a_min)*this.temp/(this.canvas_length - this.graph_right_margin);
 	if (!isNaN(real_temp)) {
 	    $('temp_mouse').value = real_temp;
 	    for (a in lf.species) {

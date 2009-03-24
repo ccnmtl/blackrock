@@ -72,6 +72,7 @@ function leafGraph() {
 		   var Rval = LeafData.arrhenius(spid, i);
 		   if (!isNaN(Rval)) {
 		       data.push(Rval);  
+		       //if(Rval > 0) { g.left_margin = 0; }
 		   }
 	       } catch(e) {
 		   g = initGraph();//re-init in case we already added data
@@ -80,6 +81,14 @@ function leafGraph() {
 		   throw "non valid data";
 	       }
 	   }
+	   if(data.length > 0) {
+	     var first = data[0];
+        for(var i=0; i<data.length; i++) {
+          if(data[i] != first) {
+            g.left_margin = 0;
+          }
+        }
+      }
 	   g.data(LeafData.species[spid].name, data, LeafData.species[spid]['color'] );
 
        });
@@ -111,9 +120,10 @@ function initGraph() {
   //g.hide_legend = true;  // breaks IE
   //g.hide_line_markers = true;
   g.set_margins(0);
+  g.left_margin = 25;
   g.top_margin = 10;
   g.bottom_margin = 10;
-  g.no_data_message = "Press 'Plot' to graph data.";
+  g.no_data_message = "";
   return g;
 }
 
