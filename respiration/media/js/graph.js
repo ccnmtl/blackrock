@@ -33,8 +33,8 @@ function updateColors() {
 
 LeafGraphData.prototype.updateFields = function() {
     this.t0 = Number($('kelvin').innerHTML);
-    this.t_a_min = ($('temp_low')) ? Math.round($('temp_low').value) : 0;
-    this.t_a_max = ($('temp_high')) ? Math.round($('temp_high').value) : 30;
+    this.t_a_min = ($('temp_low')) ? Math.round($('temp_low').value * 100) / 100 : 0;
+    this.t_a_max = ($('temp_high')) ? Math.round($('temp_high').value * 100) / 100 : 30;
 }
 
 LeafGraphData.prototype.arrhenius = function(species_id, t_a) {
@@ -81,6 +81,8 @@ function leafGraph() {
 		   throw "non valid data";
 	       }
 	   }
+	   // this fixes the margins on the left side when the data is flat
+	   // (otherwise the numbers run off the edge)
 	   if(data.length > 0) {
 	     var first = data[0];
         for(var i=0; i<data.length; i++) {

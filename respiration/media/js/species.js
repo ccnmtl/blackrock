@@ -261,7 +261,7 @@
 	var lf = global.LeafData;
 	var real_temp = lf.t_a_min + (lf.t_a_max-lf.t_a_min)*this.temp/(this.canvas_length - this.graph_right_margin);
 	if (!isNaN(real_temp)) {
-	    $('temp_mouse').value = real_temp;
+	    $('temp_mouse').value = Math.round(real_temp * 10) / 10;
 	    for (a in lf.species) {
 		$(a+'-R').value = lf.arrhenius(a,real_temp);
 	    }
