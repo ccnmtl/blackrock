@@ -44,7 +44,8 @@ def getsum(request):
 
   station = request.REQUEST['station']
   (total, time) = Temperature.arrhenius_sum(E0,R0,T0,deltaT,startfinal,endfinal,station)
-  json = '{"total": %s}' % round(total,2)
+  total_mol = total / 1000000
+  json = '{"total": %s}' % round(total_mol,2)
   return HttpResponse(json, mimetype="application/javascript")
   
 @user_passes_test(lambda u: u.is_staff)
