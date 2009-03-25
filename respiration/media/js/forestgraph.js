@@ -24,14 +24,42 @@ function clearHighlight(e) {
   removeElementClass(e.src(), "errorHighlight");
 }
 
-function isValidMMDD(str) {
+function isLeapYear(year) {
+  if(year % 4 == 0) {
+    if(year % 100 == 0) {
+      if(year % 400 == 0) {
+        return true;
+      }
+      return false;
+    }
+    return true;
+  }
+  return false;
+}
+
+function isValidMMDD(str, leapyear) {
   var bits = str.split(/[/,-]/);
-  if(bits.length != 2 ||
-     bits[0] == "" || isNaN(bits[0]) ||
-     bits[1] == "" || isNaN(bits[1]) ||
-     bits[0] < 1 || bits[0] > 12 ||
-     bits[1] < 1 || bits[1] > 31
-  ){
+  if(bits.length != 2) { return false; }
+  var month = bits[0];
+  var day = bits[1];
+  if(month == "" || day == "") {
+    return false;
+  }
+  if(isNaN(month) || isNaN(day)) {
+    return false;
+  }
+  if(month < 1 || month > 12) {
+    return false;
+  }
+  var maxday = 31;
+  if(month in {4:'', 6:'', 9:'', 11:''}) { 
+     maxday = 30;
+  }
+  if(month == 2) {
+    maxday = 28;   // need to check for leapyears
+    if(leapyear) { maxday = 29; }
+  }
+  if(day < 0 || day > maxday) {
     return false;
   }
   return true;
@@ -72,15 +100,18 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
     start = start.replace("-","/");
     end = end.replace("-","/");
 
-    if(! isValidMMDD(start)) {
+    var dateError = false;
+    var leapyear = isLeapYear(year);
+    if(! isValidMMDD(start, leapyear)) {
       errorHighlight(scenario_id + "-startdate");
-      start = "1/1";
+      dateError = true;
     }
     this.scenarios[scenario_id].start = start + "/" + year;
 
-    if(! isValidMMDD(end)) {
+    if(! isValidMMDD(end, leapyear)) {
       errorHighlight(scenario_id + "-enddate");
-      end = "12/31";
+      this.scenarios[scenario_id].valid = false;
+      dateError = true;
     }    
     this.scenarios[scenario_id].end = end + "/" + year;
 
@@ -107,6 +138,7 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
        this.scenarios[scenario_id].leafarea != "" &&
        this.scenarios[scenario_id].start != "" &&
        this.scenarios[scenario_id].end != "" &&
+       !dateError &&
        validSpecies){
          this.scenarios[scenario_id].valid = true;
     }

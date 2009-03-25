@@ -24,7 +24,7 @@ function initYearHelper() {
   forEach(getElementsByTagAndClassName("select", "fieldstation-select"), function(elem) {
     connect(elem, "onchange", updateYears);
     var scid = elem.id.split('-')[0];
-    //for each(year in years[0]) {
+    $(scid+"-year").innerHTML = "";
     for(var i=0; i<years[0].length; i++) {
       var year = years[0][i];
       appendChildNodes(scid + "-year", OPTION({'value':year}, year));
