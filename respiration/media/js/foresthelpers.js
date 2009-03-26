@@ -57,8 +57,13 @@ function toggle(e) {
   }
 }
 
+function submitForm() {
+  $('scenario1-species').value = getScenario1Species().join();
+  $('scenario1-form').submit();
+}
+
 function initNav() {
-  connect("tab-forest", "onclick", function() { location.href="leaf";});
+  connect("tab-leaf", "onclick", submitForm);
   forEach(getElementsByTagAndClassName("div", "toggler"), function(elem) {
           connect(elem, "onclick", toggle);
   });

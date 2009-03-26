@@ -6,6 +6,7 @@
 
    function initScenarioCloner() {
       html = $('scenario1').innerHTML;
+      updateColors();
    }
 
    function addScenario() {

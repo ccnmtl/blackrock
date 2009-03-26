@@ -1,59 +1,92 @@
 /* module wrapper pattern*/
 (function() {
     var global = this;
-
+    
     var numSpecies = 1;
+    var scenario1Species = ["species1"];
     var html = "";
     function initSpeciesCloner() {
     	html = $('species1').innerHTML;
     }
     
     function addSpecies(elem) {
-	numSpecies++;
+      numSpecies++;
+      if($("numspecies")) {
+        $("numspecies").value = numSpecies;
+      }
+      //$("numspecies").value = numSpecies;
       if(! elem) {
         var scenario = document;
       }
       else {
-	  // get scenario, if there is one
-	  var scenario = getFirstParentByTagAndClassName(elem, "div", "scenario");
-	  if(! scenario) {
-	    scenario = document;
-	  }
-	}
+        // get scenario, if there is one
+        var scenario = getFirstParentByTagAndClassName(elem, "div", "scenario");
+        if(! scenario) {
+          scenario = document;
+        }
+        else if(scenario.id == "scenario1") {
+          scenario1Species.push("species" + numSpecies);
+        }
+      }
       var parent = getFirstElementByTagAndClassName("div", "speciescontainer", scenario);
-	var newDiv = DIV();
-	addElementClass(newDiv, "species");
-	appendChildNodes(parent, newDiv);
-	newDiv.innerHTML = html.replace(/species1/g, "species" + numSpecies);
-	newDiv.id = "species" + numSpecies;
-	var namediv = getFirstElementByTagAndClassName("input", "species-name", newDiv);
-	namediv.value = "Your Tree #" + numSpecies;
-	global.EquationHighlighter.initSpecies(newDiv);
-	updateColors();
+      var newDiv = DIV();
+      addElementClass(newDiv, "species");
+      appendChildNodes(parent, newDiv);
+      newDiv.innerHTML = html.replace(/species1/g, "species" + numSpecies);
+      newDiv.id = "species" + numSpecies;
+      var namediv = getFirstElementByTagAndClassName("input", "species-name", newDiv);
+      namediv.value = "Your Tree #" + numSpecies;
+      global.EquationHighlighter.initSpecies(newDiv);
+      updateColors();
     }
     
-    function setDefaults() {
-	$('species1-name').value = "Your Tree #1";
-	$('species1-R0').value = 0; /*0.84*/
-	$('species1-E0').value = 0; /*27210*/
+    
+    function initSpecies() {
+      if($("scenario1-base-temp")) {
+        $("scenario1-base-temp").value = $("leaf-base-temp").value;
+      }
+      else {
+        $("base-temp").value = $("leaf-base-temp").value;
+      }
+      var leafSpecies = $("leaf-numspecies").value;
+      scenario1Species = ["species1"];
+      for(var i=1; i<=leafSpecies; i++) {
+        if(i > 1) {
+          addSpecies();
+          scenario1Species.push("species"+i);
+        }
+        $('species'+i+'-name').value = $('leaf-species'+i+'-name').value;
+        $('species'+i+'-R0').value = $('leaf-species'+i+'-R0').value;
+        $('species'+i+'-E0').value = $('leaf-species'+i+'-E0').value;
+      }
+      if(leafSpecies == 0) {setDefaults(); }
+    }
 
-	addSpecies();
-	$('species2-name').value = "Your Tree #2";
-	$('species2-R0').value = 0;/*0.86*/
-	$('species2-E0').value = 0;/*40073*/
+    function setDefaults() {
+      $('species1-name').value = "Your Tree #1";
+      $('species1-R0').value = 0; /*0.84*/
+      $('species1-E0').value = 0; /*27210*/
+
+      addSpecies();
+      $('species2-name').value = "Your Tree #2";
+      $('species2-R0').value = 0;/*0.86*/
+      $('species2-E0').value = 0;/*40073*/
 
       if($('species1-percent')) {
-	  $('species1-percent').value = 0;/*50*/
-	}
-	if($('species2-percent')) {
-	  $('species2-percent').value = 0;/*50*/
-	}
-
+        $('species1-percent').value = 0;/*50*/
+      }
+      if($('species2-percent')) {
+        $('species2-percent').value = 0;/*50*/
+      }
     }
     
     function delSpecies(id) {
-	removeElement(id);
-	//numSpecies--;  // do not reuse species IDs
+      //numSpecies--;  // do not reuse species IDs
+      removeElement(id);
+      // remove from scenario1 array if it exists
+      if(scenario1Species.indexOf(id) != -1) { 
+        scenario1Species.splice(scenario1Species.indexOf(id), 1);
+      }
     }
 
     function EquationHighlighter() {
@@ -274,13 +307,17 @@
     function incNumSpecies() {
       numSpecies++;
     }
+    function getScenario1Species() {
+      return scenario1Species;
+    }
     
     addLoadEvent(initSpeciesCloner);
-    addLoadEvent(setDefaults);
+    addLoadEvent(initSpecies);
     global.addSpecies = addSpecies;
     global.delSpecies = delSpecies;
     global.getNumSpecies = getNumSpecies;
     global.incNumSpecies = incNumSpecies;
+    global.getScenario1Species = getScenario1Species;
     global.EquationHighlighter = new EquationHighlighter();
     global.TemperatureSliders = new TemperatureSliders();
 

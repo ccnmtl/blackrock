@@ -10,7 +10,34 @@ def index(request, admin_msg=""):
                             context_instance=RequestContext(request, {'admin_messages':admin_msg}))
 
 def leaf(request):
-  return render_to_response('respiration/leaf.html')
+  # get passed-in defaults
+  print request.POST
+
+  basetemp = 0
+  try:
+    basetemp = request.POST['scenario1-base-temp']
+  except:
+    pass
+    
+  specieslist = []
+  try:
+    specieslist = request.POST['scenario1-species'].split(",")
+  except:
+    pass
+    
+  print specieslist
+    
+  myspecies = []
+  for s in specieslist:
+    if(s != ""):
+      species = {}
+      species['name'] = request.POST[s+'-name']
+      species['E0'] = request.POST[s+'-E0']
+      species['R0'] = request.POST[s+'-R0']
+      myspecies.append(species)
+
+  print "species count: %s" % len(myspecies)
+  return render_to_response('respiration/leaf.html', {'basetemp':basetemp, 'numspecies':len(myspecies), 'specieslist':myspecies})
 
 def forest(request):
   stations = Temperature.objects.values('station').order_by('station').distinct()
@@ -20,8 +47,35 @@ def forest(request):
   for station in station_names:
     years = [item.year for item in Temperature.objects.filter(station=station).dates('date','year')]
     year_options[station] = str(years).replace('[','(').replace(']',')')
-  return render_to_response('respiration/forest.html', {'stations':station_names,
-                                                        'years':year_options})
+
+  # get passed-in defaults
+  basetemp = 0
+  try:
+    basetemp = request.POST['base-temp']
+  except:
+    pass
+    
+  numspecies = 0
+  try:
+    numspecies = int(request.POST['numspecies'])
+  except:
+    pass
+    
+  specieslist = []
+  print request.POST
+  for i in range(1,numspecies+1):
+    try:
+      species = {}
+      species['name'] = request.POST['species'+str(i)+'-name']
+      species['E0'] = request.POST['species'+str(i)+'-E0']
+      species['R0'] = request.POST['species'+str(i)+'-R0']
+      print "name: %s" % species['name']
+      specieslist.append(species)
+    except:
+      pass
+      
+  return render_to_response('respiration/forest.html', {'stations':station_names, 'years':year_options,
+                                                        'numspecies':numspecies, 'basetemp':basetemp, 'specieslist':specieslist})
 
 def getsum(request):
   #if request.method != 'POST':

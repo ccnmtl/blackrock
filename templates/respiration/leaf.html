@@ -1,23 +1,25 @@
 {% extends "respiration/base_respiration.html" %} 
+{% load extras %}
 
 {% block tabname %}tab-leaf{% endblock %} 
 
 {% block js %} 
 {{ block.super }} 
 	<script type="text/javascript" src="/site_media/js/mochikit/MochiKit/DragAndDrop.js"></script> 
-	<script type="text/javascript" src="media/js/species.js"></script> 
 
-	<script type="text/javascript">
+   <script type="text/javascript">
 	    function calculateKelvin() {
-		 $('kelvin').innerHTML = parseFloat($('base-temp').value) + 273.15;
+	      $('kelvin').innerHTML = parseFloat($('base-temp').value) + 273.15;
 	    }
-	    
+
 	    function initNav() {
-	      connect("tab-forest", "onclick", function() {$("leaf-form").submit()});
+	      connect("tab-canopy", "onclick", function() {$("leaf-form").submit()});
 	    }
 	    addLoadEvent(initNav);
-	    
-  </script> 
+   </script>
+
+	<script type="text/javascript" src="media/js/species.js"></script> 
+
 {% endblock %} 
 
 {% block instructions %} 
@@ -32,6 +34,16 @@ Set Respiration Rate Variables
 {% endblock %} 
 
 {% block left %} 
+<!-- saved values passed back from canopy tab -->
+  <input type="hidden" name="leaf-base-temp" id="leaf-base-temp" class="leafdata" value="{{ basetemp }}" />
+  <input type="hidden" name="leaf-numspecies" id="leaf-numspecies" class="leafdata" value="{{ numspecies }}" />
+  {% for species in specieslist %}
+    <input type="hidden" name="leaf-species{{forloop.counter}}-name" id="leaf-species{{forloop.counter}}-name" value='{{species|hash:"name"}}' />
+    <input type="hidden" name="leaf-species{{forloop.counter}}-E0" id="leaf-species{{forloop.counter}}-E0" value='{{species|hash:"E0"}}' />
+    <input type="hidden" name="leaf-species{{forloop.counter}}-R0" id="leaf-species{{forloop.counter}}-R0" value='{{species|hash:"R0"}}' />
+  {% endfor %}
+
+
 <form id="leaf-form" name="leaf-form" action="forest" method="POST">
 	<div class="speciestemp">
 		<table>
@@ -124,6 +136,7 @@ Set Respiration Rate Variables
 			</div>
 		</div>
 	</div>
+	<input type="hidden" name="numspecies" id="numspecies" value="2" />
 </form>
 {% endblock %} 
 

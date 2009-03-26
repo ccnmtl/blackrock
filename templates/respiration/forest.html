@@ -1,20 +1,20 @@
 {% extends "respiration/base_respiration.html" %}
 {% load extras %}
 
-{% block tabname %}tab-forest{% endblock %}
+{% block tabname %}tab-canopy{% endblock %}
 
 {% block js %}
 {{ block.super }}
+	<script type="text/javascript" src="media/js/foresthelpers.js"></script> 
 	<script type="text/javascript" src="media/js/scenario.js"></script> 
 	<script type="text/javascript" src="media/js/species.js"></script> 
 	<script type="text/javascript" src="media/js/forestgraph.js"></script> 
-	<script type="text/javascript" src="media/js/foresthelpers.js"></script> 
 	
 	<script type="text/javascript">
        {% for station in stations %}
          addYears("{{station}}", new Array{{years|hash:station}});
        {% endfor %}
-      </script>
+   </script>
 
 {% endblock %}
 
@@ -31,18 +31,30 @@ Set Scenario Variables
 {% block left %}
 <div id="error">Some errors occurred while graphing.  You might want to double-check the boxes highlighted in red.</div>
 
-<form id="leaf-form" name="leaf-form" action="forest" method="POST">
-	<div id="forestgraph">
-		<input type="button" value="Graph &gt;&gt;" onclick="javascript:forestGraph();" />
-	</div>
-	<div id="scenariocontainer">
-		<div id="scenarioheader">
-			<span class="button addbutton" onClick="addScenario();">
-				+ Add Scenario 
-			</span>
-			Scenario List 
-		</div>
-		<div id="scenariobox">
+<form id="leaf-form" name="leaf-form" action="leaf" method="POST">
+  <input type="hidden" name="leaf-base-temp" id="leaf-base-temp" class="leafdata" value="{{ basetemp }}" />
+  <input type="hidden" name="leaf-numspecies" id="leaf-numspecies" class="leafdata" value="{{ numspecies }}" />
+  {% for species in specieslist %}
+    <input type="hidden" name="leaf-species{{forloop.counter}}-name" id="leaf-species{{forloop.counter}}-name" value='{{species|hash:"name"}}' />
+    <input type="hidden" name="leaf-species{{forloop.counter}}-E0" id="leaf-species{{forloop.counter}}-E0" value='{{species|hash:"E0"}}' />
+    <input type="hidden" name="leaf-species{{forloop.counter}}-R0" id="leaf-species{{forloop.counter}}-R0" value='{{species|hash:"R0"}}' />
+  {% endfor %}
+</form>
+
+<div id="forestgraph">
+  <input type="button" value="Graph &gt;&gt;" onclick="javascript:forestGraph();" />
+</div>
+
+<div id="scenariocontainer">
+  <div id="scenarioheader">
+    <span class="button addbutton" onClick="addScenario();">
+	   + Add Scenario 
+	 </span>
+    Scenario List 
+  </div>
+  <div id="scenariobox">
+    <form id="scenario1-form" name="scenario1-form" action="leaf" method="POST">
+      <input type="hidden" name="scenario1-species" id="scenario1-species" value="" />
 			<div class="scenario" id="scenario1">
 				<div class="scenariotitle">
 					<span class="button deletebutton" onClick="delScenario('scenario1');">
@@ -72,7 +84,7 @@ Set Scenario Variables
 							</td>
 						</tr>
 					</table>
-				</div>
+				</div><!-- end div scenariotemp -->
 				<div class="speciesbox togglecontainer">
 					<div class="speciesheader">
 						<span class="button addbutton" onClick="addSpecies(this);">
@@ -183,11 +195,11 @@ Set Scenario Variables
 				</div>
 			</div>
 <!-- end class "scenario" -->
+</form>
 		</div>
 <!-- end div "scenariobox" -->
 	</div>
 <!-- end div "scenariocontainer" -->
-</form>
 
 {% endblock %}
 
