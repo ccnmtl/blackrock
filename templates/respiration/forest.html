@@ -32,7 +32,7 @@ Set Scenario Variables
 <div id="error">Some errors occurred while graphing.  You might want to double-check the boxes highlighted in red.</div>
 
 <form id="leaf-form" name="leaf-form" action="leaf" method="POST">
-  <input type="hidden" name="leaf-base-temp" id="leaf-base-temp" class="leafdata" value="{{ basetemp }}" />
+  <input type="hidden" name="leaf-base-temp" id="leaf-base-temp" class="leafdata" value='{{ scenario_options|hash:"basetemp" }}' />
   <input type="hidden" name="leaf-numspecies" id="leaf-numspecies" class="leafdata" value="{{ numspecies }}" />
   {% for species in specieslist %}
     <input type="hidden" name="leaf-species{{forloop.counter}}-name" id="leaf-species{{forloop.counter}}-name" value='{{species|hash:"name"}}' />
@@ -63,7 +63,7 @@ Set Scenario Variables
 					<div class="colorswatch" id="scenario1-swatch">
 						&nbsp;&nbsp;&nbsp;&nbsp;
 					</div>
-					<input type="text" class="scenario-name" id="scenario1-name" name="scenario1-name" value="Scenario 1" />
+					<input type="text" class="scenario-name" id="scenario1-name" name="scenario1-name" value='{{ scenario_options|hash:"name"}} ' />
 				</div>
 				<div class="scenariotemp">
 					<table>
@@ -146,18 +146,23 @@ Set Scenario Variables
 									Forest Leaf Area Index = 
 								</td>
 								<td>
-									<input type="text" id="scenario1-leafarea" name="scenario1-leafarea" size="5" value="1"/>
+									<input type="text" id="scenario1-leafarea" name="scenario1-leafarea" size="5" value='{{ scenario_options|hash:"leafarea"}}'/>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									Field Station: 
+										  {% with scenario_options|hash:"fieldstation" as selectedstation %}
 									<select id="scenario1-fieldstation" name="scenario1-fieldstation" class="fieldstation-select">
-										{% for station in stations %} 
-										<option value="{{ station }}">
-											{{station}} 
+										{% for station in stations %}
+  										  <option value="{{ station }}"
+										  {% ifequal station selectedstation %}
+										    selected
+										  {% endifequal %} 
+										  >{{station}} 
 										</option>
 										{% endfor %} 
+										{% endwith %}
 									</select>
 								</td>
 								<td>
@@ -171,7 +176,7 @@ Set Scenario Variables
 									Season Start (mm/dd): 
 								</td>
 								<td>
-									<input type="text" id="scenario1-startdate" name="scenario1-startdate" size="5" value="01/01" />
+									<input type="text" id="scenario1-startdate" name="scenario1-startdate" size="5" value='{{ scenario_options|hash:"startdate"}}' />
 								</td>
 							</tr>
 							<tr>
@@ -179,7 +184,7 @@ Set Scenario Variables
 									Season End (mm/dd): 
 								</td>
 								<td>
-									<input type="text" id="scenario1-enddate" name="scenario1-enddate" size="5" value="12/31" />
+									<input type="text" id="scenario1-enddate" name="scenario1-enddate" size="5" value='{{ scenario_options|hash:"enddate"}}' />
 								</td>
 							</tr>
 							<tr>
@@ -187,7 +192,7 @@ Set Scenario Variables
 									<a href="#" class="tooltip">&Delta;T<sub>a</sub>=<span>Increase or decrease temperature data points by this amount.</span></a>
 								</td>
 								<td>
-									<input type="text" id="scenario1-delta-t" name="scenario1-delta-t" size='5' />&deg;C
+									<input type="text" id="scenario1-delta-t" name="scenario1-delta-t" size='5' value='{{ scenario_options|hash:"deltat"}}' />&deg;C
 								</td>
 							</tr>
 						</table>

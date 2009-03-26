@@ -17,6 +17,18 @@ def leaf(request):
   except:
     pass
     
+  scenario_options = {}
+  try:
+    scenario_options['name'] = request.POST['scenario1-name']
+    scenario_options['year'] = request.POST['scenario1-year']
+    scenario_options['fieldstation'] = request.POST['scenario1-fieldstation']
+    scenario_options['leafarea'] = request.POST['scenario1-leafarea']
+    scenario_options['startdate'] = request.POST['scenario1-startdate']
+    scenario_options['enddate'] = request.POST['scenario1-enddate']
+    scenario_options['deltat'] = request.POST['scenario1-delta-t']
+  except:
+    pass
+    
   specieslist = []
   try:
     specieslist = request.POST['scenario1-species'].split(",")
@@ -30,9 +42,11 @@ def leaf(request):
       species['name'] = request.POST[s+'-name']
       species['E0'] = request.POST[s+'-E0']
       species['R0'] = request.POST[s+'-R0']
+      species['percent'] = request.POST[s+'-percent']
       myspecies.append(species)
 
-  return render_to_response('respiration/leaf.html', {'basetemp':basetemp, 'numspecies':len(myspecies), 'specieslist':myspecies})
+  return render_to_response('respiration/leaf.html', {'basetemp':basetemp, 'numspecies':len(myspecies), 'specieslist':myspecies,
+                                                      'scenario_options':scenario_options})
 
 def forest(request):
   stations = Temperature.objects.values('station').order_by('station').distinct()
@@ -44,9 +58,17 @@ def forest(request):
     year_options[station] = str(years).replace('[','(').replace(']',')')
 
   # get passed-in defaults
-  basetemp = 0
+  scenario_options = {'basetemp':0, 'name':'Scenario 1', 'leafarea':1, 'startdate':'1/1', 'enddate':'12/31', 'deltat':'',
+                      'fieldstation':'moocow', 'year':''}
   try:
-    basetemp = request.POST['base-temp']
+    scenario_options['basetemp'] = request.POST['base-temp']
+    scenario_options['name'] = request.POST['scenario1-name']
+    scenario_options['year'] = request.POST['scenario1-year']
+    scenario_options['fieldstation'] = request.POST['scenario1-fieldstation']
+    scenario_options['leafarea'] = request.POST['scenario1-leafarea']
+    scenario_options['startdate'] = request.POST['scenario1-startdate']
+    scenario_options['enddate'] = request.POST['scenario1-enddate']
+    scenario_options['deltat'] = request.POST['scenario1-delta-t']
   except:
     pass
     
@@ -66,7 +88,8 @@ def forest(request):
       myspecies.append(species)
       
   return render_to_response('respiration/forest.html', {'stations':station_names, 'years':year_options,
-                                                        'numspecies':len(myspecies), 'basetemp':basetemp, 'specieslist':myspecies})
+                                                        'numspecies':len(myspecies), 'specieslist':myspecies,
+                                                        'scenario_options':scenario_options})
 
 def getsum(request):
   #if request.method != 'POST':
