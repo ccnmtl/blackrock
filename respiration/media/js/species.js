@@ -3,7 +3,7 @@
     var global = this;
     
     var numSpecies = 1;
-    var scenario1Species = ["species1"];
+    var speciesList = [];
     var html = "";
     function initSpeciesCloner() {
     	html = $('species1').innerHTML;
@@ -11,21 +11,19 @@
     
     function addSpecies(elem) {
       numSpecies++;
-      if($("numspecies")) {
-        $("numspecies").value = numSpecies;
-      }
-      //$("numspecies").value = numSpecies;
       if(! elem) {
         var scenario = document;
+        speciesList.push("species" + numSpecies);
       }
       else {
         // get scenario, if there is one
         var scenario = getFirstParentByTagAndClassName(elem, "div", "scenario");
         if(! scenario) {
           scenario = document;
+          speciesList.push("species" + numSpecies);
         }
         else if(scenario.id == "scenario1") {
-          scenario1Species.push("species" + numSpecies);
+          speciesList.push("species" + numSpecies);
         }
       }
       var parent = getFirstElementByTagAndClassName("div", "speciescontainer", scenario);
@@ -44,16 +42,20 @@
     function initSpecies() {
       if($("scenario1-base-temp")) {
         $("scenario1-base-temp").value = $("leaf-base-temp").value;
+        calculateKelvin($("scenario1-base-temp"));
       }
       else {
         $("base-temp").value = $("leaf-base-temp").value;
+        calculateKelvin($("base-temp"));
       }
       var leafSpecies = $("leaf-numspecies").value;
-      scenario1Species = ["species1"];
+      speciesList = [];
       for(var i=1; i<=leafSpecies; i++) {
         if(i > 1) {
           addSpecies();
-          scenario1Species.push("species"+i);
+        }
+        else {
+          speciesList.push("species"+i);
         }
         $('species'+i+'-name').value = $('leaf-species'+i+'-name').value;
         $('species'+i+'-R0').value = $('leaf-species'+i+'-R0').value;
@@ -71,6 +73,8 @@
       $('species2-name').value = "Your Tree #2";
       $('species2-R0').value = 0;/*0.86*/
       $('species2-E0').value = 0;/*40073*/
+      
+      speciesList = ["species1", "species2"];
 
       if($('species1-percent')) {
         $('species1-percent').value = 0;/*50*/
@@ -84,8 +88,8 @@
       //numSpecies--;  // do not reuse species IDs
       removeElement(id);
       // remove from scenario1 array if it exists
-      if(scenario1Species.indexOf(id) != -1) { 
-        scenario1Species.splice(scenario1Species.indexOf(id), 1);
+      if(speciesList.indexOf(id) != -1) { 
+        speciesList.splice(speciesList.indexOf(id), 1);
       }
     }
 
@@ -268,7 +272,6 @@
 	var coords = getElementPosition(this.canvas);
 	var pos_x = mouse.page.x - coords.x;
 	this.temp = pos_x - this.graph_left_margin;
-	//log(this.temp);
 	if (this.temp < 0) { this.temp = 0; }
 	if (this.temp > this.canvas_length - this.graph_right_margin) { this.temp = this.canvas_length - this.graph_right_margin; }
 	if (this.temp > 0) {
@@ -307,8 +310,8 @@
     function incNumSpecies() {
       numSpecies++;
     }
-    function getScenario1Species() {
-      return scenario1Species;
+    function getSpeciesList() {
+      return speciesList;
     }
     
     addLoadEvent(initSpeciesCloner);
@@ -317,7 +320,7 @@
     global.delSpecies = delSpecies;
     global.getNumSpecies = getNumSpecies;
     global.incNumSpecies = incNumSpecies;
-    global.getScenario1Species = getScenario1Species;
+    global.getSpeciesList = getSpeciesList;
     global.EquationHighlighter = new EquationHighlighter();
     global.TemperatureSliders = new TemperatureSliders();
 

@@ -58,7 +58,7 @@ function toggle(e) {
 }
 
 function submitForm() {
-  $('scenario1-species').value = getScenario1Species().join();
+  $('scenario1-species').value = getSpeciesList().join();
   $('scenario1-form').submit();
 }
 

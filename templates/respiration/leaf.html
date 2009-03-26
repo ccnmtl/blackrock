@@ -12,8 +12,13 @@
 	      $('kelvin').innerHTML = parseFloat($('base-temp').value) + 273.15;
 	    }
 
+       function formSubmit() {
+         $("specieslist").value = getSpeciesList().join();
+         $("leaf-form").submit();
+       }
+
 	    function initNav() {
-	      connect("tab-canopy", "onclick", function() {$("leaf-form").submit()});
+	      connect("tab-canopy", "onclick", formSubmit);
 	    }
 	    addLoadEvent(initNav);
    </script>
@@ -45,6 +50,7 @@ Set Respiration Rate Variables
 
 
 <form id="leaf-form" name="leaf-form" action="forest" method="POST">
+   <input type="hidden" id="specieslist" name="specieslist" value="" />
 	<div class="speciestemp">
 		<table>
 			<tr>
@@ -61,7 +67,7 @@ Set Respiration Rate Variables
 								</sub>
 								= 
 								<!--good default is 15 -->
-								<input type="text" size="5" id="base-temp" name="base-temp" value="0" onchange="javascript:calculateKelvin();" class="t-zero arr-field" />
+								<input type="text" size="5" id="base-temp" name="base-temp" value="0" onchange="javascript:calculateKelvin();" onkeyup="javascript:calculateKelvin();" class="t-zero arr-field" />
 								&deg;C = 
 								<span id="kelvin">
 
@@ -136,7 +142,6 @@ Set Respiration Rate Variables
 			</div>
 		</div>
 	</div>
-	<input type="hidden" name="numspecies" id="numspecies" value="2" />
 </form>
 {% endblock %} 
 

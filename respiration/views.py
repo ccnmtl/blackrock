@@ -11,8 +11,6 @@ def index(request, admin_msg=""):
 
 def leaf(request):
   # get passed-in defaults
-  print request.POST
-
   basetemp = 0
   try:
     basetemp = request.POST['scenario1-base-temp']
@@ -25,8 +23,6 @@ def leaf(request):
   except:
     pass
     
-  print specieslist
-    
   myspecies = []
   for s in specieslist:
     if(s != ""):
@@ -36,7 +32,6 @@ def leaf(request):
       species['R0'] = request.POST[s+'-R0']
       myspecies.append(species)
 
-  print "species count: %s" % len(myspecies)
   return render_to_response('respiration/leaf.html', {'basetemp':basetemp, 'numspecies':len(myspecies), 'specieslist':myspecies})
 
 def forest(request):
@@ -55,27 +50,23 @@ def forest(request):
   except:
     pass
     
-  numspecies = 0
+  specieslist = []
   try:
-    numspecies = int(request.POST['numspecies'])
+    specieslist = request.POST['specieslist'].split(",")
   except:
     pass
-    
-  specieslist = []
-  print request.POST
-  for i in range(1,numspecies+1):
-    try:
+
+  myspecies = []
+  for s in specieslist:
+    if(s != ""):
       species = {}
-      species['name'] = request.POST['species'+str(i)+'-name']
-      species['E0'] = request.POST['species'+str(i)+'-E0']
-      species['R0'] = request.POST['species'+str(i)+'-R0']
-      print "name: %s" % species['name']
-      specieslist.append(species)
-    except:
-      pass
+      species['name'] = request.POST[s+'-name']
+      species['E0'] = request.POST[s+'-E0']
+      species['R0'] = request.POST[s+'-R0']
+      myspecies.append(species)
       
   return render_to_response('respiration/forest.html', {'stations':station_names, 'years':year_options,
-                                                        'numspecies':numspecies, 'basetemp':basetemp, 'specieslist':specieslist})
+                                                        'numspecies':len(myspecies), 'basetemp':basetemp, 'specieslist':myspecies})
 
 def getsum(request):
   #if request.method != 'POST':
