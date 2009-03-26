@@ -17,7 +17,8 @@ def leaf(request):
   except:
     pass
     
-  scenario_options = {}
+  scenario_options = {'basetemp':0, 'name':'Scenario 1', 'leafarea':1, 'startdate':'1/1', 'enddate':'12/31', 'deltat':'',
+                      'fieldstation':'', 'year':''}
   try:
     scenario_options['name'] = request.POST['scenario1-name']
     scenario_options['year'] = request.POST['scenario1-year']
@@ -59,7 +60,7 @@ def forest(request):
 
   # get passed-in defaults
   scenario_options = {'basetemp':0, 'name':'Scenario 1', 'leafarea':1, 'startdate':'1/1', 'enddate':'12/31', 'deltat':'',
-                      'fieldstation':'moocow', 'year':''}
+                      'fieldstation':'', 'year':''}
   try:
     scenario_options['basetemp'] = request.POST['base-temp']
     scenario_options['name'] = request.POST['scenario1-name']
