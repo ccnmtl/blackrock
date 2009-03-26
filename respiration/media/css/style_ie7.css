@@ -8,7 +8,7 @@ div#left
 	padding-right: 570px;
 }
 
-#y-grid-leaf
+#y-grid-leaf, #y-grid-canopy
 {
 	left: 5px;
 }

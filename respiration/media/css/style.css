@@ -136,14 +136,23 @@ canvas
 
 .bluff-wrapper { margin-left: 40px; }
 
-#y-grid-leaf
+#y-grid-leaf, #y-grid-canopy
 {
-	background-image: url(../images/ygridleaf.gif);
 	width: 29px;
 	height: 192px;
 	position: absolute;
 	left: 20px;
 	top: 100px;
+}
+
+#y-grid-leaf
+{
+	background-image: url(../images/ygridleaf.gif);
+}
+
+#y-grid-canopy
+{
+	background-image: url(../images/ygridcanopy.gif);
 }
 
 form#leaf-form, form#leaf-form table { font-size: 11px; }
