@@ -8,8 +8,14 @@
 	<script type="text/javascript" src="/site_media/js/mochikit/MochiKit/DragAndDrop.js"></script> 
 
    <script type="text/javascript">
-	    function calculateKelvin() {
-	      $('kelvin').innerHTML = parseFloat($('base-temp').value) + 273.15;
+  	    function calculateKelvin() {
+         var result = parseFloat($('base-temp').value) + 273.15;
+         if(isNaN(result)) {
+	        $('kelvin').innerHTML = "";
+	      }
+	      else {
+	        $('kelvin').innerHTML = result;
+	      } 
 	    }
 
        function formSubmit() {

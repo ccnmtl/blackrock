@@ -75,13 +75,14 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
     this.scenarios[scenario_id]['name'] = $(scenario_id + "-name").value;
     $(scenario_id + "-swatch").style.backgroundColor = this.scenarios[scenario_id]['color'];
     
-    var t0 = $(scenario_id + "-base-temp").value;
-    if(t0 == "" || isNaN(t0)) {
+    var t0 = parseFloat($(scenario_id + "-base-temp").value);
+    if(isNaN(t0)) {
       errorHighlight(scenario_id + "-base-temp");
       t0 = 0;
     }
 
-    this.scenarios[scenario_id].t0 = parseFloat($(scenario_id + "-base-temp").value) + 273.15;
+    // convert to Kelvin
+    this.scenarios[scenario_id].t0 = parseFloat(t0) + 273.15;
 
     var leafarea = $(scenario_id + "-leafarea").value;
     if(leafarea == "" || isNaN(leafarea)) {

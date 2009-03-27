@@ -45,7 +45,13 @@ function initYearHelper() {
 function calculateKelvin(elem) {
   var parent = getFirstParentByTagAndClassName(elem, "td", null);
   var kelvin = getFirstElementByTagAndClassName("span", "kelvin", parent);
-  kelvin.innerHTML = parseFloat(elem.value) + 273.15;
+  var result = parseFloat(elem.value) + 237.15;
+  if(isNaN(result)) {
+    kelvin.innerHTML = "";
+  }
+  else {
+    kelvin.innerHTML = result;
+  }
 }
 function toggle(e) {
   var elem = e.src();
