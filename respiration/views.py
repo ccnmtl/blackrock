@@ -80,7 +80,6 @@ def forest(request):
     pass
 
   myspecies = []
-  print request.POST
   for s in specieslist:
     if(s != ""):
       species = {}
