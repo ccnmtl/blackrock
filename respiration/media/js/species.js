@@ -60,6 +60,10 @@
         $('species'+i+'-name').value = $('leaf-species'+i+'-name').value;
         $('species'+i+'-R0').value = $('leaf-species'+i+'-R0').value;
         $('species'+i+'-E0').value = $('leaf-species'+i+'-E0').value;
+        if($('species'+i+'-percent')) {
+          log("running");
+          $('species'+i+'-percent').value = $('leaf-species'+i+'-percent').value;
+        }
       }
       if(leafSpecies == 0) {setDefaults(); }
     }

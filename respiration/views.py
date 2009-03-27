@@ -80,12 +80,17 @@ def forest(request):
     pass
 
   myspecies = []
+  print request.POST
   for s in specieslist:
     if(s != ""):
       species = {}
       species['name'] = request.POST[s+'-name']
       species['E0'] = request.POST[s+'-E0']
       species['R0'] = request.POST[s+'-R0']
+      try:
+        species['percent'] = request.POST[s+'-percent']
+      except:
+        species['percent'] = ''
       myspecies.append(species)
       
   return render_to_response('respiration/forest.html', {'stations':station_names, 'years':year_options,

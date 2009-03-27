@@ -11,12 +11,17 @@ function updateYears(e) {
   var sel = $(baseID + "-year");
   var stationName = e.src().value;
 
+  var selectedYear = sel.value;
   replaceChildNodes(sel, null);
   var yrs = years[stations.indexOf(stationName)];
   for(var i=0; i<yrs.length; i++) {
   //forEach (year in years[stations.indexOf(stationName)]) {
     var year = yrs[i];
-    appendChildNodes(sel, OPTION({'value':year}, year));
+    var options = {'value':year};
+    if(year == selectedYear) {
+      options['selected'] = '';
+    }
+    appendChildNodes(sel, OPTION(options, year));
   }
 }
 
@@ -24,10 +29,15 @@ function initYearHelper() {
   forEach(getElementsByTagAndClassName("select", "fieldstation-select"), function(elem) {
     connect(elem, "onchange", updateYears);
     var scid = elem.id.split('-')[0];
-    $(scid+"-year").innerHTML = "";
+    var selectedYear = $(scid+"-year").value;
+    replaceChildNodes(scid+"-year", null);
     for(var i=0; i<years[0].length; i++) {
       var year = years[0][i];
-      appendChildNodes(scid + "-year", OPTION({'value':year}, year));
+      var options = {'value':year};
+      if(year == selectedYear) {
+        options['selected'] = '';
+      }
+      appendChildNodes(scid + "-year", OPTION(options, year));
     }
   });
 }

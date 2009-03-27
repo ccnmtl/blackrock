@@ -38,6 +38,7 @@ Set Scenario Variables
     <input type="hidden" name="leaf-species{{forloop.counter}}-name" id="leaf-species{{forloop.counter}}-name" value='{{species|hash:"name"}}' />
     <input type="hidden" name="leaf-species{{forloop.counter}}-E0" id="leaf-species{{forloop.counter}}-E0" value='{{species|hash:"E0"}}' />
     <input type="hidden" name="leaf-species{{forloop.counter}}-R0" id="leaf-species{{forloop.counter}}-R0" value='{{species|hash:"R0"}}' />
+    <input type="hidden" name="leaf-species{{forloop.counter}}-percent" id="leaf-species{{forloop.counter}}-percent" value='{{species|hash:"percent"}}' />
   {% endfor %}
 </form>
 
@@ -168,6 +169,7 @@ Set Scenario Variables
 								<td>
    								 Year:
 									 <select id="scenario1-year" name="scenario1-year">
+									   <option value='{{ scenario_options|hash:"year"}}' selected />
 									 </select>
 								</td>
 							</tr>
