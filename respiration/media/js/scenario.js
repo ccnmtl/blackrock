@@ -35,6 +35,9 @@
    
    function delScenario(id) {
 	   removeElement(id);
+	   if(id == "scenario1") {
+	     setSpeciesList([]);
+	   }
    }
    
    function loadSpeciesData() {

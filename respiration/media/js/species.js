@@ -314,6 +314,10 @@
       return speciesList;
     }
     
+    function setSpeciesList(list) {
+      speciesList = list;
+    }
+    
     addLoadEvent(initSpeciesCloner);
     addLoadEvent(initSpecies);
     global.addSpecies = addSpecies;
@@ -321,6 +325,7 @@
     global.getNumSpecies = getNumSpecies;
     global.incNumSpecies = incNumSpecies;
     global.getSpeciesList = getSpeciesList;
+    global.setSpeciesList = setSpeciesList;
     global.EquationHighlighter = new EquationHighlighter();
     global.TemperatureSliders = new TemperatureSliders();
 
