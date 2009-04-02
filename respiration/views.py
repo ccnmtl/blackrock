@@ -222,16 +222,16 @@ def loadcsv(request):
          while(dt > next_expected_timestamp and dt.year == next_expected_timestamp.year):
            (t, created) = Temperature.objects.get_or_create(station=station, date=next_expected_timestamp)
            if created:
-             print "input data: %s %s %s" % (year, julian_days, hour)
-             julian_day = (dt - datetime.datetime(year=int(year), month=1, day=1)).days
-             print "missing data for %s: expected %s but got %s" % (station, next_expected_timestamp, dt)
-             print "(julian day %s) " % julian_day
-             print "missing data: no data for %s" % next_expected_timestamp
+             #print "input data: %s %s %s" % (year, julian_days, hour)
+             #julian_day = (dt - datetime.datetime(year=int(year), month=1, day=1)).days
+             #print "missing data for %s: expected %s but got %s" % (station, next_expected_timestamp, dt)
+             #print "(julian day %s) " % julian_day
+             #print "missing data: no data for %s" % next_expected_timestamp
              if last_valid_temp is not None:
-               print "using last known value of %s" % last_valid_temp
+               #print "using last known value of %s" % last_valid_temp
                t.reading = float(last_valid_temp)
              else:
-               print "using current value of %s" % temp
+               #print "using current value of %s" % temp
                t.reading = float(temp)
              t.save()
              next_expected_timestamp = next_expected_timestamp + datetime.timedelta(hours=1)
@@ -243,7 +243,7 @@ def loadcsv(request):
          #last_timestamp_of_year = datetime.datetime(year=int(year)+1, day=1, month=1, hour=0) - datetime.timedelta(hours=1)
          #print last_timestamp_of_year
          if dt == datetime.datetime(year=int(year), month=12, day=31, hour=23):  # 12/31 11pm (last timestamp of the year)
-           print "last timestamp of year; no expected next value"
+           #print "last timestamp of year; no expected next value"
            next_expected_timestamp = None
          last_valid_temp = temp
          t.save()
