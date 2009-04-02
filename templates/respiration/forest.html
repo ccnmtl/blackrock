@@ -12,7 +12,7 @@
 	
 	<script type="text/javascript">
        {% for station in stations %}
-         addYears("{{station}}", new Array{{years|hash:station}});
+         addYears("{{station}}", {{years|hash:station}});
        {% endfor %}
    </script>
 

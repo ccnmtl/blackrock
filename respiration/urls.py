@@ -9,5 +9,6 @@ urlpatterns = patterns('',
         (r'^forest$', 'blackrock.respiration.views.forest'),
         (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': media_root}),
         (r'^loadcsv$', 'blackrock.respiration.views.loadcsv'),
+        (r'^getcsv$', 'blackrock.respiration.views.getcsv'),
         (r'^getsum$', 'blackrock.respiration.views.getsum'),
 )
