@@ -240,7 +240,8 @@ function forestGraph() {
 	           //log(data[scenario_num-1],answer.total);
                  if(species_count == 0) {  // got all species totals for this scenario
 	             data[scenario_num-1] = data[scenario_num-1] * leafarea;
-	             var label = ForestData.scenarios[scid].name + " (" + data[scenario_num-1] + ")";
+	             var calculated_value = Math.round(data[scenario_num-1] * 100) / 100;
+	             var label = ForestData.scenarios[scid].name + " (" + calculated_value  + ")";
 	             g.data(label, data[scenario_num-1], ForestData.scenarios[scid]['color'] );
 	             scenario_count--;
 	             //log(scenario_count);
@@ -252,17 +253,10 @@ function forestGraph() {
 	           }
 	         }
 	         http_request.addCallback(partial(my_callback,scenario_count,scid,percent)); 
-
-	         //total += species_total * (percent/100.0);
 	       }
 	     });
-	     //data.push(total);
-
-	     //g.data(ForestData.scenarios[scid].name, data, ForestData.scenarios[scid]['color'] );
 	   }
     });
-    //g.minimum_value = 0;
-    //g.draw();
 }
 
 // overrides function in graph.js
