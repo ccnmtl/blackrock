@@ -29,16 +29,7 @@ function initYearHelper() {
   forEach(getElementsByTagAndClassName("select", "fieldstation-select"), function(elem) {
     connect(elem, "onchange", updateYears);
     var scid = elem.id.split('-')[0];
-    var selectedYear = $(scid+"-year").value;
-    replaceChildNodes(scid+"-year", null);
-    for(var i=0; i<years[0].length; i++) {
-      var year = years[0][i];
-      var options = {'value':year};
-      if(year == selectedYear) {
-        options['selected'] = '';
-      }
-      appendChildNodes(scid + "-year", OPTION(options, year));
-    }
+    signal(elem, 'onchange', {'source':elem, 'type':'change'});
   });
 }
 
