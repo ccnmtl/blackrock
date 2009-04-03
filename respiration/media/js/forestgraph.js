@@ -72,7 +72,7 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
 	this.scenarios[scenario_id]['color'] = ForestData.colors.shift();
     }
 
-    this.scenarios[scenario_id]['name'] = $(scenario_id + "-name").value;
+    this.scenarios[scenario_id]['name'] = $(scenario_id + "-name").value.replace(/^\s*|\s*$/,"");  // strip whitespace
     $(scenario_id + "-swatch").style.backgroundColor = this.scenarios[scenario_id]['color'];
     
     var t0 = parseFloat($(scenario_id + "-base-temp").value);
@@ -240,7 +240,8 @@ function forestGraph() {
 	           //log(data[scenario_num-1],answer.total);
                  if(species_count == 0) {  // got all species totals for this scenario
 	             data[scenario_num-1] = data[scenario_num-1] * leafarea;
-	             g.data(ForestData.scenarios[scid].name, data[scenario_num-1], ForestData.scenarios[scid]['color'] );
+	             var label = ForestData.scenarios[scid].name + " (" + data[scenario_num-1] + ")";
+	             g.data(label, data[scenario_num-1], ForestData.scenarios[scid]['color'] );
 	             scenario_count--;
 	             //log(scenario_count);
                  
