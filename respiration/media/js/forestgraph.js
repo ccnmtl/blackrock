@@ -199,10 +199,11 @@ function forestGraph() {
     //removeElementClass('plotGraph','needsupdate');
     g = initGraph();
     var scenario_count = 0;
+    var data = [];
+    var scids = [];
 
     forEach(getElementsByTagAndClassName('div', 'scenario'),
        function(scenario) {
-         var data = [];
 	   var scid = scenario.id;
 	   ForestData.updateScenario(scid);
 	   
@@ -239,14 +240,19 @@ function forestGraph() {
 	           species_count--;
 	           //log(data[scenario_num-1],answer.total);
                  if(species_count == 0) {  // got all species totals for this scenario
-	             data[scenario_num-1] = data[scenario_num-1] * leafarea;
-	             var calculated_value = Math.round(data[scenario_num-1] * 100) / 100;
-	             var label = ForestData.scenarios[scid].name + " (" + calculated_value  + ")";
-	             g.data(label, data[scenario_num-1], ForestData.scenarios[scid]['color'] );
+	                 data[scenario_num-1] = data[scenario_num-1] * leafarea;
+	                 var calculated_value = Math.round(data[scenario_num-1] * 100) / 100;
+	                 data[scenario_num-1] = calculated_value;
+	                 scids[scenario_num-1] = scid;
 	             scenario_count--;
 	             //log(scenario_count);
                  
 	             if(scenario_count == 0) {   // that's all, folks
+	               for(var i=0; i<data.length; i++) {
+	                 var label = ForestData.scenarios[scids[i]].name + " (" + data[i]  + ")";
+	                 g.data(label, data[i], ForestData.scenarios[scids[i]]['color'] );
+	               }
+	                   //addMouseover(g);
 	                   g.minimum_value = 0;
 	                   g.draw();
 	             }
@@ -258,6 +264,25 @@ function forestGraph() {
 	   }
     });
 }
+
+//function addMouseover(graph) {
+//    var spacing_factor = (graph._column_count<3) ? 0.3: 0.9;
+//    if (graph.spacing_factor) {
+//      var spacing_factor = graph.spacing_factor;
+//    }
+
+//    var graph_width = $('graph').width;
+//    var bar_width = graph_width / (graph._column_count * graph._data.length);
+//    var padding = (bar_width * (1 - spacing_factor)) / 2;
+    
+//    log(padding);
+    
+//    connect("graph", "onmouseover", function(e) {
+//      var x = e.mouse().page.x;
+//      var realX = x - getElementPosition("graph").x;
+//      log(realX);
+//    });
+//}
 
 // overrides function in graph.js
 LeafGraphData.prototype.updateFields = function() {
