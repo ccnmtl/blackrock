@@ -525,6 +525,6 @@ div#error
 		position: absolute;
 		left: 0px;
 		top: 0px;
-		margin-top: -250px;
+		margin-top: 0px;
 	}
 }
