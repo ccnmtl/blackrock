@@ -502,7 +502,11 @@ div#error
 	#equation { display: none; }
 	#tab-bar { display: none; }
 	#forestgraph { display: none; }
-	.speciescontainer,#scenariobox { max-height: 100%; }
+	.speciescontainer,#scenariobox {
+	  max-height: 100%;
+	  overflow:visible;
+	}
+	.scenario { padding-bottom: 50px; }
 	#scenarioheader { display: none; }
 	
 	.scenariotitle
