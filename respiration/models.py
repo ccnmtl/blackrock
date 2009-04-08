@@ -32,7 +32,6 @@ class Temperature(models.Model):
      use_python=True on my system is mostly about 0.2 seconds
      use_python=False (in postgres) is about 0.01 seconds --BETTER!
     """
-    print "using deltat %s" % delta_t    
     
     x=time()
     if t0 == 0: #avoid division by zero
@@ -54,8 +53,6 @@ class Temperature(models.Model):
       date_field = self._meta.get_field('date').column
       precalc_field = self._meta.get_field('precalc').column
       reading_field = self._meta.get_field('reading').column
-      print start_date
-      print end_date
 
       cursor = connection.cursor()
       #might need to filter station here or something, too
@@ -71,11 +68,8 @@ class Temperature(models.Model):
                          station_field,
                          station, #beware SQL injection!!!
                          )
-      print sqlcmd
       cursor.execute(sqlcmd)
       summation = cursor.fetchone()[0] or 0.0
-      print summation
 
     final=summation*r0*3600.0
-    print final
     return (final,time()-x)
