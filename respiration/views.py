@@ -107,14 +107,13 @@ def getsum(request):
     deltaT = float(request.REQUEST['delta'])
   except:
     deltaT = 0.0;
-    
+
   start = request.REQUEST['start']
   startpieces = start.split('/')
   startfinal = datetime.datetime(int(startpieces[2]), int(startpieces[0]), int(startpieces[1]))
   end = request.REQUEST['end']
   endpieces = end.split('/')
-  # we add 1 day so we can do < enddate and include all values for the end date (start and end date are both inclusive)
-  endfinal = datetime.datetime(int(endpieces[2]), int(endpieces[0]), int(endpieces[1])) + datetime.timedelta(days=1)
+  endfinal = datetime.datetime(int(endpieces[2]), int(endpieces[0]), int(endpieces[1]))
 
   station = request.REQUEST['station']
   (total, time) = Temperature.arrhenius_sum(E0,R0,T0,deltaT,startfinal,endfinal,station)
@@ -136,13 +135,13 @@ def getcsv(request):
   # write data
   for t in Temperature.objects.order_by("station", "date"):
     julian_day = (t.date - datetime.datetime(year=t.date.year, month=1, day=1)).days + 1
-    hour = (t.date.hour + 1) * 100
+    hour = t.date.hour * 100
     year = t.date.year
-    #if(hour == 0):
-    #  hour = 2400
-    #  newdate = t.date - datetime.timedelta(days=1)
-    #  year = newdate.year
-    #  julian_day = (newdate - datetime.datetime(year=year, month=1, day=1)).days + 1
+    if(hour == 0):
+      hour = 2400
+      newdate = t.date - datetime.timedelta(days=1)
+      year = newdate.year
+      julian_day = (newdate - datetime.datetime(year=year, month=1, day=1)).days + 1
     row = [t.station, year, julian_day, hour, t.reading];
     writer.writerow(row)
   
@@ -203,10 +202,10 @@ def loadcsv(request):
        temp = row[temp_idx]
 
        # adjust hour from "military" to 0-23, and 2400 becomes 0 of the next day
-       normalized_hour = int(hour)/100 - 1
-       #if normalized_hour == 24:
-       #  normalized_hour = 0
-       # julian_days = int(julian_days) + 1
+       normalized_hour = int(hour)/100
+       if normalized_hour == 24:
+         normalized_hour = 0
+         julian_days = int(julian_days) + 1
 
        delta = datetime.timedelta(days=int(julian_days)-1)
        dt = datetime.datetime(year=int(year), month=1, day=1, hour=normalized_hour)
