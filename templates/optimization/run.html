@@ -1,0 +1,72 @@
+{% extends "optimization/base_optimization.html" %} 
+
+{% block tabname %}tab-leaf{% endblock %} 
+
+{% block js %}
+  {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <h3>Run Parameters</h3>
+  
+  <div class="inner">
+  <form>
+    <table>
+      <tr>
+        <td class='left'>
+          Number of Plots:
+        </td>
+        <td>
+          <select>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td class='left'>
+          Plot Shape:
+        </td>
+        <td>
+          <select>
+            <option>Circle</option>
+            <option>Square</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td class='left'>
+          Plot Diameter (m):
+        </td>
+        <td>
+          <select>
+            <option>20</option>
+            <option>40</option>
+            <option>60</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+    
+    <div class="right">
+      <p><span style="font-weight:bold;">NOTE:</span></p>
+      <p><span style="font-weight:bold;">Total grid size:</span><br />
+      4ha<sup>2</sup> (200m x 200m)</p>
+      <p><span style="font-weight:bold;">Time goal:</span> 1h</p>
+
+      <input type="reset" value="Reset" />      
+      <input type="submit" value="Calculate" />      
+    </div>
+    
+  </form>
+  </div> <!-- end div "inner" -->
+
+</div>
+
+
+{% endblock %}

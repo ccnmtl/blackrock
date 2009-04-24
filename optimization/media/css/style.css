@@ -1,0 +1,46 @@
+div.container {
+  width: 800px;
+  margin: 25px auto;
+  border: 1px black solid;
+  text-align: center;
+}
+
+div.inner {
+  position: relative;
+  padding-bottom: 15px;
+  min-height: 200px;
+}
+
+div.right {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: #DCD3C2;
+  width: 25%;
+  height: 100%;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.container h3 {
+  background-color: #A18F83;
+  border-bottom: 1px black solid;
+  padding: 5px 5px 5px 10px;
+  margin: 0;
+  text-align: left;
+}
+
+.container table {
+  padding: 25px;
+  font-weight: bold;
+}
+
+td.left {
+  text-align: right;
+  padding-right: 15px;
+}
+
+form {
+  padding: 0;
+  margin: 0;
+}
