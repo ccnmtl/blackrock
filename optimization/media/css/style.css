@@ -1,5 +1,5 @@
 div.container {
-  width: 800px;
+  width: 850px;
   margin: 25px auto;
   border: 1px black solid;
   text-align: center;
@@ -30,7 +30,7 @@ div.right {
   text-align: left;
 }
 
-.container table {
+#parameters table {
   padding: 25px;
   font-weight: bold;
 }
@@ -40,7 +40,57 @@ td.left {
   padding-right: 15px;
 }
 
+td.colored {
+  font-weight: bold;
+  text-align: center;
+  background-color: #DCD3C2;
+}
+
 form {
   padding: 0;
   margin: 0;
 }
+
+#results, #waitmessage {
+  display: none;
+}
+
+table.results-outer {
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+table.results-outer td {
+  padding: 0;
+}
+
+table.results-inner {
+  font-weight: normal;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+table.results-inner thead td {
+  font-weight: bold;
+  background-color: #000;
+  color: #fff;
+  border-right: 1px white solid;
+  padding: 0 5px 0 5px;
+  text-transform: uppercase;
+}
+
+.caps {
+  text-transform: uppercase;
+}
+
+table.results-inner thead td.last {
+  border-right: 1px black solid;
+}
+
+table.results-inner td {
+  border: 1px black solid;
+}
+
+
+/* styles for dropdown arrows */
+span.rightarrow { display: none; }

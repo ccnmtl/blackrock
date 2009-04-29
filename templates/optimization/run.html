@@ -4,14 +4,19 @@
 
 {% block js %}
   {{ block.super }}
+  
+  <script type="text/javascript" src="media/js/run.js"></script>
+  <script type="text/javascript" src="media/js/toggles.js"></script>
 {% endblock %}
 
 {% block content %}
 
-<div class="container">
-  <h3>Run Parameters</h3>
+<div class="container" id="parameters">
+  <h3><span class='downarrow'>&#x25BE;</span>
+      <span class='rightarrow'>&#x25B8</span>
+      Run Parameters</h3>
   
-  <div class="inner">
+  <div class="inner nest">
   <form>
     <table>
       <tr>
@@ -19,7 +24,7 @@
           Number of Plots:
         </td>
         <td>
-          <select>
+          <select id='numPlots'>
             <option>1</option>
             <option>2</option>
             <option>3</option>
@@ -33,7 +38,7 @@
           Plot Shape:
         </td>
         <td>
-          <select>
+          <select id='plotShape'>
             <option>Circle</option>
             <option>Square</option>
           </select>
@@ -44,7 +49,7 @@
           Plot Diameter (m):
         </td>
         <td>
-          <select>
+          <select id='plotDiameter'>
             <option>20</option>
             <option>40</option>
             <option>60</option>
@@ -60,12 +65,62 @@
       <p><span style="font-weight:bold;">Time goal:</span> 1h</p>
 
       <input type="reset" value="Reset" />      
-      <input type="submit" value="Calculate" />      
+      <input type="button" value="Calculate" id="calculate" />      
     </div>
     
   </form>
   </div> <!-- end div "inner" -->
 
+</div>
+
+<div class="container" id="waitmessage">
+  Calculating results, please wait...
+</div>
+
+<div class="container" id="results">
+  <h3><span class='downarrow'>&#x25BE;</span>
+      <span class='rightarrow'>&#x25B8</span>
+      Results Summary</h3>
+  <div class="nest">
+  <table class='results-outer'>
+    <tr>
+      <td>
+  <table class="results-inner">
+    <thead>
+      <tr>
+        <td>Species</td>
+        <td>Tree Count</td>
+        <td>Surviving</td>
+        <td>Dead</td>
+        <td>Mean DBH (cm)</td>
+        <td>Pop. Density N (ha<sup>2</sup>)</td>
+        <td class='last'>Basal Area (m<sup>2</sup>)</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td id='results-species'>10</td>
+        <td id='results-count'>321</td>
+        <td id='results-living'>124</td>
+        <td id='results-dead'>197</td>
+        <td id='results-dbh'>23.4</td>
+        <td id='results-density'>XXX</td>
+        <td id='results-basal'>XXX</td>
+      </tr>
+      <tr>
+        <td colspan='5' class='colored caps'>Actual Forest Data</td>
+        <td id='actual-density'>XXX</td>
+        <td id='actual-basal'>XXX</td>
+      </tr>
+    </tbody>
+  </table><!-- end inner table -->
+  </td>
+  <td class='colored'>
+    Time to Measure:<br />
+    <span id='results-time'>3h 36m</span>
+  </td>
+  </table><!-- end outer table -->
+  </div><!-- end div nest -->
 </div>
 
 

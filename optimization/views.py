@@ -13,3 +13,25 @@ def index(request, admin_msg=""):
                             
 def run(request):
   return render_to_response('optimization/run.html')
+  
+def calculate(request):
+  if request.method != 'POST':
+    return HttpResponseRedirect("/respiration/")
+
+  numPlots = float(request.REQUEST['numPlots'])
+  shape = request.REQUEST['shape']
+  diameter = float(request.REQUEST['diameter'])
+
+  results = {}  
+  results['results-time'] = "3h 36m"
+  results['results-species'] = 10
+  results['results-count'] = 321
+  results['results-living'] = 124
+  results['results-dead'] = 197
+  results['results-dbh'] = 23.4
+  results['results-density'] = "TBD"
+  results['results-basal'] = "TBD"
+  results['actual-density'] = "TBD"
+  results['actual-basal'] = "TBD"
+  
+  return HttpResponse(str(results), mimetype="application/javascript")

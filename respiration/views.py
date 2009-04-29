@@ -97,8 +97,8 @@ def forest(request):
                                                         'scenario_options':scenario_options})
 
 def getsum(request):
-  #if request.method != 'POST':
-  #  return HttpResponseRedirect("/respiration/")
+  if request.method != 'POST':
+    return HttpResponseRedirect("/respiration/")
   R0 = float(request.REQUEST['R0'])
   E0 = float(request.REQUEST['E0'])
   T0 = float(request.REQUEST['t0'])
