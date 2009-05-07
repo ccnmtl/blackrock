@@ -7,6 +7,8 @@ def index(request, admin_msg=""):
 
   t = Tree(id=1, species="wo", dbh="5.5", location='POINT(-74.025 41.39)')
   t.save()
+  t2 = Tree(id=2, species="rm", dbh="3.5", location='POINT(-75.025 41.39)')
+  t2.save()
 
   return render_to_response('optimization/index.html',
                             context_instance=RequestContext(request))

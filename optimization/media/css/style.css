@@ -8,7 +8,7 @@ div.container {
 div.inner {
   position: relative;
   padding-bottom: 15px;
-  min-height: 200px;
+  min-height: 250px;
 }
 
 div.right {
@@ -16,7 +16,7 @@ div.right {
   right: 0;
   top: 0;
   background-color: #DCD3C2;
-  width: 25%;
+  width: 250px;
   height: 100%;
   text-align: left;
   padding-left: 10px;
@@ -90,6 +90,7 @@ table.results-inner thead td.last {
 table.results-inner td {
   border: 1px black solid;
 }
+
 
 
 /* styles for dropdown arrows */
