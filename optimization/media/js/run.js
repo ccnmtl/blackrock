@@ -16,6 +16,10 @@ function showResults(http_request) {
   $('calculate').disabled = false; 
 }
 
+function reset() {
+  setStyle("results", {'display':'none'});
+}
+
 function calculate() {
   $('calculate').disabled = true;
   setStyle("waitmessage", {'display':'block'});
@@ -31,6 +35,7 @@ function calculate() {
 
 function initRun() {
   connect("calculate", "onclick", calculate);
+  connect("reset", "onclick", reset);
 }
 
 addLoadEvent(initRun);

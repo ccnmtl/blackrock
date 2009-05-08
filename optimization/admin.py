@@ -1,4 +1,5 @@
 from django.contrib.gis import admin
-from models import Tree
+from models import Tree, Plot
 
 admin.site.register(Tree, admin.GeoModelAdmin)
+admin.site.register(Plot, admin.GeoModelAdmin)

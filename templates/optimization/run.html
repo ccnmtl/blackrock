@@ -17,7 +17,7 @@
       Run Parameters</h3>
   
   <div class="inner nest">
-  <form>
+  <form id='runform'>
     <table>
       <tr>
         <td class='left'>
@@ -39,8 +39,8 @@
         </td>
         <td>
           <select id='plotShape'>
-            <option>Circle</option>
-            <option>Square</option>
+            <option value="circle">Circle</option>
+            <option value="square">Square</option>
           </select>
         </td>
       </tr>
@@ -68,7 +68,7 @@
       <p><span style="font-weight:bold;">Data Collection Year:</span><br />
       2009</p>
 
-      <input type="reset" value="Reset" />      
+      <input type="reset" value="Reset" id="reset" />      
       <input type="button" value="Calculate" id="calculate" />      
     </div>
     

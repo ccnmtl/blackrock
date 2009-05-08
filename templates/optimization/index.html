@@ -45,15 +45,15 @@ Use the latest Firefox browser to access the Tree Sampling Design & Optimization
 
 
 {% if user.is_staff %}
-<!--fieldset>
+<fieldset>
   <legend>Admin Options</legend>
   <form action="loadcsv" method="post" enctype="multipart/form-data">
-    <label>Import respiration data from CSV:</label> <input type="file" name="csvfile" size="20"></input>
+    <label>Import tree data from CSV:</label> <input type="file" name="csvfile" size="20"></input>
     <input type="submit" value="Import"></input>
   </form>
   {{ admin_messages }}
-  <a href="/admin/respiration/temperature/">View Data</a><br />
-</fieldset -->
+  <a href="/admin/optimization/">View Data</a><br />
+</fieldset>
 {% endif %}
 
 <!-- p><a href="../admin/">Administration</a></p-->
