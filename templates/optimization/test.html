@@ -1,0 +1,60 @@
+{% extends "optimization/base_optimization.html" %} 
+
+{% block tabname %}tab-leaf{% endblock %} 
+
+{% block js %}
+  {{ block.super }}
+
+        <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+      <script type="text/javascript">
+            var map;
+
+            function init(){
+                map = new OpenLayers.Map('map');
+                var layer = new OpenLayers.Layer.WMS( "OpenLayers WMS",
+                        "http://labs.metacarta.com/wms/vmap0", {layers: 'basic'} );
+                map.addLayer(layer);
+
+                /*
+                 * Layer style
+                 */
+                // we want opaque external graphics and non-opaque internal graphics
+                var layer_style = OpenLayers.Util.extend({}, OpenLayers.Feature.Vector.style['default']);
+                layer_style.fillOpacity = 0.2;
+                layer_style.graphicOpacity = 1;
+
+                /*
+                 * Blue style
+                 */
+                var style_custom = OpenLayers.Util.extend({}, layer_style);
+                style_custom.strokeColor = "green";
+                style_custom.fillColor = "green";
+
+                var vectorLayer = new OpenLayers.Layer.Vector("Simple Geometry", {style: layer_style});
+
+                var point = new OpenLayers.Geometry.Point(-74.025, 41.39);
+                var features = new Array();
+                var pointFeature = new OpenLayers.Feature.Vector(point,null);
+                features.push(pointFeature);
+
+                {% for tree in trees %}
+                  var treePoint = new OpenLayers.Geometry.Point( {{tree.location.x}}, {{tree.location.y}} );
+                  var treeFeature = new OpenLayers.Feature.Vector(treePoint,null,style_custom);
+                  features.push(treeFeature);
+                {% endfor %}
+
+                map.addLayer(vectorLayer);
+                map.setCenter(new OpenLayers.LonLat(point.x, point.y), 12);
+                vectorLayer.addFeatures(features);
+            }
+            addLoadEvent(init);
+        </script>
+
+  
+{% endblock %}
+
+{% block content %}
+<div id="map" class="smallmap"></div>
+
+
+{% endblock %}

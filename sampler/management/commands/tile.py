@@ -53,13 +53,14 @@ class Command(BaseCommand):
             while (x < tiles):
                 #adjust each tree's position according to the plot we're in
                 for tree in trees: 
-                    adjusted_id = plot * int(tree[id_idx])
+                    padded_id = "%04d" % int(tree[id_idx])
+                    adjusted_id = int("%d%s" % (plot, padded_id))
                     
                     # verify this adjusted_id is not going to be a duplicate
                     if (not idmap.has_key(adjusted_id)):
                         idmap[adjusted_id] = 1
                     else:
-                        print "ERROR: id overlap: %s. Contact your developer to fix the id adjustments" % adjusted_id
+                        print "YOUR MOM ERROR: id overlap: %s. Contact your developer to fix the id adjustments" % adjusted_id
                         return
                          
                     # figure out x/y offset, then add the tree's position
@@ -67,6 +68,6 @@ class Command(BaseCommand):
                     adjusted_y = y * plotsize + float(tree[y_idx])
                     print '%s,%s,%s,%s,%s' % (adjusted_id, tree[species_idx], adjusted_x, adjusted_y, tree[dbh_idx])
                 x += 1
-                plot += 42 # increment factor tested to ensure that no ids overlap up to a factor of 10. note that making plot odd is pretty key to this.
+                plot += 1 # increment factor tested to ensure that no ids overlap up to a factor of 10. note that making plot odd is pretty key to this.
             y += 1
             

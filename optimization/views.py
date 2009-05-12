@@ -109,11 +109,19 @@ def loadcsv(request):
     for row in table:
        id = row[id_idx]
        species = row[species_idx]
-       x = row[x_idx]
-       y = row[y_idx]
+       x = float(row[x_idx])
+       y = float(row[y_idx])
        dbh = row[dbh_idx]
-       loc = 'POINT(-74.025 41.39)'
+       xloc = p.NE_corner.x - (0.001 * x)
+       yloc = p.NE_corner.y - (0.001 * y)
+       loc = 'POINT(%f %f)' % (xloc, yloc)  # TODO real location data
        tree = Tree.objects.get_or_create(id=id, location=loc, species=species, dbh=dbh, plot=p)
 
     p.update()
-    return HttpResponseRedirect(request.build_absolute_uri("./"))
+    return HttpResponseRedirect("optimization/")
+
+def test(request):
+  trees = Tree.objects.all()
+  #for tree in trees:
+    #print tree.location
+  return render_to_response("optimization/test.html", {'trees':trees})

@@ -13,6 +13,7 @@ function showResults(http_request) {
 
   setStyle("waitmessage", {'display':'none'});
   setStyle("results", {'display':'block'});
+  setStyle("details", {'display':'block'});
   $('calculate').disabled = false; 
 }
 
