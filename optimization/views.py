@@ -113,16 +113,23 @@ def sample_plot(shape, dimensions, parent):
 
   results['species'] = len(species_list)
   results['species-list'] = species_list
-  results['dbh'] = round(dbh_sum / trees.count() * 100) / 100
-  results['density'] = 0 # TODO
-  results['basal'] = 0 # TODO
-   
+  if trees.count() > 0:
+    results['dbh'] = round(dbh_sum / trees.count() * 100) / 100
+  else:
+    results['dbh'] = 0
+
   ## area ##
   if shape == 'square':
     results['area'] = round(dimensions * dimensions * 100) / 100
   else:
     results['area'] = round(math.pi * dimensions * dimensions * 100) / 100
   
+  ## basal ##
+  results['basal'] = round(( (float(dbh_sum) * 0.785398) / float(results['area']) ) * 100) / 100
+   
+  ## density ##
+  results['density'] = round((trees.count() * 10000 / results['area']) * 100) / 100
+
   ## time penalty ##
 
   # TODO: travel: 3 minutes per 100m (from NE corner? from previous plot?)
