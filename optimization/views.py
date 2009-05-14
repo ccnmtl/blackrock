@@ -170,7 +170,7 @@ def sample_plot(shape, dimensions, parent):
     species_list.add(tree.species)
     dbh_sum += tree.dbh
 
-  results['species'] = len(species_list)
+  results['num-species'] = len(species_list)
   results['species-list'] = species_list
   if trees.count() > 0:
     results['dbh'] = round(dbh_sum / trees.count() * 100) / 100
@@ -223,6 +223,15 @@ def sample_plot(shape, dimensions, parent):
   results['time-total'] = results['time-travel'] + results['time-locate'] \
                         + results['time-establish'] + results['time-measure']
                         
+
+  ## species results
+  #species = {}
+  #for tree in trees:
+  # try:
+  #   species[tree.species] += 1
+  #  except:
+  #    species[tree.species] = 1
+  #results['species'] = species
                         
   return results
 
