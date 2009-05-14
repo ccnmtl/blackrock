@@ -28,27 +28,33 @@ def calculate(request):
 
   plot_results = {}
   total_time = 0
-  results['results-area'] = 0
+  results['sample-area'] = 0
   species_list = sets.Set()
-  results['results-count'] = 0
+  results['sample-count'] = 0
   intermed_dbh = 0
-  results['results-dbh'] = 0
-  results['results-density'] = 0
-  results['results-basal'] = 0
+  results['sample-dbh'] = 0
+  density_list = []
+  results['sample-density'] = 0
+  basal_list = []
+  results['sample-basal'] = 0
   dbh_list = []
 
   for plot in range(num_plots):
     sub = sample_plot(shape, diameter, parent)
 
     total_time += sub['time-total']
-    results['results-area'] += sub['area']
+    results['sample-area'] += sub['area']
     # TODO: sample variance density
     # TODO: sample variance basal area
     species_list = species_list.union(sub['species-list'])
-    results['results-count'] += sub['count']
+    results['sample-count'] += sub['count']
     intermed_dbh += sub['dbh'] * sub['count']
-    results['results-density'] += sub['density']
-    results['results-basal'] += sub['basal']
+
+    results['sample-density'] += sub['density']
+    density_list.append(sub['density'])
+
+    results['sample-basal'] += sub['basal']
+    basal_list.append(sub['basal'])
 
     # sample variance dbh
     trees = sub['trees']
@@ -60,25 +66,46 @@ def calculate(request):
     plot_results[plot] = sub
 
   results['plots'] = plot_results
-  results['results-time'] = "%dh %dm" % (total_time / 60, total_time % 60)
-  results['results-species'] = len(species_list)
+  results['sample-time'] = "%dh %dm" % (total_time / 60, total_time % 60)
+  results['sample-species'] = len(species_list)
 
-  if results['results-count'] > 0:
-    results['results-dbh'] = round( (intermed_dbh / results['results-count']) * 100) / 100
+  ## sample mean dbh ##
+  if results['sample-count'] > 0:
+    results['sample-dbh'] = round( (intermed_dbh / results['sample-count']) * 100) / 100
   else:
-    results['results-dbh'] = 0
+    results['sample-dbh'] = 0
 
-  results['results-basal'] = round( (results['results-basal'] / num_plots) * 100) / 100 # average
-  results['results-density'] = round( (results['results-density'] / num_plots) * 100) / 100 # average
+  ## sample mean basal area ##
+  results['sample-basal'] = round( (results['sample-basal'] / num_plots) * 100) / 100 # average
 
-  variance_sum = 0
-  for dbh in dbh_list:
-    variance_sum += (dbh - results['results-dbh']) ** 2
-  if results['results-count'] > 0:
-    results['results-variance-dbh'] = round( (math.sqrt( variance_sum / (results['results-count']-1) ) ) * 100) / 100
+  ## sample mean density ##
+  results['sample-density'] = round( (results['sample-density'] / num_plots) * 100) / 100 # average
+
+  ## sample variance dbh ##
+  if results['sample-count'] > 1:
+    variance_sum = 0
+    for dbh in dbh_list:
+      variance_sum += (dbh - results['sample-dbh']) ** 2
+    results['sample-variance-dbh'] = round( (math.sqrt( variance_sum / (results['sample-count']-1) ) ) * 100) / 100
   else:
-    results['results-variance-dbh'] = 0 
+    results['sample-variance-dbh'] = 0 
 
+  if num_plots > 1:
+    ## sample variance density ##
+    density_sum = 0
+    for density in density_list:
+      density_sum += (density - results['sample-density']) **2
+    results['sample-variance-density'] = round( math.sqrt( density_sum / (num_plots-1) ) * 100) / 100
+
+    ## sample variance basal area ##
+    basal_sum = 0
+    for basal in basal_list:
+      basal_sum += (basal - results['sample-basal']) **2
+    results['sample-variance-basal'] = round( math.sqrt( basal_sum / (num_plots-1) ) * 100) / 100
+
+  else:
+    results['sample-variance-density'] = 0
+    results['sample-variance-basal'] = 0
   
   # actual forest stats
   results['actual-area'] = round(parent.area * 100) / 100
@@ -144,7 +171,7 @@ def sample_plot(shape, dimensions, parent):
     
   ## dbh variance ##
   variance_sum = 0
-  if results['count'] > 0:
+  if results['count'] > 1:
     for tree in trees:
       variance_sum += (float(tree.dbh) - results['dbh']) ** 2
     results['variance-dbh'] = round( (math.sqrt( variance_sum / (results['count']-1) ) ) * 100) / 100

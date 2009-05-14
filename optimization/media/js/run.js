@@ -2,17 +2,18 @@ var http_request;
 
 function showResults(http_request) {
   var results = evalJSON(http_request.responseText);
-  $('results-time').innerHTML = results['results-time'];
-  // TODO: sample variance density
-  // TODO: sample variance basal area
+  $('results-time').innerHTML = results['sample-time'];
 
-  $('results-area').innerHTML = results['results-area'];
-  $('results-species').innerHTML = results['results-species'];
-  $('results-count').innerHTML = results['results-count'];
-  $('results-dbh').innerHTML = results['results-dbh'];
-  $('results-density').innerHTML = results['results-density'];
-  $('results-basal').innerHTML = results['results-basal'];
-  $('results-variance-dbh').innerHTML = results['results-variance-dbh'];
+  $('results-variance-density').innerHTML = results['sample-variance-density'];
+  $('results-variance-basal').innerHTML = results['sample-variance-basal'];
+
+  $('results-area').innerHTML = results['sample-area'];
+  $('results-species').innerHTML = results['sample-species'];
+  $('results-count').innerHTML = results['sample-count'];
+  $('results-dbh').innerHTML = results['sample-dbh'];
+  $('results-density').innerHTML = results['sample-density'];
+  $('results-basal').innerHTML = results['sample-basal'];
+  $('results-variance-dbh').innerHTML = results['sample-variance-dbh'];
 
   $('actual-area').innerHTML = results['actual-area'];
   $('actual-species').innerHTML = results['actual-species'];
