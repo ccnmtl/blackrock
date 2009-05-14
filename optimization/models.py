@@ -1,6 +1,7 @@
 from django.contrib.gis.db import models
 #from django.db.models import Avg # not yet
 from django.db import connection
+import math
 
 class Plot(models.Model):
   def __unicode__(self):
@@ -43,7 +44,6 @@ class Plot(models.Model):
     sqlcmd = """SELECT SUM(%s) FROM "%s" WHERE "%s" = '%s'
              """ % (dbh_field, tablename, plot_field, self.id) 
 
-    cursor = connection.cursor()
     cursor.execute(sqlcmd)
     summation = cursor.fetchone()[0] or 0.0
 
@@ -53,7 +53,16 @@ class Plot(models.Model):
     self.mean_dbh = summation / num_trees
     #self.mean_dbh = self.tree_set.objects.aggregate(Avg('dbh'))['dbh__avg']  # not yet
     
-    self.variance_dbh = (1 / num_trees-1) * (summation - self.mean_dbh * num_trees)
+    sqlcmd = """SELECT SUM((%s-%s)^2) FROM "%s" WHERE "%s" = '%s'
+             """ % (dbh_field, self.mean_dbh, tablename, plot_field, self.id)
+             
+    cursor.execute(sqlcmd)
+    variance_temp = cursor.fetchone()[0] or 0.0
+
+    if num_trees > 0:
+      self.variance_dbh = str( math.sqrt( variance_temp / (num_trees) ) )
+    else:
+      self.variance_dbh = 0
 
     self.save()    
     #return super(Plot, self).save(*args, **kwargs)

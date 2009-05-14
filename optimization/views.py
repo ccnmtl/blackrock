@@ -23,6 +23,7 @@ def calculate(request):
   diameter = float(request.REQUEST['diameter'])
 
   parent = Plot.objects.get(name="Mount Misery Plot")
+  parent.precalc()
   results = {}
 
   plot_results = {}
@@ -34,6 +35,7 @@ def calculate(request):
   results['results-dbh'] = 0
   results['results-density'] = 0
   results['results-basal'] = 0
+  dbh_list = []
 
   for plot in range(num_plots):
     sub = sample_plot(shape, diameter, parent)
@@ -47,7 +49,12 @@ def calculate(request):
     intermed_dbh += sub['dbh'] * sub['count']
     results['results-density'] += sub['density']
     results['results-basal'] += sub['basal']
-    # TODO: sample variance dbh
+
+    # sample variance dbh
+    trees = sub['trees']
+    for tree in trees:
+      dbh_list.append(float(tree.dbh))
+    sub['trees'] = ''
 
     sub['species-list'] = ""
     plot_results[plot] = sub
@@ -55,9 +62,23 @@ def calculate(request):
   results['plots'] = plot_results
   results['results-time'] = "%dh %dm" % (total_time / 60, total_time % 60)
   results['results-species'] = len(species_list)
-  results['results-dbh'] = round( (intermed_dbh / results['results-count']) * 100) / 100
+
+  if results['results-count'] > 0:
+    results['results-dbh'] = round( (intermed_dbh / results['results-count']) * 100) / 100
+  else:
+    results['results-dbh'] = 0
+
   results['results-basal'] = round( (results['results-basal'] / num_plots) * 100) / 100 # average
   results['results-density'] = round( (results['results-density'] / num_plots) * 100) / 100 # average
+
+  variance_sum = 0
+  for dbh in dbh_list:
+    variance_sum += (dbh - results['results-dbh']) ** 2
+  if results['results-count'] > 0:
+    results['results-variance-dbh'] = round( (math.sqrt( variance_sum / (results['results-count']-1) ) ) * 100) / 100
+  else:
+    results['results-variance-dbh'] = 0 
+
   
   # actual forest stats
   results['actual-area'] = round(parent.area * 100) / 100
@@ -103,6 +124,7 @@ def sample_plot(shape, dimensions, parent):
     center_pt = 'POINT (%s %s)' % (center_x_deg, center_y_deg)
     trees = Tree.objects.filter(location__dwithin=(center_pt, dimensions * MULTIPLIER))
  
+  results['trees'] = trees
  
   ## number of trees in plot ##
   results['count'] = int(trees.count())
@@ -119,6 +141,15 @@ def sample_plot(shape, dimensions, parent):
     results['dbh'] = round(dbh_sum / trees.count() * 100) / 100
   else:
     results['dbh'] = 0
+    
+  ## dbh variance ##
+  variance_sum = 0
+  if results['count'] > 0:
+    for tree in trees:
+      variance_sum += (float(tree.dbh) - results['dbh']) ** 2
+    results['variance-dbh'] = round( (math.sqrt( variance_sum / (results['count']-1) ) ) * 100) / 100
+  else:
+    results['variance-dbh'] = 0 
 
   ## area ##
   if shape == 'square':
@@ -126,7 +157,7 @@ def sample_plot(shape, dimensions, parent):
   else:
     results['area'] = round(math.pi * dimensions * dimensions * 100) / 100
   
-  ## basal ##
+  ## basal area ##
   results['basal'] = round(( (float(dbh_sum) * 0.785398) / float(results['area']) ) * 100) / 100
    
   ## density ##

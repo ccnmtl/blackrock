@@ -12,7 +12,7 @@ function showResults(http_request) {
   $('results-dbh').innerHTML = results['results-dbh'];
   $('results-density').innerHTML = results['results-density'];
   $('results-basal').innerHTML = results['results-basal'];
-  // TODO: sample variance dbh
+  $('results-variance-dbh').innerHTML = results['results-variance-dbh'];
 
   $('actual-area').innerHTML = results['actual-area'];
   $('actual-species').innerHTML = results['actual-species'];
@@ -20,7 +20,7 @@ function showResults(http_request) {
   $('actual-dbh').innerHTML = results['actual-dbh'];
   $('actual-density').innerHTML = results['actual-density'];
   $('actual-basal').innerHTML = results['actual-basal'];
-  $('actual-variance-dbh').innerHTML = results['actual-basal'];
+  $('actual-variance-dbh').innerHTML = results['actual-variance-dbh'];
   
   // individual plots
   var plots = results['plots'];
@@ -59,6 +59,7 @@ function showPlotInfo(plotNumber, results) {
   $(id+'-dbh').innerHTML = results['dbh'];
   $(id+'-density').innerHTML = results['density'];
   $(id+'-basal').innerHTML = results['basal'];
+  $(id+'-variance-dbh').innerHTML = results['variance-dbh'];
 }
 
 function reset() {
