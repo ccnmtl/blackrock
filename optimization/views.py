@@ -54,8 +54,9 @@ def calculate(request):
   results['plots'] = plot_results
   results['results-time'] = "%dh %dm" % (total_time / 60, total_time % 60)
   results['results-species'] = len(species_list)
-  results['results-dbh'] = results['results-dbh'] / num_plots  # average ?? does this work??
-  # betting density and basal can't just be summed either...
+  results['results-dbh'] = round( (results['results-dbh'] / num_plots) * 100) / 100  # average
+  results['results-basal'] = round( (results['results-basal'] / num_plots) * 100) / 100 # average
+  results['results-density'] = round( (results['results-density'] / num_plots) * 100) / 100 # average
   
   # actual forest stats
   results['actual-area'] = round(parent.area * 100) / 100
