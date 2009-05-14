@@ -57,18 +57,26 @@ def calculate(request):
   total_time = "%dh %dm" % (minutes / 60, minutes % 60)
 
   results['results-time'] = total_time
+  # TODO: sample variance density
+  # TODO: sample variance basal area
+  # TODO: sample area
   results['results-species'] = 10
   results['results-count'] = 321
-  results['results-living'] = 124
-  results['results-dead'] = 197
   results['results-dbh'] = 23.4
   results['results-density'] = "TBD"
   results['results-basal'] = "TBD"
+  # TODO: sample variance dbh
   
   # get actual results
   plot = Plot.objects.get(name="Mount Misery Plot")
-  results['actual-density'] = str(plot.density)
-  results['actual-basal'] = str(plot.basal)
+  plot.precalc()
+  results['actual-area'] = round(plot.area * 100) / 100
+  results['actual-species'] = int(plot.num_species)
+  results['actual-count'] = int(plot.tree_set.count())
+  results['actual-dbh'] = round(plot.mean_dbh * 100) / 100
+  results['actual-density'] = round(float(plot.density) * 100) / 100
+  results['actual-basal'] = round(float(plot.basal) * 100) / 100
+  results['actual-variance-dbh'] = round(float(plot.variance_dbh) * 100) / 100
   
   return HttpResponse(str(results), mimetype="application/javascript")
   
@@ -117,7 +125,7 @@ def loadcsv(request):
        loc = 'POINT(%f %f)' % (xloc, yloc)  # TODO real location data
        tree = Tree.objects.get_or_create(id=id, location=loc, species=species, dbh=dbh, plot=p)
 
-    p.update()
+    p.precalc()
     return HttpResponseRedirect("optimization/")
 
 def test(request):

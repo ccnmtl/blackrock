@@ -1,15 +1,24 @@
 function showResults(http_request) {
   var results = evalJSON(http_request.responseText);
   $('results-time').innerHTML = results['results-time'];
+  // TODO: sample variance density
+  // TODO: sample variance basal area
+
+  // TODO: sample area
   $('results-species').innerHTML = results['results-species'];
   $('results-count').innerHTML = results['results-count'];
-  $('results-living').innerHTML = results['results-living'];
-  $('results-dead').innerHTML = results['results-dead'];
   $('results-dbh').innerHTML = results['results-dbh'];
   $('results-density').innerHTML = results['results-density'];
   $('results-basal').innerHTML = results['results-basal'];
+  // TODO: sample variance dbh
+
+  $('actual-area').innerHTML = results['actual-area'];
+  $('actual-species').innerHTML = results['actual-species'];
+  $('actual-count').innerHTML = results['actual-count'];
+  $('actual-dbh').innerHTML = results['actual-dbh'];
   $('actual-density').innerHTML = results['actual-density'];
   $('actual-basal').innerHTML = results['actual-basal'];
+  $('actual-variance-dbh').innerHTML = results['actual-basal'];
 
   setStyle("waitmessage", {'display':'none'});
   setStyle("results", {'display':'block'});
