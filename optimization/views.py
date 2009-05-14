@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from blackrock.optimization.models import Tree, Plot
-import csv, math, random
+import csv, math, random, sets
 
 NE_corner = 'POINT(-74.025 41.39)'
 MULTIPLIER = 0.001   # to convert meters into degrees
@@ -28,7 +28,7 @@ def calculate(request):
   plot_results = {}
   total_time = 0
   results['results-area'] = 0
-  results['results-species'] = 0
+  species_list = sets.Set()
   results['results-count'] = 0
   results['results-dbh'] = 0
   results['results-density'] = 0
@@ -41,17 +41,19 @@ def calculate(request):
     results['results-area'] += sub['area']
     # TODO: sample variance density
     # TODO: sample variance basal area
-    results['results-species'] += sub['species']  # WRONG - can't just sum
+    species_list = species_list.union(sub['species-list'])
     results['results-count'] += sub['count']
     results['results-dbh'] += sub['dbh']
     results['results-density'] += sub['density']
     results['results-basal'] += sub['basal']
     # TODO: sample variance dbh
 
+    sub['species-list'] = ""
     plot_results[plot] = sub
 
   results['plots'] = plot_results
   results['results-time'] = "%dh %dm" % (total_time / 60, total_time % 60)
+  results['results-species'] = len(species_list)
   results['results-dbh'] = results['results-dbh'] / num_plots  # average ?? does this work??
   # betting density and basal can't just be summed either...
   
@@ -71,7 +73,7 @@ def sample_plot(shape, dimensions, parent):
   results = {}
   
   ## determine plot ##
-  # terrible hack for now
+  # terrible, awful, ugly hack for now
   trees = None
   if shape == 'square':
     # pick a random NE corner
@@ -88,7 +90,6 @@ def sample_plot(shape, dimensions, parent):
                  parent.NE_corner.x - corner_x_deg, parent.NE_corner.y  - corner_y_deg - dimensions_deg, \
                  parent.NE_corner.x - corner_x_deg, parent.NE_corner.y - corner_y_deg,                 
                  )
-    results['sample'] = sample
     trees = Tree.objects.filter(location__contained=sample)
   if shape == 'circle':
     # pick a random center point
@@ -103,8 +104,16 @@ def sample_plot(shape, dimensions, parent):
  
   ## number of trees in plot ##
   results['count'] = int(trees.count())
-  results['species'] = 6 # TODO
-  results['dbh'] = 23.5 # TODO
+
+  species_list = sets.Set()
+  dbh_sum = 0
+  for tree in trees:
+    species_list.add(tree.species)
+    dbh_sum += tree.dbh
+
+  results['species'] = len(species_list)
+  results['species-list'] = species_list
+  results['dbh'] = round(dbh_sum / trees.count() * 100) / 100
   results['density'] = 0 # TODO
   results['basal'] = 0 # TODO
    

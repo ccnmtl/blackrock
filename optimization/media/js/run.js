@@ -54,7 +54,7 @@ function showPlotInfo(plotNumber, results) {
   $(id+'-time-locate').innerHTML = results['time-locate'];
   $(id+'-time-establish').innerHTML = results['time-establish'];
   $(id+'-time-measure').innerHTML = results['time-measure'];
-  //$(id+'-species').innerHTML = results['species'];
+  $(id+'-species').innerHTML = results['species'];
   $(id+'-count').innerHTML = results['count'];
   $(id+'-dbh').innerHTML = results['dbh'];
   $(id+'-density').innerHTML = results['density'];
