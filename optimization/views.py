@@ -97,8 +97,6 @@ def sample_plot(shape, dimensions, parent):
     center_y = random.randint(dimensions, 200-dimensions)
     center_x_deg = parent.NE_corner.x - center_x * MULTIPLIER
     center_y_deg = parent.NE_corner.y - center_y * MULTIPLIER
-    print center_x_deg
-    print center_y_deg
     center_pt = 'POINT (%s %s)' % (center_x_deg, center_y_deg)
     trees = Tree.objects.filter(location__dwithin=(center_pt, dimensions * MULTIPLIER))
  
