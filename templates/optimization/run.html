@@ -157,33 +157,34 @@
   <h3><span class='downarrow'>&#x25BE;</span>
       <span class='rightarrow'>&#x25B8</span>
       Sampling Details</h3>
-  <div class="nest">
+  <div class="nest" id='plot-parent'>
+    <div class='plot-wrapper' id='plot1'>
     <div class='plot-title'>PLOT 1:</div>
     <div class='plot-info'>
   <table class="results-summary">
     <tr>
-      <td class='header'>PLOT AREA</td>
-      <td>XXX</td>
+      <td class='header'>PLOT AREA (m<sup>2</sup>)</td>
+      <td id='plot1-area'></td>
     </tr>
     <tr>
       <td class='header'>TOTAL SAMPLING TIME</td>
-      <td>XXX</td>
+      <td id='plot1-time-total'></td>
     </tr>
     <tr>
       <td class='subheader'>Travel Time to Reach Plot Area</td>
-      <td>XXX</td>
+      <td id='plot1-time-travel'></td>
     </tr>
     <tr>
       <td class='subheader'>Locating Plot</td>
-      <td>XXX</td>
+      <td id='plot1-time-locate'></td>
     </tr>
     <tr>
       <td class='subheader'>Establishing Plot</td>
-      <td>XXX</td>
+      <td id='plot1-time-establish'></td>
     </tr>
     <tr>
       <td class='subheader'>Measuring Trees</td>
-      <td>XXX</td>
+      <td id='plot1-time-measure'></td>
     </tr>
   </table>
   
@@ -199,15 +200,16 @@
     </thead>
     <tbody>
       <tr>
-        <td>Oak</td>
-        <td>8</td>
-        <td>22.3</td>
-        <td>xxx</td>
-        <td>xxx</td>
+        <td>TOTAL</td>
+        <td id='plot1-count'></td>
+        <td id='plot1-dbh'></td>
+        <td id='plot1-density'></td>
+        <td id='plot1-basal'></td>
       </tr>
     </tbody>
   </table>
     </div><!-- end div plot-info -->
+    </div><!-- end div plot-wrapper -->
   </div> <!-- end div nest -->
 </div><!-- end div container -->
 

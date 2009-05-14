@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from blackrock.optimization.models import Tree, Plot
-import csv
+import csv, math
 
 def index(request, admin_msg=""):
 
@@ -31,32 +31,19 @@ def calculate(request):
   shape = request.REQUEST['shape']
   diameter = float(request.REQUEST['diameter'])
 
-  results = {}  
+  parent = Plot.objects.get(name="Mount Misery Plot")
+  results = {}
 
-  # calculate time penalty
-  minutes = 0
+  plot_results = {}
+  total_time = 0
+  for plot in range(num_plots):
+    plot_results[plot] = calculate_plot(shape, diameter, parent)
+    total_time += plot_results[plot]['time-total']
 
-  # TODO: travel: 3 minutes per 100m
+  results['plots'] = plot_results
 
-  # locating a plot - 3 minutes per plot
-  minutes = minutes + 3 * num_plots
+  results['results-time'] = "%dh %dm" % (total_time / 60, total_time % 60)
 
-  # establishing plot boundaries (shape) - square = 5min, circle = 1.5min
-  if shape == "square":
-    minutes = minutes + 5
-  else:
-    minutes = minutes + 1.5
-
-  # establishing plot boundaries (size) - larger plots take longer
-  # (fudging at 1 minute per meter of diameter for now)
-  minutes = minutes + diameter
-  
-  # TODO: measuring trees in the plot - 30 seconds per tree
-  #minutes = minutes + num_trees
-
-  total_time = "%dh %dm" % (minutes / 60, minutes % 60)
-
-  results['results-time'] = total_time
   # TODO: sample variance density
   # TODO: sample variance basal area
   # TODO: sample area
@@ -68,18 +55,58 @@ def calculate(request):
   # TODO: sample variance dbh
   
   # get actual results
-  plot = Plot.objects.get(name="Mount Misery Plot")
-  plot.precalc()
-  results['actual-area'] = round(plot.area * 100) / 100
-  results['actual-species'] = int(plot.num_species)
-  results['actual-count'] = int(plot.tree_set.count())
-  results['actual-dbh'] = round(plot.mean_dbh * 100) / 100
-  results['actual-density'] = round(float(plot.density) * 100) / 100
-  results['actual-basal'] = round(float(plot.basal) * 100) / 100
-  results['actual-variance-dbh'] = round(float(plot.variance_dbh) * 100) / 100
+  results['actual-area'] = round(parent.area * 100) / 100
+  results['actual-species'] = int(parent.num_species)
+  results['actual-count'] = int(parent.tree_set.count())
+  results['actual-dbh'] = round(parent.mean_dbh * 100) / 100
+  results['actual-density'] = round(float(parent.density) * 100) / 100
+  results['actual-basal'] = round(float(parent.basal) * 100) / 100
+  results['actual-variance-dbh'] = round(float(parent.variance_dbh) * 100) / 100
   
   return HttpResponse(str(results), mimetype="application/javascript")
   
+  
+def calculate_plot(shape, dimensions, parent):
+  results = {}
+  
+  # TODO: determine plot
+  
+  ## number of trees in plot ##
+  results['count'] = 100  #TODO
+  
+  ## area ##
+  if shape == 'square':
+    results['area'] = dimensions * dimensions
+  else:
+    results['area'] = math.pi * dimensions * dimensions
+  
+  ## time penalty ##
+
+  # TODO: travel: 3 minutes per 100m (from NE corner? from previous plot?)
+  results['time-travel'] = 5
+
+  # locating a plot - 3 minutes per plot
+  results['time-locate'] = 3
+
+  # establishing plot boundaries (shape) - square = 5min, circle = 1.5min
+  if shape == "square":
+    results['time-establish'] = 5
+  else:
+    results['time-establish'] = 1.5
+
+  # establishing plot boundaries (size) - larger plots take longer
+  # (fudging at 1 minute per meter of diameter for now)
+  results['time-establish'] += dimensions
+  
+  # measuring trees in the plot - 30 seconds per tree
+  results['time-measure'] = .5 * results['count']
+  
+  results['time-total'] = results['time-travel'] + results['time-locate'] \
+                        + results['time-establish'] + results['time-measure']
+                        
+                        
+  return results
+
   
 def loadcsv(request):
   if request.method == 'POST':
