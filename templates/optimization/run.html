@@ -94,6 +94,10 @@
   Calculating results, please wait...
 </div>
 
+<div class="container" id="errormessage">
+  Sorry, the calculation encountered an error.  Please try again.
+</div>
+
 <div class="container" id="results">
   <h3><span class='downarrow'>&#x25BE;</span>
       <span class='rightarrow'>&#x25B8</span>
@@ -102,15 +106,15 @@
   <table class="results-summary">
     <tr>
       <td class='header'>TIME TO SAMPLE</td>
-      <td><span id='results-time'></span></td>
+      <td class='right'><span id='results-time'></span></td>
     </tr>
     <tr>
       <td class='header'>SAMPLE VARIANCE DENSITY</td>
-      <td id='results-variance-density'></td>
+      <td id='results-variance-density' class='right'></td>
     </tr>
     <tr>
       <td class='header'>SAMPLE VARIANCE BASAL AREA</td>
-      <td id='results-variance-basal'></td>
+      <td id='results-variance-basal' class='right'></td>
     </tr>
   </table>
 
@@ -130,23 +134,23 @@
       <tbody>
       <tr>
         <td class='header'>SAMPLE</td>
-        <td id='results-area'></td>
-        <td id='results-species'></td>
-        <td id='results-count'></td>
-        <td id='results-dbh'></td>
-        <td id='results-density'></td>
-        <td id='results-basal'></td>
-        <td id='results-variance-dbh'></td>
+        <td id='results-area' class='right'></td>
+        <td id='results-species' class='right'></td>
+        <td id='results-count' class='right'></td>
+        <td id='results-dbh' class='right'></td>
+        <td id='results-density' class='right'></td>
+        <td id='results-basal' class='right'></td>
+        <td id='results-variance-dbh' class='right'></td>
       </tr>
       <tr>
         <td class='header'>FOREST</td>
-        <td id='actual-area'></td>
-        <td id='actual-species'></td>
-        <td id='actual-count'></td>
-        <td id='actual-dbh'></td>
-        <td id='actual-density'></td>
-        <td id='actual-basal'></td>
-        <td id='actual-variance-dbh'></td>
+        <td id='actual-area' class='right'></td>
+        <td id='actual-species' class='right'></td>
+        <td id='actual-count' class='right'></td>
+        <td id='actual-dbh' class='right'></td>
+        <td id='actual-density' class='right'></td>
+        <td id='actual-basal' class='right'></td>
+        <td id='actual-variance-dbh' class='right'></td>
       </tr>
     </tbody>
   </table><!-- end inner table -->
@@ -164,27 +168,27 @@
   <table class="results-summary">
     <tr>
       <td class='header'>PLOT AREA (m<sup>2</sup>)</td>
-      <td id='plot1-area'></td>
+      <td id='plot1-area' class='right'></td>
     </tr>
     <tr>
       <td class='header'>TOTAL SAMPLING TIME</td>
-      <td id='plot1-time-total'></td>
+      <td class='right'><span id='plot1-time-total'></span>m</td>
     </tr>
     <tr>
       <td class='subheader'>Travel Time to Reach Plot Area</td>
-      <td id='plot1-time-travel'></td>
+      <td class='right'><span id='plot1-time-travel'></span>m</td>
     </tr>
     <tr>
       <td class='subheader'>Locating Plot</td>
-      <td id='plot1-time-locate'></td>
+      <td class='right'><span id='plot1-time-locate'></span>m</td>
     </tr>
     <tr>
       <td class='subheader'>Establishing Plot</td>
-      <td id='plot1-time-establish'></td>
+      <td class='right'><span id='plot1-time-establish'></span>m</td>
     </tr>
     <tr>
       <td class='subheader'>Measuring Trees</td>
-      <td id='plot1-time-measure'></td>
+      <td class='right'><span id='plot1-time-measure'></span>m</td>
     </tr>
   </table>
   
@@ -202,11 +206,11 @@
     <tbody>
       <tr>
         <td>TOTAL: <span id='plot1-species'></span></td>
-        <td id='plot1-count'></td>
-        <td id='plot1-dbh'></td>
-        <td id='plot1-density'></td>
-        <td id='plot1-basal'></td>
-        <td id='plot1-variance-dbh'></td>
+        <td id='plot1-count' class='right'></td>
+        <td id='plot1-dbh' class='right'></td>
+        <td id='plot1-density' class='right'></td>
+        <td id='plot1-basal' class='right'></td>
+        <td id='plot1-variance-dbh' class='right'></td>
       </tr>
     </tbody>
   </table>

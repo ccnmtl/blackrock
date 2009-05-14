@@ -46,7 +46,7 @@ form
 	margin: 0;
 }
 
-#results, #waitmessage, #details { display: none; }
+#results, #waitmessage, #errormessage, #details { display: none; }
 
 #waitmessage
 {
@@ -101,6 +101,7 @@ table.results thead td, td.header
 }
 
 td.subheader { background-color: #DCD3C2; }
+td.right { text-align: right; }
 
 .plot-info
 {

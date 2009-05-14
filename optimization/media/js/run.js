@@ -36,6 +36,12 @@ function showResults(http_request) {
   $('calculate').disabled = false; 
 }
 
+function showError(http_request) {
+  setStyle('errormessage', {'display':'block'});
+  setStyle('waitmessage', {'display':'none'});
+  $('calculate').disabled = false; 
+}
+
 function showPlotInfo(plotNumber, results) {
   var parent = $('plot-parent'); 
   var plotTable = $('plot1').innerHTML;
@@ -64,6 +70,7 @@ function showPlotInfo(plotNumber, results) {
 }
 
 function reset() {
+  setStyle('errormessage', {'display':'none'});
   setStyle('waitmessage', {'display':'none'});
   setStyle('results', {'display':'none'});
   setStyle('details', {'display':'none'});
@@ -80,6 +87,8 @@ function reset() {
 function calculate() {
   $('calculate').disabled = true;
   setStyle('waitmessage', {'display':'block'});
+  setStyle('errormessage', {'display':'none'});
+
   for(var i=2; i<=10; i++) {
     if($("plot"+i)) {
       removeElement("plot"+i);
@@ -94,6 +103,7 @@ function calculate() {
                                          'headers':[["Content-Type", 'application/x-www-form-urlencoded']]
                                         });
   http_request.addCallback(showResults);
+  http_request.addErrback(showError);
 }
 
 function initRun() {

@@ -66,8 +66,14 @@ def calculate(request):
     plot_results[plot] = sub
 
   results['plots'] = plot_results
-  results['sample-time'] = "%dh %dm" % (total_time / 60, total_time % 60)
+  
+  if total_time > 59:
+    results['sample-time'] = "%dh %dm" % (total_time / 60, total_time % 60)
+  else:
+    results['sample-time'] = "%dm" % total_time
   results['sample-species'] = len(species_list)
+  
+  results['sample-area'] = round(results['sample-area'] * 100) / 100
 
   ## sample mean dbh ##
   if results['sample-count'] > 0:
@@ -125,30 +131,32 @@ def sample_plot(shape, dimensions, parent):
   ## determine plot ##
   # terrible, awful, ugly hack for now
   trees = None
+  x = 0
+  y = 0
   if shape == 'square':
     # pick a random NE corner
     # range = 0 - 200-dimensions
-    corner_x = random.randint(0, 200-dimensions)
-    corner_y = random.randint(0, 200-dimensions)
+    x = random.randint(0, 200-dimensions)
+    y = random.randint(0, 200-dimensions)
     dimensions_deg = MULTIPLIER * dimensions
-    corner_x_deg = MULTIPLIER * corner_x
-    corner_y_deg = MULTIPLIER * corner_y
+    x_deg = MULTIPLIER * x
+    y_deg = MULTIPLIER * y
     sample = 'POLYGON ((%s %s, %s %s, %s %s, %s %s, %s %s))' \
-              % (parent.NE_corner.x - corner_x_deg, parent.NE_corner.y - corner_y_deg, \
-                 parent.NE_corner.x - corner_x_deg - dimensions_deg, parent.NE_corner.y - corner_y_deg, \
-                 parent.NE_corner.x - corner_x_deg - dimensions_deg, parent.NE_corner.y - corner_y_deg - dimensions_deg, \
-                 parent.NE_corner.x - corner_x_deg, parent.NE_corner.y  - corner_y_deg - dimensions_deg, \
-                 parent.NE_corner.x - corner_x_deg, parent.NE_corner.y - corner_y_deg,                 
+              % (parent.NE_corner.x - x_deg, parent.NE_corner.y - y_deg, \
+                 parent.NE_corner.x - x_deg - dimensions_deg, parent.NE_corner.y - y_deg, \
+                 parent.NE_corner.x - x_deg - dimensions_deg, parent.NE_corner.y - y_deg - dimensions_deg, \
+                 parent.NE_corner.x - x_deg, parent.NE_corner.y  - y_deg - dimensions_deg, \
+                 parent.NE_corner.x - x_deg, parent.NE_corner.y - y_deg,                 
                  )
     trees = Tree.objects.filter(location__contained=sample)
   if shape == 'circle':
     # pick a random center point
     # range = dimensions - 200-dimensions
-    center_x = random.randint(dimensions, 200-dimensions)
-    center_y = random.randint(dimensions, 200-dimensions)
-    center_x_deg = parent.NE_corner.x - center_x * MULTIPLIER
-    center_y_deg = parent.NE_corner.y - center_y * MULTIPLIER
-    center_pt = 'POINT (%s %s)' % (center_x_deg, center_y_deg)
+    x = random.randint(dimensions, 200-dimensions)
+    y = random.randint(dimensions, 200-dimensions)
+    x_deg = parent.NE_corner.x - x * MULTIPLIER
+    y_deg = parent.NE_corner.y - y * MULTIPLIER
+    center_pt = 'POINT (%s %s)' % (x_deg, y_deg)
     trees = Tree.objects.filter(location__dwithin=(center_pt, dimensions * MULTIPLIER))
  
   results['trees'] = trees
@@ -192,8 +200,9 @@ def sample_plot(shape, dimensions, parent):
 
   ## time penalty ##
 
-  # TODO: travel: 3 minutes per 100m (from NE corner? from previous plot?)
-  results['time-travel'] = 5
+  # travel: 3 minutes per 100m (TODO: from NE corner? from previous plot?)
+  travel_distance = math.sqrt(x**2 + y**2)
+  results['time-travel'] = round((travel_distance / 100) * 3)
 
   # locating a plot - 3 minutes per plot
   results['time-locate'] = 3
@@ -269,6 +278,4 @@ def test(request):
   trees = Tree.objects.all()
   plot = Plot.objects.get(name="Mount Misery Plot")
   sample = sample_plot("square", 5, plot)['sample']
-  #for tree in trees:
-    #print tree.location
   return render_to_response("optimization/test.html", {'trees':trees, 'sample':sample})
