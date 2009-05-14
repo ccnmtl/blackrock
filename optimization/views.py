@@ -30,6 +30,7 @@ def calculate(request):
   results['results-area'] = 0
   species_list = sets.Set()
   results['results-count'] = 0
+  intermed_dbh = 0
   results['results-dbh'] = 0
   results['results-density'] = 0
   results['results-basal'] = 0
@@ -43,7 +44,7 @@ def calculate(request):
     # TODO: sample variance basal area
     species_list = species_list.union(sub['species-list'])
     results['results-count'] += sub['count']
-    results['results-dbh'] += sub['dbh']
+    intermed_dbh += sub['dbh'] * sub['count']
     results['results-density'] += sub['density']
     results['results-basal'] += sub['basal']
     # TODO: sample variance dbh
@@ -54,7 +55,7 @@ def calculate(request):
   results['plots'] = plot_results
   results['results-time'] = "%dh %dm" % (total_time / 60, total_time % 60)
   results['results-species'] = len(species_list)
-  results['results-dbh'] = round( (results['results-dbh'] / num_plots) * 100) / 100  # average
+  results['results-dbh'] = round( (intermed_dbh / results['results-count']) * 100) / 100
   results['results-basal'] = round( (results['results-basal'] / num_plots) * 100) / 100 # average
   results['results-density'] = round( (results['results-density'] / num_plots) * 100) / 100 # average
   
