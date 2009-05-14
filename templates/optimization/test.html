@@ -36,6 +36,8 @@
                 var features = new Array();
                 var pointFeature = new OpenLayers.Feature.Vector(point,null);
                 features.push(pointFeature);
+                
+                var samplePoly = new OpenLayers.Geometry.Polygon(OpenLayers.Geometry.LinearRing(0 0, 1 1, 2 2, 3 3));
 
                 {% for tree in trees %}
                   var treePoint = new OpenLayers.Geometry.Point( {{tree.location.x}}, {{tree.location.y}} );

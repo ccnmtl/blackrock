@@ -2,21 +2,12 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from blackrock.optimization.models import Tree, Plot
-import csv, math
+import csv, math, random
+
+NE_corner = 'POINT(-74.025 41.39)'
+MULTIPLIER = 0.001   # to convert meters into degrees
 
 def index(request, admin_msg=""):
-
-  #Plot.objects.all().delete()
-  #Tree.objects.all().delete()
-  #p = Plot(name="Mount Misery Plot", NE_corner='POINT(-74.025 41.39)', area=40000)
-  #.save()
-
-  #t = Tree(id=1, species="wo", dbh="5.5", location='POINT(-74.025 41.39)', plot=p)
-  #t.save()
-  #t2 = Tree(id=2, species="rm", dbh="3.5", location='POINT(-75.025 41.39)', plot=p)
-  #t2.save()
-  #p.update()
-
   return render_to_response('optimization/index.html',
                             context_instance=RequestContext(request))
                             
@@ -27,7 +18,7 @@ def calculate(request):
   if request.method != 'POST':
     return HttpResponseRedirect("/respiration/")
 
-  num_plots = float(request.REQUEST['numPlots'])
+  num_plots = int(request.REQUEST['numPlots'])
   shape = request.REQUEST['shape']
   diameter = float(request.REQUEST['diameter'])
 
@@ -36,25 +27,35 @@ def calculate(request):
 
   plot_results = {}
   total_time = 0
+  results['results-area'] = 0
+  results['results-species'] = 0
+  results['results-count'] = 0
+  results['results-dbh'] = 0
+  results['results-density'] = 0
+  results['results-basal'] = 0
+
   for plot in range(num_plots):
-    plot_results[plot] = calculate_plot(shape, diameter, parent)
-    total_time += plot_results[plot]['time-total']
+    sub = sample_plot(shape, diameter, parent)
+
+    total_time += sub['time-total']
+    results['results-area'] += sub['area']
+    # TODO: sample variance density
+    # TODO: sample variance basal area
+    results['results-species'] += sub['species']  # WRONG - can't just sum
+    results['results-count'] += sub['count']
+    results['results-dbh'] += sub['dbh']
+    results['results-density'] += sub['density']
+    results['results-basal'] += sub['basal']
+    # TODO: sample variance dbh
+
+    plot_results[plot] = sub
 
   results['plots'] = plot_results
-
   results['results-time'] = "%dh %dm" % (total_time / 60, total_time % 60)
-
-  # TODO: sample variance density
-  # TODO: sample variance basal area
-  # TODO: sample area
-  results['results-species'] = 10
-  results['results-count'] = 321
-  results['results-dbh'] = 23.4
-  results['results-density'] = "TBD"
-  results['results-basal'] = "TBD"
-  # TODO: sample variance dbh
+  results['results-dbh'] = results['results-dbh'] / num_plots  # average ?? does this work??
+  # betting density and basal can't just be summed either...
   
-  # get actual results
+  # actual forest stats
   results['actual-area'] = round(parent.area * 100) / 100
   results['actual-species'] = int(parent.num_species)
   results['actual-count'] = int(parent.tree_set.count())
@@ -66,19 +67,54 @@ def calculate(request):
   return HttpResponse(str(results), mimetype="application/javascript")
   
   
-def calculate_plot(shape, dimensions, parent):
+def sample_plot(shape, dimensions, parent):
   results = {}
   
-  # TODO: determine plot
-  
+  ## determine plot ##
+  # terrible hack for now
+  trees = None
+  if shape == 'square':
+    # pick a random NE corner
+    # range = 0 - 200-dimensions
+    corner_x = random.randint(0, 200-dimensions)
+    corner_y = random.randint(0, 200-dimensions)
+    dimensions_deg = MULTIPLIER * dimensions
+    corner_x_deg = MULTIPLIER * corner_x
+    corner_y_deg = MULTIPLIER * corner_y
+    sample = 'POLYGON ((%s %s, %s %s, %s %s, %s %s, %s %s))' \
+              % (parent.NE_corner.x - corner_x_deg, parent.NE_corner.y - corner_y_deg, \
+                 parent.NE_corner.x - corner_x_deg - dimensions_deg, parent.NE_corner.y - corner_y_deg, \
+                 parent.NE_corner.x - corner_x_deg - dimensions_deg, parent.NE_corner.y - corner_y_deg - dimensions_deg, \
+                 parent.NE_corner.x - corner_x_deg, parent.NE_corner.y  - corner_y_deg - dimensions_deg, \
+                 parent.NE_corner.x - corner_x_deg, parent.NE_corner.y - corner_y_deg,                 
+                 )
+    results['sample'] = sample
+    trees = Tree.objects.filter(location__contained=sample)
+  if shape == 'circle':
+    # pick a random center point
+    # range = dimensions - 200-dimensions
+    center_x = random.randint(dimensions, 200-dimensions)
+    center_y = random.randint(dimensions, 200-dimensions)
+    center_x_deg = parent.NE_corner.x - center_x * MULTIPLIER
+    center_y_deg = parent.NE_corner.y - center_y * MULTIPLIER
+    print center_x_deg
+    print center_y_deg
+    center_pt = 'POINT (%s %s)' % (center_x_deg, center_y_deg)
+    trees = Tree.objects.filter(location__dwithin=(center_pt, dimensions * MULTIPLIER))
+ 
+ 
   ## number of trees in plot ##
-  results['count'] = 100  #TODO
-  
+  results['count'] = int(trees.count())
+  results['species'] = 6 # TODO
+  results['dbh'] = 23.5 # TODO
+  results['density'] = 0 # TODO
+  results['basal'] = 0 # TODO
+   
   ## area ##
   if shape == 'square':
-    results['area'] = dimensions * dimensions
+    results['area'] = round(dimensions * dimensions * 100) / 100
   else:
-    results['area'] = math.pi * dimensions * dimensions
+    results['area'] = round(math.pi * dimensions * dimensions * 100) / 100
   
   ## time penalty ##
 
@@ -120,7 +156,7 @@ def loadcsv(request):
     Plot.objects.all().delete()
     Tree.objects.all().delete()
     
-    p = Plot(name="Mount Misery Plot", NE_corner='POINT(-74.025 41.39)', area=40000)
+    p = Plot(name="Mount Misery Plot", NE_corner=NE_corner, area=40000)
     p.save()
 
     table = csv.reader(fh)
@@ -147,16 +183,18 @@ def loadcsv(request):
        x = float(row[x_idx])
        y = float(row[y_idx])
        dbh = row[dbh_idx]
-       xloc = p.NE_corner.x - (0.001 * x)
-       yloc = p.NE_corner.y - (0.001 * y)
+       xloc = p.NE_corner.x - (MULTIPLIER * x)
+       yloc = p.NE_corner.y - (MULTIPLIER * y)
        loc = 'POINT(%f %f)' % (xloc, yloc)  # TODO real location data
        tree = Tree.objects.get_or_create(id=id, location=loc, species=species, dbh=dbh, plot=p)
 
     p.precalc()
-    return HttpResponseRedirect("optimization/")
+    return HttpResponseRedirect("/optimization/")
 
 def test(request):
   trees = Tree.objects.all()
+  plot = Plot.objects.get(name="Mount Misery Plot")
+  sample = sample_plot("square", 5, plot)['sample']
   #for tree in trees:
     #print tree.location
-  return render_to_response("optimization/test.html", {'trees':trees})
+  return render_to_response("optimization/test.html", {'trees':trees, 'sample':sample})

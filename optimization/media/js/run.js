@@ -6,7 +6,7 @@ function showResults(http_request) {
   // TODO: sample variance density
   // TODO: sample variance basal area
 
-  // TODO: sample area
+  $('results-area').innerHTML = results['results-area'];
   $('results-species').innerHTML = results['results-species'];
   $('results-count').innerHTML = results['results-count'];
   $('results-dbh').innerHTML = results['results-dbh'];
@@ -54,8 +54,11 @@ function showPlotInfo(plotNumber, results) {
   $(id+'-time-locate').innerHTML = results['time-locate'];
   $(id+'-time-establish').innerHTML = results['time-establish'];
   $(id+'-time-measure').innerHTML = results['time-measure'];
-  
+  //$(id+'-species').innerHTML = results['species'];
   $(id+'-count').innerHTML = results['count'];
+  $(id+'-dbh').innerHTML = results['dbh'];
+  $(id+'-density').innerHTML = results['density'];
+  $(id+'-basal').innerHTML = results['basal'];
 }
 
 function reset() {
