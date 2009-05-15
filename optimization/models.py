@@ -58,9 +58,8 @@ class Plot(models.Model):
              
     cursor.execute(sqlcmd)
     variance_temp = cursor.fetchone()[0] or 0.0
-
     if num_trees > 0:
-      self.variance_dbh = str( math.sqrt( variance_temp / (num_trees) ) )
+      self.variance_dbh = str( variance_temp / (num_trees) )
     else:
       self.variance_dbh = 0
 

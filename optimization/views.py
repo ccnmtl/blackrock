@@ -23,7 +23,6 @@ def calculate(request):
   diameter = float(request.REQUEST['diameter'])
 
   parent = Plot.objects.get(name="Mount Misery Plot")
-  parent.precalc()
   results = {}
 
   plot_results = {}
@@ -92,7 +91,7 @@ def calculate(request):
     variance_sum = 0
     for dbh in dbh_list:
       variance_sum += (dbh - results['sample-dbh']) ** 2
-    results['sample-variance-dbh'] = round( (math.sqrt( variance_sum / (results['sample-count']-1) ) ) * 100) / 100
+    results['sample-variance-dbh'] = round( ( variance_sum / (results['sample-count']-1) ) * 100) / 100
   else:
     results['sample-variance-dbh'] = 0 
 
@@ -101,13 +100,13 @@ def calculate(request):
     density_sum = 0
     for density in density_list:
       density_sum += (density - results['sample-density']) **2
-    results['sample-variance-density'] = round( math.sqrt( density_sum / (num_plots-1) ) * 100) / 100
+    results['sample-variance-density'] = round( (density_sum / (num_plots-1) ) * 100) / 100
 
     ## sample variance basal area ##
     basal_sum = 0
     for basal in basal_list:
       basal_sum += (basal - results['sample-basal']) **2
-    results['sample-variance-basal'] = round( math.sqrt( basal_sum / (num_plots-1) ) * 100) / 100
+    results['sample-variance-basal'] = round( (basal_sum / (num_plots-1) ) * 100) / 100
 
   else:
     results['sample-variance-density'] = 0
@@ -182,7 +181,7 @@ def sample_plot(shape, dimensions, parent):
   if results['count'] > 1:
     for tree in trees:
       variance_sum += (float(tree.dbh) - results['dbh']) ** 2
-    results['variance-dbh'] = round( (math.sqrt( variance_sum / (results['count']-1) ) ) * 100) / 100
+    results['variance-dbh'] = round( ( variance_sum / (results['count']-1) ) * 100) / 100
   else:
     results['variance-dbh'] = 0 
 
@@ -286,5 +285,5 @@ def loadcsv(request):
 def test(request):
   trees = Tree.objects.all()
   plot = Plot.objects.get(name="Mount Misery Plot")
-  sample = sample_plot("square", 5, plot)['sample']
-  return render_to_response("optimization/test.html", {'trees':trees, 'sample':sample})
+  #sample = sample_plot("square", 5, plot)['sample']
+  return render_to_response("optimization/test.html", {'trees':trees})#, 'sample':sample})
