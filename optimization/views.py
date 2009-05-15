@@ -47,7 +47,7 @@ def calculate(request):
     # TODO: sample variance basal area
     species_list = species_list.union(sub['species-list'])
     results['sample-count'] += sub['count']
-    intermed_dbh += sub['dbh'] * sub['count']
+    intermed_dbh += sub['dbh'] * sub['count']   # weighted sum, to be used for average
 
     results['sample-density'] += sub['density']
     density_list.append(sub['density'])
@@ -147,12 +147,8 @@ def sample_plot(shape, dimensions, parent):
   results['count'] = int(trees.count())
 
   ## unique species ##
-  species_list = sets.Set()
-  for tree in trees:
-    species_list.add(tree.species)
-
-  results['num-species'] = len(species_list)
-  results['species-list'] = species_list
+  results['species-list'] = sets.Set([tree.species for tree in trees])
+  results['num-species'] = len(results['species-list'])
 
   ## mean dbh ##
   dbhs = [float(tree.dbh) for tree in trees]
