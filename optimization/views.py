@@ -72,54 +72,37 @@ def calculate(request):
     results['sample-time'] = "%dm" % total_time
   results['sample-species'] = len(species_list)
   
-  results['sample-area'] = round(results['sample-area'] * 100) / 100
+  results['sample-area'] = round2(results['sample-area'])
 
   ## sample mean dbh ##
   if results['sample-count'] > 0:
-    results['sample-dbh'] = round( (intermed_dbh / results['sample-count']) * 100) / 100
+    results['sample-dbh'] = round2( intermed_dbh / results['sample-count'] )
   else:
     results['sample-dbh'] = 0
 
   ## sample mean basal area ##
-  results['sample-basal'] = round( (results['sample-basal'] / num_plots) * 100) / 100 # average
+  results['sample-basal'] = round2( results['sample-basal'] / num_plots ) # average
 
   ## sample mean density ##
-  results['sample-density'] = round( (results['sample-density'] / num_plots) * 100) / 100 # average
+  results['sample-density'] = round2( results['sample-density'] / num_plots ) # average
 
   ## sample variance dbh ##
-  if results['sample-count'] > 1:
-    variance_sum = 0
-    for dbh in dbh_list:
-      variance_sum += (dbh - results['sample-dbh']) ** 2
-    results['sample-variance-dbh'] = round( ( variance_sum / (results['sample-count']-1) ) * 100) / 100
-  else:
-    results['sample-variance-dbh'] = 0 
+  results['sample-variance-dbh'] = round2( variance(dbh_list, results['sample-dbh'], results['sample-count']-1) )
 
-  if num_plots > 1:
-    ## sample variance density ##
-    density_sum = 0
-    for density in density_list:
-      density_sum += (density - results['sample-density']) **2
-    results['sample-variance-density'] = round( (density_sum / (num_plots-1) ) * 100) / 100
+  ## sample variance density ##
+  results['sample-variance-density'] = round2( variance(density_list, results['sample-density'], num_plots-1) )
 
-    ## sample variance basal area ##
-    basal_sum = 0
-    for basal in basal_list:
-      basal_sum += (basal - results['sample-basal']) **2
-    results['sample-variance-basal'] = round( (basal_sum / (num_plots-1) ) * 100) / 100
+  ## sample variance basal area ##
+  results['sample-variance-basal'] = round2( variance(basal_list, results['sample-basal'], num_plots-1) )
 
-  else:
-    results['sample-variance-density'] = 0
-    results['sample-variance-basal'] = 0
-  
   # actual forest stats
-  results['actual-area'] = round(parent.area * 100) / 100
+  results['actual-area'] = round2(parent.area)
   results['actual-species'] = int(parent.num_species)
   results['actual-count'] = int(parent.tree_set.count())
-  results['actual-dbh'] = round(parent.mean_dbh * 100) / 100
-  results['actual-density'] = round(float(parent.density) * 100) / 100
-  results['actual-basal'] = round(float(parent.basal) * 100) / 100
-  results['actual-variance-dbh'] = round(float(parent.variance_dbh) * 100) / 100
+  results['actual-dbh'] = round2(parent.mean_dbh)
+  results['actual-density'] = round2( float(parent.density) )
+  results['actual-basal'] = round2( float(parent.basal) )
+  results['actual-variance-dbh'] = round2( float(parent.variance_dbh) )
   
   return HttpResponse(str(results), mimetype="application/javascript")
   
@@ -163,39 +146,36 @@ def sample_plot(shape, dimensions, parent):
   ## number of trees in plot ##
   results['count'] = int(trees.count())
 
+  ## unique species ##
   species_list = sets.Set()
-  dbh_sum = 0
   for tree in trees:
     species_list.add(tree.species)
-    dbh_sum += tree.dbh
 
   results['num-species'] = len(species_list)
   results['species-list'] = species_list
+
+  ## mean dbh ##
+  dbhs = [float(tree.dbh) for tree in trees]
+  dbh_sum = sum(dbhs)
   if trees.count() > 0:
-    results['dbh'] = round(dbh_sum / trees.count() * 100) / 100
+    results['dbh'] = round2( dbh_sum / trees.count() )
   else:
     results['dbh'] = 0
-    
-  ## dbh variance ##
-  variance_sum = 0
-  if results['count'] > 1:
-    for tree in trees:
-      variance_sum += (float(tree.dbh) - results['dbh']) ** 2
-    results['variance-dbh'] = round( ( variance_sum / (results['count']-1) ) * 100) / 100
-  else:
-    results['variance-dbh'] = 0 
 
+  ## dbh variance ##
+  results['variance-dbh'] = round2( variance(dbhs, results['dbh'], results['count']-1) )
+    
   ## area ##
   if shape == 'square':
-    results['area'] = round(dimensions * dimensions * 100) / 100
+    results['area'] = round2(dimensions * dimensions)
   else:
-    results['area'] = round(math.pi * dimensions * dimensions * 100) / 100
-  
+    results['area'] = round2(math.pi * dimensions * dimensions)
+
   ## basal area ##
-  results['basal'] = round(( (float(dbh_sum) * 0.785398) / float(results['area']) ) * 100) / 100
-   
+  results['basal'] = round2( (float(dbh_sum) * 0.785398) / float(results['area']) )
+
   ## density ##
-  results['density'] = round((trees.count() * 10000 / results['area']) * 100) / 100
+  results['density'] = round2( (trees.count() * 10000) / results['area'] )
 
   ## time penalty ##
 
@@ -234,6 +214,18 @@ def sample_plot(shape, dimensions, parent):
                         
   return results
 
+
+def round2(value):
+  return round(value * 100) / 100
+
+def variance(values, mean, population_size):
+  if population_size < 1:
+    return 0
+
+  variance_sum = 0
+  for value in values:
+    variance_sum += (float(value) - mean)**2
+  return variance_sum / population_size
   
 def loadcsv(request):
   if request.method == 'POST':
