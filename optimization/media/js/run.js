@@ -37,6 +37,7 @@ function showResults(http_request) {
 }
 
 function showError(http_request) {
+  //log(http_request);
   setStyle('errormessage', {'display':'block'});
   setStyle('waitmessage', {'display':'none'});
   $('calculate').disabled = false; 

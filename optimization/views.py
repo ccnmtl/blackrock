@@ -200,6 +200,17 @@ def sample_plot(shape, dimensions, parent):
                         
 
   ## species results
+  species_totals = {}
+  i = 0
+  for species in results['species-list']:
+    #print species
+
+    tree_count = len([tree.id for tree in trees if tree.species == species])
+    #print tree_count
+    
+    species_totals[i] = {'name':species, 'count':tree_count}
+    i += 1
+  #results['species-totals'] = species_totals
   #species = {}
   #for tree in trees:
   # try:
