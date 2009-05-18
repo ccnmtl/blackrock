@@ -20,7 +20,7 @@ def calculate(request):
 
   num_plots = int(request.REQUEST['numPlots'])
   shape = request.REQUEST['shape']
-  diameter = float(request.REQUEST['diameter'])
+  size = float(request.REQUEST['size'])
 
   parent = Plot.objects.get(name="Mount Misery Plot")
   results = {}
@@ -39,7 +39,7 @@ def calculate(request):
   dbh_list = []
 
   for plot in range(num_plots):
-    sub = sample_plot(shape, diameter, parent)
+    sub = sample_plot(shape, size, parent)
 
     total_time += sub['time-total']
     results['sample-area'] += sub['area']
@@ -108,7 +108,7 @@ def calculate(request):
   return HttpResponse(str(results), mimetype="application/javascript")
   
   
-def sample_plot(shape, dimensions, parent):
+def sample_plot(shape, size, parent):
   results = {}
   
   ## determine plot ##
@@ -118,29 +118,29 @@ def sample_plot(shape, dimensions, parent):
   y = 0
   if shape == 'square':
     # pick a random NE corner
-    # range = 0 - 200-dimensions
-    x = random.randint(0, 200-dimensions)
-    y = random.randint(0, 200-dimensions)
-    dimensions_deg = MULTIPLIER * dimensions
+    # range = 0 - 200-size
+    x = random.randint(0, 200-size)
+    y = random.randint(0, 200-size)
+    size_deg = MULTIPLIER * size
     x_deg = MULTIPLIER * x
     y_deg = MULTIPLIER * y
     sample = 'POLYGON ((%s %s, %s %s, %s %s, %s %s, %s %s))' \
               % (parent.NE_corner.x - x_deg, parent.NE_corner.y - y_deg, \
-                 parent.NE_corner.x - x_deg - dimensions_deg, parent.NE_corner.y - y_deg, \
-                 parent.NE_corner.x - x_deg - dimensions_deg, parent.NE_corner.y - y_deg - dimensions_deg, \
-                 parent.NE_corner.x - x_deg, parent.NE_corner.y  - y_deg - dimensions_deg, \
+                 parent.NE_corner.x - x_deg - size_deg, parent.NE_corner.y - y_deg, \
+                 parent.NE_corner.x - x_deg - size_deg, parent.NE_corner.y - y_deg - size_deg, \
+                 parent.NE_corner.x - x_deg, parent.NE_corner.y  - y_deg - size_deg, \
                  parent.NE_corner.x - x_deg, parent.NE_corner.y - y_deg,                 
                  )
     trees = Tree.objects.filter(location__contained=sample)
   if shape == 'circle':
     # pick a random center point
-    # range = dimensions - 200-dimensions
-    x = random.randint(dimensions, 200-dimensions)
-    y = random.randint(dimensions, 200-dimensions)
+    # range = size - 200-size
+    x = random.randint(size, 200-size)
+    y = random.randint(size, 200-size)
     x_deg = parent.NE_corner.x - x * MULTIPLIER
     y_deg = parent.NE_corner.y - y * MULTIPLIER
     center_pt = 'POINT (%s %s)' % (x_deg, y_deg)
-    trees = Tree.objects.filter(location__dwithin=(center_pt, dimensions * MULTIPLIER))
+    trees = Tree.objects.filter(location__dwithin=(center_pt, size * MULTIPLIER))
  
   results['trees'] = trees
  
@@ -164,9 +164,9 @@ def sample_plot(shape, dimensions, parent):
     
   ## area ##
   if shape == 'square':
-    results['area'] = round2(dimensions * dimensions)
+    results['area'] = round2(size * size)
   else:
-    results['area'] = round2(math.pi * dimensions * dimensions)
+    results['area'] = round2(math.pi * size * size)
 
   ## basal area ##
   results['basal'] = round2( (float(dbh_sum) * 0.785398) / float(results['area']) )
@@ -191,7 +191,7 @@ def sample_plot(shape, dimensions, parent):
 
   # establishing plot boundaries (size) - larger plots take longer
   # (fudging at 1 minute per meter of diameter for now)
-  results['time-establish'] += dimensions
+  results['time-establish'] += size
   
   # measuring trees in the plot - 30 seconds per tree
   results['time-measure'] = .5 * results['count']

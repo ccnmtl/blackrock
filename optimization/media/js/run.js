@@ -103,6 +103,7 @@ function reset() {
 }
 
 function validate() {
+  // validate number of plots
   var numPlots = $('numPlots').value;
   if(numPlots == "" || isNaN(numPlots)) {
     alert("Error: Number of Plots must be a number.  Please check your input and try again.");
@@ -116,6 +117,23 @@ function validate() {
     alert("Error: Number of Plots must be a whole number.  Please check your input and try again.");
     return false;
   }
+  
+  // validate plot dimensions
+  var size = $('plotSize').value;
+  var label = $('shapeLabel').innerHTML;
+  if(size == "" || isNaN(size)) {
+    alert("Error: Plot " + label + " must be a number.  Please check your input and try again.");
+    return false;
+  }
+  if(size < 1 || size > 100) {
+    alert("Error: Plot " + label + " must be between 1 and 100.  Please check your input and try again.");
+    return false;
+  }
+  if(size.indexOf(".") != -1) {
+    alert("Error: Plot " + label + " must be a whole number.  Please check your input and try again.");
+    return false;
+  }  
+  
   return true;
 }
 
@@ -138,8 +156,8 @@ function calculate() {
 
   var numPlots = $('numPlots').value;
   var shape = $('plotShape').value;
-  var diameter = $('plotDiameter').value;
-  var params = "numPlots=" + numPlots + "&shape=" + shape + "&diameter=" + diameter;
+  var size = $('plotSize').value;
+  var params = "numPlots=" + numPlots + "&shape=" + shape + "&size=" + size;
   http_request = doXHR("calculate", {'method':'POST', 'sendContent':params,
                                          'headers':[["Content-Type", 'application/x-www-form-urlencoded']]
                                         });
