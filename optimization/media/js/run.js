@@ -168,7 +168,7 @@ function calculate() {
 function updateShapeLabel(e) {
   var shape = e.src().value;
   if(shape == "square") {
-    $('shapeLabel').innerHTML = "Diameter";
+    $('shapeLabel').innerHTML = "Edge";
   }
   else {
     $('shapeLabel').innerHTML = "Radius";
