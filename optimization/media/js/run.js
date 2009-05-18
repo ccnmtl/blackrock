@@ -102,7 +102,26 @@ function reset() {
   }
 }
 
+function validate() {
+  var numPlots = $('numPlots').value;
+  if(numPlots == "" || isNaN(numPlots)) {
+    alert("Error: Number of Plots must be a number.  Please check your input and try again.");
+    return false;
+  }
+  if(numPlots < 1 || numPlots > 100) {
+    alert("Error: Number of Plots must be between 1 and 100.  Please check your input and try again.");
+    return false;
+  }
+  if(numPlots.indexOf(".") != -1) {
+    alert("Error: Number of Plots must be a whole number.  Please check your input and try again.");
+    return false;
+  }
+  return true;
+}
+
 function calculate() {
+  if(! validate()) { return false; }
+
   $('calculate').disabled = true;
   setStyle('waitmessage', {'display':'block'});
   setStyle('errormessage', {'display':'none'});
@@ -128,9 +147,20 @@ function calculate() {
   http_request.addErrback(showError);
 }
 
+function updateShapeLabel(e) {
+  var shape = e.src().value;
+  if(shape == "square") {
+    $('shapeLabel').innerHTML = "Diameter";
+  }
+  else {
+    $('shapeLabel').innerHTML = "Radius";
+  }
+}
+
 function initRun() {
   connect("calculate", "onclick", calculate);
   connect("reset", "onclick", reset);
+  connect("plotShape", "onchange", updateShapeLabel);
 }
 
 addLoadEvent(initRun);
