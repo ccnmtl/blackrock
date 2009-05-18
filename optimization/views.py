@@ -7,6 +7,14 @@ import csv, math, random, sets
 NE_corner = 'POINT(-74.025 41.39)'
 MULTIPLIER = 0.001   # to convert meters into degrees
 
+species_key = {'bg':'black gum',
+               'bb':'black birch',
+               'sh':'shagbark hickory',
+               'sm':'sugar maple',
+               'rm':'red maple',
+               'ro':'red oak'
+               }
+
 def index(request, admin_msg=""):
   return render_to_response('optimization/index.html',
                             context_instance=RequestContext(request))
@@ -148,7 +156,8 @@ def sample_plot(shape, size, parent):
   results['count'] = int(trees.count())
 
   ## unique species ##
-  results['species-list'] = sets.Set([str(tree.species) for tree in trees])
+  species_list_intermed = sets.Set([str(tree.species) for tree in trees])
+  results['species-list'] = [species_key[species] for species in species_list_intermed]
   results['num-species'] = len(results['species-list'])
 
   ## mean dbh ##
@@ -203,12 +212,12 @@ def sample_plot(shape, size, parent):
   ## species results
   species_totals = {}
   i = 0
-  for species in results['species-list']:
+  for species in species_list_intermed:
     tree_count = len([tree.id for tree in trees if tree.species == species])
     
     # shortcut -- if there is only 1 species, use the plot results
     if(tree_count == results['count']):
-      species_totals[i] = {'name': species, 'count': tree_count,
+      species_totals[i] = {'name': species_key[species], 'count': tree_count,
                            'dbh': results['dbh'],
                            'density': results['density'],
                            'basal': results['basal'],
@@ -218,7 +227,7 @@ def sample_plot(shape, size, parent):
       dbhs = [float(tree.dbh) for tree in trees if tree.species == species]
       dbh_sum = sum(dbhs)
       mean_dbh = dbh_sum/tree_count
-      species_totals[i] = {'name':species, 'count':tree_count,
+      species_totals[i] = {'name':species_key[species], 'count':tree_count,
                            'dbh': round2(mean_dbh),
                            'density': round2( (tree_count * 10000) / results['area'] ),
                            'basal': round2( (float(dbh_sum) * 0.785398) / float(results['area']) ),
