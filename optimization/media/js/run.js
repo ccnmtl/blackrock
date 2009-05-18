@@ -55,6 +55,9 @@ function showPlotInfo(plotNumber, results) {
     appendChildNodes(parent, newDiv);
     newDiv.innerHTML = plotTable.replace(/plot1/g, id).replace(/PLOT 1/g, name);
     newDiv.id = id;
+    forEach(getElementsByTagAndClassName("tr","calculated",newDiv), function(elem) {
+      removeElement(elem);
+    });
   }
   $(id+'-area').innerHTML = results['area'];
   $(id+'-time-total').innerHTML = results['time-total'];
@@ -68,6 +71,20 @@ function showPlotInfo(plotNumber, results) {
   $(id+'-density').innerHTML = results['density'];
   $(id+'-basal').innerHTML = results['basal'];
   $(id+'-variance-dbh').innerHTML = results['variance-dbh'];
+  
+  var numSpecies = results['num-species'];
+  var speciesList = results['species-totals'];
+  var totalsRow = getFirstElementByTagAndClassName("TR", null, id+'-species-table');
+  for(var i=0; i<numSpecies; i++) {
+    var child = TR({'class':'calculated'}, TD(null, speciesList[i]['name']),
+                         TD({'class':'right'}, speciesList[i]['count']),
+                         TD({'class':'right'}, speciesList[i]['dbh']),
+                         TD({'class':'right'}, speciesList[i]['density']),
+                         TD({'class':'right'}, speciesList[i]['basal']),
+                         TD({'class':'right'}, speciesList[i]['variance-dbh'])
+                   );
+    insertSiblingNodesBefore(totalsRow, child);
+  }
 }
 
 function reset() {
@@ -95,6 +112,10 @@ function calculate() {
       removeElement("plot"+i);
     }
   }
+  
+  forEach(getElementsByTagAndClassName("tr","calculated"), function(elem){
+    removeElement(elem);
+  });
 
   var numPlots = $('numPlots').value;
   var shape = $('plotShape').value;

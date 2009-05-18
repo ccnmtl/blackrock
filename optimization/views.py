@@ -59,9 +59,10 @@ def calculate(request):
     trees = sub['trees']
     for tree in trees:
       dbh_list.append(float(tree.dbh))
-    sub['trees'] = ''
 
-    sub['species-list'] = ""
+    sub['trees'] = ''
+    sub['species-list'] = ''
+
     plot_results[plot] = sub
 
   results['plots'] = plot_results
@@ -147,7 +148,7 @@ def sample_plot(shape, dimensions, parent):
   results['count'] = int(trees.count())
 
   ## unique species ##
-  results['species-list'] = sets.Set([tree.species for tree in trees])
+  results['species-list'] = sets.Set([str(tree.species) for tree in trees])
   results['num-species'] = len(results['species-list'])
 
   ## mean dbh ##
@@ -203,21 +204,28 @@ def sample_plot(shape, dimensions, parent):
   species_totals = {}
   i = 0
   for species in results['species-list']:
-    #print species
-
     tree_count = len([tree.id for tree in trees if tree.species == species])
-    #print tree_count
     
-    species_totals[i] = {'name':species, 'count':tree_count}
+    # shortcut -- if there is only 1 species, use the plot results
+    if(tree_count == results['count']):
+      species_totals[i] = {'name': species, 'count': tree_count,
+                           'dbh': results['dbh'],
+                           'density': results['density'],
+                           'basal': results['basal'],
+                           'variance-dbh': results['variance-dbh']}
+
+    else:
+      dbhs = [float(tree.dbh) for tree in trees if tree.species == species]
+      dbh_sum = sum(dbhs)
+      mean_dbh = dbh_sum/tree_count
+      species_totals[i] = {'name':species, 'count':tree_count,
+                           'dbh': round2(mean_dbh),
+                           'density': round2( (tree_count * 10000) / results['area'] ),
+                           'basal': round2( (float(dbh_sum) * 0.785398) / float(results['area']) ),
+                           'variance-dbh':round2( variance(dbhs, mean_dbh, tree_count-1) )
+                           }
     i += 1
-  #results['species-totals'] = species_totals
-  #species = {}
-  #for tree in trees:
-  # try:
-  #   species[tree.species] += 1
-  #  except:
-  #    species[tree.species] = 1
-  #results['species'] = species
+  results['species-totals'] = species_totals
                         
   return results
 
