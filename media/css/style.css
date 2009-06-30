@@ -82,3 +82,17 @@ div#breadcrumbs ol li
 }
 
 div#breadcrumbs ol li.active { color: #996734; }
+
+img.screenshot {
+  border:1px black solid;
+  padding:5px;
+  margin-bottom:7px;
+  background-color:#fff;
+}
+
+div.screenshot {
+  background-color:#eee;
+  width:312px;
+  border:1px black solid;
+  padding:15px;
+}
