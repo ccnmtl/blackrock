@@ -31,6 +31,8 @@
 
 <h3 style='text-align:center;'>Modules</h3>
 
+<p>Select a module by clicking on one of the module images below.</p>
+
 <table style='width:80%;text-align:center;margin:0px auto;'><tr>
 {% for app in apps %}
   {% if app.admin %}
@@ -38,8 +40,8 @@
       <td>
         <div class='screenshot'>
         <a href="{{ app.path }}">
-          <img class='screenshot' src="site_media/images/screenshot - {{app.name}}.png"></img></a><br/>
-          {{ app.name }}
+          <img class='screenshot' src="site_media/images/screenshot - {{app.name}}.png"></img><br/>
+          {{ app.name }}</a>
         </div>
       </td>
     {% endif %}
@@ -47,8 +49,8 @@
       <td>
         <div class='screenshot'>
         <a href="{{ app.path }}">
-          <img class='screenshot' src="site_media/images/screenshot - {{app.name}}.png"></img></a><br/>
-          {{ app.name }}
+          <img class='screenshot' src="site_media/images/screenshot - {{app.name}}.png"></img><br/>
+          {{ app.name }}</a>
         </div>
       </td>
   {% endif %}
