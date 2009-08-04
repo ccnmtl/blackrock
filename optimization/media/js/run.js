@@ -1,8 +1,14 @@
 var http_request;
 
+function comparison(thing1, thing2) {
+  // returns (sample / population) * 100
+  return Math.round( (thing1 / thing2) * 10000) / 100;
+}
+
 function showResults(http_request) {
   var results = evalJSON(http_request.responseText);
   $('results-time').innerHTML = results['sample-time'];
+  $('results-avg-time').innerHTML = results['avg-time'];
 
   $('results-variance-density').innerHTML = results['sample-variance-density'];
   $('results-variance-basal').innerHTML = results['sample-variance-basal'];
@@ -11,17 +17,22 @@ function showResults(http_request) {
   $('results-species').innerHTML = results['sample-species'];
   $('results-count').innerHTML = results['sample-count'];
   $('results-dbh').innerHTML = results['sample-dbh'];
+  $('results-variance-dbh').innerHTML = results['sample-variance-dbh'];
   $('results-density').innerHTML = results['sample-density'];
   $('results-basal').innerHTML = results['sample-basal'];
-  $('results-variance-dbh').innerHTML = results['sample-variance-dbh'];
 
   $('actual-area').innerHTML = results['actual-area'];
   $('actual-species').innerHTML = results['actual-species'];
   $('actual-count').innerHTML = results['actual-count'];
   $('actual-dbh').innerHTML = results['actual-dbh'];
+  $('actual-variance-dbh').innerHTML = results['actual-variance-dbh'];
   $('actual-density').innerHTML = results['actual-density'];
   $('actual-basal').innerHTML = results['actual-basal'];
-  $('actual-variance-dbh').innerHTML = results['actual-variance-dbh'];
+  
+  $('comparison-dbh').innerHTML = comparison(results['sample-dbh'], results['actual-dbh']) + "%";
+  $('comparison-variance-dbh').innerHTML = comparison(results['sample-variance-dbh'], results['actual-variance-dbh']) + "%";
+  $('comparison-density').innerHTML = comparison(results['sample-density'], results['actual-density']) + "%";
+  $('comparison-basal').innerHTML = comparison(results['sample-basal'], results['actual-basal']) + "%";
   
   // individual plots
   var plots = results['plots'];
@@ -68,9 +79,9 @@ function showPlotInfo(plotNumber, results) {
   $(id+'-species').innerHTML = results['num-species'];
   $(id+'-count').innerHTML = results['count'];
   $(id+'-dbh').innerHTML = results['dbh'];
+  $(id+'-variance-dbh').innerHTML = results['variance-dbh'];
   $(id+'-density').innerHTML = results['density'];
   $(id+'-basal').innerHTML = results['basal'];
-  $(id+'-variance-dbh').innerHTML = results['variance-dbh'];
   
   var numSpecies = results['num-species'];
   var speciesList = results['species-totals'];
@@ -79,9 +90,9 @@ function showPlotInfo(plotNumber, results) {
     var child = TR({'class':'calculated'}, TD(null, speciesList[i]['name']),
                          TD({'class':'right'}, speciesList[i]['count']),
                          TD({'class':'right'}, speciesList[i]['dbh']),
+                         TD({'class':'right'}, speciesList[i]['variance-dbh']),
                          TD({'class':'right'}, speciesList[i]['density']),
-                         TD({'class':'right'}, speciesList[i]['basal']),
-                         TD({'class':'right'}, speciesList[i]['variance-dbh'])
+                         TD({'class':'right'}, speciesList[i]['basal'])
                    );
     insertSiblingNodesBefore(totalsRow, child);
   }

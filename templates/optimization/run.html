@@ -104,6 +104,10 @@
       <td class='right'><span id='results-time'></span></td>
     </tr>
     <tr>
+      <td class='header'>AVERAGE TIME PER PLOT</td>
+      <td class='right'><span id='results-avg-time'></span></td>
+    </tr>
+    <tr>
       <td class='header'>SAMPLE VARIANCE DENSITY</td>
       <td id='results-variance-density' class='right'></td>
     </tr>
@@ -121,31 +125,41 @@
         <td>SPECIES</td>
         <td># OF TREES</td>
         <td>MEAN DBH (cm)</td>
+        <td>VARIANCE DBH</td>
         <td>DENSITY (N/ha)</td>
         <td>BASAL AREA (m<sup>2</sup>/ha)</td>
-        <td>VARIANCE DBH</td>
       </tr>
       </thead>
       <tbody>
       <tr>
-        <td class='header'>SAMPLE</td>
+        <td class='header'>SAMPLE PLOTS</td>
         <td id='results-area' class='right'></td>
         <td id='results-species' class='right'></td>
         <td id='results-count' class='right'></td>
         <td id='results-dbh' class='right'></td>
+        <td id='results-variance-dbh' class='right'></td>
         <td id='results-density' class='right'></td>
         <td id='results-basal' class='right'></td>
-        <td id='results-variance-dbh' class='right'></td>
       </tr>
       <tr>
-        <td class='header'>FOREST</td>
+        <td class='header'>FOREST POPULATION</td>
         <td id='actual-area' class='right'></td>
         <td id='actual-species' class='right'></td>
         <td id='actual-count' class='right'></td>
         <td id='actual-dbh' class='right'></td>
+        <td id='actual-variance-dbh' class='right'></td>
         <td id='actual-density' class='right'></td>
         <td id='actual-basal' class='right'></td>
-        <td id='actual-variance-dbh' class='right'></td>
+      </tr>
+      <tr>
+        <td class='header'>COMPARISON</td>
+        <td style='background-color:#eeeeee;'></td>
+        <td style='background-color:#eeeeee;'></td>
+        <td style='background-color:#eeeeee;'></td>
+        <td id='comparison-dbh' class='right'></td>
+        <td id='comparison-variance-dbh' class='right'></td>
+        <td id='comparison-density' class='right'></td>
+        <td id='comparison-basal' class='right'></td>
       </tr>
     </tbody>
   </table><!-- end inner table -->
@@ -170,12 +184,12 @@
       <td class='right'><span id='plot1-time-total'></span>m</td>
     </tr>
     <tr>
-      <td class='subheader'>Travel Time to Reach Plot Area</td>
-      <td class='right'><span id='plot1-time-travel'></span>m</td>
-    </tr>
-    <tr>
       <td class='subheader'>Locating Plot</td>
       <td class='right'><span id='plot1-time-locate'></span>m</td>
+    </tr>
+    <tr>
+      <td class='subheader'>Travel Time to Reach Plot Area</td>
+      <td class='right'><span id='plot1-time-travel'></span>m</td>
     </tr>
     <tr>
       <td class='subheader'>Establishing Plot</td>
@@ -193,9 +207,9 @@
         <td>SPECIES</td>
         <td># OF TREES</td>
         <td>MEAN DBH (cm)</td>
+        <td>VARIANCE DBH</td>
         <td>DENSITY (N/ha)</td>
         <td>BASAL AREA (m<sup>2</sup>/ha)</td>
-        <td>VARIANCE DBH</td>
       </tr>
     </thead>
     <tbody id='plot1-species-table'>
@@ -203,9 +217,9 @@
         <td><strong>TOTAL: <span id='plot1-species'></span></strong></td>
         <td id='plot1-count' class='right'></td>
         <td id='plot1-dbh' class='right'></td>
+        <td id='plot1-variance-dbh' class='right'></td>
         <td id='plot1-density' class='right'></td>
         <td id='plot1-basal' class='right'></td>
-        <td id='plot1-variance-dbh' class='right'></td>
       </tr>
     </tbody>
   </table>

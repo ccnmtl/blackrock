@@ -75,10 +75,10 @@ def calculate(request):
 
   results['plots'] = plot_results
   
-  if total_time > 59:
-    results['sample-time'] = "%dh %dm" % (total_time / 60, total_time % 60)
-  else:
-    results['sample-time'] = "%dm" % total_time
+  results['sample-time'] = format_time(total_time)
+  avg_time = total_time / num_plots
+  results['avg-time'] = format_time(avg_time)
+
   results['sample-species'] = len(species_list)
   
   results['sample-area'] = round2(results['sample-area'])
@@ -241,6 +241,12 @@ def sample_plot(shape, size, parent):
 
 def round2(value):
   return round(value * 100) / 100
+
+def format_time(time):
+  if time > 59:
+    return "%dh %dm" % (time / 60, time % 60)
+  else:
+    return "%dm" % time
 
 def variance(values, mean, population_size):
   if population_size < 1:
