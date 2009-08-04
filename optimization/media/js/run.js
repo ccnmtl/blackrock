@@ -92,14 +92,17 @@ function reset() {
   setStyle('waitmessage', {'display':'none'});
   setStyle('results', {'display':'none'});
   setStyle('details', {'display':'none'});
+  updateShapeLabel($("plotArrangement"));
   $('calculate').disabled = false;
-  http_request.cancel();
-  
-  for(var i=2; i<=10; i++) {
-    if($("plot"+i)) {
-      removeElement("plot"+i);
-    }
+  if(http_request) {
+    http_request.cancel();
   }
+  
+  forEach(getElementsByTagAndClassName("div","plot-wrapper"), function(elem) {
+    if(elem.id != "plot1")
+      removeElement(elem);
+  });
+
 }
 
 function validate() {
@@ -144,11 +147,10 @@ function calculate() {
   setStyle('waitmessage', {'display':'block'});
   setStyle('errormessage', {'display':'none'});
 
-  for(var i=2; i<=10; i++) {
-    if($("plot"+i)) {
-      removeElement("plot"+i);
-    }
-  }
+  forEach(getElementsByTagAndClassName("div","plot-wrapper"), function(elem) {
+    if(elem.id != "plot1")
+      removeElement(elem);
+  });
   
   forEach(getElementsByTagAndClassName("tr","calculated"), function(elem){
     removeElement(elem);
@@ -166,7 +168,12 @@ function calculate() {
 }
 
 function updateShapeLabel(e) {
-  var shape = e.src().value;
+  var shape = "square";
+  if(e.src)
+    shape = e.src().value;
+  else
+    shape = e.value;
+
   if(shape == "square") {
     $('shapeLabel').innerHTML = "Edge";
   }
