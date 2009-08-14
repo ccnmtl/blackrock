@@ -5,7 +5,6 @@ function toggle(e) {
   var inner = getFirstElementByTagAndClassName("div", "toggle-nest", parent);
 
   var visible = (getStyle(downarrow, "display") != "none");
-  log(visible);
 
   if(visible) {
     setStyle(downarrow, {'display':'none'});

@@ -244,9 +244,13 @@ def round2(value):
 
 def format_time(time):
   if time > 59:
-    return "%dh %dm" % (time / 60, time % 60)
+    hour = time / 60
+    minute = time % 60
+    if minute == 0:
+      return "%d hr" % hour
+    return "%d hr, %.1f min" % (hour, minute)
   else:
-    return "%dm" % time
+    return "%.1f min" % time
 
 def variance(values, mean, population_size):
   if population_size < 1:

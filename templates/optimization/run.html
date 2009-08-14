@@ -7,6 +7,7 @@
   
   <script type="text/javascript" src="media/js/run.js"></script>
   <script type="text/javascript" src="media/js/toggles.js"></script>
+  <script type="text/javascript" src="media/js/area.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -63,6 +64,17 @@
             <!--option value='random'>Grid</option-->
           </select>
         </td>
+      </tr>
+      <tr>
+        <td colspan='2'>&nbsp;<br />&nbsp;<br /></td>
+      </tr>
+      <tr>
+         <td class='left'>
+           Total Sample Area:
+         </td>
+         <td>
+            <span id='plotArea'></span>m<sup>2</sup>
+         </td>
       </tr>
     </table>
     
@@ -153,9 +165,9 @@
       </tr>
       <tr>
         <td class='header'>COMPARISON</td>
-        <td style='background-color:#eeeeee;'></td>
-        <td style='background-color:#eeeeee;'></td>
-        <td style='background-color:#eeeeee;'></td>
+        <td id='comparison-area' class='right'></td>
+        <td id='comparison-species' class='right'></td>
+        <td id='comparison-count' class='right'></td>
         <td id='comparison-dbh' class='right'></td>
         <td id='comparison-variance-dbh' class='right'></td>
         <td id='comparison-density' class='right'></td>
@@ -172,35 +184,51 @@
       Sampling Details</h3-->
   <h3>Sampling Details</h3>
   <div id='plot-parent'>
-    <div class='plot-wrapper toggle-container' id='plot1'>
-    <div class='plot-title toggle-control'><span class='downarrow'>&#x25BE;</span>
-      <span class='rightarrow'>&#x25B8</span>
+    <div class='plot-wrapper' id='plot1'>
+    <div class='plot-title'>
       PLOT 1:</div>
-    <div class='plot-info toggle-nest'>
+    <div class='plot-info toggle-container'>
+    
+    <table class="results-summary">
+      <tr>
+        <td class='header'>PLOT AREA (m<sup>2</sup>)</td>
+        <td id='plot1-area' class='right'></td>
+      </tr>
+      <tr>
+        <td class='header'>TREES</td>
+        <td class='right'><span id='plot1-count'></span></td>
+      </tr>
+      <tr>
+        <td class='header'>TOTAL SAMPLING TIME</td>
+        <td class='right'><span id='plot1-time-total'></span> min</td>
+      </tr>
+    </table>
+
+<h4 class='toggle-control'><span class='downarrow'>&#x25BE;</span>
+      <span class='rightarrow'>&#x25B8</span> Details</h3>
+
+  <div class='toggle-nest'>
+
   <table class="results-summary">
     <tr>
-      <td class='header'>PLOT AREA (m<sup>2</sup>)</td>
-      <td id='plot1-area' class='right'></td>
+      <td class='header'>Time Spent...</td>
+      <td></td>
     </tr>
     <tr>
-      <td class='header'>TOTAL SAMPLING TIME</td>
-      <td class='right'><span id='plot1-time-total'></span>m</td>
+      <td class='subheader right'>Locating Plot</td>
+      <td class='right'><span id='plot1-time-locate'></span> min</td>
     </tr>
     <tr>
-      <td class='subheader'>Locating Plot</td>
-      <td class='right'><span id='plot1-time-locate'></span>m</td>
+      <td class='subheader right'>Traveling to Plot Area</td>
+      <td class='right'><span id='plot1-time-travel'></span> min</td>
     </tr>
     <tr>
-      <td class='subheader'>Travel Time to Reach Plot Area</td>
-      <td class='right'><span id='plot1-time-travel'></span>m</td>
+      <td class='subheader right'>Establishing Plot</td>
+      <td class='right'><span id='plot1-time-establish'></span> min</td>
     </tr>
     <tr>
-      <td class='subheader'>Establishing Plot</td>
-      <td class='right'><span id='plot1-time-establish'></span>m</td>
-    </tr>
-    <tr>
-      <td class='subheader'>Measuring Trees</td>
-      <td class='right'><span id='plot1-time-measure'></span>m</td>
+      <td class='subheader right'>Measuring Trees</td>
+      <td class='right'><span id='plot1-time-measure'></span> min</td>
     </tr>
   </table>
   
@@ -218,7 +246,7 @@
     <tbody id='plot1-species-table'>
       <tr>
         <td><strong>TOTAL: <span id='plot1-species'></span></strong></td>
-        <td id='plot1-count' class='right'></td>
+        <td id='plot1-details-count' class='right'></td>
         <td id='plot1-dbh' class='right'></td>
         <td id='plot1-variance-dbh' class='right'></td>
         <td id='plot1-density' class='right'></td>
@@ -226,6 +254,7 @@
       </tr>
     </tbody>
   </table>
+    </div><!-- end div toggle-nest -->
     </div><!-- end div plot-info -->
     </div><!-- end div plot-wrapper -->
   </div> <!-- end div nest -->

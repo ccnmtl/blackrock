@@ -29,6 +29,9 @@ function showResults(http_request) {
   $('actual-density').innerHTML = results['actual-density'];
   $('actual-basal').innerHTML = results['actual-basal'];
   
+  $('comparison-area').innerHTML = comparison(results['sample-area'], results['actual-area']) + "%";
+  $('comparison-species').innerHTML = comparison(results['sample-species'], results['actual-species']) + "%";
+  $('comparison-count').innerHTML = comparison(results['sample-count'], results['actual-count']) + "%";
   $('comparison-dbh').innerHTML = comparison(results['sample-dbh'], results['actual-dbh']) + "%";
   $('comparison-variance-dbh').innerHTML = comparison(results['sample-variance-dbh'], results['actual-variance-dbh']) + "%";
   $('comparison-density').innerHTML = comparison(results['sample-density'], results['actual-density']) + "%";
@@ -79,6 +82,7 @@ function showPlotInfo(plotNumber, results) {
   $(id+'-time-measure').innerHTML = results['time-measure'];
   $(id+'-species').innerHTML = results['num-species'];
   $(id+'-count').innerHTML = results['count'];
+  $(id+'-details-count').innerHTML = results['count'];
   $(id+'-dbh').innerHTML = results['dbh'];
   $(id+'-variance-dbh').innerHTML = results['variance-dbh'];
   $(id+'-density').innerHTML = results['density'];
@@ -120,7 +124,7 @@ function reset() {
       removeElement(elem);
   });
 
-  /* un-collapse plot1 if it's collapsed */
+  /* collapse plot1 if it's un-collapsed */
   var rightarrow = getFirstElementByTagAndClassName("span", "rightarrow", "plot1");
   var downarrow = getFirstElementByTagAndClassName("span", "downarrow", "plot1");
   var parent = $("plot1");
@@ -128,10 +132,10 @@ function reset() {
 
   var visible = (getStyle(downarrow, "display") != "none");
 
-  if(! visible) {
-    setStyle(downarrow, {'display':'inline'});
-    setStyle(rightarrow, {'display':'none'});
-    setStyle(inner, {'display':'block'});
+  if(visible) {
+    setStyle(downarrow, {'display':'none'});
+    setStyle(rightarrow, {'display':'inline'});
+    setStyle(inner, {'display':'none'});
   }
 
 }
@@ -183,7 +187,7 @@ function calculate() {
       removeElement(elem);
   });
   
-  /* un-collapse plot1 if it's collapsed */
+  /* collapse plot1 if it's un-collapsed */
   var rightarrow = getFirstElementByTagAndClassName("span", "rightarrow", "plot1");
   var downarrow = getFirstElementByTagAndClassName("span", "downarrow", "plot1");
   var parent = $("plot1");
@@ -191,10 +195,10 @@ function calculate() {
 
   var visible = (getStyle(downarrow, "display") != "none");
 
-  if(! visible) {
-    setStyle(downarrow, {'display':'inline'});
-    setStyle(rightarrow, {'display':'none'});
-    setStyle(inner, {'display':'block'});
+  if(visible) {
+    setStyle(downarrow, {'display':'none'});
+    setStyle(rightarrow, {'display':'inline'});
+    setStyle(inner, {'display':'none'});
   }
 
   forEach(getElementsByTagAndClassName("tr","calculated"), function(elem){
