@@ -1,10 +1,11 @@
 function toggle(e) {
   var rightarrow = getFirstElementByTagAndClassName("span", "rightarrow", e.src());
   var downarrow = getFirstElementByTagAndClassName("span", "downarrow", e.src());
-  var parent = getFirstParentByTagAndClassName(e.src(), "div", "container");
-  var inner = getFirstElementByTagAndClassName("div", "nest", parent);
+  var parent = getFirstParentByTagAndClassName(e.src(), "div", "toggle-container");
+  var inner = getFirstElementByTagAndClassName("div", "toggle-nest", parent);
 
   var visible = (getStyle(downarrow, "display") != "none");
+  log(visible);
 
   if(visible) {
     setStyle(downarrow, {'display':'none'});
@@ -19,7 +20,7 @@ function toggle(e) {
 }
 
 function initToggles() {
-  forEach(getElementsByTagAndClassName("h3"), function(elem) {
+  forEach(getElementsByTagAndClassName("*", "toggle-control"), function(elem) {
     connect(elem, "onclick", toggle);
   });
 }

@@ -38,7 +38,13 @@ div.right
 .caps { text-transform: uppercase; }
 
 /* styles for dropdown arrows */
-span.rightarrow { display: none; }
+span.rightarrow {
+  cursor: pointer;
+  display: none;
+}
+span.downarrow {
+  cursor: pointer;
+}
 
 form
 {

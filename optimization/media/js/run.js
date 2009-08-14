@@ -48,7 +48,7 @@ function showResults(http_request) {
 }
 
 function showError(http_request) {
-  //log(http_request);
+  log(http_request);
   setStyle('errormessage', {'display':'block'});
   setStyle('waitmessage', {'display':'none'});
   $('calculate').disabled = false; 
@@ -63,6 +63,7 @@ function showPlotInfo(plotNumber, results) {
   if(plotNumber > 1) {
     var newDiv = DIV();
     addElementClass(newDiv, "plot-wrapper");
+    addElementClass(newDiv, "toggle-container");
     appendChildNodes(parent, newDiv);
     newDiv.innerHTML = plotTable.replace(/plot1/g, id).replace(/PLOT 1/g, name);
     newDiv.id = id;
@@ -96,6 +97,11 @@ function showPlotInfo(plotNumber, results) {
                    );
     insertSiblingNodesBefore(totalsRow, child);
   }
+  if(plotNumber > 1) {
+    var togglectrl = getFirstElementByTagAndClassName("*", "toggle-control", id);
+    log(togglectrl);
+    connect(togglectrl, "onclick", toggle);
+  }
 }
 
 function reset() {
@@ -113,6 +119,20 @@ function reset() {
     if(elem.id != "plot1")
       removeElement(elem);
   });
+
+  /* un-collapse plot1 if it's collapsed */
+  var rightarrow = getFirstElementByTagAndClassName("span", "rightarrow", "plot1");
+  var downarrow = getFirstElementByTagAndClassName("span", "downarrow", "plot1");
+  var parent = $("plot1");
+  var inner = getFirstElementByTagAndClassName("div", "toggle-nest", parent);
+
+  var visible = (getStyle(downarrow, "display") != "none");
+
+  if(! visible) {
+    setStyle(downarrow, {'display':'inline'});
+    setStyle(rightarrow, {'display':'none'});
+    setStyle(inner, {'display':'block'});
+  }
 
 }
 
@@ -163,6 +183,20 @@ function calculate() {
       removeElement(elem);
   });
   
+  /* un-collapse plot1 if it's collapsed */
+  var rightarrow = getFirstElementByTagAndClassName("span", "rightarrow", "plot1");
+  var downarrow = getFirstElementByTagAndClassName("span", "downarrow", "plot1");
+  var parent = $("plot1");
+  var inner = getFirstElementByTagAndClassName("div", "toggle-nest", parent);
+
+  var visible = (getStyle(downarrow, "display") != "none");
+
+  if(! visible) {
+    setStyle(downarrow, {'display':'inline'});
+    setStyle(rightarrow, {'display':'none'});
+    setStyle(inner, {'display':'block'});
+  }
+
   forEach(getElementsByTagAndClassName("tr","calculated"), function(elem){
     removeElement(elem);
   });
