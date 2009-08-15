@@ -3,6 +3,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from blackrock.optimization.models import Tree, Plot
 import csv, math, random, sets
+import simplejson as json
 
 NE_corner = 'POINT(-74.025 41.39)'
 MULTIPLIER = 0.001   # to convert meters into degrees
@@ -113,7 +114,17 @@ def calculate(request):
   results['actual-basal'] = round2( float(parent.basal) )
   results['actual-variance-dbh'] = round2( float(parent.variance_dbh) )
   
-  return HttpResponse(str(results), mimetype="application/javascript")
+  # comparison percentages
+  results['comparison-area'] = comparison(results['sample-area'], results['actual-area'])
+  results['comparison-species'] = comparison(results['sample-species'], results['actual-species'])
+  results['comparison-count'] = comparison(results['sample-count'], results['actual-count'])
+  results['comparison-dbh'] = comparison(results['sample-dbh'], results['actual-dbh'])
+  results['comparison-variance-dbh'] = comparison(results['sample-variance-dbh'], results['actual-variance-dbh'])
+  results['comparison-density'] = comparison(results['sample-density'], results['actual-density'])
+  results['comparison-basal'] = comparison(results['sample-basal'], results['actual-basal'])
+  
+  return HttpResponse(json.dumps(results), mimetype="application/javascript")
+  #return HttpResponse(str(results), mimetype="application/javascript")
   
   
 def sample_plot(shape, size, parent):
@@ -235,24 +246,78 @@ def sample_plot(shape, size, parent):
                            }
     i += 1
   results['species-totals'] = species_totals
-                        
+
   return results
 
+def export_csv(request, details=False):
+  results = request.POST['results']
+  if(results == ''): return HttpResponse("")
+  
+  results = json.loads(results)
 
+  response = HttpResponse(mimetype='text/csv')
+  response['Content-Disposition'] = 'attachment; filename=results.csv'
+  writer = csv.writer(response)
+
+  # write summary results
+  writer.writerow(['**SAMPLING SUMMARY AND ANALYSIS**'])
+  writer.writerow(['TIME TO SAMPLE', 'AVERAGE TIME PER PLOT', 'SAMPLE VARIANCE DENSITY', 'SAMPLE VARIANCE BASAL AREA'])
+  writer.writerow([results['sample-time'], results['avg-time'], results['sample-variance-density'], results['sample-variance-basal']])
+
+  writer.writerow([])
+  
+  writer.writerow(['', 'AREA', 'SPECIES', '# OF TREES', 'MEAN DBH', 'VARIANCE DBH', 'DENSITY', 'BASAL AREA'])
+  writer.writerow(['SAMPLE PLOTS', results['sample-area'], results['sample-species'], results['sample-count'],
+                   results['sample-dbh'], results['sample-variance-dbh'], results['sample-density'], results['sample-basal']])
+  writer.writerow(['FOREST POPULATION', results['actual-area'], results['actual-species'], results['actual-count'],
+                   results['actual-dbh'], results['actual-variance-dbh'], results['actual-density'], results['actual-basal']])
+  writer.writerow(['COMPARISON', results['comparison-area'], results['comparison-species'], results['comparison-count'],
+                   results['comparison-dbh'], results['comparison-variance-dbh'], results['comparison-density'], results['comparison-basal']])
+                   
+  writer.writerow([])
+  writer.writerow([])
+
+  # write plot summaries
+  writer.writerow(['**PLOT SUMMARIES**'])
+
+  writer.writerow(['PLOT NUMBER', 'PLOT AREA', 'TREES', 'TOTAL SAMPLING TIME'])
+  plots = results['plots']
+  for plot in sorted(plots.keys()):
+    plotinfo = results['plots'][plot]
+    row = [int(plot)+1, plotinfo['area'], plotinfo['count'], plotinfo['time-total']]
+    #id = request.POST['%s-id' % i]
+    #if(id):
+    #  tree = Tree.objects.get(id=id)
+    #  distance = request.POST['%s-distance' % i]
+    #  row = [i, id, tree.species, distance, tree.dbh]
+    writer.writerow(row)
+  
+  return response
+
+
+## helper functions ##
 def round2(value):
+  # shortcut to round to 2 decimal places
   return round(value * 100) / 100
+  
+def comparison(thing1, thing2):
+  # returns (sample / population) * 100
+  comp = round2( (float(thing1) / float(thing2)) * 100 )
+  return "%.2f%%" % comp
 
 def format_time(time):
+  # formats number of minutes in human-readable format
   if time > 59:
     hour = time / 60
     minute = time % 60
     if minute == 0:
       return "%d hr" % hour
-    return "%d hr, %.1f min" % (hour, minute)
+    return "%d hr, %g min" % (hour, minute)
   else:
-    return "%.1f min" % time
+    return "%g min" % time
 
 def variance(values, mean, population_size):
+  # calculates variance
   if population_size < 1:
     return 0
 

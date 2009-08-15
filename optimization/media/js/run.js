@@ -1,11 +1,18 @@
-var http_request;
+var global_http_request;
 
-function comparison(thing1, thing2) {
-  // returns (sample / population) * 100
-  return Math.round( (thing1 / thing2) * 10000) / 100;
+function getcsv() {
+  if(! global_http_request) {
+    return false;
+  }
+  $("csvform").submit();
 }
 
 function showResults(http_request) {
+  global_http_request = http_request;
+
+  // store in form for CSV export
+  $('form-results').value = http_request.responseText;  
+  
   var results = evalJSON(http_request.responseText);
   $('results-time').innerHTML = results['sample-time'];
   $('results-avg-time').innerHTML = results['avg-time'];
@@ -29,13 +36,13 @@ function showResults(http_request) {
   $('actual-density').innerHTML = results['actual-density'];
   $('actual-basal').innerHTML = results['actual-basal'];
   
-  $('comparison-area').innerHTML = comparison(results['sample-area'], results['actual-area']) + "%";
-  $('comparison-species').innerHTML = comparison(results['sample-species'], results['actual-species']) + "%";
-  $('comparison-count').innerHTML = comparison(results['sample-count'], results['actual-count']) + "%";
-  $('comparison-dbh').innerHTML = comparison(results['sample-dbh'], results['actual-dbh']) + "%";
-  $('comparison-variance-dbh').innerHTML = comparison(results['sample-variance-dbh'], results['actual-variance-dbh']) + "%";
-  $('comparison-density').innerHTML = comparison(results['sample-density'], results['actual-density']) + "%";
-  $('comparison-basal').innerHTML = comparison(results['sample-basal'], results['actual-basal']) + "%";
+  $('comparison-area').innerHTML = results['comparison-area'];
+  $('comparison-species').innerHTML = results['comparison-species'];
+  $('comparison-count').innerHTML = results['comparison-count'];
+  $('comparison-dbh').innerHTML = results['comparison-dbh'];
+  $('comparison-variance-dbh').innerHTML = results['comparison-variance-dbh'];
+  $('comparison-density').innerHTML = results['comparison-density'];
+  $('comparison-basal').innerHTML = results['comparison-basal'];
   
   // individual plots
   var plots = results['plots'];
@@ -51,6 +58,7 @@ function showResults(http_request) {
 }
 
 function showError(http_request) {
+  global_http_request = http_request;
   log(http_request);
   setStyle('errormessage', {'display':'block'});
   setStyle('waitmessage', {'display':'none'});
@@ -115,8 +123,8 @@ function reset() {
   setStyle('details', {'display':'none'});
   updateShapeLabel($("plotArrangement"));
   $('calculate').disabled = false;
-  if(http_request) {
-    http_request.cancel();
+  if(global_http_request) {
+    global_http_request.cancel();
   }
   
   forEach(getElementsByTagAndClassName("div","plot-wrapper"), function(elem) {
@@ -209,11 +217,11 @@ function calculate() {
   var shape = $('plotShape').value;
   var size = $('plotSize').value;
   var params = "numPlots=" + numPlots + "&shape=" + shape + "&size=" + size;
-  http_request = doXHR("calculate", {'method':'POST', 'sendContent':params,
+  global_http_request = doXHR("calculate", {'method':'POST', 'sendContent':params,
                                          'headers':[["Content-Type", 'application/x-www-form-urlencoded']]
                                         });
-  http_request.addCallback(showResults);
-  http_request.addErrback(showError);
+  global_http_request.addCallback(showResults);
+  global_http_request.addErrback(showError);
 }
 
 function updateShapeLabel(e) {
