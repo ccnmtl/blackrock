@@ -12,6 +12,7 @@ function showResults(http_request) {
 
   // store in form for CSV export
   $('form-results').value = http_request.responseText;  
+  $('csvbutton').disabled = false;
   
   var results = evalJSON(http_request.responseText);
   $('results-time').innerHTML = results['sample-time'];
@@ -121,7 +122,8 @@ function reset() {
   setStyle('results', {'display':'none'});
   setStyle('details', {'display':'none'});
   updateShapeLabel($("plotArrangement"));
-  $('calculate').disabled = false;
+  $('csvbutton').disabled = true;
+  $('form-results').value = "";
   if(global_http_request) {
     global_http_request.cancel();
   }
@@ -184,6 +186,8 @@ function validate() {
 
 function calculate() {
   if(! validate()) { return false; }
+  $('csvbutton').disabled = true;
+  $('form-results').value = "";
 
   $('calculate').disabled = true;
   setStyle('waitmessage', {'display':'block'});
@@ -242,6 +246,7 @@ function initRun() {
   connect("calculate", "onclick", calculate);
   connect("reset", "onclick", reset);
   connect("plotShape", "onchange", updateShapeLabel);
+  $('csvbutton').disabled = true;
 }
 
 addLoadEvent(initRun);

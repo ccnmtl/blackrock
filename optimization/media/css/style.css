@@ -7,6 +7,11 @@ div.container
 	text-align: center;
 }
 
+div.csv {
+  text-align: left;
+  padding-left: 20px;
+}
+
 div.inner
 {
 	position: relative;

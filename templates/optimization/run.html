@@ -77,6 +77,21 @@
          </td>
       </tr>
     </table>
+  </form>
+
+<div class="csv">
+  <form id="csvform" action="csv" method="POST">
+    Export to CSV:
+    <input type="hidden" name="results" id="form-results"></input>
+    <select name="type">
+      <option value="summary">summary</>
+      <option value="details">details</option>
+    </select>
+    <input type="button" id='csvbutton' value="save" onclick="javascript:getcsv();"></input>
+  </form>
+</div>
+
+
     
     <div class="right">
       <p><span style="font-weight:bold;font-size:18px;">About the Virtual Forest</span></p>
@@ -92,7 +107,6 @@
       <input type="button" value="Calculate" id="calculate" />      
     </div>
     
-  </form>
   </div> <!-- end div "inner" -->
 
 </div>
@@ -259,19 +273,6 @@
     </div><!-- end div plot-wrapper -->
   </div> <!-- end div nest -->
 </div><!-- end div container -->
-
-
-<div class="csv">
-  <form id="csvform" action="csv" method="POST">
-    Download CSV:
-    <input type="hidden" name="results" id="form-results"></input>
-    <select name="type">
-      <option value="summary">summary</>
-      <option value="details">details</option>
-    </select>
-    <input type="button" value="save" onclick="javascript:getcsv();"></input>
-  </form>
-</div>
 
 
 {% endblock %}
