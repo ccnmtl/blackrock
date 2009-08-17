@@ -249,9 +249,11 @@ def sample_plot(shape, size, parent):
 
   return results
 
-def export_csv(request, details=False):
+def export_csv(request):
   results = request.POST['results']
   if(results == ''): return HttpResponse("")
+
+  type = request.POST['type']
   
   results = json.loads(results)
 
@@ -291,6 +293,24 @@ def export_csv(request, details=False):
     #  distance = request.POST['%s-distance' % i]
     #  row = [i, id, tree.species, distance, tree.dbh]
     writer.writerow(row)
+
+  if type == "details":
+    writer.writerow([])
+    writer.writerow([])
+    writer.writerow(["**PLOT DETAILS**"])
+    writer.writerow(['PLOT NUMBER', 'SPECIES', '# OF TREES', 'MEAN DBH', 'VARIANCE DBH', 'DENSITY', 'BASAL AREA'])
+    for plot in sorted(plots.keys()):
+      plotinfo = results['plots'][plot]
+      speciestotals = plotinfo['species-totals']
+      print sorted(speciestotals.keys())
+      for species in sorted(speciestotals.keys()):
+        speciesinfo = speciestotals[species]
+        row = [int(plot)+1, speciesinfo['name'], speciesinfo['count'], speciesinfo['dbh'], speciesinfo['variance-dbh'],
+                            speciesinfo['density'], speciesinfo['basal']]
+        writer.writerow(row)
+      writer.writerow([int(plot)+1, "TOTAL: %d" % len(speciestotals), plotinfo['count'], plotinfo['dbh'], plotinfo['variance-dbh'],
+                                    plotinfo['density'], plotinfo['basal']])
+      writer.writerow([])
   
   return response
 

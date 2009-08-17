@@ -263,8 +263,13 @@
 
 <div class="csv">
   <form id="csvform" action="csv" method="POST">
+    Download CSV:
     <input type="hidden" name="results" id="form-results"></input>
-    <input type="button" value="get csv" onclick="javascript:getcsv();"></input>
+    <select name="type">
+      <option value="summary">summary</>
+      <option value="details">details</option>
+    </select>
+    <input type="button" value="save" onclick="javascript:getcsv();"></input>
   </form>
 </div>
 
