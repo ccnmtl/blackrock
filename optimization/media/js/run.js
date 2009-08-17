@@ -111,7 +111,6 @@ function showPlotInfo(plotNumber, results) {
   }
   if(plotNumber > 1) {
     var togglectrl = getFirstElementByTagAndClassName("*", "toggle-control", id);
-    log(togglectrl);
     connect(togglectrl, "onclick", toggle);
   }
 }
