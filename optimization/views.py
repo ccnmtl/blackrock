@@ -302,7 +302,7 @@ def export_csv(request):
     for plot in sorted(plots.keys()):
       plotinfo = results['plots'][plot]
       speciestotals = plotinfo['species-totals']
-      print sorted(speciestotals.keys())
+      #print sorted(speciestotals.keys())
       for species in sorted(speciestotals.keys()):
         speciesinfo = speciestotals[species]
         row = [int(plot)+1, speciesinfo['name'], speciesinfo['count'], speciesinfo['dbh'], speciesinfo['variance-dbh'],
