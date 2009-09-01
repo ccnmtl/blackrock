@@ -11,6 +11,8 @@ class Plot(models.Model):
   
   # stored calculations
   area = models.DecimalField(max_digits=10, decimal_places=2)   # area in square meters
+  width = models.DecimalField(max_digits=10, decimal_places=2)  # width of plot in meters (x axis)
+  height = models.DecimalField(max_digits=10, decimal_places=2) # height of plot in meters (y axis)
   density = models.DecimalField(max_digits=10, decimal_places=2, null=True)# population density
   basal = models.DecimalField(max_digits=10, decimal_places=2, null=True)  # basal area
   num_species = models.IntegerField(null=True)
@@ -18,7 +20,7 @@ class Plot(models.Model):
   variance_dbh = models.DecimalField(max_digits=10, decimal_places=2, null=True)
   
   # GIS layer
-  NE_corner = models.PointField()
+  NW_corner = models.PointField()
   objects = models.GeoManager()
   
   def precalc(self):

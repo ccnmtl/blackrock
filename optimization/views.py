@@ -5,15 +5,35 @@ from blackrock.optimization.models import Tree, Plot
 import csv, math, random, sets
 import simplejson as json
 
-NE_corner = 'POINT(-74.025 41.39)'
+NW_corner = 'POINT(-74.025 41.39)'
 MULTIPLIER = 0.001   # to convert meters into degrees
 
-species_key = {'bg':'black gum',
+species_key = {'ae':'ae',
+               'ba':'ba',
                'bb':'black birch',
+               'be':'be',
+               'bg':'black gum',
+               'bm':'bm',
+               'bo':'black oak',
+               'ch':'ch',
+               'co':'chestnut oak',
+               'dw':'dw',
+               'hh':'hop hornbeam',
+               'mw':'mw',
+               'o':'oak (species unknown)',
+               'ph':'ph',
+               'rm':'red maple',
+               'ro':'red oak',
+               'sa':'sa',
+               'sb':'sb',
                'sh':'shagbark hickory',
                'sm':'sugar maple',
-               'rm':'red maple',
-               'ro':'red oak'
+               'swo':'swamp white oak',
+               'u':'non-oak (species unknown)',
+               'vp':'viburnum prunifolium',
+               'wa':'white ash',
+               'wo':'white oak',
+               'ws':'ws',
                }
 
 def index(request, admin_msg=""):
@@ -137,27 +157,27 @@ def sample_plot(shape, size, parent):
   y = 0
   if shape == 'square':
     # pick a random NE corner
-    # range = 0 - 200-size
-    x = random.randint(0, 200-size)
-    y = random.randint(0, 200-size)
+    # range = 0 - total_size-plot_size
+    x = random.randint(0, float(parent.width) - size)
+    y = random.randint(0, float(parent.height) - size)
     size_deg = MULTIPLIER * size
     x_deg = MULTIPLIER * x
     y_deg = MULTIPLIER * y
     sample = 'POLYGON ((%s %s, %s %s, %s %s, %s %s, %s %s))' \
-              % (parent.NE_corner.x - x_deg, parent.NE_corner.y - y_deg, \
-                 parent.NE_corner.x - x_deg - size_deg, parent.NE_corner.y - y_deg, \
-                 parent.NE_corner.x - x_deg - size_deg, parent.NE_corner.y - y_deg - size_deg, \
-                 parent.NE_corner.x - x_deg, parent.NE_corner.y  - y_deg - size_deg, \
-                 parent.NE_corner.x - x_deg, parent.NE_corner.y - y_deg,                 
+              % (parent.NW_corner.x + x_deg, parent.NW_corner.y - y_deg, \
+                 parent.NW_corner.x + x_deg + size_deg, parent.NW_corner.y - y_deg, \
+                 parent.NW_corner.x + x_deg + size_deg, parent.NW_corner.y - y_deg - size_deg, \
+                 parent.NW_corner.x + x_deg, parent.NW_corner.y - y_deg - size_deg, \
+                 parent.NW_corner.x + x_deg, parent.NW_corner.y - y_deg,                 
                  )
     trees = Tree.objects.filter(location__contained=sample)
   if shape == 'circle':
     # pick a random center point
-    # range = size - 200-size
-    x = random.randint(size, 200-size)
-    y = random.randint(size, 200-size)
-    x_deg = parent.NE_corner.x - x * MULTIPLIER
-    y_deg = parent.NE_corner.y - y * MULTIPLIER
+    # range = size - total_size - plot_size
+    x = random.randint(size, float(parent.width) - size)
+    y = random.randint(size, float(parent.height) - size)
+    x_deg = parent.NW_corner.x + x * MULTIPLIER
+    y_deg = parent.NW_corner.y - y * MULTIPLIER
     center_pt = 'POINT (%s %s)' % (x_deg, y_deg)
     trees = Tree.objects.filter(location__dwithin=(center_pt, size * MULTIPLIER))
  
@@ -167,8 +187,10 @@ def sample_plot(shape, size, parent):
   results['count'] = int(trees.count())
 
   ## unique species ##
-  species_list_intermed = sets.Set([str(tree.species) for tree in trees])
-  results['species-list'] = [species_key[species] for species in species_list_intermed]
+  species_list_intermed = sets.Set([str(tree.species).lower() for tree in trees])
+  if_else = lambda cond, a, b: [b,a][cond]
+  results['species-list'] = [if_else(species_key.has_key(species),species_key[species],species) for species in species_list_intermed]
+  #results['species-list'] = [species_key[species] for species in species_list_intermed]
   results['num-species'] = len(results['species-list'])
 
   ## mean dbh ##
@@ -358,7 +380,7 @@ def loadcsv(request):
     Plot.objects.all().delete()
     Tree.objects.all().delete()
     
-    p = Plot(name="Mount Misery Plot", NE_corner=NE_corner, area=40000)
+    p = Plot(name="Mount Misery Plot", NW_corner=NW_corner, area=67500, width=300, height=225)
     p.save()
 
     table = csv.reader(fh)
@@ -381,12 +403,12 @@ def loadcsv(request):
       
     for row in table:
        id = row[id_idx]
-       species = row[species_idx]
+       species = row[species_idx].lower()
        x = float(row[x_idx])
        y = float(row[y_idx])
        dbh = row[dbh_idx]
-       xloc = p.NE_corner.x - (MULTIPLIER * x)
-       yloc = p.NE_corner.y - (MULTIPLIER * y)
+       xloc = p.NW_corner.x + (MULTIPLIER * x)
+       yloc = p.NW_corner.y - (MULTIPLIER * y)
        loc = 'POINT(%f %f)' % (xloc, yloc)  # TODO real location data
        tree = Tree.objects.get_or_create(id=id, location=loc, species=species, dbh=dbh, plot=p)
 
