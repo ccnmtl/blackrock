@@ -43,7 +43,7 @@ div.tree_info
 	text-align: right;
 	padding: 5px;
 	z-index: 10;
-	background-image: url('../images/closebox.gif');
+	/*background-image: url('../images/closebox.gif');*/
 	background-repeat: no-repeat;
 	background-position: 99% 2%;
 }
