@@ -8,24 +8,24 @@ import simplejson as json
 NW_corner = 'POINT(-74.025 41.39)'
 MULTIPLIER = 0.001   # to convert meters into degrees
 
-species_key = {'ae':'ae',
-               'ba':'ba',
+species_key = {#'ae':'ae',
+               'ba':'basswood',
                'bb':'black birch',
-               'be':'be',
+               'be':'beech',
                'bg':'black gum',
-               'bm':'bm',
+               #'bm':'bm',
                'bo':'black oak',
-               'ch':'ch',
+               'ch':'chestnut',
                'co':'chestnut oak',
-               'dw':'dw',
+               'dw':'dogwood',
                'hh':'hop hornbeam',
-               'mw':'mw',
+               'mw':'moosewood',
                'o':'oak (species unknown)',
-               'ph':'ph',
+               'ph':'pignut hickory',
                'rm':'red maple',
                'ro':'red oak',
-               'sa':'sa',
-               'sb':'sb',
+               'sa':'sassafras',
+               'sb':'shadbush',
                'sh':'shagbark hickory',
                'sm':'sugar maple',
                'swo':'swamp white oak',
@@ -33,9 +33,9 @@ species_key = {'ae':'ae',
                'vp':'viburnum prunifolium',
                'wa':'white ash',
                'wo':'white oak',
-               'ws':'ws',
+               'ws':'white spruce',
                }
-
+               
 def index(request, admin_msg=""):
   return render_to_response('optimization/index.html',
                             context_instance=RequestContext(request))
@@ -188,9 +188,12 @@ def sample_plot(shape, size, parent):
 
   ## unique species ##
   species_list_intermed = sets.Set([str(tree.species).lower() for tree in trees])
-  if_else = lambda cond, a, b: [b,a][cond]
-  results['species-list'] = [if_else(species_key.has_key(species),species_key[species],species) for species in species_list_intermed]
-  #results['species-list'] = [species_key[species] for species in species_list_intermed]
+  #if_else = lambda cond, a, b: [b,a][cond]
+  #results['species-list'] = [if_else(species_key.has_key(species),species_key[species],species) for species in species_list_intermed]
+  species_list = [species_key[species] for species in species_list_intermed if species_key.has_key(species)]
+  species_list.extend([species for species in species_list_intermed if not species_key.has_key(species)])  # not in key
+  results['species-list'] = species_list
+                            
   results['num-species'] = len(results['species-list'])
 
   ## mean dbh ##
@@ -249,8 +252,11 @@ def sample_plot(shape, size, parent):
     tree_count = len([tree.id for tree in trees if tree.species == species])
     
     # shortcut -- if there is only 1 species, use the plot results
+    species_name = species
+    if species_key.has_key(species): species_name = species_key[species]
+
     if(tree_count == results['count']):
-      species_totals[i] = {'name': species_key[species], 'count': tree_count,
+      species_totals[i] = {'name': species_name, 'count': tree_count,
                            'dbh': results['dbh'],
                            'density': results['density'],
                            'basal': results['basal'],
@@ -260,7 +266,7 @@ def sample_plot(shape, size, parent):
       dbhs = [float(tree.dbh) for tree in trees if tree.species == species]
       dbh_sum = sum(dbhs)
       mean_dbh = dbh_sum/tree_count
-      species_totals[i] = {'name':species_key[species], 'count':tree_count,
+      species_totals[i] = {'name':species_name, 'count':tree_count,
                            'dbh': round2(mean_dbh),
                            'density': round2( (tree_count * 10000) / results['area'] ),
                            'basal': round2( (float(dbh_sum) * 0.785398) / float(results['area']) ),
