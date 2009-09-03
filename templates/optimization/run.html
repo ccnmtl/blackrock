@@ -13,9 +13,8 @@
 {% block content %}
 
 <div class="container toggle-container" id="parameters">
-  <h3 class="toggle-control"><span class='downarrow'>&#x25BE;</span>
-      <span class='rightarrow'>&#x25B8</span>
-      Run Parameters</h3>
+  <h2>
+      Run Parameters</h2>
   
   <div class="inner toggle-nest">
   <form id='runform'>
@@ -126,12 +125,14 @@
 <div class="container" id="errormessage">
   Sorry, the calculation encountered an error.  Please try again.
 </div>
-
-<div class="container toggle-container" id="results">
+<div id="results">
+<h2>Sampling Results</h2>
+<div class="container toggle-container" id="results_summary">
   <h3 class="toggle-control"><span class='downarrow'>&#x25BE;</span>
       <span class='rightarrow'>&#x25B8</span>
-     Total Run Summary and Analysis</h3>
+     Total Run Results (Click to Expand/Collapse)</h3>
   <div class="toggle-nest">
+  <h4>Summary</h4>
   <table class="results-summary">
     <tr>
       <td class='header'>TIME TO SAMPLE</td>
@@ -150,7 +151,7 @@
       <td id='results-variance-basal' class='right'></td>
     </tr>
   </table>
-
+<h4>Details</h4>
   <table class='results'>
     <thead>
       <tr>
@@ -204,14 +205,15 @@
   <!--h3 class="toggle"><span class='downarrow'>&#x25BE;</span>
       <span class='rightarrow'>&#x25B8</span>
       Sampling Details</h3-->
-  <h3>Plot Details</h3>
+  <h3>Plot by Plot Results</h3>
   <div id='plot-parent'>
     <div class='plot-wrapper' id='plot1'>
+    
+    <div class='plot-info toggle-container'>
     <div class='plot-title'>
       PLOT 1:</div>
-    <div class='plot-info toggle-container'>
-    
-    <table class="results-summary">
+ <!--OLD 
+ <table class="results-summary">
       <tr>
         <td class='header'>PLOT AREA (m<sup>2</sup>)</td>
         <td id='plot1-area' class='right'></td>
@@ -225,9 +227,20 @@
         <td class='right'><span id='plot1-time-total'></span> min</td>
       </tr>
     </table>
+    
+    -->
+    <h4>Summary</h4>
+     <table class="results-summary">
+      <tr><td class='header'>AREA (m<sup>2</sup>)</td><td class='header'># OF TREES</td><td class='header'>TIME TO SAMPLE</td></tr>
+      <tr><td id='plot1-area' class='right'></td> <td class='right'><span id='plot1-count'></span></td>  <td class='right'><span id='plot1-time-total'></span> min</td></tr>
 
+    </table>
+    
+    
+    
+<div class='subdetails'>
 <h4 class='toggle-control'><span class='downarrow'>&#x25BE;</span>
-      <span class='rightarrow'>&#x25B8</span> Details</h3>
+      <span class='rightarrow'>&#x25B8</span> Details (Click to Expand/Collapse)</h3>
 
   <div class='toggle-nest'>
 
@@ -275,11 +288,12 @@
         <td id='plot1-basal' class='right'></td>
       </tr>
     </tbody>
-  </table>
+  </table></div><!-- end div subdetails --->
     </div><!-- end div toggle-nest -->
     </div><!-- end div plot-info -->
     </div><!-- end div plot-wrapper -->
   </div> <!-- end div nest -->
+  </div> <!-- end div all_results -->
 </div><!-- end div container -->
 
 
