@@ -7,9 +7,22 @@ div.container
 	text-align: center;
 }
 
-div.csv {
+#csv {
   text-align: left;
-  padding-left: 20px;
+  padding: 20px;
+  border: 1px solid #A18F83;
+  width: 23.4em;
+  margin: 0 20px;
+  background-color: #ccc;
+}
+
+table.runtable {
+  text-align: left;
+  background-color: #dcd3c2;
+  width: 26em;
+  margin: 20px;
+  border: 1px solid #A18F83;
+
 }
 
 div.inner

@@ -19,7 +19,7 @@
   
   <div class="inner toggle-nest">
   <form id='runform'>
-    <table>
+    <table class='runtable'>
       <tr>
         <td class='left'>
           Number of Plots:
@@ -75,11 +75,16 @@
          <td>
             <span id='plotArea'></span>m<sup>2</sup>
          </td>
-      </tr>
+      </tr><tr><td><br /></td><td></td></tr>
+      <tr><td colspan='2' align='right' style='border-top: 1px solid #a18fa3; padding-top: 10px;'>
+            <input type="reset" value="Reset" id="reset" />      
+      <input type="button" value="Calculate" id="calculate" />    
+      </td></tr>
+      
+   
     </table>
-  </form>
-
-<div class="csv">
+    
+       <div id="csv">
   <form id="csvform" action="csv" method="POST">
     Export to CSV:
     <input type="hidden" name="results" id="form-results"></input>
@@ -87,9 +92,13 @@
       <option value="summary">summary</>
       <option value="details">details</option>
     </select>
-    <input type="button" id='csvbutton' value="save" onclick="javascript:getcsv();"></input>
+    <input type="button" id='csvbutton' value="Export Now!" onclick="javascript:getcsv();"></input>
   </form>
 </div>
+
+  </form>
+
+
 
 
     
@@ -103,8 +112,7 @@
       <p><span style="font-weight:bold;">Data Collection Year:</span><br />
       2007</p>
 
-      <input type="reset" value="Reset" id="reset" />      
-      <input type="button" value="Calculate" id="calculate" />      
+  
     </div>
     
   </div> <!-- end div "inner" -->
@@ -122,7 +130,7 @@
 <div class="container toggle-container" id="results">
   <h3 class="toggle-control"><span class='downarrow'>&#x25BE;</span>
       <span class='rightarrow'>&#x25B8</span>
-      Sampling Summary and Analysis</h3>
+     Total Run Summary and Analysis</h3>
   <div class="toggle-nest">
   <table class="results-summary">
     <tr>
@@ -196,7 +204,7 @@
   <!--h3 class="toggle"><span class='downarrow'>&#x25BE;</span>
       <span class='rightarrow'>&#x25B8</span>
       Sampling Details</h3-->
-  <h3>Sampling Details</h3>
+  <h3>Plot Details</h3>
   <div id='plot-parent'>
     <div class='plot-wrapper' id='plot1'>
     <div class='plot-title'>
