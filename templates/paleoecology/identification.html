@@ -13,47 +13,31 @@
     addLoadEvent(initNav);
   </script>
   
+  <script type="text/javascript" src="media/js/pollen_identification.js"></script>
   <script type="text/javascript" src="media/js/interactive_key.js"></script>
 {% endblock %} 
 
 {% block left %}
 
 <div id="identify-box">
-  <div id="identify-title">Identify This Specimen</div>
+  <div class="identify-title">Identify This Specimen</div>
   
-  <div id="pollen-image"><img src="media/images/pollen/alnus (alder) pollen.jpg"></img></div>
+  <div id="pollen-image"></div>
   
   <form id="identify-form">
-    Write Species Name:<br />
-    <input type="text"></input><br />
-    <button>Next Species &gt;&gt;</button>
+    <div id="pollen-writein">
+      Write Species Name:<br />
+      <input type="text" id='name-form'></input><br />
+      <input type='button' id='next' value='Next Species &gt;&gt;'/>
+    </div>
+    <br /><br />
+    <button>Check Answers</button>
   </form>
 </div>
 
-<div id="pollen-zoo">
-  Species to Identify<br />
-  
-  <img src="media/images/pollen/abies (fir) needle.jpg" />
-  <img src="media/images/pollen/abies (fir) pollen.jpg" />
-  <img src="media/images/pollen/alnus (alder) pollen.jpg" />
-  <img src="media/images/pollen/asteraceae (herbs) pollen.jpg" />
-  <img src="media/images/pollen/betula (birch) pollen.jpg" />
-  <img src="media/images/pollen/betula papyrifera (paper birch) seed.jpg" />
-  <img src="media/images/pollen/betula populifolia (gray birch) seed.jpg" />
-  <img src="media/images/pollen/carya (hickory) pollen.jpg" />
-  <img src="media/images/pollen/castanea dentata (American chestnut) pollen.jpg" />
-  <img src="media/images/pollen/cyperaceae (sedge) pollen.jpg" />
-  <img src="media/images/pollen/fagus grandifolia (American beech) pollen.jpg" />
-  <img src="media/images/pollen/fraxinus (ash) pollen.jpg" />
-  <img src="media/images/pollen/gramineae (grass) pollen.jpg" />
-  <img src="media/images/pollen/ostrya - carpinus pollen.jpg" />
-  <img src="media/images/pollen/picea (spruce) needle.jpg" />
-  <img src="media/images/pollen/picea (spruce) pollen.jpg" />
-  <img src="media/images/pollen/pinus strobus (white pine) needle.jpg" />
-  <img src="media/images/pollen/pinus strobus (white pine) pollen.jpg" />
-  <img src="media/images/pollen/quercus (oak) pollen.jpg" />
-  <img src="media/images/pollen/tsuga canadensis (eastern hemlock) needles.jpg" />
-  <img src="media/images/pollen/tsuga canadensis (eastern hemlock) pollen.jpg" />
+<div id="pollen-zoo-outer">
+  <div class="identify-title">Species to Identify</div>
+  <div id="pollen-zoo" />
 </div>
 
 {% endblock %}
@@ -95,7 +79,7 @@
       <td>
         Pollen is spherical/round or somewhat elongated in shape
       </td>
-      <td>
+      <td align='right'>
         <div class="key_button" onclick="goto('2a','2b')">Go to 2b.</div>
       </td>
     </tr>
@@ -103,7 +87,7 @@
       <td>
         Pollen is pyramidal (pear-shaped)
       </td>
-      <td>
+      <td align='right'>
         <div class="key_button" onclick="goto('2a','14')">Go to 14.</div>
       </td>
     </tr>
@@ -123,7 +107,7 @@
       <td>
         Pollen has pores only (porate)
       </td>
-      <td>
+      <td align='right'>
         <div class="key_button" onclick="goto('2b','3')">Go to 3.</div>
       </td>
     </tr>
@@ -131,7 +115,7 @@
       <td>
         Pollen has no pores and no furrows
       </td>
-      <td>
+      <td align='right'>
         <div class="key_button" onclick="goto('2b','14')">Go to 14.</div>
       </td>
     </tr>
@@ -151,7 +135,7 @@
       <td>
         Pollen has more than one pore
       </td>
-      <td>
+      <td align='right'>
         <div class="key_button" onclick="goto('3','6')">Go to 6.</div>
       </td>
     </tr>
@@ -163,7 +147,7 @@
       <td>
         Pollen has furrows only (colpate)
       </td>
-      <td>
+      <td align='right'>
         <div class="key_button" onclick="goto('4','5')>Go to 5.</div>
       </td>
     </tr>
@@ -171,7 +155,7 @@
       <td>
         Pollen has furrows and pores (colporate)
       </td>
-      <td>
+      <td align='right'>
         <div class="key_button" onclick="goto('4','11')">Go to 11.</div>
       </td>
     </tr>
@@ -203,7 +187,7 @@
       <td>
         Pollen has three pores (triporate)
       </td>
-      <td>
+      <td align='right'>
         <div class="key_button" onclick="goto('6','7')">Go to 7.</div>
       </td>
     </tr>
@@ -211,7 +195,7 @@
       <td>
         Pollen has more than three pores
       </td>
-      <td>
+      <td align='right'>
         <div class="key_button" onclick="goto('6','9')">Go to 9.</div>
       </td>
     </tr>
@@ -239,7 +223,7 @@
       <td>
         Three pores not on edge of grain
       </td>
-      <td>
+      <td align='right'>
         <div class="key_button" onclick="goto('7','8')">Go to 8.</div>
       </td>
     </tr>
@@ -263,7 +247,7 @@
       <td>
         Pollen has 4 or 5 pores
       </td>
-      <td>
+      <td align='right'>
         <div class="key_button" onclick="goto('9','10')">Go to 10.</div>
       </td>
     </tr>
@@ -323,7 +307,7 @@
       <td>
         Connection between bladder and body is constricted
       </td>
-      <td>
+      <td align='right'>
         <div class="key_button" onclick="goto('12','13')">Go to 13.</div>
       </td>
     </tr>
@@ -369,23 +353,7 @@
     </tr>
   </table>
 
-
-  <!--div class="yesno">
-    <div class="yn_button" onclick="goto(2a)">No</div>
-    <div class="yn_button" onclick="goto(13)">Yes</div>
-  </div>
-  <div class="keyitem selected" id="keyitem-1">1. Pollen has bladders (vesiculate)
-    <div class="keygoto">Go to 13.</div>
-  </div>
-
-  <div class="yesno">
-    <div class="yn_button" onclick="goto(2b)">No</div>
-    <div class="yn_button" onclick="goto(15)">Yes</div>
-  </div>
-  <div class="keyitem" id="keyitem-2a">2a. Pollen is pyramidal (pear-shaped)
-    <div class="keygoto">Go to 15.</div>
-  </div>
-</div-->
+</div>
 
 <div id="needle-key" class="key" style="display:none;">
   THIS IS NEEDLE KEY

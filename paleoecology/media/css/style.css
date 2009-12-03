@@ -65,32 +65,58 @@ div#right
   border: 1px black solid;
   height: 200px;
   width: 400px;
+  margin: 5px;
+  margin-bottom: 10px;
 }
 
-#identify-title {
-  border: 1px black solid;
+.identify-title {
+  border-bottom: 1px black solid;
   background-color: lightgray;
   padding: 5px;
   font-weight: bold;
 }
 
 #identify-form {
-  padding: 25px;
-  float: right;
+  padding: 20px;
+  float: left;
 }
 
-#pollen-zoo img, #pollen-image {
+#pollen-image {
   float: left;
-  padding: 10px;
+  padding: 5px;
+}
+
+#pollen-image img {
+  width: 150px;
+  height: 150px;
+}
+
+.pollen-zoo-image img {
+  cursor: pointer;
   width: 100px;
   height: 100px;
 }
 
-#pollen-zoo {
+.pollen-zoo-image {
+  float: left;
+  text-align: center;
+  width: 125px;
+  height: 125px;
+  padding: 5px;
+}
+
+.pollen-zoo-image .imagename {
+  font-size: 12px;
+}
+
+#pollen-zoo-outer {
   border: 1px black solid;
+  margin: 5px;
+}
+
+#pollen-zoo {
   height: 300px;
   overflow: auto;
-  margin: 5px;
   padding: 5px;
 }
 
@@ -129,11 +155,6 @@ div.keytab-selected
    background: lightgray;
 }
 
-.yesno {
-  position: absolute;
-  right: 0;
-}
-
 .key_button {
   border: 1px black solid;
   width: 100px;
@@ -145,9 +166,12 @@ div.keytab-selected
   cursor: pointer;
 }
 
-.keygoto {
+.key_answer {
   font-style: italic;
-  padding-left: 20px;
+}
+
+.key table {
+  border-top: 1px black solid;
 }
 
 table.keyitem {
