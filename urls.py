@@ -16,5 +16,6 @@ urlpatterns = patterns('',
                        (r'^sampler/', include('blackrock.sampler.urls')),
                        (r'^respiration/', include('blackrock.respiration.urls')),
                        (r'^optimization/', include('blackrock.optimization.urls')),
+                       (r'^paleoecology/', include('blackrock.paleoecology.urls')),
                        (r'', 'blackrock.views.index'),
 )

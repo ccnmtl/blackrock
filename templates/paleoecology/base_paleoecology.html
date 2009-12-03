@@ -1,0 +1,65 @@
+{% extends "base.html" %} 
+
+{% block title %}
+Paleoecology 
+{% endblock %} 
+
+{% block css %} 
+<style type='text/css'>
+  @import "media/css/style.css";
+</style> 
+<!--[if IE]>
+<style type='text/css'>
+  @import "media/css/style_ie7.css";
+</style> 
+<![endif]-->
+{% endblock %} 
+
+{% block js %} 
+<script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script> 
+<script type="text/javascript" src="/site_media/js/mochikit/MochiKit/Signal.js"></script> 
+<!--script type="text/javascript" src="media/js/graph.js"></script--> 
+
+	<script type="text/javascript">
+	  function setActiveTab() { addElementClass("{% block tabname %}tab-identification{% endblock %}", "tab-selected"); }
+	  addLoadEvent(setActiveTab);
+	</script> 
+	
+{% endblock %} 
+
+{% block masthead %} 
+Paleoecology
+{% endblock %} 
+
+{% block content %} 
+<div id="content">
+
+	<div id="tab-bar">
+	<div class="tab" id="tab-coresample">
+		Sediment Sampling
+	</div>
+	
+	<div class="tab" id="tab-identification">
+		Pollen Identification
+	</div>
+	
+	</div>
+	
+<div id="container">
+	
+	<div id="left">
+		{% block left %} 
+		LEFT PANE REPORTING FOR DUTY 
+		{% endblock %} 
+	</div>
+	
+
+	<div id="right">
+	    {% block right %} 
+		RIGHT PANE SIR YES SIR 
+	    {% endblock %} 
+	</div>
+</div>
+<!-- end div "container" -->
+</div>
+{% endblock %} 
