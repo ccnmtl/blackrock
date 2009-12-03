@@ -29,6 +29,13 @@ function initKeyNav() {
   connect("pollen-tab", "onclick", showPollenKey);
   connect("needle-tab", "onclick", showNeedleKey);
   connect("seed-tab", "onclick", showSeedKey);
+  connect("key-reset", "onclick", resetKey);
+}
+
+function resetKey() {
+  var selected = getFirstElementByTagAndClassName("table", "selected");
+  removeElementClass(selected, "selected");
+  addElementClass("keyitem-1", "selected");
 }
 
 function goto(elem1, elem2) {

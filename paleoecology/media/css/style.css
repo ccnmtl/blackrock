@@ -51,12 +51,16 @@ div#left
 	padding-right: 550px;
 }
 
+div#instructions {
+  height: 30px;
+}
+
 div#right
 {
    background: lightgray;
 	position: absolute;
 	height: 500px;
-	top: 0px;
+	top: 30px;
 	right: 20px;
 	width: 522px;
 }
@@ -81,6 +85,16 @@ div#right
   float: left;
 }
 
+#closebutton {
+  display: none;
+  float: right;
+  border: 1px black solid;
+  background-color: white;
+  padding-left: 5px;
+  padding-right: 5px;
+  cursor: pointer;
+}
+
 #pollen-image {
   float: left;
   padding: 5px;
@@ -101,12 +115,19 @@ div#right
   float: left;
   text-align: center;
   width: 125px;
-  height: 125px;
+  height: 150px;
   padding: 5px;
 }
 
-.pollen-zoo-image .imagename {
+.pollen-zoo-image .imagename{
   font-size: 12px;
+}
+
+.pollen-zoo-image .imageanswer {
+  color: green;
+  font-style: italic;
+  font-size: 12px;
+  height: 40px;
 }
 
 #pollen-zoo-outer {
@@ -118,6 +139,10 @@ div#right
   height: 300px;
   overflow: auto;
   padding: 5px;
+}
+
+#complete {
+  display: none;
 }
 
 
