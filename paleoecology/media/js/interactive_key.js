@@ -1,51 +1,40 @@
-function showPollenKey() {
-  hideElement("needle-key");
-  hideElement("seed-key");
-  showElement("pollen-key");
-  removeElementClass("seed-tab", "keytab-selected");
-  removeElementClass("needle-tab", "keytab-selected");
-  addElementClass("pollen-tab", "keytab-selected");
-}
-
-function showNeedleKey() {
-  hideElement("pollen-key");
-  hideElement("seed-key");
-  showElement("needle-key");
-  removeElementClass("pollen-tab", "keytab-selected");
-  removeElementClass("seed-tab", "keytab-selected");
-  addElementClass("needle-tab", "keytab-selected");
-}
-
-function showSeedKey() {
-  hideElement("needle-key");
-  hideElement("pollen-key");
-  showElement("seed-key");
-  removeElementClass("needle-tab", "keytab-selected");
-  removeElementClass("pollen-tab", "keytab-selected");
-  addElementClass("seed-tab", "keytab-selected");
+function showKey(e) {
+  var selectedkey = e.src().id.substr(0, e.src().id.length-4);
+  keys = ["needle", "pollen", "seed"];
+  for(var i=0; i<keys.length; i++) {
+    if(keys[i] == selectedkey) {
+      showElement(keys[i]+"-key");
+      addElementClass(keys[i]+"-tab", "keytab-selected");
+    }
+    else {
+      hideElement(keys[i]+"-key");
+      removeElementClass(keys[i]+"-tab", "keytab-selected");
+    }
+  }
 }
 
 function initKeyNav() {
-  connect("pollen-tab", "onclick", showPollenKey);
-  connect("needle-tab", "onclick", showNeedleKey);
-  connect("seed-tab", "onclick", showSeedKey);
+  connect("pollen-tab", "onclick", showKey);
+  connect("needle-tab", "onclick", showKey);
+  connect("seed-tab", "onclick", showKey);
   connect("key-reset", "onclick", resetKey);
 }
 
 function resetKey() {
-  var currenttab = getFirstElementByTagAndClassName("div", "keytab-selected");
-  var selectedkey = currenttab.id.substr(0, currenttab.id.length-4);
-  var selected = getFirstElementByTagAndClassName("table", "selected", selectedkey+"-key");
-  removeElementClass(selected, "selected");
-  addElementClass("keyitem-"+selectedkey+'1', "selected");
+  goto("1");
 }
 
-function goto(elem2) {
+function goto(elem) {
   var currenttab = getFirstElementByTagAndClassName("div", "keytab-selected");
   var selectedkey = currenttab.id.substr(0, currenttab.id.length-4);
   var selected = getFirstElementByTagAndClassName("table", "selected", selectedkey+"-key");
+
   removeElementClass(selected, "selected");
-  addElementClass("keyitem-" + elem2, "selected");
+  addElementClass("keyitem-" + selectedkey + elem, "selected");
+
+  // scroll div to the desired element
+  var vertpos = getElementPosition("keyitem-" + selectedkey + elem, selectedkey+"-key").y;
+  $(selectedkey+"-key").scrollTop = $(selectedkey+"-key").scrollTop + vertpos;
 }
 
 addLoadEvent(initKeyNav);
