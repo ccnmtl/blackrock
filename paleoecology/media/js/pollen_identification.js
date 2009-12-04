@@ -18,7 +18,7 @@ var images = [
   ["pinus strobus (white pine) needle.jpg", "pinus strobus (white pine) needle"],
   ["pinus strobus (white pine) pollen.jpg", "pinus strobus (white pine) pollen"],
   ["quercus (oak) pollen.jpg", "quercus (oak) pollen"],
-  ["tsuga canadensis (eastern hemlock) needles.jpg", "tsuga canadensis (eastern hemlock) needles"],
+  ["tsuga canadensis (eastern hemlock) needles.jpg", "tsuga canadensis (eastern hemlock) needle"],
   ["tsuga canadensis (eastern hemlock) pollen.jpg", "tsuga canadensis (eastern hemlock) pollen"]
 ];
 
@@ -118,6 +118,19 @@ function check_answers() {
   
   $('pollen-zoo').style.height = "400px";
   showElement('complete');
+  
+  forEach(getElementsByTagAndClassName("div", "pollen-zoo-image"), function(elem) {
+    var imgtag = elem.id.substr(11);
+    var name = $(imgtag+'-name').innerHTML;
+    var answer = $(imgtag+'-answer').innerHTML;
+    if(name != answer) {
+      addElementClass(elem, "wronganswer");
+    }
+    else {
+      addElementClass(elem, "rightanswer");
+      hideElement(imgtag+'-answer');
+    }
+  });
 }
 
 function restore() {
@@ -132,6 +145,8 @@ function restore() {
   });
   forEach(getElementsByTagAndClassName("div", "pollen-zoo-image"), function(elem) {
     elem.style.height = "";
+    removeElementClass(elem, "wronganswer");
+    removeElementClass(elem, "rightanswer");
   });
   hideElement('complete');
   $('pollen-zoo').style.height = "";

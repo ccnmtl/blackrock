@@ -145,6 +145,14 @@ div#right
   display: none;
 }
 
+.rightanswer {
+  border: 5px green solid;
+}
+
+.wronganswer {
+  border: 5px red solid;
+}
+
 
 #key-tabs {
 }
