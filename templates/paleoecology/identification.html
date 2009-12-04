@@ -29,11 +29,36 @@
   <div id="pollen-image"></div>
   
   <form id="identify-form">
-    <div id="pollen-writein">
-      Write Species Name:<br />
-      <input type="text" id='name-form'></input><br />
-      <input type='button' id='next' value='Next Species &gt;&gt;'/>
-    </div>
+    <div>
+      Choose Species Name:<br />
+        <select name="pollen-choice" id='pollen-choice'>
+          <option value=""></option>
+          <option value="abies (fir) needle">abies (fir) needle</option>
+          <option value="abies (fir) pollen">abies (fir) pollen</option>
+          <option value="alnus (alder) pollen">alnus (alder) pollen</option>
+          <option value="asteraceae (herbs) pollen">asteraceae (herbs) pollen</option>
+          <option value="betula (birch) pollen">betula (birch) pollen</option>
+          <option value="betula papyrifera (paper birch) seed">betula papyrifera (paper birch) seed</option>
+          <option value="betula populifolia (gray birch) seed">betula populifolia (gray birch) seed</option>
+          <option value="carya (hickory) pollen">carya (hickory) pollen</option>
+          <option value="castanea dentata (American chestnut) pollen">castanea dentata (American chestnut) pollen</option>
+          <option value="cyperaceae (sedge) pollen">cyperaceae (sedge) pollen</option>
+          <option value="fagus grandifolia (American beech) pollen">fagus grandifolia (American beech) pollen</option>
+          <option value="fraxinus (ash) pollen">fraxinus (ash) pollen</option>
+          <option value="gramineae (grass) pollen">gramineae (grass) pollen</option>
+          <option value="ostrya/carpinus pollen">ostrya/carpinus pollen</option>
+          <option value="picea (spruce) needle">picea (spruce) needle</option>
+          <option value="picea (spruce) pollen">picea (spruce) pollen</option>
+          <option value="pinus strobus (white pine) needle">pinus strobus (white pine) needle</option>
+          <option value="pinus strobus (white pine) pollen">pinus strobus (white pine) pollen</option>
+          <option value="quercus (oak) pollen">quercus (oak) pollen</option>
+          <option value="tsuga canadensis (eastern hemlock) needle">tsuga canadensis (eastern hemlock) needle</option>
+          <option value="tsuga canadensis (eastern hemlock) pollen">tsuga canadensis (eastern hemlock pollen</option>
+          
+        </select>
+      </div>
+      <!--input type="text" id='name-form'></input--><br />
+      <span id="next"><input type='button' id='next' value='Next Species &gt;&gt;'/></span>
     <br /><br />
     <input type='button' id='answers' value='Check Answers' />
   </form>

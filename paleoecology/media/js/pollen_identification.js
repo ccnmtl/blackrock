@@ -25,10 +25,11 @@ var images = [
 var current = -1;
 
 function setup_id_activity() {
-  connect("next", "onclick", save_name);
+  connect("pollen-choice", "onchange", save_name);
+  connect("next", "onclick", display_next_specimen);
+  connect("identify-form", "onsubmit", form_submit);
   connect("answers", "onclick", check_answers);
   connect("closebutton", "onclick", restore);
-  connect("identify-form", "onsubmit", form_submit);
 }
 
 function setup_zoo() {
@@ -39,7 +40,7 @@ function setup_zoo() {
     connect(img, "onclick", goto_specimen);
     var namediv = DIV({'class':'imagename', 'id':'image'+i+'-name'}, null);
     var answerdiv = DIV({'class':'imageanswer', 'id':'image'+i+'-answer'}, null);
-    appendChildNodes(zoo, DIV({'id':'pollen-zoo-image'+i, 'class':'pollen-zoo-image'}, img,BR(),namediv,answerdiv));
+    appendChildNodes(zoo, DIV({'id':'pollen-zoo-image'+i, 'class':'pollen-zoo-image unanswered'}, img,BR(),namediv,answerdiv));
   }
 
   display_next_specimen();
@@ -49,18 +50,29 @@ function goto_specimen(e) {
   var id = e.src().id;   // imageX
   current = parseInt(id.substr(5));
   replaceChildNodes("pollen-image", IMG({'src':'media/images/pollen/' + images[current][0]}, null));
-  $('name-form').value = $('image'+current+'-name').innerHTML;
+  //$('name-form').value = $('image'+current+'-name').innerHTML;
+  //showElement("pollen-choice");
+  $('pollen-choice').value = $('image'+current+'-name').innerHTML;
 }
 
 function display_next_specimen() {
-  current = current + 1;
-  if(current == images.length) {
-    $("pollen-image").innerHTML = "";
-    $("pollen-writein").innerHTML = "All species identified.";
+  var nextElem = getFirstElementByTagAndClassName("div", "unanswered", "pollen-zoo");
+  if(! nextElem) {
+    //hideElement("pollen-choice");
+    //hideElement("next");
+    //$("pollen-image").innerHTML = "";
+    $("next").innerHTML = "All species identified.";
   }
   else {
+    current = nextElem.id.substr(16);
+    log(current);
     replaceChildNodes("pollen-image", IMG({'src':'media/images/pollen/' + images[current][0]}, null));
-    $('name-form').value = $('image'+current+'-name').innerHTML;
+    //$('name-form').value = $('image'+current+'-name').innerHTML;
+    $('pollen-choice').value = $('image'+current+'-name').innerHTML;
+
+    // scroll div to the desired element
+    var vertpos = getElementPosition("pollen-zoo-image"+current, "pollen-zoo").y;
+    $("pollen-zoo").scrollTop = $("pollen-zoo").scrollTop + vertpos;
   }
 }
 
@@ -68,16 +80,30 @@ function display_next_specimen() {
 function form_submit(e) {
   e.stop();
   save_name();
-}
-
-function save_name() {
-  var name = $('name-form').value;
-  $('name-form').value = "";
-  $('image'+current+'-name').innerHTML = name;
   display_next_specimen();
 }
 
+function save_name() {
+  //var name = $('name-form').value;
+  var name = $('pollen-choice').value;
+  $('image'+current+'-name').innerHTML = name;
+  if(name != "") {
+    removeElementClass('pollen-zoo-image'+current, 'unanswered');
+    addElementClass('pollen-zoo-image'+current, 'answered');
+  }
+  else {
+    addElementClass('pollen-zoo-image'+current, 'unanswered');
+    removeElementClass('pollen-zoo-image'+current, 'answered');
+  }
+}
+
 function check_answers() {
+  var nextElem = getFirstElementByTagAndClassName("div", "unanswered", "pollen-zoo");
+  if(nextElem) {
+    if(! confirm("You have not chosen an answer for all specimens.  View answer key anyway?")) {
+      return;
+    }
+  }
   hideElement('right');
   hideElement('identify-box');
   hideElement('instructions');
