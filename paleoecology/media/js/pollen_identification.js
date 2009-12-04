@@ -33,7 +33,10 @@ function setup_id_activity() {
 }
 
 function setup_zoo() {
-  // TODO: randomize order of specimens?
+  // randomize order of specimens so they don't match the order in the drop-down
+  
+  images.sort(function() { return 0.5 - Math.random()});
+
   var zoo = $("pollen-zoo");
   for(var i=0; i < images.length; i++) {
     var img = IMG({'id':'image'+i, 'src':'media/images/pollen/' + images[i][0]}, null);
