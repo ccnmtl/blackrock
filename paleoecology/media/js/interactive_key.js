@@ -33,13 +33,18 @@ function initKeyNav() {
 }
 
 function resetKey() {
-  var selected = getFirstElementByTagAndClassName("table", "selected");
+  var currenttab = getFirstElementByTagAndClassName("div", "keytab-selected");
+  var selectedkey = currenttab.id.substr(0, currenttab.id.length-4);
+  var selected = getFirstElementByTagAndClassName("table", "selected", selectedkey+"-key");
   removeElementClass(selected, "selected");
-  addElementClass("keyitem-1", "selected");
+  addElementClass("keyitem-"+selectedkey+'1', "selected");
 }
 
-function goto(elem1, elem2) {
-  removeElementClass("keyitem-" + elem1, "selected");
+function goto(elem2) {
+  var currenttab = getFirstElementByTagAndClassName("div", "keytab-selected");
+  var selectedkey = currenttab.id.substr(0, currenttab.id.length-4);
+  var selected = getFirstElementByTagAndClassName("table", "selected", selectedkey+"-key");
+  removeElementClass(selected, "selected");
   addElementClass("keyitem-" + elem2, "selected");
 }
 
