@@ -92,9 +92,13 @@ def forest(request):
         species['percent'] = ''
       myspecies.append(species)
       
-  return render_to_response('respiration/forest.html', {'stations':station_names, 'years':year_options,
-                                                        'numspecies':len(myspecies), 'specieslist':myspecies,
-                                                        'scenario_options':scenario_options})
+  return render_to_response('respiration/forest.html', {
+      'stations':station_names, 
+      'years':year_options,
+      'numspecies':len(myspecies),
+      'specieslist':myspecies,
+      'scenario_options':scenario_options,
+      })
 
 def getsum(request):
   if request.method != 'POST':
