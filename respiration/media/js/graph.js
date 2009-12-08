@@ -71,7 +71,7 @@ function leafGraph() {
 	       try {
 		   var Rval = LeafData.arrhenius(spid, i);
 		   if (!isNaN(Rval)) {
-		       data.push(Rval);  
+		       data.push(Rval);
 		       //if(Rval > 0) { g.left_margin = 0; }
 		   }
 	       } catch(e) {
