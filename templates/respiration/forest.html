@@ -11,6 +11,11 @@
   <script type="text/javascript" src="media/js/forestgraph.js"></script> 
 
   <script type="text/javascript">
+    {% if not stations %}
+      if( console ) { 
+        console.warn("No stations exist -- probably someone hasn't populated the Django database with respiration/Temperatures yet. This is why 'yrs is undefined'.")
+      };
+    {% endif %}
     {% for station in stations %}
       addYears("{{station}}", {{years|hash:station}});
     {% endfor %}
