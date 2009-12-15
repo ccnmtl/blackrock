@@ -43,45 +43,45 @@ div#container
 {
 	margin: 0px 30px 0px 30px;
 	position: relative;
+	min-width: 900px;
 }
 
 div#left
 {
-	min-width: 395px;
-	padding-right: 550px;
+	
+   float: left;
+   width: 49%;
+   min-width: 460px;
 }
 
 div#instructions {
-  height: 30px;
+	margin-bottom: 1em;
 }
 
 div#right
 {
-   background: lightgray;
-	position: absolute;
-	height: 500px;
-	top: 30px;
-	right: 20px;
-	width: 522px;
+   
+	float: left;
+	width: 42%;
+	margin-left: 1em;
+	
 }
 
 #identify-box {
-  border: 1px black solid;
-  height: 200px;
-  width: 525px;
-  margin: 5px;
+  border: 1px #A18F83 solid;
   margin-bottom: 10px;
+  height: 200px;
 }
 
 .identify-title {
-  border-bottom: 1px black solid;
-  background-color: lightgray;
+ 
+  background-color: #A18F83;
   padding: 5px;
   font-weight: bold;
 }
 
 #identify-form {
-  padding: 20px;
+  margin-top: 10px;
   float: left;
 }
 
@@ -95,32 +95,55 @@ div#right
   cursor: pointer;
 }
 
-#pollen-image {
+
+#pollen-image-container {
   float: left;
   padding: 5px;
+  width: 130px;
+  height: 130px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #1F2A1E;
+  text-align: center;
+  margin: 10px;
+}
+
+
+#pollen-image {
+
+
 }
 
 #pollen-image img {
-  width: 150px;
-  height: 150px;
+  max-width: 130px;
+  max-height: 130px;
+
+  
 }
 
 .pollen-zoo-image img {
   cursor: pointer;
-  width: 100px;
-  height: 100px;
+  max-width: 100px;
+  max-height: 100px;
+
 }
 
 .pollen-zoo-image {
   float: left;
   text-align: center;
-  width: 125px;
-  height: 150px;
-  padding: 5px;
+  width: 100px;
+  height: 100px;
+  background-color: #1F2A1E;
+  vertical-align: middle;
+  margin: 5px;
+  padding: 10px;
+
+
 }
 
 .pollen-zoo-image .imagename{
   font-size: 12px;
+  border: 1px solid red;
 }
 
 .pollen-zoo-image .imageanswer {
@@ -131,14 +154,14 @@ div#right
 }
 
 #pollen-zoo-outer {
-  border: 1px black solid;
-  margin: 5px;
+  border: 1px #A18F83 solid;
+  
 }
 
 #pollen-zoo {
   height: 300px;
   overflow: auto;
-  padding: 5px;
+  padding: 10px;
 }
 
 #complete {
@@ -159,7 +182,7 @@ div#right
 
 div.keytab-selected
 {
-	background-color: lightgray;
+	background-color: #DCD3C2;
 }
 
 .key-tab
@@ -167,29 +190,30 @@ div.keytab-selected
 	text-align: center;
 	text-decoration: none;
 	margin: 0px;
-	float: right;
 	font-weight: bold;
 	cursor: pointer;
-	width: 172px;
-	background-color: gray;
-	padding-top: 2px;
-	padding-bottom: 2px;
-	border: 1px black solid;
-	border-bottom: 0;
+	background-color: #A18F83;
+	padding: 4px .5em 7px .5em;
+	display: inline;
+	font-size: 90%;
+}
+
+#key-container {
+
+	background-color:#DCD3C2;
+	padding: 5px;
+	margin-top: 7px;
 }
 
 .key {
-   border-left: 1px black solid;
-   border-right: 1px black solid;
-   border-bottom: 1px black solid;
-   height: 500px;
+   border: 1px #A18F83 solid;
+   border-top: none;
    overflow: auto;
    background: lightgray;
 }
 
 .key_button {
   border: 1px black solid;
-  width: 100px;
   font-size: 12px;
   text-align: center;
   font-style: italic;
@@ -212,3 +236,10 @@ table.keyitem {
 
 .keyanswer {
 }
+
+#key-reset {
+
+	float: right;
+	
+	
+	}

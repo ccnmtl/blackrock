@@ -26,11 +26,11 @@
 <div id="identify-box">
   <div class="identify-title">Identify This Specimen</div>
   
-  <div id="pollen-image"></div>
+ <div id="pollen-image-container"><div id="pollen-image"></div></div>
   
   <form id="identify-form">
     <div>
-      Choose Species Name:<br />
+      Choose Species Name:<br /><br />
         <select name="pollen-choice" id='pollen-choice'>
           <option value=""></option>
           <option value="abies (fir) needle">abies (fir) needle</option>
@@ -66,26 +66,31 @@
 
 <div id="pollen-zoo-outer">
   <div class="identify-title"><span id='zoo-title'>Species to Identify</span><div id='closebutton'>X</div></div>
-  <div id="pollen-zoo" />
+  <div id="pollen-zoo"></div>
 </div>
 
 {% endblock %}
 
 {% block bottombuttons %}
   <input type='button' id='complete' value='Complete Activity &gt;&gt;' />
+
+
 {% endblock %}
 
 {% block right %}
+
+
 <div id="key-tabs">
   <div id="seed-tab" class="key-tab">Seed Key</div>
   <div id="needle-tab" class="key-tab">Needle Key</div>
   <div id="pollen-tab" class="key-tab keytab-selected">Pollen Key</div>
+  <input type="button" id='key-reset' value="Start Over" />
 </div>
+<div id="key-container">
 
-<input type="button" id='key-reset' value="Start Over" />
 
 <div id="pollen-key" class="key">
-  <table class="keyitem selected" id="keyitem-pollen1">
+ <table class="keyitem selected" id="keyitem-pollen1">
     <tr>
       <td rowspan=2>1.</td>
       <td>
@@ -484,7 +489,7 @@
       </td>
     </tr>
   </table>
-
+</div>
 </div>
 
 {% endblock %}
