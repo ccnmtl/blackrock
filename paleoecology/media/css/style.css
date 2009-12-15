@@ -37,7 +37,7 @@ div#top-box
 	border: 1px solid red;
 }
 
-.selected { background-color: #fff; }
+.selected { background-color: #ffffe6; }
 
 div#container
 {
@@ -209,17 +209,28 @@ div.keytab-selected
    border: 1px #A18F83 solid;
    border-top: none;
    overflow: auto;
-   background: lightgray;
+   background: #fff;
+   
 }
 
 .key_button {
-  border: 1px black solid;
+  border-top: 1px #ccc solid;
+   border-left: 1px #ccc solid;
+   border-right: 1px #999 solid;
+  border-bottom: 1px #999 solid;
   font-size: 12px;
   text-align: center;
   font-style: italic;
   padding: 5px;
   margin: 5px;
   cursor: pointer;
+    font-size: 75%;
+    font-weight: bold;
+   background-color: #dedede;
+}
+
+.key_button:hover {
+	background-color: green;
 }
 
 .key_answer {
@@ -227,7 +238,9 @@ div.keytab-selected
 }
 
 .key table {
-  border-top: 1px black solid;
+  border-top: 1px #A18F83 solid;
+  font-size: 75%;
+
 }
 
 table.keyitem {
