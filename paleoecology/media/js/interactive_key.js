@@ -27,7 +27,7 @@ function resetKey() {
 function goto(elem) {
   var currenttab = getFirstElementByTagAndClassName("div", "keytab-selected");
   var selectedkey = currenttab.id.substr(0, currenttab.id.length-4);
-  var selected = getFirstElementByTagAndClassName("table", "selected", selectedkey+"-key");
+  var selected = getFirstElementByTagAndClassName("div", "selected", selectedkey+"-key");
 
   removeElementClass(selected, "selected");
   addElementClass("keyitem-" + selectedkey + elem, "selected");
