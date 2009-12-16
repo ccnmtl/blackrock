@@ -30,10 +30,10 @@ function goto(elem) {
   var selected = getFirstElementByTagAndClassName("div", "selected", selectedkey+"-key");
 
   removeElementClass(selected, "selected");
-  addElementClass("keyitem-" + selectedkey + elem, "selected");
+  addElementClass("keyrow-" + selectedkey + elem, "selected");
 
   // scroll div to the desired element
-  var vertpos = getElementPosition("keyitem-" + selectedkey + elem, selectedkey+"-key").y;
+  var vertpos = getElementPosition("keyrow-" + selectedkey + elem, selectedkey+"-key").y;
   $(selectedkey+"-key").scrollTop = $(selectedkey+"-key").scrollTop + vertpos;
 }
 

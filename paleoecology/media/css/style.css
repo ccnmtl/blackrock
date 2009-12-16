@@ -37,7 +37,7 @@ div#top-box
 	border: 1px solid red;
 }
 
-.keyitem.selected, .line-id.selected { background-color: #ffffb3; }
+.selected .line-id, .selected .keyitem { background-color: #ffffb3; }
 
 div#container
 {
@@ -203,13 +203,13 @@ div.keytab-selected
 	background-color:#DCD3C2;
 	padding: 5px;
 	margin-top: 7px;
-	height:525px;
-	overflow: auto;
 }
 
 .key {
    
    font-size: 75%;
+	height:525px;
+	overflow: auto;
    
 }
 
