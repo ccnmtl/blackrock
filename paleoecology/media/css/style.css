@@ -203,6 +203,8 @@ div.keytab-selected
 	background-color:#DCD3C2;
 	padding: 5px;
 	margin-top: 7px;
+	border: 1px solid #DCD3C2;
+	margin-bottom: 10px;
 }
 
 .key {
