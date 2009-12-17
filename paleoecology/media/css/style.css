@@ -50,8 +50,8 @@ div#left
 {
 	
    float: left;
-   width: 49%;
-   min-width: 460px;
+   width: 44%;
+   min-width: 418px;
 }
 
 div#instructions {
@@ -62,7 +62,7 @@ div#right
 {
    
 	float: left;
-	width: 42%;
+	width: 51%;
 	margin-left: 1em;
 	
 }
@@ -70,7 +70,7 @@ div#right
 #identify-box {
   border: 1px #A18F83 solid;
   margin-bottom: 10px;
-  height: 200px;
+  height: 163px;
 }
 
 .identify-title {
@@ -98,25 +98,25 @@ div#right
 
 #pollen-image-container {
   float: left;
-  padding: 5px;
-  width: 130px;
-  height: 130px;
-  padding: 10px;
+  width: 100px;
+  height: 100px;
+  background-color: #ddd;
   border: 1px solid #ccc;
-  background-color: #1F2A1E;
   text-align: center;
   margin: 10px;
+    padding: 5px;
 }
 
 
 #pollen-image {
 
 
+
 }
 
 #pollen-image img {
-  max-width: 130px;
-  max-height: 130px;
+  max-width: 100px;
+  max-height: 100px;
 
   
 }
@@ -125,32 +125,34 @@ div#right
   cursor: pointer;
   max-width: 100px;
   max-height: 100px;
+  margin: 5px;
+ 
 
 }
 
 .pollen-zoo-image {
+  
   float: left;
-  text-align: center;
-  width: 100px;
-  height: 100px;
-  background-color: #1F2A1E;
-  vertical-align: middle;
+  background-color: #ddd;
+  border: 1px solid #ccc;
   margin: 5px;
-  padding: 10px;
-
-
+  min-height:185px;
 }
 
 .pollen-zoo-image .imagename{
-  font-size: 12px;
-  border: 1px solid red;
+  font-size: 11px;
+  width: 80px;
+  padding: 0 2px 0 4px;
+
 }
 
 .pollen-zoo-image .imageanswer {
   color: green;
   font-style: italic;
-  font-size: 12px;
-  height: 40px;
+    font-size: 11px;
+  width: 80px;
+  padding: 0 2px 0 4px;
+
 }
 
 #pollen-zoo-outer {
@@ -159,7 +161,7 @@ div#right
 }
 
 #pollen-zoo {
-  height: 300px;
+  height: 335px;
   overflow: auto;
   padding: 10px;
 }
@@ -234,6 +236,9 @@ div.keytab-selected
 
 .key_answer {
   font-style: italic;
+  color: #47634b;
+  margin-top: 3px;
+  fomt-size: 11px;
 }
 
 .key table {
@@ -250,8 +255,7 @@ margin-left: 30px;
 
 }
 
-.keyanswer {
-}
+
 
 #key-reset {
 
@@ -279,7 +283,8 @@ background-color: #fff;
 
 .characteristic {
 
-	display: inline;
+	display: block;
+	margin-right: 125px;
 
 }
 
@@ -301,3 +306,8 @@ float: left;
 
 width: 120px;
 float: right;
+margin-top: 0px;
+
+}
+
+

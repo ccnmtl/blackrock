@@ -58,9 +58,7 @@
         </select>
       </div>
       <!--input type="text" id='name-form'></input--><br />
-      <span id="next"><input type='button' id='next' value='Next Species &gt;&gt;'/></span>
-    <br /><br />
-    <input type='button' id='answers' value='Check Answers' />
+      <span id="next"><input type='button' id='next' value='Next Species &gt;&gt;'/></span><input type='button' id='answers' value='Check Answers' style="margin-left: 60px;" />
   </form>
 </div>
 
@@ -93,41 +91,43 @@
 
  <div class="keyrow selected" id="keyrow-pollen1"> <div class="line-id">1.</div><div class="keyitem">
     <div class="characteristic-pair">
-     
+     <div class="button-container">
+        <div class="key_button" onclick="goto('12')">Go to 12.</div>
+      </div>
       <div class="characteristic">
         Pollen has bladders (vesiculate)
       </div>
-      <div class="button-container">
-        <div class="key_button" onclick="goto('12')">Go to 12.</div>
-      </div>
+      
     </div>
     <div class="characteristic-pair">
-      <div class="characteristic">
-        Pollen has no bladders
-      </div>
       <div class="button-container">
         <div class="key_button" onclick="goto('2a');">Go to 2a.</div>
       </div>
+      <div class="characteristic">
+        Pollen has no bladders
+      </div>
+      
     </div>
   </div></div>
 
   <div class="keyrow" id="keyrow-pollen2a"> <div class="line-id">2a.</div><div class="keyitem">
     <div class="characteristic-pair">
-     
-      <div class="characteristic">
-        Pollen is spherical/round or somewhat elongated in shape
-      </div>
       <div class="button-container">
         <div class="key_button" onclick="goto('2b')">Go to 2b.</div>
       </div>
+      <div class="characteristic">
+        Pollen is spherical/round or somewhat elongated in shape
+      </div>
+     
     </div>
     <div class="characteristic-pair">
-      <div class="characteristic">
-        Pollen is pyramidal (pear-shaped)
-      </div>
       <div class="button-container">
         <div class="key_button" onclick="goto('14')">Go to 14.</div>
       </div>
+      <div class="characteristic">
+        Pollen is pyramidal (pear-shaped)
+      </div>
+      
     </div>
   </div></div>
 
@@ -137,25 +137,27 @@
       <div class="characteristic">
         Pollen has spines or bumps
       </div>
-      <div class="characteristic">
+      <div class="answer">
         <div class="key_answer">Asteraceae/Composite/Ambrosia</div>
       </div>
     </div>
     <div class="characteristic-pair">
+        <div class="button-container">
+        <div class="key_button" onclick="goto('3')">Go to 3.</div>
+      </div>
       <div class="characteristic">
         Pollen has pores only (porate)
       </div>
-      <div class="button-container">
-        <div class="key_button" onclick="goto('3')">Go to 3.</div>
-      </div>
+    
     </div>
     <div class="characteristic-pair">
+       <div class="button-container">
+        <div class="key_button" onclick="goto('14')">Go to 14.</div>
+      </div>
       <div class="characteristic">
         Pollen has no pores and no furrows
       </div>
-      <div class="button-container">
-        <div class="key_button" onclick="goto('14')">Go to 14.</div>
-      </div>
+     
     </div>
   </div></div>
 
@@ -165,37 +167,39 @@
       <div class="characteristic">
         Pollen has one pore (monoporate)
       </div>
-      <div class="characteristic">
+      <div class="answer">
         <div class="key_answer">Gramineae/Poaceae/Grasses</div>
       </div>
     </div>
     <div class="characteristic-pair">
+     <div class="button-container">
+        <div class="key_button" onclick="goto('6')">Go to 6.</div>
+      </div>
       <div class="characteristic">
         Pollen has more than one pore
       </div>
-      <div class="button-container">
-        <div class="key_button" onclick="goto('6')">Go to 6.</div>
-      </div>
+      
     </div>
   </div></div>
 
   <div class="keyrow" id="keyrow-pollen4"><div class="line-id">4.</div><div class="keyitem">
     <div class="characteristic-pair">
-      
-      <div class="characteristic">
-        Pollen has furrows only (colpate)
-      </div>
       <div class="button-container">
         <div class="key_button" onclick="goto('5')">Go to 5.</div>
       </div>
+      <div class="characteristic">
+        Pollen has furrows only (colpate)
+      </div>
+      
     </div>
     <div class="characteristic-pair">
-      <div class="characteristic">
-        Pollen has furrows and pores (colporate)
-      </div>
       <div class="button-container">
         <div class="key_button" onclick="goto('11')">Go to 11.</div>
       </div>
+      <div class="characteristic">
+        Pollen has furrows and pores (colporate)
+      </div>
+      
     </div>
   </div></div>
 
@@ -205,7 +209,7 @@
       <div class="characteristic">
         Pollen has three furrows and is slightly elongated
       </div>
-      <div class="characteristic">
+      <div class="answer">
         <div class="key_answer">Quercus (oak)</div>
       </div>
     </div>
@@ -213,7 +217,7 @@
       <div class="characteristic">
         Pollen has four shallow furrows
       </div>
-      <div class="characteristic">
+      <div class="answer">
         <div class="key_answer">Fraxinus (ash)</div>
       </div>
     </div>
@@ -221,21 +225,22 @@
 
   <div class="keyrow" id="keyrow-pollen6"><div class="line-id">6.</div><div class="keyitem">
     <div class="characteristic-pair">
-      
-      <div class="characteristic">
-        Pollen has three pores (triporate)
-      </div>
       <div class="button-container">
         <div class="key_button" onclick="goto('7')">Go to 7.</div>
       </div>
+      <div class="characteristic">
+        Pollen has three pores (triporate)
+      </div>
+      
     </div>
     <div class="characteristic-pair">
-      <div class="characteristic">
-        Pollen has more than three pores
-      </div>
       <div class="button-container">
         <div class="key_button" onclick="goto('9')">Go to 9.</div>
       </div>
+      <div class="characteristic">
+        Pollen has more than three pores
+      </div>
+      
     </div>
   </div></div>
   
@@ -245,7 +250,7 @@
       <div class="characteristic">
         Three pores are on edge of grain and are protruding
       </div>
-      <div class="characteristic">
+      <div class="answer">
         <div class="key_answer">Betula (birch)</div>
       </div>
     </div>
@@ -253,17 +258,18 @@
       <div class="characteristic">
         Three pores are on edge of grain and not protruding
       </div>
-      <div class="characteristic">
+      <div class="answer">
         <div class="key_answer">Ostrya/Carpinus</div>
       </div>
     </div>
     <div class="characteristic-pair">
+       <div class="button-container">
+        <div class="key_button" onclick="goto('8')">Go to 8.</div>
+      </div>
       <div class="characteristic">
         Three pores not on edge of grain
       </div>
-      <div class="button-container">
-        <div class="key_button" onclick="goto('8')">Go to 8.</div>
-      </div>
+     
     </div>
   </div></div>
 
@@ -273,7 +279,7 @@
       <div class="characteristic">
         Three pores are round and flat and on same face of pollen grain
       </div>
-      <div class="characteristic">
+      <div class="answer">
         <div class="key_answer">Carya (hickory)</div>
       </div>
     </div>
@@ -281,13 +287,13 @@
 
   <div class="keyrow" id="keyrow-pollen9"><div class="line-id">9.</div><div class="keyitem">
     <div class="characteristic-pair">
-      
+       <div class="button-container">
+        <div class="key_button" onclick="goto('10')">Go to 10.</div>
+      </div>
       <div class="characteristic">
         Pollen has 4 or 5 pores
       </div>
-      <div class="button-container">
-        <div class="key_button" onclick="goto('10')">Go to 10.</div>
-      </div>
+     
     </div>
   </div></div>
 
@@ -297,7 +303,7 @@
       <div class="characteristic">
         Pores are connected by arcs
       </div>
-      <div class="characteristic">
+      <div class="answer">
         <div class="key_answer">Alnus (alder)</div>
       </div>
     </div>
@@ -305,7 +311,7 @@
       <div class="characteristic">
         Pores not connected by arcs and surface has rugulate (lobed) pattern
       </div>
-      <div class="characteristic">
+      <div class="answer">
         <div class="key_answer">Ulmus (elm)</div>
       </div>
     </div>
@@ -317,7 +323,7 @@
       <div class="characteristic">
         Pollen is tricolporate and the circular pore exceeds the width of the furrow
       </div>
-      <div class="characteristic">
+      <div class="answer">
         <div class="key_answer">Fagus (beech)</div>
       </div>
     </div>
@@ -325,7 +331,7 @@
       <div class="characteristic">
         Pollen is tricolporate, elongated and small
       </div>
-      <div class="characteristic">
+      <div class="answer">
         <div class="key_answer">Castanea dentata (American chestnut)</div>
       </div>
     </div>
@@ -337,17 +343,18 @@
       <div class="characteristic">
         Connection between bladder and body is not constricted at point of attachment
       </div>
-      <div class="characteristic">
+      <div class="answer">
         <div class="key_answer">Picea (spruce)</div>
       </div>
     </div>
     <div class="characteristic-pair">
-      <div class="characteristic">
-        Connection between bladder and body is constricted
-      </div>
       <div class="button-container">
         <div class="key_button" onclick="goto('13')">Go to 13.</div>
       </div>
+      <div class="characteristic">
+        Connection between bladder and body is constricted
+      </div>
+      
     </div>
   </div></div>
 
@@ -357,7 +364,7 @@
       <div class="characteristic">
         Cap on body has uneven thickness
       </div>
-      <div class="characteristic">
+      <div class="answer">
         <div class="key_answer">Abies (fir)</div>
       </div>
     </div>
@@ -365,7 +372,7 @@
       <div class="characteristic">
         Cap on body has even thickness and has bumps on bottom of body (verrucae)
       </div>
-      <div class="characteristic">
+      <div class="answer">
         <div class="key_answer">Pinus strobus (white pine)</div>
       </div>
     </div>
@@ -377,7 +384,7 @@
       <div class="characteristic">
         Pollen has no pore or furrow and has a pyramidal shape
       </div>
-      <div class="characteristic">
+      <div class="answer">
         <div class="key_answer">Cyperaceae (sedge)</div>
       </div>
     </div>
@@ -385,7 +392,7 @@
       <div class="characteristic">
         Pollen has no pore or furrow and is large and round
       </div>
-      <div class="characteristic">
+      <div class="answer">
         <div class="key_answer">Tsuga canadensis (eastern hemlock)</div>
       </div>
     </div>
@@ -401,43 +408,45 @@
       <div class="characteristic">
         Needle is square in cross-section
       </div>
-      <div class="characteristic">
+      <div class="answer">
         <div class="key_answer">Picea (spruce)</div>
       </div>
     </div>
     <div class="characteristic-pair">
-      <div class="characteristic">
-        Needle is not square in cross-section
-      </div>
-      <div class="characteristic">
-         <div class="button-container">
+      <div class="button-container">
         <div class="key_button" onclick="goto('2')">Go to 2.</div>
         </div>
+        <div class="characteristic">
+        Needle is not square in cross-section
       </div>
+      
+         
+      
     </div>
   </div></div>
 
   <div class="keyrow" id="keyrow-needle2"><div class="line-id">2.</div><div class="keyitem">
     <div class="characteristic-pair">
-      
+       <div class="button-container">
+        <div class="key_button" onclick="goto('3')">Go to 3.</div>
+        </div>
       <div class="characteristic">
         Needle is flat in cross-section
       </div>
-      <div class="characteristic">
-         <div class="button-container">
-        <div class="key_button" onclick="goto('3')">Go to 3.</div>
-        </div>
-      </div>
+     
+        
+     
     </div>
     <div class="characteristic-pair">
-      <div class="characteristic">
-        Needle is not flat in cross-section
-      </div>
-      <div class="characteristic">
        <div class="button-container">
         <div class="key_button" onclick="goto('4')">Go to 4.</div>
         </div>
+        <div class="characteristic">
+        Needle is not flat in cross-section
       </div>
+      
+     
+    
     </div>
   </div></div>
 
@@ -447,7 +456,7 @@
       <div class="characteristic">
         Needle has a notch at the tip
       </div>
-      <div class="characteristic">
+      <div class="answer">
         <div class="key_answer">Abies (fir)</div>
       </div>
     </div>
@@ -455,7 +464,7 @@
       <div class="characteristic">
         Needle has no notch at the tip and the leaf stem (petiole) is at a 45&deg; angle
       </div>
-      <div class="characteristic">
+      <div class="answer">
         <div class="key_answer">Tsuga (hemlock)</div>
       </div>
     </div>
@@ -467,7 +476,7 @@
       <div class="characteristic">
         Needle is triangular in cross-section and slightly serrated
       </div>
-      <div class="characteristic">
+      <div class="answer">
         <div class="key_answer">Pinus strobus (white pine)</div>
       </div>
     </div>
@@ -485,7 +494,7 @@
       <div class="characteristic">
         Each wing of the seed is about the same size as the nut of the seed
       </div>
-      <div class="characteristic">
+      <div class="answer">
         <div class="key_answer">Betula papyrifera (paper birch)</div>
       </div>
     </div>
@@ -493,7 +502,7 @@
       <div class="characteristic">
         Each wing of the seed is much larger than the nut of the seed
       </div>
-      <div class="characteristic">
+      <div class="answer">
         <div class="key_answer">Betula populifolia (gray birch)</div>
       </div>
     </div>
