@@ -45,7 +45,7 @@ This module is currently being developed by the Center for New Media Teaching an
 <h4>This Module Contains Two Activities:</h4>
 
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="identification">Start Pollen Identification Activity</a></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="coresample">Start Sediment Sampling Activity</a></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="explore">Start Sediment Sampling Activity</a></p>
 
 <h4>
 Technical Specifications
@@ -59,10 +59,16 @@ Use the latest Firefox browser to access the Paleoecology Module.
 {% if user.is_staff %}
 <fieldset>
   <legend>Admin Options</legend>
-  <form action="loadcsv" method="post" enctype="multipart/form-data">
-    <label>Import respiration data from CSV:</label> <input type="file" name="csvfile" size="20"></input>
+  <form action="loadcounts" method="post" enctype="multipart/form-data">
+    <label>Import pollen counts from CSV:</label> <input type="file" name="csvfile" size="20"></input>
     <input type="submit" value="Import"></input>
   </form>
+
+  <form action="loadpercents" method="post" enctype="multipart/form-data">
+    <label>Import pollen percentages from CSV:</label> <input type="file" name="csvfile" size="20"></input>
+    <input type="submit" value="Import"></input>
+  </form>
+
   {{ admin_messages }}
   <a href="/admin/paleoecology/">View Data</a><br />
 </fieldset>

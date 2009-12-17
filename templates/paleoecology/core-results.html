@@ -1,0 +1,15 @@
+{% extends "paleoecology/base_paleoecology.html" %}
+{% load extras %}
+
+{% block tabname %}tab-coresample{% endblock %}
+
+{% block js %}
+{{ block.super }}
+
+  <script type="text/javascript">
+    function initNav() {
+      connect("tab-identification", "onclick", function() { location.href='identification'; });
+    }
+    addLoadEvent(initNav);
+  </script>
+{% endblock %}
