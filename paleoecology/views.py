@@ -61,10 +61,10 @@ def loadcounts(request):
          if i == 0: continue
 
          (t, created) = PollenType.objects.get_or_create(name=headers[i])
-         p = PollenSample.objects.create(depth=row[0], pollen=t)
+         (p, created) = PollenSample.objects.get_or_create(depth=row[0], pollen=t)
          p.count = row[i]
          t.save()
-       p.save()
+         p.save()
 
     admin_msg = "Successfully imported data."
 
