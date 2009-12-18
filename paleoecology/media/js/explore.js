@@ -56,7 +56,9 @@ function showError(http_request) {
 }
 
 
-function showSample(depth) {
+function showSample(e) {
+  var depth = e.src().id.substr(11);
+
   if(visible) { hideElement(visible); }
   visible = $("sample-info-" + depth);
   showElement(visible);
@@ -79,3 +81,11 @@ function loadResults() {
 }
 
 addLoadEvent(loadResults);
+
+function setupCore() {
+  forEach(getElementsByTagAndClassName("div", "core-slice"), function(elem) {
+    connect(elem, "onclick", showSample);
+  });
+}
+
+addLoadEvent(setupCore);

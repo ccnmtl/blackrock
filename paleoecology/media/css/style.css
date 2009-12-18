@@ -375,6 +375,18 @@ div#core-zoomed {
   overflow: auto;
 }
 
+div.core-slice {
+  border: 2px white solid;
+  background-color: lightgreen;
+  text-align: center;
+  cursor: pointer;
+}
+
+div.core-slice a:link {
+  text-decoration: none;
+  color: #000;
+}
+
 div.middle {
   position: relative;
   height: 400px;

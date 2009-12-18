@@ -19,11 +19,11 @@
 {% block left %}
 
   <div id="core-zoomed">
-  <ul>
   {% for sample in samples %}
-    <li><a href="javascript:showSample('{{sample.depth|floatformat}}');">{{sample.depth|floatformat}}</a></li>
+    <div class="core-slice" id="core-slice-{{sample.depth|floatformat}}">
+      {{sample.depth|floatformat}}
+    </div>
   {% endfor %}
-  </ul>
   </div>
 
 {% endblock %}
