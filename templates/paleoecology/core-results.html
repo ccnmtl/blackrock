@@ -52,6 +52,7 @@ SAMPLING DETAILS
       {% endfor %}
     </tr>
   </thead>
+  <tbody>
   {% for sample in samples %}
     <tr class='result-row' id='result-row-{{ sample.depth|floatformat }}'>
       <td>{{ sample.depth|floatformat }}</td>
@@ -63,6 +64,7 @@ SAMPLING DETAILS
         <td>{{ item }}</td>
       {% endfor %}
     </tr>
+  </tbody>
 </table>
 </div>
 
