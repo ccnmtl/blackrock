@@ -31,7 +31,7 @@ def results(request):
 
   for ptype in pollen:
     total = sum([p.count for p in PollenSample.objects.filter(pollen__name=ptype)])
-    totals.append(total)
+    totals.append(int(total))
     num_specimens += total
       
   return render_to_response('paleoecology/core-results.html', {'pollen':pollen, 'samples':samples, #'counts':counts,
