@@ -12,4 +12,58 @@
     }
     addLoadEvent(initNav);
   </script>
+  
+  <script type="text/javascript" src="media/js/paleo.js"></script>
+{% endblock %}
+
+{% block container %}
+
+<div class="results-container">
+SAMPLING SUMMARY
+<table id="summary" class="resultstable">
+  <tr>
+    <td class='header'>TOTAL # SAMPLES ANALYZED</td>
+    <td>{{ numsamples }}</td>
+  </tr>
+  <tr>
+    <td class='header'>SPECIES IDENTIFIED</td>
+    <td>{{ numspecies }}</td>
+  </tr>
+  <tr>
+    <td class='header'>TOTAL # SPECIMENS</td>
+    <td>{{ numspecimens }}</td>
+  </tr>
+  <tr>
+    <td class='header'>CARBON AGE SPAN</td>
+    <td>TBD</td>
+  </tr>
+</table>
+</div>
+
+<div class="results-container" id="details">
+SAMPLING DETAILS
+<table id="details" class="resultstable">
+  <thead>
+    <tr>
+      <td>Sample Depth (cm)</td>
+      <td>Carbon Age</td>
+      {% for p in pollen %}
+        <td>{{ p }}</td>
+      {% endfor %}
+    </tr>
+  </thead>
+  {% for sample in samples %}
+    <tr class='result-row' id='result-row-{{ sample.depth|floatformat }}'>
+      <td>{{ sample.depth|floatformat }}</td>
+      <td>TBD</td>
+    </tr>
+  {% endfor %}
+    <tr class='totals'>
+      {% for item in totals %}
+        <td>{{ item }}</td>
+      {% endfor %}
+    </tr>
+</table>
+</div>
+
 {% endblock %}
