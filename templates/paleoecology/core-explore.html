@@ -12,10 +12,53 @@
     }
     addLoadEvent(initNav);
   </script>
+  
+  <script type="text/javascript" src="media/js/explore.js"></script>
 {% endblock %}
 
 {% block left %}
 
-<a href="results">view results</a>
+  <div id="core-zoomed">
+  <ul>
+  {% for sample in samples %}
+    <li><a href="javascript:showSample('{{sample.depth|floatformat}}');">{{sample.depth|floatformat}}</a></li>
+  {% endfor %}
+  </ul>
+  </div>
 
+{% endblock %}
+
+{% block right %}
+  <div id="right-inner">
+  <div class="instructions">
+    Explore the sediment core at left.
+  </div>
+  
+  <div class="middle">
+    {% for sample in samples %}
+    <div id="sample-info-{{sample.depth|floatformat}}" class="sample-info">
+      <div class="sample-info-title">Sample Depth: {{sample.depth|floatformat}}cm</div>
+      <div class="sample-info-left">
+        <b>Most common specimens in this sample</b>
+        <div id="sample-counts-{{sample.depth|floatformat}}">
+          Loading, please wait...
+        </div>
+      </div>
+      <div class="sample-info-right">
+        <b>Species breakdown</b>
+        <div id="sample-percents-{{sample.depth|floatformat}}">
+          Loading, please wait...
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="bottom">
+    <input type="button" value="View Detailed Lab Analysis &gt;&gt;" onclick="location.href='results';"></input>
+  </div>
+  </div>
+  
+   
+  
 {% endblock %}

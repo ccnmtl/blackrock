@@ -60,7 +60,6 @@ div#instructions {
 
 div#right
 {
-   
 	float: left;
 	width: 51%;
 	margin-left: 1em;
@@ -340,4 +339,52 @@ table.resultstable td {
 
 tr.totals td {
   background-color: lightgray;
+}
+
+/* styles for explore view */
+div.sample-info {
+  display:none;
+  border: 2px black solid;
+  position: absolute;
+  height: 400px;
+}
+
+div.sample-info-title {
+  border: 1px black solid;
+  background-color: lightgray;
+  padding: 5px;
+  font-weight: bold;
+}
+
+div.sample-info-right {
+  background-color: lightgray;
+  margin: 10px;
+  float: left;
+}
+
+div.sample-info-left {
+  background-color: lightgray;
+  margin: 10px;
+  float: left;
+}
+
+div#core-zoomed {
+  border: 1px gray solid;
+  height: 600px;
+  width: 125px;
+  overflow: auto;
+}
+
+div.middle {
+  position: relative;
+  height: 400px;
+  overflow: auto;
+}
+
+div#right-inner {
+   background-color: lightgray;
+}
+
+div.bottom {
+  text-align: right;
 }

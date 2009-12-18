@@ -15,7 +15,7 @@ def identification(request):
   return render_to_response('paleoecology/identification.html')
 
 def explore(request):
-  samples = PollenSample.objects.all()
+  samples = CoreSample.objects.all().order_by('depth')
   return render_to_response('paleoecology/core-explore.html', {'samples':samples} )
 
 def results(request):
@@ -42,6 +42,21 @@ def getrow(request):
   depth = request.REQUEST['depth']
   samples = PollenSample.objects.filter(core_sample__depth = depth).order_by('pollen__name').exclude(pollen__name="Pinus").exclude(pollen__name="Asteraceae (incl ragweed)")
   results = {'depth': depth, 'counts' : [int(sample.count) for sample in samples] }
+
+  return HttpResponse(json.dumps(results), mimetype="application/javascript")
+
+def getpercents(request):
+  depth = request.REQUEST['depth']
+  samples = PollenSample.objects.filter(core_sample__depth = depth).filter(percentage__isnull=False).exclude(percentage=0).order_by('pollen__name')
+  results = [(s.pollen.name, str(s.percentage), int(s.count or 0)) for s in samples]
+  names = []
+  percents = []
+  counts = []
+  try:
+    names, percents, counts = zip(*results)
+  except:
+    pass
+  results = {'depth': depth, 'pollen':names, 'percents' : percents, 'counts':counts }
 
   return HttpResponse(json.dumps(results), mimetype="application/javascript")
 
