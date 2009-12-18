@@ -310,4 +310,34 @@ margin-top: 0px;
 
 }
 
+/* styles for results tables */
+table.resultstable td.header, table.resultstable thead td {
+  background-color: #000;
+  color: #fff;
+}
 
+div#details {
+  width: 100%;
+  height: 400px;
+  overflow: auto;
+}
+
+div.results-container {
+  background-color: lightgray;
+  padding: 5px;
+  border: 1px black solid;
+}
+
+div.results-container table {
+  border-collapse: collapse;
+}
+
+table.resultstable td {
+  border: 1px gray solid;
+  padding: 5px;
+  background-color: #fff;
+}
+
+tr.totals td {
+  background-color: lightgray;
+}
