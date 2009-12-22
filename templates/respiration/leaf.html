@@ -4,33 +4,32 @@
 {% block tabname %}tab-leaf{% endblock %} 
 
 {% block js %} 
-{{ block.super }} 
-	<script type="text/javascript" src="/site_media/js/mochikit/MochiKit/DragAndDrop.js"></script> 
+  {{ block.super }} 
 
-   <script type="text/javascript">
-  	    function calculateKelvin() {
-         var result = parseFloat($('base-temp').value) + 273.15;
-         if(isNaN(result)) {
-	        $('kelvin').innerHTML = "";
-	      }
-	      else {
-	        $('kelvin').innerHTML = result;
-	      } 
-	    }
+  <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/DragAndDrop.js"></script> 
 
-       function formSubmit() {
-         $("specieslist").value = getSpeciesList().join();
-         $("leaf-form").submit();
-       }
+  <script type="text/javascript">
+    function calculateKelvin() {
+      var result = parseFloat($('base-temp').value) + 273.15;
+      if(isNaN(result)) {
+        $('kelvin').innerHTML = "";
+      } else {
+        $('kelvin').innerHTML = result;
+      } 
+    }
 
-	    function initNav() {
-	      connect("tab-canopy", "onclick", formSubmit);
-	    }
-	    addLoadEvent(initNav);
-   </script>
+    function formSubmit() {
+      $("specieslist").value = getSpeciesList().join();
+      $("leaf-form").submit();
+    }
+    
+    function initNav() {
+      connect("tab-canopy", "onclick", formSubmit);
+    }
+    addLoadEvent(initNav);
+  </script>
 
-	<script type="text/javascript" src="media/js/species.js"></script> 
-
+  <script type="text/javascript" src="media/js/species.js"></script> 
 {% endblock %} 
 
 {% block instructions %} 
