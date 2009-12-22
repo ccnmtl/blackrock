@@ -49,138 +49,136 @@ Set Respiration Rate Variables
   <input type="hidden" name="leaf-base-temp" id="leaf-base-temp" class="leafdata" value="{{ basetemp }}" />
   <input type="hidden" name="leaf-numspecies" id="leaf-numspecies" class="leafdata" value="{{ numspecies }}" />
   {% for species in specieslist %}
-    <input type="hidden" name="leaf-species{{forloop.counter}}-name" id="leaf-species{{forloop.counter}}-name" value='{{species|hash:"name"}}' />
-    <input type="hidden" name="leaf-species{{forloop.counter}}-E0" id="leaf-species{{forloop.counter}}-E0" value='{{species|hash:"E0"}}' />
-    <input type="hidden" name="leaf-species{{forloop.counter}}-R0" id="leaf-species{{forloop.counter}}-R0" value='{{species|hash:"R0"}}' />
-    <input type="hidden" name="leaf-species{{forloop.counter}}-percent" id="leaf-species{{forloop.counter}}-percent" value='{{species|hash:"percent"}}' />
+  <input type="hidden" name="leaf-species{{forloop.counter}}-name" id="leaf-species{{forloop.counter}}-name" value='{{species|hash:"name"}}' />
+  <input type="hidden" name="leaf-species{{forloop.counter}}-E0" id="leaf-species{{forloop.counter}}-E0" value='{{species|hash:"E0"}}' />
+  <input type="hidden" name="leaf-species{{forloop.counter}}-R0" id="leaf-species{{forloop.counter}}-R0" value='{{species|hash:"R0"}}' />
+  <input type="hidden" name="leaf-species{{forloop.counter}}-percent" id="leaf-species{{forloop.counter}}-percent" value='{{species|hash:"percent"}}' />
   {% endfor %}
 
 
-    <form id="leaf-form" name="leaf-form" action="forest" method="POST">
-      <input type="hidden" id="specieslist" name="specieslist" value="" />
-      
-      <input type="hidden" id="scenario1-name" name="scenario1-name" value='{{scenario_options|hash:"name"}}' />
-      <input type="hidden" id="scenario1-year" name="scenario1-year" value='{{scenario_options|hash:"year"}}' />
-      <input type="hidden" id="scenario1-fieldstation" name="scenario1-fieldstation" 
-	     value='{{scenario_options|hash:"fieldstation"}}' />
-      <input type="hidden" id="scenario1-leafarea" name="scenario1-leafarea" value='{{scenario_options|hash:"leafarea"}}' />
-      <input type="hidden" id="scenario1-startdate" name="scenario1-startdate" value='{{scenario_options|hash:"startdate"}}' />
-      <input type="hidden" id="scenario1-enddate" name="scenario1-enddate" value='{{scenario_options|hash:"enddate"}}' />
-      <input type="hidden" id="scenario1-delta-t" name="scenario1-delta-t" value='{{scenario_options|hash:"deltat"}}' />
-      
-      <div class="speciestemp">
-	<table>
-	  <tr>
-	    <td>
-	      <table>
-		<tr>
-		  <td>
-		    <span style="font-weight: bold;">
-		      Base Temperature:
-		    </span>
-		  </td>
-		  <td>
-		    T<sub>0 
-		    </sub>
-		    = 
-		    <!--good default is 15 -->
-		    <input type="text" size="5" id="base-temp" name="base-temp" value="0" onchange="javascript:calculateKelvin();" onkeyup="javascript:calculateKelvin();" class="t-zero arr-field" />
-		    &deg;C = 
-		    <span id="kelvin">
-		      
-		      273.15 
-		      
-		    </span>
-		    K 
-		  </td>
-		</tr>
-	      </table>
-	    </td>
-	    <!--<td>-->
-	    <input style="display: none;" id="plotGraph" class="needsupdate" type="button" value="Plot &gt;&gt;" onclick="javascript:leafGraph();" />
-	    <!--</td>-->
-	  </tr>
-	</table>
-      </div>
-      <div class="speciesbox">
-	<div class="speciesheader">
-	  <span class="button addbutton" onClick="addSpecies();">
-	    + Add Species
-	  </span>
-	  Species List 
-	</div>
-	<div class="speciescontainer">
-	  <div class="species" id="species1">
-	    <input type="hidden" name="species1-percent" id="species1-percent" value="" />
-	    <span class="button deletebutton" onClick="delSpecies('species1');">
-	      - Delete Species
-	    </span>
-	    <div class="colorswatch" id="species1-swatch">
-	      &nbsp;&nbsp;&nbsp;&nbsp;
-	    </div>
-	    <input type="text" class="species-name" id="species1-name" name="species1-name" value="Species 1" />
-	    R= 
-	    <input id="species1-R" disabled="disabled" name="species1-R" type="text" size="5" class="r-result arr-field" />
-	    <table style="margin-left:50px;width: 87%;">
+  <form id="leaf-form" name="leaf-form" action="forest" method="POST">
+    <input type="hidden" id="specieslist" name="specieslist" value="" />
+    
+    <input type="hidden" id="scenario1-name" name="scenario1-name" value='{{scenario_options|hash:"name"}}' />
+    <input type="hidden" id="scenario1-year" name="scenario1-year" value='{{scenario_options|hash:"year"}}' />
+    <input type="hidden" id="scenario1-fieldstation" name="scenario1-fieldstation" 
+	   value='{{scenario_options|hash:"fieldstation"}}' />
+    <input type="hidden" id="scenario1-leafarea" name="scenario1-leafarea" value='{{scenario_options|hash:"leafarea"}}' />
+    <input type="hidden" id="scenario1-startdate" name="scenario1-startdate" value='{{scenario_options|hash:"startdate"}}' />
+    <input type="hidden" id="scenario1-enddate" name="scenario1-enddate" value='{{scenario_options|hash:"enddate"}}' />
+    <input type="hidden" id="scenario1-delta-t" name="scenario1-delta-t" value='{{scenario_options|hash:"deltat"}}' />
+    
+    <div class="speciestemp">
+      <table>
+	<tr>
+	  <td>
+	    <table>
 	      <tr>
 		<td>
-		  Respiration Rate 
-		  <br />
-		  @ base temperature 
+		  <span style="font-weight: bold;">
+		    Base Temperature:
+		  </span>
 		</td>
 		<td>
-		  R<sub>0 
+		  T<sub>0 
 		  </sub>
 		  = 
-		  <input type="text" size="5" id="species1-R0" name="species1-R0" class="r-zero arr-field" />
-		</td>
-		<td>
-		  umol&nbsp;m<sup>-2</sup>s<sup>-1
-		  </sup>
-		</td>
-	      </tr>
-	      <tr>
-		<td>
-		  Energy of Activation 
-		  <br />
-		  @ base temperature 
-		</td>
-		<td>
-		  E<sub>0 
-		  </sub>
-		  = 
-		  <input type="text" size="5" id="species1-E0" name="species1-E0" class="e-zero arr-field" />
-		</td>
-		<td>
-		  J mol<sup>-1</sup>
+		  <!--good default is 15 -->
+		  <input type="text" size="5" id="base-temp" name="base-temp" value="0" onchange="javascript:calculateKelvin();" onkeyup="javascript:calculateKelvin();" class="t-zero arr-field" />
+		  &deg;C = 
+		  <span id="kelvin">
+		    
+		    273.15 
+		    
+		  </span>
+		  K 
 		</td>
 	      </tr>
 	    </table>
+	  </td>
+	  <input style="display: none;" id="plotGraph" class="needsupdate" type="button"
+		 value="Plot &gt;&gt;" onclick="javascript:leafGraph();" />
+	</tr>
+      </table>
+    </div>
+    <div class="speciesbox">
+      <div class="speciesheader">
+	<span class="button addbutton" onClick="addSpecies();">
+	  + Add Species
+	</span>
+	Species List 
+      </div>
+      <div class="speciescontainer">
+	<div class="species" id="species1">
+	  <input type="hidden" name="species1-percent" id="species1-percent" value="" />
+	  <span class="button deletebutton" onClick="delSpecies('species1');">
+	    - Delete Species
+	  </span>
+	  <div class="colorswatch" id="species1-swatch">
+	    &nbsp;&nbsp;&nbsp;&nbsp;
 	  </div>
+	  <input type="text" class="species-name" id="species1-name" name="species1-name" value="Species 1" />
+	  R= 
+	  <input id="species1-R" disabled="disabled" name="species1-R" type="text" size="5" class="r-result arr-field" />
+	  <table style="margin-left:50px;width: 87%;">
+	    <tr>
+	      <td>
+		Respiration Rate 
+		<br />
+		@ base temperature 
+	      </td>
+	      <td>
+		R<sub>0 
+		</sub>
+		= 
+		<input type="text" size="5" id="species1-R0" name="species1-R0" class="r-zero arr-field" />
+	      </td>
+	      <td>
+		umol&nbsp;m<sup>-2</sup>s<sup>-1
+		</sup>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>
+		Energy of Activation 
+		<br />
+		@ base temperature 
+	      </td>
+	      <td>
+		E<sub>0 
+		</sub>
+		= 
+		<input type="text" size="5" id="species1-E0" name="species1-E0" class="e-zero arr-field" />
+	      </td>
+	      <td>
+		J mol<sup>-1</sup>
+	      </td>
+	    </tr>
+	  </table>
 	</div>
       </div>
-    </form>
+    </div>
+  </form>
 {% endblock %} 
 
 {% block right %} 
-<div id="y-grid-leaf"></div>
-<div id="temperature_adjustment">
-	<div id="temp_label">
-		Adjust Ambient Temperature (T<sub>a</sub>) Range: 
-		<div id="temp_manual_controls">
-			<input id="temp_low" class="t-a arr-field" name="temp_low" type="text" value="0" size="3" maxlength="3">
-			&deg;C to 
-			<input id="temp_high" class="t-a arr-field" name="temp_high" type="text" value="30" size="3" maxlength="3" />
-			&deg;C &nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight: bold;">T<sub>a</sub>=</span> 
-			<input id="temp_mouse" disabled="disabled" class="t-a arr-field" name="temp_mouse" type="text" value="" size="3" maxlength="3" />
-			&deg;C 
-		</div>
+    <div id="y-grid-leaf"></div>
+    <div id="temperature_adjustment">
+      <div id="temp_label">
+	Adjust Ambient Temperature (T<sub>a</sub>) Range: 
+	<div id="temp_manual_controls">
+	  <input id="temp_low" class="t-a arr-field" name="temp_low" type="text" value="0" size="3" maxlength="3">
+	  &deg;C to 
+	  <input id="temp_high" class="t-a arr-field" name="temp_high" type="text" value="30" size="3" maxlength="3" />
+	  &deg;C &nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight: bold;">T<sub>a</sub>=</span> 
+	  <input id="temp_mouse" disabled="disabled" class="t-a arr-field" name="temp_mouse" type="text" value="" size="3" maxlength="3" />
+	  &deg;C 
 	</div>
-	<div id="temp-slider">
-		<img id="leftslider" class="slider" src="media/images/l-thumb-round.gif" />
-		<img id="rightslider" class="slider" src="media/images/r-thumb-round.gif" />
-		<span class="slider range"></span>
-	</div>
-</div>
+      </div>
+      <div id="temp-slider">
+	<img id="leftslider" class="slider" src="media/images/l-thumb-round.gif" />
+	<img id="rightslider" class="slider" src="media/images/r-thumb-round.gif" />
+	<span class="slider range"></span>
+      </div>
+    </div>
 {% endblock %}
-
