@@ -81,22 +81,17 @@ function leafGraph() {
 		   throw "non valid data";
 	       }
 	   }
-	   // this fixes the margins on the left side when the data is flat
-	   // (otherwise the numbers run off the edge)
-	   if(data.length > 0) {
-	     var first = data[0];
-        for(var i=0; i<data.length; i++) {
-          if(data[i] != first) {
-            g.left_margin = 0;
-          }
-        }
-      }
-	   g.data(LeafData.species[spid].name, data, LeafData.species[spid]['color'] );
+
+
+	   g.data(
+	     LeafData.species[spid].name,
+	     data, LeafData.species[spid]['color']
+	   );
 
        });
-    //g.data('Oaks', [1, 2, 3, 4, 4, 3]);
-    //g.data('Maples', [4, 8, 7, 9, 8, 9]);
-    g.draw();
+  //g.data('Oaks', [1, 2, 3, 4, 4, 3]);
+  //g.data('Maples', [4, 8, 7, 9, 8, 9]);
+  g.draw();
 }
 
 

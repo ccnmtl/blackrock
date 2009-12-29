@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
+from django.http import HttpResponse, HttpResponseRedirect, HttpRequest, HttpResponseForbidden
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import user_passes_test
@@ -127,8 +127,28 @@ def getsum(request):
   return HttpResponse(json, mimetype="application/javascript")
 
 
-@user_passes_test(lambda u: u.is_staff)
+_filters = 'station start end year'.split()
 def getcsv(request):
+
+  filters = dict((f, request.GET.get(f)) for f in _filters)
+  
+  if sum(bool(f) for f in filters.values()) != len(filters):
+    if not request.user.is_staff:
+      return HttpResponseForbidden("you must provide a station, a year and a season range")
+    temperatures = Temperature.objects.all()
+  else:
+    year = int(filters['year'])
+    start = filters['start'].split('/')
+    start_month, start_day = int(start[0]), int(start[1])
+    end = filters['end'].split('/')
+    end_month, end_day = int(end[0]), int(end[1])
+    start = datetime.datetime(year=year, month=start_month, day=start_day)
+    end = datetime.datetime(year=year, month=end_month, day=end_day)
+
+    temperatures = Temperature.objects.filter(station=filters['station'],
+                                              date__range=(start, end))
+
+    
   response = HttpResponse(mimetype='text/csv')
   response['Content-Disposition'] = 'attachment; filename=temperature_readings.csv'
   writer = csv.writer(response)
@@ -138,7 +158,7 @@ def getcsv(request):
   writer.writerow(headers)
 
   # write data
-  for t in Temperature.objects.order_by("station", "date"):
+  for t in temperatures.order_by("station", "date"):
     julian_day = (t.date - datetime.datetime(year=t.date.year, month=1, day=1)).days + 1
     hour = (t.date.hour + 1) * 100
     year = t.date.year
