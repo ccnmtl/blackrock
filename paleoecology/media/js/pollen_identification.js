@@ -43,7 +43,7 @@ function setup_zoo() {
     connect(img, "onclick", goto_specimen);
     var namediv = DIV({'class':'imagename', 'id':'image'+i+'-name'}, null);
     var answerdiv = DIV({'class':'imageanswer', 'id':'image'+i+'-answer'}, null);
-    appendChildNodes(zoo, DIV({'id':'pollen-zoo-image'+i, 'class':'pollen-zoo-image unanswered'}, img,BR(),namediv,answerdiv));
+    appendChildNodes(zoo, DIV({'id':'pollen-zoo-image'+i, 'class':'pollen-zoo-image unanswered'}, img,namediv,answerdiv));
   }
 
   display_next_specimen();
@@ -110,16 +110,17 @@ function check_answers() {
   hideElement('right');
   hideElement('identify-box');
   hideElement('instructions');
-  $('left').style.paddingRight = 0;
+  $('left').style.width = "780px";
+  $('pollen-zoo').style.height = "";
   showElement('closebutton');
   $('zoo-title').innerHTML = "Check Answers";
   
   for(var i=0; i<images.length; i++) {
     $('image'+i+'-answer').innerHTML = images[i][1];
-    $('pollen-zoo-image'+i).style.height = "200px";
+    $('pollen-zoo-image'+i).style.width = "346px";
   }
   
-  $('pollen-zoo').style.height = "400px";
+  $('pollen-zoo').style.height = "830px";
   showElement('complete');
   
   forEach(getElementsByTagAndClassName("div", "pollen-zoo-image"), function(elem) {

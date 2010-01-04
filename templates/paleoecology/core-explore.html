@@ -17,27 +17,25 @@
 {% endblock %}
 
 {% block left %}
-
-  <div id="core-zoomed">
+<div id="left">
+<div id="yardstick"></div>
+<div id="core-unzoomed"><div class="coresection 1"></div></div>  
+<div id="core-zoomed">
   {% for sample in samples %}
     <div class="core-slice" id="core-slice-{{sample.depth|floatformat}}">
       {{sample.depth|floatformat}}
     </div>
   {% endfor %}
   </div>
-
+</div>
 {% endblock %}
 
 {% block right %}
-  <div id="right-inner">
-  <div class="instructions">
-    Explore the sediment core at left.
-  </div>
-  
-  <div class="middle">
+    <div class="middle">
     {% for sample in samples %}
     <div id="sample-info-{{sample.depth|floatformat}}" class="sample-info">
       <div class="sample-info-title">Sample Depth: {{sample.depth|floatformat}}cm</div>
+      <div id="sample-inf-container">
       <div class="sample-info-left">
         <b>Most common specimens in this sample</b>
         <div id="sample-counts-{{sample.depth|floatformat}}">
@@ -50,9 +48,17 @@
           Loading, please wait...
         </div>
       </div>
+      </div>
     </div>
     {% endfor %}
+  </div><div id="right-inner">
+
+  
+  <div class="instructions">
+    Explore the sediment core at left to get an understanding of how the forest has changed over time.
   </div>
+  
+  
 
   <div class="bottom">
     <input type="button" value="View Detailed Lab Analysis &gt;&gt;" onclick="location.href='results';"></input>

@@ -39,8 +39,8 @@ function showResults(http_request) {
   var countString = "<br />";
   for(var i=0; i<pollen.length; i++) {
     pctString += "<li>"+ pollen[i] + " ("+ percents[i] +"%)</li>";
-    var imgString = "<img src='media/images/pollen/" + getImage(pollen[i]) + "'/>"; 
-    countString += imgString + "<b>" + pollen[i] + ":</b> " + counts[i] + " grains <br />";
+    var imgString = "<div id='pollen-image-container2'><div id='pollen-image'><img src='media/images/pollen/" + getImage(pollen[i]) + "'/></div>"; 
+    countString += imgString + "<b>" + pollen[i] + ":</b><br /> " + counts[i] + " grains <br /></div>";
   }
   pctString += "</ul>";
   
