@@ -16,7 +16,11 @@ LeafGraphData.prototype.updateSpecies = function(species_id) {
     //init
     if (typeof(this.species[species_id]) == 'undefined') {
       this.species[species_id] = {};
-      this.species[species_id]['color'] = LeafData.colors.shift();
+      var color = this.species[species_id]['color'] = LeafData.colors.shift();
+      if( typeof( color ) == 'undefined' ) {  // if we run out of colors, cycle them
+        LeafData.colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#00c0c7', '#c070f0', '#ff8000', '#00ff00'];
+        this.species[species_id]['color'] = LeafData.colors.shift();
+      }
     }
 
     this.species[species_id]['name'] = $(species_id + "-name").value;
