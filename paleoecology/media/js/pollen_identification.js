@@ -112,7 +112,7 @@ function check_answers() {
   hideElement('instructions');
   $('left').style.width = "780px";
   $('pollen-zoo').style.height = "";
-  showElement('closebutton');
+  hideElement('closebutton');
   $('zoo-title').innerHTML = "Check Answers";
   
   for(var i=0; i<images.length; i++) {
