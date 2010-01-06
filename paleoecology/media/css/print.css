@@ -323,13 +323,15 @@ div#yardstick {
 
 }
 
-div#core-unzoomed {
-  border: 1px gray solid;
-  height: 600px;
-  width: 125px;
-  overflow: auto;
-    float: left;
-    margin-left: 1em;
+div#core-unzoomed
+{
+	border: 1px gray solid;
+	height: 600px;
+	width: 125px;
+	overflow: auto;
+	float: left;
+	margin-left: 1em;
+
 }
 
 div#core-zoomed {

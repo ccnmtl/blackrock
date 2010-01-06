@@ -414,19 +414,41 @@ div.sample-info-left {
 
 div#yardstick {
   border-right: 1px black dotted;
-  height: 600px;
-  width: 55px;
+  height: 595px;
   float: left;
+  padding-right: 35px;
+  font-size: 80%;
+  color: #5d5d5d;
+  margin-top: 5px;
+
+}
+
+div#yardstick .toplevel {
+
+float: right;
+margin-top:-10px;
+
+
+
+}
+
+div#yardstick .bottomlevel {
+
+display: block;
+margin-top:582px;
+position:relative;
+
 
 }
 
 div#core-unzoomed {
-  border: 1px gray solid;
-  height: 600px;
-  width: 125px;
-  overflow: auto;
-    float: left;
-    margin-left: 1em;
+  
+  height: 606px;
+  width: 60px;
+     float: left;
+       	background-image: url(../images/coresample/wholecore.png);
+	background-repeat: no-repeat;
+	background-position: center bottom;
 }
 
 div#core-zoomed {
@@ -440,9 +462,22 @@ div#core-zoomed {
 
 div.core-slice {
   border: 2px white solid;
-  background-color: lightgreen;
+  background-color: #833c3b;
   text-align: center;
   cursor: pointer;
+  color: #fff;
+}
+
+div.core-slice.2 {
+ 
+  background-color: #925f5f;
+
+}
+
+div.core-slice.3 {
+
+  background-color: #5d5d5d;
+
 }
 
 div.core-slice a:link {
