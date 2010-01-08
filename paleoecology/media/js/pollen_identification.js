@@ -19,7 +19,8 @@ var images = [
   ["id18.jpg", "pinus strobus (white pine) pollen"],
   ["id19.jpg", "quercus (oak) pollen"],
   ["id20.jpg", "tsuga canadensis (eastern hemlock) needle"],
-  ["id21.jpg", "tsuga canadensis (eastern hemlock) pollen"]
+  ["id21.jpg", "tsuga canadensis (eastern hemlock) pollen"],
+  ["id22.jpg", "ulmus (elm) pollen"]
 ];
 
 var current = -1;
@@ -112,7 +113,6 @@ function check_answers() {
   hideElement('instructions');
   $('left').style.width = "780px";
   $('pollen-zoo').style.height = "";
-  hideElement('closebutton');
   $('zoo-title').innerHTML = "Check Answers";
   
   for(var i=0; i<images.length; i++) {
@@ -138,7 +138,6 @@ function check_answers() {
 }
 
 function restore() {
-  hideElement('closebutton');
   $('left').style.paddingRight = "";
   showElement('right');
   showElement('identify-box');
