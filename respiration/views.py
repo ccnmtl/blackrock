@@ -143,8 +143,8 @@ def getcsv(request):
     end = filters['end'].split('/')
     end_month, end_day = int(end[0]), int(end[1])
     start = datetime.date(year=year, month=start_month, day=start_day)
-    end = datetime.date(year=year, month=end_month, day=end_day)
-
+    end = datetime.date(year=year, month=end_month, day=end_day) + datetime.timedelta(1)
+    
     temperatures = Temperature.objects.filter(station=filters['station'],
                                               date__range=(start, end))
 
