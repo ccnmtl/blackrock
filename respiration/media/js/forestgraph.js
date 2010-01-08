@@ -3,7 +3,7 @@ function ForestGraphData() {
 
     this.scenarios = {};
     this.species = {};
-    this.colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#202020'];
+    this.colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#00c0c7', '#c070f0', '#ff8000', '#00ff00'];
     //this.t_a_min = 0; //celsius
     //this.t_a_max = 30;
 }
@@ -52,7 +52,7 @@ function isValidMMDD(str, leapyear) {
     return false;
   }
   var maxday = 31;
-  if(month in {4:'', 6:'', 9:'', 11:''}) { 
+  if(month in {4:'', 6:'', 9:'', 11:''}) {
      maxday = 30;
   }
   if(month == 2) {
@@ -69,12 +69,17 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
     var obj = this;
     if (typeof(this.scenarios[scenario_id]) == 'undefined') {
       this.scenarios[scenario_id] = {};
-	this.scenarios[scenario_id]['color'] = ForestData.colors.shift();
+      var color = this.scenarios[scenario_id]['color'] = ForestData.colors.shift();
+      if( typeof( color ) == 'undefined' ) {  // if we run out of colors, cycle them
+        ForestData.colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#00c0c7', '#c070f0', '#ff8000', '#00ff00'];
+        this.species[species_id]['color'] = ForestData.colors.shift();
+      }
+
     }
 
     this.scenarios[scenario_id]['name'] = $(scenario_id + "-name").value.replace(/^\s*|\s*$/,"");  // strip whitespace
     $(scenario_id + "-swatch").style.backgroundColor = this.scenarios[scenario_id]['color'];
-    
+
     var t0 = parseFloat($(scenario_id + "-base-temp").value);
     if(isNaN(t0)) {
       errorHighlight(scenario_id + "-base-temp");
@@ -113,7 +118,7 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
       errorHighlight(scenario_id + "-enddate");
       this.scenarios[scenario_id].valid = false;
       dateError = true;
-    }    
+    }
     this.scenarios[scenario_id].end = end + "/" + year;
 
     /* delta-t is optional */
@@ -134,7 +139,7 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
     });
 
     // scenarios with missing information are not valid for graphing
-    this.scenarios[scenario_id].valid = false;      
+    this.scenarios[scenario_id].valid = false;
     if(this.scenarios[scenario_id].t0 != "" &&
        this.scenarios[scenario_id].leafarea != "" &&
        this.scenarios[scenario_id].start != "" &&
@@ -148,14 +153,14 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
 ForestGraphData.prototype.updateSpecies = function(species_id) {
     if (typeof(this.species[species_id]) == 'undefined')
       this.species[species_id] = {};
-      
+
     this.species[species_id].valid = false;
 
     //this.species[species_id]['name'] = $(species_id + "-name").value;
     this.species[species_id]['percent'] = $(species_id + "-percent").value;
     this.species[species_id]['R0'] = $(species_id + "-R0").value;
     this.species[species_id]['E0'] = $(species_id + "-E0").value;
-    
+
     if(this.species[species_id]['R0'] != "" &&
        this.species[species_id]['E0'] != "" &&
        this.species[species_id]['percent'] != "") {
@@ -206,7 +211,7 @@ function forestGraph() {
        function(scenario) {
 	   var scid = scenario.id;
 	   ForestData.updateScenario(scid);
-	   
+
 	   if(ForestData.scenarios[scid].valid) {
 	     scenario_count++;  // closure
 	     //log(scenario_count);
@@ -232,7 +237,7 @@ function forestGraph() {
 	                                             'headers':[["Content-Type", 'application/x-www-form-urlencoded']]
 	                                            });
 
-	         
+
 	         function my_callback(scenario_num,scid,percent,http_request) {
   	           var answer = evalJSON(http_request.responseText);
   	           //log(data[scenario_num-1]);
@@ -246,7 +251,7 @@ function forestGraph() {
 	                 scids[scenario_num-1] = scid;
 	             scenario_count--;
 	             //log(scenario_count);
-                 
+
 	             if(scenario_count == 0) {   // that's all, folks
 	               for(var i=0; i<data.length; i++) {
 	                 var label = ForestData.scenarios[scids[i]].name + " (" + data[i]  + ")";
@@ -258,7 +263,7 @@ function forestGraph() {
 	             }
 	           }
 	         }
-	         http_request.addCallback(partial(my_callback,scenario_count,scid,percent)); 
+	         http_request.addCallback(partial(my_callback,scenario_count,scid,percent));
 	       }
 	     });
 	   }
@@ -274,9 +279,9 @@ function forestGraph() {
 //    var graph_width = $('graph').width;
 //    var bar_width = graph_width / (graph._column_count * graph._data.length);
 //    var padding = (bar_width * (1 - spacing_factor)) / 2;
-    
+
 //    log(padding);
-    
+
 //    connect("graph", "onmouseover", function(e) {
 //      var x = e.mouse().page.x;
 //      var realX = x - getElementPosition("graph").x;
