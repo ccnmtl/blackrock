@@ -29,7 +29,7 @@ function setup_id_activity() {
   connect("next", "onclick", display_next_specimen);
   connect("identify-form", "onsubmit", form_submit);
   connect("answers", "onclick", check_answers);
-  connect("closebutton", "onclick", restore);
+  connect("complete", "onclick", restore);
 }
 
 function setup_zoo() {
