@@ -136,7 +136,6 @@ def getcsv(request):
     if not request.user.is_staff:
       return HttpResponseForbidden("you must provide a station, a year and a season range")
     temperatures = Temperature.objects.all()
-    exclude_last = False
   else:
     year = int(filters['year'])
     start = filters['start'].split('/')
@@ -148,7 +147,6 @@ def getcsv(request):
     
     temperatures = Temperature.objects.filter(station=filters['station'],
                                               date__range=(start, end))
-    exclude_last = True
 
     
   response = HttpResponse(mimetype='text/csv')
@@ -162,9 +160,6 @@ def getcsv(request):
   # write data
   temperatures = temperatures.order_by("station", "date")
   for t in temperatures:
-    if exclude_last and t is temperatures[-1]:
-      continue
-
     julian_day = (t.date - datetime.datetime(year=t.date.year, month=1, day=1)).days + 1
     hour = (t.date.hour + 1) * 100
     year = t.date.year
