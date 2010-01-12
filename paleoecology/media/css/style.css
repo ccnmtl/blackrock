@@ -1,19 +1,16 @@
-body 
-{ 
+body { 
 	font-family: "Lucida Grande", "Trebuchet MS", arial, helvetica, sans-serif !important; 
 }
 
 #breadcrumbs { height: 20px; }
 
-div#tab-bar
-{
+div#tab-bar {
 	position: absolute;
 	right: 0;
 	top: 154px;
 }
 
-div.tab
-{
+div.tab {
 	/*background-color: #DCD3C2;*/
 	background-color: #a18f83;
 	color: black;
@@ -25,34 +22,32 @@ div.tab
 	cursor: pointer;
 }
 
-div.tab-selected
-{
+div.tab-selected {
 	background-color: white;
 	border-bottom: 3px white solid;
 }
 
-div#top-box
-{
+div#top-box {
 	margin: 70px 350px 0px 30px;
 	border: 1px solid red;
 }
 
 .selected .line-id, .selected .keyitem { background-color: #ffffb3; }
 
-div#container
-{
+div#container {
 	margin: 0px 30px 0px 30px;
 	position: relative;
 	min-width: 900px;
 }
 
-div#left
-{
-	
-   float: left;
-   width: 44%;
-   min-width: 418px;
-   margin-bottom: 10px;
+div#left {
+  float: left;
+  margin-bottom: 10px;
+}
+
+div.unanswered div#left {
+  width: 44%;
+  min-width: 418px;
 }
 
 div#instructions {
@@ -64,12 +59,10 @@ div#instructions {
 	float: left;
 }
 
-div#right
-{
+div#right {
 	float: left;
 	width: 51%;
 	margin-left: 1em;
-	
 }
 
 #identify-box {
@@ -78,8 +71,7 @@ div#right
   height: 163px;
 }
 
-.identify-title {
- 
+.identify-title { 
   background-color: #A18F83;
   padding: 5px;
   font-weight: bold;
@@ -100,7 +92,6 @@ div#right
   cursor: pointer;
 }
 
-
 #pollen-image-container {
   float: left;
   width: 100px;
@@ -113,7 +104,6 @@ div#right
 }
 
 #pollen-image-container2 {
-  
   width: 200px;
   height: 100px;
   background-color: #ddd;
@@ -123,18 +113,9 @@ div#right
   padding: 5px;
 }
 
-
-#pollen-image {
-
-
-
-}
-
 #pollen-image img {
   max-width: 100px;
   max-height: 100px;
-
-  
 }
 
 .pollen-zoo-image img {
@@ -143,58 +124,40 @@ div#right
   max-height: 50px;
   margin: 5px 10px 5px 5px;
   float: left;
- 
-
 }
 
 .pollen-zoo-image {
-  
   float: left;
   background-color: #ddd;
   border: 1px solid #ccc;
   margin: 0 0 5px 12px;
-  
 }
 
 .pollen-zoo-image.unanswered {
-  
 	width: 60px;
-
 }
 
 .pollen-zoo-image.answered {
-  
 	width: 356px;
-
-
 }
 
 .pollen-zoo-image.core {
-  
 	width: 210px;
-
 }
 
 .pollen-zoo-image .imagename{
   font-size: 11px;
    margin: 5px;
-   
-   
-
 }
 
 .pollen-zoo-image .imageanswer {
   color: green;
   font-style: italic;
     font-size: 11px;
- 
- 
-
 }
 
 #pollen-zoo-outer {
-  border: 1px #A18F83 solid;
-  
+  border: 1px #A18F83 solid;  
 }
 
 #pollen-zoo {
@@ -208,144 +171,136 @@ div#right
   float: right;
 }
 
-.rightanswer {
-  border: 5px green solid;
-}
+.rightanswer { border: 5px green solid; }
+.wronganswer { border: 5px red solid; }
 
-.wronganswer {
-  border: 5px red solid;
-}
+div.keytab-selected { background-color: #DCD3C2; }
 
-
-#key-tabs {
-}
-
-div.keytab-selected
-{
-	background-color: #DCD3C2;
-}
-
-.key-tab
-{
-	text-align: center;
-	text-decoration: none;
-	margin: 0px;
-	font-weight: bold;
-	cursor: pointer;
-	background-color: #A18F83;
-	padding: 4px .5em 7px .5em;
-	display: inline;
-	font-size: 90%;
+.key-tab {
+  text-align: center;
+  text-decoration: none;
+  margin: 0px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #A18F83;
+  padding: 4px .5em 7px .5em;
+  display: inline;
+  font-size: 90%;
 }
 
 #key-container {
-
-	background-color:#DCD3C2;
-	padding: 5px;
-	margin-top: 7px;
-	border: 1px solid #DCD3C2;
-	margin-bottom: 10px;
+  background-color:#DCD3C2;
+  padding: 5px;
+  margin-top: 7px;
+  border: 1px solid #DCD3C2;
+  margin-bottom: 10px;
 }
 
 .key {
-   
-   font-size: 75%;
-	height:525px;
-	overflow: auto;
-   
+  font-size: 75%;
+  height:525px;
+  overflow: auto;
 }
 
 .key_button {
   border-top: 1px #ccc solid;
-   border-left: 1px #ccc solid;
-   border-right: 1px #999 solid;
+  border-left: 1px #ccc solid;
+  border-right: 1px #999 solid;
   border-bottom: 1px #999 solid;
   font-size: 12px;
   text-align: center;
   font-style: italic;
   padding: 5px;
   cursor: pointer;
-    font-size: 75%;
-    font-weight: bold;
-   background-color: #dedede;
+   font-size: 75%;
+   font-weight: bold;
+  background-color: #dedede;
 }
-
-
 
 .key_answer {
   font-style: italic;
   color: #47634b;
   margin-top: 3px;
-  fomt-size: 11px;
+  font-size: 11px;
 }
 
 .key table {
   border-top: 1px #A18F83 solid;
   font-size: 75%;
-
 }
 
 .keyitem {
-
-background-color: #fff;
-padding: 1px 0;
-margin-left: 30px;
-
+  background-color: #fff;
+  padding: 1px 0;
+  margin-left: 30px;
 }
 
-
-
-#key-reset {
-
-	float: right;
+#key-reset { float: right; }
 	
-	
-	}
-	
-.keyrow {
+.keyrow { margin-bottom: 5px; }
 
-	
-	margin-bottom: 5px;
-}
-
-
-.characteristic-pair{
-
-border: 1px solid #ccc;
-margin: 5px;
-padding: 5px;
-min-height:23px;
-background-color: #fff;
-
+.characteristic-pair {
+  border: 1px solid #ccc;
+  margin: 5px;
+  padding: 5px;
+  min-height:23px;
+  background-color: #fff;
 }
 
 .characteristic {
-
 	display: block;
 	margin-right: 125px;
-
 }
 
-
 .line-id {
-
-	display: block;
-	height: 20px;
-	width: 20px;
-	background-color: #fff;
-	padding: 5px;
-	text-align: center;
-	font-size:120%;
-font-weight:bold;
-float: left;
+  display: block;
+  height: 20px;
+  width: 20px;
+  background-color: #fff;
+  padding: 5px;
+  text-align: center;
+  font-size:120%;
+  font-weight:bold;
+  float: left;
 }
 	
 .button-container {
+  width: 120px;
+  float: right;
+  margin-top: 0px;
+}
 
-width: 120px;
-float: right;
-margin-top: 0px;
+/* toggle zoo title for "check answers" mode */
+div.unanswered #zoo-title, div.answerkey #answerkey-title {
+  display: inline;
+}
+div.answerkey #zoo-title, div.unanswered #answerkey-title {
+  display: none;
+}
 
+div.unanswered #complete {
+  display: none;
+}
+
+/* styles for "check answers" mode */
+div.answerkey #complete {
+  display: block;
+}
+
+div.answerkey #right, div.answerkey #identify-box, div.answerkey #instructions {
+  display:none;
+}
+
+div.answerkey #left {
+  /*width: 780px;*/
+}
+
+div.answerkey #pollen-zoo {
+  height: 830px;
+}
+
+div.answerkey .pollen-zoo-image {
+  width: 346px;
 }
 
 /* styles for results tables */

@@ -31,6 +31,7 @@ function setup_id_activity() {
   connect("identify-form", "onsubmit", form_submit);
   connect("answers", "onclick", check_answers);
   connect("complete", "onclick", restore);
+  addElementClass("content", "unanswered");
 }
 
 function setup_zoo() {
@@ -108,20 +109,12 @@ function check_answers() {
       return;
     }
   }
-  hideElement('right');
-  hideElement('identify-box');
-  hideElement('instructions');
-  $('left').style.width = "780px";
-  $('pollen-zoo').style.height = "";
-  $('zoo-title').innerHTML = "Check Answers";
   
+  swapElementClass('content', 'unanswered', 'answerkey');
+
   for(var i=0; i<images.length; i++) {
     $('image'+i+'-answer').innerHTML = images[i][1];
-    $('pollen-zoo-image'+i).style.width = "346px";
   }
-  
-  $('pollen-zoo').style.height = "830px";
-  showElement('complete');
   
   forEach(getElementsByTagAndClassName("div", "pollen-zoo-image"), function(elem) {
     var imgtag = elem.id.substr(11);
@@ -138,21 +131,18 @@ function check_answers() {
 }
 
 function restore() {
-  $('left').style.paddingRight = "";
-  showElement('right');
-  showElement('identify-box');
-  showElement('instructions');
-  $('zoo-title').innerHTML = "Species to Identify";
+  swapElementClass('content', 'answerkey', 'unanswered');
+
   forEach(getElementsByTagAndClassName("div", "imageanswer"), function(elem) {
     elem.innerHTML = "";
   });
-  forEach(getElementsByTagAndClassName("div", "pollen-zoo-image"), function(elem) {
-    elem.style.height = "";
+
+  forEach(getElementsByTagAndClassName("div", "wronganswer"), function(elem) {
     removeElementClass(elem, "wronganswer");
+  });
+  forEach(getElementsByTagAndClassName("div", "rightanswer"), function(elem) {
     removeElementClass(elem, "rightanswer");
   });
-  hideElement('complete');
-  $('pollen-zoo').style.height = "";
 }
 
 addLoadEvent(setup_zoo);
