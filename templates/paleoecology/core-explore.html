@@ -3,6 +3,14 @@
 
 {% block tabname %}tab-coresample{% endblock %}
 
+{% block css %}
+{{ block.super }}
+<style type='text/css'>
+  @import "media/css/corestyle.css";
+</style> 
+
+{% endblock %}
+
 {% block js %}
 {{ block.super }}
 
@@ -21,6 +29,10 @@
 <div id="yardstick"><span class="toplevel">0cm</span><div id="slider"></div><span class="bottomlevel">1070cm</span></div>
 <div id="core-unzoomed"><div class="coresection 1"></div></div>  
 <div id="core-zoomed">
+    <div class="core-slice core-slice-clay"></div>
+    <div class="core-slice core-slice-mixed"></div>
+    <div class="core-slice core-slice-mud"></div>
+    <div class="core-slice core-slice-blank"></div>
   {% for sample in samples %}
     <div class="core-slice" id="core-slice-{{sample.depth|floatformat}}">
       {{sample.depth|floatformat}}

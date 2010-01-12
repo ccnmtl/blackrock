@@ -70,7 +70,6 @@ function display_next_specimen() {
   }
   else {
     current = nextElem.id.substr(16);
-    log(current);
     replaceChildNodes("pollen-image", IMG({'src':'media/images/pollen/' + images[current][0]}, null));
     //$('name-form').value = $('image'+current+'-name').innerHTML;
     $('pollen-choice').value = $('image'+current+'-name').innerHTML;

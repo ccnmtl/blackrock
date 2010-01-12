@@ -11,13 +11,6 @@ div#tab-bar
 }
 
 
-div#left
-{
-	
-   width: auto;
-}
-
-
 #pollen-image img {
   max-width: 100px;
   max-height: 100px;
@@ -26,26 +19,27 @@ div#left
 }
 
 .pollen-zoo {
-
 height: auto;
- 
+width: auto;
+float: none !important; 
 
 }
 
 
 .pollen-zoo-image img {
-  cursor: pointer;
   max-width: 100px;
   max-height: 100px;
   margin: 5px 10px 5px 5px;
-  float: left;
+  /*float: left;*/
+  float: none !important;
  
 
 }
 
 .pollen-zoo-image {
   
-  float: left;
+  /*float: left;*/
+  float: none !important;
   background-color: #ddd;
   border: 1px solid #ccc;
   margin: 0 0 5px 12px;
@@ -102,7 +96,6 @@ width: 100%;
 
 #complete {
   display: none;
-  float: right;
 }
 
 .rightanswer {
@@ -113,9 +106,6 @@ width: 100%;
   border: 5px red solid;
 }
 
-
-#key-tabs {
-}
 
 div.keytab-selected
 {
@@ -193,15 +183,10 @@ margin-left: 30px;
 
 
 #key-reset {
-
-	float: right;
-	
-	
-	}
+  display: none;
+}
 	
 .keyrow {
-
-	
 	margin-bottom: 5px;
 }
 
