@@ -1,45 +1,3 @@
-body { 
-	font-family: "Lucida Grande", "Trebuchet MS", arial, helvetica, sans-serif !important; 
-}
-
-#breadcrumbs { height: 20px; }
-
-div#tab-bar {
-	position: absolute;
-	right: 0;
-	top: 154px;
-}
-
-div.tab {
-	/*background-color: #DCD3C2;*/
-	background-color: #a18f83;
-	color: black;
-	z-index: 100;
-	float: right;
-	padding: 5px 10px 5px 10px;
-	margin: 0px 25px 0 0;
-	font-size: 14px;
-	cursor: pointer;
-}
-
-div.tab-selected {
-	background-color: white;
-	border-bottom: 3px white solid;
-}
-
-div#top-box {
-	margin: 70px 350px 0px 30px;
-	border: 1px solid red;
-}
-
-.selected .line-id, .selected .keyitem { background-color: #ffffb3; }
-
-div#container {
-	margin: 0px 30px 0px 30px;
-	position: relative;
-	min-width: 900px;
-}
-
 div#left {
   float: left;
   margin-bottom: 10px;
@@ -56,13 +14,14 @@ div#instructions {
 
 .instructions {
 	margin-bottom: 1em;
-	float: left;
+	float: none;
 }
 
 div#right {
 	float: left;
-	width: 51%;
+	width: auto;
 	margin-left: 1em;
+	min-width: 600px;
 }
 
 #identify-box {
@@ -142,7 +101,7 @@ div#right {
 }
 
 .pollen-zoo-image.core {
-	width: 210px;
+	width: 220px;
 }
 
 .pollen-zoo-image .imagename{
@@ -335,3 +294,171 @@ tr.totals td {
   background-color: lightgray;
 }
 
+/* styles for explore view */
+div.sample-info {
+  display:none;
+height:508px;
+width:auto;
+   background-color: #fff;
+  font-size:75%;
+   border: 1px solid #A18F83;
+}
+
+div.sample-info-title {
+  background-color: #A18F83;
+  padding: 5px;
+  font-weight: bold;
+}
+
+div.sample-info-container {
+ border: 1px solid #A18F83;
+  
+}
+
+div.sample-info-right-container {
+ 
+  float: left;
+  margin: 10px;
+
+}
+
+div.sample-info-right {
+  border: 1px solid #A18F83;
+  padding: 5px;
+}
+
+div.sample-info-left-container {
+   margin: 10px;
+  float: left;
+      height: 430px;
+    width: 495px;
+
+}
+
+div.sample-info-left {
+  border: 1px solid #A18F83;
+    float: left;
+    overflow: auto;
+    height: 405px;
+    width: 495px;
+
+}
+
+div#yardstick {
+  border-right: 1px black dotted;
+  height: 595px;
+  float: left;
+  padding-right: 15px;
+  font-size: 80%;
+  color: #5d5d5d;
+  margin-top: 5px;
+
+}
+
+div#yardstick .toplevel {
+
+float: right;
+margin-top:-2px;
+
+
+
+}
+
+div#yardstick .bottomlevel {
+
+display: block;
+margin-top:582px;
+position:relative;
+
+
+}
+
+div#core-unzoomed {
+  
+  height: 606px;
+  width: 60px;
+     float: left;
+       	background-image: url(../images/coresample/wholecore.png);
+	background-repeat: no-repeat;
+	background-position: center bottom;
+}
+
+div#core-zoomed {
+  border: 1px gray solid;
+  height: 600px;
+  width: 125px;
+  overflow: auto;
+    float: left;
+    margin-left: 1em;
+}
+
+div.core-slice {
+  border: 1px white solid;
+  text-align: center;
+  cursor: pointer;
+  color: #fff;
+  background-color: #cdcdcd;
+  height: 18px;
+
+}
+
+div.core-slice.core-slice-mud {
+  background-color: #833c3b;
+ 
+}
+
+
+div.core-slice.core-slice-mixed {
+ 
+  background-color: #925f5f;
+
+}
+
+div.core-slice.core-slice-mixed {
+
+  background-color: #5d5d5d;
+
+}
+
+div.core-slice.core-slice-blank
+{
+	background-color: #cdcdcd;
+	background-image: url(../images/coresample/blank_slice.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+div.core-slice a:link {
+  text-decoration: none;
+  color: #000;
+}
+
+div.middle {
+	float: left;
+	margin:-1em 1em 0 -1em;
+	position: absolute;
+}
+
+div.datapop {
+
+height:508px;
+width:auto;
+	
+}
+
+div#right-inner {
+   background-color: lightgray;
+   height: 580px;
+   padding: 10px;
+   float: left;
+}
+
+div.bottom {
+  text-align: right;
+  margin-top:1em;
+}
+
+#windowdrag {
+
+	margin-left: -11.5px;
+}
