@@ -19,7 +19,7 @@
 {% block container %}
 
 <div class="results-container">
-SAMPLING SUMMARY
+<h4>SAMPLING SUMMARY</h4>
 <table id="summary" class="resultstable">
   <tr>
     <td class='header'>TOTAL # SAMPLES ANALYZED</td>
@@ -40,10 +40,12 @@ SAMPLING SUMMARY
 </table>
 </div>
 
-<div class="results-container" id="details">
-SAMPLING DETAILS
-<table id="details" class="resultstable">
-  <thead>
+<div class="results-container" id="details_container">
+<h4>SAMPLING DETAILS</h4>
+<div id="details_table">
+
+<table  class="resultstable details_header">
+  
     <tr>
       <td>Sample Depth (cm)</td>
       <td>Carbon Age</td>
@@ -51,8 +53,27 @@ SAMPLING DETAILS
         <td>{{ p }}</td>
       {% endfor %}
     </tr>
-  </thead>
-  <tbody>
+  
+  
+</table>
+
+
+<table id="details" class="resultstable details_header">
+  
+    <tr>
+      <td>Sample Depth (cm)</td>
+      <td>Carbon Age</td>
+      {% for p in pollen %}
+        <td>{{ p }}</td>
+      {% endfor %}
+    </tr>
+  
+  
+</table>
+<div id="details_data">
+<table id="details" class="resultstable">
+ 
+ 
   {% for sample in samples %}
     <tr class='result-row' id='result-row-{{ sample.depth|floatformat }}'>
       <td>{{ sample.depth|floatformat }}</td>
@@ -64,8 +85,10 @@ SAMPLING DETAILS
         <td>{{ item }}</td>
       {% endfor %}
     </tr>
-  </tbody>
+
 </table>
+</div>
+</div>
 </div>
 
 {% endblock %}

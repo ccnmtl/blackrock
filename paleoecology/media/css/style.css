@@ -309,26 +309,70 @@ table.resultstable td.header, table.resultstable thead td {
   color: #fff;
 }
 
-div#details {
-  width: 100%;
-  height: 400px;
-  overflow: auto;
+div#details_container {
+
+  margin-top: 1em;
+       margin-bottom: 1em;
+
+
 }
 
 div.results-container {
-  background-color: lightgray;
-  padding: 5px;
-  border: 1px black solid;
+
+
+
 }
 
 div.results-container table {
   border-collapse: collapse;
+
+}
+
+div#details_table  {
+
+
+     border: 1px solid #ccc;
+     width: auto;
+
+}
+
+
+div#details_table .details_header {
+	position: absolute;
+
+
+
+}
+
+div#details_table .details_header td {
+	background-color: #000;
+	color: #fff;
+
+
+}
+
+#details_data {
+
+   
+
+
+}
+
+div#details_table td {
+  min-width: 150px;
+}
+
+div#details_table td {
+  border: 1px gray solid;
+ 
+
+
 }
 
 table.resultstable td {
   border: 1px gray solid;
   padding: 5px;
-  background-color: #fff;
+
 }
 
 tr.totals td {
