@@ -11,6 +11,11 @@ function showKey(e) {
       removeElementClass(keys[i]+"-tab", "keytab-selected");
     }
   }
+
+  // fix scrolling
+  var selected = getFirstElementByTagAndClassName("div", "selected", selectedkey+"-key");
+  var vertpos = getElementPosition(selected, selectedkey+"-key").y;
+  $(selectedkey+"-key").scrollTop = $(selectedkey+"-key").scrollTop + vertpos;
 }
 
 function initKeyNav() {

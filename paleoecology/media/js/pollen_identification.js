@@ -26,17 +26,15 @@ var images = [
 var current = -1;
 
 function setup_id_activity() {
-  connect("pollen-choice", "onchange", save_name);
+  //connect("pollen-choice", "onchange", save_name);
   connect("next", "onclick", display_next_specimen);
-  connect("identify-form", "onsubmit", form_submit);
   connect("answers", "onclick", check_answers);
-  connect("complete", "onclick", restore);
+  //connect("complete", "onclick", restore);
   addElementClass("content", "unanswered");
 }
 
 function setup_zoo() {
   // randomize order of specimens so they don't match the order in the drop-down
-  
   images.sort(function() { return 0.5 - Math.random()});
 
   var zoo = $("pollen-zoo");
@@ -52,26 +50,26 @@ function setup_zoo() {
 }
 
 function goto_specimen(e) {
+  save_name();
+  resetKeys();
   var id = e.src().id;   // imageX
   current = parseInt(id.substr(5));
   replaceChildNodes("pollen-image", IMG({'src':'media/images/pollen/' + images[current][0]}, null));
-  //$('name-form').value = $('image'+current+'-name').innerHTML;
-  //showElement("pollen-choice");
   $('pollen-choice').value = $('image'+current+'-name').innerHTML;
 }
 
 function display_next_specimen() {
+  save_name();
+  resetKeys();
   var nextElem = getFirstElementByTagAndClassName("div", "unanswered", "pollen-zoo");
   if(! nextElem) {
-    //hideElement("pollen-choice");
-    //hideElement("next");
-    //$("pollen-image").innerHTML = "";
-    $("next").innerHTML = "All species identified.";
+    //$("next").innerHTML = "All species identified.";
+    hideElement("next");
+    showElement("answers");
   }
   else {
     current = nextElem.id.substr(16);
     replaceChildNodes("pollen-image", IMG({'src':'media/images/pollen/' + images[current][0]}, null));
-    //$('name-form').value = $('image'+current+'-name').innerHTML;
     $('pollen-choice').value = $('image'+current+'-name').innerHTML;
 
     // scroll div to the desired element
@@ -80,15 +78,8 @@ function display_next_specimen() {
   }
 }
 
-// this makes the enter key work for moving on to the next specimen
-function form_submit(e) {
-  e.stop();
-  save_name();
-  display_next_specimen();
-}
-
 function save_name() {
-  //var name = $('name-form').value;
+  if(current < 0) { return; }
   var name = $('pollen-choice').value;
   $('image'+current+'-name').innerHTML = name;
   if(name != "") {
@@ -104,9 +95,9 @@ function save_name() {
 function check_answers() {
   var nextElem = getFirstElementByTagAndClassName("div", "unanswered", "pollen-zoo");
   if(nextElem) {
-    if(! confirm("You have not chosen an answer for all specimens.  View answer key anyway?")) {
+    //if(! confirm("You have not chosen an answer for all specimens.  View answer key anyway?")) {
       return;
-    }
+    //}
   }
   
   swapElementClass('content', 'unanswered', 'answerkey');
@@ -129,20 +120,32 @@ function check_answers() {
   });
 }
 
-function restore() {
-  swapElementClass('content', 'answerkey', 'unanswered');
-
-  forEach(getElementsByTagAndClassName("div", "imageanswer"), function(elem) {
-    elem.innerHTML = "";
-  });
-
-  forEach(getElementsByTagAndClassName("div", "wronganswer"), function(elem) {
-    removeElementClass(elem, "wronganswer");
-  });
-  forEach(getElementsByTagAndClassName("div", "rightanswer"), function(elem) {
-    removeElementClass(elem, "rightanswer");
+function resetKeys () {
+  forEach(getElementsByTagAndClassName("div", "key"), function(key) {
+    var selected = getFirstElementByTagAndClassName("div", "selected", key);
+    var first = getFirstElementByTagAndClassName("div", "keyrow", key);
+    if(selected != first) {
+      removeElementClass(selected, "selected");
+      addElementClass(first, "selected");
+      key.scrollTop = 0;  // only works for the currently-selected key :(
+    }
   });
 }
+
+//function restore() {
+//  swapElementClass('content', 'answerkey', 'unanswered');
+
+//  forEach(getElementsByTagAndClassName("div", "imageanswer"), function(elem) {
+//    elem.innerHTML = "";
+//  });
+
+//  forEach(getElementsByTagAndClassName("div", "wronganswer"), function(elem) {
+//    removeElementClass(elem, "wronganswer");
+//  });
+//  forEach(getElementsByTagAndClassName("div", "rightanswer"), function(elem) {
+//    removeElementClass(elem, "rightanswer");
+//  });
+//}
 
 addLoadEvent(setup_zoo);
 addLoadEvent(setup_id_activity);

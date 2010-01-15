@@ -1,6 +1,8 @@
 {% extends "paleoecology/base_paleoecology.html" %} 
 {% load extras %}
 
+{% block pagetitle %}Pollen Identification{% endblock %}
+
 {% block tabname %}tab-identification{% endblock %} 
 
 {% block js %} 
@@ -13,8 +15,8 @@
     addLoadEvent(initNav);
   </script>
   
-  <script type="text/javascript" src="media/js/pollen_identification.js"></script>
   <script type="text/javascript" src="media/js/interactive_key.js"></script>
+  <script type="text/javascript" src="media/js/pollen_identification.js"></script>
 {% endblock %} 
 
 {% block instructions %}
@@ -64,12 +66,12 @@
         </select>
       </div>
       <!--input type="text" id='name-form'></input--><br />
-      <span id="next"><input type='button' id='next' value='Next Species &gt;&gt;'/></span><input type='button' id='answers' value='Check Answers' style="margin-left: 60px;" />
+      <span id="next"><input type='button' id='next' value='Next Species &gt;&gt;'/></span><input type='button' id='answers' value='Check Answers' />
   </form>
 </div>
 
 <div id="pollen-zoo-outer">
-  <div class="identify-title"><span id='zoo-title'>Species to Identify</span><span id='answerkey-title'>Check Answers</span> <input type='button' id='complete' value='Complete Activity &gt;&gt;' /></div>
+  <div class="identify-title"><span id='zoo-title'>Species to Identify</span><span id='answerkey-title'>Check Answers</span></div>
   <div id="pollen-zoo"></div>
 </div>
 

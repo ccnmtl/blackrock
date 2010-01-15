@@ -92,6 +92,11 @@ div#right {
   cursor: pointer;
 }
 
+input#answers {
+  /*margin-left: 60px;*/
+  display: none;
+}
+
 #pollen-image-container {
   float: left;
   width: 100px;
