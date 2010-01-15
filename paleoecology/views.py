@@ -117,7 +117,7 @@ def loadcsv(request, type):
          pollen_name = headers[i].strip()
          (t, created) = PollenType.objects.get_or_create(name=pollen_name)
          if created: t.save()
-
+         
          (p, created) = PollenSample.objects.get_or_create(core_sample=core, pollen=t)
 
          if type == "counts":
@@ -125,6 +125,22 @@ def loadcsv(request, type):
          else:
            p.percentage = row[i]
          p.save()
+
+         # hack to fix Pinus and Asteraceae counts
+         if type == "counts" :
+           if pollen_name in ["Pinus subg. Pinus", "Pinus subg. Strobus", "Pinus undiff."]:
+             (second, created) = PollenType.objects.get_or_create(name="Pinus")
+             if created: second.save()
+             (p, created) = PollenSample.objects.get_or_create(core_sample=core, pollen=second)
+             p.count = (p.count or 0) + int(row[i])
+             p.save()
+
+           if pollen_name in ["Asteraceae subf. Asteroideae undiff.", "Asteraceae subf. Cichorioideae"]:
+             (second, created) = PollenType.objects.get_or_create(name="Asteraceae (incl ragweed)")
+             if created: second.save()
+             (p, created) = PollenSample.objects.get_or_create(core_sample=core, pollen=second)
+             p.count = (p.count or 0) + int(row[i])
+             p.save()
 
     admin_msg = "Successfully imported data."
 
