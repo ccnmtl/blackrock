@@ -178,16 +178,13 @@ def loadcsv(request):
   # if csv file provided, loadcsv
   if request.method == 'POST':
     
-    try:
-      fh = request.FILES['csvfile']
-    except:
+    if 'csvfile' not in request.FILES:
       return HttpResponseRedirect("/respiration/")
 
-    if file == '':
-      # TODO: error checking (correct file type, etc.)
-      return HttpResponseRedirect("/respiration/")
+    fh = request.FILES['csvfile']
 
-    #fh = fh['content'].split('\n')
+    # TODO: error checking (correct file type, etc.)
+
     table = csv.reader(fh)
 
     headers = table.next()
@@ -212,9 +209,9 @@ def loadcsv(request):
             vars().has_key('day_idx') and vars().has_key('hour_idx') and
             vars().has_key('temp_idx')):
       return HttpResponse("Error: Missing header.  We expect: %s" % expected_headers)
-     
-    # clear existing data
-    Temperature.objects.all().delete()
+
+    if request.POST.get('delete') == 'on':
+      Temperature.objects.all().delete()
 
     next_expected_timestamp = None
     last_valid_temp = None

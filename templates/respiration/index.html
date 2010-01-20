@@ -59,6 +59,9 @@ Use the latest Firefox browser to access the Tree Respiration Module.
   <form action="loadcsv" method="post" enctype="multipart/form-data">
     <label>Import respiration data from CSV:</label> <input type="file" name="csvfile" size="20"></input>
     <input type="submit" value="Import"></input>
+
+    <br/>
+    <label>Delete existing data?</label><input type="checkbox" name="delete" />
   </form>
   {{ admin_messages }}
   <a href="/admin/respiration/temperature/">View Data</a><br />
