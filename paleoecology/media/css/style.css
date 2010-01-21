@@ -301,7 +301,7 @@ div.answerkey #left {
 }
 
 div.answerkey #pollen-zoo {
-  height: 830px;
+  height: auto;
 }
 
 div.answerkey .pollen-zoo-image {
