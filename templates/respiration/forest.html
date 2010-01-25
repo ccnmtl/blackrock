@@ -59,15 +59,15 @@
 </form>
 
 <div id="forestgraph">
-  <input type="button" value="Graph Scenarios &gt;&gt;" onclick="javascript:forestGraph();" />
+  <input type="button" value="Graph &gt;&gt;" onclick="javascript:forestGraph();" />
 </div>
 
 <div id="scenariocontainer">
   <div id="scenarioheader">
-    
-    <h2><span class="button addbutton" onClick="addScenario();">
+    <span class="button addbutton" onClick="addScenario();">
       + Add Scenario 
-    </span>Scenario List</h2> 
+    </span>
+    Scenario List 
   </div>
   <div id="scenariobox">
     <form id="scenario1-form" name="scenario1-form" action="leaf" method="POST">
@@ -82,21 +82,15 @@
 	  </div>
 	  <input type="text" class="scenario-name" id="scenario1-name" name="scenario1-name" value='{{ scenario_options|hash:"name"}} ' />
 	</div>
-	
-	
-		<div class="scenariotemp togglecontainer">
-	  <div class="temp_params_header">
-	    <div class="toggler toggle-open"></div> Temperature Parameters 
-	  </div>
-	  <div class="togglechild">
-	    <table cellspacing="0" class="temp_params_table">
-	     <tr>
+	<div class="scenariotemp">
+	  <table>
+	    <tr>
 	      <td>
 		<span style="font-weight: bold;">
 		  Base Temperature 
 		</span>
 	      </td>
-	      <td width="80%">
+	      <td>
 		T<sub>0 </sub>= 
 		<input type="text" size="5" id="scenario1-base-temp" name="scenario1-base-temp" 
 		       value="0"
@@ -109,75 +103,8 @@
 		K 
 	      </td>
 	    </tr>
-	    
-	    <tr>
-		<td>
-		  Forest Leaf Area Index = 
-		</td>
-		<td>
-		  <input type="text" id="scenario1-leafarea" name="scenario1-leafarea" size="5" value='{{ scenario_options|hash:"leafarea"}}'/>
-		</td>
-	      </tr>
-	      <tr>
-		<td>
-		  Field Station: 
-		  {% with scenario_options|hash:"fieldstation" as selectedstation %}
-		  <select id="scenario1-fieldstation" name="scenario1-fieldstation" class="fieldstation-select">
-		    {% for station in stations %}
-  		    <option value="{{ station }}"
-			    {% ifequal station selectedstation %}
-			    selected
-			    {% endifequal %} 
-			    >{{station}} 
-		    </option>
-		    {% endfor %} 
-		    {% endwith %}
-		  </select>
-		</td>
-		<td>
-   		  Year:
-		  <select id="scenario1-year" name="scenario1-year">
-		    <option value='{{ scenario_options|hash:"year"}}' selected />
-		  </select>
-		</td>
-	      </tr>
-	      <tr>
-		<td>
-		  Season Start (mm/dd): 
-		</td>
-		<td>
-		  <input type="text" id="scenario1-startdate" name="scenario1-startdate" size="5" value='{{ scenario_options|hash:"startdate"}}' />
-		</td>
-	      </tr>
-	      <tr>
-		<td>
-		  Season End (mm/dd): 
-		</td>
-		<td>
-		  <input type="text" id="scenario1-enddate" name="scenario1-enddate" size="5" value='{{ scenario_options|hash:"enddate"}}' />
-		</td>
-	      </tr>
-	      <tr>
-		<td>
-		  &nbsp;
-		</td>
-		<td>
-		  <a id="scenario1-export"
-		     href="#" target="blank"
-		     onclick="makeExportLink(this); return true;"
-		     >Export temp. data to CSV</a>
-		</td>
-	      </tr>
-	      
-	     
-	    </table>
-	  </div>
-	</div>
-	
-	
-	<!-- end div scenariotemp -->
-	
-	
+	  </table>
+	</div><!-- end div scenariotemp -->
 	<div class="speciesbox togglecontainer">
 	  <div class="speciesheader">
 	    <span class="button addbutton" onClick="addSpecies(this);">
@@ -242,7 +169,56 @@
 		  <input type="text" id="scenario1-leafarea" name="scenario1-leafarea" size="5" value='{{ scenario_options|hash:"leafarea"}}'/>
 		</td>
 	      </tr>
-	     
+	      <tr>
+		<td>
+		  Field Station: 
+		  {% with scenario_options|hash:"fieldstation" as selectedstation %}
+		  <select id="scenario1-fieldstation" name="scenario1-fieldstation" class="fieldstation-select">
+		    {% for station in stations %}
+  		    <option value="{{ station }}"
+			    {% ifequal station selectedstation %}
+			    selected
+			    {% endifequal %} 
+			    >{{station}} 
+		    </option>
+		    {% endfor %} 
+		    {% endwith %}
+		  </select>
+		</td>
+		<td>
+   		  Year:
+		  <select id="scenario1-year" name="scenario1-year">
+		    <option value='{{ scenario_options|hash:"year"}}' selected />
+		  </select>
+		</td>
+	      </tr>
+	      <tr>
+		<td>
+		  Season Start (mm/dd): 
+		</td>
+		<td>
+		  <input type="text" id="scenario1-startdate" name="scenario1-startdate" size="5" value='{{ scenario_options|hash:"startdate"}}' />
+		</td>
+	      </tr>
+	      <tr>
+		<td>
+		  Season End (mm/dd): 
+		</td>
+		<td>
+		  <input type="text" id="scenario1-enddate" name="scenario1-enddate" size="5" value='{{ scenario_options|hash:"enddate"}}' />
+		</td>
+	      </tr>
+	      <tr>
+		<td>
+		  &nbsp;
+		</td>
+		<td>
+		  <a id="scenario1-export"
+		     href="#" target="blank"
+		     onclick="makeExportLink(this); return true;"
+		     >Export selection to CSV</a>
+		</td>
+	      </tr>
 	      <tr>
 		<td>
 		  <a href="#" class="tooltip">&Delta;T<sub>a</sub>=<span>Increase or decrease temperature data points by this amount.</span></a>

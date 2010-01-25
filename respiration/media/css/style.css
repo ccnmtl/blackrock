@@ -52,7 +52,7 @@ div#equation
 	padding: 0px;
 	position: absolute;
 	right: 30px;
-	top: 220px;
+	top: 280px;
 	height: 100px;
 	background-color: #ccc;
 	background-image: url(../images/background_panel.jpg);
@@ -112,8 +112,6 @@ div#equation-inner
 	display: inline;
 	color: blue;
 }
-
-#content {height: 115px;}
 
 div#container
 {
@@ -181,58 +179,55 @@ legend
 
 #forestgraph
 {
-	float: right;
+	padding: 10px 0px 10px 10px;
+	text-align: right;
+	margin-top: -18px;
 }
 
-.speciesheader,.advancedoptionsheader, .temp_params_header
+#scenarioheader, .speciesheader,.advancedoptionsheader
 {
 	padding: 10px;
 	font-weight: bold;
 	background-color: #bbb;
-	font-size: 12px;
+	font-size: 11px;
 }
 table.advancedoptionstable td {font-size: 11px;}
 
 #scenarioheader
 {
-	
-	color: #000;
-
+	background-color: #666;
+	color: white;
 }
 
 #scenariobox
 {
 	overflow: auto;
 	max-height: 300px;
-	border: 1px solid #666;
 }
 
-.scenario { 
-
-	margin: 5px;
-	padding: 2px;
-	background-color: #999;
-
-}
+.scenario { }
 
 .scenariotitle
 {
-	
+	border-top: 1px solid gray;
+	border-right: 1px solid gray;
+	border-left: 1px solid gray;
+	background-color: #999;
 	padding: 4px 4px 4px 0px;
 }
 
-.scenariotemp, .speciesbox, .advancedoptionscontainer
+.scenariotemp
 {
-	margin: 3px 2px 5px; 
-	border: 1px solid #666;
-	border-bottom: none;
+	border-top: 1px solid gray;
+	border-right: 1px solid gray;
+	border-left: 1px solid gray;
+	padding: 6px 10px 6px 10px;
+	background-color: #bbb;
 }
 .scenariotemp td {font-size: 11px;}
 
-
-
-
-.speciesheader {  }
+.speciesbox { }
+.speciesheader { border: 1px solid gray; }
 
 .speciescontainer
 {
@@ -244,14 +239,20 @@ table.advancedoptionstable td {font-size: 11px;}
 
 .species
 {
-	
+	padding: 4px;
+	border-right: 1px solid #999;
+	border-bottom: 1px solid #999;
+	border-left: 1px solid #999;
 }
 
-.species, .species td { font-size: 11px; padding: 3px; }
+.species, .species td { font-size: 11px; }
 
 .speciestemp
 {
-
+	border-top: 1px solid gray;
+	border-right: 1px solid gray;
+	border-left: 1px solid gray;
+	background-color: #bbb;
 }
 
 .species-name
@@ -261,14 +262,26 @@ table.advancedoptionstable td {font-size: 11px;}
 	width: 140px;
 }
 
+.advancedoptionscontainer
+{
+	border-right: 1px solid gray;
+	border-left: 1px solid gray;
+	padding: 0;
+	background-image: url(../images/background_panel.jpg);
+	background-repeat: repeat-x;
+}
 
+table.temptable { width: 100%; }
+table.temptable td { padding: 3px; }
+table.advancedoptionstable { width: 100%; }
 
-table.temptable, table.temp_params_table, table.advancedoptionstable { width: 100%; background-color: #fff;}
-table.temptable td, table.temp_params_table td, table.advancedoptionstable td { padding: 3px; border-bottom: 1px solid gray; }
+table.advancedoptionstable td
+{
+	border-bottom: 1px solid gray;
+	padding: 3px;
+}
 
-
-.temp_params_header { border: none; }
-.advancedoptionsheader { border: none; }
+.advancedoptionsheader { border-bottom: 1px solid gray; }
 
 .button
 {
