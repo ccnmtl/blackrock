@@ -33,29 +33,25 @@
 
 <p>Select a module by clicking on one of the module images below.</p>
 
-<table style='width:80%;text-align:center;margin:0px auto;'><tr>
+<div class="container">
 {% for app in apps %}
   {% if app.admin %}
     {% if user.is_staff %}
-      <td>
         <div class='screenshot'>
         <a href="{{ app.path }}">
           <img class='screenshot' src="site_media/images/screenshot%20-%20{{app.name|urlencode}}.png"></img><br/>
           {{ app.name }}</a>
         </div>
-      </td>
     {% endif %}
   {% else %}
-      <td>
         <div class='screenshot'>
         <a href="{{ app.path }}">
           <img class='screenshot' src="site_media/images/screenshot%20-%20{{app.name|urlencode}}.png"></img><br/>
           {{ app.name }}</a>
         </div>
-      </td>
   {% endif %}
 {% endfor %}
-</tr></table>
+</div>
 
 {% if user.is_staff %}
   {% if not apps %}

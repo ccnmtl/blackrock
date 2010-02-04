@@ -97,4 +97,7 @@ div.screenshot {
   width:312px;
   border:1px black solid;
   padding:15px;
+  float: left;
+  margin: 25px;
+  text-align: center;
 }
