@@ -61,7 +61,7 @@ function showSample(e) {
 
   if(visible) { hideElement(visible); }
   visible = $("sample-info-" + depth);
-  showElement(visible);
+  if(visible) { showElement(visible); }
 }
 
 function loadResults() {

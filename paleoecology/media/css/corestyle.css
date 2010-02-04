@@ -459,6 +459,6 @@ div.bottom {
 }
 
 #windowdrag {
-
+  position: relative;
 	margin-left: -11.5px;
 }
