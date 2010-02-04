@@ -1,5 +1,5 @@
 {% extends "paleoecology/base_paleoecology.html" %}
-{% load extras %}
+{% load paleo-extras %}
 
 {% block pagetitle %}Sediment Sampling{% endblock %}
 
@@ -31,15 +31,21 @@
 <div id="yardstick"><span class="toplevel">0cm</span><span class="bottomlevel">1070cm</span></div>
 <div id="core-unzoomed"><div id="windowdrag"><img src="../../paleoecology/media/images/coresample/windowdrag.png" alt="" width="65" height="25"></div></div>  
 <div id="core-zoomed">
-    <div class="core-slice core-slice-clay"></div>
-    <div class="core-slice core-slice-mixed"></div>
-    <div class="core-slice core-slice-mud"></div>
-    <div class="core-slice core-slice-blank"></div>
-  {% for sample in samples %}
-    <div class="core-slice" id="core-slice-{{sample.depth|floatformat}}">
-      {{sample.depth|floatformat}}
-    </div>
-  {% endfor %}
+    <!--div class="core-slice core-slice-clay"></div-->
+    <!--div class="core-slice core-slice-mixed"></div-->
+    <!--div class="core-slice core-slice-mud"></div-->
+    <!--div class="core-slice core-slice-blank"></div-->
+
+    {% for n in intervals %}
+      {% if samples|contains:n %}
+        <div id="core-slice-{{n|floatformat}}" class="core-slice core-slice-{{n|soiltype}}">
+          {{n|floatformat}}
+        </div>
+      {% endif %}
+      {% if not samples|contains:n %}
+        <div id="core-slice-{{n|floatformat}}" class="core-slice core-slice-blank"></div>
+      {% endif %}
+    {% endfor %}    
   </div>
 
 {% endblock %}
@@ -54,13 +60,13 @@
   
      <div class="datapop">
     {% for sample in samples %}
-    <div id="sample-info-{{sample.depth|floatformat}}" class="sample-info">
-      <div class="sample-info-title">Sample Depth: {{sample.depth|floatformat}}cm<div id="closebutton">X</div></div>
+    <div id="sample-info-{{sample|floatformat}}" class="sample-info">
+      <div class="sample-info-title">Sample Depth: {{sample|floatformat}}cm<div id="closebutton">X</div></div>
       <div id="sample-inf-container">
       <div class="sample-info-left-container">
         <h4>Most common specimens in this sample</h4>
         <div class="sample-info-left">
-        <div id="sample-counts-{{sample.depth|floatformat}}">
+        <div id="sample-counts-{{sample|floatformat}}">
           Loading, please wait...
         </div>
         <br /></div>
@@ -69,7 +75,7 @@
       <h4>Species breakdown</h4>
       <div class="sample-info-right">
        
-        <div id="sample-percents-{{sample.depth|floatformat}}">
+        <div id="sample-percents-{{sample|floatformat}}">
           Loading, please wait...
         </div>
       </div>

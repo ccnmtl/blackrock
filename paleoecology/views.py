@@ -16,7 +16,12 @@ def identification(request):
 
 def explore(request):
   samples = CoreSample.objects.all().order_by('depth')
-  return render_to_response('paleoecology/core-explore.html', {'samples':samples} )
+  # TODO figure out from data
+  interval = 2.5 # cm
+  highest = 1070 + 2.5 # cm
+  intervals = [n * interval for n in range(highest / interval)]
+  samples = [float(sample.depth) for sample in samples]
+  return render_to_response('paleoecology/core-explore.html', {'samples':samples, 'intervals':intervals} )
 
 def results(request):
   pollen = [p.name for p in PollenType.objects.all().order_by('name') if p.name not in ["Pinus", "Asteraceae (incl ragweed)"]]
