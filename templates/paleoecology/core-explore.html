@@ -23,8 +23,8 @@
     addLoadEvent(initNav);
   </script>
   
-  <script type="text/javascript" src="media/js/explore.js"></script>
   <script type="text/javascript" src="media/js/explore-nav.js"></script>
+  <script type="text/javascript" src="media/js/explore.js"></script>
 {% endblock %}
 
 {% block left %}
@@ -61,7 +61,7 @@
   
      <div class="datapop">
     {% for sample in samples %}
-    <div id="sample-info-{{sample|floatformat}}" class="sample-info">
+    <div id="sample-info-{{sample|floatformat}}" class="sample-info unloaded">
       <div class="sample-info-title">Sample Depth: {{sample|floatformat}}cm<div id="closebutton">X</div></div>
       <div id="sample-inf-container">
       <div class="sample-info-left-container">

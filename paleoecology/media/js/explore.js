@@ -61,26 +61,38 @@ function showSample(e) {
 
   if(visible) { hideElement(visible); }
   visible = $("sample-info-" + depth);
-  if(visible) { showElement(visible); }
-}
 
-function loadResults() {
-  //setStyle('waitmessage', {'display':'block'});
-  //setStyle('errormessage', {'display':'none'});
+  if(! visible) { return; }
 
-  forEach(getElementsByTagAndClassName("div", "sample-info"), function(elem) {
-    depth = elem.id.substr(12);
-
+  showElement(visible);
+  
+  // load data as needed
+  if(hasElementClass(visible, "unloaded")) {
     var params = "depth=" + depth;
     global_http_request = doXHR("getpercents", {'method':'POST', 'sendContent':params,
                                          'headers':[["Content-Type", 'application/x-www-form-urlencoded']]
                                           });
     global_http_request.addCallback(showResults);
     global_http_request.addErrback(showError);
-  });
+    removeElementClass(visible, "unloaded");
+  }
 }
 
-addLoadEvent(loadResults);
+//function loadResults() {
+//  forEach(getElementsByTagAndClassName("div", "sample-info"), function(elem) {
+//    depth = elem.id.substr(12);
+
+//    var params = "depth=" + depth;
+//    global_http_request = doXHR("getpercents", {'method':'POST', 'sendContent':params,
+//                                         'headers':[["Content-Type", 'application/x-www-form-urlencoded']]
+//                                          });
+//    global_http_request.addCallback(showResults);
+//    global_http_request.addErrback(showError);
+//  });
+//}
+
+/* loading all at once is too slow, so load as needed */
+//addLoadEvent(loadResults);
 
 function setupCore() {
   forEach(getElementsByTagAndClassName("div", "core-slice"), function(elem) {
