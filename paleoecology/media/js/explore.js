@@ -32,7 +32,7 @@ function showResults(http_request) {
   
   if(pollen.length == 0) {
     divCounts.innerHTML = "No data.";
-    divPercents.innerHTML = "No data.";
+    divPercents.innerHTML = "<ul><li>Other (100%)</li></ul>";
     return;
   }
   
