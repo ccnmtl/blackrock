@@ -57,11 +57,14 @@ def getpercents(request):
   names = []
   percents = []
   counts = []
+  otherpct = 100
   try:
     names, percents, counts = zip(*results)
+    otherpct = 100 - sum([float(i) for i in percents])
+    print otherpct
   except:
     pass
-  results = {'depth': depth, 'pollen':names, 'percents' : percents, 'counts':counts }
+  results = {'depth': depth, 'pollen':names, 'percents' : percents, 'counts':counts, 'other':otherpct }
 
   return HttpResponse(json.dumps(results), mimetype="application/javascript")
 

@@ -25,6 +25,7 @@ function showResults(http_request) {
   var pollen = results['pollen'];
   var counts = results['counts'];
   var percents = results['percents'];
+  var otherPercent = results['other'];
 
   var divCounts = $('sample-counts-' + depth);
   var divPercents = $('sample-percents-' + depth);
@@ -42,6 +43,7 @@ function showResults(http_request) {
     var imgString = "<div class='pollen-zoo-image core'><div id='pollen-image'><img src='media/images/pollen/" + getImage(pollen[i]) + "'/></div>"; 
     countString += imgString + "<div class='imagename'><b>" + pollen[i] + ":</b><br /> " + counts[i] + " grains <br /></div></div>";
   }
+  pctString += "<li>Other (" + otherPercent + "%)</li>";
   pctString += "</ul>";
   
   divPercents.innerHTML = pctString;
