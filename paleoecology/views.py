@@ -24,7 +24,7 @@ def explore(request):
   return render_to_response('paleoecology/core-explore.html', {'samples':samples, 'intervals':intervals} )
 
 def results(request):
-  pollen = [p.name for p in PollenType.objects.all().order_by('name') if p.name not in ["Pinus", "Asteraceae (incl ragweed)"]]
+  pollen = [p.name for p in PollenType.objects.all().order_by('name') if p.name not in ["Pinus (Pine)", "Asteraceae (Ragweed etc.)"]]
   samples = CoreSample.objects.all().order_by('depth')
   
   # summary row (totals)
@@ -45,7 +45,7 @@ def results(request):
 
 def getrow(request):
   depth = request.REQUEST['depth']
-  samples = PollenSample.objects.filter(core_sample__depth = depth).order_by('pollen__name').exclude(pollen__name="Pinus").exclude(pollen__name="Asteraceae (incl ragweed)")
+  samples = PollenSample.objects.filter(core_sample__depth = depth).order_by('pollen__name').exclude(pollen__name="Pinus (Pine)").exclude(pollen__name="Asteraceae (Ragweed etc.)")
   results = {'depth': depth, 'counts' : [int(sample.count) for sample in samples] }
 
   return HttpResponse(json.dumps(results), mimetype="application/javascript")
@@ -137,14 +137,14 @@ def loadcsv(request, type):
          # hack to fix Pinus and Asteraceae counts
          if type == "counts" :
            if pollen_name in ["Pinus subg. Pinus", "Pinus subg. Strobus", "Pinus undiff."]:
-             (second, created) = PollenType.objects.get_or_create(name="Pinus")
+             (second, created) = PollenType.objects.get_or_create(name="Pinus (Pine)")
              if created: second.save()
              (p, created) = PollenSample.objects.get_or_create(core_sample=core, pollen=second)
              p.count = (p.count or 0) + int(row[i])
              p.save()
 
            if pollen_name in ["Asteraceae subf. Asteroideae undiff.", "Asteraceae subf. Cichorioideae"]:
-             (second, created) = PollenType.objects.get_or_create(name="Asteraceae (incl ragweed)")
+             (second, created) = PollenType.objects.get_or_create(name="Asteraceae (Ragweed etc.)")
              if created: second.save()
              (p, created) = PollenSample.objects.get_or_create(core_sample=core, pollen=second)
              p.count = (p.count or 0) + int(row[i])
