@@ -11,6 +11,13 @@ var images = [
   ]
 ];
 
+// colors for pie charts (need 16 colors, 15 pollen types + "other")
+//var chartColors = "chco=FF0000,FF69B4,FF8C00,FFFF00,3CB371,00FF00,00FFFF,0000FF,6A5ACD,000000";
+//var chartColors = "chco=FF1F81,A21764,8AB438,999999,3A5B87,00C0C7,C070F0,FF8000,00FF00";
+//var chartColors = "chco=8DD3C7,FFFFB3,BEBADA,FB8072,80B1D3,FDB462,B3DE69,FCCDE5,D9D9D9,BC80BD,CCEBC5,FFED6F";
+var colors = ["A6CEE3","1F78B4","B2DF8A","33A02C","FB9A99","E31A1C","FDBF6F","FF7F00","CAB2D6","6A3D9A","FFD700",
+              "A0522D", "336633", "696969", "A9A9A9", "EBEBEB"];
+
 function getImage(name) {
   var idx = images[0].indexOf(name);
   return images[1][idx];
@@ -36,18 +43,14 @@ function showResults(http_request) {
   var chartLabels = "chdl=";
   //var chartLabels = "chdl=" + pollen.join("|") + "|Other";
   
-  //var chartColors = "chco=FF0000,FF69B4,FF8C00,FFFF00,3CB371,00FF00,00FFFF,0000FF,6A5ACD,000000";
-  //var chartColors = "chco=FF1F81,A21764,8AB438,999999,3A5B87,00C0C7,C070F0,FF8000,00FF00";
-  //var chartColors = "chco=8DD3C7,FFFFB3,BEBADA,FB8072,80B1D3,FDB462,B3DE69,FCCDE5,D9D9D9,BC80BD,CCEBC5,FFED6F";
-  var chartColors = "chco=A6CEE3,1F78B4,B2DF8A,33A02C,FB9A99,E31A1C,FDBF6F,FF7F00,CAB2D6,6A3D9A,FFD700,A0522D";
-  
+  var chartColors = "chco=";
   
   if(pollen.length == 0) {
     divCounts.innerHTML = "No data.";
     //divPercents.innerHTML = "<ul><li>Other (100%)</li></ul>";
     divPercents.innerHTML = "";
     
-    var imgSrc = baseURL + "&chs=200x200&chd=t:100&chdl=Other (100%)&chdlp=bv";
+    var imgSrc = baseURL + "&chs=200x200&chco=" + colors[15] + "&chd=t:100&chdl=Other (100%)&chdlp=bv";
     $("sample-chart-"+depth).src = imgSrc;
     return;
   }
@@ -60,6 +63,22 @@ function showResults(http_request) {
     countString += imgString + "<div class='imagename'><b>" + pollen[i] + ":</b><br /> " + counts[i] + " grains <br /></div></div>";
     chartLabels += pollen[i] + " (" + percents[i] + "%)|";
   }
+  
+  // use names instead of pollen so we keep the colors consistent over graphs
+  for(var i=0; i<images[0].length; i++) {
+    var pollenName = images[0][i];
+    if(pollen.join('').indexOf(pollenName) != -1) {
+      chartColors += colors[i] + ","
+    }
+  }
+  if(otherPercent > 0) {
+    chartColors += colors[15];
+  }
+  else {
+    // remove trailing comma
+    chartColors = chartColors.substr(0, chartColors.length-1);
+  }
+
   //pctString += "<li>Other (" + otherPercent + "%)</li>";
   //pctString += "</ul>";
   
