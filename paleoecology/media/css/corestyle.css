@@ -104,6 +104,10 @@ div#right {
 	width: 220px;
 }
 
+.pollen-zoo-image img {
+  cursor: default;
+}
+
 .pollen-zoo-image .imagename{
   font-size: 11px;
    margin: 5px;
