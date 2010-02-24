@@ -121,6 +121,8 @@ def loadcsv(request, type):
 
        for i in range(len(row)):
          if i == 0: continue  # skip row[0], which is the depth
+         
+         if i == 1 and type == "percents": continue  # skip row[1] in percentages, which is the carbon age
 
          pollen_name = headers[i].strip()
          (t, created) = PollenType.objects.get_or_create(name=pollen_name)
