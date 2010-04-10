@@ -75,3 +75,16 @@ class Temperature(models.Model):
 
     final=summation*r0*3600.0
     return (final,time()-x)
+
+  @classmethod
+  def selective_delete(self, station, start_date, end_date):
+      kwargs = {}
+      if (station and station != 'All'):
+        kwargs['station' ] = station
+      if (start_date and end_date):
+        kwargs['date__range'] = (start_date, end_date)
+        
+      qs = Temperature.objects.filter(**kwargs)
+      rows = qs.count()
+      qs.delete()
+      return rows

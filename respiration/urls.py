@@ -11,4 +11,6 @@ urlpatterns = patterns('',
         (r'^loadcsv$', 'blackrock.respiration.views.loadcsv'),
         (r'^getcsv$', 'blackrock.respiration.views.getcsv'),
         (r'^getsum$', 'blackrock.respiration.views.getsum'),
+        (r'^loadsolr$', 'blackrock.respiration.views.loadsolr'),
+        
 )
