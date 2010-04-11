@@ -17,7 +17,7 @@ class ModelTestCases(TestCase):
       self.assertEquals(Temperature.objects.filter(station='Ridgetop').count(), 1)
       self.assertEquals(Temperature.objects.filter(station='Fire Tower').count(), 1)
           
-  def x_test_selective_delete(self):
+  def test_selective_delete(self):
       # All Data
       self._a_little_test_data()
       self.assertEquals(Temperature.selective_delete(None, None, None), 4)

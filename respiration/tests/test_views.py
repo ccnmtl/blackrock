@@ -21,11 +21,11 @@ class ImportTestCases(TestCase):
         user.set_password("test")
         user.save()
         
-    #def tearDown(self):
-        #User.objects.get(username="testuser").delete()
-        #Temperature.objects.all().delete()
+    def tearDown(self):
+        User.objects.get(username="testuser").delete()
+        Temperature.objects.all().delete()
         
-    def x_test_csv_import(self):
+    def test_csv_import(self):
         self._login(self.client, 'testuser', 'test')
         
         response = self.client.get('/respiration/')
@@ -84,7 +84,7 @@ class ImportTestCases(TestCase):
         self.assertEquals(qs.count(), 1)
         self.assertEquals(qs[0].reading, -1.06)
         
-    def x_test_solr_import_set(self):
+    def test_solr_import_set(self):
       Temperature.objects.get_or_create(station='Open Lowland', date=datetime.datetime(1997, 1, 1, 1, 00), reading=1.1)
       Temperature.objects.get_or_create(station='Open Lowland', date=datetime.datetime(2008, 6, 1, 1, 00), reading=1.1)
       Temperature.objects.get_or_create(station='Ridgetop', date=datetime.datetime(2008, 7, 1, 1, 00), reading=1.1)
@@ -124,7 +124,8 @@ class ImportTestCases(TestCase):
       self.assertEquals(Temperature.objects.filter(station='Ridgetop').count(), 1)
       self.assertEquals(Temperature.objects.filter(station='Fire Tower').count(), 1)
 
-    def test_solr_import_all(self):
+    # This test takes about 20 minutes to run. I've commented it out for normal testing purposes.
+    def X_test_solr_import_all(self):
       Temperature.objects.get_or_create(station='Open Lowland', date=datetime.datetime(1997, 1, 1, 1, 00), reading=1.1)
       Temperature.objects.get_or_create(station='Open Lowland', date=datetime.datetime(2008, 6, 1, 1, 00), reading=1.1)
       Temperature.objects.get_or_create(station='Ridgetop', date=datetime.datetime(2008, 7, 1, 1, 00), reading=1.1)

@@ -234,7 +234,7 @@ def loadcsv(request):
     dt = datetime.datetime(year=int(year), month=1, day=1, hour=normalized_hour)
     dt = dt + delta
      
-    (next_expected_timestamp, last_valid_temp, prev_station) = _process_row(dt, station, temp, next_expected_timestamp, last_valid_temp, prev_station)
+    (next_expected_timestamp, last_valid_temp, prev_station,created) = _process_row(dt, station, temp, next_expected_timestamp, last_valid_temp, prev_station)
     
   admin_msg = "Successfully imported data."
 
@@ -315,14 +315,14 @@ def _solr_request(url):
   response.close()
   return xmldoc
 
+# Retrieve the requested import sets
+# If no import_set is specified, retrieve all "educational" sets that have rows
 def _solr_get_sets(base_query, import_set):
   sets = {}
   count_query = base_query + 'facet=true&facet.field=import_set&rows=0&q=import_set_type:"educational"'
   if (len(import_set) > 0):
     count_query = count_query + '%20AND%20import_set:"' + import_set + '"'
-    
-  print count_query
-  
+
   xmldoc = _solr_request(count_query)
   for node in xmldoc.getElementsByTagName('int'):
     if node.hasAttribute('name') and int(node.childNodes[0].nodeValue) > 0:
@@ -342,7 +342,6 @@ def loadsolr(request):
     
     if (delete_data):
       response['deleted'] = Temperature.selective_delete(station, start_date, end_date)
-      Temperature.selective_delete(station, start_date, end_date)
       
     sets = _solr_get_sets(base_query, urllib.unquote(request.POST.get('import_set', "")))
     
@@ -350,7 +349,6 @@ def loadsolr(request):
       next_expected_timestamp = None
       last_valid_temp = None
       prev_station = None
-      
       row_count = sets[import_set]
         
       retrieved = 0 
@@ -371,7 +369,6 @@ def loadsolr(request):
               temp = child.childNodes[0].nodeValue
             elif (name == 'record_datetime'):
               dt = _solr_string_to_datetime(child.childNodes[0].nodeValue)
-            
           
           if (station and dt and temp):
             (next_expected_timestamp, last_valid_temp, prev_station, created) = _process_row(dt, station, float(temp), next_expected_timestamp, last_valid_temp, prev_station)
