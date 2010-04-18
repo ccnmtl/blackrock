@@ -26,14 +26,24 @@ class ImportTestCases(TestCase):
         Temperature.objects.all().delete()
         
     def test_csv_import(self):
+        Temperature.objects.get_or_create(station='Open Lowland', date=datetime.datetime(1997, 1, 1, 1, 00), reading=1.1)
+        Temperature.objects.get_or_create(station='Open Lowland', date=datetime.datetime(2008, 6, 1, 1, 00), reading=1.1)
+        Temperature.objects.get_or_create(station='Ridgetop', date=datetime.datetime(2008, 7, 1, 1, 00), reading=1.1)
+        Temperature.objects.get_or_create(station='Fire Tower', date=datetime.datetime(2008, 8, 1, 1, 00), reading=1.1)
+
         self._login(self.client, 'testuser', 'test')
         
-        response = self.client.get('/respiration/')
-        self.assertContains(response, 'Admin Options', status_code=200)
+        response = self.client.get('/admin/respiration/')
+        self.assertContains(response, 'Import Respiration Data From CSV', status_code=200)
         
         # test existing data
         qs = Temperature.objects.filter(station='Test Station')
         self.assertEquals(qs.count(), 0)
+        
+        # no csv file uploaded
+        #response = self.client.post('/respiration/loadcsv', {'delete':'true'})
+        #json = simplejson.loads(response.content)
+        #self.assertEquals(json['message'], 'Please specify a valid data file')
         
         # Submitting files is a special case. To POST a file, you need only provide the file 
         # field name as a key, and a file handle to the file you wish to upload as a value. 
@@ -41,10 +51,14 @@ class ImportTestCases(TestCase):
         # required by Django's FileField. For example:
         test_data_file = os.path.join(os.path.dirname(__file__),"test_respiration.csv")
         f = open(test_data_file)
-        response = self.client.post('/respiration/loadcsv', {'delete':'true', 'csvfile':f})
+        response = self.client.post('/respiration/loadcsv', {'delete':'on', 'csvfile':f})
         f.close()
         
-        self.assertEquals(response.status_code, 200)
+        #json = simplejson.loads(response.content)
+        #self.assertEquals(json['deleted'], 4)
+        #self.assertEquals(json['rowcount'], 72) # "ideal" world count. doesn't include duplicates and such
+        
+        self.assertEquals(response.status_code, 302)
         self.assertEquals(Temperature.objects.filter(station='Test Station').count(), 48)
         self.assertEquals(Temperature.objects.filter(station='Another Station').count(), 24)
         
@@ -95,8 +109,8 @@ class ImportTestCases(TestCase):
       self.assertEquals(Temperature.objects.filter(station='Fire Tower').count(), 1)
       self._login(self.client, 'testuser', 'test')
         
-      response = self.client.get('/respiration/')
-      self.assertContains(response, 'Admin Options', status_code=200)
+      response = self.client.get('/admin/respiration/')
+      self.assertContains(response, 'Import Respiration Data from SOLR', status_code=200)
         
       data = {'base_query': 'http://cherrystone.cc.columbia.edu:8181/solr/blackrock/select/?qt=forest-data&collection_id=environmental-monitoring&',
               'import_set': 'OL_2008',
@@ -113,7 +127,7 @@ class ImportTestCases(TestCase):
       
       qs = Temperature.objects.filter(station='Open Lowland').order_by('date')
       self.assertEquals(qs.count(), 8784) # 9151 rows - 365 duplicates 
-      self.assertEquals(qs[0].date, datetime.datetime(1997, 1, 1, 1, 0))
+      self.assertEquals(qs[0].date, datetime.datetime(1997, 1, 1, 0, 0))
       
       self.assertEquals(qs[1].date, datetime.datetime(2008, 1, 1, 0, 0))
       self.assertEquals(qs[1].reading, -2.3799999999999999)

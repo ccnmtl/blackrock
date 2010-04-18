@@ -1,0 +1,38 @@
+
+    <form name="import_csv" action="../../sampler/import_csv" enctype="multipart/form-data" method="POST">
+        <fieldset class="module aligned">
+            <h2>Import Tree Data From CSV</h2>
+        
+            <div style="color: #F00; font-weight: bold; margin: 5px 5px;" colspan="2"><div id="import_error"></div></div>
+            <div style="color: #00F; font-weight: bold; margin: 5px 5px;" colspan="2"><div id="import_status"></div></div>
+            <div id="progress_indicator" style="display: none;">Loading...please wait<br /><img src="/site_media/images/progress.gif" /></div>
+        
+            <div class="form-row">
+                <label for="id_csvfile" class="required">Filename:</label><input type="file" id="id_csvfile" name="csvfile" size="40"></input>
+            </div> 
+            <div class="form-row">
+                <input value="Import Data" class="default" name="_submit" type="submit">
+            </div>
+        </fieldset>
+    </form>
+
+    <fieldset class="module aligned collapse">
+        <h2 style="text-align: right">How To Format CSV Data for Import</h2>
+        <div class="form-row">
+            <p>To import tree data from a CSV file, please ensure that your file
+            has the following headings: "ID", "x", "y", "species" and "dbh".
+            ID is the tree's unique ID number, species is its species code (e.g. 
+            "ro"), "dbh" is its diameter breast height (in cm), and x and y are its 
+            location coordinates (in meters).</p>
+            
+            <p>CSV (comma-separated value) files are just plain-text versions of 
+            Excel 
+            spreadsheets.  The
+            exact process varies depending on your software and version, but you can
+            convert your Excel spreadsheet into a CSV file by selecting "Save As..."
+            and changing the file type (look for the choice with the file 
+            extension "*.csv").</p>        
+        </div> 
+    </fieldset>
+
+<br/>

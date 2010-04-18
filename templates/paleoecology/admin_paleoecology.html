@@ -1,0 +1,34 @@
+<form name="loadcounts" action="../../paleoecology/loadcounts" enctype="multipart/form-data" method="POST">
+    <fieldset class="module aligned">
+        <h2>Import Pollen Counts From CSV</h2>
+    
+        <div style="color: #F00; font-weight: bold; margin: 5px 5px;" colspan="2"><div id="import_error"></div></div>
+        <div style="color: #00F; font-weight: bold; margin: 5px 5px;" colspan="2"><div id="import_status"></div></div>
+        <div id="progress_indicator" style="display: none;">Loading...please wait<br /><img src="/site_media/images/progress.gif" /></div>
+    
+        <div class="form-row">
+            <label for="id_csvfile" class="required">Filename:</label><input type="file" id="id_csvfile" name="csvfile" size="40"></input>
+        </div> 
+        <div class="form-row">
+            <input value="Import Data" class="default" name="_submit" type="submit">
+        </div>
+    </fieldset>
+</form>
+<br />
+<form name="loadpercents" action="../../paleoecology/loadpercents" enctype="multipart/form-data" method="POST">
+    <fieldset class="module aligned">
+        <h2>Import Pollen Percentages From CSV</h2>
+    
+        <div style="color: #F00; font-weight: bold; margin: 5px 5px;" colspan="2"><div id="import_error"></div></div>
+        <div style="color: #00F; font-weight: bold; margin: 5px 5px;" colspan="2"><div id="import_status"></div></div>
+        <div id="progress_indicator" style="display: none;">Loading...please wait<br /><img src="/site_media/images/progress.gif" /></div>
+    
+        <div class="form-row">
+            <label for="id_csvfile" class="required">Filename:</label><input type="file" id="id_csvfile" name="csvfile" size="40"></input>
+        </div> 
+        <div class="form-row">
+            <input value="Import Data" class="default" name="_submit" type="submit">
+        </div>
+    </fieldset>
+</form>
+<br />

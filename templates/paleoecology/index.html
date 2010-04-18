@@ -55,26 +55,5 @@ Technical Specifications
 Use the latest Firefox browser to access the Paleoecology Module.
 </p>
 
-
-{% if user.is_staff %}
-<fieldset>
-  <legend>Admin Options</legend>
-  <form action="loadcounts" method="post" enctype="multipart/form-data">
-    <label>Import pollen counts from CSV:</label> <input type="file" name="csvfile" size="20"></input>
-    <input type="submit" value="Import"></input>
-  </form>
-
-  <form action="loadpercents" method="post" enctype="multipart/form-data">
-    <label>Import pollen percentages from CSV:</label> <input type="file" name="csvfile" size="20"></input>
-    <input type="submit" value="Import"></input>
-  </form>
-
-  {{ admin_messages }}
-  <a href="/admin/paleoecology/">View Data</a><br />
-</fieldset>
-{% endif %}
-
-<!-- p><a href="../admin/">Administration</a></p-->
-
 </div>
 {% endblock %}

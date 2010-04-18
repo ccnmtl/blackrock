@@ -5,82 +5,20 @@
 {% block extrastyle %}
     {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% load adminmedia %}{% admin_media_prefix %}css/forms.css"></link>
-    <link rel="stylesheet" href="/site_media/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/site_media/css/admin.css"></link>
 {% endblock %}
 
 {% block extrahead %}
     {{ block.super }}
-    
     <script type="text/javascript" src="/admin/jsi18n/"></script>
     <script type="text/javascript" src="/media/js/core.js"></script>
     <script type="text/javascript" src="/media/js/admin/RelatedObjectLookups.js"></script>
+    <script type="text/javascript" src="/media/js/admin/CollapsedFieldsets.js"></script>
     <script type="text/javascript" src="/media/js/calendar.js"></script>
     <script type="text/javascript" src="/media/js/admin/DateTimeShortcuts.js"></script>
     <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script> 
     <script type="text/javascript" src="/site_media/js/json2.js"></script>
-    
-    <script type="text/javascript">
-        function onSuccess(doc) {
-            log('onSuccess');
-            var json = JSON.parse(doc.responseText, null);
-            var status = "";
-            if (json.message)
-                status = status + json.message + "<br />"
-            if (json.deleted)
-                status += json.deleted + " rows deleted. <br />"
-            if (json.rowcount)
-                status += json.rowcount + " rows imported <br />";
-            $('respiration_status').innerHTML = status;
-            $('progress_indicator').style.display = 'none';
-        }
-        
-        function onError(err) {
-            log('onError');
-             $('respiration_error').innerHTML = "An error occurred importing data (" + err + "). Please try again."
-             $('progress_indicator').style.display = 'none';
-        }
-        
-        function submitSolrQuery(form) {     
-            $('respiration_status').innerHTML = "";
-            $('respiration_error').innerHTML = "";
-            $('progress_indicator').style.display = 'none';
-
-            var msg;
-            var datePattern = /\d{2,4}-\d{1,2}-\d{1,2}/
-            if (form.base_query.value.length < 1) {
-                msg = "<p>Please enter a base Solr query.</p>";
-            } else if (form.delete_data.checked) {
-                if ( (datePattern.test(form.start_date.value) && !datePattern.test(form.end_date.value)) ||
-                     (!datePattern.test(form.start_date.value) && datePattern.test(form.end_date.value)) )    
-                msg = "<p>When specifying dates, both must be valid. Format: yyyy-mm-dd</p>";
-            } else if (form.delete_data.checked && !datePattern.test(form.end_date.value)) {
-                msg = "<p>Please enter a valid end date. Format: yyyy-mm-dd</p>";
-            }
-            
-            if (msg) {
-                $('respiration_error').innerHTML = msg;
-            } else {
-                var params = {};
-                for( var i = 0; i < form.elements.length; i++) {
-                    if (form.elements[i].type == "checkbox") {
-                        params[form.elements[i].name] = form.elements[i].checked;
-                    } else {
-                        params[form.elements[i].name] = escape(form.elements[i].value);
-                    }
-                }
-            
-                deferred = doXHR(form.action, 
-                  { 
-                     method: 'POST', 
-                     sendContent: queryString(params),
-                     headers: {"Content-Type": "application/x-www-form-urlencoded"} 
-                  });
-               deferred.addCallbacks(onSuccess, onError);  
-               $('progress_indicator').style.display = 'block';   
-            }
-            return false; 
-        }
-    </script>
+    <script type="text/javascript" src="/site_media/js/admin.js"></script>
 {% endblock extrahead %}
 
 {% block branding %}
@@ -99,65 +37,24 @@
 
 {% endif %} 
 
-{% block content_title %}{% endblock %}
-
 {% block content %}
 
   {% ifequal app_list.0.name "Sampler" %}
-    <br/>
-        <div class="module">
-            <form action="../../sampler/import_csv" enctype="multipart/form-data" method="POST">
-                <table style="width:100%;">
-                    <caption>Import Tree Data From CSV</caption>
-                    <tbody><tr><td>
-                        <input type="file" name="csvfile" size="45"></input>
-                    </td><td>
-                        <input type="submit" value="Import Data"></input>
-                    </td>
-                    </tr><tr><td align='right' colspan='2'><a href="../../sampler/csv_info">How to Format CSV Data for Import</a></td></tr></tbody></table>  </form>
-        </div>
-    <br/><br/>
+    {% include "sampler/admin_sampler.html" %}
   {% endifequal %}
   
   {% ifequal app_list.0.name "Respiration" %}
-    <div class="module">
-        <form name="respiration" action="../../respiration/loadsolr" method="POST" onSubmit="return submitSolrQuery(this);">
-            <table style="width: 100%;">
-                <caption>Import Respiration Data from SOLR</caption>
-            </table>
-            <div style="color: #F00; font-weight: bold; margin: 5px 5px;" colspan="2"><div id="respiration_error"></div></div>
-            <div style="color: #00F; font-weight: bold; margin: 5px 5px;" colspan="2"><div id="respiration_status"></div></div>
-            <div id="progress_indicator" style="display: none;">Loading...please wait<br /><img src="../../respiration/media/images/progress.gif" /></div>
-            
-            <fieldset class="module aligned">
-                <div class="form-row">
-                    <label for="id_base_query" class="required">Base Query:</label><input type="text" name="base_query" id="id_base_query" class="vTextField" style="width: 350px" value="http://cherrystone.cc.columbia.edu:8181/solr/blackrock/select/?qt=forest-data&collection_id=environmental-monitoring&"></input>
-                </div> 
-                <div class="form-row">
-                    <label for="id_import_set">Import Set:</label><input type="text" name="import_set" id="id_import_set" class="vTextField" style="width: 350px"></input><br />
-                    <label>&nbsp;</label><i>If no import set is specified, all "educational" data will be imported. Approx. 15 minute load time.</i>
-                </div> 
-                <div class="form-row">
-                    <label for="id_delete_data">Delete Data</label><input type="checkbox" name="delete_data" id="id_delete_data"></input>
-                    
-                    <div id="delete_details" style="margin-left: 30px; margin-top: 10px">
-                        <span style="margin-right: 25px"><label>Station:</label></span><select name="station"><option value="All">All</option><option value="Fire Tower"/>Fire Tower</option><option value="Open Lowland"/>Open Lowland</option><option value="Ridgetop">Ridgetop</option></select>
-                        <br />
-                        <span style="margin-right: 9px"><label>Start Date:</label></span><input name="start_date" id="id_start_date" class="vDateField" size="10" type="text">
-                        <br />
-                        <span style="margin-right: 14px"><label>End Date:</label></span><input name="end_date" id="id_end_date" class="vDateField" size="10" type="text">
-                    </div>
-                    
-                </div>
-                <div style="margin: 5px;">
-                    <input value="Submit" class="default" name="_submit" type="submit">
-                </div>
-            </fieldset>           
-        </form>
-    </div>
-    <br/><br/>
+    {% include "respiration/admin_respiration.html" %}
   {% endifequal %}
-
+  
+  {% ifequal app_list.0.name "Optimization" %}
+    {% include "optimization/admin_optimization.html" %}
+  {% endifequal %}
+  
+  {% ifequal app_list.0.name "Paleoecology" %}
+    {% include "paleoecology/admin_paleoecology.html" %}
+  {% endifequal %}
+  
   {{ block.super }}
   
 {% endblock %}

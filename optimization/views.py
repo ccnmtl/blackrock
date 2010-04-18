@@ -380,7 +380,7 @@ def loadcsv(request):
     fh = request.FILES['csvfile']
     if file == '':
       # TODO: error checking (correct file type, etc.)
-      return HttpResponseRedirect(request.build_absolute_uri("./"))
+      return HttpResponse('No csv file specified')
 
     # delete existing
     Plot.objects.all().delete()
@@ -404,8 +404,6 @@ def loadcsv(request):
         y_idx = i
       elif h == 'dbh':
         dbh_idx = i
-      else:
-        return HttpResponse("Unsupported header %s" % h)
       
     for row in table:
        id = row[id_idx]

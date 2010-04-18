@@ -6,7 +6,7 @@ import csv, math
 def import_csv(request):
   if request.method == 'POST':
     
-    fh = request.FILES['csvfile']
+    fh = request.FILES['csvfile'] 
     if file == '':
       # TODO: error checking (correct file type, etc.)
       return HttpResponseRedirect(request.build_absolute_uri("../admin/sampler/"))
@@ -31,7 +31,7 @@ def import_csv(request):
       elif h == 'dbh':
         dbh_idx = i
       else:
-        return HttpResponse("Unsupported header %s" % h)
+        return HttpResponseRedirect(request.build_absolute_uri("../admin/sampler/"))
       
     for row in table:
        id = row[id_idx]

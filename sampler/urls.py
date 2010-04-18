@@ -10,7 +10,6 @@ urlpatterns = patterns('',
         (r'^worksheet$', 'blackrock.sampler.views.worksheet'),
         (r'^csv$', 'blackrock.sampler.views.export_csv'),
         (r'^import_csv$', 'blackrock.sampler.views.import_csv'),
-        (r'^csv_info$', 'blackrock.sampler.views.csv_info'),
         (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': media_root}),
 )
 
