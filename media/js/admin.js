@@ -1,6 +1,6 @@
 var progress_indicator_id = ''
 
-/* Generic Import Ajax */
+/* generic Import Ajax */
 function onImportSuccess(doc) {
     var json = JSON.parse(doc.responseText, null);
     var status = "";
@@ -69,19 +69,19 @@ function onSolrQuerySuccess(doc) {
     if (json.rowcount)
         status += json.rowcount + " rows imported <br />";
     $('respiration_status').innerHTML = status;
-    $('progress_indicator').style.display = 'none';
+    $('solr_progress').style.display = 'none';
 }
 
 function onSolrQueryError(err) {
     log('onError');
      $('respiration_error').innerHTML = "An error occurred importing data (" + err + "). Please try again."
-     $('progress_indicator').style.display = 'none';
+     $('solr_progress').style.display = 'none';
 }
 
 function submitSolrQuery(form) {     
     $('respiration_status').innerHTML = "";
     $('respiration_error').innerHTML = "";
-    $('progress_indicator').style.display = 'none';
+    $('solr_progress').style.display = 'none';
     
     var msg;
     var datePattern = /\d{2,4}-\d{1,2}-\d{1,2}/
@@ -116,7 +116,7 @@ function submitSolrQuery(form) {
              headers: {"Content-Type": "application/x-www-form-urlencoded"} 
           });
        deferred.addCallbacks(onSolrQuerySuccess, onSolrQueryError);  
-       $('progress_indicator').style.display = 'block';   
+       $('solr_progress').style.display = 'block';   
     }
     return false; 
 }
