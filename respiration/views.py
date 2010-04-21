@@ -6,6 +6,7 @@ from blackrock.respiration.models import Temperature
 import csv, datetime, time, urllib, urllib2
 from django.utils import simplejson
 from xml.dom import minidom
+from django.utils.tzinfo import FixedOffset
 
 def index(request, admin_msg=""):
   return render_to_response('respiration/index.html',
@@ -283,7 +284,7 @@ def _process_row(record_datetime, station, temp, next_expected_timestamp, last_v
     next_expected_timestamp = record_datetime + datetime.timedelta(hours=1)
     #last_timestamp_of_year = datetime.datetime(year=int(year)+1, day=1, month=1, hour=0) - datetime.timedelta(hours=1)
     #print last_timestamp_of_year
-    if record_datetime == datetime.datetime(year=int(record_datetime.year), month=12, day=31, hour=23):  # 12/31 11pm (last timestamp of the year)
+    if record_datetime.month == 12 and record_datetime.day == 31 and record_datetime.hour == 23:  # 12/31 11pm (last timestamp of the year)
       #print "last timestamp of year; no expected next value"
       next_expected_timestamp = None
     last_valid_temp = temp
@@ -299,12 +300,13 @@ def _string_to_datetime(date_string, time_string):
     return dt
   except:
     return None
-  
+ 
 def _solr_string_to_datetime(date_string):
   try:
     t = time.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
-    dt = datetime.datetime(t[0], t[1], t[2], t[3], t[4], t[5])
-    return dt
+    utc = datetime.datetime(t[0], t[1], t[2], t[3], t[4], t[5], tzinfo=FixedOffset(0))
+    est = utc.astimezone(FixedOffset(-300))
+    return est
   except:
     return None
   

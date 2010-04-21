@@ -123,11 +123,11 @@ class ImportTestCases(TestCase):
       
       json = simplejson.loads(response.content)
       self.assertEquals(json['deleted'], 1)
-      self.assertEquals(json['rowcount'], 8783) # "ideal" world count. doesn't include duplicates and such
+      self.assertEquals(json['rowcount'], 8784) # "ideal" world count. doesn't include duplicates and such
       
       qs = Temperature.objects.filter(station='Open Lowland').order_by('date')
-      self.assertEquals(qs.count(), 8784) # 9151 rows - 365 duplicates 
-      self.assertEquals(qs[0].date, datetime.datetime(1997, 1, 1, 0, 0))
+      self.assertEquals(qs.count(), 8785) # 9151 rows - 365 duplicates 
+      self.assertEquals(qs[0].date, datetime.datetime(1997, 1, 1, 1, 0))
       
       self.assertEquals(qs[1].date, datetime.datetime(2008, 1, 1, 0, 0))
       self.assertEquals(qs[1].reading, -2.3799999999999999)
