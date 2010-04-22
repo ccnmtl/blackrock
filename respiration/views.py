@@ -129,6 +129,7 @@ def getsum(request):
   json = '{"total": %s}' % round(total_mol,2)
   return HttpResponse(json, mimetype="application/javascript")
 
+_filters = 'station start end year'.split()
 def getcsv(request):
 
   filters = dict((f, request.GET.get(f)) for f in _filters)
