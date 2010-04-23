@@ -7,6 +7,7 @@ import csv, datetime, time, urllib, urllib2
 from django.utils import simplejson
 from xml.dom import minidom
 from django.utils.tzinfo import FixedOffset
+from django.db import connection, transaction
 
 def index(request, admin_msg=""):
   return render_to_response('respiration/index.html',
@@ -177,7 +178,9 @@ def getcsv(request):
   return response
   
 @user_passes_test(lambda u: u.is_staff)
+@transaction.commit_on_success
 def loadcsv(request):
+  cursor = connection.cursor()
   response = { 'rowcount': 0 }
   
   # if csv file provided, loadcsv
@@ -237,12 +240,21 @@ def loadcsv(request):
         dt = datetime.datetime(year=int(year), month=1, day=1, hour=normalized_hour)
         dt = dt + delta
          
-        (next_expected_timestamp, last_valid_temp, prev_station, created) = _process_row(dt, station, temp, next_expected_timestamp, last_valid_temp, prev_station)
+        (next_expected_timestamp, last_valid_temp, prev_station, created) = _process_row(cursor, dt, station, temp, next_expected_timestamp, last_valid_temp, prev_station)
         response['rowcount'] = response['rowcount'] + created
-    
+  transaction.set_dirty()
   return HttpResponseRedirect('/admin/respiration/temperature')
 
-def _process_row(record_datetime, station, temp, next_expected_timestamp, last_valid_temp, prev_station):
+def _update_or_insert(cursor, record_datetime, station, temp):
+  created = False
+  cursor.execute("UPDATE respiration_temperature SET reading=%s where station=%s and date=%s", [str(temp), station, record_datetime.strftime('%Y-%m-%d %H:%M:%S-05')])
+  if cursor.rowcount < 1:
+    cursor.execute('INSERT into respiration_temperature values(DEFAULT, %s, %s, %s, 1)', [station, record_datetime.strftime('%Y-%m-%d %H:%M:%S-05'), str(temp)]);
+    created = cursor.rowcount > 0
+    
+  return created 
+
+def _process_row(cursor, record_datetime, station, temp, next_expected_timestamp, last_valid_temp, prev_station):
 
   if temp == "" or float(temp) < -100 or float(temp) > 100:
     if last_valid_temp is not None and station == prev_station:
@@ -256,40 +268,28 @@ def _process_row(record_datetime, station, temp, next_expected_timestamp, last_v
   if next_expected_timestamp is not None and record_datetime != next_expected_timestamp:
     # if dt < expected we just assume it is a duplicate of data we already have
     while(record_datetime > next_expected_timestamp and record_datetime.year == next_expected_timestamp.year):
-      (t, created) = Temperature.objects.get_or_create(station=station, date=next_expected_timestamp)
+      if last_valid_temp is not None:
+        reading = float(last_valid_temp)
+      else:
+        reading = float(temp)
+          
+      created = _update_or_insert(cursor, next_expected_timestamp, station, reading)
+      
       if created:
-        #print "input data: %s %s %s" % (year, julian_days, hour)
-        #julian_day = (dt - datetime.datetime(year=int(year), month=1, day=1)).days
-        #print "missing data for %s: expected %s but got %s" % (station, next_expected_timestamp, dt)
-        #print "(julian day %s) " % julian_day
-        #print "missing data: no data for %s" % next_expected_timestamp
-        if last_valid_temp is not None:
-          #print "using last known value of %s" % last_valid_temp
-          t.reading = float(last_valid_temp)
-        else:
-          #print "using current value of %s" % temp
-          t.reading = float(temp)
-        t.save()
         next_expected_timestamp = next_expected_timestamp + datetime.timedelta(hours=1)
         count = count + 1
          
   if temp != "":
-    (t, created) = Temperature.objects.get_or_create(station=station, date=record_datetime)
+    created = _update_or_insert(cursor, record_datetime, station, float(temp))
         
     if created:
       count = count + 1  
-    #else:
-    #  print 'Record already exists for this date/time slot: %s %s %f' % (station, record_datetime.ctime(), float(temp))
 
-    t.reading = float(temp)
     next_expected_timestamp = record_datetime + datetime.timedelta(hours=1)
-    #last_timestamp_of_year = datetime.datetime(year=int(year)+1, day=1, month=1, hour=0) - datetime.timedelta(hours=1)
-    #print last_timestamp_of_year
+
     if record_datetime.month == 12 and record_datetime.day == 31 and record_datetime.hour == 23:  # 12/31 11pm (last timestamp of the year)
-      #print "last timestamp of year; no expected next value"
       next_expected_timestamp = None
     last_valid_temp = temp
-    t.save()
     
   return (next_expected_timestamp, last_valid_temp, station, count)
          
@@ -333,7 +333,10 @@ def _solr_get_sets(base_query, import_set):
   
   return sets
   
+@transaction.commit_on_success
 def loadsolr(request):
+  cursor = connection.cursor()
+  
   response = { 'rowcount': 0 }
   try:
     base_query = urllib.unquote(request.POST['base_query'])
@@ -373,7 +376,7 @@ def loadsolr(request):
               dt = _solr_string_to_datetime(child.childNodes[0].nodeValue)
           
           if (station and dt and temp):
-            (next_expected_timestamp, last_valid_temp, prev_station, created) = _process_row(dt, station, float(temp), next_expected_timestamp, last_valid_temp, prev_station)
+            (next_expected_timestamp, last_valid_temp, prev_station, created) = _process_row(cursor, dt, station, float(temp), next_expected_timestamp, last_valid_temp, prev_station)
             response['rowcount'] = response['rowcount'] + created
             
         xmldoc.unlink()
@@ -383,6 +386,6 @@ def loadsolr(request):
     response['message'] = "Unexpected error:", sys.exc_info()[0]
   
   http_response = HttpResponse(simplejson.dumps(response), mimetype='application/json')
-  http_response['Cache-Control']='max-age=0,no-cache,no-store'
-  return http_response  
-      
+  http_response['Cache-Control']='max-age=0,no-cache,no-store' 
+  transaction.set_dirty()
+  return http_response
