@@ -8,6 +8,7 @@ from django.utils import simplejson
 from xml.dom import minidom
 from django.utils.tzinfo import FixedOffset
 from django.db import connection, transaction
+from django.core.cache import cache
 
 def index(request, admin_msg=""):
   return render_to_response('respiration/index.html',
@@ -333,12 +334,12 @@ def _solr_get_sets(base_query, import_set):
   
   return sets
   
+@user_passes_test(lambda u: u.is_staff)
 @transaction.commit_on_success
 def loadsolr(request):
-  cursor = connection.cursor()
-  
-  response = { 'rowcount': 0 }
+  rowcount = 0
   try:
+    cursor = connection.cursor()
     base_query = urllib.unquote(request.POST['base_query'])
     delete_data = request.POST.get('delete_data', 'false') == 'true'
     station = urllib.unquote(request.POST['station'])
@@ -346,7 +347,7 @@ def loadsolr(request):
     end_date = _string_to_datetime(request.POST['end_date'], '23:59')
     
     if (delete_data):
-      response['deleted'] = Temperature.selective_delete(station, start_date, end_date)
+      cache.set('solr_deleted', Temperature.selective_delete(station, start_date, end_date))
       
     sets = _solr_get_sets(base_query, urllib.unquote(request.POST.get('import_set', "")))
     
@@ -377,15 +378,42 @@ def loadsolr(request):
           
           if (station and dt and temp):
             (next_expected_timestamp, last_valid_temp, prev_station, created) = _process_row(cursor, dt, station, float(temp), next_expected_timestamp, last_valid_temp, prev_station)
-            response['rowcount'] = response['rowcount'] + created
+            rowcount = rowcount + created
             
         xmldoc.unlink()
         retrieved = retrieved + to_retrieve
-  except:
-    import sys
-    response['message'] = "Unexpected error:", sys.exc_info()[0]
+  except Exception,e:
+    cache.set('solr_error', str(e)) 
   
+  response = { 'complete': True }
   http_response = HttpResponse(simplejson.dumps(response), mimetype='application/json')
   http_response['Cache-Control']='max-age=0,no-cache,no-store' 
   transaction.set_dirty()
+    
+  cache.set('solr_rowcount', rowcount)
+  cache.set('solr_complete', True)
+  
+  return http_response
+
+@user_passes_test(lambda u: u.is_staff)
+def loadsolr_poll(request):
+  response = { 'solr_complete': False }
+  if cache.has_key('solr_complete'):
+    response['solr_complete'] = True
+    cache.delete('solr_complete')
+    
+    if cache.has_key('solr_error'):
+      response['solr_error'] = cache.get('solr_error')
+      cache.delete('solr_error')
+      
+    if cache.has_key('solr_rowcount'):
+      response['solr_rowcount'] = cache.get('solr_rowcount')
+      cache.delete('solr_rowcount')
+      
+    if cache.has_key('solr_deleted'):
+      response['solr_deleted'] = cache.get('solr_deleted')
+      cache.delete('solr_deleted')
+  
+  http_response = HttpResponse(simplejson.dumps(response), mimetype='application/json')
+  http_response['Cache-Control']='max-age=0,no-cache,no-store' 
   return http_response
