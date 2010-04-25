@@ -1,12 +1,6 @@
 var original_request = null;
 var poll_url = null;
 
-function onQueryError(err) {
-    log('onError');
-     $('respiration_error').innerHTML = "An error occurred importing data (" + err + "). Please try again."
-     $('solr_progress').style.display = 'none';
-}
-
 function submitSolrQuery(form) {     
     $('respiration_status').innerHTML = "";
     $('respiration_error').innerHTML = "";
@@ -44,7 +38,6 @@ function submitSolrQuery(form) {
              sendContent: queryString(params),
              headers: {"Content-Type": "application/x-www-form-urlencoded"} 
           });
-       original_request.addErrback(onQueryError);
        poll_url = form.action + 'poll' 
        
        waitForResults();
@@ -54,7 +47,6 @@ function submitSolrQuery(form) {
 }
 
 function onWaitSuccess(doc) {
-    log('onWaitSuccess')
     var json = JSON.parse(doc.responseText, null);
     if (json['solr_complete']) {
         var status = "";
@@ -69,17 +61,23 @@ function onWaitSuccess(doc) {
         
         try {
            original_request.cancel();
-        } catch (e) {
-           log('Cancelling original request error: ' + e);
-        }
+        } catch (e) {}
     } else {
         setTimeout(waitForResults, 30000 /* ..after 30 seconds */);
     }
 }
 
+function onWaitError(err) {
+     $('respiration_error').innerHTML = "An error occurred importing data (" + err + "). Please try again."
+     $('solr_progress').style.display = 'none';
+     
+     try {
+         original_request.cancel();
+      } catch (e) {}
+}
+
 function waitForResults() {
-    log('waitForResults')
     deferred = doXHR(poll_url, { method: 'GET' });
-    deferred.addCallbacks(onWaitSuccess, onQueryError);
+    deferred.addCallbacks(onWaitSuccess, onWaitError);
 }
 

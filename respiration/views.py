@@ -347,7 +347,7 @@ def loadsolr(request):
     end_date = _string_to_datetime(request.POST['end_date'], '23:59')
     
     if (delete_data):
-      cache.set('solr_deleted', Temperature.selective_delete(station, start_date, end_date))
+      cache.set('solr_deleted', Temperature.selective_delete(station, start_date, end_date), 3600) # cache this for a while. default expiration is 5 minutes
       
     sets = _solr_get_sets(base_query, urllib.unquote(request.POST.get('import_set', "")))
     
