@@ -6,6 +6,7 @@ import datetime
 import os.path
 from django.utils import simplejson
 from django.core.cache import cache
+from blackrock_main.models import LastImportDate
 
 class ImportTestCases(TestCase):
     #fixtures = ["test_data.json"]
@@ -90,53 +91,18 @@ class ImportTestCases(TestCase):
         self.assertEquals(qs.count(), 1)
         self.assertEquals(qs[0].reading, -1.06)
         
-    def test_solr_fail(self):
-      self._login(self.client, 'testuser', 'test')
-        
-      data = {'base_query': 'http://foo.bar' }
-                
-      response = self.client.post('/respiration/loadsolr', data)
-      
-      json = simplejson.loads(response.content)
-      self.assertEquals(json['complete'], True)
-      self.assertTrue(cache.has_key('solr_complete'))
-      self.assertFalse(cache.has_key('solr_deleted'))
-      self.assertTrue(cache.has_key('solr_rowcount'))
-      self.assertEquals(cache.get('solr_rowcount'), 0)
-      self.assertTrue(cache.has_key('solr_error'))
-      self.assertEquals(cache.get('solr_error'), '"Key \'station\' not found in <QueryDict: {u\'base_query\': [u\'http://foo.bar\']}>"')
-      
-      response = self.client.get('/respiration/loadsolrpoll', {})
-      json = simplejson.loads(response.content)
-      self.assertEquals(json['solr_error'], '"Key \'station\' not found in <QueryDict: {u\'base_query\': [u\'http://foo.bar\']}>"')
-      self.assertEquals(json['solr_rowcount'], 0) # "ideal" world count. doesn't include duplicates and such
-      
-      self.assertFalse(cache.has_key('solr_complete'))
-      self.assertFalse(cache.has_key('solr_deleted'))
-      self.assertFalse(cache.has_key('solr_rowcount'))
-      self.assertFalse(cache.has_key('solr_error'))
-
-        
     def test_solr_import_set(self):
-      Temperature.objects.get_or_create(station='Open Lowland', date=datetime.datetime(1997, 1, 1, 1, 00), reading=1.1)
-      Temperature.objects.get_or_create(station='Open Lowland', date=datetime.datetime(2008, 6, 1, 1, 00), reading=1.1)
-      Temperature.objects.get_or_create(station='Ridgetop', date=datetime.datetime(2008, 7, 1, 1, 00), reading=1.1)
-      Temperature.objects.get_or_create(station='Fire Tower', date=datetime.datetime(2008, 8, 1, 1, 00), reading=1.1)
+      Temperature.objects.get_or_create(station='Ridgetop', date=datetime.datetime(1997, 1, 1, 1, 00), reading=1.1)
+      Temperature.objects.get_or_create(station='Ridgetop', date=datetime.datetime(2009, 6, 1, 1, 00), reading=1.1)
+      Temperature.objects.get_or_create(station='Ridgetop', date=datetime.datetime(2009, 7, 1, 1, 00), reading=1.1)
+      Temperature.objects.get_or_create(station='Ridgetop', date=datetime.datetime(2009, 8, 1, 1, 00), reading=1.1)
       
-      self.assertEquals(Temperature.objects.filter(station='Open Lowland').count(), 2)
-      self.assertEquals(Temperature.objects.filter(station='Ridgetop').count(), 1)
-      self.assertEquals(Temperature.objects.filter(station='Fire Tower').count(), 1)
       self._login(self.client, 'testuser', 'test')
         
       response = self.client.get('/admin/respiration/')
       self.assertContains(response, 'Import Respiration Data from SOLR', status_code=200)
         
-      data = {'base_query': 'http://cherrystone.cc.columbia.edu:8181/solr/blackrock/select/?qt=forest-data&collection_id=environmental-monitoring&',
-              'import_set': 'OL_2008',
-              'delete_data': 'true',
-              'station': 'Open Lowland',
-              'start_date': '2008-01-01',
-              'end_date': '2008-12-31'}
+      data = { 'import_set': 'RT_2009'}
                 
       response = self.client.post('/respiration/loadsolr', data)
       
@@ -145,67 +111,27 @@ class ImportTestCases(TestCase):
       
       self.assertTrue(cache.has_key('solr_complete'))
       self.assertFalse(cache.has_key('solr_error'))
-      self.assertTrue(cache.has_key('solr_deleted'))
-      self.assertEquals(cache.get('solr_deleted'), 1)
-      self.assertTrue(cache.has_key('solr_rowcount'))
-      self.assertEquals(cache.get('solr_rowcount'), 8784) # "ideal" world count. doesn't include duplicates and such
+      self.assertEquals(cache.get('solr_created'), 8028)
+      self.assertEquals(cache.get('solr_updated'), 337)
       
-      qs = Temperature.objects.filter(station='Open Lowland').order_by('date')
-      self.assertEquals(qs.count(), 8785) # 9151 rows - 365 duplicates 
+      qs = Temperature.objects.filter(station='Ridgetop').order_by('date')
+      self.assertEquals(qs.count(), 8032)  
       self.assertEquals(qs[0].date, datetime.datetime(1997, 1, 1, 1, 0))
       
-      self.assertEquals(qs[1].date, datetime.datetime(2008, 1, 1, 0, 0))
-      self.assertEquals(qs[1].reading, -2.3799999999999999)
+      self.assertEquals(qs[1].date, datetime.datetime(2005, 1, 13, 16, 0))
+      self.assertEquals(qs[1].reading, 9.11)
                         
-      self.assertEquals(qs[10].date, datetime.datetime(2008, 1, 1, 9, 0))
-      self.assertEquals(qs[10].reading, 1.51)
-      
-      self.assertEquals(Temperature.objects.filter(station='Ridgetop').count(), 1)
-      self.assertEquals(Temperature.objects.filter(station='Fire Tower').count(), 1)
+      self.assertEquals(qs[2].date, datetime.datetime(2009, 1, 1, 0, 0))
+      self.assertEquals(qs[2].reading, -13.01 )
       
       response = self.client.get('/respiration/loadsolrpoll', {})
       json = simplejson.loads(response.content)
-      self.assertEquals(json['solr_deleted'], 1)
-      self.assertEquals(json['solr_rowcount'], 8784) # "ideal" world count. doesn't include duplicates and such
+      self.assertEquals(json['solr_created'], 8028)
+      self.assertEquals(json['solr_updated'], 337)
       
       self.assertFalse(cache.has_key('solr_complete'))
-      self.assertFalse(cache.has_key('solr_deleted'))
-      self.assertFalse(cache.has_key('solr_rowcount'))
+      self.assertFalse(cache.has_key('solr_created'))
+      self.assertFalse(cache.has_key('solr_updated'))
       
-      
-
-    # This test takes about 20 minutes to run. I've commented it out for normal testing purposes.
-    def x_test_solr_import_all(self):
-      Temperature.objects.get_or_create(station='Open Lowland', date=datetime.datetime(1997, 1, 1, 1, 00), reading=1.1)
-      Temperature.objects.get_or_create(station='Open Lowland', date=datetime.datetime(2008, 6, 1, 1, 00), reading=1.1)
-      Temperature.objects.get_or_create(station='Ridgetop', date=datetime.datetime(2008, 7, 1, 1, 00), reading=1.1)
-      Temperature.objects.get_or_create(station='Fire Tower', date=datetime.datetime(2008, 8, 1, 1, 00), reading=1.1)
-
-      self._login(self.client, 'testuser', 'test')
-        
-      data = {'base_query': 'http://cherrystone.cc.columbia.edu:8181/solr/blackrock/select/?qt=forest-data&collection_id=environmental-monitoring&',
-              'delete_data': 'true',
-              'station': 'All',
-              'start_date': '2008-01-01',
-              'end_date': '2008-12-31'}
-                
-      response = self.client.post('/respiration/loadsolr', data)
-      
-      json = simplejson.loads(response.content)
-      
-      self.assertEquals(json['complete'], True)
-      
-      self.assertTrue(cache.has_key('solr_complete'))
-      self.assertFalse(cache.has_key('solr_error'))
-      self.assertTrue(cache.has_key('solr_deleted'))
-      self.assertEquals(cache.get('solr_deleted'), 3)
-      self.assertTrue(cache.has_key('solr_rowcount'))
-      self.assertEquals(cache.get('solr_rowcount'), 43139) # "ideal" world count. doesn't include duplicates and such
-      
-      query_set = Temperature.objects.extra(select={'count': 'count(1)'}, order_by=['-count', 'station']).values('count', 'station')
-      query_set.query.group_by = ['station']
-      
-      self.assertEquals(Temperature.objects.filter(station='Open Lowland').count(), 16812) # OL_2008 & OL_2009
-      self.assertEquals(Temperature.objects.filter(station='Ridgetop').count(), 8784) # RT_
-      self.assertEquals(Temperature.objects.filter(station='Fire Tower').count(), 17544)
+      lid = LastImportDate.objects.get(application='respiration') # should exist
 

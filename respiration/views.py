@@ -2,13 +2,15 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpRequest, HttpRes
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import user_passes_test
-from blackrock.respiration.models import Temperature
+from respiration.models import Temperature
 import csv, datetime, time, urllib, urllib2
 from django.utils import simplejson
 from xml.dom import minidom
 from django.utils.tzinfo import FixedOffset
 from django.db import connection, transaction
 from django.core.cache import cache
+from blackrock_main.models import LastImportDate
+import pytz
 
 def index(request, admin_msg=""):
   return render_to_response('respiration/index.html',
@@ -182,7 +184,6 @@ def getcsv(request):
 @transaction.commit_on_success
 def loadcsv(request):
   cursor = connection.cursor()
-  response = { 'rowcount': 0 }
   
   # if csv file provided, loadcsv
   if request.method != 'POST' or 'csvfile' not in request.FILES:
@@ -217,7 +218,6 @@ def loadcsv(request):
     else:
       if request.POST.get('delete') == 'on':
         qs = Temperature.objects.all()
-        response['deleted'] = qs.count() 
         qs.delete()
     
       next_expected_timestamp = None
@@ -241,8 +241,8 @@ def loadcsv(request):
         dt = datetime.datetime(year=int(year), month=1, day=1, hour=normalized_hour)
         dt = dt + delta
          
-        (next_expected_timestamp, last_valid_temp, prev_station, created) = _process_row(cursor, dt, station, temp, next_expected_timestamp, last_valid_temp, prev_station)
-        response['rowcount'] = response['rowcount'] + created
+        (next_expected_timestamp, last_valid_temp, prev_station, created, updated) = _process_row(cursor, dt, station, temp, next_expected_timestamp, last_valid_temp, prev_station)
+        
   transaction.set_dirty()
   return HttpResponseRedirect('/admin/respiration/temperature')
 
@@ -263,7 +263,8 @@ def _process_row(cursor, record_datetime, station, temp, next_expected_timestamp
     else:
       temp = 0
       
-  count = 0
+  created_count = 0
+  updated_count = 0
   
   # if data is missing, fill in the blanks with the last valid temp
   if next_expected_timestamp is not None and record_datetime != next_expected_timestamp:
@@ -278,13 +279,17 @@ def _process_row(cursor, record_datetime, station, temp, next_expected_timestamp
       
       if created:
         next_expected_timestamp = next_expected_timestamp + datetime.timedelta(hours=1)
-        count = count + 1
+        created_count = created_count + 1
+      else:
+        updated_count = updated_count + 1
          
   if temp != "":
     created = _update_or_insert(cursor, record_datetime, station, float(temp))
         
     if created:
-      count = count + 1  
+      created_count = created_count + 1
+    else:
+      updated_count = updated_count + 1  
 
     next_expected_timestamp = record_datetime + datetime.timedelta(hours=1)
 
@@ -292,22 +297,24 @@ def _process_row(cursor, record_datetime, station, temp, next_expected_timestamp
       next_expected_timestamp = None
     last_valid_temp = temp
     
-  return (next_expected_timestamp, last_valid_temp, station, count)
+  return (next_expected_timestamp, last_valid_temp, station, created_count, updated_count)
          
   
-def _string_to_datetime(date_string, time_string):
+def _string_to_eastern_dst(date_string, time_string):
   try:
-    t = time.strptime(date_string + ' ' + time_string, '%Y-%m-%d %H:%M')
-    dt = datetime.datetime(t[0], t[1], t[2], t[3], t[4])
+    t = time.strptime(date_string + ' ' + time_string, '%Y-%m-%d %H:%M:%S')
+    tz = pytz.timezone('US/Eastern')
+    dt = datetime.datetime(t[0], t[1], t[2], t[3], t[4], t[5], tzinfo=tz)
     return dt
   except:
     return None
  
-def _solr_string_to_datetime(date_string):
+# Convert the UTC solr datetime string to an EST datetime object
+def _utc_to_est(date_string):
   try:
     t = time.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
     utc = datetime.datetime(t[0], t[1], t[2], t[3], t[4], t[5], tzinfo=FixedOffset(0))
-    est = utc.astimezone(FixedOffset(-300))
+    est = utc.astimezone(FixedOffset(-300)) # subtract 5 hours
     return est
   except:
     return None
@@ -320,10 +327,13 @@ def _solr_request(url):
 
 # Retrieve the requested import sets
 # If no import_set is specified, retrieve all "educational" sets that have rows
-def _solr_get_sets(base_query, import_set):
+def _solr_get_sets(base_query, last_import_date, import_set):
   sets = {}
   count_query = base_query + 'facet=true&facet.field=import_set&rows=0&q=import_set_type:"educational"'
-  if (len(import_set) > 0):
+  if last_import_date:
+    utc = last_import_date.astimezone(FixedOffset(0))
+    count_query = count_query + '%20AND%20last_modified:[' + utc.strftime('%Y-%m-%dT%H:%M:%SZ') + '%20TO%20NOW]'
+  if len(import_set) > 0:
     count_query = count_query + '%20AND%20import_set:"' + import_set + '"'
 
   xmldoc = _solr_request(count_query)
@@ -333,34 +343,57 @@ def _solr_get_sets(base_query, import_set):
   xmldoc.unlink()
   
   return sets
+
+def _get_last_import_date(request):
+  last_import_date = _string_to_eastern_dst(request.POST.get('last_import_date', ''), urllib.unquote(request.POST.get('last_import_time', '00:00')))
   
+  if not last_import_date:
+    try:
+      last_import_date = LastImportDate.objects.get(application='respiration').last_import
+      last_import_date = last_import_date.replace(tzinfo=pytz.timezone('US/Eastern'))
+    except LastImportDate.DoesNotExist:
+      pass
+
+  return last_import_date
+
+solr_base_query = 'http://cherrystone.cc.columbia.edu:8181/solr/blackrock/select/?qt=forest-data&collection_id=environmental-monitoring&'
+
+@user_passes_test(lambda u: u.is_staff)
+def previewsolr(request):
+  response = { 'sets': {} }
+  
+  last_import_date = _get_last_import_date(request)
+  sets = _solr_get_sets(solr_base_query, last_import_date, request.POST.get('import_set', ''))
+    
+  for import_set in sets:
+    response['sets'][import_set] = sets[import_set]
+  
+  if last_import_date:
+    response['last_import_date'] = last_import_date.strftime('%Y-%m-%d');
+    response['last_import_time'] = last_import_date.strftime('%H:%M:%S');  
+  
+  http_response = HttpResponse(simplejson.dumps(response), mimetype='application/json')
+  http_response['Cache-Control']='max-age=0,no-cache,no-store' 
+  return http_response
+
 @user_passes_test(lambda u: u.is_staff)
 @transaction.commit_on_success
 def loadsolr(request):
-  rowcount = 0
+  created_count = 0
+  updated_count = 0
   try:
     cursor = connection.cursor()
-    base_query = urllib.unquote(request.POST['base_query'])
-    delete_data = request.POST.get('delete_data', 'false') == 'true'
-    station = urllib.unquote(request.POST['station'])
-    start_date = _string_to_datetime(request.POST['start_date'], '00:00')
-    end_date = _string_to_datetime(request.POST['end_date'], '23:59')
-    
-    if (delete_data):
-      cache.set('solr_deleted', Temperature.selective_delete(station, start_date, end_date), 3600) # cache this for a while. default expiration is 5 minutes
-      
-    sets = _solr_get_sets(base_query, urllib.unquote(request.POST.get('import_set', "")))
+    sets = _solr_get_sets(solr_base_query, _get_last_import_date(request), request.POST.get('import_set', ''))
     
     for import_set in sets:
       next_expected_timestamp = None
       last_valid_temp = None
       prev_station = None
-      row_count = sets[import_set]
-        
-      retrieved = 0 
-      while (retrieved < row_count):
-        to_retrieve = min(1000, row_count - retrieved)
-        data_query = base_query + 'q=import_set:"' + import_set + '"&fl=collection_id,import_set,record_datetime,record_subject,location_name,latitude,longitude,temp_c_avg,temp_avg&sort=record_datetime%20asc'
+      retrieved = 0
+       
+      while (retrieved < sets[import_set]):
+        to_retrieve = min(1000, sets[import_set] - retrieved)
+        data_query = solr_base_query + 'q=import_set:"' + import_set + '"&fl=collection_id,import_set,record_datetime,record_subject,location_name,latitude,longitude,temp_c_avg,temp_avg&sort=record_datetime%20asc'
         url = '%s&start=%d&rows=%d' % (data_query, retrieved, to_retrieve)
         xmldoc = _solr_request(url)
         for node in xmldoc.getElementsByTagName('doc'):
@@ -374,25 +407,35 @@ def loadsolr(request):
             elif (name == 'temp_c_avg' or name == 'temp_avg'):
               temp = child.childNodes[0].nodeValue
             elif (name == 'record_datetime'):
-              dt = _solr_string_to_datetime(child.childNodes[0].nodeValue)
+              dt = _utc_to_est(child.childNodes[0].nodeValue)
           
           if (station and dt and temp):
-            (next_expected_timestamp, last_valid_temp, prev_station, created) = _process_row(cursor, dt, station, float(temp), next_expected_timestamp, last_valid_temp, prev_station)
-            rowcount = rowcount + created
+            (next_expected_timestamp, last_valid_temp, prev_station, created, updated) = _process_row(cursor, dt, station, float(temp), next_expected_timestamp, last_valid_temp, prev_station)
+            created_count = created_count + created
+            updated_count = updated_count + updated
             
         xmldoc.unlink()
         retrieved = retrieved + to_retrieve
+    
+    # Update the last import date
+    try:
+      lid = LastImportDate.objects.get(application='respiration')
+      lid.last_import = datetime.datetime.now()
+    except LastImportDate.DoesNotExist:
+      lid = LastImportDate.objects.create(application='respiration', last_import=datetime.datetime.now())
+    lid.save()
   except Exception,e:
     cache.set('solr_error', str(e)) 
+  
+  transaction.set_dirty()
+  
+  cache.set('solr_created', created_count)
+  cache.set('solr_updated', updated_count)
+  cache.set('solr_complete', True)
   
   response = { 'complete': True }
   http_response = HttpResponse(simplejson.dumps(response), mimetype='application/json')
   http_response['Cache-Control']='max-age=0,no-cache,no-store' 
-  transaction.set_dirty()
-    
-  cache.set('solr_rowcount', rowcount)
-  cache.set('solr_complete', True)
-  
   return http_response
 
 @user_passes_test(lambda u: u.is_staff)
@@ -406,13 +449,13 @@ def loadsolr_poll(request):
       response['solr_error'] = cache.get('solr_error')
       cache.delete('solr_error')
       
-    if cache.has_key('solr_rowcount'):
-      response['solr_rowcount'] = cache.get('solr_rowcount')
-      cache.delete('solr_rowcount')
+    if cache.has_key('solr_created'):
+      response['solr_created'] = cache.get('solr_created')
+      cache.delete('solr_created')
       
-    if cache.has_key('solr_deleted'):
-      response['solr_deleted'] = cache.get('solr_deleted')
-      cache.delete('solr_deleted')
+    if cache.has_key('solr_updated'):
+      response['solr_updated'] = cache.get('solr_updated')
+      cache.delete('solr_updated')
   
   http_response = HttpResponse(simplejson.dumps(response), mimetype='application/json')
   http_response['Cache-Control']='max-age=0,no-cache,no-store' 
