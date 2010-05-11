@@ -356,7 +356,7 @@ def _get_last_import_date(request):
 
   return last_import_date
 
-solr_base_query = 'http://cherrystone.cc.columbia.edu:8181/solr/blackrock/select/?qt=forest-data&collection_id=environmental-monitoring&'
+solr_base_query = 'http://seasnail.cc.columbia.edu:8181/solr/blackrock/select/?qt=forest-data&collection_id=environmental-monitoring&'
 
 @user_passes_test(lambda u: u.is_staff)
 def previewsolr(request):
