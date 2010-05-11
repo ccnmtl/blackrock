@@ -275,9 +275,8 @@
 	var coords = getElementPosition(this.canvas);
 	var pos_x = mouse.page.x - coords.x;
 	this.temp = pos_x - this.graph_left_margin;
-	if (this.temp < 0) { this.temp = 0; }
 	if (this.temp > this.canvas_length - this.graph_right_margin) { this.temp = this.canvas_length - this.graph_right_margin; }
-	if (this.temp > 0) {
+	if (this.temp >= 0) {
 	    this.graph_cursor.style.left = (pos_x)+'px';
 	    var self = this;
 	    setTimeout(function(){self.updateCursorVals();},10);
