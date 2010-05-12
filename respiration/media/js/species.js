@@ -125,7 +125,7 @@
     EquationHighlighter.prototype.needsUpdate = function() {
 	//addElementClass('plotGraph','needsupdate');
 	leafGraph();
-	global.TemperatureSliders.updateCursorVals();
+	global.TemperatureSliders.updateGraphDimensions();
     }
     EquationHighlighter.prototype.initSpecies = function(elt) {
 	var self = this;
@@ -264,22 +264,39 @@
 	for (a in plans) {plans[a]();}
 	//EquationHighlighter.needsUpdate();
     }
+
+    TemperatureSliders.prototype.updateGraphDimensions = function() {
+        this.graph_left_margin = this.calcGraphLeftMargin(); // variable based on the legend
+        this.canvas_length = this.calcCanvasLength(); // depends on the graph_left_margin
+        this.updateCursorVals();
+    }
     
-    TemperatureSliders.prototype.graphLeftMargin = function() {
+    TemperatureSliders.prototype.calcGraphLeftMargin = function() {
         var graph_left_margin = 40;
+        var canvas_position = getElementPosition(this.canvas);
         
         // graph_left_margin is really the width of the y-axis legend.
         // left_margin can thus vary width depending on the value, 
         // throwing the whole graph off. Sadly, it's not easy to get this width
         // so, I'm trying a bit of a hack here.
-        
-        
-        return graph_left_margin;
+        forEach(getElementsByTagAndClassName(null, "bluff-text", parent=$('rightfield')),
+                function(elem) {
+                   if (elem.innerHTML == "0") {
+                       var coords = getElementPosition(elem);
+                       var dims = getElementDimensions(elem)
+                       
+                       // This constant represents the left & right draw margins in the canvas
+                       // Yes, ugly, but no way else to figure out the exact positions of the y-axis labels
+                       margin = (coords.x - canvas_position.x) + dims.w + 10.0999755859375; 
+                   }
+                });
+
+        return margin;
     }
     
-    TemperatureSliders.prototype.canvasLength = function() {
-        var graph_right_margin = 2;
-        var canvas_length = getElementDimensions(this.canvas).w-this.graphLeftMargin()-graph_right_margin;
+    TemperatureSliders.prototype.calcCanvasLength = function() {
+        var graph_right_margin = 1.75;
+        var canvas_length = getElementDimensions(this.canvas).w - this.graph_left_margin - graph_right_margin;
         return canvas_length;
     }
 
@@ -289,8 +306,8 @@
 	var mouse = evt.mouse();
 	var coords = getElementPosition(this.canvas);
 	var pos_x = mouse.page.x - coords.x;
-	this.temp = pos_x - this.graphLeftMargin();
-	if (this.temp > this.canvasLength()) { this.temp = this.canvasLength(); }
+	this.temp = pos_x - this.graph_left_margin;
+	if (this.temp >= this.canvas_length) { this.temp = this.canvas_length; }
 	if (this.temp >= 0) {
 	    this.graph_cursor.style.left = (pos_x)+'px';
 	    var self = this;
@@ -312,7 +329,7 @@
     }
     TemperatureSliders.prototype.updateCursorVals = function(evt) {
 	var lf = global.LeafData;
-	var real_temp = lf.t_a_min + (lf.t_a_max-lf.t_a_min)*this.temp/(this.canvasLength());
+	var real_temp = lf.t_a_min + (lf.t_a_max-lf.t_a_min)*this.temp/this.canvas_length;
 	if (!isNaN(real_temp)) {
 	    $('temp_mouse').value = Math.round(real_temp * 10) / 10;
 	    for (a in lf.species) {

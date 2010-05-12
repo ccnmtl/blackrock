@@ -122,6 +122,7 @@ function initGraph() {
   //g.hide_line_markers = true;
   g.set_margins(0);
   g.left_margin = 30;
+  g.right_margin = 5;
   g.top_margin = 10;
   g.bottom_margin = 10;
   g.no_data_message = "";
