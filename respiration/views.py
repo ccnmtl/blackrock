@@ -276,9 +276,9 @@ def _process_row(cursor, record_datetime, station, temp, next_expected_timestamp
         reading = float(temp)
           
       created = _update_or_insert(cursor, next_expected_timestamp, station, reading)
+      next_expected_timestamp = next_expected_timestamp + datetime.timedelta(hours=1)
       
       if created:
-        next_expected_timestamp = next_expected_timestamp + datetime.timedelta(hours=1)
         created_count = created_count + 1
       else:
         updated_count = updated_count + 1
