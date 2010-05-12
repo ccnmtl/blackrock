@@ -169,8 +169,6 @@
 	this.MIN_TEMP_WIDTH = 10;
 	this.length=null;
 	this.margin = 25;
-	this.graph_left_margin = 40;
-	this.graph_right_margin = 2;
 	this.freeze = false;
     }
     TemperatureSliders.prototype.onLoad = function() {
@@ -194,8 +192,7 @@
 
 	this.canvas = getElement('graph');
 	this.graph_cursor = getElement('graph-cursor');
-	this.canvas_length = getElementDimensions(this.canvas).w-this.graph_left_margin-this.graph_right_margin;
-
+	
 	/// Temperature Sliders
 	connect(this.input_low,'onchange',function(){self.low = self.input_low.value;
 						     self.update('input_low')});
@@ -267,6 +264,24 @@
 	for (a in plans) {plans[a]();}
 	//EquationHighlighter.needsUpdate();
     }
+    
+    TemperatureSliders.prototype.graphLeftMargin = function() {
+        var graph_left_margin = 40;
+        
+        // graph_left_margin is really the width of the y-axis legend.
+        // left_margin can thus vary width depending on the value, 
+        // throwing the whole graph off. Sadly, it's not easy to get this width
+        // so, I'm trying a bit of a hack here.
+        
+        
+        return graph_left_margin;
+    }
+    
+    TemperatureSliders.prototype.canvasLength = function() {
+        var graph_right_margin = 2;
+        var canvas_length = getElementDimensions(this.canvas).w-this.graphLeftMargin()-graph_right_margin;
+        return canvas_length;
+    }
 
     TemperatureSliders.prototype.graphCursor = function(evt,do_anyway) {
 	if (this.freeze && !do_anyway) return;
@@ -274,8 +289,8 @@
 	var mouse = evt.mouse();
 	var coords = getElementPosition(this.canvas);
 	var pos_x = mouse.page.x - coords.x;
-	this.temp = pos_x - this.graph_left_margin;
-	if (this.temp > this.canvas_length) { this.temp = this.canvas_length; }
+	this.temp = pos_x - this.graphLeftMargin();
+	if (this.temp > this.canvasLength()) { this.temp = this.canvasLength(); }
 	if (this.temp >= 0) {
 	    this.graph_cursor.style.left = (pos_x)+'px';
 	    var self = this;
@@ -297,7 +312,7 @@
     }
     TemperatureSliders.prototype.updateCursorVals = function(evt) {
 	var lf = global.LeafData;
-	var real_temp = lf.t_a_min + (lf.t_a_max-lf.t_a_min)*this.temp/(this.canvas_length);
+	var real_temp = lf.t_a_min + (lf.t_a_max-lf.t_a_min)*this.temp/(this.canvasLength());
 	if (!isNaN(real_temp)) {
 	    $('temp_mouse').value = Math.round(real_temp * 10) / 10;
 	    for (a in lf.species) {
