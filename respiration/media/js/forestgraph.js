@@ -257,9 +257,8 @@ function forestGraph() {
 	                 var label = ForestData.scenarios[scids[i]].name + " (" + data[i]  + ")";
 	                 g.data(label, data[i], ForestData.scenarios[scids[i]]['color'] );
 	               }
-	                   //addMouseover(g);
-	                   g.minimum_value = 0;
-	                   g.draw();
+	               g.minimum_value = 0;
+	               g.draw();
 	             }
 	           }
 	         }

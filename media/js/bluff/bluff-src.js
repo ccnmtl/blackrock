@@ -130,7 +130,7 @@ Bluff.Base = new JS.Class({
 
   // The number of horizontal lines shown for reference
   marker_count: null,
-
+  
   // You can manually set a minimum value instead of having the values
   // guessed for you.
   //
@@ -143,6 +143,9 @@ Bluff.Base = new JS.Class({
   // If you use this, you must set it after you have given all your data to
   // the graph object.
   maximum_value: null,
+  
+  // The precision of the y-axis markers
+  precision: 2,
 
   // Set to false if you don't want the data to be sorted with largest avg
   // values at the back.
@@ -627,7 +630,6 @@ Bluff.Base = new JS.Class({
   // Draws horizontal background lines and labels
   _draw_line_markers: function() {
     if (this.hide_line_markers) return;
-    
     if (this.y_axis_increment === null) {
       // Try to use a number of horizontal lines that will come out even.
       //
@@ -661,7 +663,7 @@ Bluff.Base = new JS.Class({
       this._d.stroke_width = 1;
       this._d.line(this._graph_left, y, this._graph_right, y);
       
-      marker_label = index * this._increment + this.minimum_value;
+      marker_label = (index * this._increment + this.minimum_value).toFixed(this.precision);
       
       if (!this.hide_line_numbers) {
         this._d.fill = this.font_color;
@@ -966,7 +968,8 @@ Bluff.Base = new JS.Class({
     if (this._spread % this.marker_count == 0 || this.y_axis_increment !== null) {
       return String(Math.round(value));
     }
-    return String(Math.floor(value * this._significant_digits)/this._significant_digits);
+    
+    return String(value * this._significant_digits/this._significant_digits);
   },
   
   // Returns the height of the capital letter 'X' for the current font and
@@ -1145,7 +1148,7 @@ Bluff.Bar = new JS.Class(Bluff.Base, {
 
     // iterate over all normalised data
     Bluff.each(this._norm_data, function(data_row, row_index) {
-
+      
       Bluff.each(data_row[this.klass.DATA_VALUES_INDEX], function(data_point, point_index) {
         // Use incremented x and scaled y
         // x
