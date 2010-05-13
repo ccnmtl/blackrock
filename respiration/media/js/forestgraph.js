@@ -186,6 +186,7 @@ function initGraph() {
   //g.hide_legend = true;  // breaks IE
   //g.hide_line_markers = true;
   g.set_margins(10);
+  g.left_margin = 25;
   //g.top_margin = 10;
   //g.bottom_margin = 10;
   g.no_data_message = "Press 'Graph' to graph data.";
@@ -257,6 +258,7 @@ function forestGraph() {
 	                 var label = ForestData.scenarios[scids[i]].name + " (" + data[i]  + ")";
 	                 g.data(label, data[i], ForestData.scenarios[scids[i]]['color'] );
 	               }
+	               
 	               g.minimum_value = 0;
 	               g.draw();
 	             }
