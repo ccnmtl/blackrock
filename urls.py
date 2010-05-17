@@ -2,6 +2,7 @@ from django.conf.urls.defaults import *
 #from django.contrib import admin
 from django.contrib.gis import admin
 from django.conf import settings
+from blackrock_main.urls import *
 import os.path
 
 admin.autodiscover()
@@ -17,5 +18,6 @@ urlpatterns = patterns('',
                        (r'^respiration/', include('blackrock.respiration.urls')),
                        (r'^optimization/', include('blackrock.optimization.urls')),
                        (r'^paleoecology/', include('blackrock.paleoecology.urls')),
+                       (r'^blackrock_main/', include('blackrock.blackrock_main.urls')),
                        (r'', 'blackrock.views.index'),
 )
