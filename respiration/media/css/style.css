@@ -3,6 +3,16 @@ body
 	font-family: "Lucida Grande", "Trebuchet MS", arial, helvetica, sans-serif !important; 
 }
 
+#respiration_content
+{
+	background-color: #fff;
+	margin: 0;
+	padding: 20px;
+	padding: 30px;
+	height: 130px;
+}
+
+
 #breadcrumbs { height: 20px; }
 
 div#tab-bar
@@ -52,7 +62,7 @@ div#equation
 	padding: 0px;
 	position: absolute;
 	right: 30px;
-	top: 280px;
+	top: 210px;
 	height: 100px;
 	background-color: #ccc;
 	background-image: url(../images/background_panel.jpg);
