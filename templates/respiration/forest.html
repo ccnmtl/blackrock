@@ -41,6 +41,9 @@
 {% endblock %}
 
 {% block leftlegend %}
+<div id="forestgraph">
+  <input id="graph_button" type="button" value="Graph &gt;&gt;" onclick="javascript:forestGraph();" />
+</div>
   Set Scenario Variables
 {% endblock %}
 
@@ -58,9 +61,7 @@
   {% endfor %}
 </form>
 
-<div id="forestgraph">
-  <input type="button" value="Graph &gt;&gt;" onclick="javascript:forestGraph();" />
-</div>
+
 
 <div id="scenariocontainer">
   <div id="scenarioheader">

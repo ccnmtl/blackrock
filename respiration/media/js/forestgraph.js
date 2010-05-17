@@ -190,6 +190,7 @@ function initGraph() {
   //g.top_margin = 10;
   //g.bottom_margin = 10;
   g.no_data_message = "Press 'Graph' to graph data.";
+  g.no_data_font_size = '21';
   return g;
 }
 
@@ -202,7 +203,6 @@ function updateColors() {
 
 function forestGraph() {
     // have to re-init, because g.clear() doesn't reset legend
-    //removeElementClass('plotGraph','needsupdate');
     g = initGraph();
     var scenario_count = 0;
     var data = [];

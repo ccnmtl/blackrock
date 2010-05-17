@@ -133,21 +133,27 @@ Tree Respiration
 <div id="container">
 	
 	<div id="left">
-		<fieldset id="leftfield"><legend>{% block leftlegend %}
-      Set Respiration Rate Variables
-      {% endblock %}</legend>
+		<div id="leftfield">
+           <h3>
+           {% block leftlegend %}
+              Set Respiration Rate Variables
+           {% endblock %}
+           </h3>
 		
-		{% block left %} 
-		LEFT PANE REPORTING FOR DUTY 
-		{% endblock %} 
-		</fieldset>
+		   {% block left %} 
+		      LEFT PANE REPORTING FOR DUTY 
+		   {% endblock %} 
+		</div>
 	</div>
 	
 
 	<div id="right">
-	  <fieldset id="rightfield"><legend>{% block rightlegend %}
+	  <div id="rightfield">
+        <h3>
+        {% block rightlegend %}
 	    Respiration Rate Graph
-	    {% endblock %}</legend>
+	    {% endblock %}
+        </h3>
 	    {% block graph %} 
 		<div id="graph-cursor"><div id="unfreeze"></div></div>
 		<canvas id="graph"></canvas>
@@ -155,9 +161,8 @@ Tree Respiration
 	    {% block right %} 
 		RIGHT PANE SIR YES SIR 
 	    {% endblock %} 
-	  </fieldset>
+	  </div>
 	</div>
-</div>
-<!-- end div "container" -->
+</div> <!-- end div "container" -->
 </div>
 {% endblock %} 

@@ -12,7 +12,6 @@ body
 	height: 130px;
 }
 
-
 #breadcrumbs { height: 20px; }
 
 div#tab-bar
@@ -125,14 +124,24 @@ div#equation-inner
 
 div#container
 {
-	margin: 0px 30px 0px 30px;
+	margin: 0px 30px;
 	position: relative;
+}
+
+div#left, div#right
+{
+    background-color: #ccc;
+    background-image: url(../images/background_panel.jpg);
+    background-repeat: repeat-x;
+    border: 1px gray solid;
+    margin-bottom: 25px;
 }
 
 div#left
 {
 	min-width: 395px;
-	padding-right: 550px;
+	margin-right: 580px;
+	padding: 0px 10px 5px 10px;
 }
 
 div#left fieldset#leftfield { }
@@ -140,10 +149,11 @@ div#left fieldset#leftfield { }
 div#right
 {
 	position: absolute;
-	height: 500px;
 	top: 0px;
 	right: 20px;
 	width: 520px;
+	padding-left: 14px;
+	padding-bottom: 15px;
 }
 
 canvas
@@ -153,6 +163,7 @@ canvas
      it is set in respiration/media/js/graph.js
      with Bluff.Line command
      */
+    
 }
 
 .bluff-wrapper { margin-left: 40px; }
@@ -170,14 +181,6 @@ canvas
 #y-grid-canopy { background-image: url(../images/ygridcanopy.gif); }
 form#leaf-form, form#leaf-form table { font-size: 11px; }
 form#leaf-form fieldset { margin-bottom: 10px; }
-
-fieldset
-{
-	background-color: #ccc;
-	background-image: url(../images/background_panel.jpg);
-	background-repeat: repeat-x;
-	border: 1px gray solid;
-}
 
 legend
 {
@@ -201,7 +204,6 @@ legend
 	background-color: #bbb;
 	font-size: 11px;
 }
-table.advancedoptionstable td {font-size: 11px;}
 
 #scenarioheader
 {
@@ -212,10 +214,13 @@ table.advancedoptionstable td {font-size: 11px;}
 #scenariobox
 {
 	overflow: auto;
-	max-height: 300px;
+	max-height: 320px;
 }
 
-.scenario { }
+#scenario1 {border-bottom: none;}
+
+.scenario { margin-bottom: 20px; border-bottom: 1px solid gray; }
+
 
 .scenariotitle
 {
@@ -241,10 +246,18 @@ table.advancedoptionstable td {font-size: 11px;}
 
 .speciescontainer
 {
-	overflow: auto;
-	max-height: 200px;
 	background-image: url(../images/background_panel.jpg);
 	background-repeat: repeat-x;
+    overflow: visible;
+}
+
+.leafspeciescontainer
+{
+    background-image: url(../images/background_panel.jpg);
+    background-repeat: repeat-x;
+    overflow: auto;
+    max-height: 341px;
+    height: 341px;
 }
 
 .species
@@ -255,7 +268,7 @@ table.advancedoptionstable td {font-size: 11px;}
 	border-left: 1px solid #999;
 }
 
-.species, .species td { font-size: 11px; }
+.species, .species td { font-size: 11px; background-image:url(../images/background_panel.jpg);}
 
 .speciestemp
 {
@@ -287,9 +300,18 @@ table.advancedoptionstable { width: 100%; }
 
 table.advancedoptionstable td
 {
-	border-bottom: 1px solid gray;
+	
 	padding: 3px;
+	font-size: 11px;
+	border-bottom: 1px solid gray;
+
 }
+
+table.advancedoptionstable tr
+{
+    border-bottom: 1px solid gray;
+}
+
 
 .advancedoptionsheader { border-bottom: 1px solid gray; }
 
@@ -377,7 +399,7 @@ input#plotGraph.needsupdate
 	width: 1px;
 	height: 270px;
 	/*canvas's height + border - label margin*/
-	top: 70px;
+	top: 90px;
 	/*#right's padding + label margin*/
 	left: 0px;
 	background-color: #f00;
@@ -391,8 +413,6 @@ input#plotGraph.needsupdate
 #graph-cursor #unfreeze
 {
 	display: none;
-	/*default*/
-	/*for Marc to change*/
 	height: 9px;
 	width: 9px;
 	position: absolute;
@@ -403,6 +423,7 @@ input#plotGraph.needsupdate
 	background-image: url(../images/cursorswitch.gif);
 	background-repeat: no-repeat;
 	background-position: center center;
+	z-index: 10000;
 }
 
 #leftslider { }
@@ -492,6 +513,13 @@ div#error
 }
 
 
+#graph_button 
+{
+    float: right;
+    margin-top: 10px;
+}
+
+
 @media print
 {
 	h1 { color: #000; }
@@ -512,10 +540,6 @@ div#error
 	#equation { display: none; }
 	#tab-bar { display: none; }
 	#forestgraph { display: none; }
-	.speciescontainer,#scenariobox {
-	  max-height: 100%;
-	  overflow:visible;
-	}
 	.scenario { padding-bottom: 50px; }
 	#scenarioheader { display: none; }
 	
@@ -542,3 +566,4 @@ div#error
 		margin-top: 0px;
 	}
 }
+

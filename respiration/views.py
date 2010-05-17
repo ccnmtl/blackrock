@@ -11,6 +11,7 @@ from django.db import connection, transaction
 from django.core.cache import cache
 from blackrock_main.models import LastImportDate
 import pytz
+from blackrock_main.solr import SolrUtilities
 
 def index(request, admin_msg=""):
   return render_to_response('respiration/index.html',
@@ -298,32 +299,6 @@ def _process_row(cursor, record_datetime, station, temp, next_expected_timestamp
     last_valid_temp = temp
     
   return (next_expected_timestamp, last_valid_temp, station, created_count, updated_count)
-         
-  
-def _string_to_eastern_dst(date_string, time_string):
-  try:
-    t = time.strptime(date_string + ' ' + time_string, '%Y-%m-%d %H:%M:%S')
-    tz = pytz.timezone('US/Eastern')
-    dt = datetime.datetime(t[0], t[1], t[2], t[3], t[4], t[5], tzinfo=tz)
-    return dt
-  except:
-    return None
- 
-# Convert the UTC solr datetime string to an EST datetime object
-def _utc_to_est(date_string):
-  try:
-    t = time.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
-    utc = datetime.datetime(t[0], t[1], t[2], t[3], t[4], t[5], tzinfo=FixedOffset(0))
-    est = utc.astimezone(FixedOffset(-300)) # subtract 5 hours
-    return est
-  except:
-    return None
-  
-def _solr_request(url):
-  response = urllib2.urlopen(url)
-  xmldoc = minidom.parse(response)
-  response.close()
-  return xmldoc
 
 # Retrieve the requested import sets
 # If no import_set is specified, retrieve all "educational" sets that have rows
@@ -336,7 +311,7 @@ def _solr_get_sets(base_query, last_import_date, import_set):
   if len(import_set) > 0:
     count_query = count_query + '%20AND%20import_set:"' + import_set + '"'
 
-  xmldoc = _solr_request(count_query)
+  xmldoc = SolrUtilities.solr_request(count_query)
   for node in xmldoc.getElementsByTagName('int'):
     if node.hasAttribute('name') and int(node.childNodes[0].nodeValue) > 0:
       sets[node.getAttribute('name')] = int(node.childNodes[0].nodeValue)
@@ -344,17 +319,6 @@ def _solr_get_sets(base_query, last_import_date, import_set):
   
   return sets
 
-def _get_last_import_date(request):
-  last_import_date = _string_to_eastern_dst(request.POST.get('last_import_date', ''), urllib.unquote(request.POST.get('last_import_time', '00:00')))
-  
-  if not last_import_date:
-    try:
-      last_import_date = LastImportDate.objects.get(application='respiration').last_import
-      last_import_date = last_import_date.replace(tzinfo=pytz.timezone('US/Eastern'))
-    except LastImportDate.DoesNotExist:
-      pass
-
-  return last_import_date
 
 solr_base_query = 'http://seasnail.cc.columbia.edu:8181/solr/blackrock/select/?qt=forest-data&collection_id=environmental-monitoring&'
 
@@ -362,7 +326,7 @@ solr_base_query = 'http://seasnail.cc.columbia.edu:8181/solr/blackrock/select/?q
 def previewsolr(request):
   response = { 'sets': {} }
   
-  last_import_date = _get_last_import_date(request)
+  last_import_date = SolrUtilities.get_last_import_date(request, 'respiration')
   sets = _solr_get_sets(solr_base_query, last_import_date, request.POST.get('import_set', ''))
     
   for import_set in sets:
@@ -383,7 +347,7 @@ def loadsolr(request):
   updated_count = 0
   try:
     cursor = connection.cursor()
-    sets = _solr_get_sets(solr_base_query, _get_last_import_date(request), request.POST.get('import_set', ''))
+    sets = _solr_get_sets(solr_base_query, SolrUtilities.get_last_import_date(request, 'respiration'), request.POST.get('import_set', ''))
     
     for import_set in sets:
       next_expected_timestamp = None
@@ -395,7 +359,7 @@ def loadsolr(request):
         to_retrieve = min(1000, sets[import_set] - retrieved)
         data_query = solr_base_query + 'q=import_set:"' + import_set + '"&fl=collection_id,import_set,record_datetime,record_subject,location_name,latitude,longitude,temp_c_avg,temp_avg&sort=record_datetime%20asc'
         url = '%s&start=%d&rows=%d' % (data_query, retrieved, to_retrieve)
-        xmldoc = _solr_request(url)
+        xmldoc = SolrUtilities.solr_request(url)
         for node in xmldoc.getElementsByTagName('doc'):
           station = None
           dt = None
@@ -407,7 +371,7 @@ def loadsolr(request):
             elif (name == 'temp_c_avg' or name == 'temp_avg'):
               temp = child.childNodes[0].nodeValue
             elif (name == 'record_datetime'):
-              dt = _utc_to_est(child.childNodes[0].nodeValue)
+              dt = SolrUtilities.utc_to_est(child.childNodes[0].nodeValue)
           
           if (station and dt and temp):
             (next_expected_timestamp, last_valid_temp, prev_station, created, updated) = _process_row(cursor, dt, station, float(temp), next_expected_timestamp, last_valid_temp, prev_station)
@@ -418,12 +382,8 @@ def loadsolr(request):
         retrieved = retrieved + to_retrieve
     
     # Update the last import date
-    try:
-      lid = LastImportDate.objects.get(application='respiration')
-      lid.last_import = datetime.datetime.now()
-    except LastImportDate.DoesNotExist:
-      lid = LastImportDate.objects.create(application='respiration', last_import=datetime.datetime.now())
-    lid.save()
+    SolrUtilities.update_last_import_date('respiration')
+
   except Exception,e:
     cache.set('solr_error', str(e)) 
   
@@ -434,29 +394,6 @@ def loadsolr(request):
   cache.set('solr_complete', True)
   
   response = { 'complete': True }
-  http_response = HttpResponse(simplejson.dumps(response), mimetype='application/json')
-  http_response['Cache-Control']='max-age=0,no-cache,no-store' 
-  return http_response
-
-@user_passes_test(lambda u: u.is_staff)
-def loadsolr_poll(request):
-  response = { 'solr_complete': False }
-  if cache.has_key('solr_complete'):
-    response['solr_complete'] = True
-    cache.delete('solr_complete')
-    
-    if cache.has_key('solr_error'):
-      response['solr_error'] = cache.get('solr_error')
-      cache.delete('solr_error')
-      
-    if cache.has_key('solr_created'):
-      response['solr_created'] = cache.get('solr_created')
-      cache.delete('solr_created')
-      
-    if cache.has_key('solr_updated'):
-      response['solr_updated'] = cache.get('solr_updated')
-      cache.delete('solr_updated')
-  
   http_response = HttpResponse(simplejson.dumps(response), mimetype='application/json')
   http_response['Cache-Control']='max-age=0,no-cache,no-store' 
   return http_response

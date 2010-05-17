@@ -1,5 +1,4 @@
 var original_request = null;
-var poll_url = null;
 
 function verifyDate(str) {
     var datePattern = /\d{2,4}-\d{1,2}-\d{1,2}/
@@ -36,7 +35,6 @@ function submitSolrQuery(form) {
              sendContent: queryString(params),
              headers: {"Content-Type": "application/x-www-form-urlencoded"} 
           });
-       poll_url = form.action + 'poll' 
        
        waitForResults();
        $('solr_progress').style.height = $('id_respiration').offsetHeight + "px";
@@ -77,7 +75,8 @@ function onWaitError(err) {
 }
 
 function waitForResults() {
-    deferred = doXHR(poll_url, { method: 'GET' });
+    url = 'http://' + location.hostname + ':' + location.port + "/blackrock_main/loadsolrpoll";   
+    deferred = doXHR(url, { method: 'GET' });
     deferred.addCallbacks(onWaitSuccess, onWaitError);
 }
 

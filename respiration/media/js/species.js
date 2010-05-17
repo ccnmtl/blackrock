@@ -26,7 +26,8 @@
           speciesList.push("species" + numSpecies);
         }
       }
-      var parent = getFirstElementByTagAndClassName("div", "speciescontainer", scenario);
+      var parent = getFirstElementByTagAndClassName("div", "speciescontainer", scenario) ||
+          getFirstElementByTagAndClassName("div", "leafspeciescontainer", scenario);
       var newDiv = DIV();
       addElementClass(newDiv, "species");
       appendChildNodes(parent, newDiv);
@@ -272,23 +273,24 @@
     }
     
     TemperatureSliders.prototype.calcGraphLeftMargin = function() {
-        var graph_left_margin = 40;
         var canvas_position = getElementPosition(this.canvas);
         
         // graph_left_margin is really the width of the y-axis legend.
         // left_margin can thus vary width depending on the value, 
         // throwing the whole graph off. Sadly, it's not easy to get this width
         // so, I'm trying a bit of a hack here.
-        forEach(getElementsByTagAndClassName(null, "bluff-text", parent=$('rightfield')),
+        var margin = 0;
+        forEach(getElementsByTagAndClassName(null, "y-axis-label", parent=$('rightfield')),
                 function(elem) {
-                   if (elem.innerHTML == "0") {
-                       var coords = getElementPosition(elem);
-                       var dims = getElementDimensions(elem)
+                    var coords = getElementPosition(elem);
+                    var dims = getElementDimensions(elem)
                        
-                       // This constant represents the left & right draw margins in the canvas
-                       // Yes, ugly, but no way else to figure out the exact positions of the y-axis labels
-                       margin = (coords.x - canvas_position.x) + dims.w + 10.0999755859375; 
-                   }
+                    // This constant represents the left & right draw margins in the canvas
+                    // Yes, ugly, but no way else to figure out the exact positions of the y-axis labels
+                    // 10.0999755859375;
+                    var right = (coords.x - canvas_position.x) + dims.w + 10.0999755859375;
+                    if (right > margin)
+                        margin = right;
                 });
 
         return margin;

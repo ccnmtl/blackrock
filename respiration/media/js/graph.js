@@ -111,7 +111,7 @@ function initGraph() {
   g.set_theme({
     marker_color: '#aea9a9',
     font_color: 'black',
-    background_colors: ['white', 'white']
+    background_colors: ['white', 'white'],
   });
   g.hide_dots = true;
   g.hide_title = true;
@@ -122,10 +122,11 @@ function initGraph() {
   //g.hide_line_markers = true;
   g.set_margins(0);
   g.left_margin = 30;
-  g.right_margin = 5;
   g.top_margin = 10;
+  g.right_margin = 5;
   g.bottom_margin = 10;
   g.no_data_message = "";
+  g.no_data_font_size = 32;
   return g;
 }
 

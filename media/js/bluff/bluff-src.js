@@ -677,7 +677,9 @@ Bluff.Base = new JS.Class({
         this._d.gravity = 'east';
         
         // Vertically center with 1.0 for the height
-        this._d.annotate_scaled(this._graph_left - this.klass.LABEL_MARGIN, 1.0, 0.0, y, this._label(marker_label), this._scale);
+        text = this._d.annotate_scaled(this._graph_left - this.klass.LABEL_MARGIN, 1.0, 0.0, y, this._label(marker_label), this._scale);
+        text.className += ' y-axis-label';
+
       }
     }
   },
@@ -2153,7 +2155,7 @@ Bluff.Renderer = new JS.Class({
     wrapper.style.width = width + 'px';
     wrapper.style.height = height + 'px';
     while (i--) {
-      if (children[i] && children[i].className == this.klass.TEXT_CLASS)
+      if (children[i] && children[i].className.indexOf(this.klass.TEXT_CLASS) > -1)
         this._remove_text_node(children[i]);
     }
   },
@@ -2190,6 +2192,8 @@ Bluff.Renderer = new JS.Class({
     text.style.textAlign = 'center';
     text.style.left = (this._sx * x + this._left_adjustment(text, scaled_width)) + 'px';
     text.style.top = (this._sy * y + this._top_adjustment(text, scaled_height)) + 'px';
+    
+    return text;
   },
   
   circle: function(origin_x, origin_y, perim_x, perim_y, arc_start, arc_end) {
