@@ -124,6 +124,8 @@ Bluff.Base = new JS.Class({
 
   // The font size of the labels around the graph
   marker_font_size: null,
+  
+  no_data_font_size: null,
 
   // The color of the auxiliary lines
   marker_color: null,
@@ -217,6 +219,7 @@ Bluff.Base = new JS.Class({
     this.marker_font_size = 21.0;
     this.legend_font_size = 20.0;
     this.title_font_size = 36.0;
+    this.no_data_font_size = 21;
     
     this.legend_box_size = 20.0;
 
@@ -815,7 +818,7 @@ Bluff.Base = new JS.Class({
     if (this.font) this._d.font = this.font;
     this._d.stroke = 'transparent';
     this._d.font_weight = 'normal';
-    this._d.pointsize = this._scale_fontsize(80);
+    this._d.pointsize = this.no_data_font_size;
     this._d.gravity = 'center';
     this._d.annotate_scaled(this._raw_columns, this._raw_rows/2, 0, 10, this.no_data_message, this._scale);
   },
