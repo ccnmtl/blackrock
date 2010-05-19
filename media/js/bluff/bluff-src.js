@@ -666,7 +666,7 @@ Bluff.Base = new JS.Class({
       this._d.stroke_width = 1;
       this._d.line(this._graph_left, y, this._graph_right, y);
       
-      marker_label = (index * this._increment + this.minimum_value).toFixed(this.precision);
+      marker_label = index * this._increment + this.minimum_value;
       
       if (!this.hide_line_numbers) {
         this._d.fill = this.font_color;
@@ -678,8 +678,7 @@ Bluff.Base = new JS.Class({
         
         // Vertically center with 1.0 for the height
         text = this._d.annotate_scaled(this._graph_left - this.klass.LABEL_MARGIN, 1.0, 0.0, y, this._label(marker_label), this._scale);
-        text.className += ' y-axis-label';
-
+        text.className += ' y-axis-label'; // class to identify the y-axis-label divs
       }
     }
   },
@@ -971,10 +970,12 @@ Bluff.Base = new JS.Class({
   // printed as a label.
   _label: function(value) {
     if (this._spread % this.marker_count == 0 || this.y_axis_increment !== null) {
-      return String(Math.round(value));
+      label = String(Math.round(value));
+    } else {
+        label = value * this._significant_digits/this._significant_digits;
     }
     
-    return String(value * this._significant_digits/this._significant_digits);
+    return String(label.toFixed(this.precision));
   },
   
   // Returns the height of the capital letter 'X' for the current font and
