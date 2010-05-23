@@ -31,6 +31,35 @@ def loadsolr_poll(request):
     if cache.has_key('solr_updated'):
       response['solr_updated'] = cache.get('solr_updated')
       cache.delete('solr_updated')
+    
+    if cache.has_key('solr_import_date'):
+      response['solr_import_date'] = cache.get('solr_import_date')
+      response['solr_import_time'] = cache.get('solr_import_time')
+      cache.delete('solr_import_date')
+      cache.delete('solr_import_time')
+  
+  http_response = HttpResponse(simplejson.dumps(response), mimetype='application/json')
+  http_response['Cache-Control']='max-age=0,no-cache,no-store' 
+  return http_response
+
+@user_passes_test(lambda u: u.is_staff)
+def previewsolr(request):
+  response = { 'sets': {} }
+  
+  import_set = request.POST.get('import_set', '')
+  application = request.POST.get('application', '')
+  collection_id = request.POST.get('collection_id', '')
+  import_set_type = request.POST.get('import_set_type', 'educational')
+  
+  last_import_date = SolrUtilities.get_last_import_date(request, application)
+  sets = SolrUtilities.get_importsets_by_lastmodified(collection_id, import_set_type, last_import_date, import_set)
+    
+  for import_set in sets:
+    response['sets'][import_set] = sets[import_set]
+  
+  if last_import_date:
+    response['last_import_date'] = last_import_date.strftime('%Y-%m-%d');
+    response['last_import_time'] = last_import_date.strftime('%H:%M:%S');  
   
   http_response = HttpResponse(simplejson.dumps(response), mimetype='application/json')
   http_response['Cache-Control']='max-age=0,no-cache,no-store' 

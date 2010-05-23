@@ -972,7 +972,7 @@ Bluff.Base = new JS.Class({
     if (this._spread % this.marker_count == 0 || this.y_axis_increment !== null) {
       label = String(Math.round(value));
     } else {
-        label = value * this._significant_digits/this._significant_digits;
+      label = value * this._significant_digits/this._significant_digits;
     }
     
     return String(label.toFixed(this.precision));

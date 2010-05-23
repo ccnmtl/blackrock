@@ -300,54 +300,17 @@ def _process_row(cursor, record_datetime, station, temp, next_expected_timestamp
     
   return (next_expected_timestamp, last_valid_temp, station, created_count, updated_count)
 
-# Retrieve the requested import sets
-# If no import_set is specified, retrieve all "educational" sets that have rows
-def _solr_get_sets(base_query, last_import_date, import_set):
-  sets = {}
-  count_query = base_query + 'facet=true&facet.field=import_set&rows=0&q=import_set_type:"educational"'
-  if last_import_date:
-    utc = last_import_date.astimezone(FixedOffset(0))
-    count_query = count_query + '%20AND%20last_modified:[' + utc.strftime('%Y-%m-%dT%H:%M:%SZ') + '%20TO%20NOW]'
-  if len(import_set) > 0:
-    count_query = count_query + '%20AND%20import_set:"' + import_set + '"'
-
-  xmldoc = SolrUtilities.solr_request(count_query)
-  for node in xmldoc.getElementsByTagName('int'):
-    if node.hasAttribute('name') and int(node.childNodes[0].nodeValue) > 0:
-      sets[node.getAttribute('name')] = int(node.childNodes[0].nodeValue)
-  xmldoc.unlink()
-  
-  return sets
-
-
-solr_base_query = 'http://seasnail.cc.columbia.edu:8181/solr/blackrock/select/?qt=forest-data&collection_id=environmental-monitoring&'
-
-@user_passes_test(lambda u: u.is_staff)
-def previewsolr(request):
-  response = { 'sets': {} }
-  
-  last_import_date = SolrUtilities.get_last_import_date(request, 'respiration')
-  sets = _solr_get_sets(solr_base_query, last_import_date, request.POST.get('import_set', ''))
-    
-  for import_set in sets:
-    response['sets'][import_set] = sets[import_set]
-  
-  if last_import_date:
-    response['last_import_date'] = last_import_date.strftime('%Y-%m-%d');
-    response['last_import_time'] = last_import_date.strftime('%H:%M:%S');  
-  
-  http_response = HttpResponse(simplejson.dumps(response), mimetype='application/json')
-  http_response['Cache-Control']='max-age=0,no-cache,no-store' 
-  return http_response
-
 @user_passes_test(lambda u: u.is_staff)
 @transaction.commit_on_success
 def loadsolr(request):
+  collection_id = 'environmental-monitoring'
+  import_set_type = 'educational'
   created_count = 0
   updated_count = 0
   try:
     cursor = connection.cursor()
-    sets = _solr_get_sets(solr_base_query, SolrUtilities.get_last_import_date(request, 'respiration'), request.POST.get('import_set', ''))
+    last_import_date = SolrUtilities.get_last_import_date(request, 'respiration')
+    sets = SolrUtilities.get_importsets_by_lastmodified(collection_id, import_set_type, last_import_date, request.POST.get('import_set', ''))
     
     for import_set in sets:
       next_expected_timestamp = None
@@ -357,7 +320,7 @@ def loadsolr(request):
        
       while (retrieved < sets[import_set]):
         to_retrieve = min(1000, sets[import_set] - retrieved)
-        data_query = solr_base_query + 'q=import_set:"' + import_set + '"&fl=collection_id,import_set,record_datetime,record_subject,location_name,latitude,longitude,temp_c_avg,temp_avg&sort=record_datetime%20asc'
+        data_query = SolrUtilities.base_query() + '&collection_id=' + collection_id  + '&q=import_set:"' + import_set + '"&fl=collection_id,import_set,record_datetime,record_subject,location_name,latitude,longitude,temp_c_avg,temp_avg&sort=record_datetime%20asc'
         url = '%s&start=%d&rows=%d' % (data_query, retrieved, to_retrieve)
         xmldoc = SolrUtilities.solr_request(url)
         for node in xmldoc.getElementsByTagName('doc'):
@@ -382,15 +345,17 @@ def loadsolr(request):
         retrieved = retrieved + to_retrieve
     
     # Update the last import date
-    SolrUtilities.update_last_import_date('respiration')
+    lid = SolrUtilities.update_last_import_date('respiration')
+    cache.set('solr_import_date', lid.strftime('%Y-%m-%d'))
+    cache.set('solr_import_time', lid.strftime('%H:%M:%S'))  
+    cache.set('solr_created', created_count)
+    cache.set('solr_updated', updated_count)
 
   except Exception,e:
     cache.set('solr_error', str(e)) 
   
   transaction.set_dirty()
   
-  cache.set('solr_created', created_count)
-  cache.set('solr_updated', updated_count)
   cache.set('solr_complete', True)
   
   response = { 'complete': True }

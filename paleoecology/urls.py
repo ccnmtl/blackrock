@@ -8,11 +8,10 @@ urlpatterns = patterns('',
 	(r'^$', 'blackrock.paleoecology.views.index'),
         (r'^identification$', 'blackrock.paleoecology.views.identification'),
         (r'^explore$', 'blackrock.paleoecology.views.explore'),
-#        (r'^results$', 'blackrock.paleoecology.views.results'),
-#        (r'^getrow$', 'blackrock.paleoecology.views.getrow'),
         (r'^getpercents$', 'blackrock.paleoecology.views.getpercents'),
         (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': media_root}),
         (r'^data/(?P<path>.*)$', 'django.views.static.serve', {'document_root': data_root}),
         (r'^loadcounts$', 'blackrock.paleoecology.views.loadcounts'),
         (r'^loadpercents$', 'blackrock.paleoecology.views.loadpercents'),
+        (r'^loadsolr$', 'blackrock.paleoecology.views.loadsolr')    
 )

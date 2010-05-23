@@ -10,24 +10,24 @@ function verifyTime(str) {
     return timePattern.test(str)	
 }
 
-function submitSolrQuery(form) {     
-    $('respiration_status').innerHTML = "";
-    $('respiration_error').innerHTML = "";
+function submitSolrQuery(form) {
+    $('solr_status').innerHTML = "";
+    $('solr_error').innerHTML = "";
     $('solr_progress').style.display = 'none';
     
     var msg;
-    if ($('id_respiration').last_import_date.value && !verifyDate($('id_respiration').last_import_date.value)) {
+    if ($('id_solr_loader').last_import_date.value && !verifyDate($('id_solr_loader').last_import_date.value)) {
         msg = "<p>Please enter a valid last import date.</p>";
-    } else if ($('id_respiration').last_import_time.value && !verifyTime($('id_respiration').last_import_time.value)) {
+    } else if ($('id_solr_loader').last_import_time.value && !verifyTime($('id_solr_loader').last_import_time.value)) {
         msg = "<p>Please enter a valid last import time.</p>";
     } 
     
     if (msg) {
-        $('respiration_error').innerHTML = msg;
+        $('solr_error').innerHTML = msg;
     } else {
         params = {}
-        params[$('id_respiration').last_import_date.name] = escape($('id_respiration').last_import_date.value);
-        params[$('id_respiration').last_import_time.name] = escape($('id_respiration').last_import_time.value);
+        params[$('id_solr_loader').last_import_date.name] = escape($('id_solr_loader').last_import_date.value);
+        params[$('id_solr_loader').last_import_time.name] = escape($('id_solr_loader').last_import_time.value);
         
         original_request = doXHR(form.action, 
           { 
@@ -37,7 +37,7 @@ function submitSolrQuery(form) {
           });
        
        waitForResults();
-       $('solr_progress').style.height = $('id_respiration').offsetHeight + "px";
+       $('solr_progress').style.height = $('id_solr_loader').offsetHeight + "px";
        $('solr_progress').style.display = 'block';   
     }
     return false; 
@@ -53,8 +53,12 @@ function onWaitSuccess(doc) {
             status += json.solr_created + " rows created.<br />";
         if (json.solr_updated)
             status += json.solr_updated + " rows updated.<br />";
+        if (json.solr_import_date)
+            $('id_last_import_date').value = json.solr_import_date;
+        if (json.solr_import_time)
+            $('id_last_import_time').value = json.solr_import_time;    
         
-        $('respiration_status').innerHTML = status;
+        $('solr_status').innerHTML = status;
         $('solr_progress').style.display = 'none';
         
         try {
@@ -66,7 +70,7 @@ function onWaitSuccess(doc) {
 }
 
 function onWaitError(err) {
-     $('respiration_error').innerHTML = "An error occurred importing data (" + err + "). Please try again."
+     $('solr_error').innerHTML = "An error occurred importing data (" + err + "). Please try again."
      $('solr_progress').style.display = 'none';
      
      try {
@@ -119,12 +123,15 @@ function previewSolr() {
     $('yes_last_import_date').style.display = 'none';
     
     var params = {};
-    if ($('id_respiration').last_import_date.value) { 
-        params[$('id_respiration').last_import_date.name] = escape($('id_respiration').last_import_date.value);
-        params[$('id_respiration').last_import_time.name] = escape($('id_respiration').last_import_time.value);
+    if ($('id_solr_loader').last_import_date.value) { 
+        params[$('id_solr_loader').last_import_date.name] = escape($('id_solr_loader').last_import_date.value);
+        params[$('id_solr_loader').last_import_time.name] = escape($('id_solr_loader').last_import_time.value);
     }
+    params[$('id_solr_loader').application.name] = escape($('id_solr_loader').application.value)
+    params[$('id_solr_loader').collection_id.name] = escape($('id_solr_loader').collection_id.value)
+    params[$('id_solr_loader').import_set_type.name] = escape($('id_solr_loader').import_set_type.value)
     
-    url = 'http://' + location.hostname + ':' + location.port + "/respiration/previewsolr"
+    url = 'http://' + location.hostname + ':' + location.port + "/blackrock_main/previewsolr"
     deferred = doXHR(url, { method: 'POST',
                             sendContent: queryString(params),
                             headers: {"Content-Type": "application/x-www-form-urlencoded"} 

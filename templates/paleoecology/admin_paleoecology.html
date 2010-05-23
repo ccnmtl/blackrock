@@ -1,3 +1,19 @@
+<script type="text/javascript">
+   addLoadEvent(previewSolr);
+</script>
+
+<form name="solr_loader" id="id_solr_loader" action="../../paleoecology/loadsolr" method="POST" onSubmit="return submitSolrQuery(this, 'solr_progress');">
+     <input type="hidden" name="application" value="paleoecology"></input>
+     <input type="hidden" name="collection_id" value="paleo"></input>
+     <input type="hidden" name="import_set_type" value="cleaned"></input>
+
+    {% include "blackrock_main/solr_loader.html" %}
+    
+</form>
+
+<br/><br/>
+
+
 <form name="loadcounts" action="../../paleoecology/loadcounts" enctype="multipart/form-data" method="POST">
     <fieldset class="module aligned">
         <h2>Import Pollen Counts From CSV</h2>

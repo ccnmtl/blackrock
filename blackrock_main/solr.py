@@ -2,17 +2,21 @@ from blackrock_main.models import LastImportDate
 import datetime, time, pytz, urllib, urllib2
 from xml.dom import minidom
 from django.utils.tzinfo import FixedOffset
+from django.utils.http import urlquote
 
 class SolrUtilities:
+  _solr_base_query = 'http://seasnail.cc.columbia.edu:8181/solr/blackrock/select/?qt=forest-data&'
+  
   @classmethod
   def update_last_import_date(self, application):
+    dt = datetime.datetime.now()
     try:
       lid = LastImportDate.objects.get(application=application)
-      lid.last_import = datetime.datetime.now()
+      lid.last_import = dt 
     except LastImportDate.DoesNotExist:
       lid = LastImportDate.objects.create(application=application, last_import=datetime.datetime.now())
     lid.save()
-
+    return dt
   
   @classmethod
   def get_last_import_date(self, request, application):
@@ -56,3 +60,31 @@ class SolrUtilities:
     xmldoc = minidom.parse(response)
     response.close()
     return xmldoc
+  
+  # Retrieve a list of modified import sets and row count based on the last time these sets were imported
+  @classmethod
+  def get_importsets_by_lastmodified(self, collection_id, import_set_type, last_import_date, import_set):
+    sets = {}
+    
+    count_query = self._solr_base_query + '&collection_id=' + collection_id + '&facet=true&facet.field=import_set&rows=0'
+    count_query = count_query + '&q=import_set_type:"' + import_set_type + '"'
+    
+    if last_import_date:
+      utc = last_import_date.astimezone(FixedOffset(0))
+      count_query = count_query + '%20AND%20last_modified:[' + utc.strftime('%Y-%m-%dT%H:%M:%SZ') + '%20TO%20NOW]'
+    if len(import_set) > 0:
+      count_query = count_query + '%20AND%20import_set:"' + import_set + '"'
+      
+    print count_query
+  
+    xmldoc = self.solr_request(count_query)
+    for node in xmldoc.getElementsByTagName('int'):
+      if node.hasAttribute('name') and int(node.childNodes[0].nodeValue) > 0:
+        sets[node.getAttribute('name')] = int(node.childNodes[0].nodeValue)
+    xmldoc.unlink()
+    
+    return sets
+  
+  @classmethod
+  def base_query(self):
+    return self._solr_base_query

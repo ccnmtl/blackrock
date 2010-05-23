@@ -1,0 +1,26 @@
+     <fieldset class="module aligned">
+        <h2>Import Respiration Data from SOLR</h2>
+        <div style="color: #F00; font-weight: bold; margin: 5px 5px;"><div id="solr_error"></div></div>
+        <div style="color: #00F; font-weight: bold; margin: 5px 5px;"><div id="solr_status"></div></div>
+        <div id="solr_progress" class="progress_indicator" style="display: none; top: 116px;"><div>Loading...please wait<br /><img src="/site_media/images/progress.gif" /></div></div>
+        
+        <div class="form-row">
+           <label class="required">Last Import Date:</label>
+           <p class="datetime">
+           Date: <input name="last_import_date" id="id_last_import_date" class="vDateField" size="10" type="text"><br />
+           Time: <input name="last_import_time" value="00:00:00" class="vTimeField" id="id_last_import_time" size="8" type="text">
+           </p>
+        </div>
+        <div class="form-row">
+           <label class="required">Preview:</label>  
+           <div style="display: none;" id="no_data_to_import">No data has changed since the prior import. Nothing to do.</div> 
+           <div style="display: none;" id="no_last_import_date">No prior import is recorded. All available data will be imported.</div>
+           <div style="display: none;" id="yes_last_import_date">Data modified after <span id="id_last_import_datetime"></span> will be imported.</div>
+           <br />
+           <table style="margin-left: 102px" id="previewsolr"></table>
+        </div>
+        <div class="submit-row">
+            <input value="Import" class="default" name="_save" type="submit">
+            <input onclick="return previewSolr();" value="Update Preview" name="_continue" type="submit">
+        </div>
+    </fieldset>

@@ -15,7 +15,7 @@ class PollenType(models.Model):
   name = models.CharField(max_length=100, null=False, unique=True)
 
   def __unicode__(self):
-    return self.name
+    return self.display_name 
 
   POLLEN_TYPES = (
     ('A', 'Tree or shrub'),
@@ -23,10 +23,10 @@ class PollenType(models.Model):
     ('F', 'Fern'),
     ('Q', 'Aquatic (water) plant'),
     ('S', 'Spore'),
-    
   )  
   
   type = models.CharField(max_length=1, choices=POLLEN_TYPES)
+  display_name = models.CharField(max_length=100, null=False, unique=True, default="")
   
 class PollenSample(models.Model):
   core_sample = models.ForeignKey(CoreSample)
