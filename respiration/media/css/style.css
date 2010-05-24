@@ -540,6 +540,10 @@ div#error
 	#equation { display: none; }
 	#tab-bar { display: none; }
 	#forestgraph { display: none; }
+        .speciescontainer, .leafspeciescontainer, #scenariobox {
+           max-height: 100%;
+           overflow: visible;
+        }
 	.scenario { padding-bottom: 50px; }
 	#scenarioheader { display: none; }
 	
@@ -550,20 +554,21 @@ div#error
 	}
 	
 	/* data */
-	#left
+	div#left
 	{
 		page-break-before: always;
 		width: 50%;
-		position: relative;
+		position: relative;                 
 	}
 	
 	/* graph */
-	#right
+	div#right
 	{
 		position: absolute;
 		left: 0px;
 		top: 0px;
 		margin-top: 0px;
+                border: 0;
 	}
 }
 
