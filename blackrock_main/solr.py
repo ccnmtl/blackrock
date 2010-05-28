@@ -49,7 +49,7 @@ class SolrUtilities:
     try:
       t = time.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
       utc = datetime.datetime(t[0], t[1], t[2], t[3], t[4], t[5], tzinfo=FixedOffset(0))
-      est = utc.astimezone(FixedOffset(-300)) # subtract 5 hours
+      est = utc.astimezone(FixedOffset(-300)) # subtract 5 hours. record_datetime is always in EST, not EDT
       return est
     except:
       return None
@@ -66,7 +66,7 @@ class SolrUtilities:
   def get_importsets_by_lastmodified(self, collection_id, import_set_type, last_import_date, import_set):
     sets = {}
     
-    count_query = self._solr_base_query + '&collection_id=' + collection_id + '&facet=true&facet.field=import_set&rows=0'
+    count_query = self._solr_base_query + 'collection_id=' + collection_id + '&facet=true&facet.field=import_set&rows=0'
     count_query = count_query + '&q=import_set_type:"' + import_set_type + '"'
     
     if last_import_date:
@@ -75,8 +75,6 @@ class SolrUtilities:
     if len(import_set) > 0:
       count_query = count_query + '%20AND%20import_set:"' + import_set + '"'
       
-    print count_query
-  
     xmldoc = self.solr_request(count_query)
     for node in xmldoc.getElementsByTagName('int'):
       if node.hasAttribute('name') and int(node.childNodes[0].nodeValue) > 0:

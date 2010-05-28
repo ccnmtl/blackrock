@@ -171,12 +171,12 @@ def getcsv(request):
     julian_day = (t.date - datetime.datetime(year=t.date.year, month=1, day=1)).days + 1
     hour = t.date.hour * 100
     year = t.date.year
-    #if(hour == 0):
-    #  hour = 2400
-    #  newdate = t.date - datetime.timedelta(days=1)
-    #  year = newdate.year
-    #  julian_day = (newdate - datetime.datetime(year=year, month=1, day=1)).days + 1
-    row = [t.station, year, julian_day, hour, t.reading];
+    if(hour == 0):
+      hour = 2400
+      newdate = t.date - datetime.timedelta(days=1)
+      year = newdate.year
+      julian_day = (newdate - datetime.datetime(year=year, month=1, day=1)).days + 1
+    row = [year, julian_day, hour, t.reading];
     writer.writerow(row)
   
   return response
@@ -249,15 +249,15 @@ def loadcsv(request):
 
 def _update_or_insert(cursor, record_datetime, station, temp):
   created = False
-  cursor.execute("UPDATE respiration_temperature SET reading=%s where station=%s and date=%s", [str(temp), station, record_datetime.strftime('%Y-%m-%d %H:%M:%S-05')])
+  cursor.execute("UPDATE respiration_temperature SET reading=%s where station=%s and date=%s", [str(temp), station, record_datetime.strftime('%Y-%m-%d %H:%M:%S%z')])
   if cursor.rowcount < 1:
-    cursor.execute('INSERT into respiration_temperature values(DEFAULT, %s, %s, %s, 1)', [station, record_datetime.strftime('%Y-%m-%d %H:%M:%S-05'), str(temp)]);
+    cursor.execute('INSERT into respiration_temperature values(DEFAULT, %s, %s, %s, 1)', [station, record_datetime.strftime('%Y-%m-%d %H:%M:%S%z'), str(temp)]);
     created = cursor.rowcount > 0
     
   return created 
 
 def _process_row(cursor, record_datetime, station, temp, next_expected_timestamp, last_valid_temp, prev_station):
-
+  
   if temp == "" or float(temp) < -100 or float(temp) > 100:
     if last_valid_temp is not None and station == prev_station:
       temp = last_valid_temp
@@ -293,7 +293,7 @@ def _process_row(cursor, record_datetime, station, temp, next_expected_timestamp
       updated_count = updated_count + 1  
 
     next_expected_timestamp = record_datetime + datetime.timedelta(hours=1)
-
+    
     if record_datetime.month == 12 and record_datetime.day == 31 and record_datetime.hour == 23:  # 12/31 11pm (last timestamp of the year)
       next_expected_timestamp = None
     last_valid_temp = temp
@@ -305,12 +305,13 @@ def _process_row(cursor, record_datetime, station, temp, next_expected_timestamp
 def loadsolr(request):
   collection_id = 'environmental-monitoring'
   import_set_type = 'educational'
+  import_set = request.POST.get('import_set', '')
   created_count = 0
   updated_count = 0
   try:
     cursor = connection.cursor()
     last_import_date = SolrUtilities.get_last_import_date(request, 'respiration')
-    sets = SolrUtilities.get_importsets_by_lastmodified(collection_id, import_set_type, last_import_date, request.POST.get('import_set', ''))
+    sets = SolrUtilities.get_importsets_by_lastmodified(collection_id, import_set_type, last_import_date, import_set)
     
     for import_set in sets:
       next_expected_timestamp = None
@@ -320,8 +321,9 @@ def loadsolr(request):
        
       while (retrieved < sets[import_set]):
         to_retrieve = min(1000, sets[import_set] - retrieved)
-        data_query = SolrUtilities.base_query() + '&collection_id=' + collection_id  + '&q=import_set:"' + import_set + '"&fl=collection_id,import_set,record_datetime,record_subject,location_name,latitude,longitude,temp_c_avg,temp_avg&sort=record_datetime%20asc'
+        data_query = SolrUtilities.base_query() + '&collection_id=' + collection_id  + '&q=import_set:"' + import_set + '"%20AND%20(record_subject:"Array%20ID%2060"%20OR%20record_subject:"Array%20ID%20101")&fl=collection_id,import_set,record_datetime,record_subject,location_name,latitude,longitude,temp_c_avg,temp_avg&sort=record_datetime%20asc'
         url = '%s&start=%d&rows=%d' % (data_query, retrieved, to_retrieve)
+        
         xmldoc = SolrUtilities.solr_request(url)
         for node in xmldoc.getElementsByTagName('doc'):
           station = None
