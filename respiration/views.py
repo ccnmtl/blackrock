@@ -176,7 +176,7 @@ def getcsv(request):
       newdate = t.date - datetime.timedelta(days=1)
       year = newdate.year
       julian_day = (newdate - datetime.datetime(year=year, month=1, day=1)).days + 1
-    row = [year, julian_day, hour, t.reading];
+    row = [t.station, year, julian_day, hour, t.reading];
     writer.writerow(row)
   
   return response
