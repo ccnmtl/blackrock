@@ -169,13 +169,13 @@ def getcsv(request):
   temperatures = temperatures.order_by("station", "date")
   for t in temperatures:
     julian_day = (t.date - datetime.datetime(year=t.date.year, month=1, day=1)).days + 1
-    hour = t.date.hour * 100
+    hour = (t.date.hour + 1) * 100
     year = t.date.year
-    if(hour == 0):
-      hour = 2400
-      newdate = t.date - datetime.timedelta(days=1)
-      year = newdate.year
-      julian_day = (newdate - datetime.datetime(year=year, month=1, day=1)).days + 1
+#    if(hour == 0):
+#      hour = 2400
+#      newdate = t.date - datetime.timedelta(days=1)
+#      year = newdate.year
+#      julian_day = (newdate - datetime.datetime(year=year, month=1, day=1)).days + 1
     row = [t.station, year, julian_day, hour, t.reading];
     writer.writerow(row)
   
