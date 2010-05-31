@@ -39,7 +39,6 @@ def getpercents(request):
   try:
     names, percents, counts = zip(*results)
     otherpct = 100 - sum([float(i) for i in percents])
-    print otherpct
   except:
     pass
   results = {'depth': depth, 'pollen':names, 'percents' : percents, 'counts':counts, 'other':otherpct }
@@ -192,7 +191,6 @@ def _import_pollen_types(import_set, count):
     pt, created = _get_or_create_pollen_type(plant_name, plant_type)
     
     if created:
-      print 'New Pollen Type found: ' + pt.name
       created_count = created_count + 1
     else:
       updated_count = updated_count + 1
@@ -226,28 +224,25 @@ def _import_counts(import_set, count, fieldname):
         core_sample, created = _add_core_sample(child.childNodes[0].nodeValue)
       elif child.tagName == 'double' and name not in exceptions:
         pollen_name = _normalize_pollen_name(name.strip().replace('_', ' ')) # solr names for count/percentages come in lowercase with underscores replacing spaces
-        try:
-          pollen_type = PollenType.objects.get(name__iexact=pollen_name)
-          pollen_count, created = _update_or_create_pollen_sample(pollen_type, core_sample, fieldname, child.childNodes[0].nodeValue)
+        
+        pollen_type = PollenType.objects.get(name__iexact=pollen_name)
+        pollen_count, created = _update_or_create_pollen_sample(pollen_type, core_sample, fieldname, child.childNodes[0].nodeValue)
+        
+        if created:
+          created_count += 1
+        else:
+          updated_count += 1
           
-          if created:
-            created_count += 1
-          else:
-            updated_count += 1
-            
-          if fieldname == 'count':
-            if pollen_name.lower() in ["pinus subg. pinus", "pinus subg. strobus", "pinus undiff."]:
-              _update_or_create_pollen_sample(pinus_pollen, core_sample, fieldname, child.childNodes[0].nodeValue, summarize=True)
-            elif pollen_name.lower() in ["asteraceae subf. asteroideae undiff.", "asteraceae subf. cichorioideae"]:
-              _update_or_create_pollen_sample(asteraceae_pollen, core_sample, fieldname, child.childNodes[0].nodeValue, summarize=True)
-        except PollenType.DoesNotExist:
-          print 'Pollen type: %s Does Not Exist' % pollen_name
+        if fieldname == 'count':
+          if pollen_name.lower() in ["pinus subg. pinus", "pinus subg. strobus", "pinus undiff."]:
+            _update_or_create_pollen_sample(pinus_pollen, core_sample, fieldname, child.childNodes[0].nodeValue, summarize=True)
+          elif pollen_name.lower() in ["asteraceae subf. asteroideae undiff.", "asteraceae subf. cichorioideae"]:
+            _update_or_create_pollen_sample(asteraceae_pollen, core_sample, fieldname, child.childNodes[0].nodeValue, summarize=True)
 
   xmldoc.unlink()
   return created_count, updated_count
 
 def _get_or_create_pollen_type(name, type, display_name=""):
-  print '_get_or_create_pollen_type' + name + ' ' + type
   pt, created = PollenType.objects.get_or_create(name__iexact=name)
   
   if len(type) == 1: # Organic Matter's type is gibberish
@@ -257,15 +252,12 @@ def _get_or_create_pollen_type(name, type, display_name=""):
     pt.display_name = display_name;
   
   pt.save()
-
-  if created:
-    print 'New pollen type created: %s' % (name)
-  print '~_get_or_create_pollen_type'
+  
   return pt, created
 
 # Format of record_subject is Depth of XX cm. Parse out the XX, find or create a core sample. Continue.
 def _add_core_sample(depth):
-  d = re.search('\d+', depth)
+  d = re.search('\d+.\d+', depth) or re.search('\d+', depth) 
   return CoreSample.objects.get_or_create(depth=d.group(0))
   
 def _update_or_create_pollen_sample(pollen_type, core_sample, fieldname, value, summarize=False):
