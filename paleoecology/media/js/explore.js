@@ -2,9 +2,9 @@ var visible = null;
 var global_http_request;
 
 var images = [
-  ["Abies (Fir)", "Alnus (Alder)", "Asteraceae (Ragweed etc.)", "Betula (Birch)", "Carya (Hickory)", "Castanea dentata (Chestnut)",
-   "Cyperaceae (Sedge)", "Fagus grandifolia (Beech)", "Fraxinus (Ash)", "Gramineae (Grasses)", "Ostrya/Carpinus", "Picea (Spruce)",
-   "Pinus (Pine)", "Quercus (Oak)", "Tsuga canadensis (Hemlock)"
+  ["Abies (Fir)", "Alnus (Alder)", "Asteraceae (Ragweed & herbs)", "Betula (Birch)", "Carya (Hickory)", "Castanea dentata (American Chestnut)",
+   "Cyperaceae (Sedge)", "Fagus grandifolia (American Beech)", "Fraxinus (Ash)", "Gramineae (Grasses)", "Ostrya/Carpinus", "Picea (Spruce)",
+   "Pinus (Pine)", "Quercus (Oak)", "Tsuga canadensis (Eastern Hemlock)"
   ],
   ["id02.jpg", "id03.jpg", "id04.jpg", "id05.jpg", "id08.jpg", "id09.jpg", "id10.jpg",
    "id11.jpg", "id12.jpg", "id13.jpg", "id14.jpg", "id16.jpg", "id18.jpg", "id19.jpg", "id21.jpg"
@@ -39,7 +39,7 @@ function showResults(http_request) {
   
   // use Google charts API to create pie chart
   var baseURL = "http://chart.apis.google.com/chart?cht=p"
-  var chartSize = "chs=" + "200x400" + "&chdlp=bv";
+  var chartSize = "chs=" + "260x400" + "&chdlp=bv";
   var chartLabels = "chdl=";
   //var chartLabels = "chdl=" + pollen.join("|") + "|Other";
   
@@ -61,7 +61,7 @@ function showResults(http_request) {
     //pctString += "<li>"+ pollen[i] + " ("+ percents[i] +"%)</li>";
     var imgString = "<div class='pollen-zoo-image core'><div id='pollen-image'><img src='media/images/pollen/" + getImage(pollen[i]) + "'/></div>"; 
     countString += imgString + "<div class='imagename'><b>" + pollen[i] + ":</b><br /> " + counts[i] + " grains <br /></div></div>";
-    chartLabels += pollen[i] + " (" + percents[i] + "%)|";
+    chartLabels += escape(pollen[i]) + " (" + percents[i] + "%)|";
   }
   
   // use names instead of pollen so we keep the colors consistent over graphs

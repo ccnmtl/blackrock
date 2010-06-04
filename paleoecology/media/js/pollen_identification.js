@@ -2,7 +2,7 @@ var images = [
   ["id01.jpg", "abies (fir) needle"],
   ["id02.jpg", "abies (fir) pollen"],
   ["id03.jpg", "alnus (alder) pollen"],
-  ["id04.jpg", "asteraceae (herbs) pollen"],
+  ["id04.jpg", "asteraceae (ragweed & herbs) pollen"],
   ["id05.jpg", "betula (birch) pollen"],
   ["id06.jpg", "betula papyrifera (paper birch) seed"],
   ["id07.jpg", "betula populifolia (gray birch) seed"],
