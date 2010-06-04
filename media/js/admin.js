@@ -16,18 +16,22 @@ function submitSolrQuery(form) {
     $('solr_progress').style.display = 'none';
     
     var msg;
-    if ($('id_solr_loader').last_import_date.value && !verifyDate($('id_solr_loader').last_import_date.value)) {
-        msg = "<p>Please enter a valid last import date.</p>";
-    } else if ($('id_solr_loader').last_import_time.value && !verifyTime($('id_solr_loader').last_import_time.value)) {
-        msg = "<p>Please enter a valid last import time.</p>";
-    } 
+    if ($('id_solr_loader').last_import_date) {
+        if ($('id_solr_loader').last_import_date.value && !verifyDate($('id_solr_loader').last_import_date.value)) {
+            msg = "<p>Please enter a valid last import date.</p>";
+        } else if ($('id_solr_loader').last_import_time.value && !verifyTime($('id_solr_loader').last_import_time.value)) {
+            msg = "<p>Please enter a valid last import time.</p>";
+        }
+    }
     
     if (msg) {
         $('solr_error').innerHTML = msg;
     } else {
         params = {}
-        params[$('id_solr_loader').last_import_date.name] = escape($('id_solr_loader').last_import_date.value);
-        params[$('id_solr_loader').last_import_time.name] = escape($('id_solr_loader').last_import_time.value);
+        if ($('id_solr_loader').last_import_date) {
+            params[$('id_solr_loader').last_import_date.name] = escape($('id_solr_loader').last_import_date.value);
+            params[$('id_solr_loader').last_import_time.name] = escape($('id_solr_loader').last_import_time.value);
+        }
         
         original_request = doXHR(form.action, 
           { 
@@ -54,7 +58,8 @@ function onWaitSuccess(doc) {
         if (json.solr_updated)
             status += json.solr_updated + " rows updated.<br />";
         if (json.solr_import_date)
-            $('id_last_import_date').value = json.solr_import_date;
+            if ($('id_solr_loader').last_import_date)
+                $('id_last_import_date').value = json.solr_import_date;
         if (json.solr_import_time)
             $('id_last_import_time').value = json.solr_import_time;    
         
@@ -123,7 +128,7 @@ function previewSolr() {
     $('yes_last_import_date').style.display = 'none';
     
     var params = {};
-    if ($('id_solr_loader').last_import_date.value) { 
+    if ($('id_solr_loader').last_import_date && $('id_solr_loader').last_import_date.value) { 
         params[$('id_solr_loader').last_import_date.name] = escape($('id_solr_loader').last_import_date.value);
         params[$('id_solr_loader').last_import_time.name] = escape($('id_solr_loader').last_import_time.value);
     }

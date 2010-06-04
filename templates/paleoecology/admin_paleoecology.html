@@ -7,7 +7,25 @@
      <input type="hidden" name="collection_id" value="paleo"></input>
      <input type="hidden" name="import_set_type" value="cleaned"></input>
 
-    {% include "blackrock_main/solr_loader.html" %}
+     <fieldset class="module aligned">
+        <h2>Import Data from SOLR</h2>
+        <div style="color: #F00; font-weight: bold; margin: 5px 5px;"><div id="solr_error"></div></div>
+        <div style="color: #00F; font-weight: bold; margin: 5px 5px;"><div id="solr_status"></div></div>
+        <div id="solr_progress" class="progress_indicator" style="display: none; top: 116px;"><div>Loading...please wait<br /><img src="/site_media/images/progress.gif" /></div></div>
+        
+        <div class="form-row">
+           <label class="required">Preview:</label>  
+           <div style="display: none;" id="no_data_to_import">No data has changed since the prior import. Nothing to do.</div> 
+           <div style="display: none;" id="no_last_import_date">All available data will be imported.</div>
+           <div style="display: none;" id="yes_last_import_date">Data modified after <span id="id_last_import_datetime"></span> will be imported.</div>
+           <br />
+           <table style="margin-left: 102px" id="previewsolr"></table>
+        </div>
+        <div class="submit-row">
+            <input value="Import" class="default" name="_save" type="submit">
+            <input onclick="return previewSolr();" value="Update Preview" name="_continue" type="submit">
+        </div>
+    </fieldset>
     
 </form>
 
