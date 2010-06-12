@@ -49,7 +49,6 @@ class SolrUtilities:
     try:
       t = time.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
       utc = datetime.datetime(t[0], t[1], t[2], t[3], t[4], t[5], tzinfo=FixedOffset(0))
-      utc = utc - datetime.timedelta(hours=1) # Subtract an hour to account for raw data 1-24 timespan
       est = utc.astimezone(FixedOffset(-300)) #UTC -5 hours. Solr dates are always EST and do not take dst into account
       return est
     except:

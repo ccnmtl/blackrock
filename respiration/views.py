@@ -12,6 +12,7 @@ from django.core.cache import cache
 from blackrock_main.models import LastImportDate
 import pytz
 from blackrock_main.solr import SolrUtilities
+from decimal import Decimal, ROUND_HALF_UP
 
 def index(request, admin_msg=""):
   return render_to_response('respiration/index.html',
@@ -153,7 +154,7 @@ def getcsv(request):
     end = datetime.datetime(year=year, month=end_month, day=end_day)
 
     end += datetime.timedelta(hours=23, minutes=59)
-    
+      
     temperatures = Temperature.objects.filter(station=filters['station'],
                                               date__range=(start, end))
     
@@ -303,15 +304,17 @@ def _process_row(cursor, record_datetime, station, temp, next_expected_timestamp
 @user_passes_test(lambda u: u.is_staff)
 @transaction.commit_on_success
 def loadsolr(request):
-  collection_id = 'environmental-monitoring'
-  import_set_type = 'educational'
   import_set = request.POST.get('import_set', '')
+  collection_id = request.POST.get('collection_id', '')
+  import_set_type = request.POST.get('import_set_type', '')
+  facet_field = request.POST.get('facet_field', '')
+  
   created_count = 0
   updated_count = 0
   try:
     cursor = connection.cursor()
     last_import_date = SolrUtilities.get_last_import_date(request, 'respiration')
-    sets = SolrUtilities.get_importsets_by_lastmodified(collection_id, import_set_type, last_import_date, import_set)
+    sets = SolrUtilities.get_importsets_by_lastmodified(collection_id, import_set_type, last_import_date, import_set, facet_field)
     
     for import_set in sets:
       next_expected_timestamp = None
@@ -321,7 +324,8 @@ def loadsolr(request):
        
       while (retrieved < sets[import_set]):
         to_retrieve = min(1000, sets[import_set] - retrieved)
-        data_query = SolrUtilities.base_query() + '&collection_id=' + collection_id  + '&q=import_set:"' + import_set + '"%20AND%20(record_subject:"Array%20ID%2060"%20OR%20record_subject:"Array%20ID%20101")&fl=collection_id,import_set,record_datetime,record_subject,location_name,latitude,longitude,temp_c_avg,temp_avg&sort=record_datetime%20asc'
+        
+        data_query = SolrUtilities.base_query() + '&collection_id=' + collection_id  + '&q=import_set:"' + import_set + '"%20AND%20(record_subject:"Array%20ID%2060"%20OR%20record_subject:"Array%20ID%20101")&fl=collection_id,import_set,record_datetime,record_subject,location_name,latitude,longitude,temp_c_avg,temp_avg,hour,jul_day&sort=record_datetime%20asc'
         url = '%s&start=%d&rows=%d' % (data_query, retrieved, to_retrieve)
         
         xmldoc = SolrUtilities.solr_request(url)
@@ -329,16 +333,23 @@ def loadsolr(request):
           station = None
           dt = None
           temp = None
+          jul_day = None
+          hour = None
+          
           for child in node.childNodes:
             name = child.getAttribute('name')
             if (name == 'location_name'):
               station = child.childNodes[0].nodeValue.rstrip(' Station')
             elif (name == 'temp_c_avg' or name == 'temp_avg'):
-              temp = child.childNodes[0].nodeValue
+              temp = Decimal(child.childNodes[0].nodeValue).quantize(Decimal("0.01"), ROUND_HALF_UP)
             elif (name == 'record_datetime'):
               dt = SolrUtilities.utc_to_est(child.childNodes[0].nodeValue)
+            elif (name == 'jul_day'):
+              jul_day = child.childNodes[0].nodeValue
+            elif (name == 'hour'):
+              hour = child.childNodes[0].nodeValue
           
-          if (station and dt and temp):
+          if (station and dt and temp is not None):
             (next_expected_timestamp, last_valid_temp, prev_station, created, updated) = _process_row(cursor, dt, station, float(temp), next_expected_timestamp, last_valid_temp, prev_station)
             created_count = created_count + created
             updated_count = updated_count + updated
