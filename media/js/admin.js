@@ -32,6 +32,10 @@ function submitSolrQuery(form) {
             params[$('id_solr_loader').last_import_date.name] = escape($('id_solr_loader').last_import_date.value);
             params[$('id_solr_loader').last_import_time.name] = escape($('id_solr_loader').last_import_time.value);
         }
+        params[$('id_solr_loader').application.name] = escape($('id_solr_loader').application.value)
+        params[$('id_solr_loader').collection_id.name] = escape($('id_solr_loader').collection_id.value)
+        params[$('id_solr_loader').import_set_type.name] = escape($('id_solr_loader').import_set_type.value)
+        params[$('id_solr_loader').facet_field.name] = escape($('id_solr_loader').facet_field.value)
         
         original_request = doXHR(form.action, 
           { 
@@ -135,6 +139,7 @@ function previewSolr() {
     params[$('id_solr_loader').application.name] = escape($('id_solr_loader').application.value)
     params[$('id_solr_loader').collection_id.name] = escape($('id_solr_loader').collection_id.value)
     params[$('id_solr_loader').import_set_type.name] = escape($('id_solr_loader').import_set_type.value)
+    params[$('id_solr_loader').facet_field.name] = escape($('id_solr_loader').facet_field.value)
     
     url = 'http://' + location.hostname + ':' + location.port + "/blackrock_main/previewsolr"
     deferred = doXHR(url, { method: 'POST',

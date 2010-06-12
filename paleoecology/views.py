@@ -130,33 +130,37 @@ def loadcsv(request, type):
   
   return HttpResponseRedirect("/paleoecology/")
 
-_collection_id = 'paleo'
-_import_set_type = 'cleaned'
-_sets = ['corrected_paleo Pollen Types', 'corrected_paleo 15 Pollen Types', 'corrected_paleo Raw Counts of 65 Pollen Types']
+_sets = ['Pollen Types', 'Raw Counts of 65 Pollen Types', '15 Pollen Types' ]
              
 @user_passes_test(lambda u: u.is_staff)
 def loadsolr(request):
+  
+  import_set = request.POST.get('import_set', '')
+  collection_id = request.POST.get('collection_id', '')
+  import_set_type = request.POST.get('import_set_type', '')
+  facet_field = request.POST.get('facet_field', '')
+  
   created_count = 0
   updated_count = 0
   
   PollenSample.objects.all().delete();
   
   try:
-    sets = SolrUtilities.get_importsets_by_lastmodified(_collection_id, _import_set_type, None, request.POST.get('import_set', ''))
+    sets = SolrUtilities.get_importsets_by_lastmodified(collection_id, import_set_type, None, import_set, facet_field)
     
-    for import_set in sets:
-      if import_set == 'corrected_paleo Pollen Types':
-        created, updated = _import_pollen_types(import_set, sets[import_set])
+    for set in _sets:
+      if set == 'Pollen Types' and set in sets:
+        created, updated = _import_pollen_types(set, sets[set], collection_id)
         created_count += created
         updated_count += updated
         
-      if import_set == 'corrected_paleo Raw Counts of 65 Pollen Types':
-        created, updated = _import_counts(import_set, sets[import_set], 'count')
+      if set == 'Raw Counts of 65 Pollen Types' and set in sets:
+        created, updated = _import_counts(set, sets[set], 'count', collection_id)
         created_count += created
         updated_count += updated
         
-      if import_set == 'corrected_paleo 15 Pollen Types':
-        created, updated = _import_counts(import_set, sets[import_set], 'percentage')
+      if set == '15 Pollen Types' and set in sets:
+        created, updated = _import_counts(set, sets[set], 'percentage', collection_id)
         created_count = created_count + created
         updated_count = updated_count + updated
 
@@ -172,10 +176,10 @@ def loadsolr(request):
   http_response['Cache-Control']='max-age=0,no-cache,no-store' 
   return http_response
 
-def _import_pollen_types(import_set, count):
+def _import_pollen_types(set, count, collection_id):
   created_count = 0
   updated_count = 0
-  url = SolrUtilities.base_query() + '&collection_id=' + _collection_id  + '&q=import_set:"' + urlquote(import_set) + '"&rows=' + str(count) + '&fl=plant_name,plant_type'
+  url = SolrUtilities.base_query() + '&collection_id=' + collection_id  + '&q=import_set_section:"' + urlquote(set) + '"&rows=' + str(count) + '&fl=plant_name,plant_type'
   xmldoc = SolrUtilities.solr_request(url)
   
   for node in xmldoc.getElementsByTagName('doc'):
@@ -203,12 +207,13 @@ def _import_pollen_types(import_set, count):
   
   return created_count, updated_count
 
-def _import_counts(import_set, count, fieldname):
+def _import_counts(set, count, fieldname, collection_id):
   created_count = 0
   updated_count = 0
   exceptions = ['longitude', 'latitude', 'depth_(cm)']
   
-  url = SolrUtilities.base_query() + '&collection_id=' + _collection_id  + '&q=import_set:"' + urlquote(import_set) + '"&rows=' + str(count)
+  url = SolrUtilities.base_query() + '&collection_id=' + collection_id  + '&q=import_set_section:"' + urlquote(set) + '"&rows=' + str(count)
+  print url
   xmldoc = SolrUtilities.solr_request(url)
   
   pinus_pollen = PollenType.objects.get(name='Pinus')
@@ -222,12 +227,17 @@ def _import_counts(import_set, count, fieldname):
       if (name == 'record_subject'):
         # record_subject always comes first. the logic counts on this order.
         core_sample, created = _add_core_sample(child.childNodes[0].nodeValue)
-      elif child.tagName == 'double' and name not in exceptions:
+      elif (child.tagName == 'double' or child.tagName == 'int') and name not in exceptions:
         pollen_name = _normalize_pollen_name(name.strip().replace('_', ' ')) # solr names for count/percentages come in lowercase with underscores replacing spaces
-        
         pollen_type = PollenType.objects.get(name__iexact=pollen_name)
-        pollen_count, created = _update_or_create_pollen_sample(pollen_type, core_sample, fieldname, child.childNodes[0].nodeValue)
         
+        try:
+          value = round(float(child.childNodes[0].nodeValue), 2)
+        except:
+          print "won't round: " + child.childNodes[0].nodeValue
+          continue
+        
+        pollen_count, created = _update_or_create_pollen_sample(pollen_type, core_sample, fieldname, value)
         if created:
           created_count += 1
         else:

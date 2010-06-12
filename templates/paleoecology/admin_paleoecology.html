@@ -5,7 +5,8 @@
 <form name="solr_loader" id="id_solr_loader" action="../../paleoecology/loadsolr" method="POST" onSubmit="return submitSolrQuery(this, 'solr_progress');">
      <input type="hidden" name="application" value="paleoecology"></input>
      <input type="hidden" name="collection_id" value="paleo"></input>
-     <input type="hidden" name="import_set_type" value="cleaned"></input>
+     <input type="hidden" name="import_set_type" value="educational"></input>
+     <input type="hidden" name="facet_field" value="import_set_section"></input>
 
      <fieldset class="module aligned">
         <h2>Import Data from SOLR</h2>

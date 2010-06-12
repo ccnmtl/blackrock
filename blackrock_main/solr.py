@@ -64,10 +64,10 @@ class SolrUtilities:
   
   # Retrieve a list of modified import sets and row count based on the last time these sets were imported
   @classmethod
-  def get_importsets_by_lastmodified(self, collection_id, import_set_type, last_import_date, import_set):
+  def get_importsets_by_lastmodified(self, collection_id, import_set_type, last_import_date, import_set, facet_field):
     sets = {}
     
-    count_query = self._solr_base_query + 'collection_id=' + collection_id + '&facet=true&facet.field=import_set&rows=0'
+    count_query = self._solr_base_query + 'collection_id=' + collection_id + '&facet=true&facet.field=' + facet_field + '&rows=0'
     count_query = count_query + '&q=import_set_type:"' + import_set_type + '"'
     
     if last_import_date:

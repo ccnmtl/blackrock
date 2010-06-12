@@ -49,13 +49,14 @@ def previewsolr(request):
   import_set = request.POST.get('import_set', '')
   application = request.POST.get('application', '')
   collection_id = request.POST.get('collection_id', '')
-  import_set_type = request.POST.get('import_set_type', 'educational')
+  import_set_type = request.POST.get('import_set_type', '')
+  facet_field = request.POST.get('facet_field', '')
   
   last_import_date = SolrUtilities.get_last_import_date(request, application)
-  sets = SolrUtilities.get_importsets_by_lastmodified(collection_id, import_set_type, last_import_date, import_set)
+  sets = SolrUtilities.get_importsets_by_lastmodified(collection_id, import_set_type, last_import_date, import_set, facet_field)
     
-  for import_set in sets:
-    response['sets'][import_set] = sets[import_set]
+  for set in sets:
+    response['sets'][set] = sets[set]
   
   if last_import_date:
     response['last_import_date'] = last_import_date.strftime('%Y-%m-%d');
