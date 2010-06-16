@@ -213,7 +213,6 @@ def _import_counts(set, count, fieldname, collection_id):
   exceptions = ['longitude', 'latitude', 'depth_(cm)']
   
   url = SolrUtilities.base_query() + '&collection_id=' + collection_id  + '&q=import_set_section:"' + urlquote(set) + '"&rows=' + str(count)
-  print url
   xmldoc = SolrUtilities.solr_request(url)
   
   pinus_pollen = PollenType.objects.get(name='Pinus')
@@ -231,11 +230,7 @@ def _import_counts(set, count, fieldname, collection_id):
         pollen_name = _normalize_pollen_name(name.strip().replace('_', ' ')) # solr names for count/percentages come in lowercase with underscores replacing spaces
         pollen_type = PollenType.objects.get(name__iexact=pollen_name)
         
-        try:
-          value = round(float(child.childNodes[0].nodeValue), 2)
-        except:
-          print "won't round: " + child.childNodes[0].nodeValue
-          continue
+        value = round(float(child.childNodes[0].nodeValue), 2)
         
         pollen_count, created = _update_or_create_pollen_sample(pollen_type, core_sample, fieldname, value)
         if created:
