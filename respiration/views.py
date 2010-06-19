@@ -163,7 +163,7 @@ def getcsv(request):
   writer = csv.writer(response)
 
   # write headers
-  headers = ['station', 'year', 'julian day', 'hour', 'avg temp deg C']
+  headers = ['station', 'year', 'julian day', 'hour', 'avg temp deg C', 'data source']
   writer.writerow(headers)
 
   # write data
@@ -177,7 +177,7 @@ def getcsv(request):
 #      newdate = t.date - datetime.timedelta(days=1)
 #      year = newdate.year
 #      julian_day = (newdate - datetime.datetime(year=year, month=1, day=1)).days + 1
-    row = [t.station, year, julian_day, hour, t.reading];
+    row = [t.station, year, julian_day, hour, t.reading, t.data_source];
     writer.writerow(row)
   
   return response
@@ -248,11 +248,11 @@ def loadcsv(request):
   transaction.set_dirty()
   return HttpResponseRedirect('/admin/respiration/temperature')
 
-def _update_or_insert(cursor, record_datetime, station, temp):
+def _update_or_insert(cursor, record_datetime, station, temp, data_source):
   created = False
-  cursor.execute("UPDATE respiration_temperature SET reading=%s where station=%s and date=%s", [str(temp), station, record_datetime.strftime('%Y-%m-%d %H:%M:%S%z')])
+  cursor.execute("UPDATE respiration_temperature SET reading=%s, data_source=%s where station=%s and date=%s", [str(temp), data_source, station, record_datetime.strftime('%Y-%m-%d %H:%M:%S%z')])
   if cursor.rowcount < 1:
-    cursor.execute('INSERT into respiration_temperature values(DEFAULT, %s, %s, %s, 1)', [station, record_datetime.strftime('%Y-%m-%d %H:%M:%S%z'), str(temp)]);
+    cursor.execute('INSERT into respiration_temperature values(DEFAULT, %s, %s, %s, 1, %s)', [station, record_datetime.strftime('%Y-%m-%d %H:%M:%S%z'), str(temp), data_source]);
     created = cursor.rowcount > 0
     
   return created 
@@ -277,7 +277,7 @@ def _process_row(cursor, record_datetime, station, temp, next_expected_timestamp
       else:
         reading = float(temp)
           
-      created = _update_or_insert(cursor, next_expected_timestamp, station, reading)
+      created = _update_or_insert(cursor, next_expected_timestamp, station, reading, 'mock')
       next_expected_timestamp = next_expected_timestamp + datetime.timedelta(hours=1)
       
       if created:
@@ -286,7 +286,7 @@ def _process_row(cursor, record_datetime, station, temp, next_expected_timestamp
         updated_count = updated_count + 1
          
   if temp != "":
-    created = _update_or_insert(cursor, record_datetime, station, float(temp))
+    created = _update_or_insert(cursor, record_datetime, station, float(temp), 'original')
         
     if created:
       created_count = created_count + 1

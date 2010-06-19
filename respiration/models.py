@@ -14,8 +14,14 @@ class Temperature(models.Model):
   station = models.CharField(max_length=50, unique_for_date="date")
   date = models.DateTimeField()
   reading = models.FloatField(null=True,blank=True)
-
   precalc = models.FloatField(null=True,blank=True)
+
+  DATA_SOURCE_CHOICES = (
+    ('original', 'Original Blackrock Spreadsheet'),
+    ('mock', 'Mock data to fill in gaps')
+  )  
+  
+  data_source = models.CharField(max_length=10, choices=DATA_SOURCE_CHOICES)
 
   def save(self, *args, **kwargs):
     "This is mainly just to weed out insane values when arrhenius sums are calculated"
