@@ -130,7 +130,7 @@ def loadcsv(request, type):
   
   return HttpResponseRedirect("/paleoecology/")
 
-_sets = ['Pollen Types', 'Raw Counts of 65 Pollen Types', '15 Pollen Types' ]
+_sets = ['Pollen Types', 'Raw Counts of 65 Pollen Types', 'Percentages of 15 Pollen Types' ]
              
 @user_passes_test(lambda u: u.is_staff)
 def loadsolr(request):
@@ -159,7 +159,7 @@ def loadsolr(request):
         created_count += created
         updated_count += updated
         
-      if set == '15 Pollen Types' and set in sets:
+      if set == 'Percentages of 15 Pollen Types' and set in sets:
         created, updated = _import_counts(set, sets[set], 'percentage', collection_id)
         created_count = created_count + created
         updated_count = updated_count + updated
@@ -289,7 +289,8 @@ def _normalize_pollen_name(pollen_name):
     'spruce': 'Picea',
     'castanea': 'Castanea dentata',
     'tsuga': 'Tsuga canadensis',
-    'fagus': 'Fagus grandifolia', 
+    'fagus': 'Fagus grandifolia',
+    'pinus strobus': 'Pinus subg. Strobus'  
   }
   
   if pollen_name.lower() in translate:
