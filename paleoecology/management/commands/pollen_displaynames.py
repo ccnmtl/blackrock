@@ -35,6 +35,10 @@ class Command(BaseCommand):
         pt.display_name = 'Tsuga canadensis (Eastern Hemlock)'
         pt.save()
         
+        pt = PollenType.objects.get(name='Pinus subg. Strobus')
+        pt.display_name = 'Pinus subg. Strobus (White Pine)'
+        pt.save()
+        
         
         
          
