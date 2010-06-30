@@ -155,12 +155,12 @@ def loadsolr(request):
         updated_count += updated
         
       if set == 'Raw Counts of 65 Pollen Types' and set in sets:
-        created, updated = _import_counts(set, sets[set], 'count', collection_id)
+        created, updated = _import_counts(set, sets[set], 'count', collection_id, import_set_type)
         created_count += created
         updated_count += updated
         
       if set == 'Percentages of 15 Pollen Types' and set in sets:
-        created, updated = _import_counts(set, sets[set], 'percentage', collection_id)
+        created, updated = _import_counts(set, sets[set], 'percentage', collection_id, import_set_type)
         created_count = created_count + created
         updated_count = updated_count + updated
 
@@ -207,12 +207,12 @@ def _import_pollen_types(set, count, collection_id):
   
   return created_count, updated_count
 
-def _import_counts(set, count, fieldname, collection_id):
+def _import_counts(set, count, fieldname, collection_id, import_set_type):
   created_count = 0
   updated_count = 0
   exceptions = ['longitude', 'latitude', 'depth_(cm)']
   
-  url = SolrUtilities.base_query() + '&collection_id=' + collection_id  + '&q=import_set_section:"' + urlquote(set) + '"&rows=' + str(count)
+  url = SolrUtilities.base_query() + '&collection_id=' + collection_id  + '&q=import_set_type:"' + import_set_type + '"%20AND%20import_set_section:"' + urlquote(set) + '"&rows=' + str(count) + '&sort=paleo__depth_%28cm%29%20asc'
   xmldoc = SolrUtilities.solr_request(url)
   
   pinus_pollen = PollenType.objects.get(name='Pinus')
