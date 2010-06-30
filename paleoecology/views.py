@@ -113,14 +113,18 @@ def loadcsv(request, type):
          # hack to fix Pinus and Asteraceae counts
          if type == "counts" :
            if pollen_name in ["Pinus subg. Pinus", "Pinus subg. Strobus", "Pinus undiff."]:
-             (second, created) = PollenType.objects.get_or_create(name="Pinus", display_name="Pinus (Pine)")
+             (second, created) = PollenType.objects.get_or_create(name="Pinus")
              (p, created) = PollenSample.objects.get_or_create(core_sample=core, pollen=second)
+             if created:
+               p.display_name="Pinus (Pine)"
              p.count = (p.count or 0) + int(row[i])
              p.save()
 
            if pollen_name in ["Asteraceae subf. Asteroideae undiff.", "Asteraceae subf. Cichorioideae"]:
-             (second, created) = PollenType.objects.get_or_create(name="Asteraceae", display_name="Asteraceae (Ragweed etc.)")
+             (second, created) = PollenType.objects.get_or_create(name="Asteraceae")
              (p, created) = PollenSample.objects.get_or_create(core_sample=core, pollen=second)
+             if created:
+               p.display_name = 'Asteraceae (Ragweed & herbs)'
              p.count = (p.count or 0) + int(row[i])
              p.save()
 
@@ -201,7 +205,7 @@ def _import_pollen_types(set, count, collection_id):
   
   # a few manual entries for summary purposes 
   _get_or_create_pollen_type("Pinus", "A", "Pinus (Pine)")
-  _get_or_create_pollen_type("Asteraceae", "B", "Asteraceae (Ragweed etc.)")
+  _get_or_create_pollen_type("Asteraceae", "B", "Asteraceae (Ragweed & herbs)")
             
   xmldoc.unlink()
   
