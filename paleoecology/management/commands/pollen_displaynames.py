@@ -19,7 +19,6 @@ class Command(BaseCommand):
           obj.name = obj.name.replace(')', '')
           obj.name = obj.name.replace('/', '_')
           obj.name = unicodedata.normalize('NFKD', obj.name).encode('ascii','ignore') # remove any special characters
-          print "%s %s" % (obj.name, obj.display_name) 
           obj.save()
 
         # hard-coded updates
