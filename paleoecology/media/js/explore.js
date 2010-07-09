@@ -4,7 +4,7 @@ var global_http_request;
 var images = [
   ["Abies (Fir)", "Alnus (Alder)", "Asteraceae (Ragweed & herbs)", "Betula (Birch)", "Carya (Hickory)", "Castanea dentata (American Chestnut)",
    "Cyperaceae (Sedge)", "Fagus grandifolia (American Beech)", "Fraxinus (Ash)", "Gramineae (Grasses)", "Ostrya/Carpinus", "Picea (Spruce)",
-   "Pinus subg. Strobus (White Pine)", "Quercus (Oak)", "Tsuga canadensis (Eastern Hemlock)"
+   "Pinus (Pine)", "Quercus (Oak)", "Tsuga canadensis (Eastern Hemlock)"
   ],
   ["id02.jpg", "id03.jpg", "id04.jpg", "id05.jpg", "id08.jpg", "id09.jpg", "id10.jpg",
    "id11.jpg", "id12.jpg", "id13.jpg", "id14.jpg", "id16.jpg", "id18.jpg", "id19.jpg", "id21.jpg"

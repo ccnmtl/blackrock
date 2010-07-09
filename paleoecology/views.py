@@ -11,6 +11,7 @@ from blackrock_main.solr import SolrUtilities
 from django.core.cache import cache
 from blackrock_main.models import LastImportDate
 import re
+import unicodedata
 
 def index(request, admin_msg=""):
   return render_to_response('paleoecology/index.html',
@@ -214,9 +215,9 @@ def _import_pollen_types(set, count, collection_id):
 def _import_counts(set, count, fieldname, collection_id, import_set_type):
   created_count = 0
   updated_count = 0
-  exceptions = ['longitude', 'latitude', 'depth_(cm)']
+  exceptions = ['longitude', 'latitude', 'depth_cm', 'workbook_row_number']
   
-  url = SolrUtilities.base_query() + '&collection_id=' + collection_id  + '&q=import_set_type:"' + import_set_type + '"%20AND%20import_set_section:"' + urlquote(set) + '"&rows=' + str(count) + '&sort=paleo__depth_%28cm%29%20asc'
+  url = SolrUtilities.base_query() + '&collection_id=' + collection_id  + '&q=import_set_type:"' + import_set_type + '"%20AND%20import_set_section:"' + urlquote(set) + '"&rows=' + str(count) + '&sort=depth_cm%20asc'
   xmldoc = SolrUtilities.solr_request(url)
   
   pinus_pollen = PollenType.objects.get(name='Pinus')
@@ -231,7 +232,7 @@ def _import_counts(set, count, fieldname, collection_id, import_set_type):
         # record_subject always comes first. the logic counts on this order.
         core_sample, created = _add_core_sample(child.childNodes[0].nodeValue)
       elif (child.tagName == 'double' or child.tagName == 'int') and name not in exceptions:
-        pollen_name = _normalize_pollen_name(name.strip().replace('_', ' ')) # solr names for count/percentages come in lowercase with underscores replacing spaces
+        pollen_name = _normalize_pollen_name(name) # solr names for count/percentages come in lowercase with underscores replacing spaces
         pollen_type = PollenType.objects.get(name__iexact=pollen_name)
         
         value = round(float(child.childNodes[0].nodeValue), 2)
@@ -243,9 +244,9 @@ def _import_counts(set, count, fieldname, collection_id, import_set_type):
           updated_count += 1
           
         if fieldname == 'count':
-          if pollen_name.lower() in ["pinus subg. pinus", "pinus subg. strobus", "pinus undiff."]:
+          if pollen_name.lower() in ["pinus subg pinus", "pinus subg strobus", "pinus undiff"]:
             _update_or_create_pollen_sample(pinus_pollen, core_sample, fieldname, child.childNodes[0].nodeValue, summarize=True)
-          elif pollen_name.lower() in ["asteraceae subf. asteroideae undiff.", "asteraceae subf. cichorioideae"]:
+          elif pollen_name.lower() in ["asteraceae subf asteroideae undiff", "asteraceae subf cichorioideae"]:
             _update_or_create_pollen_sample(asteraceae_pollen, core_sample, fieldname, child.childNodes[0].nodeValue, summarize=True)
 
   xmldoc.unlink()
@@ -287,19 +288,25 @@ def _normalize_pollen_name(pollen_name):
   translate = { 
     'poaceae':'Gramineae', 
     'organic matter (percent dry mass)':'Organic matter', 
-    'o/c':'Ostrya/Carpinus', 
+    'o/c':'Ostrya_Carpinus', 
+    'ostrya_carpinus': 'Ostrya_Carpinus',
     'asteraceae (incl ragweed)': 'Asteraceae', 
     'birch':'Betula',
     'spruce': 'Picea',
     'castanea': 'Castanea dentata',
     'tsuga': 'Tsuga canadensis',
-    'fagus': 'Fagus grandifolia',
-    'pinus strobus': 'Pinus subg. Strobus'  
+    'fagus': 'Fagus grandifolia'
   }
   
   if pollen_name.lower() in translate:
     return translate[pollen_name.lower()]
   else:
+    pollen_name = pollen_name.strip().replace('_', ' ')
+    pollen_name = pollen_name.replace('.', '')
+    pollen_name = pollen_name.replace('(', '')
+    pollen_name = pollen_name.replace(')', '')
+    pollen_name = pollen_name.replace('/', '_')
+    pollen_name = unicodedata.normalize('NFKD', pollen_name).encode('ascii','ignore') # remove any special characters
     return pollen_name
   
       
