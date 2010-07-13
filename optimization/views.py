@@ -4,6 +4,7 @@ from django.shortcuts import render_to_response
 from blackrock.optimization.models import Tree, Plot
 import csv, math, random, sets
 import simplejson as json
+from django.db.models import Q
 
 NW_corner = 'POINT(-74.025 41.39)'
 MULTIPLIER = 0.001   # to convert meters into degrees
@@ -68,9 +69,9 @@ def calculate(request):
   density_list = []
   basal_list = []
   dbh_list = []
-
-  for plot in range(num_plots):
-    sub = sample_plot(shape, size, parent)
+  sample = RandomSample(shape,size,parent,num_plots)
+  for plot,point in enumerate(sample):
+    sub = sample_plot(sample,point,plot)
 
     total_time += sub['time-total']
     results['sample-area'] += sub['area']
@@ -149,49 +150,74 @@ def calculate(request):
   #return HttpResponse(str(results), mimetype="application/javascript")
   
   
-class Sample:
+class RandomSample:
   def __init__(self,shape,size,parent,num_plots):
     self.shape = shape
     self.size = size
     self.parent = parent
+    self.points = [{'x':random.randint(0, float(parent.width) - size),
+                    'y':random.randint(0, float(parent.height) - size)
+                    } 
+                   for p in range(num_plots)]
 
+  def __iter__(self):
+    return iter(self.points)
 
+  def time_establish(self, point):
+    # establishing plot boundaries (shape)
+    t = {'square':5,
+         'circle':1.5,
+         }
+    # establishing plot boundaries (size) - larger plots take longer
+    # (fudging at 1 minute per meter of diameter for now)
+    return t[self.shape] + self.size
 
-def sample_plot(shape, size, parent):
+  def area(self, point):
+    a = {'square':lambda s:round2(s **2 ),
+         'circle':lambda s:round2(math.pi * s * s),
+         }
+    return a[self.shape](self.size)
+
+  def Q(self, point):
+    go = {'square':self.squareQ,
+          'circle':self.circleQ,
+          }
+    return go[self.shape](point)
+
+  def squareQ(self, point):
+    par = self.parent
+    size_deg = MULTIPLIER * self.size
+    x_deg = MULTIPLIER * point['x']
+    y_deg = MULTIPLIER * point['y']
+    sample = 'POLYGON ((%s %s, %s %s, %s %s, %s %s, %s %s))' \
+        % (par.NW_corner.x + x_deg, par.NW_corner.y - y_deg, \
+             par.NW_corner.x + x_deg + size_deg, par.NW_corner.y - y_deg, \
+             par.NW_corner.x + x_deg + size_deg, par.NW_corner.y - y_deg - size_deg, \
+             par.NW_corner.x + x_deg, par.NW_corner.y - y_deg - size_deg, \
+             par.NW_corner.x + x_deg, par.NW_corner.y - y_deg,                 
+           )
+    return Q(location__contained=sample)
+    
+  def circleQ(self,point):
+    x_deg = self.parent.NW_corner.x + point['x'] * MULTIPLIER
+    y_deg = self.parent.NW_corner.y - point['y'] * MULTIPLIER
+    center_pt = 'POINT (%s %s)' % (x_deg, y_deg)
+    return Q(location__dwithin=(center_pt, self.size * MULTIPLIER))
+    
+  def travel_time(self,point):
+    # travel: 3 minutes per 100m (TODO: from NE corner? from previous plot?)
+    travel_distance = math.sqrt(point['x']**2 + point['y']**2)
+    return round((travel_distance / 100) * 3)
+
+def sample_plot(sample, point, p_index):
   results = {}
   
   ## determine plot ##
   # terrible, awful, ugly hack for now
   trees = None
-  x = 0
-  y = 0
-  if shape == 'square':
-    # pick a random NE corner
-    # range = 0 - total_size-plot_size
-    x = random.randint(0, float(parent.width) - size) #subtract size for 'right margin'
-    y = random.randint(0, float(parent.height) - size)
-    size_deg = MULTIPLIER * size
-    x_deg = MULTIPLIER * x
-    y_deg = MULTIPLIER * y
-    sample = 'POLYGON ((%s %s, %s %s, %s %s, %s %s, %s %s))' \
-              % (parent.NW_corner.x + x_deg, parent.NW_corner.y - y_deg, \
-                 parent.NW_corner.x + x_deg + size_deg, parent.NW_corner.y - y_deg, \
-                 parent.NW_corner.x + x_deg + size_deg, parent.NW_corner.y - y_deg - size_deg, \
-                 parent.NW_corner.x + x_deg, parent.NW_corner.y - y_deg - size_deg, \
-                 parent.NW_corner.x + x_deg, parent.NW_corner.y - y_deg,                 
-                 )
-    trees = Tree.objects.filter(location__contained=sample)
 
-  if shape == 'circle':
-    # pick a random center point
-    # range = size - total_size - plot_size
-    x = random.randint(size, float(parent.width) - size)
-    y = random.randint(size, float(parent.height) - size)
-    x_deg = parent.NW_corner.x + x * MULTIPLIER
-    y_deg = parent.NW_corner.y - y * MULTIPLIER
-    center_pt = 'POINT (%s %s)' % (x_deg, y_deg)
-    trees = Tree.objects.filter(location__dwithin=(center_pt, size * MULTIPLIER))
- 
+  trees = Tree.objects.filter( sample.Q(point) )
+
   results['trees'] = trees
  
   ## number of trees in plot ##
@@ -219,10 +245,7 @@ def sample_plot(shape, size, parent):
   results['variance-dbh'] = round2( variance(dbhs, results['dbh'], results['count']-1) )
     
   ## area ##
-  if shape == 'square':
-    results['area'] = round2(size * size)
-  else:
-    results['area'] = round2(math.pi * size * size)
+  results['area'] = sample.area(point)
 
   ## basal area ##
   results['basal'] = round2( (float(dbh_sum) * 0.785398) / float(results['area']) )
@@ -232,22 +255,14 @@ def sample_plot(shape, size, parent):
 
   ## time penalty ##
 
-  # travel: 3 minutes per 100m (TODO: from NE corner? from previous plot?)
-  travel_distance = math.sqrt(x**2 + y**2)
-  results['time-travel'] = round((travel_distance / 100) * 3)
+  results['time-travel'] = sample.travel_time(point)
+
 
   # locating a plot - 3 minutes per plot
   results['time-locate'] = 3
 
-  # establishing plot boundaries (shape) - square = 5min, circle = 1.5min
-  if shape == "square":
-    results['time-establish'] = 5
-  else:
-    results['time-establish'] = 1.5
-
-  # establishing plot boundaries (size) - larger plots take longer
-  # (fudging at 1 minute per meter of diameter for now)
-  results['time-establish'] += size
+  # establishing plot boundaries (shape)
+  results['time-establish'] = sample.time_establish(point)
   
   # measuring trees in the plot - 30 seconds per tree
   results['time-measure'] = .5 * results['count']
