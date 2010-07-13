@@ -164,9 +164,9 @@ class RandomSample:
     self.size = size
     self.parent = parent
 
-    plots_avail = (parent.width*parent.height) / (size**2)
-    assert plots_avail < 1 
-    assert num_plots > plots_avail
+    plots_avail = float(parent.width*parent.height) / (size**2)
+    #assert plots_avail > 1 
+    assert plots_avail > num_plots
 
     self.choices = random.sample(xrange(int(plots_avail)), num_plots)
     ###NEXT NEXT NEXT
