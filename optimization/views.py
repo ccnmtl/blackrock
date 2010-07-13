@@ -46,7 +46,6 @@ def run(request):
   return render_to_response('optimization/run.html')
   
 def calculate(request):
-  #return HttpResponseBadRequest(json.dumps({"error":"plot size time plot count is too big"}))
   if request.method != 'POST':
     return HttpResponseRedirect("/respiration/")
 
@@ -69,7 +68,11 @@ def calculate(request):
   density_list = []
   basal_list = []
   dbh_list = []
-  sample = RandomSample(shape,size,parent,num_plots)
+  try:
+    sample = RandomSample(shape,size,parent,num_plots)
+  except AssertionError:
+    return HttpResponseBadRequest(json.dumps({"error":"Plot size and/or plot count is too big"}),
+                                  mimetype="application/javascript")
   for plot,point in enumerate(sample):
     sub = sample_plot(sample,point,plot)
 
@@ -128,6 +131,18 @@ def calculate(request):
   ## sample variance basal area ##
   results['sample-variance-basal'] = round2( variance(basal_list, results['sample-basal'], num_plots-1) )
 
+  results['sample'] = {
+    "details":{},
+    "bounds":{ #should probably go into the model
+      "top":parent.NW_corner.y,
+      "bottom":parent.NW_corner.y - float(parent.height)*MULTIPLIER,
+      "left":parent.NW_corner.x,
+      "right":parent.NW_corner.x + float(parent.width)*MULTIPLIER,
+      "width":float(parent.width)*MULTIPLIER,
+      "height":float(parent.height)*MULTIPLIER,
+      },
+    }
+
   # actual forest stats
   results['actual-area'] = round2(parent.area)
   results['actual-species'] = int(parent.num_species)
@@ -163,19 +178,25 @@ class RandomSample:
     self.shape = shape
     self.size = size
     self.parent = parent
+    w = float(parent.width)
+    h = float(parent.height)
+    #this is sloppy-- a fractional size might not fit within
+    plots_avail = w*h / (size**2)
 
-    plots_avail = float(parent.width*parent.height) / (size**2)
-    #assert plots_avail > 1 
     assert plots_avail > num_plots
 
+    #floor cuts the remainder--maybe we should be using it somehow
+    plots_across = math.floor( w/size )
+
+    #TODO: 1. overlap still seems possible (prolly size/2 issues)
+    #TODO: 2. edges seem possible (thus sampling 50%)
+
     self.choices = random.sample(xrange(int(plots_avail)), num_plots)
-    ###NEXT NEXT NEXT
-    self.points = [{'x':random.randint(0, float(parent.width) - size),
-                    'y':random.randint(0, float(parent.height) - size)
+    #random.randint(0, float(parent.width) - size),
+    self.points = [{'x':p % plots_across  * size,
+                    'y':p / plots_across  * size
                     } 
                    for p in self.choices]
-
-
     
 
   def __iter__(self):
@@ -202,18 +223,41 @@ class RandomSample:
           }
     return go[self.shape](point)
 
-  def squareQ(self, point):
+  def polygon(self,point):
+    go = {'square':self.squarePoints,
+          'circle':self.circlePoints,
+          }
+    return go[self.shape](point)
+
+  def squarePoints(self, point):
     par = self.parent
     size_deg = MULTIPLIER * self.size
-    x_deg = MULTIPLIER * point['x']
-    y_deg = MULTIPLIER * point['y']
-    sample = 'POLYGON ((%s %s, %s %s, %s %s, %s %s, %s %s))' \
-        % (par.NW_corner.x + x_deg, par.NW_corner.y - y_deg, \
-             par.NW_corner.x + x_deg + size_deg, par.NW_corner.y - y_deg, \
-             par.NW_corner.x + x_deg + size_deg, par.NW_corner.y - y_deg - size_deg, \
-             par.NW_corner.x + x_deg, par.NW_corner.y - y_deg - size_deg, \
-             par.NW_corner.x + x_deg, par.NW_corner.y - y_deg,                 
-           )
+    x_deg = MULTIPLIER * point['x'] + par.NW_corner.x 
+    y_deg = par.NW_corner.y - MULTIPLIER * point['y']
+    return ( (x_deg,            y_deg),
+             (x_deg + size_deg, y_deg), 
+             (x_deg + size_deg, y_deg - size_deg), 
+             (x_deg,            y_deg - size_deg),
+             )
+
+  def circlePoints(self, point):
+    "Lazily gives a hexagon"
+    x_deg = self.parent.NW_corner.x + point['x'] * MULTIPLIER
+    y_deg = self.parent.NW_corner.y - point['y'] * MULTIPLIER
+    rad = self.size * MULTIPLIER
+    rad60 = rad/2 * math.sqrt(3)
+    return ( (x_deg+rad, y_deg),
+             (x_deg+rad/2, y_deg+rad60),(x_deg-rad/2, y_deg+rad60),
+             (x_deg-rad, y_deg),
+             (x_deg-rad/2, y_deg-rad60),(x_deg+rad/2, y_deg-rad60),
+             )
+
+  def squareQ(self, point):
+    points = [' '.join( (str(p[0]),str(p[1])) ) for p in self.squarePoints(point)]
+    sample = ('POLYGON ((%s, %s, %s, %s, %s))' %
+              (points[0], points[1], points[2], points[3], points[0])
+              )
+
     return Q(location__contained=sample)
     
   def circleQ(self,point):
@@ -236,6 +280,8 @@ def sample_plot(sample, point, p_index):
   trees = None
 
   trees = Tree.objects.filter( sample.Q(point) )
+
+  results['coordinates'] = sample.polygon(point)
 
   results['trees'] = trees
  
@@ -487,7 +533,7 @@ def tree_png(request):
     for t in trees:
       im.putpixel(( int((t.location.x-c.x)/MULTIPLIER), int((c.y-t.location.y)/MULTIPLIER)), (00,256,00))
     response = HttpResponse(mimetype="image/png")
-    im.resize((dim[0]*2,dim[1]*2)).save(response, "PNG")
+    im.crop( [0,0,int(parent.width),int(parent.height)] ).save(response, "PNG")
     #response['Cache-Control'] = 'max-age=%d'% 60*60*24*7
     return response
 

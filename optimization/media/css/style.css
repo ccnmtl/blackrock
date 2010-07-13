@@ -211,4 +211,6 @@ td.right { text-align: right; }
 
 .plot-info, .nest {padding: 10px; margin: 15px; background-color: #fff;}
 
-
+#results-map-container {
+		       float:right;
+}

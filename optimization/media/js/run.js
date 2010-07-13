@@ -44,18 +44,23 @@ function showResults(http_request) {
   $('comparison-variance-dbh').innerHTML = results['comparison-variance-dbh'];
   $('comparison-density').innerHTML = results['comparison-density'];
   $('comparison-basal').innerHTML = results['comparison-basal'];
-  
+  visualized_map = new SampleMap({id:'results-map',
+				  bounds:results.sample.bounds
+				 });
   // individual plots
   var plots = results['plots'];
   var numPlots = $('numPlots').value;
   for(var i=0; i<numPlots; i++) {
-    showPlotInfo(i+1, plots[i]);
+      var plotname = i+1;
+      showPlotInfo(plotname, plots[i]);
+      visualized_map.addPlot(plots[i], plotname);
   }
 
   setStyle('waitmessage', {'display':'none'});
   setStyle('results', {'display':'block'});
   setStyle('details', {'display':'block'});
   $('calculate').disabled = false; 
+
 }
 
 function showError(http_request) {
@@ -255,6 +260,7 @@ function initRun() {
   connect("reset", "onclick", reset);
   connect("plotShape", "onchange", updateShapeLabel);
   $('csvbutton').disabled = true;
+  $('calculate').disabled = false; 
 }
 
 addLoadEvent(initRun);

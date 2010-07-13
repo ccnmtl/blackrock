@@ -8,6 +8,10 @@
   <script type="text/javascript" src="media/js/run.js"></script>
   <script type="text/javascript" src="media/js/toggles.js"></script>
   <script type="text/javascript" src="media/js/area.js"></script>
+  <script type="text/javascript" src="http://openlayers.org/api/2.9/OpenLayers.js"></script>
+  <!--script type="text/javascript" src="media/js/OpenLayers.js"></script-->
+  <!--script type="text/javascript" src="media/js/openlayers/lib/OpenLayers.js"></script-->
+  <script type="text/javascript" src="media/js/map.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -87,12 +91,12 @@
        <div id="csv">
   <form id="csvform" action="csv" method="POST">
     Export to CSV:
-    <input type="hidden" name="results" id="form-results"></input>
+    <input type="hidden" name="results" id="form-results" />
     <select name="type">
       <option value="summary">summary</>
       <option value="details">details</option>
     </select>
-    <input type="button" id='csvbutton' value="Export Now!" onclick="javascript:getcsv();"></input>
+    <input type="button" id='csvbutton' value="Export Now!" onclick="javascript:getcsv();" />
   </form>
 </div>
 
@@ -135,6 +139,9 @@
      Total Run Results (Click to Expand/Collapse)</h3>
   <div class="toggle-nest">
   <h4>Summary</h4>
+  <div id="results-map-container" class="map">
+    <div id="results-map" style="width:400px;height:400px;"></div>
+  </div>
   <table class="results-summary">
     <tr>
       <td class='header'>TIME TO SAMPLE</td>
@@ -242,7 +249,7 @@
     
 <div class='subdetails'>
 <h4 class='toggle-control'><span class='downarrow'>&#x25BE;</span>
-      <span class='rightarrow'>&#x25B8</span> Details (Click to Expand/Collapse)</h3>
+      <span class='rightarrow'>&#x25B8</span> Details (Click to Expand/Collapse)</h4>
 
   <div class='toggle-nest'>
 
