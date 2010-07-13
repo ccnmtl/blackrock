@@ -151,14 +151,32 @@ def calculate(request):
   
   
 class RandomSample:
+  """creates a set of random sampling points (based on init arguments)
+  those points are then fed to sample_plot()
+  In the future, this will be where different Plot Arrangements
+     can be calculated, but for now, we simply assure that points do not overlap,
+     etc.
+  """
   def __init__(self,shape,size,parent,num_plots):
+    self.errors = False
+
     self.shape = shape
     self.size = size
     self.parent = parent
+
+    plots_avail = (parent.width*parent.height) / (size**2)
+    assert plots_avail < 1 
+    assert num_plots > plots_avail
+
+    self.choices = random.sample(xrange(int(plots_avail)), num_plots)
+    ###NEXT NEXT NEXT
     self.points = [{'x':random.randint(0, float(parent.width) - size),
                     'y':random.randint(0, float(parent.height) - size)
                     } 
-                   for p in range(num_plots)]
+                   for p in self.choices]
+
+
+    
 
   def __iter__(self):
     return iter(self.points)
@@ -210,6 +228,7 @@ class RandomSample:
     return round((travel_distance / 100) * 3)
 
 def sample_plot(sample, point, p_index):
+  "Calculates detailed statistics for a plot sample around a point"
   results = {}
   
   ## determine plot ##
