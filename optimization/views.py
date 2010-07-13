@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
+from django.http import HttpResponse, HttpResponseRedirect, HttpRequest, HttpResponseBadRequest
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from blackrock.optimization.models import Tree, Plot
@@ -7,6 +7,7 @@ import simplejson as json
 
 NW_corner = 'POINT(-74.025 41.39)'
 MULTIPLIER = 0.001   # to convert meters into degrees
+DEFAULT_PLOT = 'Mount Misery Plot'
 
 species_key = {#'ae':'ae',
                'ba':'basswood',
@@ -44,6 +45,7 @@ def run(request):
   return render_to_response('optimization/run.html')
   
 def calculate(request):
+  #return HttpResponseBadRequest(json.dumps({"error":"plot size time plot count is too big"}))
   if request.method != 'POST':
     return HttpResponseRedirect("/respiration/")
 
@@ -51,20 +53,20 @@ def calculate(request):
   shape = request.REQUEST['shape']
   size = float(request.REQUEST['size'])
 
-  parent = Plot.objects.get(name="Mount Misery Plot")
+  parent = Plot.objects.get(name=DEFAULT_PLOT)
   results = {}
 
   plot_results = {}
   total_time = 0
-  results['sample-area'] = 0
   species_list = sets.Set()
+  results['sample-area'] = 0
   results['sample-count'] = 0
-  intermed_dbh = 0
   results['sample-dbh'] = 0
-  density_list = []
   results['sample-density'] = 0
-  basal_list = []
   results['sample-basal'] = 0
+  intermed_dbh = 0
+  density_list = []
+  basal_list = []
   dbh_list = []
 
   for plot in range(num_plots):
@@ -147,6 +149,14 @@ def calculate(request):
   #return HttpResponse(str(results), mimetype="application/javascript")
   
   
+class Sample:
+  def __init__(self,shape,size,parent,num_plots):
+    self.shape = shape
+    self.size = size
+    self.parent = parent
+
+
+
 def sample_plot(shape, size, parent):
   results = {}
   
@@ -158,7 +168,7 @@ def sample_plot(shape, size, parent):
   if shape == 'square':
     # pick a random NE corner
     # range = 0 - total_size-plot_size
-    x = random.randint(0, float(parent.width) - size)
+    x = random.randint(0, float(parent.width) - size) #subtract size for 'right margin'
     y = random.randint(0, float(parent.height) - size)
     size_deg = MULTIPLIER * size
     x_deg = MULTIPLIER * x
@@ -171,6 +181,7 @@ def sample_plot(shape, size, parent):
                  parent.NW_corner.x + x_deg, parent.NW_corner.y - y_deg,                 
                  )
     trees = Tree.objects.filter(location__contained=sample)
+
   if shape == 'circle':
     # pick a random center point
     # range = size - total_size - plot_size
@@ -418,6 +429,34 @@ def loadcsv(request):
 
     p.precalc()
     return HttpResponseRedirect("/optimization/")
+
+def tree_png(request):
+    parent = Plot.objects.get(name=DEFAULT_PLOT)
+    image_margin = 10 #solves problem of error range in the MULTIPLIER
+    x_delta = float(parent.width) *MULTIPLIER
+    y_delta = float(parent.height) *MULTIPLIER
+    x_deg = 0
+    y_deg = 0
+    c = parent.NW_corner
+    sample = 'POLYGON ((%s %s, %s %s, %s %s, %s %s, %s %s))' \
+             % (c.x + x_deg, c.y - y_deg, 
+                c.x + x_deg + x_delta, c.y - y_deg, 
+                c.x + x_deg + x_delta, c.y - y_deg - y_delta, 
+                c.x + x_deg, c.y - y_deg - y_delta, 
+                c.x + x_deg, c.y - y_deg,                 
+                )
+    trees = Tree.objects.filter(location__contained=sample)
+
+    from PIL import Image
+    dim = (parent.width+image_margin, parent.height+image_margin)
+    im = Image.new("RGB", dim, "#CCFF77")
+    for t in trees:
+      im.putpixel(( int((t.location.x-c.x)/MULTIPLIER), int((c.y-t.location.y)/MULTIPLIER)), (00,256,00))
+    response = HttpResponse(mimetype="image/png")
+    im.resize((dim[0]*2,dim[1]*2)).save(response, "PNG")
+    #response['Cache-Control'] = 'max-age=%d'% 60*60*24*7
+    return response
+
 
 def test(request):
   trees = Tree.objects.all()

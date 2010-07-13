@@ -59,11 +59,19 @@ function showResults(http_request) {
 }
 
 function showError(http_request) {
-  global_http_request = http_request;
-  log(http_request);
-  setStyle('errormessage', {'display':'block'});
-  setStyle('waitmessage', {'display':'none'});
-  $('calculate').disabled = false; 
+    global_http_request = http_request;
+    log(http_request);
+    var custom = '';
+    try {
+	var json = evalJSON(http_request.req.responseText);
+	custom = json.error || '';
+    } catch(e) {/*pass*/}
+    $('customerror').innerHTML = custom;
+
+    showElement('errormessage');
+    hideElement('waitmessage');
+    Highlight('errormessage',{startcolor:'#ffff99'});
+    $('calculate').disabled = false; 
 }
 
 function showPlotInfo(plotNumber, results) {
