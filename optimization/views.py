@@ -10,31 +10,31 @@ NW_corner = 'POINT(-74.025 41.39)'
 MULTIPLIER = 0.001   # to convert meters into degrees
 DEFAULT_PLOT = 'Mount Misery Plot'
 
-species_key = {#'ae':'ae',
+species_key = {#'ae':'Ulmus americana (american elm)',
                'ba':'basswood',
-               'bb':'black birch',
+               'bb':'Betula lenta (black birch)',
                'be':'beech',
-               'bg':'black gum',
+               'bg':'Nyssa sylvatica (black gum)',
                #'bm':'bm',
-               'bo':'black oak',
+               'bo':'Quercus velutina (black oak)',
                'ch':'chestnut',
-               'co':'chestnut oak',
+               'co':'Quercus prinus (chestnut oak)',
                'dw':'dogwood',
-               'hh':'hop hornbeam',
+               'hh':'Carpinus caroliniana (hop hornbeam)',
                'mw':'moosewood',
                'o':'oak (species unknown)',
                'ph':'pignut hickory',
                'rm':'red maple',
-               'ro':'red oak',
+               'ro':'Quercus rubra (red oak)',
                'sa':'sassafras',
                'sb':'shadbush',
-               'sh':'shagbark hickory',
-               'sm':'sugar maple',
-               'swo':'swamp white oak',
+               'sh':'Carya ovata (shagbark hickory)',
+               'sm':'Acer saccharum (sugar maple)',
+               'swo':'Quercus bicolor (swamp white oak)',
                'u':'non-oak (species unknown)',
-               'vp':'viburnum prunifolium',
-               'wa':'white ash',
-               'wo':'white oak',
+               'vp':'Viburnum prunifolium (viburnum prunifolium)',
+               'wa':'Fraxinus americana (white ash)',
+               'wo':'Quercus alba (white oak)',
                'ws':'white spruce',
                }
                
@@ -178,23 +178,27 @@ class RandomSample:
     self.shape = shape
     self.size = size
     self.parent = parent
-    w = float(parent.width)
-    h = float(parent.height)
+    delta = 0
+    if self.shape == 'circle':
+      delta = size
+
+    w = float(parent.width) 
+    w -= (w % size) 
+    h = float(parent.height) 
+    h -= (h % size) 
     #this is sloppy-- a fractional size might not fit within
-    plots_avail = w*h / (size**2)
+
+    plots_avail = w*h / ((size+delta)**2)
 
     assert plots_avail > num_plots
 
     #floor cuts the remainder--maybe we should be using it somehow
-    plots_across = math.floor( w/size )
-
-    #TODO: 1. overlap still seems possible (prolly size/2 issues)
-    #TODO: 2. edges seem possible (thus sampling 50%)
+    plots_across = math.floor( w/(size+delta) )
 
     self.choices = random.sample(xrange(int(plots_avail)), num_plots)
     #random.randint(0, float(parent.width) - size),
-    self.points = [{'x':p % plots_across  * size,
-                    'y':p / plots_across  * size
+    self.points = [{'x':(p % plots_across  * (size+delta))+delta,
+                    'y':(math.floor(p / plots_across)  * (size+delta))+delta
                     } 
                    for p in self.choices]
     
@@ -245,12 +249,12 @@ class RandomSample:
     x_deg = self.parent.NW_corner.x + point['x'] * MULTIPLIER
     y_deg = self.parent.NW_corner.y - point['y'] * MULTIPLIER
     rad = self.size * MULTIPLIER
-    rad60 = rad/2 * math.sqrt(3)
-    return ( (x_deg+rad, y_deg),
-             (x_deg+rad/2, y_deg+rad60),(x_deg-rad/2, y_deg+rad60),
-             (x_deg-rad, y_deg),
-             (x_deg-rad/2, y_deg-rad60),(x_deg+rad/2, y_deg-rad60),
-             )
+    point_num = 20
+
+    return [(x_deg + rad*math.cos(angle) , y_deg + rad*math.sin(angle)) 
+            for angle in 
+            [math.pi*2*n/point_num for n in range(point_num)]
+            ]
 
   def squareQ(self, point):
     points = [' '.join( (str(p[0]),str(p[1])) ) for p in self.squarePoints(point)]
