@@ -1,10 +1,12 @@
 # Django settings for blackrock project.
 import os.path
 
+ADMINS = (
+    ('admin', 'sysadmin@example.com'),
+)
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-
-MANAGERS = ADMINS
 
 #DATABASE_ENGINE = 'postgresql_psycopg2' # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
 DATABASE_NAME = 'blackrock' # Or path to database file if using sqlite3.
@@ -95,3 +97,6 @@ try:
 
 except ImportError:
     pass
+
+MANAGERS = ADMINS
+
