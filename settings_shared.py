@@ -57,7 +57,6 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     'django.contrib.gis',
     'django.contrib.admin',
-    'smartif',    
     'blackrock.sampler',
     'blackrock.respiration',
     'blackrock.optimization',
