@@ -1,0 +1,97 @@
+# Django settings for blackrock project.
+import os.path
+
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
+MANAGERS = ADMINS
+
+#DATABASE_ENGINE = 'postgresql_psycopg2' # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+DATABASE_NAME = 'blackrock' # Or path to database file if using sqlite3.
+DATABASE_USER = ''             # Not used with sqlite3.
+DATABASE_PASSWORD = ''         # Not used with sqlite3.
+DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
+DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
+
+TIME_ZONE = 'America/New_York'
+LANGUAGE_CODE = 'en-us'
+SITE_ID = 1
+USE_I18N = False
+MEDIA_ROOT = "/var/www/blackrock/uploads/"
+MEDIA_URL = '/uploads/'
+ADMIN_MEDIA_PREFIX = '/media/'
+
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.load_template_source',
+    'django.template.loaders.app_directories.load_template_source',
+)
+
+MIDDLEWARE_CLASSES = (
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'django.middleware.transaction.TransactionMiddleware',
+)
+
+ROOT_URLCONF = 'blackrock.urls'
+
+TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    # Put application templates before these fallback ones:
+    "/var/www/blackrock/templates/",
+    os.path.join(os.path.dirname(__file__),"templates"),
+)
+
+INSTALLED_APPS = (
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
+    'django.contrib.markup',
+    'sorl.thumbnail',
+    'django.contrib.gis',
+    'django.contrib.admin',
+    'smartif',    
+    'blackrock.sampler',
+    'blackrock.respiration',
+    'blackrock.optimization',
+    'blackrock.paleoecology',
+    'blackrock.blackrock_main',
+)
+
+# Enabled Blackrock modules - edit to control what displays on the main page
+ENABLED_MODULES = (
+    {'path': 'sampler/', 'name': 'Forest Sampling Simulation', 'admin': False},
+    {'path': 'respiration/', 'name': 'Tree Respiration', 'admin': False},
+    {'path': 'optimization/', 'name': 'Forest Sampling Optimization Tool', 'admin': False},
+    {'path': 'paleoecology/', 'name': 'Paleoecology', 'admin': False},
+)
+
+THUMBNAIL_SUBDIR = "thumbs"
+
+# WIND settings
+
+AUTHENTICATION_BACKENDS = ('djangowind.auth.WindAuthBackend','django.contrib.auth.backends.ModelBackend',)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+  'django.core.context_processors.auth', 
+  'django.core.context_processors.debug', 
+  'django.core.context_processors.request', 
+)
+
+LOGIN_URL = "/admin/login"
+
+
+#if you add a 'deploy_specific' directory
+#then you can put a settings.py file and templates/ overrides there
+try:
+    from blackrock.deploy_specific.settings import *
+    if locals().has_key('EXTRA_INSTALLED_APPS'):
+        INSTALLED_APPS = EXTRA_INSTALLED_APPS + INSTALLED_APPS
+
+except ImportError:
+    pass
