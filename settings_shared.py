@@ -66,7 +66,8 @@ INSTALLED_APPS = (
     'blackrock.portal',
     'blackrock.deploy_specific',
     'django.contrib.databrowse',
-    'gspreadsheet_importer'
+    'gspreadsheet_importer',
+    'haystack',
 )
 
 # Enabled Blackrock modules - edit to control what displays on the main page
