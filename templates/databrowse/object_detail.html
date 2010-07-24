@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load smartif %}
+{% load klass %}
+
+{% block title %}{{ object.model.verbose_name|capfirst }}: {{ object }}{% endblock %}
+
+{% block content %}
+
+<!--div id="breadcrumbs"><a href="{{ root_url }}">Home</a> / <a href="{{ object.model.url }}">{{ object.model.verbose_name_plural|capfirst }}</a> / {{ object|escape }}</div-->
+
+
+<h2>{{ object|escape }}</h2>
+
+<table class="objectinfo" style="width: 75%">
+<tr class="even"><th style="text-align: right; vertical-align: top; padding-right: 10px;">Record Type:</th><td>{{ object.model.verbose_name|capfirst }}</td></tr>
+{% for field in object.fields %}
+    {% if field.field.name == "id" %}
+    {% else %} {% if field.field.name == "created_date" %}
+    {% else %} {% if field.field.name == "modified_date" %}
+    {% else %}
+        <tr class="{% cycle 'odd' 'even' %}">
+        <th style="width: 20%;  text-align: right; vertical-align: top; padding-right: 10px;">{{ field.field.verbose_name|capfirst }}:</th>
+        <td>
+        {% if field.urls %}
+        {% for value, url in field.urls %}
+        
+            {% if field.field.name == "name" %}
+                {{ value|escape }}
+            {% else %} {% if field.field.name == "professional_title" %}
+                {{ value|escape }}
+            {% else %} {% if field.field.name == "phone" %}
+                {{ value|escape }}
+            {% else %} {% if field.field.name == "email" %}
+                {{ value|escape }}
+            {% else %} {% if field.field.name == "activation_date" %}
+                {{ value|escape }}
+            {% else %} {% if field.field.name == "collection_start_date" %}
+                {{ value|escape }}
+            {% else %} {% if field.field.name == "collection_end_date" %}
+                {{ value|escape }}
+            {% else %} {% if field.field.name == "spatial_explicit" %}
+                {{ value|escape }}
+            {% else %} {% if field.field.name == "rights" %}
+                {{ value|escape }}
+            {% else %} {% if field.field.name == "latitude" %}
+                {{ value|escape }}
+            {% else %} {% if field.field.name == "longitude" %}
+                {{ value|escape }}
+            {% else %} {% if field.field.name == "start_date" %}
+                {{ value|escape }}
+            {% else %} {% if field.field.name == "end_date" %}
+                {{ value|escape }}
+            {% else %} {% if field.field.name == "url" %}
+                <a href="{{value}}">{{value|escape}}</a>
+            {% else %}
+                {% if url %}<a href="{{url}}">{% endif %}{{ value|escape }}{% if url %}</a>{% endif %}{% if not forloop.last %}, {% endif %}
+            {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
+        
+            
+        {% endfor %}
+        {% else %}None{% endif %}
+        </td>
+        </tr>
+    {% endif %} {% endif %} {% endif %}
+{% endfor %}
+</table>
+
+<h2>Related Records</h2>
+    {% for related_object in object.related_objects %}
+      <div class="related">
+       
+      {% if related_object.object_list %}
+        <b>{{ related_object.object_list.0.model.model|klass }}</b> <br />
+          <ul class="objectlist">
+            {% for object in related_object.object_list %}
+            <li class="{% cycle 'odd' 'even' %}"><a href="{{ object.url }}">{{ object|escape }}</a></li>
+            {% endfor %}
+          </ul>
+      {% endif %}
+      </div>
+    {% endfor %}
+    
+
+{% endblock %}

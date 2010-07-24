@@ -1,0 +1,9 @@
+{{ object.name }}
+{{ object.description }}
+{% for location in object.location.all %}
+    {{ location.name }}
+{% endfor %}
+{% for keyword in object.keyword.all %}
+    {{ keyword.name }}
+{% endfor %}
+

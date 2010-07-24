@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Portal{% endblock %}
+
+{% block css %}
+<style type='text/css'>
+  @import "media/css/style.css";
+</style>
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+
+{% block masthead %}
+Blackrock Portal
+{% endblock %}
+
+{% block content %}
+
+<div id="content">
+    <a href="browse/">Browse</a><br />
+    <a href="textsearch/">Full Text Search</a><br />
+    <a href="singlefacet/">Single Facet example</a><br />
+    <a href="facet/">Narrowing/Facet Example -- Audience, Keyword, Asset Type</a><br />
+</div>
+
+{% endblock %}

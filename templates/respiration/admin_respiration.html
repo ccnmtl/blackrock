@@ -30,12 +30,11 @@
            <br />
            <table style="margin-left: 102px" id="previewsolr"></table>
         </div>
-        <div class="submit-row">
-            <input value="Import" class="default" name="_save" type="submit">
-            <input onclick="return previewSolr();" value="Update Preview" name="_continue" type="submit">
-        </div>
-    </fieldset>
-           
+     </fieldset>
+    <div class="submit-row">
+        <input value="Import" class="default" name="_save" type="submit">
+        <input onclick="return previewSolr();" value="Update Preview" name="_continue" type="submit">
+    </div>
 </form>
 
 <br/><br/>
@@ -54,8 +53,10 @@
         <div class="form-row">
             <label for="id_delete_data">Delete Data</label><input type="checkbox" name="delete" id="id_delete"></input>
         </div>
-        <div class="form-row">
-            <input value="Import Data" class="default" name="_submit" type="submit">
-        </div>
     </fieldset>
+    <div class="submit-row" style="height: 25px;">
+        <input value="Import Data" class="default" name="_submit" type="submit">
+    </div>
 </form>
+
+<br /><br />

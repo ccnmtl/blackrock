@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load smartif %}
+
+{% block title %}Browse{% endblock %}
+
+{% block bodyid %}homepage{% endblock %}
+
+{% block content %}
+
+<h2>Browse</h2>
+
+<ul>
+{% for model in model_list %}
+  {% if model.verbose_name == "publication type" %}
+  {% else %} {% if model.verbose_name == "digital format" %}
+  {% else %} {% if model.verbose_name == "digital object type" %}
+  {% else %} {% if model.verbose_name == "rights type" %}
+  {% else %} {% if model.verbose_name == "person type" %}
+  {% else %} {% if model.verbose_name == "location subtype" %}
+  {% else %} {% if model.verbose_name == "location type" %}
+  {% else %} {% if model.verbose_name == "region type" %}
+  {% else %} {% if model.verbose_name == "url" %}
+  {% else %}
+  <div class="modelgroup {% cycle 'even' 'odd' %}">
+	  <li><a href="{{ model.url }}">{{ model.verbose_name_plural|capfirst }}</a></li>
+  </div>
+  {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
+{% endfor %}
+</ul>
+{% endblock %}

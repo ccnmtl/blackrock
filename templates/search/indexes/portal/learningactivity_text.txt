@@ -1,0 +1,20 @@
+{{ object.name }}
+{{ object.description }}
+{% for keyword in object.keyword.all %}
+    {{ keyword.name }}
+{% endfor %}
+{% for dataset in object.dataset.all %}
+    {{ dataset.name }}
+{% endfor %}
+{% for location in object.location.all %}
+    {{ location.name }}
+{% endfor %}
+{% for person in object.person.all %}
+    {{ person.name }}
+{% endfor %}
+{% for digital_object in object.digital_object.all %}
+    {{ digital_object.name }}
+{% endfor %}
+{% for publication in object.publication.all %}
+    {{ publication.name }}
+{% endfor %}

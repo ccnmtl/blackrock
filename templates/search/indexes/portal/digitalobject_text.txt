@@ -1,0 +1,17 @@
+{{ object.name }}
+{{ object.description }}
+{% for keyword in object.keyword.all %}
+    {{ keyword.name }}
+{% endfor %}
+{% for format in object.digital_format.all %}
+    {{ format.name }}
+{% endfor %}
+{% for type in object.digital_object_type.all %}
+    {{ type.name }}
+{% endfor %}
+{% for author in object.author.all %}
+    {{ author.name }}
+{% endfor %}
+{% for location in object.location.all %}
+    {{ location.name }}
+{% endfor %}

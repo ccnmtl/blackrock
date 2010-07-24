@@ -1,0 +1,8 @@
+{{ object.name }}
+{% for keyword in object.keyword.all %}
+    {{ keyword.name }}
+{% endfor %}
+{% for institution in object.institution.all %}
+    {{ institution.name }}
+{% endfor %}
+{{ object.description }}
