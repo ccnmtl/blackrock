@@ -75,6 +75,7 @@ class Command(BaseCommand):
                      'portal_region_audience',
                      'portal_region_keyword',
                      'portal_region_location',
+                     'portal_region_region_type',
                      'portal_region',
                                           
                      'portal_location_audience',               

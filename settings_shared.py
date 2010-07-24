@@ -1,12 +1,13 @@
 # Django settings for blackrock project.
 import os.path
 
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
 ADMINS = (
     ('admin', 'sysadmin@example.com'),
 )
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+MANAGERS = ADMINS
 
 #DATABASE_ENGINE = 'postgresql_psycopg2' # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
 DATABASE_NAME = 'blackrock' # Or path to database file if using sqlite3.
@@ -63,7 +64,7 @@ INSTALLED_APPS = (
     'blackrock.paleoecology',
     'blackrock.blackrock_main',
     'blackrock.portal',
-    'haystack',
+    'blackrock.deploy_specific',
     'django.contrib.databrowse',
     'gspreadsheet_importer'
 )
@@ -90,16 +91,14 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 LOGIN_URL = "/admin/login"
 
-
 #if you add a 'deploy_specific' directory
 #then you can put a settings.py file and templates/ overrides there
 try:
     from blackrock.deploy_specific.settings import *
     if locals().has_key('EXTRA_INSTALLED_APPS'):
         INSTALLED_APPS = EXTRA_INSTALLED_APPS + INSTALLED_APPS
-
 except ImportError:
     pass
 
-MANAGERS = ADMINS
+
 

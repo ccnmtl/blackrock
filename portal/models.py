@@ -14,7 +14,11 @@ class DigitalFormat(models.Model):
     return self.name
 
 class Keyword(models.Model):
-  name = models.CharField(max_length=50, unique=True)
+  name = models.CharField(max_length=50)
+  facet = models.CharField(max_length=50)
+  
+  class Meta:
+    unique_together = (("name", "facet"),)
   
   def __unicode__(self):
     return self.name
@@ -106,7 +110,7 @@ class Region(models.Model):
   name = models.CharField(max_length=500)
   description = models.TextField(null=True, blank=True)
   location = models.ManyToManyField(Location, null=True, blank=True)
-  region_type = models.OneToOneField(RegionType)
+  region_type = models.ManyToManyField(RegionType)
   
   audience = models.ManyToManyField(Audience, null=True, blank=True)
   keyword = models.ManyToManyField(Keyword)
