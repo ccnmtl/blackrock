@@ -68,6 +68,7 @@ INSTALLED_APPS = (
     'django.contrib.databrowse',
     'gspreadsheet_importer',
     'haystack',
+    'smartif'
 )
 
 # Enabled Blackrock modules - edit to control what displays on the main page

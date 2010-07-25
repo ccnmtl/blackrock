@@ -4,14 +4,16 @@ from haystack.forms import *
 from portal.models import *
 from django.utils.translation import ugettext_lazy as _
 
-_facets = ['audience', 'keyword']
+_facets = ['audience', 'study_type', 'species', 'discipline']
 
 class PortalSearchForm(FacetedSearchForm):
   def __init__(self, *args, **kwargs):
     super(PortalSearchForm, self).__init__(*args, **kwargs)
     self.fields['audience'] = forms.ModelMultipleChoiceField(queryset=Audience.objects.all().order_by("name"), required=False, label=_('Audience'), widget=forms.CheckboxSelectMultiple)
     self.fields['models'] = forms.MultipleChoiceField(choices=model_choices(), required=False, label=_('Types'), widget=forms.CheckboxSelectMultiple)
-    self.fields['keyword'] = forms.ModelMultipleChoiceField(queryset=Keyword.objects.all().order_by("name"), required=False, label=_('Keyword'), widget=forms.CheckboxSelectMultiple)
+    self.fields['study_type'] = forms.ModelMultipleChoiceField(queryset=Keyword.objects.filter(facet='Study Type').order_by("name"), required=False, label=_('Study Type'), widget=forms.CheckboxSelectMultiple)
+    self.fields['species'] = forms.ModelMultipleChoiceField(queryset=Keyword.objects.filter(facet='Species').order_by("name"), required=False, label=_('Species'), widget=forms.CheckboxSelectMultiple)
+    self.fields['discipline'] = forms.ModelMultipleChoiceField(queryset=Keyword.objects.filter(facet='Discipline').order_by("name"), required=False, label=_('Discipline'), widget=forms.CheckboxSelectMultiple)
     
   def get_models(self):
     """Return an alphabetical list of model classes in the index."""

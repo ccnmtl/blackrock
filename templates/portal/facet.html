@@ -35,10 +35,18 @@
                    | {{e.name}}
                 {% endfor %}
                 </span>
+                <br />
+                <span style="font-size: 80%; margin-top: 0px; padding-top: 0px;">
+                {% for k in result.object.keyword.all %}
+                    | {{ k.name }}
+                {% endfor %}
+                </span>
+                
                 
                 {% if result.object.description %}
                 <span style="margin-left: 5px; font-size: 80%"><p style="margin-top: 0px; padding-top: 3px">{{ result.object.description|truncatewords:25 }}</p></span>
                 {% endif %}
+                
                 
                 <hr style="color: #e0e0e0"/>
                 

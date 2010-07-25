@@ -12,6 +12,7 @@ site_media_root = os.path.join(os.path.dirname(__file__),"media")
 urlpatterns = patterns('',
                        ('^accounts/',include('djangowind.urls')),
                        (r'^admin/portal/', include('gspreadsheet_importer.urls')),
+                       (r'^admin/portal/rebuild_index', 'blackrock.portal.views.admin_rebuild_index'),
                        (r'^admin/(.*)', admin.site.root),
                        (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': site_media_root}),
                        (r'^uploads/(?P<path>.*)$','django.views.static.serve',{'document_root' : settings.MEDIA_ROOT}),

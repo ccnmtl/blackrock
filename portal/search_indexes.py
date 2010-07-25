@@ -8,13 +8,21 @@ class AssetIndex(SearchIndex):
   text = CharField(document=True, use_template=True)
   name = CharField(model_attr='name')
   audience = MultiValueField(faceted=True)
-  keyword = MultiValueField(faceted=True)
+  study_type = MultiValueField(faceted=True)
+  species = MultiValueField(faceted=True)
+  discipline = MultiValueField(faceted=True)
+  
+  def prepare_study_type(self, obj):
+    return [keyword.name for keyword in obj.keyword.filter(facet='Study Type')]
+
+  def prepare_species(self, obj):
+    return [keyword.name for keyword in obj.keyword.filter(facet='Species')]
+
+  def prepare_discipline(self, obj):
+    return [keyword.name for keyword in obj.keyword.filter(facet='Discipline')]
   
   def prepare_audience(self, obj): 
     return [audience.name for audience in obj.audience.all()] 
-  
-  def prepare_keyword(self, obj): 
-    return [keyword.name for keyword in obj.keyword.all()] 
 
 site.register(Location, AssetIndex)
 site.register(Station, AssetIndex)
