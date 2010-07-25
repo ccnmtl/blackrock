@@ -29,22 +29,27 @@
                 {{ result.object.name }}
                 </a>
                 <br />
+                <span style="font-size: 95%; margin-top: 0px; padding-top: 0px;"> 
+                <b>{{result.object|klass}}</b>
+		</span>
+		<br />
                 <span style="font-size: 80%; margin-top: 0px; padding-top: 0px;"> 
-                <i>{{result.object|klass|lower}}</i>
+		<b>Audiences</b>:
                 {% for e in result.object.audience.all %}
-                   | {{e.name}}
+                   {{e.name}} |
                 {% endfor %}
                 </span>
                 <br />
                 <span style="font-size: 80%; margin-top: 0px; padding-top: 0px;">
+		<b>Keywords</b>: 
                 {% for k in result.object.keyword.all %}
-                    | {{ k.name }}
+                    {{ k.name }} |
                 {% endfor %}
                 </span>
                 
                 
                 {% if result.object.description %}
-                <span style="margin-left: 5px; font-size: 80%"><p style="margin-top: 0px; padding-top: 3px">{{ result.object.description|truncatewords:25 }}</p></span>
+                <span style="margin-left: 5px; font-size: 80%"><p style="margin-top: 0px; padding-top: 3px"><b>Description:</b> {{ result.object.description|truncatewords:25 }}</p></span>
                 {% endif %}
                 
                 
