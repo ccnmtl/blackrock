@@ -10,66 +10,76 @@
 <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script>
 <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/Signal.js"></script> 
 <script type="text/javascript">
-    function initializeMap() {
-        var latitude, longitude;
-        var description;
-        var id;
-        var pattern = /-?\d*\.\d*,-?\d*\.\d*/
+    function addMarker(lat, lng, map, name, type, description, id) {
+        var latlng = new google.maps.LatLng(lat, lng);
         
-        {% for field in object.fields %}
-           {% if field.urls %}
-              {% for value, url in field.urls %}
-                 {% if field.field.name == "location" %}
-                    var result=pattern.exec('{{value|escape}}');
-                    if (result) {
-                        coords = result[0].split(',')
-                        latitude = coords[0];
-                        longitude = coords[1];
-                    }
-                 {% else %} {% if field.field.name == "latitude" %}
-                    latitude = {{value|escape}};
-                 {% else %} {% if field.field.name == "longitude" %}
-                    longitude = {{value|escape}};
-                 {% else %} {% if field.field.name == "description" %}
-                    description = "{{value|escape|truncatewords:20}}";
-                 {% else %}{% if field.field.name == "id" %}
-                    id = "{{value|escape}}";
-                 {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
-              {% endfor %}
-           {% endif %}
-        {% endfor %}
+        var marker = new google.maps.Marker({
+            position: latlng, 
+            map: map, 
+            title: name
+        });   
 
-        log('latitude: ' + latitude + ' longitude: ' + longitude);                   
+        var contentString = '<div style="font-size: 85%"><b>' + name + '</b><br />' +
+            '<div style="color: #c6c6c6; padding-bottom: 5px;">' + type + '<br /></div>' +
+            '<div style="font-size: 75%">' + description + ' ' + 
+            '<a href="/portal/browse/portal/' + type + '/objects/' + id + '">More</a>' +  
+            '</div></div>';
 
-        if (latitude && longitude) {
-            var latlng = new google.maps.LatLng(latitude, longitude);
-            var myOptions = {
-                    zoom: 8,
-                    center: latlng,
-                    mapTypeId: google.maps.MapTypeId.TERRAIN
-                    };
-            var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+        var infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
 
-            var marker = new google.maps.Marker({
-                position: latlng, 
-                map: map, 
-                title: "{{object|escape}}"
-            });   
+        google.maps.event.addListener(marker, 'click', function() {
+            infowindow.open(map,marker);
+          });
+        
+        return marker;
+    }
 
-            var contentString = '<b>{{object|escape}}</b><br />' +
-                '<div style="font-size: 85%; color: #c6c6c6; padding-bottom: 5px;">' + 
-                '{{object.model.verbose_name|capfirst}}<br /></div>' +
-                '<div style="font-size: 75%">' + description + ' ' + 
-                '<a href="/portal/browse/portal/{{object.model.verbose_name}}/objects/' + id + '">More</a>' +  
-                '</div>';
+    function initializeMap() {
+        // Center on center of Black Rock Forest
+        var latlng = new google.maps.LatLng(41.40744, -74.01457);
+        var myOptions = {
+                zoom: 12,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.TERRAIN
+                };
+        var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 
-            var infowindow = new google.maps.InfoWindow({
-                content: contentString
-            });
+        var markerCount = 0
 
-            google.maps.event.addListener(marker, 'click', function() {
-                infowindow.open(map,marker);
-              });
+        // Add markers for the currently viewed object.
+        {% if object.instance.latitude %}
+           lat = {{object.instance.latitude}};
+           lng = {{object.instance.longitude}};
+           if (lat && lng) {
+             addMarker(lat, lng, map, "{{object.instance.name}}", "{{object.instance|klass|lower}}", "{{object.instance.description|truncatewords:20}}", {{object.instance.id}})
+             markerCount++;
+           }
+        {% endif %}
+
+        {% if object.instance.location %}
+           {% for loc in object.instance.location.all %}
+              lat = {{loc.latitude}};
+              lng = {{loc.longitude}};
+              if (lat && lng) {
+                  addMarker(lat, lng, map, "{{loc.name}}", "location", "{{loc.descriptionz|truncatewords:20}}", {{loc.id}})
+                  markerCount++;
+              }
+           {% endfor %}
+        {% endif %}
+
+        log('Marker Count: ' + markerCount);
+
+        // Add markers for related objects
+        {% if related_object.object_list %}
+           {% for object in related_object.object_list %}
+           
+           {% endfor %}
+        {% endif %}
+
+        if (markerCount < 1) {
+           document.getElementById("map").style.display = 'none';
         }
     }
 
@@ -142,8 +152,10 @@
 {% endfor %}
 </table>
 
-<h2>Map</h2>
-<div id="map_canvas" style="margin: 10px; width:400px; height:400px"></div>
+<div id="map">
+    <h2>Map</h2>
+    <div id="map_canvas" style="margin: 10px; width:400px; height:400px"></div>
+</div>
 
 <h2>Related Records</h2>
     {% for related_object in object.related_objects %}
