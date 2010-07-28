@@ -52,6 +52,7 @@ def calculate(request):
   num_plots = int(request.REQUEST['numPlots'])
   shape = request.REQUEST['shape']
   size = float(request.REQUEST['size'])
+  arrangement = request.REQUEST['plotArrangement']
 
   parent = Plot.objects.get(name=DEFAULT_PLOT)
   results = {}
@@ -69,7 +70,7 @@ def calculate(request):
   basal_list = []
   dbh_list = []
   try:
-    sample = RandomSample(shape,size,parent,num_plots)
+    sample = RandomSample(shape,size,parent,num_plots,arrangement)
   except AssertionError:
     return HttpResponseBadRequest(json.dumps({"error":"Plot size and/or plot count is too big"}),
                                   mimetype="application/javascript")
@@ -172,35 +173,42 @@ class RandomSample:
      can be calculated, but for now, we simply assure that points do not overlap,
      etc.
   """
-  def __init__(self,shape,size,parent,num_plots):
+  def __init__(self,shape,size,parent,num_plots,arrangement):
     self.errors = False
 
     self.shape = shape
     self.size = size
     self.parent = parent
+    self.arrangement = arrangement
+
     delta = 0
     if self.shape == 'circle':
       delta = size
 
-    w = float(parent.width) 
-    w -= (w % size) 
-    h = float(parent.height) 
-    h -= (h % size) 
-    #this is sloppy-- a fractional size might not fit within
+    if arrangement=='random':
+      self.points = [{'x':random.randint(0, float(parent.width) - size),
+                      'y':random.randint(0, float(parent.height) - size),
+                      } for p in xrange(num_plots)]
 
-    plots_avail = w*h / ((size+delta)**2)
+    elif arrangement=='grid':
+      w = float(parent.width) 
+      w -= (w % size) 
+      h = float(parent.height) 
+      h -= (h % size) 
+      #this is sloppy-- a fractional size might not fit within
 
-    assert plots_avail > num_plots
+      plots_avail = w*h / ((size+delta)**2)
 
-    #floor cuts the remainder--maybe we should be using it somehow
-    plots_across = math.floor( w/(size+delta) )
+      assert plots_avail > num_plots
 
-    self.choices = random.sample(xrange(int(plots_avail)), num_plots)
-    #random.randint(0, float(parent.width) - size),
-    self.points = [{'x':(p % plots_across  * (size+delta))+delta,
-                    'y':(math.floor(p / plots_across)  * (size+delta))+delta
-                    } 
-                   for p in self.choices]
+      #floor cuts the remainder--maybe we should be using it somehow
+      plots_across = math.floor( w/(size+delta) )
+
+      self.choices = random.sample(xrange(int(plots_avail)), num_plots)
+      self.points = [{'x':(p % plots_across  * (size+delta))+delta,
+                      'y':(math.floor(p / plots_across)  * (size+delta))+delta
+                      } 
+                     for p in self.choices]
     
 
   def __iter__(self):

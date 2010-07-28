@@ -21,14 +21,14 @@
       Run Parameters</h2>
   
   <div class="inner toggle-nest">
-  <form id='runform'>
+  <form name="runform" id='runform'>
     <table class='runtable'>
       <tr>
         <td class='left'>
           Number of Plots:
         </td>
         <td>
-          <input type='text' id='numPlots' size='5' value='1' />
+          <input name="numPlots" type='text' id='numPlots' size='5' value='1' />
         </td>
       </tr>
       <tr>
@@ -36,7 +36,7 @@
           Plot Shape:
         </td>
         <td>
-          <select id='plotShape'>
+          <select name="shape" id='plotShape'>
             <option value="circle">Circle</option>
             <option value="square">Square</option>
           </select>
@@ -47,7 +47,7 @@
           Plot <span id='shapeLabel'>Radius</span> (m):
         </td>
         <td>
-          <input type='text' id='plotSize' size='5' value='3' />
+          <input name="size" type='text' id='plotSize' size='5' value='3' />
           <!--select id='plotDiameter'>
             <option value='3'>Small (3m)</option>
             <option value='5'>Medium (5m)</option>
@@ -60,11 +60,11 @@
           Plot Arrangement:
         </td>
         <td>
-          <select id='plotArrangement'>
+          <select name="plotArrangement" id='plotArrangement'>
             <option value='random'>Randomize</option>
             <!--option value='random'>Straight Line</option-->
             <!--option value='random'>Two Parallel Lines</option-->
-            <!--option value='random'>Grid</option-->
+            <option value='grid'>Grid</option>
           </select>
         </td>
       </tr>

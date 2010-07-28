@@ -229,13 +229,12 @@ function calculate() {
     removeElement(elem);
   });
 
-  var numPlots = $('numPlots').value;
-  var shape = $('plotShape').value;
-  var size = $('plotSize').value;
-  var params = "numPlots=" + numPlots + "&shape=" + shape + "&size=" + size;
-  global_http_request = doXHR("calculate", {'method':'POST', 'sendContent':params,
-                                         'headers':[["Content-Type", 'application/x-www-form-urlencoded']]
-                                        });
+  
+  global_http_request = doXHR("calculate", {
+          'method':'POST', 
+          'sendContent':queryString(document.forms['runform']),
+          'headers':[["Content-Type", 'application/x-www-form-urlencoded']]
+      });
   global_http_request.addCallback(showResults);
   global_http_request.addErrback(showError);
 }
