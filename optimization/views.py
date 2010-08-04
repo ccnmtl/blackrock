@@ -55,7 +55,14 @@ def calculate(request):
   arrangement = request.REQUEST['plotArrangement']
 
   parent = Plot.objects.get(name=DEFAULT_PLOT)
-  results = {}
+  results = {
+    'input':{
+      'num_plots':num_plots,
+      'shape':shape,
+      'size':size,
+      'arrangement':arrangement,
+      }
+    }
 
   plot_results = {}
   total_time = 0

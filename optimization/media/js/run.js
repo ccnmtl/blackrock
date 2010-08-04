@@ -15,6 +15,9 @@ function showResults(http_request) {
   $('csvbutton').disabled = false;
   
   var results = evalJSON(http_request.responseText);
+  if (window.SampleStorage) {
+      SampleStorage.addSample(results);
+  }
   $('results-time').innerHTML = results['sample-time'];
   $('results-avg-time').innerHTML = results['avg-time'];
 
