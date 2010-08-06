@@ -1,6 +1,6 @@
 #parameters
 {
-	width: 850px;
+        margin:0 10px;
 
 }
 
@@ -11,6 +11,12 @@
 	margin: 0;
 	text-align: left;
 	font-size: 125%;
+}
+
+.heading-addendum 
+{
+        font-size:70%;
+        font-weight:normal;   
 }
 
 div.container
@@ -31,13 +37,34 @@ div.container
   background-color: #eee;
 }
 
-table.runtable {
+.runtable {
   text-align: left;
   background-color: #dcd3c2;
-  width: 26em;
   margin: 20px;
   border: 1px solid #A18F83;
+}
 
+.runtable table,
+.runtable table td {
+  font-size:12px;
+  border:1px solid black;
+  vertical-align:top;
+}
+
+#run-interface 
+{
+        margin-right:400px;
+}
+
+#runform,
+#run-interface 
+{
+        min-width:500px;
+}
+
+.generalinfo 
+{
+        font-size:80%;
 }
 
 div.inner
@@ -49,14 +76,11 @@ div.inner
 
 div.right
 {
-	position: absolute;
-	right: 0;
-	top: 0;
+        float:right;
 	background-color: #DCD3C2;
 	width: 380px;
-	height: 100%;
 	text-align: left;
-	padding-left: 10px;
+	padding: 10px;
 	border-left: 1px #A18F83 solid;
 }
 
@@ -102,6 +126,7 @@ form
 	text-align: center;
 	background-color: #eee;
 	padding: 20px;
+        clear:both;
 }
 
 #results h2
@@ -134,9 +159,8 @@ form
 	color: #fff;
 }
 
-#parameters table
+#parameters thead
 {
-	padding: 25px;
 	font-weight: bold;
 }
 
@@ -213,6 +237,6 @@ td.right { text-align: right; }
 
 #results-map-container
 {
-	float: right;
 	border: 1px solid #999;
+        background-color:white;
 }

@@ -7,17 +7,7 @@ function () {
     this.nsINDEX = 'ALL_SAMPLES';
     this.nsSAMPLE = 'SAMPLE_';
     
-    this.addSample = function(results) {
-        var summary = [
-                       results['input']['num_plots'],
-                       results['input']['shape'],
-                       results['input']['size'],
-                       results['input']['arrangement'],
-                       results['sample-time'],
-                       results['avg-time'],
-                       results['sample-variance-density'],
-                       results['sample-variance-basal'],
-                       ];
+    this.addSample = function(summary, results) {
         var index = self.samples.push(summary) -1;
         Stor.set(self.nsSAMPLE + index, JSON.stringify(results));
         Stor.set(self.nsINDEX, JSON.stringify(self.samples));

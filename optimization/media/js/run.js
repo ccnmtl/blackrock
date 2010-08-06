@@ -15,8 +15,19 @@ function showResults(http_request) {
   $('csvbutton').disabled = false;
   
   var results = evalJSON(http_request.responseText);
+  var summary = [
+                 results['input']['num_plots'],
+                 results['input']['shape'],
+                 results['input']['size'],
+                 results['input']['arrangement'],
+                 results['sample-time'],
+                 results['avg-time'],
+                 results['sample-variance-density'],
+                 results['sample-variance-basal'],
+                 ];
+
   if (window.SampleStorage) {
-      SampleStorage.addSample(results);
+      SampleStorage.addSample(summary, results);
   }
   $('results-time').innerHTML = results['sample-time'];
   $('results-avg-time').innerHTML = results['avg-time'];

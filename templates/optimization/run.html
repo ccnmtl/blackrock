@@ -17,107 +17,87 @@
 
 {% block content %}
 
-<div class="container toggle-container" id="parameters">
-  <h2>
-      Run Parameters</h2>
-  
+<div class="toggle-container" id="parameters">
   <div class="inner toggle-nest">
-  <form name="runform" id='runform'>
-    <table class='runtable'>
-      <tr>
-        <td class='left'>
-          Number of Plots:
-        </td>
-        <td>
-          <input name="numPlots" type='text' id='numPlots' size='5' value='1' />
-        </td>
-      </tr>
-      <tr>
-        <td class='left'>
-          Plot Shape:
-        </td>
-        <td>
-          <select name="shape" id='plotShape'>
-            <option value="circle">Circle</option>
-            <option value="square">Square</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td class='left'>
-          Plot <span id='shapeLabel'>Radius</span> (m):
-        </td>
-        <td>
-          <input name="size" type='text' id='plotSize' size='5' value='3' />
-          <!--select id='plotDiameter'>
-            <option value='3'>Small (3m)</option>
-            <option value='5'>Medium (5m)</option>
-            <option value='10'>Large (10m)</option>
-          </select-->
-        </td>
-      </tr>
-      <tr>
-        <td class='left'>
-          Plot Arrangement:
-        </td>
-        <td>
-          <select name="plotArrangement" id='plotArrangement'>
-            <option value='random'>Randomize</option>
-            <!--option value='random'>Straight Line</option-->
-            <!--option value='random'>Two Parallel Lines</option-->
-            <option value='grid'>Grid</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td colspan='2'>&nbsp;<br />&nbsp;<br /></td>
-      </tr>
-      <tr>
-         <td class='left'>
-           Total Sample Area:
-         </td>
-         <td>
-            <span id='plotArea'></span>m<sup>2</sup>
-         </td>
-      </tr><tr><td><br /></td><td></td></tr>
-      <tr><td colspan='2' align='right' style='border-top: 1px solid #a18fa3; padding-top: 10px;'>
-            <input type="reset" value="Reset" id="reset" />      
-      <input type="button" value="Calculate" id="calculate" />    
-      </td></tr>
-      
-   
-    </table>
-  </form>
-    
-       <div id="csv">
-  <form id="csvform" action="csv" method="POST">
-    Export to CSV:
-    <input type="hidden" name="results" id="form-results" />
-    <select name="type">
-      <option value="summary">summary</>
-      <option value="details">details</option>
-    </select>
-    <input type="button" id='csvbutton' value="Export Now!" onclick="javascript:getcsv();" />
-  </form>
-</div>
-
-
-
-
-
-    
     <div class="right">
-      <p><span style="font-weight:bold;font-size:18px;">About the Virtual Forest</span></p>
-      <p><span style="font-weight:bold;">Grid size:</span><br />
-      7.3ha (300m x 225m / 67,500m<sup>2</sup>)</p>
-      <p><span style="font-weight:bold;">Base Dataset:</span><br />
-      North Slope Plot</p>
-      
-      <p><span style="font-weight:bold;">Data Collection Year:</span><br />
-      2007</p>
+      <div id="results-map-container" class="map">
+        <div id="results-map" style="width:380px;height:300px;"><!-- 
+           VERY IMPORTANT THAT THE WIDTH/HEIGHT STAY HERE
+             OTHERWISE OPENLAYERS DOESN'T WORK
+        --></div>
+      </div>
+      <div class="generalinfo">
+        <h4>About the Virtual Forest</h4>
+        Grid size: 7.3ha (300m x 225m / 67,500m<sup>2</sup>)
+        <br />
+        Base Dataset: North Slope Plot
+        <br />
+        Data Collection Year: 2007
+      </div>
 
   
     </div>
+
+    <div class='runtable' id="run-interface">
+      <form name="runform" id='runform'>
+      <table>
+        <thead>
+          <tr>
+            <td>No. of plots</td>
+            <td>Shape</td>
+            <td><span id='shapeLabel'>Radius</span>(m)</td>
+            <td>Arrangement</td>
+            <td>Sample Area</td>
+            <td><input type="reset" value="Reset" id="reset" /></td>
+          </tr>
+        </thead>
+        <tbody id="sample-list">
+          <tr>
+            <td><input name="numPlots" type='text' id='numPlots' size='5' value='1' /></td>
+            <td>
+              <select name="shape" id='plotShape'>
+                <option value="circle">Circle</option>
+                <option value="square">Square</option>
+              </select>
+            </td>
+            <td><input name="size" type='text' id='plotSize' size='5' value='3' /></td>
+            <td>
+              <select name="plotArrangement" id='plotArrangement'>
+                <option value='random'>Randomize</option>
+                <!--option value='random'>Straight Line</option-->
+                <!--option value='random'>Two Parallel Lines</option-->
+                <option value='grid'>Grid</option>
+              </select>
+            </td>
+            <td>
+              <span id='plotArea'></span>m<sup>2</sup>
+            </td>
+            <td><input type="button" value="Calculate" id="calculate" /></td>
+          </tr>
+        </tbody>
+      </table>
+      </form>
+
+      <h3>Sampling History <span class="heading-addendum">(stored in your web browser)</span></h3>
+      <table>
+        <thead>
+          <tr>
+            <td>Run</td>
+            <td># plots</td>
+            <td>Shape</td>
+            <td>Edge/ Radius (m)</td>
+            <td>Arrange- ment</td>
+            <td>Total sample area</td>
+            <td>Sample Time (min)</td>
+            <td>Average time per plot</td>
+            <td>Sample variance density</td>
+            <td>Sample variance basal area</td>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div><!-- id=run-interface -->
     
   </div> <!-- end div "inner" -->
 
@@ -134,15 +114,24 @@
 </div>
 <div id="results">
 <h2>Sampling Results</h2>
+<div id="csv">
+  <form id="csvform" action="csv" method="POST">
+    Export to CSV:
+    <input type="hidden" name="results" id="form-results" />
+    <select name="type">
+      <option value="summary">summary</>
+      <option value="details">details</option>
+    </select>
+    <input type="button" id='csvbutton' value="Export Now!" onclick="javascript:getcsv();" />
+  </form>
+</div><!-- csv -->
+    
 <div class="container toggle-container" id="results_summary">
   <h3 class="toggle-control"><span class='downarrow'>&#x25BE;</span>
       <span class='rightarrow'>&#x25B8</span>
      Total Run Results (Click to Expand/Collapse)</h3>
   <div class="toggle-nest">
   <h4>Summary</h4>
-  <div id="results-map-container" class="map">
-    <div id="results-map" style="width:400px;height:400px;"></div>
-  </div>
   <table class="results-summary">
     <tr>
       <td class='header'>TIME TO SAMPLE</td>
