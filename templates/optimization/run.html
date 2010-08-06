@@ -51,7 +51,7 @@
             <td><input type="reset" value="Reset" id="reset" /></td>
           </tr>
         </thead>
-        <tbody id="sample-list">
+        <tbody>
           <tr>
             <td><input name="numPlots" type='text' id='numPlots' size='5' value='1' /></td>
             <td>
@@ -79,6 +79,7 @@
       </form>
 
       <h3>Sampling History <span class="heading-addendum">(stored in your web browser)</span></h3>
+      <div id="sample-list-table">
       <table>
         <thead>
           <tr>
@@ -94,9 +95,10 @@
             <td>Sample variance basal area</td>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="sample-list">
         </tbody>
       </table>
+      </div>
     </div><!-- id=run-interface -->
     
   </div> <!-- end div "inner" -->

@@ -16,19 +16,39 @@ function showResults(http_request) {
   
   var results = evalJSON(http_request.responseText);
   var summary = [
-                 results['input']['num_plots'],
-                 results['input']['shape'],
-                 results['input']['size'],
-                 results['input']['arrangement'],
-                 results['sample-time'],
-                 results['avg-time'],
-                 results['sample-variance-density'],
-                 results['sample-variance-basal'],
-                 ];
-
+      results['input']['num_plots'],
+      results['input']['shape'],
+      results['input']['size'],
+      results['input']['arrangement'],
+      results['sample-area'],
+      results['sample-time'],
+      results['avg-time'],
+      results['sample-variance-density'],
+      results['sample-variance-basal']
+  ];
+  var run_num = 0;
   if (window.SampleStorage) {
-      SampleStorage.addSample(summary, results);
+      run_num = SampleStorage.addSample(summary, results) +1;
   }
+
+  showResultsInfo(results, 
+                  addSampleSummaryRow(run_num, summary));
+
+  setStyle('waitmessage', {'display':'none'});
+  $('calculate').disabled = false; 
+
+}
+
+var cur_results = false;
+function showResultsInfo(results, new_row) {
+    if (cur_results) {
+        removeElementClass(cur_results,'sample-enabled');
+    }
+    if (new_row) {
+        addElementClass(new_row,'sample-enabled');
+        cur_results = new_row;
+    }
+    if (!results) {return};
   $('results-time').innerHTML = results['sample-time'];
   $('results-avg-time').innerHTML = results['avg-time'];
 
@@ -69,11 +89,8 @@ function showResults(http_request) {
       showPlotInfo(plotname, plots[i]);
       visualized_map.addPlot(plots[i], plotname);
   }
-
-  setStyle('waitmessage', {'display':'none'});
-  setStyle('results', {'display':'block'});
-  setStyle('details', {'display':'block'});
-  $('calculate').disabled = false; 
+    showElement('results');
+    setStyle('details', {'display':'block'});
 
 }
 
@@ -268,12 +285,43 @@ function updateShapeLabel(e) {
   }
 }
 
+function deleteSample(run_num) {
+    SampleStorage.deleteSample(run_num-1);
+    removeElement('samplerun-'+run_num);
+}
+
+function addSampleSummaryRow(run_num, summary_ary) {
+    var tr = document.createElement('tr');
+    tr.id = 'samplerun-'+run_num;
+    var html = '<td>'+run_num+' <a href="#top" '
+        +'onclick="deleteSample('+run_num+');return false;">x</a></td>';
+    for (var i=0;i<summary_ary.length;i++) {
+        html += '<td>'+summary_ary[i]+'</td>';
+    }
+    tr.innerHTML = html;
+    $('sample-list').appendChild(tr);
+    connect(tr, 'onclick', function(evt) {
+        showResultsInfo(SampleStorage.getSample(run_num-1), tr);
+    });
+    return tr;
+}
+
+function loadSampleHistory() {
+    if (SampleStorage) {
+        var ss = SampleStorage.samples;
+        for (var i=0;i<ss.length;i++) 
+            if (ss[i])
+                addSampleSummaryRow(i+1, ss[i]);
+    }
+}
+
 function initRun() {
   connect("calculate", "onclick", calculate);
   connect("reset", "onclick", reset);
   connect("plotShape", "onchange", updateShapeLabel);
   $('csvbutton').disabled = true;
   $('calculate').disabled = false; 
+  loadSampleHistory();
 }
 
 addLoadEvent(initRun);

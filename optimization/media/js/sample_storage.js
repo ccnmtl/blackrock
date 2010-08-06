@@ -17,7 +17,11 @@ function () {
     this.getSample = function(index) {
         return JSON.parse(Stor.get(self.nsSAMPLE + index,'false'));
     }
-    
+    this.deleteSample = function(index) {
+        Stor.del(self.nsSAMPLE + index);
+        self.samples[index] = false;
+        Stor.set(self.nsINDEX, JSON.stringify(self.samples));        
+    }
 
     this.samples = JSON.parse(Stor.get(this.nsINDEX,'[]'));
 })());

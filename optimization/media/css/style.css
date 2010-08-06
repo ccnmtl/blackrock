@@ -28,6 +28,18 @@ div.container
 	text-align: center;
 }
 
+#sample-list-table
+{
+        max-height:400px;
+        overflow-y:scroll;
+        position:relative;
+}
+
+tr.sample-enabled 
+{
+        background-color:#a18f83;
+}
+
 #csv {
   text-align: left;
   padding: 20px;
