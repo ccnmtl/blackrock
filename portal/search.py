@@ -9,7 +9,7 @@ _facets = ['audience', 'study_type', 'species', 'discipline', 'asset_type']
 class PortalSearchForm(FacetedSearchForm):
 
   audience = forms.MultipleChoiceField(required=False, label=_('Audience'), widget=forms.CheckboxSelectMultiple)
-  asset_type = forms.ChoiceField(required=False, label=_('Asset Type'), widget=forms.RadioSelect)
+  asset_type = forms.MultipleChoiceField(required=False, label=_('Asset Type'), widget=forms.CheckboxSelectMultiple)
   study_type = forms.MultipleChoiceField(required=False, label=_('Study Type'), widget=forms.CheckboxSelectMultiple)
   species = forms.MultipleChoiceField(required=False, label=_('Species'), widget=forms.CheckboxSelectMultiple)
   discipline = forms.MultipleChoiceField(required=False, label=_('Discipline'), widget=forms.CheckboxSelectMultiple)
@@ -22,13 +22,10 @@ class PortalSearchForm(FacetedSearchForm):
     query = ""
     
     if hasattr(self, "cleaned_data"):
-      if type(self.cleaned_data[name]) == type(list()):
-        for a in self.cleaned_data[name]:
-          if len(query):
-            query += ' OR '
-          query += "%s:%s" % (name, a)
-      else:
-        query += "%s:%s" % (name, self.cleaned_data[name])
+      for a in self.cleaned_data[name]:
+        if len(query):
+          query += ' OR '
+        query += "%s:%s" % (name, a)
     
     return query
   
