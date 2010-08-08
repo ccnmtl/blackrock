@@ -13,7 +13,7 @@
                     {{ form.as_table }}
                     <tr>
                         <td>&nbsp;</td>
-                        <td><input type="submit" value="Search"></td>
+                        <td><input type="submit" value="Search">&nbsp;<input type="reset" value="Reset" onclick="parent.location='/portal/facet/'"></td>
                     </tr>
                 </tbody>
             </table>
@@ -54,9 +54,6 @@
                 
                 
                 <hr style="color: #e0e0e0"/>
-                
-                
-                
                 
             </p>
         {% endfor %}
