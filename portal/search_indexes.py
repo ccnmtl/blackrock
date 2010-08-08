@@ -11,6 +11,7 @@ class AssetIndex(SearchIndex):
   study_type = MultiValueField(faceted=True)
   species = MultiValueField(faceted=True)
   discipline = MultiValueField(faceted=True)
+  asset_type = CharField(faceted=True)
   
   def prepare_study_type(self, obj):
     return [keyword.name for keyword in obj.keyword.filter(facet='Study Type')]
@@ -22,8 +23,11 @@ class AssetIndex(SearchIndex):
     return [keyword.name for keyword in obj.keyword.filter(facet='Discipline')]
   
   def prepare_audience(self, obj): 
-    return [audience.name for audience in obj.audience.all()] 
-
+    return [audience.name for audience in obj.audience.all()]
+  
+  def prepare_asset_type(self, obj):
+    return obj._meta.object_name
+  
 site.register(Location, AssetIndex)
 site.register(Station, AssetIndex)
 site.register(Region, AssetIndex)

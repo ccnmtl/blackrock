@@ -3,14 +3,13 @@ from haystack.views import SearchView, FacetedSearchView
 from haystack.forms import *
 from portal.models import *
 from django.utils.translation import ugettext_lazy as _
-from django.db.models import get_model
 
-_facets = {'audience': 'Audience', 'study_type': 'Keyword', 'species': 'Keyword', 'discipline': 'Keyword' }
+_facets = ['audience', 'study_type', 'species', 'discipline', 'asset_type']
 
 class PortalSearchForm(FacetedSearchForm):
 
   audience = forms.MultipleChoiceField(required=False, label=_('Audience'), widget=forms.CheckboxSelectMultiple)
-  models = forms.MultipleChoiceField(choices=model_choices(), required=False, label=_('Types'), widget=forms.CheckboxSelectMultiple)
+  asset_type = forms.ChoiceField(required=False, label=_('Asset Type'), widget=forms.RadioSelect)
   study_type = forms.MultipleChoiceField(required=False, label=_('Study Type'), widget=forms.CheckboxSelectMultiple)
   species = forms.MultipleChoiceField(required=False, label=_('Species'), widget=forms.CheckboxSelectMultiple)
   discipline = forms.MultipleChoiceField(required=False, label=_('Discipline'), widget=forms.CheckboxSelectMultiple)
@@ -18,26 +17,19 @@ class PortalSearchForm(FacetedSearchForm):
   
   def __init__(self, *args, **kwargs):
     super(PortalSearchForm, self).__init__(*args, **kwargs)
-    
-  def get_models(self):
-    """Return an alphabetical list of model classes in the index."""
-    search_models = []
-    
-    if hasattr(self, "cleaned_data"):
-      for model in self.cleaned_data['models']:
-        search_models.append(models.get_model(*model.split('.')))
-    
-    return search_models
   
   def get_multiplechoicefield(self, name):
     query = ""
     
     if hasattr(self, "cleaned_data"):
-      for a in self.cleaned_data[name]:
-        if len(query):
-          query += ' OR '
-        m = get_model('portal', _facets[name]).objects.get(id=a)
-        query += "%s:%s" % (name, m.name)
+      if type(self.cleaned_data[name]) == type(list()):
+        for a in self.cleaned_data[name]:
+          if len(query):
+            query += ' OR '
+          query += "%s:%s" % (name, a)
+      else:
+        query += "%s:%s" % (name, self.cleaned_data[name])
+    
     return query
   
   def search(self):
@@ -69,16 +61,13 @@ class PortalSearchForm(FacetedSearchForm):
         query = self.get_multiplechoicefield(facet)
         if len(query):
           sqs = sqs.narrow(query)
-        
-      sqs = sqs.models(*self.get_models())
 
     # facet counts based on result set
     if len(sqs) > 0:
       counts = sqs.facet_counts()
       for facet in counts['fields']:
         for key, value in counts['fields'][facet]:
-          instance = get_model("portal", _facets[facet]).objects.get(name=key)
-          choice = (instance.id, "%s (%s)" % (key, value))
+          choice = (key, "%s (%s)" % (key, value))
           self.fields[facet].choices.append(choice)
           
     return sqs
