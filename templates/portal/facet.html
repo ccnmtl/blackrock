@@ -2,6 +2,28 @@
 {% load smartif %}
 {% load klass %}
 
+{% block js %}
+    {{ block.super }}
+    <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script> 
+    <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/Signal.js"></script> 
+    
+    <script type="text/javascript">
+        function hideElements() 
+        { 
+            {% for hidden_name in hidden %}
+              id = "id_" + "{{ hidden_name }}" + "_0";
+              log(id)
+              forEach(getElementsByTagAndClassName("label", null, parent=document), function(e) {
+                if ( e.getAttribute("for") == id) {
+                    e.style.display = "none";
+                }
+              });
+            {% endfor %} 
+        }
+        MochiKit.Signal.connect(window, "onload", hideElements);
+    </script> 
+{% endblock %}
+
 {% block content %}
 
 <div id="content">

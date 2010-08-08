@@ -13,7 +13,6 @@ class PortalSearchForm(FacetedSearchForm):
   study_type = forms.MultipleChoiceField(required=False, label=_('Study Type'), widget=forms.CheckboxSelectMultiple)
   species = forms.MultipleChoiceField(required=False, label=_('Species'), widget=forms.CheckboxSelectMultiple)
   discipline = forms.MultipleChoiceField(required=False, label=_('Discipline'), widget=forms.CheckboxSelectMultiple)
-
   
   def __init__(self, *args, **kwargs):
     super(PortalSearchForm, self).__init__(*args, **kwargs)
@@ -31,6 +30,7 @@ class PortalSearchForm(FacetedSearchForm):
   
   def search(self):
     sqs = []
+    self.hidden = []
     
     """Filter by full text search string or empty string if does not exist"""
     if not hasattr(self, "cleaned_data"):
@@ -64,8 +64,14 @@ class PortalSearchForm(FacetedSearchForm):
       counts = sqs.facet_counts()
       for facet in counts['fields']:
         for key, value in counts['fields'][facet]:
-          choice = (key, "%s (%s)" % (key, value))
-          self.fields[facet].choices.append(choice)
+          if value > 0:
+            choice = (key, "%s (%s)" % (key, value))
+            self.fields[facet].choices.append(choice)
+        
+        if len(self.fields[facet].choices) < 1:
+          self.hidden.append(facet)
+        else:
+          self.fields[facet].choices.sort()
           
     return sqs
     
@@ -80,6 +86,7 @@ class PortalSearchView(SearchView):
     extra = super(PortalSearchView, self).extra_context()
     if hasattr(self, "results"):
       extra["count"] = len(self.results)
+    extra["hidden"] = self.form.hidden
     return extra
 
 
