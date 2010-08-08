@@ -24,7 +24,7 @@ class Keyword(models.Model):
     return self.name
   
 class Institution(models.Model):
-  name = models.CharField(max_length=50, unique=True)
+  name = models.CharField(max_length=100, unique=True)
   
   def __unicode__(self):
     return self.name
