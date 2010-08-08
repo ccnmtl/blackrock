@@ -246,7 +246,7 @@ def _import_counts(set, count, fieldname, collection_id, import_set_type):
         if fieldname == 'count':
           if pollen_name.lower() in ["pinus subg pinus", "pinus subg strobus", "pinus undiff"]:
             _update_or_create_pollen_sample(pinus_pollen, core_sample, fieldname, child.childNodes[0].nodeValue, summarize=True)
-          elif pollen_name.lower() in ["asteraceae subf asteroideae undiff", "asteraceae subf cichorioideae", "artemisia", "ambrosia"]:
+          elif pollen_name.lower() in ["asteraceae subf asteroideae undiff", "asteraceae subf cichorioideae", "ambrosia", "artemisia"]:
             _update_or_create_pollen_sample(asteraceae_pollen, core_sample, fieldname, child.childNodes[0].nodeValue, summarize=True)
 
   xmldoc.unlink()
