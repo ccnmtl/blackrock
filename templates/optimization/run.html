@@ -133,7 +133,7 @@
       <span class='rightarrow'>&#x25B8</span>
      Total Run Results (Click to Expand/Collapse)</h3>
   <div class="toggle-nest">
-  <h4>Summary</h4>
+  <!-- h4>Summary</h4>
   <table class="results-summary">
     <tr>
       <td class='header'>TIME TO SAMPLE</td>
@@ -151,7 +151,7 @@
       <td class='header'>SAMPLE VARIANCE BASAL AREA</td>
       <td id='results-variance-basal' class='right'></td>
     </tr>
-  </table>
+  </table -->
 <h4>Details</h4>
   <table class='results'>
     <thead>
@@ -208,94 +208,78 @@
       Sampling Details</h3-->
   <h3>Plot by Plot Results</h3>
   <div id='plot-parent'>
-    <div class='plot-wrapper' id='plot1'>
+  </div>
+    <div class='plot-wrapper' id='plot-template'>
+      <div class='plot-info toggle-container'>
+        <div class='plot-title'>
+        PLOT 1:</div>
+        <h4>Summary</h4>
+        <table class="results-summary">
+          <tr><td class='header'>AREA (m<sup>2</sup>)</td><td class='header'># OF TREES</td><td class='header'>TIME TO SAMPLE</td></tr>
+          <tr><td id='plot1-area' class='right'></td> <td class='right'><span id='plot1-count'></span></td>  <td class='right'><span id='plot1-time-total'></span> min</td></tr>
+          
+        </table>
     
-    <div class='plot-info toggle-container'>
-    <div class='plot-title'>
-      PLOT 1:</div>
- <!--OLD 
- <table class="results-summary">
-      <tr>
-        <td class='header'>PLOT AREA (m<sup>2</sup>)</td>
-        <td id='plot1-area' class='right'></td>
-      </tr>
-      <tr>
-        <td class='header'>TREES</td>
-        <td class='right'><span id='plot1-count'></span></td>
-      </tr>
-      <tr>
-        <td class='header'>TOTAL SAMPLING TIME</td>
-        <td class='right'><span id='plot1-time-total'></span> min</td>
-      </tr>
-    </table>
-    
-    -->
-    <h4>Summary</h4>
-     <table class="results-summary">
-      <tr><td class='header'>AREA (m<sup>2</sup>)</td><td class='header'># OF TREES</td><td class='header'>TIME TO SAMPLE</td></tr>
-      <tr><td id='plot1-area' class='right'></td> <td class='right'><span id='plot1-count'></span></td>  <td class='right'><span id='plot1-time-total'></span> min</td></tr>
+        <div class='subdetails'>
+          <h4 class='toggle-control'><span class='downarrow'>&#x25BE;</span>
+          <span class='rightarrow'>&#x25B8</span> Details (Click to Expand/Collapse)</h4>
+          
+          <div class='toggle-nest'>
+            
+            <table class="results-summary">
+              <tr>
+                <td class='header'>Time Spent...</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class='subheader right'>Locating Plot</td>
+                <td class='right'><span id='plot1-time-locate'></span> min</td>
+              </tr>
+              <tr>
+                <td class='subheader right'>Traveling to Plot Area</td>
+                <td class='right'><span id='plot1-time-travel'></span> min</td>
+              </tr>
+              <tr>
+                <td class='subheader right'>Establishing Plot</td>
+                <td class='right'><span id='plot1-time-establish'></span> min</td>
+              </tr>
+              <tr>
+                <td class='subheader right'>Measuring Trees</td>
+                <td class='right'><span id='plot1-time-measure'></span> min</td>
+              </tr>
+            </table>
+            
+            <table class='results'>
+              <thead>
+                <tr>
+                  <td>SPECIES</td>
+                  <td># OF TREES</td>
+                  <td>MEAN DBH (cm)</td>
+                  <td>VARIANCE DBH</td>
+                  <td>DENSITY (N/ha)</td>
+                  <td>BASAL AREA (m<sup>2</sup>/ha)</td>
+                </tr>
+              </thead>
+              <tbody id='plot1-species-table'>
+                <tr>
+                  <td><strong>TOTAL: <span id='plot1-species'></span></strong></td>
+                  <td id='plot1-details-count' class='right'></td>
+                  <td id='plot1-dbh' class='right'></td>
+                  <td id='plot1-variance-dbh' class='right'></td>
+                  <td id='plot1-density' class='right'></td>
+                  <td id='plot1-basal' class='right'></td>
+                </tr>
+              </tbody>
+            </table>
+            </div><!-- end div subdetails --->
+          </div><!-- end div toggle-nest -->
 
-    </table>
-    
-    
-    
-<div class='subdetails'>
-<h4 class='toggle-control'><span class='downarrow'>&#x25BE;</span>
-      <span class='rightarrow'>&#x25B8</span> Details (Click to Expand/Collapse)</h4>
+        </div><!-- end div plot-info -->
+      </div><!-- end div class=plot-wrapper -->
 
-  <div class='toggle-nest'>
-
-  <table class="results-summary">
-    <tr>
-      <td class='header'>Time Spent...</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td class='subheader right'>Locating Plot</td>
-      <td class='right'><span id='plot1-time-locate'></span> min</td>
-    </tr>
-    <tr>
-      <td class='subheader right'>Traveling to Plot Area</td>
-      <td class='right'><span id='plot1-time-travel'></span> min</td>
-    </tr>
-    <tr>
-      <td class='subheader right'>Establishing Plot</td>
-      <td class='right'><span id='plot1-time-establish'></span> min</td>
-    </tr>
-    <tr>
-      <td class='subheader right'>Measuring Trees</td>
-      <td class='right'><span id='plot1-time-measure'></span> min</td>
-    </tr>
-  </table>
-  
-  <table class='results'>
-    <thead>
-      <tr>
-        <td>SPECIES</td>
-        <td># OF TREES</td>
-        <td>MEAN DBH (cm)</td>
-        <td>VARIANCE DBH</td>
-        <td>DENSITY (N/ha)</td>
-        <td>BASAL AREA (m<sup>2</sup>/ha)</td>
-      </tr>
-    </thead>
-    <tbody id='plot1-species-table'>
-      <tr>
-        <td><strong>TOTAL: <span id='plot1-species'></span></strong></td>
-        <td id='plot1-details-count' class='right'></td>
-        <td id='plot1-dbh' class='right'></td>
-        <td id='plot1-variance-dbh' class='right'></td>
-        <td id='plot1-density' class='right'></td>
-        <td id='plot1-basal' class='right'></td>
-      </tr>
-    </tbody>
-  </table></div><!-- end div subdetails --->
-    </div><!-- end div toggle-nest -->
-    </div><!-- end div plot-info -->
-    </div><!-- end div plot-wrapper -->
-  </div> <!-- end div nest -->
   </div> <!-- end div all_results -->
 </div><!-- end div container -->
+
 
 
 {% endblock %}

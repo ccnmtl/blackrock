@@ -41,6 +41,8 @@ function showResults(http_request) {
 
 var cur_results = false;
 function showResultsInfo(results, new_row) {
+    if (window.console)
+        console.log(results);
     if (cur_results) {
         removeElementClass(cur_results,'sample-enabled');
     }
@@ -49,11 +51,11 @@ function showResultsInfo(results, new_row) {
         cur_results = new_row;
     }
     if (!results) {return};
-  $('results-time').innerHTML = results['sample-time'];
-  $('results-avg-time').innerHTML = results['avg-time'];
-
-  $('results-variance-density').innerHTML = results['sample-variance-density'];
-  $('results-variance-basal').innerHTML = results['sample-variance-basal'];
+    ///Summary table deprecated
+    //$('results-time').innerHTML = results['sample-time'];
+    //$('results-avg-time').innerHTML = results['avg-time'];
+    //$('results-variance-density').innerHTML = results['sample-variance-density'];
+    //$('results-variance-basal').innerHTML = results['sample-variance-basal'];
 
   $('results-area').innerHTML = results['sample-area'];
   $('results-species').innerHTML = results['sample-species'];
@@ -83,14 +85,16 @@ function showResultsInfo(results, new_row) {
 				 });
   // individual plots
   var plots = results['plots'];
-    var numPlots = plots.length || dictlen(plots); //legacy
+  var numPlots = plots.length || dictlen(plots); //legacy
+  $('plot-parent').innerHTML = '';
   for(var i=0; i<numPlots; i++) {
       var plotname = i+1;
+      console.log(plotname);
       showPlotInfo(plotname, plots[i]);
       visualized_map.addPlot(plots[i], plotname);
   }
-    showElement('results');
-    setStyle('details', {'display':'block'});
+  showElement('results');
+  setStyle('details', {'display':'block'});
 
 }
 
@@ -118,11 +122,11 @@ function showError(http_request) {
 
 function showPlotInfo(plotNumber, results) {
   var parent = $('plot-parent'); 
-  var plotTable = $('plot1').innerHTML;
+  var plotTable = $('plot-template').innerHTML;
   var id = "plot" + plotNumber;
   var name = "PLOT " + plotNumber;
 
-  if(plotNumber > 1) {
+  if(plotNumber > 0) {
     var newDiv = DIV();
     addElementClass(newDiv, "plot-wrapper");
     addElementClass(newDiv, "toggle-container");
@@ -160,7 +164,7 @@ function showPlotInfo(plotNumber, results) {
                    );
     insertSiblingNodesBefore(totalsRow, child);
   }
-  if(plotNumber > 1) {
+  if(plotNumber > 0) {
     var togglectrl = getFirstElementByTagAndClassName("*", "toggle-control", id);
     connect(togglectrl, "onclick", toggle);
   }
@@ -179,14 +183,14 @@ function reset() {
   }
   
   forEach(getElementsByTagAndClassName("div","plot-wrapper"), function(elem) {
-    if(elem.id != "plot1")
+    if(elem.id != "plot-template")
       removeElement(elem);
   });
 
   /* collapse plot1 if it's un-collapsed */
-  var rightarrow = getFirstElementByTagAndClassName("span", "rightarrow", "plot1");
-  var downarrow = getFirstElementByTagAndClassName("span", "downarrow", "plot1");
-  var parent = $("plot1");
+  var rightarrow = getFirstElementByTagAndClassName("span", "rightarrow", "plot-template");
+  var downarrow = getFirstElementByTagAndClassName("span", "downarrow", "plot-template");
+  var parent = $("plot-template");
   var inner = getFirstElementByTagAndClassName("div", "toggle-nest", parent);
 
   var visible = (getStyle(downarrow, "display") != "none");
@@ -244,14 +248,14 @@ function calculate() {
   setStyle('errormessage', {'display':'none'});
 
   forEach(getElementsByTagAndClassName("div","plot-wrapper"), function(elem) {
-    if(elem.id != "plot1")
+    if(elem.id != "plot-template")
       removeElement(elem);
   });
   
-  /* collapse plot1 if it's un-collapsed */
-  var rightarrow = getFirstElementByTagAndClassName("span", "rightarrow", "plot1");
-  var downarrow = getFirstElementByTagAndClassName("span", "downarrow", "plot1");
-  var parent = $("plot1");
+  /* collapse plot-template if it's un-collapsed */
+  var rightarrow = getFirstElementByTagAndClassName("span", "rightarrow", "plot-template");
+  var downarrow = getFirstElementByTagAndClassName("span", "downarrow", "plot-template");
+  var parent = $("plot-template");
   var inner = getFirstElementByTagAndClassName("div", "toggle-nest", parent);
 
   var visible = (getStyle(downarrow, "display") != "none");

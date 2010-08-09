@@ -252,3 +252,8 @@ td.right { text-align: right; }
 	border: 1px solid #999;
         background-color:white;
 }
+
+#plot-template {
+               /*keep this here, for code reasons*/
+               display:none;
+}
