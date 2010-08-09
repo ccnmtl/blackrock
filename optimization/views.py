@@ -111,8 +111,10 @@ def calculate(request):
   results['plots'] = plot_results
   
   results['sample-time'] = format_time(total_time)
+  results['sample-time-minutes'] = total_time
   avg_time = total_time / num_plots
   results['avg-time'] = format_time(avg_time)
+  results['avg-time-minutes'] = avg_time
 
   results['sample-species'] = len(species_list)
   
@@ -301,6 +303,7 @@ def sample_plot(sample, point, p_index):
   trees = Tree.objects.filter( sample.Q(point) )
 
   results['coordinates'] = sample.polygon(point)
+  results['coordinate-start'] = point
 
   results['trees'] = trees
  
