@@ -4,6 +4,7 @@
 
 {% block js %}
   {{ block.super }}
+  <script type="text/javascript" src="/site_media/js/tablesort.js"></script>
   <script type="text/javascript" src="/site_media/js/local_session.js"></script>
   <script type="text/javascript" src="media/js/sample_storage.js"></script>
   <script type="text/javascript" src="media/js/run.js"></script>
@@ -43,12 +44,12 @@
       <table>
         <thead>
           <tr>
-            <td>No. of plots</td>
-            <td>Shape</td>
-            <td><span id='shapeLabel'>Radius</span>(m)</td>
-            <td>Arrangement</td>
-            <td>Sample Area</td>
-            <td><input type="reset" value="Reset" id="reset" /></td>
+            <th class="Number">No. of plots</th>
+            <th>Shape</th>
+            <th class="Number"><span id='shapeLabel'>Radius</span>(m)</th>
+            <th>Arrangement</th>
+            <th class="Number">Sample Area</th>
+            <th><input type="reset" value="Reset" id="reset" /></th>
           </tr>
         </thead>
         <tbody>
@@ -80,19 +81,19 @@
 
       <h3>Sampling History <span class="heading-addendum">(stored in your web browser)</span></h3>
       <div id="sample-list-table">
-      <table>
+      <table class="sortable" onclick="sortColumn(event)">
         <thead>
           <tr>
-            <td>Run</td>
-            <td># plots</td>
-            <td>Shape</td>
-            <td>Edge/ Radius (m)</td>
-            <td>Arrange- ment</td>
-            <td>Total sample area</td>
-            <td>Sample Time (min)</td>
-            <td>Average time per plot</td>
-            <td>Sample variance density</td>
-            <td>Sample variance basal area</td>
+            <th class="Number">Run</th>
+            <th class="Number"># plots</th>
+            <th>Shape</th>
+            <th class="Number">Edge/ Radius (m)</th>
+            <th>Arrange- ment</th>
+            <th class="Number">Total sample area</th>
+            <th class="human_time">Sample Time (min)</th>
+            <th class="human_time">Average time per plot</th>
+            <th class="Number">Sample variance density</th>
+            <th class="Number">Sample variance basal area</th>
           </tr>
         </thead>
         <tbody id="sample-list">

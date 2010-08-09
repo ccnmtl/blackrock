@@ -341,3 +341,13 @@ function initRun() {
 }
 
 addLoadEvent(initRun);
+
+TableSortCasts["human_time"] = function(cell) {
+    var time=0;
+    var str = String(cell.innerHTML);
+    var min = str.match(/([.\d]+) min/);
+    var hr = str.match(/([.\d]+) hr/);
+    if (min) time += parseFloat(min[1]);
+    if (hr) time += 60*parseFloat(hr[1]);
+    return time;
+}
