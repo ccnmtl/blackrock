@@ -64,7 +64,7 @@ def calculate(request):
       }
     }
 
-  plot_results = {}
+  plot_results = []
   total_time = 0
   species_list = sets.Set()
   results['sample-area'] = 0
@@ -106,7 +106,7 @@ def calculate(request):
     sub['trees'] = ''
     sub['species-list'] = ''
 
-    plot_results[plot] = sub
+    plot_results.append(sub)
 
   results['plots'] = plot_results
   

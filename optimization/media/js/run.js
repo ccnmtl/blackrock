@@ -83,7 +83,7 @@ function showResultsInfo(results, new_row) {
 				 });
   // individual plots
   var plots = results['plots'];
-  var numPlots = $('numPlots').value;
+    var numPlots = plots.length || dictlen(plots); //legacy
   for(var i=0; i<numPlots; i++) {
       var plotname = i+1;
       showPlotInfo(plotname, plots[i]);
@@ -92,6 +92,12 @@ function showResultsInfo(results, new_row) {
     showElement('results');
     setStyle('details', {'display':'block'});
 
+}
+
+function dictlen(d) {
+    var len = 0;
+    for (a in d) len++;
+    return len;
 }
 
 function showError(http_request) {
@@ -299,11 +305,18 @@ function addSampleSummaryRow(run_num, summary_ary) {
         html += '<td>'+summary_ary[i]+'</td>';
     }
     tr.innerHTML = html;
-    $('sample-list').appendChild(tr);
+    dom_prepend($('sample-list'),tr);
     connect(tr, 'onclick', function(evt) {
         showResultsInfo(SampleStorage.getSample(run_num-1), tr);
     });
     return tr;
+}
+
+function dom_prepend(parent, newchild) {
+    if (parent.firstChild)
+        parent.insertBefore(newchild, parent.firstChild)
+    else
+        parent.appendChild(newchild);
 }
 
 function loadSampleHistory() {
