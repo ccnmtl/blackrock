@@ -10,10 +10,6 @@ function getcsv() {
 function showResults(http_request) {
   global_http_request = http_request;
 
-  // store in form for CSV export
-  $('form-results').value = http_request.responseText;  
-  $('csvbutton').disabled = false;
-  
   var results = evalJSON(http_request.responseText);
   var summary = [
       results['input']['num_plots'],
@@ -57,6 +53,10 @@ function showResultsInfo(results, new_row) {
     //$('results-variance-density').innerHTML = results['sample-variance-density'];
     //$('results-variance-basal').innerHTML = results['sample-variance-basal'];
 
+  // store in form for CSV export
+  $('form-results').value = serializeJSON(results);
+  $('csvbutton').disabled = false;
+
   $('results-area').innerHTML = results['sample-area'];
   $('results-species').innerHTML = results['sample-species'];
   $('results-count').innerHTML = results['sample-count'];
@@ -89,7 +89,6 @@ function showResultsInfo(results, new_row) {
   $('plot-parent').innerHTML = '';
   for(var i=0; i<numPlots; i++) {
       var plotname = i+1;
-      console.log(plotname);
       showPlotInfo(plotname, plots[i]);
       visualized_map.addPlot(plots[i], plotname);
   }

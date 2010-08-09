@@ -422,8 +422,7 @@ def export_csv(request):
 
   writer.writerow(['PLOT NUMBER', 'PLOT AREA', 'TREES', 'TOTAL SAMPLING TIME'])
   plots = results['plots']
-  for plot in sorted(plots.keys()):
-    plotinfo = results['plots'][plot]
+  for plot,plotinfo in enumerate(plots):
     row = [int(plot)+1, plotinfo['area'], plotinfo['count'], plotinfo['time-total']]
     #id = request.POST['%s-id' % i]
     #if(id):
@@ -433,12 +432,17 @@ def export_csv(request):
     writer.writerow(row)
 
   if type == "details":
+    csv_details(writer, plots)
+
+  return response
+
+
+def csv_details(writer, plots):
     writer.writerow([])
     writer.writerow([])
     writer.writerow(["**PLOT DETAILS**"])
     writer.writerow(['PLOT NUMBER', 'SPECIES', '# OF TREES', 'MEAN DBH', 'VARIANCE DBH', 'DENSITY', 'BASAL AREA'])
-    for plot in sorted(plots.keys()):
-      plotinfo = results['plots'][plot]
+    for plot,plotinfo in enumerate(plots):
       speciestotals = plotinfo['species-totals']
       #print sorted(speciestotals.keys())
       for species in sorted(speciestotals.keys()):
@@ -449,8 +453,7 @@ def export_csv(request):
       writer.writerow([int(plot)+1, "TOTAL: %d" % len(speciestotals), plotinfo['count'], plotinfo['dbh'], plotinfo['variance-dbh'],
                                     plotinfo['density'], plotinfo['basal']])
       writer.writerow([])
-  
-  return response
+      
 
 
 ## helper functions ##
