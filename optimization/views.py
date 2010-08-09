@@ -550,11 +550,16 @@ def tree_png(request):
                 c.x + x_deg, c.y - y_deg - y_delta, 
                 c.x + x_deg, c.y - y_deg,                 
                 )
-    trees = Tree.objects.filter(location__contained=sample)
+    trees = Tree.objects.filter(location__contained=sample,
+                                plot=parent
+                                )
+    if request.GET.has_key('species'):
+      trees = trees.filter(species=request.GET['species'])
+
 
     from PIL import Image
     dim = (parent.width+image_margin, parent.height+image_margin)
-    im = Image.new("RGB", dim, "#CCFF77")
+    im = Image.new("RGBA", dim) #alpha background
     for t in trees:
       im.putpixel(( int((t.location.x-c.x)/MULTIPLIER), int((c.y-t.location.y)/MULTIPLIER)), (00,256,00))
     response = HttpResponse(mimetype="image/png")

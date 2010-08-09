@@ -81,7 +81,14 @@ function showResultsInfo(results, new_row) {
   $('comparison-density').innerHTML = results['comparison-density'];
   $('comparison-basal').innerHTML = results['comparison-basal'];
   visualized_map = new SampleMap({id:'results-map',
-				  bounds:results.sample.bounds
+				  bounds:results.sample.bounds,
+                                  onSelect:function(e) {
+                                      document.location = '#plot'+e.feature.plotname;
+                                  },
+                                  onHover:function(e) {
+                                      $('map-select-plot').innerHTML = 'Plot '+e.feature.plotname;
+                                      //console.log(e.feature.plotname);
+                                  }
 				 });
   // individual plots
   var plots = results['plots'];

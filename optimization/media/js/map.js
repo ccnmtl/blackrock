@@ -51,20 +51,28 @@ function SampleMap(options) {
 	       "Plots",
 	       {projection:projection});         
     
-           var select = new OpenLayers.Control.SelectFeature(vectors, {
-               //hover: true,
-               onSelect: function(feature){
-		   console.log(feature.plotname);
-		   console.log(feature);
-		   console.log(feature.geometry.getCentroid());
-		   console.log(feature.plot);
-	       }
-           });
-
-
-           map.addControl(select);
-           select.activate();
-	   
+           if (options.onHover) {
+               var hover = new OpenLayers.Control.SelectFeature(vectors, {
+                   hover:true,
+                   highlightOnly:true,
+                   renderIntent:"temporary",
+                   eventListeners: {
+                       featurehighlighted: options.onHover
+                   }
+               });
+               map.addControl(hover);
+               hover.activate();
+           }
+           if (options.onSelect) {
+               var select = new OpenLayers.Control.SelectFeature(vectors, {
+                   clickout:true,
+                   eventListeners: {
+                       featurehighlighted: options.onSelect
+                   }
+               });
+               map.addControl(select);
+               select.activate();
+           }
 	   map.addControl(new OpenLayers.Control.MousePosition());
 	   
            map.addLayers([graphic, vectors]);
@@ -88,51 +96,4 @@ function SampleMap(options) {
 
     this.init();
 }//end SampleMap
-
-
-
-SampleMap.prototype.BADcreateMap = function(options) {
-    var map = new OpenLayers.Map(options.id);
-    var b = options.bounds;
-    //this.bounds = new OpenLayers.Bounds(-180, -90, 180, 90);
-    this.bounds = new OpenLayers.Bounds(b.left,b.bottom,b.right,b.top);
-    console.log(this.bounds);
-    var objopt = {
-	numZoomLevels:3
-	/*,
-	sphericalMercator:false,
-	projection:'Flatland:1',//'EPSG:4326',
-	maxExtent:this.bounds,
-	tileSize:new OpenLayers.Size(534,405)
-*/
-    };
-    if (options.image) {
-	this.graphic = new OpenLayers.Layer.Image(
-	    'Trees in Sample Area',
-	    options.image,
-	    this.bounds.clone(),
-	    new OpenLayers.Size(534,405),
-	    objopt
-	);
-    }
-    this.vectors = new OpenLayers.Layer.Vector("Plots",
-					       {projection:objopt.projection});
-    map.addLayers([this.graphic, this.vectors]);
-
-    try {
-	var x = this.bounds.clone();
-	console.log(x.getCenterLonLat());
-	console.log(map.getMaxExtent());
-	console.log(map.getZoom());
-	console.log(map.tileSize);
-	this.map.zoomToExtent(this.bounds);
-	//this.map.setCenter(this.bounds.getCenterLonLat(), this.map.getZoom());
-    } catch(e) {
-	for (a in e) {
-	    console.log(a+': '+e[a]);
-	}
-    }
-    this.map = map;
-    return this.map;
-}
 
