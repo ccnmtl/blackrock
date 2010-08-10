@@ -314,8 +314,8 @@ function addSampleSummaryRow(run_num, summary_ary) {
     for (var i=0;i<summary_ary.length;i++) {
         html += '<td>'+summary_ary[i]+'</td>';
     }
-    tr.innerHTML = html;
     dom_prepend($('sample-list'),tr);
+    tr.innerHTML = html;
     connect(tr, 'onclick', function(evt) {
         showResultsInfo(SampleStorage.getSample(run_num-1), tr);
     });
