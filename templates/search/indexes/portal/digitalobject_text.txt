@@ -1,7 +1,7 @@
 {{ object.name }}
 {{ object.description }}
-{% for keyword in object.keyword.all %}
-    {{ keyword.name }}
+{% for facet in object.facet.all %}
+    {{ facet.name }}
 {% endfor %}
 {% for format in object.digital_format.all %}
     {{ format.name }}
@@ -14,4 +14,7 @@
 {% endfor %}
 {% for location in object.location.all %}
     {{ location.name }}
+{% endfor %}
+{% for tag in object.tags.all %}
+    {{ tag.name }}
 {% endfor %}

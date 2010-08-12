@@ -1,8 +1,8 @@
 {{ object.name }}
 {{ object.description }}
 {{ object.doi_citation }}
-{% for keyword in object.keyword.all %}
-    {{ keyword.name }}
+{% for facet in object.facet.all %}
+    {{ facet.name }}
 {% endfor %}
 {% for dataset in object.dataset.all %}
     {{ dataset.name }}
@@ -12,4 +12,7 @@
 {% endfor %}
 {% for person in object.person.all %}
     {{ person.name }}
+{% endfor %}
+{% for tag in object.tags.all %}
+    {{ tag.name }}
 {% endfor %}

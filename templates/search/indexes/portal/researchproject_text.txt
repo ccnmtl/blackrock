@@ -1,7 +1,7 @@
 {{ object.name }}
 {{ object.description }}
-{% for keyword in object.keyword.all %}
-    {{ keyword.name }}
+{% for facet in object.facet.all %}
+    {{ facet.name }}
 {% endfor %}
 {% for dataset in object.dataset.all %}
     {{ dataset.name }}
@@ -17,4 +17,7 @@
 {% endfor %}
 {% for publication in object.publication.all %}
     {{ publication.name }}
+{% endfor %}
+{% for tag in object.tags.all %}
+    {{ tag.name }}
 {% endfor %}

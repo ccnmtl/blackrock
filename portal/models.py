@@ -3,18 +3,19 @@ from datetime import datetime
 
 # Static Lookup Tables
 class Audience(models.Model):
-  name = models.CharField(max_length=50, unique=True)
+  name = models.CharField(max_length=100, unique=True)
 
   def __unicode__(self):
     return self.name
 
 class DigitalFormat(models.Model):
-  name = models.CharField(max_length=50, unique=True)
+  name = models.CharField(max_length=100, unique=True)
   def __unicode__(self):
     return self.name
 
-class Keyword(models.Model):
+class Facet(models.Model):
   name = models.CharField(max_length=50)
+  display_name = models.CharField(max_length=100)
   facet = models.CharField(max_length=50)
   
   class Meta:
@@ -30,37 +31,43 @@ class Institution(models.Model):
     return self.name
   
 class LocationSubtype(models.Model):
-  name = models.CharField(max_length=50, unique=True)
+  name = models.CharField(max_length=100, unique=True)
   
   def __unicode__(self):
     return self.name
 
 class LocationType(models.Model):
-  name = models.CharField(max_length=50, unique=True)
+  name = models.CharField(max_length=100, unique=True)
   
   def __unicode__(self):
     return self.name
   
 class PersonType(models.Model):
-  name = models.CharField(max_length=50, unique=True)
+  name = models.CharField(max_length=100, unique=True)
   
   def __unicode__(self):
     return self.name
   
 class PublicationType(models.Model):
-  name = models.CharField(max_length=50, unique=True)
+  name = models.CharField(max_length=100, unique=True)
   
   def __unicode__(self):
     return self.name
   
 class RegionType(models.Model):
-  name = models.CharField(max_length=50, unique=True)
+  name = models.CharField(max_length=100, unique=True)
 
   def __unicode__(self):
     return self.name
 
 class RightsType(models.Model):
-  name = models.CharField(max_length=50, unique=True)
+  name = models.CharField(max_length=100, unique=True)
+  
+  def __unicode__(self):
+    return self.name
+  
+class Tag(models.Model):
+  name = models.CharField(max_length=100, unique=True)
   
   def __unicode__(self):
     return self.name
@@ -70,7 +77,6 @@ class Url(models.Model):
 
   def __unicode__(self):
     return self.name  
-
   
 # Base Assets
 class Location(models.Model):
@@ -83,7 +89,8 @@ class Location(models.Model):
   longitude = models.DecimalField(max_digits=18, decimal_places=10)
   
   audience = models.ManyToManyField(Audience, null=True, blank=True)
-  keyword = models.ManyToManyField(Keyword)
+  facet = models.ManyToManyField(Facet)
+  tag = models.ManyToManyField(Tag)
 
   created_date = models.DateTimeField('created_date', default=datetime.now)
   modified_date = models.DateTimeField('modified_date', default=datetime.now)
@@ -94,11 +101,13 @@ class Location(models.Model):
 class Station(models.Model):
   name = models.CharField(max_length=500)
   description = models.TextField(null=True, blank=True)
+  access_means = models.TextField(null=True, blank=True)
   activation_date = models.DateField('activation_date')
+  
   location = models.ManyToManyField(Location)
-
   audience = models.ManyToManyField(Audience, null=True, blank=True)
-  keyword = models.ManyToManyField(Keyword)
+  facet = models.ManyToManyField(Facet)
+  tag = models.ManyToManyField(Tag, null=True, blank=True)
   
   created_date = models.DateTimeField('created_date', default=datetime.now)
   modified_date = models.DateTimeField('modified_date', default=datetime.now)
@@ -113,7 +122,8 @@ class Region(models.Model):
   region_type = models.ManyToManyField(RegionType)
   
   audience = models.ManyToManyField(Audience, null=True, blank=True)
-  keyword = models.ManyToManyField(Keyword)
+  facet = models.ManyToManyField(Facet)
+  tag = models.ManyToManyField(Tag, null=True, blank=True)
   
   created_date = models.DateTimeField('created_date', default=datetime.now)
   modified_date = models.DateTimeField('modified_date', default=datetime.now)
@@ -124,16 +134,17 @@ class Region(models.Model):
 class Person(models.Model):
   name = models.CharField(max_length=500)
   description = models.TextField(null=True, blank=True)
-  person_type = models.ManyToManyField(PersonType, null=True, blank=True)
+  person_type = models.ManyToManyField(PersonType)
   institution = models.ManyToManyField(Institution)
-  professional_title = models.CharField(max_length=50)
+  professional_title = models.CharField(max_length=100, null=True, blank=True)
   address = models.TextField(null=True, blank=True)
   phone = models.CharField(max_length=10, null=True, blank=True)
   email = models.EmailField()
   url = models.URLField(null=True, blank=True)
   
   audience = models.ManyToManyField(Audience, null=True, blank=True)
-  keyword = models.ManyToManyField(Keyword)
+  facet = models.ManyToManyField(Facet)
+  tag = models.ManyToManyField(Tag, null=True, blank=True)
   
   created_date = models.DateTimeField('created_date', default=datetime.now)
   modified_date = models.DateTimeField('modified_date', default=datetime.now)
@@ -150,8 +161,9 @@ class DigitalObject(models.Model):
   source = models.CharField(max_length=500, null=True, blank=True)
   
   audience = models.ManyToManyField(Audience, null=True, blank=True)
-  keyword = models.ManyToManyField(Keyword)
+  facet = models.ManyToManyField(Facet)
   location = models.ManyToManyField(Location, null=True, blank=True)
+  tag = models.ManyToManyField(Tag, null=True, blank=True)
   
   created_date = models.DateTimeField('created_date', default=datetime.now)
   modified_date = models.DateTimeField('modified_date', default=datetime.now)
@@ -169,9 +181,10 @@ class DataSet(models.Model):
   spatial_explicit = models.BooleanField(default=False)
   
   audience = models.ManyToManyField(Audience, null=True, blank=True)
-  keyword = models.ManyToManyField(Keyword)
+  facet = models.ManyToManyField(Facet)
   location = models.ManyToManyField(Location)
   person = models.ManyToManyField(Person, null=True, blank=True)
+  tag = models.ManyToManyField(Tag, null=True, blank=True)
   
   created_date = models.DateTimeField('created_date', default=datetime.now)
   modified_date = models.DateTimeField('modified_date', default=datetime.now)
@@ -189,10 +202,9 @@ class Publication(models.Model):
   doi_citation = models.TextField()
   
   audience = models.ManyToManyField(Audience, null=True, blank=True)
-  keyword = models.ManyToManyField(Keyword)
-  dataset = models.ManyToManyField(DataSet, null=True, blank=True)
-  location = models.ManyToManyField(Location, null=True, blank=True)
+  facet = models.ManyToManyField(Facet)
   person = models.ManyToManyField(Person, null=True, blank=True)
+  tag = models.ManyToManyField(Tag, null=True, blank=True)
   
   created_date = models.DateTimeField('created_date', default=datetime.now)
   modified_date = models.DateTimeField('modified_date', default=datetime.now)
@@ -208,12 +220,13 @@ class ResearchProject(models.Model):
   url = models.URLField(null=True, blank=True)
   
   audience = models.ManyToManyField(Audience, null=True, blank=True)
-  keyword = models.ManyToManyField(Keyword)
   dataset = models.ManyToManyField(DataSet, null=True, blank=True)
   digital_object = models.ManyToManyField(DigitalObject, null=True, blank=True)
+  facet = models.ManyToManyField(Facet)
   location = models.ManyToManyField(Location, null=True, blank=True)
   person = models.ManyToManyField(Person, null=True, blank=True)
   publication = models.ManyToManyField(Publication, null=True, blank=True)
+  tag = models.ManyToManyField(Tag, null=True, blank=True)
   
   created_date = models.DateTimeField('created_date', default=datetime.now)
   modified_date = models.DateTimeField('modified_date', default=datetime.now)
@@ -229,11 +242,12 @@ class LearningActivity(models.Model):
   url = models.ManyToManyField(Url, null=True, blank=True)
    
   audience = models.ManyToManyField(Audience, null=True, blank=True)
-  keyword = models.ManyToManyField(Keyword)
   dataset = models.ManyToManyField(DataSet, null=True, blank=True)
   digital_object = models.ManyToManyField(DigitalObject, null=True, blank=True)
+  facet = models.ManyToManyField(Facet)
   location = models.ManyToManyField(Location, null=True, blank=True)
   person = models.ManyToManyField(Person, null=True, blank=True)
+  tag = models.ManyToManyField(Tag, null=True, blank=True)
   
   created_date = models.DateTimeField('created_date', default=datetime.now)
   modified_date = models.DateTimeField('modified_date', default=datetime.now)

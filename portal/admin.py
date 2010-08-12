@@ -3,7 +3,7 @@ from django.contrib import admin
 
 admin.site.register(Audience)
 admin.site.register(DigitalFormat)
-admin.site.register(Keyword)
+admin.site.register(Facet)
 admin.site.register(Institution)
 admin.site.register(LocationType)
 admin.site.register(LocationSubtype)
@@ -11,6 +11,7 @@ admin.site.register(PersonType)
 admin.site.register(PublicationType)
 admin.site.register(RegionType)
 admin.site.register(RightsType)
+admin.site.register(Tag)
 admin.site.register(Url)
 
 admin.site.register(Location)

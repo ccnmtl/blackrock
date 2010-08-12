@@ -14,13 +14,13 @@ class AssetIndex(SearchIndex):
   asset_type = CharField(faceted=True)
   
   def prepare_study_type(self, obj):
-    return [keyword.name for keyword in obj.keyword.filter(facet='Study Type')]
+    return [facet.display_name for facet in obj.facet.filter(facet='Study Type')]
 
   def prepare_species(self, obj):
-    return [keyword.name for keyword in obj.keyword.filter(facet='Species')]
+    return [facet.display_name for facet in obj.facet.filter(facet='Species')]
 
   def prepare_discipline(self, obj):
-    return [keyword.name for keyword in obj.keyword.filter(facet='Discipline')]
+    return [facet.display_name for facet in obj.facet.filter(facet='Discipline')]
   
   def prepare_audience(self, obj): 
     return [audience.name for audience in obj.audience.all()]
@@ -52,7 +52,7 @@ databrowse.site.register(LearningActivity)
 
 databrowse.site.register(Audience)
 databrowse.site.register(DigitalFormat)
-databrowse.site.register(Keyword)
+databrowse.site.register(Facet)
 databrowse.site.register(Institution)
 databrowse.site.register(LocationType)
 databrowse.site.register(LocationSubtype)
@@ -60,4 +60,5 @@ databrowse.site.register(PersonType)
 databrowse.site.register(PublicationType)
 databrowse.site.register(RegionType)
 databrowse.site.register(RightsType)
+databrowse.site.register(Tag)
 databrowse.site.register(Url)
