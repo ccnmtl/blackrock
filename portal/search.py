@@ -35,24 +35,26 @@ class PortalSearchForm(FacetedSearchForm):
     """Filter by full text search string or empty string if does not exist"""
     if not hasattr(self, "cleaned_data"):
       sqs = self.searchqueryset.auto_query("").order_by("name")
+
+      if self.load_all:
+        sqs = sqs.load_all()
       
       for facet in _facets:
         sqs = sqs.facet(facet)
         if len(self.fields[facet].choices) > 0:
           self.fields[facet].choices = []
       
+    elif self.is_valid():
+      q = self.cleaned_data['q'].lower()
+      sqs = self.searchqueryset.auto_query(q).order_by("name")
+
       if self.load_all:
         sqs = sqs.load_all()
-      
-    elif self.is_valid():
-      sqs = self.searchqueryset.auto_query(self.cleaned_data['q']).order_by("name")
       
       for facet in _facets:
         sqs = sqs.facet(facet)
         self.fields[facet].choices = []
 
-      if self.load_all:
-        sqs = sqs.load_all()
         
       for facet in _facets:
         query = self.get_multiplechoicefield(facet)

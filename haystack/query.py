@@ -344,7 +344,7 @@ class SearchQuerySet(object):
             query_string = query_string.replace(full_match, '', 1)
             
             exact_match = result.groups()[1]
-            clone = clone.filter(content=clone.query.clean(exact_match))
+            clone = clone.filter(text=clone.query.clean(exact_match))
             
             # Re-search the string for other exact matches.
             result = quote_regex.search(query_string)
@@ -363,9 +363,9 @@ class SearchQuerySet(object):
             cleaned_keyword = clone.query.clean(keyword)
             
             if exclude:
-                clone = clone.exclude(content=cleaned_keyword)
+                clone = clone.exclude(text=cleaned_keyword)
             else:
-                clone = clone.filter(content=cleaned_keyword)
+                clone = clone.filter(text__startswith=cleaned_keyword)
         
         return clone
     
