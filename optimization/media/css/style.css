@@ -1,6 +1,6 @@
 #parameters
 {
-        margin:0 10px;
+        margin: 0 10px;
 
 }
 
@@ -15,7 +15,7 @@
 
 .heading-addendum 
 {
-        font-size:70%;
+        font-size:90%;
         font-weight:normal;   
 }
 
@@ -30,14 +30,14 @@ div.container
 
 #sample-list-table
 {
-        max-height:400px;
-        overflow-y:scroll;
-        position:relative;
+	max-height: 250px;
+	overflow: auto;
+	position: relative;
 }
 
 tr.sample-enabled 
 {
-        background-color:#a18f83;
+        background-color: #e0e0e0;
 }
 
 #csv {
@@ -46,17 +46,17 @@ tr.sample-enabled
   border: 1px solid #A18F83;
   width: 23.4em;
   margin: 0 20px;
-  background-color: #eee;
+  background-color: #fff;
 }
 
-.runtable {
+/*.runtable {
   text-align: left;
   background-color: #dcd3c2;
   margin: 20px;
   border: 1px solid #A18F83;
-}
+}*/
 
-.runtable table,
+/*.runtable table,
 .runtable table td {
   font-size:12px;
   border:1px solid black;
@@ -67,9 +67,10 @@ tr.sample-enabled
 {
         margin-right:400px;
 }
+*/
 
-#runform,
-#run-interface 
+#runform/*,
+#run-interface*/ 
 {
         min-width:500px;
 }
@@ -85,7 +86,7 @@ div.inner
 	min-height: 280px;
 }
 
-div.right
+/*div.right
 {
         float:right;
 	background-color: #DCD3C2;
@@ -93,7 +94,7 @@ div.right
 	text-align: left;
 	padding: 10px;
 	border-left: 1px #A18F83 solid;
-}
+}*/
 
 .container h3
 {
@@ -126,20 +127,27 @@ form
 	margin: 0;
 }
 
+#errormessage
+{
+	color: #f00;
+}
+
 #results, #waitmessage, #errormessage, #details { display: none; }
 
 #results
 {
-	width: 810px;
-	margin: auto;
+	width: 1000px;
+	/*margin: auto;*/
+	height: 300px;
+	overflow-y: auto;
 	border: 1px #A18F83 solid;
 	border-collapse: collapse;
 	text-align: center;
-	background-color: #eee;
-	padding: 20px;
+	background-color: #fff;
+	/*padding: 20px;*/
         clear:both;
-        max-height:200px;
-        overflow-y:auto;
+       /* max-height:200px;
+        overflow-y:auto;*/
 }
 
 #results h2
@@ -193,13 +201,16 @@ table.results-summary
 table.results
 {
 	border-collapse: collapse;
-
+	margin-left: 15px;
 }
 
 table.results td, table.results-summary td
 {
-	padding: 5px;
-	border: 1px #A18F83 solid;
+	padding: 2px;
+	font-size: 0.75em !important;
+	border: 1px solid #A18F83;
+	border-collapse: collapse;
+	text-align: left;
 }
 
 td.left
@@ -234,7 +245,7 @@ td.right { text-align: right; }
 .plot-info
 {
 	border: 1px #A18F83 solid;
-	background-color: #eee;
+	background-color: #fff;
 }
 
 .plot-title
@@ -243,6 +254,8 @@ td.right { text-align: right; }
 	text-align: left;
 	margin-bottom: 15px;
 }
+
+#details {margin-top: 20px;}
 
 #details table.results td { background-color: #fff; }
 
@@ -264,4 +277,153 @@ td.right { text-align: right; }
 #plot-template {
                /*keep this here, for code reasons*/
                display:none;
+}
+
+
+/* CSS for optimization/run module */
+
+body.runoptimization
+{
+	background-color: #fff;
+	margin: 0;
+	padding: 0;
+	font-family: "Lucida Grande", "Trebuchet MS", Arial, sans-serif !important;
+}
+
+body.runoptimization #wrapper
+{
+	background-color: #fff;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 12px;
+}
+
+body.runoptimization .container
+{
+	width: 1000px;
+	margin: 25px auto;
+	padding: 0;
+	border: 0;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+.container_cell1
+{
+	display: block;
+	width: 610px;
+	float: left;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	text-align: left;
+}
+
+.container_cell2
+{
+	display: block;
+	width: 390px;
+	float: left;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	text-align: left;
+}
+
+.visualclear
+{
+	display: block;
+	clear: both;
+}
+
+body.runoptimization .container_cell1 h2,
+body.runoptimization .container_cell2 h2
+#results h2
+{
+	margin: 0;
+	padding: 5px;
+	border: 0;
+	background-color: #dcd3c2;
+	font: bold 12px "Lucida Grande", "Trebuchet MS", Arial, sans-serif !important;
+}
+
+
+.sampling_param
+{
+	margin: 0;
+	padding: 0;
+	border: 1px solid #A18F83;
+	text-align: left;
+	background-color: transparent;
+}
+
+.sampling_param table
+{
+	width: 590px;
+}
+
+.sampling_param td, .sampling_param th
+{
+	padding: 2px;
+	font-size: 0.8em !important;
+	border: 1px solid #A18F83;
+	border-left: 0;
+	border-top: 0;
+	border-collapse: collapse;
+	text-align: left;
+}
+
+.vf_desc
+{
+	margin: 10px;
+	padding: 0;
+	border: 0;
+	font-size: 80%;
+}
+
+.vf_desc p
+{
+	margin: 0;
+	padding: 5px 0;
+	border: 0;
+}
+
+.vf_desc h3
+{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font: bold 120% "Lucida Grande", "Trebuchet MS", Arial, sans-serif !important;
+	background-color: transparent;
+}
+
+.sampling_history
+{
+	margin: 10px 0 0 0;
+	padding: 0;
+	border: 1px solid #A18F83;
+	text-align: left;
+	background-color: transparent;
+}
+
+#sample-list-table table
+{
+	width: 590px;
+}
+
+#sample-list-table td, #sample-list-table th
+{
+	padding: 2px;
+	font-size: 0.75em !important;
+	border: 1px solid #A18F83;
+	border-left: 0;
+	border-top: 0;
+	border-collapse: collapse;
+	text-align: left;
+}
+
+#map-select-plot
+{
+	font-weight: bold;
 }
