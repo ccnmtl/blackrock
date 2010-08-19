@@ -264,7 +264,7 @@ td.right { text-align: right; }
 #results-map-container
 {
 	border: 1px solid #999;
-        background-color:#ddFF88;
+        background-color: #ffc;/*#ddFF88;*/
 }
 
 #map-select-plot 
