@@ -1,7 +1,6 @@
 #parameters
 {
         margin: 0 10px;
-
 }
 
 #parameters h2
@@ -33,11 +32,12 @@ div.container
 	max-height: 250px;
 	overflow: auto;
 	position: relative;
+	clear: both;
 }
 
-tr.sample-enabled 
+tr.sample-enabled,  tr.sample-enabled:hover
 {
-        background-color: #e0e0e0;
+        background-color: #ffc !important;
 }
 
 #csv {
@@ -83,7 +83,8 @@ tr.sample-enabled
 div.inner
 {
 	position: relative;
-	min-height: 280px;
+	min-height: 255px;
+	width: 330px;
 }
 
 /*div.right
@@ -95,6 +96,14 @@ div.inner
 	padding: 10px;
 	border-left: 1px #A18F83 solid;
 }*/
+
+div.right
+{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	width: 330px;
+}
 
 .container h3
 {
@@ -265,13 +274,34 @@ td.right { text-align: right; }
 {
 	border: 1px solid #999;
         background-color: #ffc;/*#ddFF88;*/
+        margin: 0;
+        padding: 0;
+        width: 330px;
+        height: 255px;
 }
 
-#map-select-plot 
+.map
 {
-        position:absolute;
-        right:15px;
-        top:12px;
+        margin: 0;
+        padding: 0;
+        width: 330px;
+        height: 255px;
+}
+
+#map-select-plot
+{
+	position: absolute;
+	left: 5px;
+	top: 239px;
+	background-color: #fff;
+	padding: 1px 2px;
+	z-index: 2000;
+}
+
+.olControlMousePosition
+{
+	background-color: #fff;
+	padding: 1px 2px;
 }
 
 #plot-template {
@@ -312,7 +342,7 @@ body.runoptimization .container
 .container_cell1
 {
 	display: block;
-	width: 610px;
+	width: 670px;
 	float: left;
 	margin: 0;
 	padding: 0;
@@ -323,7 +353,7 @@ body.runoptimization .container
 .container_cell2
 {
 	display: block;
-	width: 390px;
+	width: 330px;
 	float: left;
 	margin: 0;
 	padding: 0;
@@ -342,7 +372,7 @@ body.runoptimization .container_cell2 h2
 #results h2
 {
 	margin: 0;
-	padding: 5px;
+	padding: 7px;
 	border: 0;
 	background-color: #dcd3c2;
 	font: bold 12px "Lucida Grande", "Trebuchet MS", Arial, sans-serif !important;
@@ -360,7 +390,7 @@ body.runoptimization .container_cell2 h2
 
 .sampling_param table
 {
-	width: 590px;
+	width: 645px;
 }
 
 .sampling_param td, .sampling_param th
@@ -409,7 +439,15 @@ body.runoptimization .container_cell2 h2
 
 #sample-list-table table
 {
-	width: 590px;
+	width: 645px;
+	clear: both;
+	display: block;
+}
+
+#sample-list-table tbody tr:hover
+{
+	cursor: pointer;
+	background-color: #efefef;
 }
 
 #sample-list-table td, #sample-list-table th
@@ -426,4 +464,18 @@ body.runoptimization .container_cell2 h2
 #map-select-plot
 {
 	font-weight: bold;
+}
+
+#sample-list-table form
+{
+	height: 200px;
+	overflow: auto;
+}
+
+.csvsummary
+{
+	margin: -4px 0 0 0;
+	padding: 0;
+	border: 0;
+	float: right;
 }

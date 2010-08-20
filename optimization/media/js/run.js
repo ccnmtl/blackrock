@@ -309,13 +309,13 @@ function deleteSample(run_num) {
 function addSampleSummaryRow(run_num, summary_ary) {
     var tr = document.createElement('tr');
     tr.id = 'samplerun-'+run_num;
-    var html = '<td>'+run_num+' <a href="#top" '
+    var html = '<td>'+run_num+' <a href="#top" title="Delete this run"'
         +'onclick="deleteSample('+run_num+');return false;">x</a></td>';
     for (var i=0;i<summary_ary.length;i++) {
         html += '<td>'+summary_ary[i]+'</td>';
     }
     dom_prepend($('sample-list'),tr);
-    tr.innerHTML = html;
+    tr.innerHTML = html + '<td><input type="button" value="Download" /></td>';
     connect(tr, 'onclick', function(evt) {
         showResultsInfo(SampleStorage.getSample(run_num-1), tr);
     });
@@ -340,7 +340,7 @@ function loadSampleHistory() {
 
 function initRun() {
   connect("calculate", "onclick", calculate);
-  connect("reset", "onclick", reset);
+  //connect("reset", "onclick", reset);
   connect("plotShape", "onchange", updateShapeLabel);
   $('csvbutton').disabled = true;
   $('calculate').disabled = false; 

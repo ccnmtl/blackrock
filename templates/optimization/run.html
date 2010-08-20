@@ -57,8 +57,7 @@
 					</tr>
 					</tbody>
 				</table>
-				<div style="text-align: right; margin: 5px 20px 5px 0;"><input type="button" value="Calculate" id="calculate" />    
-				<input type="reset" value="Reset" id="reset" /></div>
+				<div style="text-align: right; margin: 5px 20px 5px 0;"><input type="button" value="Calculate" id="calculate" /></div>
 				</form>
     			</div><!-- sampling_param -->
 
@@ -73,7 +72,9 @@
   Please try again.
 </div>
 			<div class="sampling_history">
-				<h2>Sampling history <span class="heading-addendum">(stored in your web browser)</span></h2>
+				<!-- FORM -->
+				<form>
+				<h2>Sampling history <span class="heading-addendum">(stored in your web browser)</span><span class="csvsummary"><span class="heading-addendum">CSV download:</span> <input type="button" value="Summary" /> <input type="button" value="Detail" /></span></h2>
 
 				<div id="sample-list-table">
 				<table border="0" cellspacing="0" cellpadding="0" class="sortable" onclick="sortColumn(event)">
@@ -89,12 +90,14 @@
 							<th class="human_time">Average time per plot</th>
 							<th class="Number">Sample variance density</th>
 							<th class="Number">Sample variance basal area</th>
+							<th>CSV</th>
 						</tr>
 					</thead>
 					<tbody id="sample-list">
 					</tbody>
 				</table>
 				</div>
+			</form>
 			</div><!-- sampling_history -->
     		</div><!-- runtable/run-interface -->
 		
@@ -108,7 +111,7 @@
     <div class="right">
       <div id="results-map-container" class="map">
         <div id="map-select-plot"></div>
-        <div id="results-map" style="width:380px;height:300px;"><!-- 
+        <div id="results-map" style="width:330px;height:255px;"><!-- 
            VERY IMPORTANT THAT THE WIDTH/HEIGHT STAY HERE
              OTHERWISE OPENLAYERS DOESN'T WORK
         --></div>
@@ -120,12 +123,7 @@
 
 </div>
 			<div class="vf_desc"><!-- Appear at all time, even before first run -->
-				<h3>About the Virtual Forest</h3>
-				<p><b>Grid size:</b> 7.3ha (300m x 225m / 67,500m<sup>2</sup>)
-				<br />
-				<b>Base dataset:</b> North Slope Plot
-				<br />
-				<b>Data collection year:</b> 2007</p>
+				<p><b>Grid size:</b> 7.3ha (300m x 225m / 67,500m<sup>2</sup>)</p>
 			</div><!-- class="vf_desc" -->
 
 		</div><!-- class="container_cell" -->
