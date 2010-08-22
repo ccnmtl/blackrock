@@ -5,7 +5,7 @@ media_root = os.path.join(os.path.dirname(__file__),"media")
 data_root = os.path.join(os.path.dirname(__file__),"data")
 
 urlpatterns = patterns('',
-	(r'^$', 'blackrock.paleoecology.views.index'),
+	      (r'^$', 'blackrock.paleoecology.views.index'),
         (r'^identification$', 'blackrock.paleoecology.views.identification'),
         (r'^explore$', 'blackrock.paleoecology.views.explore'),
         (r'^getpercents$', 'blackrock.paleoecology.views.getpercents'),

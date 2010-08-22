@@ -68,7 +68,10 @@ INSTALLED_APPS = (
     'django.contrib.databrowse',
     'gspreadsheet_importer',
     'haystack',
-    'smartif'
+    'smartif',
+    'tinymce',
+    'pagetree',
+    'pageblocks',
 )
 
 # Enabled Blackrock modules - edit to control what displays on the main page
@@ -78,6 +81,10 @@ ENABLED_MODULES = (
     {'path': 'optimization/', 'name': 'Forest Sampling Optimization Tool', 'admin': False},
     {'path': 'paleoecology/', 'name': 'Paleoecology', 'admin': False},
 )
+
+# Pageblocks/Pagetree settings 
+PAGEBLOCKS = ['pageblocks.HTMLBlock', 
+              'pageblocks.ImageBlock'] 
 
 THUMBNAIL_SUBDIR = "thumbs"
 
@@ -92,6 +99,26 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 LOGIN_URL = "/admin/login"
+
+# TinyMCE settings
+TINYMCE_JS_URL = '/site_media/js/tiny_mce/tiny_mce.js'
+TINYMCE_JS_ROOT = 'media/js/tiny_mce'
+
+# if you set this to True, you may have to 
+# override TINYMCE_JS_ROOT with the full path on production
+TINYMCE_COMPRESSOR = False 
+TINYMCE_SPELLCHECKER = True
+
+TINYMCE_DEFAULT_CONFIG = {'cols': 80, 
+                          'rows': 30,
+                          'plugins':'table,spellchecker,paste,searchreplace',
+                          'theme' : 'simple',
+                          }
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_COOKIE_AGE = 900 
+
 
 #if you add a 'deploy_specific' directory
 #then you can put a settings.py file and templates/ overrides there

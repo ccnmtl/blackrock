@@ -1,0 +1,26 @@
+{% extends "portal/base_portal.html" %} 
+
+{% block title %}{{section.label}}{% endblock %}
+
+{% block mainnav %}
+    {% with root as current %}
+        {% if current.get_children %}
+            {% include "portal/menu.html" %}
+        {% endif %}
+    {% endwith %}
+{% endblock %}
+
+{% block subnav %}
+    {% with module as current %}
+        {% if current.get_children %}
+            {% include "portal/menu.html" %}
+        {% endif %}
+    {% endwith %}
+{% endblock %}
+
+{% block left %} 
+    {% for block in section.pageblock_set.all %}
+        {% if block.label %}<h4>{{block.label}}</h4>{% endif %}
+        {{ block.render }}
+    {% endfor %}
+{% endblock %}

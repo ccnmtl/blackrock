@@ -1,0 +1,96 @@
+{% extends "portal/base_portal.html" %}
+{% load smartif %}
+{% load klass %}
+
+{% block pagetitle %}Search{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    
+    <script type="text/javascript">
+        function hideElements() 
+        { 
+            {% for hidden_name in hidden %}
+              id = "id_" + "{{ hidden_name }}" + "_0";
+              forEach(getElementsByTagAndClassName("label", null, parent=document), function(e) {
+                if ( e.getAttribute("for") == id) {
+                    e.style.display = "none";
+                }
+              });
+            {% endfor %} 
+        }
+        MochiKit.Signal.connect(window, "onload", hideElements);
+    </script> 
+{% endblock %}
+
+{% block searchtab %}
+    <div id="search-tab">Search</div>
+{% endblock %}
+
+{% block left %} 
+   <form method="get" action=".">
+        <table>
+            <tbody>
+                {{ form.as_table }}
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input type="submit" value="Search">&nbsp;<input type="reset" value="Reset" onclick="parent.location='/portal/search/'"></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+{% endblock %}
+
+{% block right %}
+        <h2>Assets {{count}} </h2>
+        {% for result in page.object_list %}
+            <p>
+                <a href="/portal/browse/portal/{{result.object|klass|lower}}/objects/{{result.object.id}}">
+                {{ result.object.name }}
+                </a>
+                <br />
+                <span style="font-size: 95%; margin-top: 0px; padding-top: 0px;"> 
+                <b>{{result.object|klass}}</b>
+		</span>
+		<br />
+                <span style="font-size: 80%; margin-top: 0px; padding-top: 0px;"> 
+		<b>Audiences</b>:
+                {% for e in result.object.audience.all %}
+                   {{e.name}} |
+                {% endfor %}
+                </span>
+                <br />
+                <span style="font-size: 80%; margin-top: 0px; padding-top: 0px;">
+        		<b>Tags</b>: 
+                {% for k in result.object.tag.all %}
+                    {{ k.name }} |
+                {% endfor %}
+                </span>
+                <br />
+                <span style="font-size: 80%; margin-top: 0px; padding-top: 0px;">
+                <b>Facets</b>: 
+                {% for k in result.object.facet.all %}
+                    {{ k.name }} |
+                {% endfor %}
+                </span> 
+                
+                
+                {% if result.object.description %}
+                <span style="margin-left: 5px; font-size: 80%"><p style="margin-top: 0px; padding-top: 3px"><b>Description:</b> {{ result.object.description|truncatewords:25 }}</p></span>
+                {% endif %}
+                
+                
+                <hr style="color: #e0e0e0"/>
+                
+            </p>
+        {% endfor %}
+
+        {% if page.has_previous or page.has_next %}
+            <div>
+                {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+                |
+                {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

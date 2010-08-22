@@ -1,0 +1,117 @@
+<html>
+<head>
+    <title>
+      {% block title %}
+        Portal: {% block pagetitle %}{% endblock %}
+      {% endblock %}
+    </title>
+    
+    <style media="screen" type="text/css">
+      @import "/site_media/css/site.css" ;
+      @import "/site_media/css/style.css" ;
+      @import "/portal/media/css/style.css";
+      @import "/portal/media/css/print.css" print;
+    </style>
+    {% block css %}{% endblock %}
+    
+    <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script>
+    <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/Signal.js"></script>
+    
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="/portal/media/js/maps.js"></script>
+    <script typ0e="text/javascript">
+      
+      function clearDefaultText() {
+         //Clear the Ghost Text if it is still set.
+         var search_text = document.getElementById('id_q');
+         if (search_text != null && search_text.value == 'Search') {
+            search_text.value = '';
+         }
+      }
+    
+      google.maps.event.addDomListener(window, 'load', initializeMap);
+    </script>
+    {% block js %}{% endblock %}
+    
+    {% block feeds %}{% endblock %}
+</head>
+<body class="{% block bodyclass %}{% endblock %}">
+
+<a href="/"><div id="brf"></div></a>
+<a href="http://ccnmtl.columbia.edu/"><div id="ccnmtl"></div></a>
+
+<div id="wrapper">
+    <div id="mainnav">
+        <div id="tab-bar">
+            {% block mainnav %}
+                <div class="menu-1" id="tab_home">
+                    <a id="tab_home_link" href="/portal/">Home</a>
+                </div>
+                <div class="menu-1" id="tab_experience">
+                    <a id="tab_experience_link" href="/portal/experience/">The Forest Experience</a>
+                </div>
+                
+                <div class="menu-1" id="tab_education">
+                    <a id="tab_education_link" href="/portal/education/">Educational Tools</a>
+                </div>
+        
+                <div class="menu-1" id="tab_research">
+                    <a id="tab_research_link" href="/portal/research/">Research at Black Rock</a>
+                </div>
+            {% endblock %}
+        </div>
+        
+       {% block searchtab %}
+       <div id="search">
+           <form method="get" action="/portal/search/">
+              <input name="q" id="id_q" type="text" value="Search" onfocus="clearDefaultText();">
+              <input type="submit" value="Search" onclick="clearDefaultText();"/>
+           </form>
+        </div>
+        {% endblock %}
+    </div>
+    
+    {% block subnav-wrapper %}
+    <div id="subnav">
+       <div id="subnav-bar">
+           {% block subnav %}
+           {% endblock %}
+       </div>
+    </div>
+    {% endblock %}
+
+        <div id="container">
+            {% block container %}
+                <table width="100%">
+                <tr>
+                    <td id="left">
+                        {% block left %} 
+                        LEFT PANE REPORTING FOR DUTY 
+                        {% endblock %} 
+                    </td>
+                    <td id="middle">&nbsp;</td>
+                    <td id="right">
+                        {% block right %} 
+                           <div id="map_canvas"></div>
+                           <div id="map_filter">
+                              <div id="audience_filter">
+                                  <input type="checkbox" name="experience"/>Forest Experience
+                                  <input type="checkbox" name="education"/>Education
+                                  <input type="checkbox" name="research"/>Research
+                              </div>
+                              <div id="infrastructure_filter">
+                                  <input type="checkbox" name="facilities"/>Forest Experience
+                                  <input type="checkbox" name="environmental_monitoring"/>Environmental Monitoring
+                                  <input type="checkbox" name="webcams"/>Webcams
+                                  <input type="checkbox" name="longterm_plots"/>Long-Term Plots
+                              </div>
+                           </div>
+                        {% endblock %} 
+                    </td>
+                </tr>
+                </table>
+            {% endblock %}
+        </div>
+</div>
+{% block footer %}{% endblock %}
+</body></html>
