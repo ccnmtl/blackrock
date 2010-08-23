@@ -388,7 +388,12 @@ body.runoptimization .container_cell2 h2
 
 .sampling_param table
 {
-	width: 645px;
+	width: 100%;
+}
+
+#calculate 
+{
+        margin-left:20px;
 }
 
 .sampling_param td, .sampling_param th
@@ -477,3 +482,4 @@ body.runoptimization .container_cell2 h2
 	border: 0;
 	float: right;
 }
+
