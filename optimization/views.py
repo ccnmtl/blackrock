@@ -5,6 +5,7 @@ from blackrock.optimization.models import Tree, Plot
 import csv, math, random, sets
 import simplejson as json
 from django.db.models import Q
+import re
 
 NW_corner = 'POINT(-74.025 41.39)'
 MULTIPLIER = 0.001   # to convert meters into degrees
@@ -390,13 +391,28 @@ def sample_plot(sample, point, p_index):
 
   return results
 
+def json2csv(request): 
+  response = HttpResponse(mimetype='text/csv')
+  filename= re.split('\W', request.POST.get('filename','results'), 1)[0]
+  response['Content-Disposition'] = 'attachment; filename=%s.csv' % filename
+
+  if request.POST['results'] == '':
+    return response
+
+  results = json.loads(request.POST['results'])
+  writer = csv.writer(response)
+  for row in results:
+    if row:
+      writer.writerow(row)
+  return response
+
 def export_csv(request):
-  results = request.POST['results']
-  if(results == ''): return HttpResponse("")
+  if request.POST['results'] == '':
+    HttpResponse("")
 
   type = request.POST['type']
   
-  results = json.loads(results)
+  results = json.loads(request.POST['results'])
 
   response = HttpResponse(mimetype='text/csv')
   response['Content-Disposition'] = 'attachment; filename=results.csv'

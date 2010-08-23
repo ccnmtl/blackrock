@@ -42,11 +42,9 @@ tr.sample-enabled,  tr.sample-enabled:hover
 
 #csv {
   text-align: left;
-  padding: 20px;
-  border: 1px solid #A18F83;
   width: 23.4em;
-  margin: 0 20px;
-  background-color: #fff;
+  float:right;
+  font-weight:normal;
 }
 
 /*.runtable {

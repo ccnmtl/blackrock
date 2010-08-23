@@ -7,6 +7,65 @@ function getcsv() {
   $("csvform").submit();
 }
 
+var SampleHistory = new (function() {
+    this.csv = {
+        summary:function(button) {
+            var results = [ 
+                ['Sample Run',
+                 '# plots','Shape','Size (m)','Arrangement',
+                 'Sample Area',
+                 'Sample Time','Avg Time/Plot',
+                 'Variance Density','Variance Basal Area',
+                 'Species Count','Tree Count',
+                 'Mean DBH','Variance DBH','Density','Basal Area',
+                 'Sample Time (min)'
+                ],
+                SampleStorage.getForest() 
+            ];
+            for (var i=0;i<SampleStorage.samples.length;i++) {
+                if (SampleStorage.samples[i]) {
+                    var cpy = SampleStorage.samples[i].slice(0);
+                    cpy.unshift(i+1);
+                    results.push(cpy);
+                }
+            }
+            button.form.elements['results'].value = JSON.stringify(results);
+        },
+        details:function(button) {
+            var results = [
+                ['Sample Run', 'Plot',
+                 'Shape','Size (m)','Arragement',
+                 'Plot Area','Tree Count','Species Count',
+
+                 'Sample Time (min)'                ]
+            ];
+            for (var i=0;i<SampleStorage.samples.length;i++) {
+                if (SampleStorage.samples[i]) {
+                    var sample = SampleStorage.getSample(i);
+                    for (var j=0;j<sample.plots.length;j++) {
+                        var p = sample.plots[j];
+                        results.push([
+                            i+1, j+1,
+                            sample['input']['shape'],
+                            sample['input']['size'],
+                            sample['input']['arrangement'],
+                            p['area'],
+                            p['count'],
+                            p['num-species'],
+
+                            p['time-total']/*
+                            ,p['time-locate'],p['time-measure'],p['time-travel'],
+                            */
+                            
+                        ])
+                    }
+                }
+            }
+            button.form.elements['results'].value = JSON.stringify(results);
+        }
+    }
+})();
+
 function showResults(http_request) {
   global_http_request = http_request;
 
@@ -20,11 +79,20 @@ function showResults(http_request) {
       results['sample-time'],
       results['avg-time'],
       results['sample-variance-density'],
-      results['sample-variance-basal']
+      results['sample-variance-basal'],
+      ///EXTRA
+      results['sample-species'],
+      results['sample-count'],
+      results['sample-dbh'],
+      results['sample-variance-dbh'],
+      results['sample-density'],
+      results['sample-basal'],
+      results['sample-time-minutes']
   ];
   var run_num = 0;
   if (window.SampleStorage) {
       run_num = SampleStorage.addSample(summary, results) +1;
+      SampleStorage.setForest(results);
   }
 
   showResultsInfo(results, 
@@ -32,7 +100,7 @@ function showResults(http_request) {
 
   setStyle('waitmessage', {'display':'none'});
   $('calculate').disabled = false; 
-
+  
 }
 
 var cur_results = false;
@@ -311,7 +379,7 @@ function addSampleSummaryRow(run_num, summary_ary) {
     tr.id = 'samplerun-'+run_num;
     var html = '<td>'+run_num+' <a href="#top" title="Delete this run"'
         +'onclick="deleteSample('+run_num+');return false;">x</a></td>';
-    for (var i=0;i<summary_ary.length;i++) {
+    for (var i=0;i<9;i++) {
         html += '<td>'+summary_ary[i]+'</td>';
     }
     dom_prepend($('sample-list'),tr);

@@ -28,9 +28,9 @@
 				<table border="0" cellspacing="0" cellpadding="0">
 					<thead>
 					<tr>
-						<th class="Number">No. of plots:</th>
+						<th class="Number"># plots:</th>
 						<th>Shape:</th>
-						<th class="Number"><span id='shapeLabel'>Radius</span>(m):</th>
+						<th class="Number">Size-<span id='shapeLabel'>Radius</span>(m):</th>
 						<th>Arrangement</th>
 						<th class="Number">Sample area:</th>
 					</tr>
@@ -73,24 +73,25 @@
 </div>
 			<div class="sampling_history">
 				<!-- FORM -->
-				<form>
-				<h2>Sampling history <span class="heading-addendum">(stored in your web browser)</span><span class="csvsummary"><span class="heading-addendum">CSV download:</span> <input type="button" value="Summary" /> <input type="button" value="Detail" /></span></h2>
+				<form method="POST" action="json2csv">
+                                  <input type="hidden" name="results" value="" />
+				<h2>Sampling history <span class="heading-addendum">(stored in your web browser)</span><span class="csvsummary"><span class="heading-addendum">CSV download:</span> <input type="button" value="Summary" onclick="SampleHistory.csv.summary(this);this.form.submit();" /> <input type="button" value="Detail" onclick="SampleHistory.csv.details(this);this.form.submit();" /></span></h2>
 
 				<div id="sample-list-table">
 				<table border="0" cellspacing="0" cellpadding="0" class="sortable" onclick="sortColumn(event)">
 					<thead>
 						<tr>
 							<th class="Number" style="width: 40px;">Run</th>
-							<th class="Number">No. of plots</th>
+							<th class="Number"># plots</th>
 							<th>Shape</th>
-							<th class="Number">Edge/ Radius (m)</th>
+							<th class="Number">size (m)</th>
 							<th>Arrange- ment</th>
 							<th class="Number">Total sample area</th>
 							<th class="human_time">Sample Time (min)</th>
 							<th class="human_time">Average time per plot</th>
 							<th class="Number">Sample variance density</th>
 							<th class="Number">Sample variance basal area</th>
-							<th>CSV</th>
+							<th>Tree Data</th>
 						</tr>
 					</thead>
 					<tbody id="sample-list">
@@ -138,18 +139,21 @@
 
 
 <div id="results" class="container">
-<h3>Sampling Results</h3>
+<h3>
 <div id="csv">
   <form id="csvform" action="csv" method="POST">
-    Export to CSV:
+    CSV download:
     <input type="hidden" name="results" id="form-results" />
     <select name="type">
       <option value="summary">summary</>
       <option value="details">details</option>
     </select>
-    <input type="button" id='csvbutton' value="Export Now!" onclick="javascript:getcsv();" />
+    <input type="button" id='csvbutton' value="download" onclick="javascript:getcsv();" />
   </form>
 </div><!-- csv -->
+
+Sampling Results
+</h3>
     
 <div class="toggle-container" id="results_summary">
   <h3 class="toggle-control"><span class='downarrow'>&#x25BE;</span>

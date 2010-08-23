@@ -6,6 +6,7 @@ function () {
     var self = this;
     this.nsINDEX = 'ALL_SAMPLES';
     this.nsSAMPLE = 'SAMPLE_';
+    this.nsFOREST = 'FOREST'; //summary forest 'actual' data 
     
     this.addSample = function(summary, results) {
         var index = self.samples.push(summary) -1;
@@ -21,6 +22,26 @@ function () {
         Stor.del(self.nsSAMPLE + index);
         self.samples[index] = false;
         Stor.set(self.nsINDEX, JSON.stringify(self.samples));        
+    }
+
+    this.setForest = function(results) {
+        var summary = [
+            'FOREST',
+            0,0,0,0,
+            results['actual-area'],
+            0,0,0,0,
+            results['actual-species'],
+            results['actual-count'],
+            results['actual-dbh'],
+            results['actual-variance-dbh'],
+            results['actual-density'],
+            results['actual-basal']
+        ];
+        Stor.set(self.nsFOREST, JSON.stringify(summary));
+    }
+
+    this.getForest = function() {
+        return JSON.parse(Stor.get(self.nsFOREST,'[]'));
     }
 
     this.samples = JSON.parse(Stor.get(this.nsINDEX,'[]'));
