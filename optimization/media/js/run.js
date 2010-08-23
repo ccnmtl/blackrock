@@ -1,10 +1,10 @@
 var global_http_request;
 
 function getcsv() {
-  if(! global_http_request) {
-    return false;
-  }
-  $("csvform").submit();
+    if(!   $('form-results').value ) {
+        return false;
+    }
+    $("csvform").submit();
 }
 
 var SampleHistory = new (function() {
