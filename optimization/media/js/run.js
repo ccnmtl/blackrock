@@ -29,9 +29,12 @@ var SampleHistory = new (function() {
                     results.push(cpy);
                 }
             }
-            button.form.elements['results'].value = JSON.stringify(results);
+            var frm = button.form.elements;
+            frm['results'].value = JSON.stringify(results);
+            frm['filename'].value = 'Sample_History_Details'
         },
         details:function(button) {
+            var frm = button.form.elements;
             var results = [
                 ['Sample Run', 'Plot',
                  'Shape','Size (m)','Arragement',
@@ -61,7 +64,14 @@ var SampleHistory = new (function() {
                     }
                 }
             }
-            button.form.elements['results'].value = JSON.stringify(results);
+            frm['results'].value = JSON.stringify(results);
+            frm['filename'].value = 'Sample_History_Details'
+        },
+        trees:function(button, run_num) {
+            var frm = $('trees_csv_form');
+            frm.elements['sample_num'].value = run_num;
+            frm.elements['results'].value = SampleStorage.getSampleRaw(run_num-1);
+            frm.submit();//here, since it might not be attached to element
         }
     }
 })();
@@ -383,7 +393,7 @@ function addSampleSummaryRow(run_num, summary_ary) {
         html += '<td>'+summary_ary[i]+'</td>';
     }
     dom_prepend($('sample-list'),tr);
-    tr.innerHTML = html + '<td><input type="button" value="Download" /></td>';
+    tr.innerHTML = html + '<td><input type="button" onclick="SampleHistory.csv.trees(this,'+run_num+');" value="Download" /></td>';
     connect(tr, 'onclick', function(evt) {
         showResultsInfo(SampleStorage.getSample(run_num-1), tr);
     });

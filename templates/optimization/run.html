@@ -74,11 +74,16 @@
 			<div class="sampling_history">
 				<!-- FORM -->
 				<form method="POST" action="json2csv">
+                                  <input type="hidden" name="filename" value="results" />
                                   <input type="hidden" name="results" value="" />
-				<h2>Sampling history <span class="heading-addendum">(stored in your web browser)</span><span class="csvsummary"><span class="heading-addendum">CSV download:</span> <input type="button" value="Summary" onclick="SampleHistory.csv.summary(this);this.form.submit();" /> <input type="button" value="Detail" onclick="SampleHistory.csv.details(this);this.form.submit();" /></span></h2>
-
+                                  <h2>Sampling history <span class="heading-addendum">(stored in your web browser)</span><span class="csvsummary"><span class="heading-addendum">CSV download:</span> <input type="button" value="Summary" onclick="SampleHistory.csv.summary(this);this.form.submit();" /> <input type="button" value="Detail" onclick="SampleHistory.csv.details(this);this.form.submit();" /></span></h2>
+                                  </form>
+                                <form id="trees_csv_form" method="POST" action="trees_csv">
+                                  <input type="hidden" name="results" value="" />
+                                  <input type="hidden" name="type" value="trees" />
+                                  <input type="hidden" name="sample_num" value="0" />
 				<div id="sample-list-table">
-				<table border="0" cellspacing="0" cellpadding="0" class="sortable" onclick="sortColumn(event)">
+                                  <table border="0" cellspacing="0" cellpadding="0" class="sortable" onclick="sortColumn(event)">
 					<thead>
 						<tr>
 							<th class="Number" style="width: 40px;">Run</th>
@@ -96,9 +101,9 @@
 					</thead>
 					<tbody id="sample-list">
 					</tbody>
-				</table>
+                                  </table>
 				</div>
-			</form>
+                                </form>
 			</div><!-- sampling_history -->
     		</div><!-- runtable/run-interface -->
 		

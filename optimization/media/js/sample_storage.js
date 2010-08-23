@@ -18,6 +18,10 @@ function () {
     this.getSample = function(index) {
         return JSON.parse(Stor.get(self.nsSAMPLE + index,'false'));
     }
+    this.getSampleRaw = function(index) {
+        return Stor.get(self.nsSAMPLE + index,'');
+    }
+
     this.deleteSample = function(index) {
         Stor.del(self.nsSAMPLE + index);
         self.samples[index] = false;

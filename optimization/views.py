@@ -11,33 +11,47 @@ NW_corner = 'POINT(-74.025 41.39)'
 MULTIPLIER = 0.001   # to convert meters into degrees
 DEFAULT_PLOT = 'Mount Misery Plot'
 
-species_key = {#'ae':'Ulmus americana (american elm)',
-               'ba':'basswood',
-               'bb':'Betula lenta (black birch)',
-               'be':'beech',
-               'bg':'Nyssa sylvatica (black gum)',
-               #'bm':'bm',
-               'bo':'Quercus velutina (black oak)',
-               'ch':'chestnut',
-               'co':'Quercus prinus (chestnut oak)',
-               'dw':'dogwood',
-               'hh':'Carpinus caroliniana (hop hornbeam)',
-               'mw':'moosewood',
-               'o':'oak (species unknown)',
-               'ph':'pignut hickory',
-               'rm':'red maple',
-               'ro':'Quercus rubra (red oak)',
-               'sa':'sassafras',
-               'sb':'shadbush',
-               'sh':'Carya ovata (shagbark hickory)',
-               'sm':'Acer saccharum (sugar maple)',
-               'swo':'Quercus bicolor (swamp white oak)',
-               'u':'non-oak (species unknown)',
-               'vp':'Viburnum prunifolium (viburnum prunifolium)',
-               'wa':'Fraxinus americana (white ash)',
-               'wo':'Quercus alba (white oak)',
-               'ws':'white spruce',
-               }
+class Species:
+  @classmethod
+  def get(cls,key,default,format='string'):
+    s = cls.species_key.get(key)
+    if s:
+      if format=='string':
+        return '%s (%s)' % (s[1],s[0])
+      else:
+        return s
+    else:
+      return default
+
+  species_key = {
+    #'ae':['Ulmus americana','american elm'],
+    'ba':['basswood','Tilia americana'],
+    'bb':['Betula lenta','black birch'],
+    'be':['beech','Fagus grandifolia'],
+    'bg':['Nyssa sylvatica','black gum'],
+    #'bm':'bm',
+    'bo':['Quercus velutina','black oak'],
+    'ch':['chestnut','Castanea dentata'],
+    'co':['Quercus prinus','chestnut oak'],
+    'dw':['dogwood','Cornus florida'],
+    'hh':['Carpinus caroliniana','hop hornbeam'],
+    'mw':['moosewood','Acer pensylvanicum'],
+    'o':['oak','species unknown'],
+    'ph':['pignut hickory','Carya glabra'],
+    'rm':['red maple','Acer rubrum'],
+    'ro':['Quercus rubra','red oak'],
+    'sa':['sassafras','Sassafras albidum'],
+    'sb':['shadbush','Amelanchier canadensis'],
+    'sh':['Carya ovata','shagbark hickory'],
+    'sm':['Acer saccharum','sugar maple'],
+    'swo':['Quercus bicolor','swamp white oak'],
+    'u':['non-oak','species unknown'],
+    'vp':['Viburnum prunifolium','viburnum prunifolium'],
+    'wa':['Fraxinus americana','white ash'],
+    'wo':['Quercus alba','white oak'],
+    'ws':['white spruce','Picea glauca'],
+    }
+
                
 def index(request, admin_msg=""):
   return render_to_response('optimization/index.html',
@@ -79,6 +93,7 @@ def calculate(request):
   dbh_list = []
   try:
     sample = RandomSample(shape,size,parent,num_plots,arrangement)
+    sample.arrange(num_plots)
   except AssertionError:
     return HttpResponseBadRequest(json.dumps({"error":"Plot size and/or plot count is too big"}),
                                   mimetype="application/javascript")
@@ -189,21 +204,30 @@ class RandomSample:
     self.shape = shape
     self.size = size
     self.parent = parent
+    self.num_plots = num_plots
     self.arrangement = arrangement
+    self.points = []
 
+  def add_points(self, points):
+    for p in points:
+      if p:
+        self.points.append(p)
+
+  def arrange(self, num_plots):
+    size = self.size
     delta = 0
     if self.shape == 'circle':
       delta = size
 
-    if arrangement=='random':
-      self.points = [{'x':random.randint(0, float(parent.width) - size),
-                      'y':random.randint(0, float(parent.height) - size),
+    if self.arrangement=='random':
+      self.points = [{'x':random.randint(0, float(self.parent.width) - size),
+                      'y':random.randint(0, float(self.parent.height) - size),
                       } for p in xrange(num_plots)]
 
-    elif arrangement=='grid':
-      w = float(parent.width) 
+    elif self.arrangement=='grid':
+      w = float(self.parent.width) 
       w -= (w % size) 
-      h = float(parent.height) 
+      h = float(self.parent.height) 
       h -= (h % size) 
       #this is sloppy-- a fractional size might not fit within
 
@@ -313,11 +337,8 @@ def sample_plot(sample, point, p_index):
 
   ## unique species ##
   species_list_intermed = sets.Set([str(tree.species).lower() for tree in trees])
-  #if_else = lambda cond, a, b: [b,a][cond]
-  #results['species-list'] = [if_else(species_key.has_key(species),species_key[species],species) for species in species_list_intermed]
-  species_list = [species_key[species] for species in species_list_intermed if species_key.has_key(species)]
-  species_list.extend([species for species in species_list_intermed if not species_key.has_key(species)])  # not in key
-  results['species-list'] = species_list
+
+  results['species-list'] = [Species.get(species,species) for species in species_list_intermed]
                             
   results['num-species'] = len(results['species-list'])
 
@@ -366,8 +387,7 @@ def sample_plot(sample, point, p_index):
     tree_count = len([tree.id for tree in trees if tree.species == species])
     
     # shortcut -- if there is only 1 species, use the plot results
-    species_name = species
-    if species_key.has_key(species): species_name = species_key[species]
+    species_name = Species.get(species,species)
 
     if(tree_count == results['count']):
       species_totals[i] = {'name': species_name, 'count': tree_count,
@@ -406,11 +426,50 @@ def json2csv(request):
       writer.writerow(row)
   return response
 
+def trees_csv(request):
+  response = HttpResponse(mimetype='text/csv')
+  sample_num= re.split('\W', request.POST.get('sample_num','0'), 1)[0]
+  response['Content-Disposition'] = 'attachment; filename=trees_sample_%s.csv' % sample_num
+
+  if request.POST['results'] == '':
+    return response
+  writer = csv.writer(response)
+  writer.writerow([
+      'Sample Run','Plot',
+      'Tree species','Tree common name','Tree dbh',
+      ])
+
+  results = json.loads(request.POST['results'])
+  parent = Plot.objects.get(name=DEFAULT_PLOT)
+
+  sample = RandomSample(results['input']['shape'],
+                        results['input']['size'],
+                        parent,
+                        results['input']['num_plots'],
+                        results['input']['arrangement'])
+
+  if not hasattr(results['plots'],'items'): #avoid legacy results
+    sample.add_points([ p.get('coordinate-start',None) for p in results['plots']])
+
+  for plot,point in enumerate(sample):
+    for tree in Tree.objects.filter( sample.Q(point) ):
+      t_names = Species.get(tree.species,[tree.species, tree.species] ,format='array')
+      writer.writerow([
+          sample_num, plot+1,
+          t_names[1], t_names[0],
+          tree.dbh
+          ])
+
+  return response
+
 def export_csv(request):
   if request.POST['results'] == '':
     HttpResponse("")
 
   type = request.POST['type']
+
+  if (type=='trees'):
+    return trees_csv(request)
   
   results = json.loads(request.POST['results'])
 
