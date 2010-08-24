@@ -31,7 +31,7 @@ var SampleHistory = new (function() {
             }
             var frm = button.form.elements;
             frm['results'].value = JSON.stringify(results);
-            frm['filename'].value = 'Sample_History_Details'
+            frm['filename'].value = 'Sample_History_Summary'
         },
         details:function(button) {
             var frm = button.form.elements;
