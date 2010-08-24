@@ -25,31 +25,31 @@ class Species:
 
   species_key = {
     #'ae':['Ulmus americana','american elm'],
-    'ba':['basswood','Tilia americana'],
+    'ba':['Tilia americana','basswood'],
     'bb':['Betula lenta','black birch'],
-    'be':['beech','Fagus grandifolia'],
+    'be':['Fagus grandifolia','beech'],
     'bg':['Nyssa sylvatica','black gum'],
     #'bm':'bm',
     'bo':['Quercus velutina','black oak'],
-    'ch':['chestnut','Castanea dentata'],
+    'ch':['Castanea dentata','chestnut'],
     'co':['Quercus prinus','chestnut oak'],
-    'dw':['dogwood','Cornus florida'],
+    'dw':['Cornus florida','dogwood'],
     'hh':['Carpinus caroliniana','hop hornbeam'],
-    'mw':['moosewood','Acer pensylvanicum'],
-    'o':['oak','species unknown'],
-    'ph':['pignut hickory','Carya glabra'],
-    'rm':['red maple','Acer rubrum'],
+    'mw':['Acer pensylvanicum','moosewood'],
+    'o':['species unknown','oak'],
+    'ph':['Carya glabra','pignut hickory'],
+    'rm':['Acer rubrum','red maple'],
     'ro':['Quercus rubra','red oak'],
-    'sa':['sassafras','Sassafras albidum'],
-    'sb':['shadbush','Amelanchier canadensis'],
+    'sa':['Sassafras albidum','sassafras'],
+    'sb':['Amelanchier canadensis','shadbush'],
     'sh':['Carya ovata','shagbark hickory'],
     'sm':['Acer saccharum','sugar maple'],
     'swo':['Quercus bicolor','swamp white oak'],
-    'u':['non-oak','species unknown'],
+    'u':['species unknown','non-oak'],
     'vp':['Viburnum prunifolium','viburnum prunifolium'],
     'wa':['Fraxinus americana','white ash'],
     'wo':['Quercus alba','white oak'],
-    'ws':['white spruce','Picea glauca'],
+    'ws':['Picea glauca','white spruce'],
     }
 
                
@@ -456,7 +456,7 @@ def trees_csv(request):
       t_names = Species.get(tree.species,[tree.species, tree.species] ,format='array')
       writer.writerow([
           sample_num, plot+1,
-          t_names[1], t_names[0],
+          t_names[0], t_names[1],
           tree.dbh
           ])
 
