@@ -1,7 +1,7 @@
 {% for s in current.get_children %}
     {% ifequal s.id current.id %}
     {% else %}
-       {% ifequal s.id section.id %}
+       {% ifequal s.id selected.id %}
           <div class="menu-{{s.depth}} menu-{{s.depth}}-selected">{{s.label}}</div>
        {% else %}   
           <div class="menu-{{s.depth}}"><a href="{{menu_base}}/portal{{s.get_absolute_url}}">{{s.label}}</a></div>
