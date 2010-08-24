@@ -472,9 +472,11 @@ def export_csv(request):
     return trees_csv(request)
   
   results = json.loads(request.POST['results'])
+  sample_num= re.split('\W', request.POST.get('sample_num','0'), 1)[0]
+  type = re.split('\W', type, 1)[0]
 
   response = HttpResponse(mimetype='text/csv')
-  response['Content-Disposition'] = 'attachment; filename=results.csv'
+  response['Content-Disposition'] = 'attachment; filename=%s_%s.csv' % (type, sample_num)
   writer = csv.writer(response)
 
   # write summary results

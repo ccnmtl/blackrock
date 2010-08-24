@@ -106,7 +106,9 @@ function showResults(http_request) {
   }
 
   showResultsInfo(results, 
-                  addSampleSummaryRow(run_num, summary));
+                  addSampleSummaryRow(run_num, summary),
+                  run_num
+                 );
 
   setStyle('waitmessage', {'display':'none'});
   $('calculate').disabled = false; 
@@ -114,7 +116,7 @@ function showResults(http_request) {
 }
 
 var cur_results = false;
-function showResultsInfo(results, new_row) {
+function showResultsInfo(results, new_row, run_num) {
     if (window.console)
         console.log(results);
     if (cur_results) {
@@ -131,9 +133,11 @@ function showResultsInfo(results, new_row) {
     //$('results-variance-density').innerHTML = results['sample-variance-density'];
     //$('results-variance-basal').innerHTML = results['sample-variance-basal'];
 
-  // store in form for CSV export
-  $('form-results').value = serializeJSON(results);
-  $('csvbutton').disabled = false;
+    // store in form for CSV export
+    var csvform = $('csvform').elements;
+    csvform['results'].value = serializeJSON(results);
+    csvform['sample_num'].value = run_num;
+    $('csvbutton').disabled = false;
 
   $('results-area').innerHTML = results['sample-area'];
   $('results-species').innerHTML = results['sample-species'];
@@ -395,7 +399,7 @@ function addSampleSummaryRow(run_num, summary_ary) {
     dom_prepend($('sample-list'),tr);
     tr.innerHTML = html + '<td><input type="button" onclick="SampleHistory.csv.trees(this,'+run_num+');" value="Download" /></td>';
     connect(tr, 'onclick', function(evt) {
-        showResultsInfo(SampleStorage.getSample(run_num-1), tr);
+        showResultsInfo(SampleStorage.getSample(run_num-1), tr, run_num);
     });
     return tr;
 }
