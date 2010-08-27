@@ -1,25 +1,143 @@
 var global_http_request;
 
 function getcsv() {
-  if(! global_http_request) {
-    return false;
-  }
-  $("csvform").submit();
+    if(!   $('form-results').value ) {
+        return false;
+    }
+    $("csvform").submit();
 }
+
+var SampleHistory = new (function() {
+    this.csv = {
+        summary:function(button) {
+            var results = [ 
+                ['Sample Run',
+                 '# plots','Shape','Size (m)','Arrangement',
+                 'Sample Area',
+                 'Sample Time','Avg Time/Plot',
+                 'Variance Density','Variance Basal Area',
+                 'Species Count','Tree Count',
+                 'Mean DBH','Variance DBH','Density','Basal Area',
+                 'Sample Time (min)'
+                ],
+                SampleStorage.getForest() 
+            ];
+            for (var i=0;i<SampleStorage.samples.length;i++) {
+                if (SampleStorage.samples[i]) {
+                    var cpy = SampleStorage.samples[i].slice(0);
+                    cpy.unshift(i+1);
+                    results.push(cpy);
+                }
+            }
+            var frm = button.form.elements;
+            frm['results'].value = JSON.stringify(results);
+            frm['filename'].value = 'Sample_History_Summary'
+        },
+        details:function(button) {
+            var frm = button.form.elements;
+            var results = [
+                ['Sample Run', 'Plot',
+                 'Shape','Size (m)','Arragement',
+                 'Plot Area','Tree Count','Species Count',
+
+                 'Sample Time (min)'                ]
+            ];
+            for (var i=0;i<SampleStorage.samples.length;i++) {
+                if (SampleStorage.samples[i]) {
+                    var sample = SampleStorage.getSample(i);
+                    for (var j=0;j<sample.plots.length;j++) {
+                        var p = sample.plots[j];
+                        results.push([
+                            i+1, j+1,
+                            sample['input']['shape'],
+                            sample['input']['size'],
+                            sample['input']['arrangement'],
+                            p['area'],
+                            p['count'],
+                            p['num-species'],
+
+                            p['time-total']/*
+                            ,p['time-locate'],p['time-measure'],p['time-travel'],
+                            */
+                            
+                        ])
+                    }
+                }
+            }
+            frm['results'].value = JSON.stringify(results);
+            frm['filename'].value = 'Sample_History_Details'
+        },
+        trees:function(button, run_num) {
+            var frm = $('trees_csv_form');
+            frm.elements['sample_num'].value = run_num;
+            frm.elements['results'].value = SampleStorage.getSampleRaw(run_num-1);
+            frm.submit();//here, since it might not be attached to element
+        }
+    }
+})();
 
 function showResults(http_request) {
   global_http_request = http_request;
 
-  // store in form for CSV export
-  $('form-results').value = http_request.responseText;  
-  $('csvbutton').disabled = false;
-  
   var results = evalJSON(http_request.responseText);
-  $('results-time').innerHTML = results['sample-time'];
-  $('results-avg-time').innerHTML = results['avg-time'];
+  var summary = [
+      results['input']['num_plots'],
+      results['input']['shape'],
+      results['input']['size'],
+      results['input']['arrangement'],
+      results['sample-area'],
+      results['sample-time'],
+      results['avg-time'],
+      results['sample-variance-density'],
+      results['sample-variance-basal'],
+      ///EXTRA
+      results['sample-species'],
+      results['sample-count'],
+      results['sample-dbh'],
+      results['sample-variance-dbh'],
+      results['sample-density'],
+      results['sample-basal'],
+      results['sample-time-minutes']
+  ];
+  var run_num = 0;
+  if (window.SampleStorage) {
+      run_num = SampleStorage.addSample(summary, results) +1;
+      SampleStorage.setForest(results);
+  }
 
-  $('results-variance-density').innerHTML = results['sample-variance-density'];
-  $('results-variance-basal').innerHTML = results['sample-variance-basal'];
+  showResultsInfo(results, 
+                  addSampleSummaryRow(run_num, summary),
+                  run_num
+                 );
+
+  setStyle('waitmessage', {'display':'none'});
+  $('calculate').disabled = false; 
+  
+}
+
+var cur_results = false;
+function showResultsInfo(results, new_row, run_num) {
+    if (window.console)
+        console.log(results);
+    if (cur_results) {
+        removeElementClass(cur_results,'sample-enabled');
+    }
+    if (new_row) {
+        addElementClass(new_row,'sample-enabled');
+        cur_results = new_row;
+    }
+    if (!results) {return};
+    ///Summary table deprecated
+    //$('results-time').innerHTML = results['sample-time'];
+    //$('results-avg-time').innerHTML = results['avg-time'];
+    //$('results-variance-density').innerHTML = results['sample-variance-density'];
+    //$('results-variance-basal').innerHTML = results['sample-variance-basal'];
+
+    // store in form for CSV export
+    var csvform = $('csvform').elements;
+    csvform['results'].value = serializeJSON(results);
+    csvform['sample_num'].value = run_num;
+    $('csvbutton').disabled = false;
 
   $('results-area').innerHTML = results['sample-area'];
   $('results-species').innerHTML = results['sample-species'];
@@ -45,22 +163,33 @@ function showResults(http_request) {
   $('comparison-density').innerHTML = results['comparison-density'];
   $('comparison-basal').innerHTML = results['comparison-basal'];
   visualized_map = new SampleMap({id:'results-map',
-				  bounds:results.sample.bounds
+				  bounds:results.sample.bounds,
+                                  onSelect:function(e) {
+                                      document.location = '#plot'+e.feature.plotname;
+                                  },
+                                  onHover:function(e) {
+                                      $('map-select-plot').innerHTML = 'Plot '+e.feature.plotname;
+                                      //console.log(e.feature.plotname);
+                                  }
 				 });
   // individual plots
   var plots = results['plots'];
-  var numPlots = $('numPlots').value;
+  var numPlots = plots.length || dictlen(plots); //legacy
+  $('plot-parent').innerHTML = '';
   for(var i=0; i<numPlots; i++) {
       var plotname = i+1;
       showPlotInfo(plotname, plots[i]);
       visualized_map.addPlot(plots[i], plotname);
   }
-
-  setStyle('waitmessage', {'display':'none'});
-  setStyle('results', {'display':'block'});
+  showElement('results');
   setStyle('details', {'display':'block'});
-  $('calculate').disabled = false; 
 
+}
+
+function dictlen(d) {
+    var len = 0;
+    for (a in d) len++;
+    return len;
 }
 
 function showError(http_request) {
@@ -81,11 +210,11 @@ function showError(http_request) {
 
 function showPlotInfo(plotNumber, results) {
   var parent = $('plot-parent'); 
-  var plotTable = $('plot1').innerHTML;
+  var plotTable = $('plot-template').innerHTML;
   var id = "plot" + plotNumber;
   var name = "PLOT " + plotNumber;
 
-  if(plotNumber > 1) {
+  if(plotNumber > 0) {
     var newDiv = DIV();
     addElementClass(newDiv, "plot-wrapper");
     addElementClass(newDiv, "toggle-container");
@@ -123,7 +252,7 @@ function showPlotInfo(plotNumber, results) {
                    );
     insertSiblingNodesBefore(totalsRow, child);
   }
-  if(plotNumber > 1) {
+  if(plotNumber > 0) {
     var togglectrl = getFirstElementByTagAndClassName("*", "toggle-control", id);
     connect(togglectrl, "onclick", toggle);
   }
@@ -142,14 +271,14 @@ function reset() {
   }
   
   forEach(getElementsByTagAndClassName("div","plot-wrapper"), function(elem) {
-    if(elem.id != "plot1")
+    if(elem.id != "plot-template")
       removeElement(elem);
   });
 
   /* collapse plot1 if it's un-collapsed */
-  var rightarrow = getFirstElementByTagAndClassName("span", "rightarrow", "plot1");
-  var downarrow = getFirstElementByTagAndClassName("span", "downarrow", "plot1");
-  var parent = $("plot1");
+  var rightarrow = getFirstElementByTagAndClassName("span", "rightarrow", "plot-template");
+  var downarrow = getFirstElementByTagAndClassName("span", "downarrow", "plot-template");
+  var parent = $("plot-template");
   var inner = getFirstElementByTagAndClassName("div", "toggle-nest", parent);
 
   var visible = (getStyle(downarrow, "display") != "none");
@@ -207,14 +336,14 @@ function calculate() {
   setStyle('errormessage', {'display':'none'});
 
   forEach(getElementsByTagAndClassName("div","plot-wrapper"), function(elem) {
-    if(elem.id != "plot1")
+    if(elem.id != "plot-template")
       removeElement(elem);
   });
   
-  /* collapse plot1 if it's un-collapsed */
-  var rightarrow = getFirstElementByTagAndClassName("span", "rightarrow", "plot1");
-  var downarrow = getFirstElementByTagAndClassName("span", "downarrow", "plot1");
-  var parent = $("plot1");
+  /* collapse plot-template if it's un-collapsed */
+  var rightarrow = getFirstElementByTagAndClassName("span", "rightarrow", "plot-template");
+  var downarrow = getFirstElementByTagAndClassName("span", "downarrow", "plot-template");
+  var parent = $("plot-template");
   var inner = getFirstElementByTagAndClassName("div", "toggle-nest", parent);
 
   var visible = (getStyle(downarrow, "display") != "none");
@@ -229,13 +358,12 @@ function calculate() {
     removeElement(elem);
   });
 
-  var numPlots = $('numPlots').value;
-  var shape = $('plotShape').value;
-  var size = $('plotSize').value;
-  var params = "numPlots=" + numPlots + "&shape=" + shape + "&size=" + size;
-  global_http_request = doXHR("calculate", {'method':'POST', 'sendContent':params,
-                                         'headers':[["Content-Type", 'application/x-www-form-urlencoded']]
-                                        });
+  
+  global_http_request = doXHR("calculate", {
+          'method':'POST', 
+          'sendContent':queryString(document.forms['runform']),
+          'headers':[["Content-Type", 'application/x-www-form-urlencoded']]
+      });
   global_http_request.addCallback(showResults);
   global_http_request.addErrback(showError);
 }
@@ -255,12 +383,60 @@ function updateShapeLabel(e) {
   }
 }
 
+function deleteSample(run_num) {
+    SampleStorage.deleteSample(run_num-1);
+    removeElement('samplerun-'+run_num);
+}
+
+function addSampleSummaryRow(run_num, summary_ary) {
+    var tr = document.createElement('tr');
+    tr.id = 'samplerun-'+run_num;
+    var html = '<td>'+run_num+' <a href="#top" title="Delete this run"'
+        +'onclick="deleteSample('+run_num+');return false;">x</a></td>';
+    for (var i=0;i<9;i++) {
+        html += '<td>'+summary_ary[i]+'</td>';
+    }
+    dom_prepend($('sample-list'),tr);
+    tr.innerHTML = html + '<td><input type="button" onclick="SampleHistory.csv.trees(this,'+run_num+');" value="Download" /></td>';
+    connect(tr, 'onclick', function(evt) {
+        showResultsInfo(SampleStorage.getSample(run_num-1), tr, run_num);
+    });
+    return tr;
+}
+
+function dom_prepend(parent, newchild) {
+    if (parent.firstChild)
+        parent.insertBefore(newchild, parent.firstChild)
+    else
+        parent.appendChild(newchild);
+}
+
+function loadSampleHistory() {
+    if (SampleStorage) {
+        var ss = SampleStorage.samples;
+        for (var i=0;i<ss.length;i++) 
+            if (ss[i])
+                addSampleSummaryRow(i+1, ss[i]);
+    }
+}
+
 function initRun() {
   connect("calculate", "onclick", calculate);
-  connect("reset", "onclick", reset);
+  //connect("reset", "onclick", reset);
   connect("plotShape", "onchange", updateShapeLabel);
   $('csvbutton').disabled = true;
   $('calculate').disabled = false; 
+  loadSampleHistory();
 }
 
 addLoadEvent(initRun);
+
+TableSortCasts["human_time"] = function(cell) {
+    var time=0;
+    var str = String(cell.innerHTML);
+    var min = str.match(/([.\d]+) min/);
+    var hr = str.match(/([.\d]+) hr/);
+    if (min) time += parseFloat(min[1]);
+    if (hr) time += 60*parseFloat(hr[1]);
+    return time;
+}

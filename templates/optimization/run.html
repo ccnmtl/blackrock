@@ -1,10 +1,12 @@
 {% extends "optimization/base_optimization.html" %} 
-
+{% block bodyclass %}runoptimization{% endblock %}
 {% block tabname %}tab-leaf{% endblock %} 
 
 {% block js %}
   {{ block.super }}
-  
+  <script type="text/javascript" src="/site_media/js/tablesort.js"></script>
+  <script type="text/javascript" src="/site_media/js/local_session.js"></script>
+  <script type="text/javascript" src="media/js/sample_storage.js"></script>
   <script type="text/javascript" src="media/js/run.js"></script>
   <script type="text/javascript" src="media/js/toggles.js"></script>
   <script type="text/javascript" src="media/js/area.js"></script>
@@ -16,132 +18,158 @@
 
 {% block content %}
 
-<div class="container toggle-container" id="parameters">
-  <h2>
-      Run Parameters</h2>
-  
-  <div class="inner toggle-nest">
-  <form id='runform'>
-    <table class='runtable'>
-      <tr>
-        <td class='left'>
-          Number of Plots:
-        </td>
-        <td>
-          <input type='text' id='numPlots' size='5' value='1' />
-        </td>
-      </tr>
-      <tr>
-        <td class='left'>
-          Plot Shape:
-        </td>
-        <td>
-          <select id='plotShape'>
-            <option value="circle">Circle</option>
-            <option value="square">Square</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td class='left'>
-          Plot <span id='shapeLabel'>Radius</span> (m):
-        </td>
-        <td>
-          <input type='text' id='plotSize' size='5' value='3' />
-          <!--select id='plotDiameter'>
-            <option value='3'>Small (3m)</option>
-            <option value='5'>Medium (5m)</option>
-            <option value='10'>Large (10m)</option>
-          </select-->
-        </td>
-      </tr>
-      <tr>
-        <td class='left'>
-          Plot Arrangement:
-        </td>
-        <td>
-          <select id='plotArrangement'>
-            <option value='random'>Randomize</option>
-            <!--option value='random'>Straight Line</option-->
-            <!--option value='random'>Two Parallel Lines</option-->
-            <!--option value='random'>Grid</option-->
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td colspan='2'>&nbsp;<br />&nbsp;<br /></td>
-      </tr>
-      <tr>
-         <td class='left'>
-           Total Sample Area:
-         </td>
-         <td>
-            <span id='plotArea'></span>m<sup>2</sup>
-         </td>
-      </tr><tr><td><br /></td><td></td></tr>
-      <tr><td colspan='2' align='right' style='border-top: 1px solid #a18fa3; padding-top: 10px;'>
-            <input type="reset" value="Reset" id="reset" />      
-      <input type="button" value="Calculate" id="calculate" />    
-      </td></tr>
-      
-   
-    </table>
-  </form>
-    
-       <div id="csv">
-  <form id="csvform" action="csv" method="POST">
-    Export to CSV:
-    <input type="hidden" name="results" id="form-results" />
-    <select name="type">
-      <option value="summary">summary</>
-      <option value="details">details</option>
-    </select>
-    <input type="button" id='csvbutton' value="Export Now!" onclick="javascript:getcsv();" />
-  </form>
-</div>
+	<div class="container">
+	
+		<div class="container_cell1">
+			<div class="runtable" id="run-interface">
+			<div class="sampling_param">
+				<h2>Run Parameters</h2>
+				<form name="runform" id='runform'>
+				<table border="0" cellspacing="0" cellpadding="0">
+					<thead>
+					<tr>
+						<th class="Number"># plots:</th>
+						<th>Shape:</th>
+						<th class="Number">Size-<span id='shapeLabel'>Radius</span>(m):</th>
+						<th>Arrangement</th>
+						<th class="Number">Sample area:</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td><input name="numPlots" type='text' id='numPlots' size='5' value='1' /></td>
+						<td>
+							<select name="shape" id='plotShape'>
+								<option value="circle">Circle</option>
+								<option value="square">Square</option>
+							</select>
+						</td>
+						<td><input name="size" type='text' id='plotSize' size='5' value='3' /></td>
+						<td>
+							<select name="plotArrangement" id='plotArrangement'>
+								<option value='random'>Randomize</option>
+								<!--option value='random'>Straight Line</option-->
+								<!--option value='random'>Two Parallel Lines</option-->
+								<option value='grid'>Grid</option>
+							</select>
+						</td>
+						<td><span id='plotArea'></span>m<sup>2</sup></td>
+                                                <td class="calculate-cell" style="border:none;">
+                                                  <input type="button" value="Calculate" id="calculate" />
+                                                </td>
+					</tr>
+					</tbody>
+				</table>
+				</form>
+    			</div><!-- sampling_param -->
 
 
-
-
-
-    
-    <div class="right">
-      <p><span style="font-weight:bold;font-size:18px;">About the Virtual Forest</span></p>
-      <p><span style="font-weight:bold;">Grid size:</span><br />
-      7.3ha (300m x 225m / 67,500m<sup>2</sup>)</p>
-      <p><span style="font-weight:bold;">Base Dataset:</span><br />
-      North Slope Plot</p>
-      
-      <p><span style="font-weight:bold;">Data Collection Year:</span><br />
-      2007</p>
-
-  
-    </div>
-    
-  </div> <!-- end div "inner" -->
-
-</div>
-
-<div class="container" id="waitmessage">
+<div id="waitmessage">
   Calculating results, please wait...
 </div>
 
-<div class="container" id="errormessage">
+<div id="errormessage">
   Sorry, the calculation encountered an error.  
   <div id="customerror"></div>
   Please try again.
 </div>
-<div id="results">
-<h2>Sampling Results</h2>
-<div class="container toggle-container" id="results_summary">
+			<div class="sampling_history">
+				<!-- FORM -->
+				<form method="POST" action="json2csv">
+                                  <input type="hidden" name="filename" value="results" />
+                                  <input type="hidden" name="results" value="" />
+                                  <h2>Sampling history <span class="heading-addendum">(stored in your web browser)</span><span class="csvsummary"><span class="heading-addendum">CSV download:</span> <input type="button" value="Summary" onclick="SampleHistory.csv.summary(this);this.form.submit();" /> <input type="button" value="Detail" onclick="SampleHistory.csv.details(this);this.form.submit();" /></span></h2>
+                                  </form>
+                                <form id="trees_csv_form" method="POST" action="trees_csv">
+                                  <input type="hidden" name="results" value="" />
+                                  <input type="hidden" name="type" value="trees" />
+                                  <input type="hidden" name="sample_num" value="0" />
+				<div id="sample-list-table">
+                                  <table border="0" cellspacing="0" cellpadding="0" class="sortable" onclick="sortColumn(event)">
+					<thead>
+						<tr>
+							<th class="Number" style="width: 40px;">Run</th>
+							<th class="Number"># plots</th>
+							<th>Shape</th>
+							<th class="Number">size (m)</th>
+							<th>Arrange- ment</th>
+							<th class="Number">Total sample area</th>
+							<th class="human_time">Sample Time (min)</th>
+							<th class="human_time">Average time per plot</th>
+							<th class="Number">Sample variance density</th>
+							<th class="Number">Sample variance basal area</th>
+							<th>Tree Data</th>
+						</tr>
+					</thead>
+					<tbody id="sample-list">
+					</tbody>
+                                  </table>
+				</div>
+                                </form>
+			</div><!-- sampling_history -->
+    		</div><!-- runtable/run-interface -->
+		
+    
+    
+		</div><!-- class="container_cell" -->
+	
+		<div class="container_cell2">
+<div class="toggle-container" id="parameters">
+  <div class="inner toggle-nest">
+    <div class="right">
+      <div id="results-map-container" class="map">
+        <div id="map-select-plot"></div>
+        <div id="results-map" style="width:330px;height:255px;"><!-- 
+           VERY IMPORTANT THAT THE WIDTH/HEIGHT STAY HERE
+             OTHERWISE OPENLAYERS DOESN'T WORK
+        --></div>
+      </div>
+  
+    </div>
+
+  </div> <!-- end div "inner" -->
+
+</div>
+			<div class="vf_desc"><!-- Appear at all time, even before first run -->
+				<p><b>Grid size:</b> 7.3ha (300m x 225m / 67,500m<sup>2</sup>)</p>
+			</div><!-- class="vf_desc" -->
+
+		</div><!-- class="container_cell" -->
+	
+	<div class="visualclear"></div><!-- "visualclear" -->
+	
+	</div><!-- "container" -->
+
+
+
+
+
+
+<div id="results" class="container">
+<h3>
+<div id="csv">
+  <form id="csvform" action="csv" method="POST">
+    CSV download:
+    <input type="hidden" name="results" id="form-results" />
+    <input type="hidden" name="sample_num" id="0" />
+    <select name="type">
+      <option value="summary">summary</>
+      <option value="details">details</option>
+      <option value="trees">tree data</option>
+    </select>
+    <input type="button" id='csvbutton' value="download" onclick="javascript:getcsv();" />
+  </form>
+</div><!-- csv -->
+
+Sampling Results
+</h3>
+    
+<div class="toggle-container" id="results_summary">
   <h3 class="toggle-control"><span class='downarrow'>&#x25BE;</span>
       <span class='rightarrow'>&#x25B8</span>
      Total Run Results (Click to Expand/Collapse)</h3>
   <div class="toggle-nest">
-  <h4>Summary</h4>
-  <div id="results-map-container" class="map">
-    <div id="results-map" style="width:400px;height:400px;"></div>
-  </div>
+  <!-- <h4>Summary</h4>
   <table class="results-summary">
     <tr>
       <td class='header'>TIME TO SAMPLE</td>
@@ -159,7 +187,7 @@
       <td class='header'>SAMPLE VARIANCE BASAL AREA</td>
       <td id='results-variance-basal' class='right'></td>
     </tr>
-  </table>
+  </table -->
 <h4>Details</h4>
   <table class='results'>
     <thead>
@@ -210,100 +238,84 @@
   </div><!-- end div nest -->
 </div><!-- end div container -->
 
-<div class="container" id="details">
+<div id="details">
   <!--h3 class="toggle"><span class='downarrow'>&#x25BE;</span>
       <span class='rightarrow'>&#x25B8</span>
       Sampling Details</h3-->
   <h3>Plot by Plot Results</h3>
   <div id='plot-parent'>
-    <div class='plot-wrapper' id='plot1'>
+  </div>
+    <div class='plot-wrapper' id='plot-template'>
+      <div class='plot-info toggle-container'>
+        <div class='plot-title'>
+        PLOT 1:</div>
+        <h4>Summary</h4>
+        <table class="results-summary">
+          <tr><td class='header'>AREA (m<sup>2</sup>)</td><td class='header'># OF TREES</td><td class='header'>TIME TO SAMPLE</td></tr>
+          <tr><td id='plot1-area' class='right'></td> <td class='right'><span id='plot1-count'></span></td>  <td class='right'><span id='plot1-time-total'></span> min</td></tr>
+          
+        </table>
     
-    <div class='plot-info toggle-container'>
-    <div class='plot-title'>
-      PLOT 1:</div>
- <!--OLD 
- <table class="results-summary">
-      <tr>
-        <td class='header'>PLOT AREA (m<sup>2</sup>)</td>
-        <td id='plot1-area' class='right'></td>
-      </tr>
-      <tr>
-        <td class='header'>TREES</td>
-        <td class='right'><span id='plot1-count'></span></td>
-      </tr>
-      <tr>
-        <td class='header'>TOTAL SAMPLING TIME</td>
-        <td class='right'><span id='plot1-time-total'></span> min</td>
-      </tr>
-    </table>
-    
-    -->
-    <h4>Summary</h4>
-     <table class="results-summary">
-      <tr><td class='header'>AREA (m<sup>2</sup>)</td><td class='header'># OF TREES</td><td class='header'>TIME TO SAMPLE</td></tr>
-      <tr><td id='plot1-area' class='right'></td> <td class='right'><span id='plot1-count'></span></td>  <td class='right'><span id='plot1-time-total'></span> min</td></tr>
+        <div class='subdetails'>
+          <h4 class='toggle-control'><span class='downarrow' style="display:none;">&#x25BE;</span>
+          <span class='rightarrow' style="display:inline;">&#x25B8</span> Details (Click to Expand/Collapse)</h4>
+          
+          <div class='toggle-nest' style='display:none;'>
+            
+            <table class="results-summary">
+              <tr>
+                <td class='header'>Time Spent...</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class='subheader right'>Locating Plot</td>
+                <td class='right'><span id='plot1-time-locate'></span> min</td>
+              </tr>
+              <tr>
+                <td class='subheader right'>Traveling to Plot Area</td>
+                <td class='right'><span id='plot1-time-travel'></span> min</td>
+              </tr>
+              <tr>
+                <td class='subheader right'>Establishing Plot</td>
+                <td class='right'><span id='plot1-time-establish'></span> min</td>
+              </tr>
+              <tr>
+                <td class='subheader right'>Measuring Trees</td>
+                <td class='right'><span id='plot1-time-measure'></span> min</td>
+              </tr>
+            </table>
+            
+            <table class='results'>
+              <thead>
+                <tr>
+                  <td>SPECIES</td>
+                  <td># OF TREES</td>
+                  <td>MEAN DBH (cm)</td>
+                  <td>VARIANCE DBH</td>
+                  <td>DENSITY (N/ha)</td>
+                  <td>BASAL AREA (m<sup>2</sup>/ha)</td>
+                </tr>
+              </thead>
+              <tbody id='plot1-species-table'>
+                <tr>
+                  <td><strong>TOTAL: <span id='plot1-species'></span></strong></td>
+                  <td id='plot1-details-count' class='right'></td>
+                  <td id='plot1-dbh' class='right'></td>
+                  <td id='plot1-variance-dbh' class='right'></td>
+                  <td id='plot1-density' class='right'></td>
+                  <td id='plot1-basal' class='right'></td>
+                </tr>
+              </tbody>
+            </table>
+            </div><!-- end div subdetails --->
+          </div><!-- end div toggle-nest -->
 
-    </table>
-    
-    
-    
-<div class='subdetails'>
-<h4 class='toggle-control'><span class='downarrow'>&#x25BE;</span>
-      <span class='rightarrow'>&#x25B8</span> Details (Click to Expand/Collapse)</h4>
+        </div><!-- end div plot-info -->
+      </div><!-- end div class=plot-wrapper -->
 
-  <div class='toggle-nest'>
-
-  <table class="results-summary">
-    <tr>
-      <td class='header'>Time Spent...</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td class='subheader right'>Locating Plot</td>
-      <td class='right'><span id='plot1-time-locate'></span> min</td>
-    </tr>
-    <tr>
-      <td class='subheader right'>Traveling to Plot Area</td>
-      <td class='right'><span id='plot1-time-travel'></span> min</td>
-    </tr>
-    <tr>
-      <td class='subheader right'>Establishing Plot</td>
-      <td class='right'><span id='plot1-time-establish'></span> min</td>
-    </tr>
-    <tr>
-      <td class='subheader right'>Measuring Trees</td>
-      <td class='right'><span id='plot1-time-measure'></span> min</td>
-    </tr>
-  </table>
-  
-  <table class='results'>
-    <thead>
-      <tr>
-        <td>SPECIES</td>
-        <td># OF TREES</td>
-        <td>MEAN DBH (cm)</td>
-        <td>VARIANCE DBH</td>
-        <td>DENSITY (N/ha)</td>
-        <td>BASAL AREA (m<sup>2</sup>/ha)</td>
-      </tr>
-    </thead>
-    <tbody id='plot1-species-table'>
-      <tr>
-        <td><strong>TOTAL: <span id='plot1-species'></span></strong></td>
-        <td id='plot1-details-count' class='right'></td>
-        <td id='plot1-dbh' class='right'></td>
-        <td id='plot1-variance-dbh' class='right'></td>
-        <td id='plot1-density' class='right'></td>
-        <td id='plot1-basal' class='right'></td>
-      </tr>
-    </tbody>
-  </table></div><!-- end div subdetails --->
-    </div><!-- end div toggle-nest -->
-    </div><!-- end div plot-info -->
-    </div><!-- end div plot-wrapper -->
-  </div> <!-- end div nest -->
-  </div> <!-- end div all_results -->
+  </div> <!-- end div details sall_results -->
 </div><!-- end div container -->
+
 
 
 {% endblock %}
