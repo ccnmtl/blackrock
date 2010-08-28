@@ -4,17 +4,17 @@
 
 {% block mainnav %}
     {% with root as current %}
-        {% if current.get_children %}
+       {% with section.get_parent as selected %}
             {% include "portal/menu.html" %}
-        {% endif %}
+       {% endwith %}
     {% endwith %}
 {% endblock %}
 
 {% block subnav %}
     {% with module as current %}
-        {% if current.get_children %}
+      {% with section as selected %}
             {% include "portal/menu.html" %}
-        {% endif %}
+      {% endwith %}
     {% endwith %}
 {% endblock %}
 
