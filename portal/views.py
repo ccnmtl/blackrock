@@ -51,7 +51,6 @@ def page(request,path):
         module = ancestors[1]
         
     # retrieve the list of featured assets associated with this section
-        
     return dict(section=section,
                 module=module,
                 root=ancestors[0])

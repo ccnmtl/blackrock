@@ -1,0 +1,22 @@
+{% load klass %}
+{% load smartif %}     
+    <div class="assetlist">  
+       {% for result in block.list %}
+           {% if forloop.counter <= block.list_count %} 
+                <a href="/portal/browse/portal/{{result.object|klass|lower}}/objects/{{result.object.id}}">
+                {{ result.object.name }}
+                </a>
+                <br />
+                    
+                {% with block.show_keywords as show_keywords %}
+                {% with block.show_categories as show_categories %}
+                    {% include "portal/asset_descriptions.html" %}
+                {% endwith %}{% endwith %}
+ 
+                
+                <hr style="color: #e0e0e0"/>
+          {% endif %}
+        {% endfor %}
+        
+        <a href="/portal/search/?{{block.search_query}}">More</a>
+    </div>

@@ -152,6 +152,19 @@ td#right {
     height:400px;
 }
 
+.assetlist {
+    background-color: white;
+    padding: 0px 5px 5px 5px;
+    font-size: 12px;
+    font-weight: normal;
+    color: black;     
+}
+
+.assetlist a {
+    color: black;
+    font-weight: bold;
+}
+
 
 
 

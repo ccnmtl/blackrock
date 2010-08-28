@@ -42,49 +42,22 @@
 {% endblock %}
 
 {% block right %}
-        <h2>Assets {{count}} </h2>
+        <b>Assets {{count}} </b>
+        <div class="assetlist">
         {% for result in page.object_list %}
             <p>
                 <a href="/portal/browse/portal/{{result.object|klass|lower}}/objects/{{result.object.id}}">
                 {{ result.object.name }}
                 </a>
                 <br />
-                <span style="font-size: 95%; margin-top: 0px; padding-top: 0px;"> 
-                <b>{{result.object|klass}}</b>
-		</span>
-		<br />
-                <span style="font-size: 80%; margin-top: 0px; padding-top: 0px;"> 
-		<b>Audiences</b>:
-                {% for e in result.object.audience.all %}
-                   {{e.name}} |
-                {% endfor %}
-                </span>
+                <b>Type</b>: {{result.object|klass}}
                 <br />
-                <span style="font-size: 80%; margin-top: 0px; padding-top: 0px;">
-        		<b>Tags</b>: 
-                {% for k in result.object.tag.all %}
-                    {{ k.name }} |
-                {% endfor %}
-                </span>
-                <br />
-                <span style="font-size: 80%; margin-top: 0px; padding-top: 0px;">
-                <b>Facets</b>: 
-                {% for k in result.object.facet.all %}
-                    {{ k.name }} |
-                {% endfor %}
-                </span> 
                 
-                
-                {% if result.object.description %}
-                <span style="margin-left: 5px; font-size: 80%"><p style="margin-top: 0px; padding-top: 3px"><b>Description:</b> {{ result.object.description|truncatewords:25 }}</p></span>
-                {% endif %}
-                
-                
-                <hr style="color: #e0e0e0"/>
-                
+                    {% include "portal/asset_descriptions.html" %}
+
             </p>
         {% endfor %}
-
+        </div>
         {% if page.has_previous or page.has_next %}
             <div>
                 {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}

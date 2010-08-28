@@ -12,6 +12,8 @@ class AssetIndex(SearchIndex):
   species = MultiValueField(faceted=True)
   discipline = MultiValueField(faceted=True)
   asset_type = CharField(faceted=True)
+  infrastructure = MultiValueField(faceted=True)
+  featured = MultiValueField(faceted=True)
   
   def prepare_study_type(self, obj):
     return [facet.display_name for facet in obj.facet.filter(facet='Study Type')]
@@ -25,13 +27,25 @@ class AssetIndex(SearchIndex):
   def prepare_audience(self, obj): 
     return [audience.name for audience in obj.audience.all()]
   
+  def prepare_infrastructure(self, obj):
+    return [facet.display_name for facet in obj.facet.filter(facet='Infrastructure')]
+  
+  def prepare_featured(self, obj):
+    return [facet.display_name for facet in obj.facet.filter(facet='Featured')]
+  
   def prepare_asset_type(self, obj):
     return obj._meta.object_name
+  
+class PersonIndex(AssetIndex):
+  person_type = MultiValueField()
+  
+  def prepare_person_type(self, obj):
+    return [p.name for p in obj.person_type.all()]
   
 site.register(Location, AssetIndex)
 site.register(Station, AssetIndex)
 site.register(Region, AssetIndex)
-site.register(Person, AssetIndex)
+site.register(Person, PersonIndex)
 site.register(DataSet, AssetIndex)
 site.register(DigitalObject, AssetIndex)
 site.register(Publication, AssetIndex)

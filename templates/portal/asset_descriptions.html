@@ -1,0 +1,61 @@
+{% load smartif %}
+{% load klass %}
+
+                {% if result.object|klass == "Person" %}
+                    <div> 
+                        <div style="float: left; margin-right: 10px;"><img width="50px" height="50px" src="/portal/media/images/silhouette.jpg"></img></div>
+                        <div>
+                                {% if result.object.professional_title %}
+                                    {{ result.object.professional_title }}
+                                    <br />
+                                {% endif %}
+                                {% if result.object.institution %}
+                                    {% for i in result.object.institution.all %}{% if forloop.counter > 1 %}, {% endif %}{{ i.name }}{% endfor %}
+                                {% endif %}
+                         </div>
+                     </div>
+                     <div style="clear: both"></div>
+                {% else %}{% if result.object|klass == "Location" %}
+                    <div> 
+                       <div style="float: left; margin-right: 10px;"><img width="40px" height="55px" src="/portal/media/images/missing_location.png"></img></div>
+                       <div>
+                            {% if result.object.location_subtype.count %}
+                                {% for t in result.object.location_subtype.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
+                            {% endif %}
+                        </div>
+                     </div>
+                     <div style="clear: both"></div>
+                {% else %}{% if result.object|klass == "Region" %}
+                    <div> 
+                       <div style="float: left; margin-right: 10px;"><img width="40px" height="55px" src="/portal/media/images/missing_location.png"></img></div>
+                       <div>
+        
+                           {% if result.object.region_type.count %}
+                              {% for t in result.object.region_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
+                           {% endif %}
+                      </div>
+                     </div>
+                     <div style="clear: both"></div>
+                {% else %}{% if result.object|klass == "Station" %}
+                    <div> 
+                       <div style="float: left; margin-right: 10px;"><img width="40px" height="55px" src="/portal/media/images/missing_location.png"></img></div>
+                       <div>
+                            {{ result.object.description|truncatewords:25 }}<br />
+                      </div>
+                     </div>
+                     <div style="clear: both"></div>                     
+                {% else %}
+                     {% if result.object.description %}
+                        {{ result.object.description|truncatewords:25 }}<br />
+                     {% endif %}
+                {% endif %}{% endif %}{% endif %}{% endif %}
+                
+                {% if show_keywords %}
+                    <b>Keywords</b>: 
+                    {% for k in result.object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}{{ k.name }}{% endfor %}
+                    <br />
+                {% endif %}
+                {% if show_categories %}
+                    <b>Categories</b>: 
+                    {% for c in result.object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ c.name }}{% endfor %}
+                {% endif %}

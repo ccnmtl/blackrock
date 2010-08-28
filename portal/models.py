@@ -1,5 +1,10 @@
 from django.db import models
 from datetime import datetime
+from pagetree.models import PageBlock, Section
+from django.contrib.contenttypes import generic
+from django import forms
+from haystack.query import SearchQuerySet
+from django.conf import settings
 
 # Static Lookup Tables
 class Audience(models.Model):
@@ -17,6 +22,8 @@ class Facet(models.Model):
   name = models.CharField(max_length=50)
   display_name = models.CharField(max_length=100)
   facet = models.CharField(max_length=50)
+  
+  asset_facets = ['audience', 'study_type', 'species', 'discipline', 'asset_type', 'infrastructure', 'featured']
   
   class Meta:
     unique_together = (("name", "facet"),)
@@ -255,3 +262,79 @@ class LearningActivity(models.Model):
   def __unicode__(self):
     return self.name
   
+class AssetList(models.Model):
+  pageblocks = generic.GenericRelation(PageBlock, related_name="assetlist_pageblock")
+  search_criteria = models.TextField()
+  template_file = "portal/assetlist.html"
+  display_name = "Asset List"
+  show_keywords = models.BooleanField(default=True)
+  show_categories = models.BooleanField(default=True)
+    
+  def pageblock(self):
+    return self.pageblocks.all()[0]
+
+  def __unicode__(self):
+    return unicode(self.pageblock())
+
+  def needs_submit(self):
+    return False
+  
+  def list_count(self):
+    return settings.HAYSTACK_SEARCH_RESULTS_PER_PAGE
+  
+  @classmethod
+  def add_form(self):
+    class AddForm(forms.Form):
+        search_criteria = forms.CharField(widget=forms.widgets.Textarea(attrs={'cols':'80'}))
+        show_keywords = forms.BooleanField()
+        show_categories = forms.BooleanField()
+    return AddForm()
+
+  @classmethod
+  def create(self,request):
+    search_criteria = request.POST.get('search_criteria','')
+    show_keywords = request.POST.get('show_keywords', '')
+    show_categories = request.POST.get('show_categories', '')
+    return AssetList.objects.create(search_criteria=search_criteria, show_keywords=show_keywords, show_categories=show_categories)
+  
+  def edit_form(self):
+    class EditForm(forms.Form):
+        search_criteria = forms.CharField(widget=forms.widgets.Textarea(attrs={'cols':'80'}),
+                                 initial=self.search_criteria)
+        show_keywords = forms.BooleanField(initial=self.show_keywords)
+        show_categories = forms.BooleanField(initial=self.show_categories)
+    return EditForm();
+  
+  def edit(self,vals,files):
+    self.search_criteria = vals.get('search_criteria','')
+    self.show_keywords = vals.get('show_keywords','')
+    self.show_categories = vals.get('show_categories','')
+    self.save()  
+      
+  def list(self):    
+    results = SearchQuerySet()
+    for facet in Facet.asset_facets:
+        results = results.facet(facet)
+    
+    types = self.search_criteria.split(';')
+    for t in types:
+      criteria = t.split(',')
+      q = ''
+      for c in criteria:
+        if len(q):
+          q += ' OR '
+        q += c.strip()
+      results = results.narrow(q)
+
+    return results.order_by("name") 
+  
+  def search_query(self):
+    query = ''
+    types = self.search_criteria.split(';')
+    for t in types:
+      criteria = t.split(',')
+      for c in criteria:
+        c = c.replace(':', '=')
+        query += c.strip() + "&"
+      
+    return query      

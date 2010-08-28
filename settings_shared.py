@@ -84,7 +84,8 @@ ENABLED_MODULES = (
 
 # Pageblocks/Pagetree settings 
 PAGEBLOCKS = ['pageblocks.HTMLBlock', 
-              'pageblocks.ImageBlock'] 
+              'pageblocks.ImageBlock',
+              'portal.AssetList'] 
 
 THUMBNAIL_SUBDIR = "thumbs"
 
