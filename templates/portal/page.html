@@ -4,10 +4,10 @@
 
 {% block mainnav %}
     {% with root as current %}
-       {% with section.get_parent as selected %}
-            {% include "portal/menu.html" %}
-       {% endwith %}
-    {% endwith %}
+    {% with section.get_parent as selected %}
+    {% with "foreststories" as hidden %}
+        {% include "portal/menu.html" %}
+    {% endwith %}{% endwith %}{% endwith %}
 {% endblock %}
 
 {% block subnav %}

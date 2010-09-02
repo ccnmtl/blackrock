@@ -13,7 +13,6 @@ class AssetIndex(SearchIndex):
   discipline = MultiValueField(faceted=True)
   asset_type = CharField(faceted=True)
   infrastructure = MultiValueField(faceted=True)
-  featured = MultiValueField(faceted=True)
   
   def prepare_study_type(self, obj):
     return [facet.display_name for facet in obj.facet.filter(facet='Study Type')]
@@ -29,9 +28,6 @@ class AssetIndex(SearchIndex):
   
   def prepare_infrastructure(self, obj):
     return [facet.display_name for facet in obj.facet.filter(facet='Infrastructure')]
-  
-  def prepare_featured(self, obj):
-    return [facet.display_name for facet in obj.facet.filter(facet='Featured')]
   
   def prepare_asset_type(self, obj):
     return obj._meta.object_name
@@ -54,15 +50,16 @@ site.register(LearningActivity, AssetIndex)
 
 from django.contrib import databrowse
 
+databrowse.site.register(DigitalObject)
 databrowse.site.register(Location)
 databrowse.site.register(Station)
 databrowse.site.register(Person)
 databrowse.site.register(DataSet)
-databrowse.site.register(DigitalObject)
 databrowse.site.register(Publication)
 databrowse.site.register(Region)
 databrowse.site.register(ResearchProject)
 databrowse.site.register(LearningActivity)
+databrowse.site.register(ForestStory)
 
 databrowse.site.register(Audience)
 databrowse.site.register(DigitalFormat)

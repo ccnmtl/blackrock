@@ -45,17 +45,24 @@
         <b>Assets {{count}} </b>
         <div class="assetlist">
         {% for result in page.object_list %}
-            <p>
+            <div>
+                {% if block.asset|klass == "ForestStory" %}
+                    <a href="/portal/foreststories/{{block.asset.name}}/">
+                {% else %}
                 <a href="/portal/browse/portal/{{result.object|klass|lower}}/objects/{{result.object.id}}">
+                {% endif %}
                 {{ result.object.name }}
                 </a>
                 <br />
-                <b>Type</b>: {{result.object|klass}}
+                <b>Type</b>: {{result.object|klass}}<br />
+                {% with result.object as current_object %}{% include "portal/asset_descriptions.html" %}{% endwith %}
+                <b>Keywords</b>: 
+                {% for k in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}{{ k.name }}{% endfor %}
                 <br />
-                
-                    {% include "portal/asset_descriptions.html" %}
-
-            </p>
+                <b>Categories</b>: 
+                {% for c in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ c.display_name }}{% endfor %}
+            </div>
+            <br />
         {% endfor %}
         </div>
         {% if page.has_previous or page.has_next %}

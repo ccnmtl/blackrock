@@ -94,17 +94,21 @@
                         {% block right %} 
                            <div id="map_canvas"></div>
                            <div id="map_filter">
-                              <div id="audience_filter">
-                                  <input type="checkbox" name="experience"/>Forest Experience
-                                  <input type="checkbox" name="education"/>Education
-                                  <input type="checkbox" name="research"/>Research
-                              </div>
-                              <div id="infrastructure_filter">
-                                  <input type="checkbox" name="facilities"/>Forest Experience
-                                  <input type="checkbox" name="environmental_monitoring"/>Environmental Monitoring
-                                  <input type="checkbox" name="webcams"/>Webcams
-                                  <input type="checkbox" name="longterm_plots"/>Long-Term Plots
-                              </div>
+                              <table>
+                                  <tr>
+                                      <td id="audience_filter">
+                                          <div><input type="checkbox" name="experience"/><img src="/portal/media/images/nonmapicon_experience.png/">Forest Experience</div>
+                                          <div><input type="checkbox" name="education"/><img src="/portal/media/images/nonmapicon_education.png/"></img>Education</div>
+                                          <div><input type="checkbox" name="research"/<img src="/portal/media/images/nonmapicon_research.png/">Research</div>
+                                      </td>
+                                      <td id="infrastructure_filter">
+                                          <div><input type="checkbox" name="facilities"/><img src="/portal/media/images/nonmapicon_facility.png/"/>Forest Facilities</div>
+                                          <div><input type="checkbox" name="environmental_monitoring"/><img src="/portal/media/images/nonmapicon_monitoring.png/"/>Environmental Monitoring</div>
+                                          <div><input type="checkbox" name="webcams"/><img src="/portal/media/images/nonmapicon_webcam.png/"/>Webcams</div>
+                                          <div><input type="checkbox" name="longterm_plots"/><img src="/portal/media/images/nonmapicon_ltp.png/"/>Long-Term Plots</div>
+                                      </td>
+                                  </tr>
+                              </table>
                            </div>
                         {% endblock %} 
                     </td>

@@ -85,9 +85,11 @@ ENABLED_MODULES = (
 # Pageblocks/Pagetree settings 
 PAGEBLOCKS = ['pageblocks.HTMLBlock', 
               'pageblocks.ImageBlock',
-              'portal.AssetList'] 
+              'portal.AssetList',
+              'portal.FeaturedAsset'] 
 
 THUMBNAIL_SUBDIR = "thumbs"
+#THUMBNAIL_DEBUG = "True"
 
 # WIND settings
 

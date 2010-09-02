@@ -3,17 +3,15 @@
     <div class="assetlist">  
        {% for result in block.list %}
            {% if forloop.counter <= block.list_count %} 
-                <a href="/portal/browse/portal/{{result.object|klass|lower}}/objects/{{result.object.id}}">
+                {% if block.asset|klass == "ForestStory" %}
+                    <a href="/portal/foreststories/{{block.asset.name}}/">
+                {% else %}
+                    <a href="/portal/browse/portal/{{result.object|klass|lower}}/objects/{{result.object.id}}">
+                {% endif %}
                 {{ result.object.name }}
                 </a>
                 <br />
-                    
-                {% with block.show_keywords as show_keywords %}
-                {% with block.show_categories as show_categories %}
-                    {% include "portal/asset_descriptions.html" %}
-                {% endwith %}{% endwith %}
- 
-                
+                {% with result.object as current_object %}{% include "portal/asset_descriptions.html" %}{% endwith %}
                 <hr style="color: #e0e0e0"/>
           {% endif %}
         {% endfor %}

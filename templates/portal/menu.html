@@ -1,4 +1,5 @@
 {% for s in current.get_children %}
+  {% ifnotequal s.slug hidden %}
     {% ifequal s.id current.id %}
     {% else %}
        {% ifequal s.id selected.id %}
@@ -7,4 +8,5 @@
           <div class="menu-{{s.depth}}"><a href="{{menu_base}}/portal{{s.get_absolute_url}}">{{s.label}}</a></div>
        {% endifequal %}
     {% endifequal %}
+  {% endifnotequal %}
 {% endfor %}

@@ -1,0 +1,242 @@
+{% load klass %}
+{% load smartif %} 
+
+<div class="assetlist" id="{{block.asset|klass}}-{{block.asset.id}}">
+{% if block.detailed_display %}
+  <div class="featuredasset">
+      <div>
+          {% if block.asset|klass == "ForestStory" %}
+            <a href="/portal/foreststories/{{block.asset.name}}/">   
+          {% else %}
+            <a href="/portal/browse/portal/{{block.asset|klass|lower}}/objects/{{block.asset.id}}">
+          {% endif %}
+               {{ block.asset.name }}
+            </a>
+      </div>
+      
+    {% if block.asset|klass == "DataSet" %}
+       <div>
+          {% if block.asset.display_image %}
+            <img alt="Data Set Icon" src="{{block.asset.display_image.file.url}}" class="featured_image"></img>
+          {% else %}
+            <img alt="Data Set Icon" src="/portal/media/images/dataset.png"></img>
+          {% endif %}
+          
+          <div>
+             <b>Description</b>: 
+             {% if block.asset.description %}
+                {{ block.asset.description|truncatewords:50 }}<br />
+             {% endif %}
+         </div>
+       </div>
+    {% else %}{% if block.asset|klass == "DigitalObject" %}
+       <div>
+         <img alt="Digital Object Icon" src="/portal/media/images/{{block.asset.digital_format}}.png"></img>
+         <div>
+             <b>Description</b>:
+             {% if block.asset.description %}
+                {{ block.asset.description|truncatewords:50 }}<br />
+             {% endif %}
+         </div>
+       </div>
+    {% else %}{% if block.asset|klass == "LearningActivity" %}
+       <div>
+          {% if block.asset.display_image %}
+            <img alt="Learning Activity Icon" src="{{block.asset.display_image.file.url}}" class="featured_image"></img>
+          {% else %}
+            <img alt="Digital Format Icon" src="/portal/media/images/{{block.asset.digital_format}}.png"></img>
+          {% endif %}
+          <div>
+            <b>Format</b>: 
+            {% if block.asset.digital_format.count %}
+                {% for f in block.asset.digital_format.all %}{% if forloop.counter > 1 %}, {% endif %}{{ f.name }}{% endfor %}<br />
+            {% endif %}
+          </div>
+          <div>
+              <b>Description</b>:
+              {% if block.asset.description %}
+                 {{ block.asset.description|truncatewords:50 }}<br />
+              {% endif %}
+          </div>
+       </div>
+    {% else %}{% if block.asset|klass == "Location" %}
+       {% if block.asset.display_image %}
+          <img alt="Location Icon" src="{{block.asset.display_image.file.url}}" class="featured_image"></img>
+       {% else %}
+          <img alt="Location Icon" src="/portal/media/images/location.png"></img>
+       {% endif %}
+       <div>
+            {% spaceless %}
+            <b>Description</b>: 
+            {% if current_object.location_type.count %}
+                {% for t in current_object.location_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}{% if current_object.location_subtype.count %},{% endif %}
+            {% endif %}
+            {% if current_object.location_subtype.count %}
+                 {% for t in current_object.location_subtype.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
+            {% endif %}
+            {% endspaceless %}        </div>
+        <div>
+           <b>Region</b>:
+           {% if block.asset.region_set.count %}
+                 {% for r in block.asset.region_set.all %}{% if forloop.counter > 1 %}, {% endif %}{{ r.name }}{% endfor %}<br />
+           {% endif %} 
+        </div>
+    {% else %}{% if block.asset|klass == "Person" %}
+       {% if block.asset.display_image %}
+          <img alt="Person Icon" src="{{block.asset.display_image.file.url}}" class="featured_image"></img>
+       {% else %}
+          <img alt="Person Icon" src="/portal/media/images/person.png"></img>
+       {% endif %}
+    
+        <div>
+            <b>Title</b>: 
+            {% if block.asset.professional_title %}
+                {{ block.asset.professional_title }}
+            {% endif %}
+        </div>
+        <div>
+            <b>Institution</b>:
+            {% if block.asset.institution %}
+                 {% for i in block.asset.institution.all %}{% if forloop.counter > 1 %}, {% endif %}{{ i.name }}{% endfor %}
+            {% endif %}
+         </div>
+         <div>
+              <b>Description</b>:
+              {% if block.asset.description %}
+                 {{ block.asset.description|truncatewords:50 }}<br />
+              {% endif %}
+         </div>
+    {% else %}{% if block.asset|klass == "Publication" %}
+          {% if block.asset.display_image %}
+            <img alt="Publication Icon" src="{{block.asset.display_image.file.url}}" class="featured_image"></img>
+          {% else %}
+            <img alt="Publication Icon" src="/portal/media/images/publication.png"></img>
+          {% endif %}
+           <div>
+              <b>Description</b>: 
+              {% if block.asset.publication_type.count %}
+                 {% for t in block.asset.publication_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
+              {% endif %}
+          </div>
+          <div>
+              <b>Description</b>:
+              {% if block.asset.description %}
+                 {{ block.asset.description|truncatewords:50 }}<br />
+              {% endif %}
+          </div>
+    {% else %}{% if block.asset|klass == "Region" %}
+       {% if block.asset.display_image %}
+          <img alt="Region Icon" src="{{block.asset.display_image.file.url}}" class="featured_image"></img>
+       {% else %}
+          <img alt="Region Icon" src="/portal/media/images/region.png"></img>
+       {% endif %}
+       <div>
+           <b>Description</b>: 
+           {% if block.asset.region_type.count %}
+              {% for t in block.asset.region_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
+           {% endif %}
+      </div>
+      <div>
+         <b>Description</b>: 
+         {% if block.asset.description %}
+            {{ block.asset.description|truncatewords:50 }}<br />
+         {% endif %}
+      </div>
+    {% else %}{% if block.asset|klass == "ResearchProject" %}
+        <img alt="Research Project Icon" src="/portal/media/images/researchproject.png"></img>
+        <div>
+           <b>Principal Investigator{% if block.asset.person.count > 1 %}s{% endif %}:</b>
+           {% if block.asset.person.count %}
+              {% for p in block.asset.person.all %}{% if forloop.counter > 1 %}, {% endif %}{{ p.name }}{% endfor %}<br />
+           {% endif %}
+       </div>
+       <div>
+           <b>Location</b>
+           {% if block.asset.location.count %}
+              {% for l in block.asset.location.all %}{% if forloop.counter > 1 %}, {% endif %}{{ l.name }}{% endfor %}<br />
+           {% endif %}
+       </div>
+       <div>
+           <b>DataSet</b>
+           {% if block.asset.dataset.count %}
+              {% for d in block.asset.dataset.all %}{% if forloop.counter > 1 %}, {% endif %}{{ d.name }}{% endfor %}<br />
+           {% endif %}
+       </div>
+       <div>
+           <b>Publication</b>
+           {% if block.asset.publication.count %}
+              {% for p in block.asset.publication.all %}{% if forloop.counter > 1 %}, {% endif %}{{ p.name }}{% endfor %}<br />
+           {% endif %}
+       </div>
+      <div>
+         <b>Description</b>: 
+         {% if block.asset.description %}
+            {{ block.asset.description|truncatewords:50 }}<br />
+         {% endif %}
+      </div>
+   {% else %}{% if block.asset|klass == "Station" %}
+       {% if block.asset.display_image %}
+          <img alt="Station Image" src="{{block.asset.display_image.file.url}}"  class="featured_image"></img>
+       {% else %}
+          <img alt="Station Icon" src="/portal/media/images/station.png"></img>
+       {% endif %}
+       <div>
+          <b>Activation Date</b>:
+          {% if block.asset.activation_date %}
+             {{ block.asset.activation_date|date }}
+          {% endif %}
+       </div>
+       <div>
+           <b>Location</b>
+           {% if block.asset.location.count %}
+              {% for l in block.asset.location.all %}{% if forloop.counter > 1 %}, {% endif %}{{ l.name }}{% endfor %}<br />
+           {% endif %}
+       </div>
+      <div>
+         <b>Description</b>: 
+         {% if block.asset.description %}
+            {{ block.asset.description|truncatewords:50 }}<br />
+         {% endif %}
+      </div>       
+   {% else %}{% if block.asset|klass == "ForestStory" %}
+       {% if block.asset.display_image %}
+          <img alt="Forest Story Icon" src="{{block.asset.display_image.file.url}}" class="featured_image"></img>
+       {% else %}
+          <img alt="Forest Story Icon" src="/portal/media/images/foreststory.png"></img>
+       {% endif %}
+      <div>
+         <b>Description</b>: 
+         {% if block.asset.description %}
+            {{ block.asset.description|truncatewords:50 }}<br />
+         {% endif %}
+      </div>       
+    {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
+  
+      <!--  Customized Link -->
+      {% if block.asset|klass == "ForestStory" %}
+         <a href="/portal/foreststories/{{block.asset.name}}/">
+      {% else %}
+         <a href="/portal/browse/portal/{{block.asset|klass|lower}}/objects/{{block.asset.id}}">
+      {% endif %}
+      {% ifequal block.audience.name "Education" %} 
+        Learn More >>
+      {% else %}{% ifequal block.audience.name "Exploration" %}
+        Let's Go >>
+      {% else %}{% ifequal block.audience.name "Research" %}
+        Investigate >>
+      {% else %}
+        More >>
+      {% endifequal %}{% endifequal %}{% endifequal %}
+      </a>
+  </div>
+{% else %}
+<!--  Featured, but not highlighted on the page -->
+      <a href="/portal/browse/portal/{{block.asset|klass|lower}}/objects/{{block.asset.id}}">
+        {{ block.asset.name }}
+      </a>
+      {% with block.asset as current_object %}
+         {% include "portal/asset_descriptions.html" %}
+      {% endwith %}
+{% endif %}
+
+</div>

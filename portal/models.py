@@ -6,6 +6,8 @@ from django import forms
 from haystack.query import SearchQuerySet
 from django.conf import settings
 
+MAX_DISPLAY_LENGTH = 50
+
 # Static Lookup Tables
 class Audience(models.Model):
   name = models.CharField(max_length=100, unique=True)
@@ -29,7 +31,7 @@ class Facet(models.Model):
     unique_together = (("name", "facet"),)
   
   def __unicode__(self):
-    return self.name
+    return self.display_name
   
 class Institution(models.Model):
   name = models.CharField(max_length=100, unique=True)
@@ -86,16 +88,34 @@ class Url(models.Model):
     return self.name  
   
 # Base Assets
+class DigitalObject(models.Model):
+  name = models.CharField(max_length=500)
+  description = models.TextField(null=True, blank=True)
+  digital_format = models.ForeignKey(DigitalFormat)
+  file = models.FileField(upload_to="portal/%Y/%m/%d/")
+  url = models.URLField()
+  source = models.CharField(max_length=500, null=True, blank=True)
+  
+  audience = models.ManyToManyField(Audience, null=True, blank=True)
+  facet = models.ManyToManyField(Facet)
+  tag = models.ManyToManyField(Tag, null=True, blank=True)
+  
+  created_date = models.DateTimeField('created_date', default=datetime.now)
+  modified_date = models.DateTimeField('modified_date', default=datetime.now)
+  
+  def __unicode__(self):
+    return self.name
+
 class Location(models.Model):
   name = models.CharField(max_length=500)
   description = models.TextField(null=True, blank=True)
-  
   location_type = models.ManyToManyField(LocationType, null=True, blank=True)
   location_subtype = models.ManyToManyField(LocationSubtype, null=True, blank=True)
   latitude = models.DecimalField(max_digits=18, decimal_places=10)
   longitude = models.DecimalField(max_digits=18, decimal_places=10)
   
   audience = models.ManyToManyField(Audience, null=True, blank=True)
+  display_image = models.ForeignKey(DigitalObject, null=True, blank=True)
   facet = models.ManyToManyField(Facet)
   tag = models.ManyToManyField(Tag)
 
@@ -110,9 +130,10 @@ class Station(models.Model):
   description = models.TextField(null=True, blank=True)
   access_means = models.TextField(null=True, blank=True)
   activation_date = models.DateField('activation_date')
-  
   location = models.ManyToManyField(Location)
+  
   audience = models.ManyToManyField(Audience, null=True, blank=True)
+  display_image = models.ForeignKey(DigitalObject, null=True, blank=True)
   facet = models.ManyToManyField(Facet)
   tag = models.ManyToManyField(Tag, null=True, blank=True)
   
@@ -129,6 +150,7 @@ class Region(models.Model):
   region_type = models.ManyToManyField(RegionType)
   
   audience = models.ManyToManyField(Audience, null=True, blank=True)
+  display_image = models.ForeignKey(DigitalObject, null=True, blank=True)
   facet = models.ManyToManyField(Facet)
   tag = models.ManyToManyField(Tag, null=True, blank=True)
   
@@ -150,6 +172,7 @@ class Person(models.Model):
   url = models.URLField(null=True, blank=True)
   
   audience = models.ManyToManyField(Audience, null=True, blank=True)
+  display_image = models.ForeignKey(DigitalObject, null=True, blank=True)
   facet = models.ManyToManyField(Facet)
   tag = models.ManyToManyField(Tag, null=True, blank=True)
   
@@ -159,24 +182,6 @@ class Person(models.Model):
   def __unicode__(self):
     return self.name
   
-class DigitalObject(models.Model):
-  name = models.CharField(max_length=500)
-  description = models.TextField(null=True, blank=True)
-  digital_format = models.ManyToManyField(DigitalFormat)
-  url = models.URLField()
-  author = models.ManyToManyField(Person, null=True, blank=True)
-  source = models.CharField(max_length=500, null=True, blank=True)
-  
-  audience = models.ManyToManyField(Audience, null=True, blank=True)
-  facet = models.ManyToManyField(Facet)
-  location = models.ManyToManyField(Location, null=True, blank=True)
-  tag = models.ManyToManyField(Tag, null=True, blank=True)
-  
-  created_date = models.DateTimeField('created_date', default=datetime.now)
-  modified_date = models.DateTimeField('modified_date', default=datetime.now)
-  
-  def __unicode__(self):
-    return self.name
   
 class DataSet(models.Model):
   name = models.CharField(max_length=500)
@@ -188,6 +193,7 @@ class DataSet(models.Model):
   spatial_explicit = models.BooleanField(default=False)
   
   audience = models.ManyToManyField(Audience, null=True, blank=True)
+  display_image = models.ForeignKey(DigitalObject, null=True, blank=True)
   facet = models.ManyToManyField(Facet)
   location = models.ManyToManyField(Location)
   person = models.ManyToManyField(Person, null=True, blank=True)
@@ -209,6 +215,7 @@ class Publication(models.Model):
   doi_citation = models.TextField()
   
   audience = models.ManyToManyField(Audience, null=True, blank=True)
+  display_image = models.ForeignKey(DigitalObject, null=True, blank=True)
   facet = models.ManyToManyField(Facet)
   person = models.ManyToManyField(Person, null=True, blank=True)
   tag = models.ManyToManyField(Tag, null=True, blank=True)
@@ -217,7 +224,10 @@ class Publication(models.Model):
   modified_date = models.DateTimeField('modified_date', default=datetime.now)
   
   def __unicode__(self):
-    return self.name
+    if len(self.name) > 25:
+      return "%s..." % self.name[0:25]
+    else:
+      return self.name
   
 class ResearchProject(models.Model):
   name = models.CharField(max_length=500)
@@ -229,6 +239,7 @@ class ResearchProject(models.Model):
   audience = models.ManyToManyField(Audience, null=True, blank=True)
   dataset = models.ManyToManyField(DataSet, null=True, blank=True)
   digital_object = models.ManyToManyField(DigitalObject, null=True, blank=True)
+  display_image = models.ForeignKey(DigitalObject, null=True, blank=True, related_name="researchproject_display_image")
   facet = models.ManyToManyField(Facet)
   location = models.ManyToManyField(Location, null=True, blank=True)
   person = models.ManyToManyField(Person, null=True, blank=True)
@@ -239,7 +250,10 @@ class ResearchProject(models.Model):
   modified_date = models.DateTimeField('modified_date', default=datetime.now)
   
   def __unicode__(self):
-    return self.name
+    if len(self.name) > MAX_DISPLAY_LENGTH:
+      return "%s..." % self.name[0:MAX_DISPLAY_LENGTH]
+    else:
+      return self.name
   
 class LearningActivity(models.Model):
   name = models.CharField(max_length=500)
@@ -251,6 +265,7 @@ class LearningActivity(models.Model):
   audience = models.ManyToManyField(Audience, null=True, blank=True)
   dataset = models.ManyToManyField(DataSet, null=True, blank=True)
   digital_object = models.ManyToManyField(DigitalObject, null=True, blank=True)
+  display_image = models.ForeignKey(DigitalObject, null=True, blank=True, related_name="learningactivity_display_image")
   facet = models.ManyToManyField(Facet)
   location = models.ManyToManyField(Location, null=True, blank=True)
   person = models.ManyToManyField(Person, null=True, blank=True)
@@ -262,13 +277,36 @@ class LearningActivity(models.Model):
   def __unicode__(self):
     return self.name
   
+class ForestStory(models.Model):
+  name = models.CharField(max_length=500)
+  display_name = models.CharField(max_length=500)
+  description = models.TextField(null=True, blank=True)
+  file = models.FileField(upload_to="portal/%Y/%m/%d/")
+  url = models.ManyToManyField(Url, null=True, blank=True)
+   
+  audience = models.ManyToManyField(Audience, null=True, blank=True)
+  dataset = models.ManyToManyField(DataSet, null=True, blank=True)
+  digital_object = models.ManyToManyField(DigitalObject, null=True, blank=True)
+  display_image = models.ForeignKey(DigitalObject, null=True, blank=True, related_name="foreststory_display_image")
+  facet = models.ManyToManyField(Facet)
+  learning_activity = models.ManyToManyField(LearningActivity, null=True, blank=True)
+  location = models.ManyToManyField(Location, null=True, blank=True)
+  person = models.ManyToManyField(Person, null=True, blank=True)
+  publication = models.ManyToManyField(Publication, null=True, blank=True)
+  research_project = models.ManyToManyField(ResearchProject, null=True, blank=True)
+  tag = models.ManyToManyField(Tag, null=True, blank=True)
+  
+  created_date = models.DateTimeField('created_date', default=datetime.now)
+  modified_date = models.DateTimeField('modified_date', default=datetime.now)
+  
+  def __unicode__(self):
+    return self.name    
+  
 class AssetList(models.Model):
   pageblocks = generic.GenericRelation(PageBlock, related_name="assetlist_pageblock")
   search_criteria = models.TextField()
   template_file = "portal/assetlist.html"
   display_name = "Asset List"
-  show_keywords = models.BooleanField(default=True)
-  show_categories = models.BooleanField(default=True)
     
   def pageblock(self):
     return self.pageblocks.all()[0]
@@ -284,32 +322,19 @@ class AssetList(models.Model):
   
   @classmethod
   def add_form(self):
-    class AddForm(forms.Form):
-        search_criteria = forms.CharField(widget=forms.widgets.Textarea(attrs={'cols':'80'}))
-        show_keywords = forms.BooleanField()
-        show_categories = forms.BooleanField()
-    return AddForm()
+    return AssetListForm()
+  
+  def edit_form(self):
+    return AssetListForm(instance=self)
 
   @classmethod
   def create(self,request):
-    search_criteria = request.POST.get('search_criteria','')
-    show_keywords = request.POST.get('show_keywords', '')
-    show_categories = request.POST.get('show_categories', '')
-    return AssetList.objects.create(search_criteria=search_criteria, show_keywords=show_keywords, show_categories=show_categories)
+    form = AssetListForm(request.POST)
+    return form.save()
   
-  def edit_form(self):
-    class EditForm(forms.Form):
-        search_criteria = forms.CharField(widget=forms.widgets.Textarea(attrs={'cols':'80'}),
-                                 initial=self.search_criteria)
-        show_keywords = forms.BooleanField(initial=self.show_keywords)
-        show_categories = forms.BooleanField(initial=self.show_categories)
-    return EditForm();
-  
-  def edit(self,vals,files):
-    self.search_criteria = vals.get('search_criteria','')
-    self.show_keywords = vals.get('show_keywords','')
-    self.show_categories = vals.get('show_categories','')
-    self.save()  
+  def edit(self, vals, files):
+    form = AssetListForm(vals)
+    form.save() 
       
   def list(self):    
     results = SearchQuerySet()
@@ -337,4 +362,83 @@ class AssetList(models.Model):
         c = c.replace(':', '=')
         query += c.strip() + "&"
       
-    return query      
+    return query   
+  
+class FeaturedAsset(models.Model):
+  pageblocks = generic.GenericRelation(PageBlock, related_name="featuredassetlist_pageblock")
+  audience = models.ForeignKey(Audience)
+  detailed_display = models.BooleanField()
+  
+  # pick one
+  asset_location = models.ForeignKey(Location, null=True, blank=True)
+  asset_station = models.ForeignKey(Station, null=True, blank=True)
+  asset_region = models.ForeignKey(Region, null=True, blank=True)
+  asset_person = models.ForeignKey(Person, null=True, blank=True)
+  asset_digitalobject = models.ForeignKey(DigitalObject, null=True, blank=True)
+  asset_publication = models.ForeignKey(Publication, null=True, blank=True)
+  asset_dataset = models.ForeignKey(DataSet, null=True, blank=True)
+  asset_research_project = models.ForeignKey(ResearchProject, null=True, blank=True)
+  asset_learning_activity = models.ForeignKey(LearningActivity, null=True, blank=True)
+  asset_forest_story = models.ForeignKey(ForestStory, null=True, blank=True)
+  
+  template_file = "portal/featuredasset.html"
+  display_name = "Featured Asset"
+
+  def __unicode__(self):
+    return self.asset().name
+
+  def needs_submit(self):
+    return False
+  
+  @classmethod
+  def add_form(self):
+    return FeaturedAssetForm()
+  
+  def edit_form(self):
+    return FeaturedAssetForm(instance=self)
+
+  @classmethod
+  def create(self,request):
+    form = FeaturedAssetForm(request.POST)
+    if form.is_valid():
+      return form.save()
+    
+  def edit(self, vals, files):
+    form = FeaturedAssetForm(vals)
+    if form.is_valid():
+      form.save()
+      
+  def asset(self):
+    # figure out which one is not null, and return it!
+    for f in self._meta.fields:
+      if 'asset_' in f.name:
+        attr = self.__getattribute__(f.name)
+        if attr:
+          return attr
+     
+class AssetListForm(forms.ModelForm):
+  class Meta:
+    model = AssetList    
+    
+class FeaturedAssetForm(forms.ModelForm):
+  class Meta:
+    model = FeaturedAsset
+    
+  def clean(self):
+    from django.core.exceptions import ValidationError
+    
+    asset_count = 0
+    for field_name, val in self.cleaned_data.items():
+      if "asset_" in field_name and val != None:
+        asset_count += 1
+    
+    if asset_count == 0:
+      raise ValidationError('Please select one object to display.')
+    elif asset_count > 1:
+      raise ValidationError('Please select only one object to display.')
+    
+    return self.cleaned_data
+  
+
+
+   

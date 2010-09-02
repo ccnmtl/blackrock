@@ -165,8 +165,29 @@ td#right {
     font-weight: bold;
 }
 
+.featuredasset {
+    border: 1px solid black;
+    padding: 5px;
+    margin: 5px;
+}
 
+#audience_filter {
+    vertical-align: top;
+    width: 50%;
+}
 
+#infrastructure_filter {
+    vertical-align: top;
+}
+
+.geocode {
+    display: none;
+}
+
+.featured_image {
+    width: 300px;
+}
+    
 
 
 

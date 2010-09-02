@@ -17,7 +17,20 @@ class Command(BaseCommand):
   def handle(self, *app_labels, **options):
      cursor = connection.cursor()
      
-     asset_tables = ['portal_learningactivity_url',
+     asset_tables = ['portal_foreststory_audience',        
+                     'portal_foreststory_dataset',         
+                     'portal_foreststory_digital_object',  
+                     'portal_foreststory_facet',         
+                     'portal_foreststory_location',        
+                     'portal_foreststory_person',          
+                     'portal_foreststory_publication',
+                     'portal_foreststory_research_project',
+                     'portal_foreststory_learning_activity',
+                     'portal_foreststory_tag',   
+                     'portal_foreststory_url',          
+                     'portal_foreststory',  
+                     
+                     'portal_learningactivity_url',
                      'portal_learningactivity_digital_format',
                      'portal_learningactivity_digital_object',
                      'portal_learningactivity_audience',       
@@ -40,7 +53,8 @@ class Command(BaseCommand):
                      'portal_researchproject',  
                      
                      'portal_publication_audience',            
-                     'portal_publication_dataset',             
+                     'portal_publication_dataset',
+                     'portal_publication_digital_object',             
                      'portal_publication_facet',             
                      'portal_publication_location',            
                      'portal_publication_person',
@@ -49,17 +63,10 @@ class Command(BaseCommand):
                      'portal_publication_tag',              
                      'portal_publication', 
                                          
-                     'portal_digitalobject_audience',          
-                     'portal_digitalobject_author',  
-                     'portal_digitalobject_digital_format',            
-                     'portal_digitalobject_facet',           
-                     'portal_digitalobject_location',
-                     'portal_digitalobject_tag',
-                     'portal_digitalobject',                   
-                           
                      'portal_dataset_url',    
                      'portal_dataset_audience',                
-                     'portal_dataset_facet',                 
+                     'portal_dataset_facet',             
+                     'portal_dataset_digital_object',    
                      'portal_dataset_location',                
                      'portal_dataset_person',
                      'portal_dataset_rights_type',
@@ -67,32 +74,41 @@ class Command(BaseCommand):
                      'portal_dataset',                         
                                        
                      'portal_person_institution',   
-                     'portal_person_audience',                 
+                     'portal_person_audience',
+                     'portal_person_digital_object',                        
                      'portal_person_facet',
                      'portal_person_person_type',
                      'portal_person_tag',
                      'portal_person',
                      
                      'portal_station_audience',
+                     'portal_station_digital_object',
                      'portal_station_location',                
                      'portal_station_facet',
                      'portal_station_tag',       
                      'portal_station',    
                      
                      'portal_region_audience',
+                     'portal_region_digital_object',
                      'portal_region_facet',
                      'portal_region_tag',
                      'portal_region_location',
                      'portal_region_region_type',
                      'portal_region',
                                           
-                     'portal_location_audience',               
+                     'portal_location_audience',
+                     'portal_location_digital_object',               
                      'portal_location_facet',
                      'portal_location_tag',
                      'portal_location_location_subtype',
                      'portal_location_location_type',                      
-                     'portal_location'
+                     'portal_location', 
                      
+                     'portal_digitalobject_audience',          
+                     'portal_digitalobject_digital_format',            
+                     'portal_digitalobject_facet',           
+                     'portal_digitalobject_tag',
+                     'portal_digitalobject',                   
                      ]   
   
      for table in asset_tables:

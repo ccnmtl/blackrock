@@ -1,0 +1,11 @@
+{% load klass %}
+   <div class="geocode">
+      <div class="parent_asset" id="{{current_object|klass}}-{{current_object.id}}">
+      <div class="parent_audience">{{current_object.audience.name}}</div>
+      <div class="parent_facets">
+         {% for c in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ c.display_name }}{% endfor %}
+      </div>
+      <div class="latitude">{{latitude}}</div>
+      <div class="longitude">{{longitude}}</div>
+   </div>
+       

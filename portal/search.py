@@ -65,16 +65,13 @@ class PortalSearchForm(FacetedSearchForm):
     if len(sqs) > 0:
       counts = sqs.facet_counts()
       for facet in counts['fields']:
-        for key, value in counts['fields'][facet]:
-          if value > 0:
-            choice = (key, "%s (%s)" % (key, value))
-            self.fields[facet].choices.append(choice)
-
         if facet in self.fields:
-          if len(self.fields[facet].choices) < 1:
-            self.hidden.append(facet)
-          else:
-            self.fields[facet].choices.sort()
+          for key, value in counts['fields'][facet]:
+            if value > 0:
+              choice = (key, "%s (%s)" % (key, value))
+              self.fields[facet].choices.append(choice)
+  
+          self.fields[facet].choices.sort()
           
     return sqs
     
