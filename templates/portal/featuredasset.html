@@ -159,13 +159,21 @@
        <div>
            <b>DataSet</b>
            {% if block.asset.dataset.count %}
-              {% for d in block.asset.dataset.all %}{% if forloop.counter > 1 %}, {% endif %}{{ d.name }}{% endfor %}<br />
+              {% for d in block.asset.dataset.all %}
+                <a href="/portal/browse/portal/dataset/objects/{{d.id}}">
+                {{ d.name }}
+                </a><br />
+              {% endfor %}
            {% endif %}
        </div>
        <div>
            <b>Publication</b>
            {% if block.asset.publication.count %}
-              {% for p in block.asset.publication.all %}{% if forloop.counter > 1 %}, {% endif %}{{ p.name }}{% endfor %}<br />
+              {% for p in block.asset.publication.all %}
+                 <a href="/portal/browse/portal/publication/objects/{{p.id}}">
+                    {{ p.name }}
+                 </a><br />
+              {% endfor %}
            {% endif %}
        </div>
       <div>
