@@ -1,0 +1,37 @@
+{% load klass %}
+{% load smartif %}
+
+   <div class="geocode">
+      <input class="asset_identifier" type="hidden" name="{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}" value="{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}">
+      
+      <input type="hidden" id="{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-latitude" value="{{current_location.latitude}}"></input>
+      <input type="hidden" id="{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-longitude" value="{{current_location.longitude}}"></input>
+      
+      <div id="{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-description">
+        <!--  Map Callout Template -->
+        {% spaceless %}
+        <b>
+        {% if current_object.display_name %}
+          {{current_object.display_name}}
+        {% else %}
+          {{current_object.name}}
+        {% endif %}
+        
+        {% ifnotequal current_object current_location %}
+           <br />{{current_location.name}}
+        {% endifnotequal %}
+        </b>
+        {% endspaceless %}  
+        <br />
+        <div style="color: #c6c6c6; padding-bottom: 5px;">{{current_object|klass_display}}<br /></div>
+        
+        {% if current_object|klass == "ForestStory" %}
+            <a href="/portal/foreststories/{{block.asset.name}}/">
+        {% else %}
+            <a href="/portal/browse/portal/{{result.object|klass|lower}}/objects/{{result.object.id}}">
+        {% endif %}
+        More</a>
+     </div>
+      
+   </div>
+       

@@ -18,16 +18,15 @@
          <div style="clear: both"></div>
     {% else %}{% if current_object|klass == "Person" %}
         <div>
-            <b>Title</b>: 
+            <b>Description</b>:
+            {% spaceless %} 
             {% if current_object.professional_title %}
-                {{ current_object.professional_title }}
+                {{ current_object.professional_title }}, 
             {% endif %}
-        </div>
-        <div>
-            <b>Institution</b>:
             {% if current_object.institution %}
                  {% for i in current_object.institution.all %}{% if forloop.counter > 1 %}, {% endif %}{{ i.name|truncatewords:25 }}{% endfor %}
             {% endif %}
+            {% endspaceless %}
          </div>
     {% else %}{% if current_object|klass == "Publication" %}
            <div>
@@ -50,19 +49,4 @@
          {% endif %}
     {% endif %}{% endif %}{% endif %}{% endif %}
 
-{% comment %}
-    {% if current_object.location %}
-        {% with current_object.location.latitude as latitude %}
-        {% with current_object.location.longitude as longitude %}
-            {% include "portal/asset_location.html" %}
-        {% endwith %}{% endwith %}
-    {% endif %}
-    
-    {% if current_object.latitude %}
-       {% with current_object.latitude as latitude %}
-       {% with current_object.longitude as longitude %}
-           {% include "portal/asset_location.html" %} 
-       {% endwith %}{% endwith %}
-    {% endif %}
-{% endcomment %}    
 </div>

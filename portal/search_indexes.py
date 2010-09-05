@@ -47,6 +47,7 @@ site.register(DigitalObject, AssetIndex)
 site.register(Publication, AssetIndex)
 site.register(ResearchProject, AssetIndex)
 site.register(LearningActivity, AssetIndex)
+site.register(ForestStory, AssetIndex)
 
 from django.contrib import databrowse
 

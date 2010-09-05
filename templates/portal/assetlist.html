@@ -2,7 +2,13 @@
 {% load smartif %}     
     <div class="assetlist">  
        {% for result in block.list %}
-           {% if forloop.counter <= block.list_count %} 
+         {% if forloop.counter <= block.list_count %}
+            {% with result.object as current_object %}
+               
+               <!--  List out this asset's location(s) in a hidden div. Will be mined by maps.js and put on GMap -->
+               {% include "portal/asset_list_locations.html" %}
+
+                <!-- Name -->                 
                 {% if block.asset|klass == "ForestStory" %}
                     <a href="/portal/foreststories/{{block.asset.name}}/">
                 {% else %}
@@ -11,8 +17,12 @@
                 {{ result.object.name }}
                 </a>
                 <br />
-                {% with result.object as current_object %}{% include "portal/asset_descriptions.html" %}{% endwith %}
+                
+                <!-- Asset Descriptions (tailored to asset type) -->
+                {% include "portal/asset_descriptions.html" %} 
                 <hr style="color: #e0e0e0"/>
+                
+            {% endwith %}
           {% endif %}
         {% endfor %}
         

@@ -187,6 +187,10 @@ td#right {
 .featured_image {
     width: 300px;
 }
+
+.highlightonmap {
+    float: right;
+}
     
 
 

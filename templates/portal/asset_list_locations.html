@@ -1,0 +1,21 @@
+{% load klass %}
+               
+    {% if current_object.location.count %}
+        <!-- List out all asset's locations -->
+        {% for l in current_object.location.all %}
+            {% with l as current_location %}
+                {% ifequal forloop.counter 1 %}
+                    <!--  Highlight this asset's first location -->
+                    <div class="highlightonmap"><a href="#" onclick="showInfoWindow('{{current_object|klass}}-{{current_object.id}}-{{l.id}}'); return false;">Highlight On Map</a></div>
+                {% endifequal %}
+                {% include "portal/asset_single_location.html" %}
+            {% endwith %}
+        {% endfor %}
+    {% endif %}
+    
+    {% if current_object.latitude %}
+       <div class="highlightonmap"><a href="#" onclick="showInfoWindow('{{current_object|klass}}-{{current_object.id}}-{{current_object.id}}'); return false;">Highlight On Map</a></div>
+       {% with current_object as current_location %}
+           {% include "portal/asset_single_location.html" %} 
+       {% endwith %}
+    {% endif %}

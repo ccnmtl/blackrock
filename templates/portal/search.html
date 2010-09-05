@@ -8,6 +8,7 @@
     {{ block.super }}
     
     <script type="text/javascript">
+    /**
         function hideElements() 
         { 
             {% for hidden_name in hidden %}
@@ -20,6 +21,7 @@
             {% endfor %} 
         }
         MochiKit.Signal.connect(window, "onload", hideElements);
+    **/
     </script> 
 {% endblock %}
 
@@ -54,7 +56,7 @@
                 {{ result.object.name }}
                 </a>
                 <br />
-                <b>Type</b>: {{result.object|klass}}<br />
+                <b>Type</b>: {{result.object|klass_display}}<br />
                 {% with result.object as current_object %}{% include "portal/asset_descriptions.html" %}{% endwith %}
                 <b>Keywords</b>: 
                 {% for k in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}{{ k.name }}{% endfor %}
@@ -67,9 +69,9 @@
         </div>
         {% if page.has_previous or page.has_next %}
             <div>
-                {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+                {% if page.has_previous %}<a href="?{{ query }}page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
                 |
-                {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+                {% if page.has_next %}<a href="?{{ query }}page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
             </div>
         {% endif %}
     </div>

@@ -4,13 +4,31 @@ from haystack.forms import *
 from portal.models import *
 from django.utils.translation import ugettext_lazy as _
 
-class PortalSearchForm(FacetedSearchForm):
+class PortalSearchForm(SearchForm):
 
-  audience = forms.MultipleChoiceField(required=False, label=_('Audience'), widget=forms.CheckboxSelectMultiple)
-  asset_type = forms.MultipleChoiceField(required=False, label=_('Asset Type'), widget=forms.CheckboxSelectMultiple)
-  study_type = forms.MultipleChoiceField(required=False, label=_('Study Type'), widget=forms.CheckboxSelectMultiple)
-  species = forms.MultipleChoiceField(required=False, label=_('Species'), widget=forms.CheckboxSelectMultiple)
-  discipline = forms.MultipleChoiceField(required=False, label=_('Discipline'), widget=forms.CheckboxSelectMultiple)
+  def default_type_choices(site=None):
+    if site is None:
+        site = haystack.site
+    
+    choices = [(m._meta.object_name, m._meta.verbose_name) for m in site.get_indexed_models()]
+    choices.sort()
+    return choices
+  
+  def default_audience_choices():
+    choices = [(a.name, a.name) for a in Audience.objects.all()]
+    choices.sort()
+    return choices
+  
+  def default_facet_choices(facet):
+    choices = [ (f.name, f.display_name) for f in Facet.objects.filter(facet=facet)]
+    choices.sort()
+    return choices
+
+  audience = forms.MultipleChoiceField(required=False, label=_('Audience'), widget=forms.CheckboxSelectMultiple, choices=default_audience_choices())
+  asset_type = forms.MultipleChoiceField(required=False, label=_('Asset Type'), widget=forms.CheckboxSelectMultiple, choices=default_type_choices())
+  study_type = forms.MultipleChoiceField(required=False, label=_('Study Type'), widget=forms.CheckboxSelectMultiple, choices=default_facet_choices("Study Type"))
+  species = forms.MultipleChoiceField(required=False, label=_('Species'), widget=forms.CheckboxSelectMultiple, choices=default_facet_choices("Species"))
+  discipline = forms.MultipleChoiceField(required=False, label=_('Discipline'), widget=forms.CheckboxSelectMultiple, choices=default_facet_choices("Discipline"))
   
   def __init__(self, *args, **kwargs):
     super(PortalSearchForm, self).__init__(*args, **kwargs)
@@ -86,9 +104,13 @@ class PortalSearchView(SearchView):
     extra = super(PortalSearchView, self).extra_context()
     if hasattr(self, "results"):
       extra["count"] = len(self.results)
-    extra["hidden"] = self.form.hidden
-    extra['show_categories'] = True
-    extra['show_keywords'] = True
+      
+    # Send down our current parameters minus page number
+    query = ''
+    for param, value in self.request.GET.items():
+      if param != 'page':
+        query += '%s=%s&' % (param, value) 
+    extra['query'] = query
     return extra
 
 

@@ -14,7 +14,7 @@ class Audience(models.Model):
 
   def __unicode__(self):
     return self.name
-
+  
 class DigitalFormat(models.Model):
   name = models.CharField(max_length=100, unique=True)
   def __unicode__(self):
@@ -25,7 +25,7 @@ class Facet(models.Model):
   display_name = models.CharField(max_length=100)
   facet = models.CharField(max_length=50)
   
-  asset_facets = ['audience', 'study_type', 'species', 'discipline', 'asset_type', 'infrastructure', 'featured']
+  asset_facets = ['audience', 'study_type', 'species', 'discipline', 'asset_type', 'infrastructure']
   
   class Meta:
     unique_together = (("name", "facet"),)
@@ -105,6 +105,9 @@ class DigitalObject(models.Model):
   
   def __unicode__(self):
     return self.name
+  
+  class Meta:
+    verbose_name = "Digital Object"
 
 class Location(models.Model):
   name = models.CharField(max_length=500)
@@ -204,6 +207,9 @@ class DataSet(models.Model):
   
   def __unicode__(self):
     return self.name
+  
+  class Meta:
+    verbose_name = "Data Set"
 
 class Publication(models.Model):
   name = models.CharField(max_length=500, unique=True)
@@ -254,7 +260,10 @@ class ResearchProject(models.Model):
       return "%s..." % self.name[0:MAX_DISPLAY_LENGTH]
     else:
       return self.name
-  
+    
+  class Meta:
+    verbose_name = "Research Project"
+    
 class LearningActivity(models.Model):
   name = models.CharField(max_length=500)
   description = models.TextField(null=True, blank=True)
@@ -273,6 +282,10 @@ class LearningActivity(models.Model):
   
   created_date = models.DateTimeField('created_date', default=datetime.now)
   modified_date = models.DateTimeField('modified_date', default=datetime.now)
+  
+  class Meta:
+    verbose_name = "Learning Activity"
+    verbose_name_plural = "Learning Activities"
   
   def __unicode__(self):
     return self.name
@@ -298,6 +311,10 @@ class ForestStory(models.Model):
   
   created_date = models.DateTimeField('created_date', default=datetime.now)
   modified_date = models.DateTimeField('modified_date', default=datetime.now)
+  
+  class Meta:
+    verbose_name = "Forest Story"
+    verbose_name_plural = "Forest Stories"
   
   def __unicode__(self):
     return self.name    

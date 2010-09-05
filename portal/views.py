@@ -22,9 +22,6 @@ def admin_rebuild_index(request):
 
   return render_to_response('portal/admin_solr.html', context_instance=ctx)
 
-def search(request):
-  return render_to_response('portal/search.html', context_instance=RequestContext(request, {}))
-
 class rendered_with(object):
     def __init__(self, template_name):
         self.template_name = template_name
