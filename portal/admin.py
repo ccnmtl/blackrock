@@ -7,7 +7,13 @@ class GenericAdmin(admin.ModelAdmin):
 
 admin.site.register(Audience, GenericAdmin)
 admin.site.register(DigitalFormat, GenericAdmin)
-admin.site.register(Facet, GenericAdmin)
+
+class FacetAdmin(admin.ModelAdmin):
+  search_fields = ['name', 'display_name']
+  list_display = ('name', 'display_name')
+  ordering = ["name"]
+admin.site.register(Facet, FacetAdmin)
+
 admin.site.register(Institution, GenericAdmin)
 admin.site.register(LocationType, GenericAdmin)
 admin.site.register(LocationSubtype, GenericAdmin)

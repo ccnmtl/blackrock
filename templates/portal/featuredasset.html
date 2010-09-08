@@ -1,26 +1,19 @@
-{% load klass %}
+{% load portal %}
 {% load smartif %} 
 
 <div class="assetlist" id="{{asset_klass}}-{{current_object.id}}">
 {% with block.asset as current_object %}
 {% with block.asset|klass as asset_klass %}
+{% with 1 as highlightonmap %}
 
    <!--  List out this asset's location(s) in a hidden div. Will be mined by maps.js and put on GMap -->
-   {% include "portal/asset_list_locations.html" %}
+   {% include "portal/asset_location.html" %}
+   
+   <a href="{{block.asset|detail_url}}">{{current_object.name}}</a><br />
 
    {% if block.detailed_display %}
     
       <div class="featuredasset">
-          <div>
-              {% if asset_klass == "ForestStory" %}
-                <a href="/portal/foreststories/{{current_object.name}}/">   
-              {% else %}
-                <a href="/portal/browse/portal/{{asset_klass|lower}}/objects/{{current_object.id}}">
-              {% endif %}
-                   {{ current_object.name }}
-                </a>
-          </div>
-          
           
           {% if asset_klass == "DataSet" %}
            <div>
@@ -246,12 +239,9 @@
           </a>
       </div>
     {% else %}
-        <!--  Featured, but not highlighted on the page -->
-          <a href="/portal/browse/portal/{{asset_klass|lower}}/objects/{{current_object.id}}">
-            {{ current_object.name }}
-          </a>
-          {% include "portal/asset_descriptions.html" %}
+        <!--  Featured, but not highlighted on the page. Default to regular asset_descriptions -->
+        {% include "portal/asset_description.html" %}
     {% endif %}
 
-{% endwith %}{% endwith %}
+{% endwith %}{% endwith %}{% endwith %}
 </div>

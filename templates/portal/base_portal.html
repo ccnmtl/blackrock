@@ -27,8 +27,7 @@
             search_text.value = '';
          }
       }
-    
-      google.maps.event.addDomListener(window, 'load', initializeMap);
+
     </script>
     {% block js %}{% endblock %}
     
@@ -101,14 +100,39 @@
                                           <div><input type="checkbox" name="research"/<img src="/portal/media/images/nonmapicon_research.png/">Research</div>
                                       </td>
                                       <td id="infrastructure_filter">
-                                          <div><input type="checkbox" name="facilities"/><img src="/portal/media/images/nonmapicon_facility.png/"/>Forest Facilities</div>
-                                          <div><input type="checkbox" name="environmental_monitoring"/><img src="/portal/media/images/nonmapicon_monitoring.png/"/>Environmental Monitoring</div>
-                                          <div><input type="checkbox" name="webcams"/><img src="/portal/media/images/nonmapicon_webcam.png/"/>Webcams</div>
-                                          <div><input type="checkbox" name="longterm_plots"/><img src="/portal/media/images/nonmapicon_ltp.png/"/>Long-Term Plots</div>
+                                          <div><input type="checkbox" class="infrastructure_option" id="idFacilities" value="Forest Facilities" checked="checked" /><img src="/portal/media/images/nonmapicon_facility.png/"/>Forest Facilities</div>
+                                          <div><input type="checkbox" class="infrastructure_option" id="idEnvironmentalMonitoring" value="Environmental Monitoring" /><img src="/portal/media/images/nonmapicon_monitoring.png/"/>Environmental Monitoring</div>
+                                          <div><input type="checkbox" class="infrastructure_option" id="idWebcams" value="Webcams" /><img src="/portal/media/images/nonmapicon_webcam.png/"/>Webcams</div>
+                                          <div><input type="checkbox" class="infrastructure_option" id="idLongtermPlots" value="Long-Term Plots" /><img src="/portal/media/images/nonmapicon_ltp.png/"/>Long-Term Plots</div>
                                       </td>
                                   </tr>
                               </table>
                            </div>
+                           
+                           <!--  Geocoded information for all Infrastructure assets -->
+                           <div id="infrastructure_assets">
+                            {% for result in infrastructure %}
+                                {% with result.object as current_object %}
+                                {% with 1 as show_infrastructure %}
+                                {% with "infra" as prefix %}
+                                   {% if current_object.location.count %}
+                                      <!-- List out all asset's locations -->
+                                      {% for l in current_object.location.all %}
+                                         {% with l as current_location %}
+                                            {% include "portal/asset_geocode.html" %}
+                                         {% endwith %}
+                                      {% endfor %}
+                                   {% endif %}
+                                   {% if current_object.latitude %}
+                                       {% with current_object as current_location %}
+                                           {% include "portal/asset_geocode.html" %} 
+                                       {% endwith %}
+                                   {% endif %}
+                                {% endwith %}{% endwith %}{% endwith %}
+                            {% endfor %}
+                           </div>
+                           
+
                         {% endblock %} 
                     </td>
                 </tr>

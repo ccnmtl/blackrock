@@ -1,30 +1,27 @@
-{% load klass %}
+{% load portal %}
 {% load smartif %}     
-    <div class="assetlist">  
-       {% for result in block.list %}
-         {% if forloop.counter <= block.list_count %}
+<div class="assetlist">  
+    {% for result in block.list %}
+        {% if forloop.counter <= block.list_count %}
             {% with result.object as current_object %}
+            {% with 1 as highlightonmap %}
                
-               <!--  List out this asset's location(s) in a hidden div. Will be mined by maps.js and put on GMap -->
-               {% include "portal/asset_list_locations.html" %}
+                <!-- Asset Locations (Hidden. Used by maps.js to plot GMaps) -->
+                {% include "portal/asset_location.html" %}
 
                 <!-- Name -->                 
-                {% if block.asset|klass == "ForestStory" %}
-                    <a href="/portal/foreststories/{{block.asset.name}}/">
-                {% else %}
-                    <a href="/portal/browse/portal/{{result.object|klass|lower}}/objects/{{result.object.id}}">
-                {% endif %}
-                {{ result.object.name }}
-                </a>
+                <a href="{{current_object|detail_url}}">{{current_object.name}}</a>
                 <br />
                 
                 <!-- Asset Descriptions (tailored to asset type) -->
-                {% include "portal/asset_descriptions.html" %} 
+                {% include "portal/asset_description.html" %}
+                 
                 <hr style="color: #e0e0e0"/>
                 
-            {% endwith %}
-          {% endif %}
-        {% endfor %}
+            {% endwith %}{% endwith %}
+        {% endif %}
+    {% endfor %}
         
-        <a href="/portal/search/?{{block.search_query}}">More</a>
-    </div>
+    <a href="/portal/search/?{{block.search_query}}">More</a>
+</div>
+<input type="hidden" name="audience" value="{{block.audience}}" />

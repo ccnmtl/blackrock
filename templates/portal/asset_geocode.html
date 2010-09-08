@@ -1,0 +1,50 @@
+{% load portal %}
+{% load smartif %}
+
+   <!-- Includes all the information to plot this location on a map. And, filter by various facets -->
+   <!-- Geocode divs are hidden and used only for scripting purposes. -->
+
+   <div class="geocode">
+      <input class="asset_identifier" type="hidden" value="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}">
+      
+      <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-name" value="{{current_object.name}}"></input>
+      
+      
+      <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-latitude" value="{{current_location.latitude}}"></input>
+      <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-longitude" value="{{current_location.longitude}}"></input>
+      
+      <!-- Facets -->
+      <input type="hidden" 
+             id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-audience"
+             value="{% for a in current_object.audience.all %}{% if forloop.counter > 1 %},{% endif %}{{a.name}}{% endfor %}" />
+
+      {% if show_infrastructure %}
+      <input type="hidden" 
+             id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-infrastructure"
+             value="{% for i in current_object|infrastructure %}{% if forloop.counter > 1 %},{% endif %}{{i}}{% endfor %}" />
+      {% endif %}
+
+      <!--  Map Callout Template -->
+      <div id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-description">
+        {% spaceless %}
+        <b>
+            <a href="{{current_object|detail_url}}">
+                {% if current_object.display_name %}
+                  {{current_object.display_name}}
+                {% else %}
+                  {{current_object.name}}
+                {% endif %}
+            </a>
+        </b>
+        {% endspaceless %}  
+        <br />
+        {% ifnotequal current_object.name current_location.name %}
+            <a href="{{current_location|detail_url}}">{{current_location.name}}</a><br />
+        {% endifnotequal %}  
+        <div style="color: #c6c6c6; padding-bottom: 5px;">{{current_object|klass_display}}<br /></div>
+        
+        <a href="{{current_object|detail_url}}">More</a>
+     </div>
+      
+   </div>
+       

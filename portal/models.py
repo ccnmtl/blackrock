@@ -31,7 +31,7 @@ class Facet(models.Model):
     unique_together = (("name", "facet"),)
   
   def __unicode__(self):
-    return self.display_name
+    return self.name
   
 class Institution(models.Model):
   name = models.CharField(max_length=100, unique=True)
@@ -92,8 +92,8 @@ class DigitalObject(models.Model):
   name = models.CharField(max_length=500)
   description = models.TextField(null=True, blank=True)
   digital_format = models.ForeignKey(DigitalFormat)
-  file = models.FileField(upload_to="portal/%Y/%m/%d/")
-  url = models.URLField()
+  file = models.FileField(upload_to="portal/%Y/%m/%d/", null=True, blank=True)
+  url = models.URLField(null=True, blank=True)
   source = models.CharField(max_length=500, null=True, blank=True)
   
   audience = models.ManyToManyField(Audience, null=True, blank=True)
@@ -294,7 +294,7 @@ class ForestStory(models.Model):
   name = models.CharField(max_length=500)
   display_name = models.CharField(max_length=500)
   description = models.TextField(null=True, blank=True)
-  file = models.FileField(upload_to="portal/%Y/%m/%d/")
+  file = models.FileField(upload_to="portal/%Y/%m/%d/", null=True, blank=True)
   url = models.ManyToManyField(Url, null=True, blank=True)
    
   audience = models.ManyToManyField(Audience, null=True, blank=True)
@@ -318,7 +318,7 @@ class ForestStory(models.Model):
   
   def __unicode__(self):
     return self.name    
-  
+
 class AssetList(models.Model):
   pageblocks = generic.GenericRelation(PageBlock, related_name="assetlist_pageblock")
   search_criteria = models.TextField()

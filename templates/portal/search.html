@@ -1,6 +1,6 @@
 {% extends "portal/base_portal.html" %}
 {% load smartif %}
-{% load klass %}
+{% load portal %}
 
 {% block pagetitle %}Search{% endblock %}
 
@@ -48,16 +48,13 @@
         <div class="assetlist">
         {% for result in page.object_list %}
             <div>
-                {% if block.asset|klass == "ForestStory" %}
-                    <a href="/portal/foreststories/{{block.asset.name}}/">
-                {% else %}
-                <a href="/portal/browse/portal/{{result.object|klass|lower}}/objects/{{result.object.id}}">
-                {% endif %}
-                {{ result.object.name }}
-                </a>
+                <a href="{{block.asset|detail_url}}">{{result.object.name}}</a>
                 <br />
-                <b>Type</b>: {{result.object|klass_display}}<br />
-                {% with result.object as current_object %}{% include "portal/asset_descriptions.html" %}{% endwith %}
+                <b>Type</b>: {{result.object|klass_display}}
+                <br />
+                {% with result.object as current_object %}
+                    {% include "portal/asset_description.html" %}
+                {% endwith %}
                 <b>Keywords</b>: 
                 {% for k in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}{{ k.name }}{% endfor %}
                 <br />
