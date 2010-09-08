@@ -48,7 +48,7 @@
         <div class="assetlist">
         {% for result in page.object_list %}
             <div>
-                <a href="{{block.asset|detail_url}}">{{result.object.name}}</a>
+                <a href="{{result.object|detail_url}}">{{result.object.name}}</a>
                 <br />
                 <b>Type</b>: {{result.object|klass_display}}
                 <br />
