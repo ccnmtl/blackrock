@@ -460,20 +460,45 @@
         {% endif %}            
     {% else %}{% if asset_klass == "ResearchProject" %}
         <div>
+            <b>Project Start Date</b>:
+            {% if current_object.start_date %}
+                {{ current_object.start_date|date }}
+            {% endif %} 
+        </div>
+        <div>
+            <b>Project End Date</b>:
+            {% if current_object.end_date %}
+                {{ current_object.end_date|date }}
+            {% endif %} 
+        </div>
+        <div>
            <b>Principal Investigator{% if current_object.person.count > 1 %}s{% endif %}:</b>
            {% if current_object.person.count %}
               {% for p in current_object.person.all %}{% if forloop.counter > 1 %}, {% endif %}{{ p.name }}{% endfor %}<br />
            {% endif %}
-       </div>
-       <div>
-           <b>Location</b>
-           {% if current_object.location.count %}
-              {% for l in current_object.location.all %}{% if forloop.counter > 1 %}, {% endif %}{{ l.name }}{% endfor %}<br />
+        </div>
+        <div>
+           <b>Description</b>: 
+           {% if current_object.description %}
+              {{ current_object.description }}<br />
            {% endif %}
-       </div>
+        </div>
+        <div>
+            <b>Location</b>:
+            {% for x in current_object.location.all %}{% if forloop.counter > 1 %}, {% endif %}{{ x.name }}{% endfor %}<br />
+        </div>
+        <div>
+             <b>Keyword</b>:
+             {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ f.name }}{% endfor %}<br />
+        </div>
+        <div>
+             <b>Categories</b>:
+             {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
+         </div>
+       <br /><br />
        <div>
-           <b>DataSet</b>
            {% if current_object.dataset.count %}
+              <b>Related DataSets</b>:
               {% for d in current_object.dataset.all %}
                 <a href="/portal/browse/portal/dataset/objects/{{d.id}}">
                 {{ d.name }}
@@ -482,8 +507,8 @@
            {% endif %}
        </div>
        <div>
-           <b>Publication</b>
            {% if current_object.publication.count %}
+              <b>Related Publications</b>:
               {% for p in current_object.publication.all %}
                  <a href="/portal/browse/portal/publication/objects/{{p.id}}">
                     {{ p.name }}
@@ -491,18 +516,7 @@
               {% endfor %}
            {% endif %}
        </div>
-      <div>
-         <b>Description</b>: 
-         {% if current_object.description %}
-            {{ current_object.description }}<br />
-         {% endif %}
-      </div>
    {% else %}{% if asset_klass == "Station" %}
-       {% if current_object.display_image %}
-          <img alt="Station Image" src="{{current_object.display_image.file.url}}"  class="featured_image"></img>
-       {% else %}
-          <img alt="Station Icon" src="/portal/media/images/station.png"></img>
-       {% endif %}
        <div>
           <b>Activation Date</b>:
           {% if current_object.activation_date %}
@@ -520,7 +534,23 @@
          {% if current_object.description %}
             {{ current_object.description }}<br />
          {% endif %}
-      </div>       
+      </div>
+      <div>
+         <b>Keyword</b>:
+         {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ f.name }}{% endfor %}<br />
+      </div>
+      <div>
+         <b>Categories</b>:
+         {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
+      </div>      
+      
+
+    * Dataset:
+    * Research Project:
+    * Digital Object 
+
+      
+             
    {% else %}{% if asset_klass == "ForestStory" %}
        {% if current_object.display_image %}
           <img alt="Forest Story Icon" src="{{current_object.display_image.file.url}}" class="featured_image"></img>

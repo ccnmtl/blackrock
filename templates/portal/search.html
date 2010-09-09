@@ -56,10 +56,10 @@
                     {% include "portal/asset_description.html" %}
                 {% endwith %}
                 <b>Keywords</b>: 
-                {% for k in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}{{ k.name }}{% endfor %}
+                {% for k in result.object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}{{ k.name }}{% endfor %}
                 <br />
                 <b>Categories</b>: 
-                {% for c in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ c.display_name }}{% endfor %}
+                {% for c in result.object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ c.display_name }}{% endfor %}
             </div>
             <br />
         {% endfor %}
