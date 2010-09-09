@@ -18,9 +18,7 @@
           {% if asset_klass == "DataSet" %}
            <div>
               {% if current_object.display_image %}
-                <img alt="Data Set Icon" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
-              {% else %}
-                <img alt="Data Set Icon" src="/portal/media/images/dataset.png"></img>
+                <img alt="Data Set Image" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
               {% endif %}
               
               <div>
@@ -32,7 +30,6 @@
            </div>
         {% else %}{% if asset_klass == "DigitalObject" %}
            <div>
-             <img alt="Digital Object Icon" src="/portal/media/images/{{current_object.digital_format}}.png"></img>
              <div>
                  <b>Description</b>:
                  {% if current_object.description %}
@@ -43,9 +40,7 @@
         {% else %}{% if asset_klass == "LearningActivity" %}
            <div>
               {% if current_object.display_image %}
-                <img alt="Learning Activity Icon" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
-              {% else %}
-                <img alt="Digital Format Icon" src="/portal/media/images/{{current_object.digital_format}}.png"></img>
+                <img alt="Learning Activity Image" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
               {% endif %}
               <div>
                 <b>Format</b>: 
@@ -62,9 +57,7 @@
            </div>
         {% else %}{% if asset_klass == "Location" %}
            {% if current_object.display_image %}
-              <img alt="Location Icon" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
-           {% else %}
-              <img alt="Location Icon" src="/portal/media/images/location.png"></img>
+              <img alt="Location Image" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
            {% endif %}
            <div>
                 {% spaceless %}
@@ -86,8 +79,6 @@
         {% else %}{% if asset_klass == "Person" %}
            {% if current_object.display_image %}
               <img alt="Person Icon" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
-           {% else %}
-              <img alt="Person Icon" src="/portal/media/images/person.png"></img>
            {% endif %}
         
             <div>
@@ -111,8 +102,6 @@
         {% else %}{% if asset_klass == "Publication" %}
               {% if current_object.display_image %}
                 <img alt="Publication Icon" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
-              {% else %}
-                <img alt="Publication Icon" src="/portal/media/images/publication.png"></img>
               {% endif %}
                <div>
                   <b>Publication Type</b>: 
@@ -129,8 +118,6 @@
         {% else %}{% if asset_klass == "Region" %}
            {% if current_object.display_image %}
               <img alt="Region Icon" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
-           {% else %}
-              <img alt="Region Icon" src="/portal/media/images/region.png"></img>
            {% endif %}
            <div>
                <b>Region Type</b>: 
@@ -145,7 +132,9 @@
              {% endif %}
           </div>
         {% else %}{% if asset_klass == "ResearchProject" %}
-            <img alt="Research Project Icon" src="/portal/media/images/researchproject.png"></img>
+           {% if current_object.display_image %}
+              <img alt="Research Project Icon" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
+           {% endif %}
             <div>
                <b>Principal Investigator{% if current_object.person.count > 1 %}s{% endif %}:</b>
                {% if current_object.person.count %}
@@ -187,8 +176,6 @@
        {% else %}{% if asset_klass == "Station" %}
            {% if current_object.display_image %}
               <img alt="Station Image" src="{{current_object.display_image.file.url}}"  class="featured_image"></img>
-           {% else %}
-              <img alt="Station Icon" src="/portal/media/images/station.png"></img>
            {% endif %}
            <div>
               <b>Activation Date</b>:
@@ -210,9 +197,7 @@
           </div>       
        {% else %}{% if asset_klass == "ForestStory" %}
            {% if current_object.display_image %}
-              <img alt="Forest Story Icon" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
-           {% else %}
-              <img alt="Forest Story Icon" src="/portal/media/images/foreststory.png"></img>
+              <img alt="Forest Story Image" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
            {% endif %}
           <div>
              <b>Description</b>: 
@@ -230,7 +215,7 @@
           {% endif %}
           {% ifequal block.audience.name "Education" %} 
             Learn More >>
-          {% else %}{% ifequal block.audience.name "Exploration" %}
+          {% else %}{% ifequal block.audience.name "Experience" %}
             Let's Go >>
           {% else %}{% ifequal block.audience.name "Research" %}
             Investigate >>

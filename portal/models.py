@@ -142,6 +142,20 @@ class Station(models.Model):
   
   created_date = models.DateTimeField('created_date', default=datetime.now)
   modified_date = models.DateTimeField('modified_date', default=datetime.now)
+  
+  def research_projects(self):
+    assets = []
+    if self.location:
+      for p in self.location.researchproject_set.all():
+        assets.append(p)
+    return assets
+  
+  def datasets(self):
+    assets = []
+    if self.location:
+      for p in self.location.dataset_set.all():
+        assets.append(p)
+    return assets
 
   def __unicode__(self):
     return self.name

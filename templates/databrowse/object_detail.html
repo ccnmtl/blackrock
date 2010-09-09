@@ -4,9 +4,6 @@
 
 {% block title %}{{ object.model.verbose_name|capfirst }}: {{ object }}{% endblock %}
 
-{% block mainnav %}
-{% endblock %}
-
 {% block subnav-wrapper %}
 {% endblock %}
 
@@ -45,16 +42,23 @@
         </div>
         <div>
             <b>Keyword</b>:
-            {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ f.name }}{% endfor %}<br />
+            {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.name }}</a>{% endfor %}<br />
         </div>
         <div>
             <b>Categories</b>:
-            {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
+            {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
         </div>
         <div>
-            <b>Location</b>:
             {% if current_object.location %}
-               <a href="{{current_object.location|detail_url}}">{{ current_object.location.name }}</a>
+               {% if current_object.location.station_set.count %}
+                  <b>Station</b>:
+                  <a href="{{current_object.location.station_set.all.0|detail_url}}">{{ current_object.location.station_set.all.0.name }}</a>
+               {% else %}
+                  <b>Location</b>:
+                  <a href="{{current_object.location|detail_url}}">{{ current_object.location.name }}</a>
+               {% endif %}
+            {% else %}
+                <b>Location</b>: <!-- Show attribute label with no data -->
             {% endif %}
         </div>
         <div>
@@ -106,11 +110,11 @@
          </div>
         <div>
             <b>Keyword</b>:
-            {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ f.name }}{% endfor %}<br />
+            {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.name }}</a>{% endfor %}<br />
         </div>
         <div>
             <b>Categories</b>:
-            {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
+            {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
         </div>
         <div>
             <b>Source</b>:
@@ -166,11 +170,11 @@
           </div>
           <div>
               <b>Keyword</b>:
-              {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ f.name }}{% endfor %}<br />
+              {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.name }}</a>{% endfor %}<br />
           </div>
           <div>
               <b>Categories</b>:
-              {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
+              {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
           </div>
           <div>
               <b>Location</b>:
@@ -211,13 +215,13 @@
         <div>
             <b>Location Type</b>: 
             {% if current_object.location_type.count %}
-                {% for t in current_object.location_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}
+                {% for t in current_object.location_type.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}
             {% endif %}
         </div>
         <div>
             <b>Location Subtype</b>:
             {% if current_object.location_subtype.count %}
-                 {% for t in current_object.location_subtype.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
+                 {% for t in current_object.location_subtype.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
             {% endif %}
         </div>
         <div><b>Latitude</b>: {{current_object.latitude}}</div>
@@ -230,11 +234,11 @@
         </div>
         <div>
             <b>Keyword</b>:
-            {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ f.name }}{% endfor %}<br />
+            {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.name }}</a>{% endfor %}<br />
         </div>
         <div>
             <b>Categories</b>:
-            {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
+            {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
         </div>
         <br />
         <br />
@@ -305,15 +309,15 @@
          </div>
          <div>
              <b>Keyword</b>:
-             {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ f.name }}{% endfor %}<br />
+             {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.name }}</a>{% endfor %}<br />
          </div>
          <div>
              <b>Categories</b>:
-             {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
+             {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
          </div>
          <div>
             <b>Roles</b>:
-            {% for t in current_object.person_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
+            {% for t in current_object.person_type.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
          </div>
          <br />
          <br />
@@ -388,11 +392,11 @@
          </div>
          <div>
              <b>Keyword</b>:
-             {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ f.name }}{% endfor %}<br />
+             {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.name }}</a>{% endfor %}<br />
          </div>
          <div>
              <b>Categories</b>:
-             {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
+             {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
          </div>
          <div>
             <b>Rights</b>:
@@ -416,10 +420,9 @@
         <div>
            <b>Type</b>: 
            {% if current_object.region_type.count %}
-              {% for t in current_object.region_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
+              {% for t in current_object.region_type.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
            {% endif %}
         </div>
-        <div><b>GIS range coordinates</b>:</div>
         <div>
             <b>Description</b>: 
             {% if current_object.description %}
@@ -432,11 +435,11 @@
         </div>
         <div>
             <b>Keyword</b>:
-            {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ f.name }}{% endfor %}<br />
+            {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.name }}</a>{% endfor %}<br />
         </div>
         <div>
             <b>Categories</b>:
-            {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
+            {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
         </div>
         <br />
         <br />
@@ -484,16 +487,25 @@
            {% endif %}
         </div>
         <div>
-            <b>Location</b>:
-            {% for x in current_object.location.all %}{% if forloop.counter > 1 %}, {% endif %}{{ x.name }}{% endfor %}<br />
+            {% if current_object.location %}
+               {% if current_object.location.station_set.count %}
+                  <b>Station</b>:
+                  <a href="{{current_object.location.station_set.all.0|detail_url}}">{{ current_object.location.station_set.all.0.name }}</a>
+               {% else %}
+                  <b>Location</b>:
+                  <a href="{{current_object.location|detail_url}}">{{ current_object.location.name }}</a>
+               {% endif %}
+            {% else %}
+                <b>Location</b>: <!-- Show attribute label with no data -->
+            {% endif %}
         </div>
         <div>
              <b>Keyword</b>:
-             {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ f.name }}{% endfor %}<br />
+             {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.name }}</a>{% endfor %}<br />
         </div>
         <div>
              <b>Categories</b>:
-             {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
+             {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
          </div>
        <br /><br />
        <div>
@@ -524,9 +536,9 @@
           {% endif %}
        </div>
        <div>
-           <b>Location</b>
-           {% if current_object.location.count %}
-              {% for l in current_object.location.all %}{% if forloop.counter > 1 %}, {% endif %}{{ l.name }}{% endfor %}<br />
+           <b>Location</b>:
+           {% if current_object.location %}
+              <a href="{{current_object.location|detail_url}}">{{ current_object.location.name }}</a>
            {% endif %}
        </div>
       <div>
@@ -537,20 +549,25 @@
       </div>
       <div>
          <b>Keyword</b>:
-         {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ f.name }}{% endfor %}<br />
+         {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.name }}</a>{% endfor %}<br />
       </div>
       <div>
          <b>Categories</b>:
-         {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
-      </div>      
-      
-
-    * Dataset:
-    * Research Project:
-    * Digital Object 
-
-      
-             
+         {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
+      </div>
+      <br /><br />  
+        {% if current_object.research_projects|length %}
+            <div>
+            <b>Related Research Projects</b>:
+            {% for x in current_object.research_projects %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{x|detail_url}}">{{ x.name }}</a>{% endfor %}<br />
+            </div>
+        {% endif %}
+        {% if current_object.datasets|length %}
+            <div>
+            <b>Related DataSets</b>:
+            {% for x in current_object.datasets %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{x|detail_url}}">{{ x.name }}</a>{% endfor %}<br />
+            </div>
+        {% endif %}            
    {% else %}{% if asset_klass == "ForestStory" %}
        {% if current_object.display_image %}
           <img alt="Forest Story Icon" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
