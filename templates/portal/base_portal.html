@@ -123,6 +123,11 @@
                                          {% endwith %}
                                       {% endfor %}
                                    {% endif %}
+                                   {% if current_object.location %}
+                                       {% with current_object.location as current_location %}
+                                          {% include "portal/asset_geocode.html" %}
+                                       {% endwith %}
+                                   {% endif %}
                                    {% if current_object.latitude %}
                                        {% with current_object as current_location %}
                                            {% include "portal/asset_geocode.html" %} 

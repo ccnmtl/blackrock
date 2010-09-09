@@ -38,9 +38,11 @@
         </b>
         {% endspaceless %}  
         <br />
+        {% comment %}
         {% ifnotequal current_object.name current_location.name %}
             <a href="{{current_location|detail_url}}">{{current_location.name}}</a><br />
-        {% endifnotequal %}  
+        {% endifnotequal %}
+        {% endcomment %}  
         <div style="color: #c6c6c6; padding-bottom: 5px;">{{current_object|klass_display}}<br /></div>
         
         <a href="{{current_object|detail_url}}">More</a>

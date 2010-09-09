@@ -1,141 +1,3 @@
-/*
-
-var map = null;
-var infowindow = null;
-var asset2Detail = {};
-
-function toggleInfrastructureMarkers() {
-    log('toggleInfrastructureMarkers');
-    var options = getElementsByTagAndClassName("input", "infrastructure_option");
-    forEach(options,
-            function(option) {
-                log("Option: " + option.value);
-            }
-            );
-    
-    log(options);
-    for (var k = 0; k < options.length; k++)
-        log("Option Value: " + options[k].value);
-    
-    for (var key in asset2Detail) {
-        detail = asset2Detail[key];
-        if (detail.infrastructure) {
-            
-            var show = false;
-            for (var i=0; i < detail.infrastructure.length; i++) {
-                for (var j=0; j < options.length; j++) {
-                    if (!show && options[j].checked) 
-                        show = true;
-                }
-            }
-            
-            if (show) {
-                detail['marker'].map = map;
-            } else {
-                detail['marker'].map = null;
-            }
-        }
-    }
-}
-
-function showInfoWindow(asset_id) {
-    var callout = asset2Detail[asset_id];
-    var latlng = new google.maps.LatLng(callout['latitude'], callout['longitude']);
-    
-    if (infowindow)
-        infowindow.close()
-    
-    var offset = new google.maps.Size(0,-30);
-
-    infowindow = new google.maps.InfoWindow({content: callout['content'], position: latlng, pixelOffset: offset});
-    infowindow.open(map);
-}
-
-function addMarker(asset_identifier, description, lat, lng, audiences, infrastructure) {
-    var marker = null;
-    if (lat && lng) {
-        var latlng = new google.maps.LatLng(lat, lng);
-        
-        var iconUrl = '';
-        if (infrastructure && infrastructure.length) {
-            var iconName = infrastructure[0];
-            iconName = iconName.replace(" ", "");
-            iconName = iconName.replace("-", "");
-            iconUrl = 'http://' + location.hostname + ':' + location.port + "/portal/media/images/mapicon_" + iconName.toLowerCase() + '.png';
-        } else if (audiences && audiences.length) {
-            
-        }
-        
-        var marker = new google.maps.Marker({
-            position: latlng, 
-            map: map, 
-            title: name,
-            icon: iconUrl
-        }); 
-        
-        asset2Detail[asset_identifier] = { 
-                "content": description, 
-                "latitude": lat, 
-                "longitude": lng, 
-                "marker": marker,
-                "audiences": audiences,
-                "infrastructure": infrastructure };
-        
-        google.maps.event.addListener(marker, 'click', function() {
-            showInfoWindow(asset_identifier);
-          });
-        
-        return 1;
-    } else {
-        return 0;
-    }
-}
-
-function initializeMap() {
-    
-    if (!document.getElementById("map_canvas")) {
-        return;
-    }
-   
-    // Center on center of Black Rock Forest
-    var latlng = new google.maps.LatLng(41.40744, -74.01457);
-    var myOptions = {
-        zoom: 13,
-        center: latlng,
-        mapTypeId: google.maps.MapTypeId.HYBRID
-        };
-    
-    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-    
-    // iterate over locations within the page, and add the requested markers
-    // locations are identified as <div class="geocode"
-    elements = getElementsByTagAndClassName(null, "geocode");
-    forEach(elements,
-            function(elem)
-            {
-                var asset_identifier = getFirstElementByTagAndClassName(null, "asset_identifier", elem).value;
-                var description = document.getElementById(asset_identifier + "-description").innerHTML;
-                var latitude = document.getElementById(asset_identifier + "-latitude").value;
-                var longitude = document.getElementById(asset_identifier + "-longitude").value;
-                
-                var audiences = null;
-                var infrastructure = null;
-                
-                var property = document.getElementById(asset_identifier + "-audience").value;
-                if (property && property.length > 0)
-                    audiences = property.split(",")
-                
-                property = document.getElementById(asset_identifier + "-infrastructure").value;
-                if (property && property.length > 0)
-                    infrastructure = property.split(",")
-                
-                addMarker(asset_identifier, description, latitude, longitude, audiences, infrastructure);
-            });
-}
-
-
-**/
-
 if (typeof Portal == 'undefined') {
     Portal = {};
 }
@@ -267,8 +129,6 @@ if (!Portal.MapMarker) {
                 map: shouldBeVisible ? mapInstance : null,
              });
             
-            log("Marker: " + name + " " + shouldBeVisible);
-            
             google.maps.event.addListener(self.marker, 'click', function() {
                self.events.signal(Portal, 'markerClicked', self.assetIdentifier);
             });
@@ -349,7 +209,6 @@ if (!Portal.Map) {
         }
         
         addLoadEvent(function() {
-            log("Portal.Map.onLoad");
             if (!document.getElementById("map_canvas"))
                 return;
            

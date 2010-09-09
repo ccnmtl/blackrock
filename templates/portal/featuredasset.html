@@ -75,7 +75,8 @@
                 {% if current_object.location_subtype.count %}
                      {% for t in current_object.location_subtype.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
                 {% endif %}
-                {% endspaceless %}        </div>
+                {% endspaceless %}        
+            </div>
             <div>
                <b>Region</b>:
                {% if current_object.region_set.count %}
@@ -114,7 +115,7 @@
                 <img alt="Publication Icon" src="/portal/media/images/publication.png"></img>
               {% endif %}
                <div>
-                  <b>Description</b>: 
+                  <b>Publication Type</b>: 
                   {% if current_object.publication_type.count %}
                      {% for t in current_object.publication_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
                   {% endif %}
@@ -132,7 +133,7 @@
               <img alt="Region Icon" src="/portal/media/images/region.png"></img>
            {% endif %}
            <div>
-               <b>Description</b>: 
+               <b>Region Type</b>: 
                {% if current_object.region_type.count %}
                   {% for t in current_object.region_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
                {% endif %}
@@ -153,8 +154,8 @@
            </div>
            <div>
                <b>Location</b>
-               {% if current_object.location.count %}
-                  {% for l in current_object.location.all %}{% if forloop.counter > 1 %}, {% endif %}{{ l.name }}{% endfor %}<br />
+               {% if current_object.location %}
+                  {{ current_object.location.name }}
                {% endif %}
            </div>
            <div>
@@ -197,8 +198,8 @@
            </div>
            <div>
                <b>Location</b>
-               {% if current_object.location.count %}
-                  {% for l in current_object.location.all %}{% if forloop.counter > 1 %}, {% endif %}{{ l.name }}{% endfor %}<br />
+               {% if current_object.location %}
+                  {{ current_object.location.name }}
                {% endif %}
            </div>
           <div>

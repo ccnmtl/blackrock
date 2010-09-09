@@ -1,5 +1,6 @@
 {{ object.name }}
 {{ object.description }}
+{{ object.source }}
 {% for facet in object.facet.all %}
     {{ facet.name }}
 {% endfor %}
@@ -8,12 +9,6 @@
 {% endfor %}
 {% for type in object.digital_object_type.all %}
     {{ type.name }}
-{% endfor %}
-{% for author in object.author.all %}
-    {{ author.name }}
-{% endfor %}
-{% for location in object.location.all %}
-    {{ location.name }}
 {% endfor %}
 {% for tag in object.tags.all %}
     {{ tag.name }}

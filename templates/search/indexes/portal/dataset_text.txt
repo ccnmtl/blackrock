@@ -1,10 +1,8 @@
 {{ object.name }}
 {{ object.description }}
+{{ object.location.name }}
 {% for facet in object.facet.all %}
     {{ facet.name }}
-{% endfor %}
-{% for location in object.location.all %}
-    {{ location.name }}
 {% endfor %}
 {% for person in object.person.all %}
     {{ person.name }}

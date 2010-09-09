@@ -1,9 +1,9 @@
 {{ object.name }}
 {{ object.description }}
+{{ object.location.name }}
 {% for facet in object.facet.all %}
     {{ facet.name }}
 {% endfor %}
-{{ object.location.name }}
 {% for tag in object.tags.all %}
     {{ tag.name }}
 {% endfor %}

@@ -13,7 +13,6 @@ class Command(BaseCommand):
          const=True),
      )
   
-  
   def handle(self, *app_labels, **options):
      cursor = connection.cursor()
      
@@ -21,7 +20,6 @@ class Command(BaseCommand):
                      'portal_foreststory_dataset',         
                      'portal_foreststory_digital_object',  
                      'portal_foreststory_facet',         
-                     'portal_foreststory_location',        
                      'portal_foreststory_person',          
                      'portal_foreststory_publication',
                      'portal_foreststory_research_project',
@@ -37,7 +35,6 @@ class Command(BaseCommand):
                      'portal_learningactivity_author',         
                      'portal_learningactivity_dataset',        
                      'portal_learningactivity_facet',        
-                     'portal_learningactivity_location',       
                      'portal_learningactivity_person',
                      'portal_learningactivity_tag',
                      'portal_learningactivity', 
@@ -46,7 +43,6 @@ class Command(BaseCommand):
                      'portal_researchproject_dataset',         
                      'portal_researchproject_digital_object',  
                      'portal_researchproject_facet',         
-                     'portal_researchproject_location',        
                      'portal_researchproject_person',          
                      'portal_researchproject_publication',
                      'portal_researchproject_tag',          
@@ -56,7 +52,6 @@ class Command(BaseCommand):
                      'portal_publication_dataset',
                      'portal_publication_digital_object',             
                      'portal_publication_facet',             
-                     'portal_publication_location',            
                      'portal_publication_person',
                      'portal_publication_publication_type',
                      'portal_publication_rights_type',
@@ -67,7 +62,6 @@ class Command(BaseCommand):
                      'portal_dataset_audience',                
                      'portal_dataset_facet',             
                      'portal_dataset_digital_object',    
-                     'portal_dataset_location',                
                      'portal_dataset_person',
                      'portal_dataset_rights_type',
                      'portal_dataset_tag',
@@ -83,7 +77,6 @@ class Command(BaseCommand):
                      
                      'portal_station_audience',
                      'portal_station_digital_object',
-                     'portal_station_location',                
                      'portal_station_facet',
                      'portal_station_tag',       
                      'portal_station',    

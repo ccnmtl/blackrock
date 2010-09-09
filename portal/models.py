@@ -133,7 +133,7 @@ class Station(models.Model):
   description = models.TextField(null=True, blank=True)
   access_means = models.TextField(null=True, blank=True)
   activation_date = models.DateField('activation_date')
-  location = models.ManyToManyField(Location)
+  location = models.ForeignKey(Location)
   
   audience = models.ManyToManyField(Audience, null=True, blank=True)
   display_image = models.ForeignKey(DigitalObject, null=True, blank=True)
@@ -159,6 +159,29 @@ class Region(models.Model):
   
   created_date = models.DateTimeField('created_date', default=datetime.now)
   modified_date = models.DateTimeField('modified_date', default=datetime.now)
+  
+  def research_projects(self):
+    assets = []
+    for l in self.location.all():
+      for p in l.researchproject_set.all():
+        assets.append(p)
+    return assets
+  
+  def learning_activities(self):
+    assets = []
+    for l in self.location.all():
+      for p in l.learningactivity_set.all():
+        assets.append(p)
+    return assets
+  
+  def datasets(self):
+    assets = []
+    for l in self.location.all():
+      for p in l.dataset_set.all():
+        assets.append(p)
+    return assets
+  
+        
   
   def __unicode__(self):
     return self.name
@@ -198,7 +221,7 @@ class DataSet(models.Model):
   audience = models.ManyToManyField(Audience, null=True, blank=True)
   display_image = models.ForeignKey(DigitalObject, null=True, blank=True)
   facet = models.ManyToManyField(Facet)
-  location = models.ManyToManyField(Location)
+  location = models.ForeignKey(Location)
   person = models.ManyToManyField(Person, null=True, blank=True)
   tag = models.ManyToManyField(Tag, null=True, blank=True)
   
@@ -213,6 +236,7 @@ class DataSet(models.Model):
 
 class Publication(models.Model):
   name = models.CharField(max_length=500, unique=True)
+  citation = models.CharField(max_length=500)
   description = models.TextField(null=True, blank=True)
   publication_date = models.DateField(null=True, blank=True)
   publication_type = models.ManyToManyField(PublicationType)
@@ -247,7 +271,7 @@ class ResearchProject(models.Model):
   digital_object = models.ManyToManyField(DigitalObject, null=True, blank=True)
   display_image = models.ForeignKey(DigitalObject, null=True, blank=True, related_name="researchproject_display_image")
   facet = models.ManyToManyField(Facet)
-  location = models.ManyToManyField(Location, null=True, blank=True)
+  location = models.ForeignKey(Location, null=True, blank=True)
   person = models.ManyToManyField(Person, null=True, blank=True)
   publication = models.ManyToManyField(Publication, null=True, blank=True)
   tag = models.ManyToManyField(Tag, null=True, blank=True)
@@ -276,7 +300,7 @@ class LearningActivity(models.Model):
   digital_object = models.ManyToManyField(DigitalObject, null=True, blank=True)
   display_image = models.ForeignKey(DigitalObject, null=True, blank=True, related_name="learningactivity_display_image")
   facet = models.ManyToManyField(Facet)
-  location = models.ManyToManyField(Location, null=True, blank=True)
+  location = models.ForeignKey(Location, null=True, blank=True)
   person = models.ManyToManyField(Person, null=True, blank=True)
   tag = models.ManyToManyField(Tag, null=True, blank=True)
   
@@ -303,7 +327,7 @@ class ForestStory(models.Model):
   display_image = models.ForeignKey(DigitalObject, null=True, blank=True, related_name="foreststory_display_image")
   facet = models.ManyToManyField(Facet)
   learning_activity = models.ManyToManyField(LearningActivity, null=True, blank=True)
-  location = models.ManyToManyField(Location, null=True, blank=True)
+  location = models.ForeignKey(Location, null=True, blank=True)
   person = models.ManyToManyField(Person, null=True, blank=True)
   publication = models.ManyToManyField(Publication, null=True, blank=True)
   research_project = models.ManyToManyField(ResearchProject, null=True, blank=True)

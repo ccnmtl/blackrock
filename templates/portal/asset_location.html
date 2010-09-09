@@ -17,6 +17,16 @@
     {% endfor %}
 {% endif %}
 
+{% if current_object.location %}
+    {% with current_object.location as current_location %}
+        {% if highlightonmap %}
+            <div class="highlightonmap"><a href="#" onclick="portalMapInstance.showInfoWindow('{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}'); return false;">Highlight On Map</a></div>
+        {% endif %}
+        
+        {% include "portal/asset_geocode.html" %}
+    {% endwith %}
+{% endif %}
+
 {% if current_object.latitude %}
     {% if highlightonmap %}
         <div class="highlightonmap"><a href="#" onclick="portalMapInstance.showInfoWindow('{{current_object|klass}}-{{current_object.id}}-{{current_object.id}}'); return false;">Highlight On Map</a></div>
