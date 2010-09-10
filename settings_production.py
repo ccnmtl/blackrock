@@ -10,3 +10,4 @@ MEDIA_ROOT = '/var/www/blackrock/uploads/'
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
+HAYSTACK_SOLR_URL = "http://wwwapp.cc.columbia.edu/ccnmtl/solr/blackrock_portal"
