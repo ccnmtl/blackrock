@@ -217,7 +217,7 @@ if (!Portal.Map) {
             var myOptions = {
                 zoom: 13,
                 center: latlng,
-                mapTypeId: google.maps.MapTypeId.HYBRID
+                mapTypeId: google.maps.MapTypeId.TERRAIN
             };
             
             self.mapInstance = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
