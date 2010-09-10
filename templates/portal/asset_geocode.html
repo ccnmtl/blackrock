@@ -9,7 +9,6 @@
       
       <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-name" value="{{current_object.name}}"></input>
       
-      
       <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-latitude" value="{{current_location.latitude}}"></input>
       <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-longitude" value="{{current_location.longitude}}"></input>
       
@@ -23,7 +22,7 @@
              id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-infrastructure"
              value="{% for i in current_object|infrastructure %}{% if forloop.counter > 1 %},{% endif %}{{i}}{% endfor %}" />
       {% endif %}
-
+      
       <!--  Map Callout Template -->
       <div id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-description">
         {% spaceless %}
@@ -38,12 +37,18 @@
         </b>
         {% endspaceless %}  
         <br />
-        {% comment %}
-        {% ifnotequal current_object.name current_location.name %}
-            <a href="{{current_location|detail_url}}">{{current_location.name}}</a><br />
-        {% endifnotequal %}
-        {% endcomment %}  
         <div style="color: #c6c6c6; padding-bottom: 5px;">{{current_object|klass_display}}<br /></div>
+        
+        <div>
+            <!--  Audience Icons -->
+            {% for a in current_object.audience.all %}
+                <img alt="{{a.name}} icon" src="/portal/media/images/nonmapicon_{{a.name|lower}}.png"></img>
+            {% endfor %}
+            <!--  Infrastructure Icons -->
+            {% for i in current_object|infrastructure %}
+                <img alt="{{i}} icon" src='/portal/media/images/nonmapicon_{{i|cut:" "|cut:"-"}}.png'></img>
+            {% endfor %}
+        </div>
         
         <a href="{{current_object|detail_url}}">More</a>
      </div>
