@@ -301,6 +301,32 @@ td#right {
     float: right;
 }
     
+    
+    
+.pagetitle {
+
+	font-size: 120%;
+	font-weight: bold;
+}
+
+.pagesubtitle {
+
+	font-size: 100%;
+	font-weight: bold;
+}
+
+.asset-summary {
+	display: block;
+	width: 50%;
+	border: 1px solid red;
+	float: left;
+
+}
+
+.clear {
+
+	
+}
 
 
 

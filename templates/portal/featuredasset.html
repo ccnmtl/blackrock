@@ -26,7 +26,7 @@
                 <img alt="Data Set Image" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
               {% endif %}
               
-              <div>
+              <div class="asset-summary">
                  <b>Description</b>: 
                  {% if current_object.description %}
                     {{ current_object.description|truncatewords:50 }}<br />
@@ -35,7 +35,7 @@
            </div>
         {% else %}{% if asset_klass == "DigitalObject" %}
            <div>
-             <div>
+             <div class="asset-summary">
                  <b>Description</b>:
                  {% if current_object.description %}
                     {{ current_object.description|truncatewords:50 }}<br />
@@ -53,7 +53,7 @@
                     {% for f in current_object.digital_format.all %}{% if forloop.counter > 1 %}, {% endif %}{{ f.name }}{% endfor %}<br />
                 {% endif %}
               </div>
-              <div>
+              <div class="asset-summary">
                   <b>Description</b>:
                   {% if current_object.description %}
                      {{ current_object.description|truncatewords:50 }}<br />
@@ -64,7 +64,7 @@
            {% if current_object.display_image %}
               <img alt="Location Image" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
            {% endif %}
-           <div>
+           <div class="asset-summary">
                 {% spaceless %}
                 <b>Description</b>: 
                 {% if current_object.location_type.count %}
@@ -98,7 +98,7 @@
                      {% for i in current_object.institution.all %}{% if forloop.counter > 1 %}, {% endif %}{{ i.name }}{% endfor %}
                 {% endif %}
              </div>
-             <div>
+             <div class="asset-summary">
                   <b>Description</b>:
                   {% if current_object.description %}
                      {{ current_object.description|truncatewords:50 }}<br />
@@ -114,7 +114,7 @@
                      {% for t in current_object.publication_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
                   {% endif %}
               </div>
-              <div>
+              <div class="asset-summary">
                   <b>Description</b>:
                   {% if current_object.description %}
                      {{ current_object.description|truncatewords:50 }}<br />
@@ -130,7 +130,7 @@
                   {% for t in current_object.region_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
                {% endif %}
           </div>
-          <div>
+          <div class="asset-summary">
              <b>Description</b>: 
              {% if current_object.description %}
                 {{ current_object.description|truncatewords:50 }}<br />
@@ -172,7 +172,7 @@
                   {% endfor %}
                {% endif %}
            </div>
-          <div>
+          <div class="asset-summary">
              <b>Description</b>: 
              {% if current_object.description %}
                 {{ current_object.description|truncatewords:50 }}<br />
@@ -194,7 +194,7 @@
                   {{ current_object.location.name }}
                {% endif %}
            </div>
-          <div>
+          <div class="asset-summary">
              <b>Description</b>: 
              {% if current_object.description %}
                 {{ current_object.description|truncatewords:50 }}<br />
@@ -204,7 +204,7 @@
            {% if current_object.display_image %}
               <img alt="Forest Story Image" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
            {% endif %}
-          <div>
+          <div class="asset-summary">
              <b>Description</b>: 
              {% if current_object.description %}
                 {{ current_object.description|truncatewords:50 }}<br />
