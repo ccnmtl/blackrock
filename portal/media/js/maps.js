@@ -182,6 +182,11 @@ if (!Portal.Map) {
         self.locations = {};
         self.infoWindow = null;
         
+        this.hideInfoWindow = function() {
+            if (self.infowindow)
+                self.infowindow.close()
+        }
+        
         this.showInfoWindow = function(asset_identifier) {
             var location = self.locations[asset_identifier];
             

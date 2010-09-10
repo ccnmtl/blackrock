@@ -9,7 +9,12 @@
    <!--  List out this asset's location(s) in a hidden div. Will be mined by maps.js and put on GMap -->
    {% include "portal/asset_location.html" %}
    
-   <a href="{{block.asset|detail_url}}">{{current_object.name}}</a><br />
+   <a href="{{block.asset|detail_url}}">
+     {%  if current_object.display_name %}
+        {{current_object.display_name }}
+     {% else %}
+        {{current_object.name}}
+     {% endif %}</a><br />
 
    {% if block.detailed_display %}
     
