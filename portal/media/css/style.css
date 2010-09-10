@@ -250,17 +250,14 @@ td#right {
 }
 
 .assetlist {
-    background-color: white;
-    padding: 10px 15px;
-    font-size: 75%;
-    font-weight: normal;
-    color: black;     
-    margin: 5px;
+   
 }
 
-.assetlist a {
+.assetlist .blocktext a {
     color: black;
     font-weight: bold;
+    margin: 10px 0 0;
+    display: block;
 }
 
 .featuredasset {
@@ -294,11 +291,17 @@ td#right {
 }
 
 .featured_image {
-    width: 300px;
+    width: 40%;
+    height: auto;
+    float: left;
 }
 
-.highlightonmap {
+.highlightonmap, .assetlist .blocktext a.highlightonmap {
     float: right;
+    background-color: #fefeb3;
+margin:-11px -16px 20px 10px;
+padding:8px 10px;
+border: 1px solid #b49f93;
 }
     
     
@@ -318,13 +321,21 @@ td#right {
 .asset-summary {
 	display: block;
 	width: 50%;
-	border: 1px solid red;
 	float: left;
+
+}
+
+div.featuredasset p {
+	display: block;
+	width: 50%;
+	margin: 30px 0 0 40%;
+
 
 }
 
 .clear {
 
+	clear: both;
 	
 }
 
