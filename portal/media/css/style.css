@@ -1,5 +1,5 @@
 /* darkest brown background-color: #897467;  */ 
-/* deeper brown background background-color: #a18f83; */
+/* deeper brown background background-color: #e4dbcc */
 /* light tan background-color: #DCD3C2; */ 
 
 
@@ -161,6 +161,87 @@ td#right {
 .blocktext {
     padding: 1px 20px 20px;
     background-color: white;
+    margin:0 0 10px;
+    font-size: 70%;
+}
+
+
+.head_default {
+
+	font-size: 110%;
+	color: #000;
+	line-height: 26px;
+	margin: 10px 0 5px;
+
+}
+
+.head_experience {
+
+	font-size: 110%;
+	color: #436751;
+	background-image: url(../images/nonmapicon_experience.png);
+	background-repeat: no-repeat;
+	background-position: bottom left;
+	padding-left: 34px;
+	line-height: 26px;
+	margin: 10px 0 5px;
+
+}
+
+.link_experience {
+
+	color: #436751;
+	font-weight: bold;
+	font-size: 90%;
+	margin: 10px 0 0; 
+	display: block;
+
+}
+
+.head_education {
+
+	font-size: 110%;
+	color: #730711;
+	background-image: url(../images/nonmapicon_education.png);
+	background-repeat: no-repeat;
+	background-position: bottom left;
+	padding-left: 34px;
+	line-height: 26px;
+	margin: 10px 0 5px;
+
+}
+
+.link_education {
+
+	color: #730711;
+	font-weight: bold;
+	font-size: 90%;
+	margin: 10px 0 0; 
+	display: block;
+
+}
+
+.head_research {
+
+	font-size: 100%;
+	color: #0071bc;
+	background-image: url(../images/nonmapicon_research.png);
+	background-repeat: no-repeat;
+	background-position: bottom left;
+	padding-left: 34px;
+	line-height: 26px;
+	margin: 10px 0 5px;
+
+}
+
+.link_research {
+
+	color: #0071bc;
+	font-weight: bold;
+	font-size: 90%;
+	margin: 10px 0 0; 
+	display: block;
+
 }
 
 #map_canvas {
@@ -187,11 +268,18 @@ td#right {
 
 }
 
-#audience_filter {
+#audience_filter, #infrastructure_filter {
     vertical-align: top;
     width: auto;
     padding: 10px 20px;
     white-space: nowrap;
+    font-size:  85%;
+    line-height: 250%;
+}
+
+#audience_filter img, #infrastructure_filter img {
+	margin-right: 5px;
+	vertical-align: top;
 }
 
 #infrastructure_filter {
