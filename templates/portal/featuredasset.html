@@ -5,8 +5,9 @@
 {% with block.asset as current_object %}
 {% with block.asset|klass as asset_klass %}
 {% with 1 as includehighlight %}
+{% with "featured" as prefix %}
             
-   <!-- Asset Locations (Highlight On Map Link) -->
+   <!-- Asset Locations (Hidden. Used by maps.js to plot GMaps) -->
    {% include "portal/asset_location.html" %}
    
    <a href="{{block.asset|detail_url}}">
@@ -234,5 +235,5 @@
         {% include "portal/asset_description.html" %}
     {% endif %}
 
-{% endwith %}{% endwith %}{% endwith %}
+{% endwith %}{% endwith %}{% endwith %}{% endwith %}
 </div>
