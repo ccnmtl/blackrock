@@ -1,6 +1,10 @@
 {% load portal %}
 {% load smartif %}
 
+{% comment %}
+   Used by asset_location.html. Do not include directly. 
+{% endcomment %}
+
    <!-- Includes all the information to plot this location on a map. And, filter by various facets -->
    <!-- Geocode divs are hidden and used only for scripting purposes. -->
 
@@ -13,15 +17,15 @@
       <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-longitude" value="{{current_location.longitude}}"></input>
       
       <!-- Facets -->
-      <input type="hidden" 
-             id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-audience"
-             value="{% for a in current_object.audience.all %}{% if forloop.counter > 1 %},{% endif %}{{a.name}}{% endfor %}" />
-
       {% if show_infrastructure %}
-      <input type="hidden" 
+        <input type="hidden" 
              id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-infrastructure"
              value="{% for i in current_object|infrastructure %}{% if forloop.counter > 1 %},{% endif %}{{i}}{% endfor %}" />
-      {% endif %}
+      {% else %}{% if show_featured %}
+              <input type="hidden" 
+             id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-featured"
+             value="{% for f in current_object|featured %}{% if forloop.counter > 1 %},{% endif %}{{f}}{% endfor %}" />  
+      {% endif %}{% endif %}
       
       <!--  Map Callout Template -->
       <div id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-description">
@@ -46,7 +50,7 @@
             {% endfor %}
             <!--  Infrastructure Icons -->
             {% for i in current_object|infrastructure %}
-                <img alt="{{i}} icon" src='/portal/media/images/nonmapicon_{{i|cut:" "|cut:"-"}}.png'></img>
+                <img alt="{{i}} icon" src='/portal/media/images/nonmapicon_{{i|cut:" "|cut:"-"|lower}}.png'></img>
             {% endfor %}
         </div>
         

@@ -4,9 +4,9 @@
 <div class="assetlist" id="{{asset_klass}}-{{current_object.id}}">
 {% with block.asset as current_object %}
 {% with block.asset|klass as asset_klass %}
-{% with 1 as highlightonmap %}
-
-   <!--  List out this asset's location(s) in a hidden div. Will be mined by maps.js and put on GMap -->
+{% with 1 as includehighlight %}
+            
+   <!-- Asset Locations (Highlight On Map Link) -->
    {% include "portal/asset_location.html" %}
    
    <a href="{{block.asset|detail_url}}">

@@ -49,6 +49,10 @@ def page(request,path):
     sqs = sqs.facet("infrastructure")
     sqs = sqs.narrow("infrastructure:[* TO *]")
     
+    sqsFeatured = SearchQuerySet()
+    sqsFeatured = sqsFeatured.facet("featured")
+    sqsFeatured = sqsFeatured.narrow("featured:[* TO *]")
+    
     module = None
     if not section.is_root:
         module = ancestors[1]
@@ -57,7 +61,8 @@ def page(request,path):
     return dict(section=section,
                 module=module,
                 root=ancestors[0],
-                infrastructure=sqs)
+                infrastructure=sqs,
+                featured=sqsFeatured)
     
     
     

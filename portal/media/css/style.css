@@ -265,7 +265,7 @@ td#right {
 
 }
 
-#audience_filter, #infrastructure_filter {
+#featured_filter, #infrastructure_filter {
     vertical-align: top;
     width: auto;
     padding: 10px 20px;
@@ -274,7 +274,7 @@ td#right {
     line-height: 250%;
 }
 
-#audience_filter img, #infrastructure_filter img {
+#featured_filter img, #infrastructure_filter img {
 	margin-right: 5px;
 	vertical-align: top;
 }

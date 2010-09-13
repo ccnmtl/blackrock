@@ -1,10 +1,10 @@
 import datetime
 from haystack import site
-from haystack.indexes import SearchIndex
+from haystack.indexes import RealTimeSearchIndex
 from haystack.fields import MultiValueField, CharField
 from portal.models import *
 
-class AssetIndex(SearchIndex):
+class AssetIndex(RealTimeSearchIndex):
   text = CharField(document=True, use_template=True)
   name = CharField(model_attr='name')
   audience = MultiValueField(faceted=True)
@@ -13,6 +13,7 @@ class AssetIndex(SearchIndex):
   discipline = MultiValueField(faceted=True)
   asset_type = CharField(faceted=True)
   infrastructure = MultiValueField(faceted=True)
+  featured = MultiValueField(faceted=True)
   
   def prepare_study_type(self, obj):
     return [facet.display_name for facet in obj.facet.filter(facet='Study Type')]
@@ -31,6 +32,9 @@ class AssetIndex(SearchIndex):
   
   def prepare_asset_type(self, obj):
     return obj._meta.object_name
+  
+  def prepare_featured(self, obj):
+    return [facet.display_name for facet in obj.facet.filter(facet='Featured')]
   
 class PersonIndex(AssetIndex):
   person_type = MultiValueField()

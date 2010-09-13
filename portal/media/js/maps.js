@@ -98,14 +98,14 @@ if (!Portal.MapMarker) {
         
         self.assetIdentifier = null;
         self.description = null; 
-        self.audiences = [];
+        self.featured = [];
         self.infrastructure = [];
         self.marker = null;
         
-        this.create = function(mapInstance, assetIdentifier, name, description, lat, lng, audiences, infrastructure) {
+        this.create = function(mapInstance, assetIdentifier, name, description, lat, lng, featured, infrastructure) {
             self.assetIdentifier = assetIdentifier;;
             self.description = description; 
-            self.audiences = audiences;
+            self.featured = featured;
             self.infrastructure = infrastructure;
             
             if (!lat || !lng)
@@ -117,8 +117,10 @@ if (!Portal.MapMarker) {
                 iconName = iconName.replace(" ", "");
                 iconName = iconName.replace("-", "");
                 iconUrl = 'http://' + location.hostname + ':' + location.port + "/portal/media/images/mapicon_" + iconName.toLowerCase() + '.png';
-            } else if (audiences && audiences.length) {
-                
+            } else if (featured && featured.length) {
+                var iconName = featured[0];
+                iconName = iconName.replace("Featured ", "");
+                iconUrl = 'http://' + location.hostname + ':' + location.port + "/portal/media/images/mapicon_" + iconName.toLowerCase() + '.png';
             }
 
             var shouldBeVisible = self.shouldBeVisible();
@@ -148,10 +150,11 @@ if (!Portal.MapMarker) {
             if (self.infrastructure && self.infrastructure.length ) {
                 options = getElementsByTagAndClassName("input", "infrastructure_option");
                 values = self.infrastructure;
-            } else if (self.audiences && self.audiences.length) {
-                visible = true; // not yet implemented
-                //options = getElementsByTagAndClassName("input", "audience_option");
-                //values = self.audiences;
+            } else if (self.featured && self.featured.length) {
+                options = getElementsByTagAndClassName("input", "featured_option");
+                values = self.featured;
+            } else {
+                visible = true;
             }
 
             if (options) {
@@ -190,13 +193,18 @@ if (!Portal.Map) {
         this.showInfoWindow = function(asset_identifier) {
             var location = self.locations[asset_identifier];
             
-            if (self.infowindow)
-                self.infowindow.close()
-            
-            var offset = new google.maps.Size(0,-30);
-
-            self.infowindow = new google.maps.InfoWindow({content: location.description, position: location.marker.position, pixelOffset: offset});
-            self.infowindow.open(self.mapInstance);
+            if (!location) {
+                log("Location undefined: " + asset_identifier)
+            } else {
+                 
+                if (self.infowindow)
+                    self.infowindow.close()
+                
+                var offset = new google.maps.Size(0,-30);
+    
+                self.infowindow = new google.maps.InfoWindow({content: location.description, position: location.marker.position, pixelOffset: offset});
+                self.infowindow.open(self.mapInstance);
+            }
         }
         
         this.toggleFacet = function() {
@@ -238,6 +246,14 @@ if (!Portal.Map) {
                          });
                     });
             
+            options = getElementsByTagAndClassName("input", "featured_option");
+            forEach(options,
+                    function(option) {
+                        connect(option, 'onclick', function(evt) {
+                            self.events.signal(Portal, 'toggleFacet');
+                         });
+                    });            
+            
             // iterate over locations within the page, and add the requested markers
             // locations are identified as <div class="geocode"
             elements = getElementsByTagAndClassName(null, "geocode");
@@ -250,23 +266,60 @@ if (!Portal.Map) {
                         var latitude = document.getElementById(assetIdentifier + "-latitude").value;
                         var longitude = document.getElementById(assetIdentifier + "-longitude").value;
                         
-                        var audiences = null;
+                        var featured = null;
                         var infrastructure = null;
-                        
-                        var property = document.getElementById(assetIdentifier + "-audience");
-                        if (property && property.value.length > 0)
-                            audiences = property.value.split(",")
                         
                         property = document.getElementById(assetIdentifier + "-infrastructure");
                         if (property && property.value.length > 0)
                             infrastructure = property.value.split(",")
+                            
+                        property = document.getElementById(assetIdentifier + "-featured");
+                        if (property && property.value.length > 0)
+                            featured = property.value.split(",")
                         
                         var marker = new Portal.MapMarker();
-                        marker.create(self.mapInstance, assetIdentifier, name, description, latitude, longitude, audiences, infrastructure);
+                        marker.create(self.mapInstance, assetIdentifier, name, description, latitude, longitude, featured, infrastructure);
                         self.locations[assetIdentifier] = marker;
                     });
          });
     }
 }
 
+if (!Portal.Utils) {
+    Portal.Utils = function() {
+        var self = this;
+        
+        this.getAudience = function() {
+            var bits = location.pathname.split("/");
+            
+            if (bits.length < 2)
+                return null;
+            else
+                return bits[2]; 
+        }
+        
+        addLoadEvent(function() {
+            var audience = self.getAudience();
+ 
+            if (audience && audience != "home") {
+                var element = document.getElementById("id_" + audience);
+                if (element) {
+                    element.checked = "checked";
+                    element.disabled = "disabled";
+                }
+            } else {
+                // check all infrastructure icons
+                var elements = getElementsByTagAndClassName(null, "infrastructure_option");
+                forEach(elements,
+                        function(elem)
+                        {
+                           elem.checked = "checked";
+                        });
+            }
+        });
+    }
+}
+
+var portalUtilInstance = new Portal.Utils();
 var portalMapInstance = new Portal.Map();
+

@@ -1,10 +1,27 @@
 {% load portal %}
+
+{% comment %}
+
+Included by:
+assetlist.html
+featuredasset.html
+object_detail.html
+
+Variables to this template:
+
+current_object -- instance of an indexed asset in the portal data model
+includegeocode -- include a hidden div with all this asset's location information
+includehighlight -- include a Highlight on Map link when processing
+showinfrastructure -- Include the infrastructure facets when listing out the asset's facets
+prefix -- To disambiguate ids
+
+{% endcomment %}
                
 {% if current_object.location.count %}
     <!-- List out all asset's locations -->
     {% for l in current_object.location.all %}
         {% with l as current_location %}
-            {% if highlightonmap %}
+            {% if includehighlight %}
                 {% ifequal forloop.counter 1 %}
                     {% if l.latitude %} 
                         <!--  Highlight this asset's first location -->
@@ -17,7 +34,7 @@
     {% endfor %}
 {% else %}{% if current_object.location %}
     {% with current_object.location as current_location %}
-        {% if highlightonmap %}
+        {% if includehighlight %}
             <div class="highlightonmap"><a href="#" onmouseout="portalMapInstance.hideInfoWindow(); return false;" onmouseover="portalMapInstance.showInfoWindow('{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}'); return false;">Highlight On Map</a></div>
         {% endif %}
         {% include "portal/asset_geocode.html" %}
@@ -25,7 +42,7 @@
 {% endif %}{% endif %}
 
 {% if current_object.latitude %}
-    {% if highlightonmap %}
+    {% if includehighlight %}
         <div class="highlightonmap"><a href="#" onmouseout="portalMapInstance.hideInfoWindow(); return false;" onmouseover="portalMapInstance.showInfoWindow('{{current_object|klass}}-{{current_object.id}}-{{current_object.id}}'); return false;">Highlight On Map</a></div>
     {% endif %}
     {% with current_object as current_location %}

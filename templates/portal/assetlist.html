@@ -1,10 +1,12 @@
 {% load portal %}
+
 {% load smartif %}     
 <div class="assetlist">  
     {% for result in block.list %}
         {% if forloop.counter <= block.list_count %}
             {% with result.object as current_object %}
-            {% with 1 as highlightonmap %}
+            {% with 1 as includehighlight %}
+            {% with 1 as includegeocode %}
              <div class="blocktext">  
                 <!-- Asset Locations (Hidden. Used by maps.js to plot GMaps) -->
                 {% include "portal/asset_location.html" %}
@@ -18,7 +20,7 @@
                  
                </div>
                 
-            {% endwith %}{% endwith %}
+            {% endwith %}{% endwith %}{% endwith %}
         {% endif %}
     {% endfor %}
         

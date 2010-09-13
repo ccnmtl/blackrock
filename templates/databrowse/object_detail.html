@@ -10,6 +10,7 @@
 {% block left %}
 {% with object.instance as current_object %}
 {% with object.instance|klass as asset_klass %}
+{% with 1 as includegeocode %}
     
     <!-- Asset Locations (Hidden. Used by maps.js to plot GMaps) -->
     {% include "portal/asset_location.html" %}
@@ -579,7 +580,24 @@
          {% if current_object.description %}
             {{ current_object.description }}<br />
          {% endif %}
-      </div>       
+      </div>  
+    {% else %}     
+        {% for related_object in object.related_objects %}
+          <div class="related">
+          {% if related_object.object_list %}
+              <br />
+              <b>Related {{ related_object.model.verbose_name_plural|capfirst }}</b>
+              <ul class="objectlist">
+                {% for object in related_object.object_list %}
+                    <li class="{% cycle 'odd' 'even' %}"><a href="{{ object.instance|detail_url }}">{% if object.instance.display_name %}{{object.instance.display_name}}{% else %}{{object.instance.name}}{%endif%}</a></li>
+                {% endfor %}
+              </ul>
+          {% endif %}
+          </div>
+        {% endfor %}
     {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
-{% endwith %}{% endwith %}
+{% endwith %}{% endwith %}{% endwith %}
+{% endblock %}
+
+{% block featured %}
 {% endblock %}

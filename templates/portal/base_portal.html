@@ -1,3 +1,5 @@
+{% load portal %}
+
 <html>
 <head>
     <title>
@@ -94,11 +96,13 @@
                            <div id="map_filter">
                               <table>
                                   <tr>
-                                      <td id="audience_filter">
-                                          <div><input type="checkbox" name="experience"/><img src="/portal/media/images/nonmapicon_experience.png/">Forest Experience</div>
-                                          <div><input type="checkbox" name="education"/><img src="/portal/media/images/nonmapicon_education.png/"></img>Education</div>
-                                          <div><input type="checkbox" name="research"/<img src="/portal/media/images/nonmapicon_research.png/">Research</div>
+                                      {% block featured %}
+                                      <td id="featured_filter">
+                                          <div><input type="checkbox" class="featured_option" id="id_experience" value="Featured Experience" /><img src="/portal/media/images/nonmapicon_experience.png/">Forest Experience</div>
+                                          <div><input type="checkbox" class="featured_option" id="id_education" value="Featured Education" /><img src="/portal/media/images/nonmapicon_education.png/"></img>Education</div>
+                                          <div><input type="checkbox" class="featured_option" id="id_research" value="Featured Research" /><img src="/portal/media/images/nonmapicon_research.png/">Research</div>
                                       </td>
+                                      {% endblock %}
                                       <td id="infrastructure_filter">
                                           <div><input type="checkbox" class="infrastructure_option" id="idFacilities" value="Forest Facilities" checked="checked" /><img src="/portal/media/images/nonmapicon_forestfacilities.png/"/>Forest Facilities</div>
                                           <div><input type="checkbox" class="infrastructure_option" id="idEnvironmentalMonitoring" value="Environmental Monitoring" /><img src="/portal/media/images/nonmapicon_environmentalmonitoring.png/"/>Environmental Monitoring</div>
@@ -111,32 +115,27 @@
                            
                            <!--  Geocoded information for all Infrastructure assets -->
                            <div id="infrastructure_assets" style="display:none">
-                            {% for result in infrastructure %}
+                            {% for result in result|infrastructure_assets %}
                                 {% with result.object as current_object %}
                                 {% with 1 as show_infrastructure %}
+                                {% with 1 as includegeocode %}
                                 {% with "infra" as prefix %}
-                                   {% if current_object.location.count %}
-                                      <!-- List out all asset's locations -->
-                                      {% for l in current_object.location.all %}
-                                         {% with l as current_location %}
-                                            {% include "portal/asset_geocode.html" %}
-                                         {% endwith %}
-                                      {% endfor %}
-                                   {% endif %}
-                                   {% if current_object.location %}
-                                       {% with current_object.location as current_location %}
-                                          {% include "portal/asset_geocode.html" %}
-                                       {% endwith %}
-                                   {% endif %}
-                                   {% if current_object.latitude %}
-                                       {% with current_object as current_location %}
-                                           {% include "portal/asset_geocode.html" %} 
-                                       {% endwith %}
-                                   {% endif %}
-                                {% endwith %}{% endwith %}{% endwith %}
+                                    {% include "portal/asset_location.html" %}
+                                {% endwith %}{% endwith %}{% endwith %}{% endwith %}
                             {% endfor %}
                            </div>
                            
+                           <!--  Geocoded information for all Featured assets -->
+                           <div id="featured_assets" style="display:none">
+                            {% for result in featured %}
+                                {% with result.object as current_object %}
+                                {% with 1 as show_featured %}
+                                {% with 1 as includegeocode %}
+                                {% with "featured" as prefix %}
+                                    {% include "portal/asset_location.html" %}
+                                {% endwith %}{% endwith %}{% endwith %}{% endwith %}
+                            {% endfor %}
+                           </div>
 
                         {% endblock %} 
                     </td>

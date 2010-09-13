@@ -1,5 +1,6 @@
 from django import template
 from django.utils.text import capfirst
+from haystack.query import SearchQuerySet
 register = template.Library()
 
 @register.filter('klass')
@@ -13,6 +14,18 @@ def klass_display(obj):
 @register.filter('infrastructure')
 def infrastructure(obj):
     return [facet.display_name for facet in obj.facet.filter(facet='Infrastructure')]
+
+@register.filter('featured')  
+def featured(obj):
+    return [facet.name for facet in obj.facet.filter(facet='Featured')]  
+  
+@register.filter('infrastructure_assets')
+def infrastructure_assets(obj):
+      # Get all assets with valid "infrastructure" facets
+    sqs = SearchQuerySet()
+    sqs = sqs.facet("infrastructure")
+    sqs = sqs.narrow("infrastructure:[* TO *]")
+    return sqs
   
 @register.filter('detail_url')
 def detail_url(obj):

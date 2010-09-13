@@ -388,8 +388,9 @@ class AssetList(models.Model):
     return form.save()
   
   def edit(self, vals, files):
-    form = AssetListForm(vals)
-    form.save() 
+    form = AssetListForm(data=vals, files=files, instance=self)
+    if form.is_valid():
+      form.save() 
       
   def list(self):    
     results = SearchQuerySet()
@@ -459,7 +460,7 @@ class FeaturedAsset(models.Model):
       return form.save()
     
   def edit(self, vals, files):
-    form = FeaturedAssetForm(vals)
+    form = FeaturedAssetForm(data=vals, files=files, instance=self)
     if form.is_valid():
       form.save()
       
@@ -470,7 +471,20 @@ class FeaturedAsset(models.Model):
         attr = self.__getattribute__(f.name)
         if attr:
           return attr
-     
+
+  def save(self):
+    super(FeaturedAsset, self).save() # Call the "real" save() method.
+    facet = Facet.objects.get(name="Featured " + self.audience.name)
+    self.asset().facet.add(facet)
+    self.asset().save()
+    
+  def delete(self):
+    facet = Facet.objects.get(name="Featured " + self.audience.name)
+    self.asset().facet.remove(facet)
+    self.asset().save()
+    super(FeaturedAsset, self).delete() # Call the "real" save() method.
+    
+    
 class AssetListForm(forms.ModelForm):
   class Meta:
     model = AssetList    
@@ -481,6 +495,7 @@ class FeaturedAssetForm(forms.ModelForm):
     
   def clean(self):
     from django.core.exceptions import ValidationError
+    # This should be forms.ValidationError. Need to do some work first to get it that way
     
     asset_count = 0
     for field_name, val in self.cleaned_data.items():
@@ -493,6 +508,8 @@ class FeaturedAssetForm(forms.ModelForm):
       raise ValidationError('Please select only one object to display.')
     
     return self.cleaned_data
+  
+  
   
 
 
