@@ -209,14 +209,6 @@
             <b>Categories</b>:
             {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
         </div>
-    {% else %}{% if asset_klass == "Institution" %}
-         <br />
-         {% if current_object.person_set.count %}
-            <div>
-                <b>Also associated with {{current_object.name}}</b><br />
-                {% for x in current_object.person_set.all %}<a href="{{x|detail_url}}">{{x.name}}</a><br />{% endfor %}
-            </div>
-         {% endif %}     
     {% else %}{% if asset_klass == "Person" %}
         <div>
             <b>Title</b>: 
