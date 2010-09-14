@@ -11,12 +11,19 @@ MAX_DISPLAY_LENGTH = 50
 # Static Lookup Tables
 class Audience(models.Model):
   name = models.CharField(max_length=100, unique=True)
+  
+  class Meta:
+    ordering = ['name']
 
   def __unicode__(self):
     return self.name
   
 class DigitalFormat(models.Model):
   name = models.CharField(max_length=100, unique=True)
+
+  class Meta:
+    ordering = ['name']
+  
   def __unicode__(self):
     return self.name
 
@@ -29,36 +36,52 @@ class Facet(models.Model):
   
   class Meta:
     unique_together = (("name", "facet"),)
+    ordering = ['display_name']
   
   def __unicode__(self):
-    return self.name
+    return self.display_name
   
 class Institution(models.Model):
   name = models.CharField(max_length=100, unique=True)
   
+  class Meta:
+    ordering = ['name']
+
   def __unicode__(self):
     return self.name
   
 class LocationSubtype(models.Model):
   name = models.CharField(max_length=100, unique=True)
   
+  class Meta:
+    ordering = ['name']
+
   def __unicode__(self):
     return self.name
 
 class LocationType(models.Model):
   name = models.CharField(max_length=100, unique=True)
   
+  class Meta:
+    ordering = ['name']
+  
   def __unicode__(self):
     return self.name
   
 class PersonType(models.Model):
   name = models.CharField(max_length=100, unique=True)
+
+  class Meta:
+    ordering = ['name']
   
   def __unicode__(self):
     return self.name
   
 class PublicationType(models.Model):
   name = models.CharField(max_length=100, unique=True)
+
+  class Meta:
+    ordering = ['name']
   
   def __unicode__(self):
     return self.name
@@ -66,23 +89,35 @@ class PublicationType(models.Model):
 class RegionType(models.Model):
   name = models.CharField(max_length=100, unique=True)
 
+  class Meta:
+    ordering = ['name']
+
   def __unicode__(self):
     return self.name
 
 class RightsType(models.Model):
   name = models.CharField(max_length=100, unique=True)
+
+  class Meta:
+    ordering = ['name']
   
   def __unicode__(self):
     return self.name
   
 class Tag(models.Model):
   name = models.CharField(max_length=100, unique=True)
+
+  class Meta:
+    ordering = ['name']
   
   def __unicode__(self):
     return self.name
   
 class Url(models.Model):
   name = models.URLField()
+
+  class Meta:
+    ordering = ['name']
 
   def __unicode__(self):
     return self.name  
@@ -108,6 +143,7 @@ class DigitalObject(models.Model):
   
   class Meta:
     verbose_name = "Digital Object"
+    ordering = ['name']
 
 class Location(models.Model):
   name = models.CharField(max_length=500)
@@ -127,6 +163,10 @@ class Location(models.Model):
   
   def __unicode__(self):
     return "%s (%.6f,%.6f)" % (self.name, self.latitude, self.longitude)
+  
+  class Meta:
+    ordering = ['name']
+
   
 class Station(models.Model):
   name = models.CharField(max_length=500)
@@ -160,6 +200,9 @@ class Station(models.Model):
   def __unicode__(self):
     return self.name
   
+  class Meta:
+    ordering = ['name']
+
 class Region(models.Model):
   name = models.CharField(max_length=500)
   description = models.TextField(null=True, blank=True)
@@ -195,7 +238,8 @@ class Region(models.Model):
         assets.append(p)
     return assets
   
-        
+  class Meta:
+    ordering = ['name']
   
   def __unicode__(self):
     return self.name
@@ -222,6 +266,8 @@ class Person(models.Model):
   def __unicode__(self):
     return self.name
   
+  class Meta:
+    ordering = ['name']
   
 class DataSet(models.Model):
   name = models.CharField(max_length=500)
@@ -247,6 +293,7 @@ class DataSet(models.Model):
   
   class Meta:
     verbose_name = "Data Set"
+    ordering = ['name']
 
 class Publication(models.Model):
   name = models.CharField(max_length=500, unique=True)
@@ -273,6 +320,9 @@ class Publication(models.Model):
     else:
       return self.name
   
+  class Meta:
+    ordering = ['name']
+
 class ResearchProject(models.Model):
   name = models.CharField(max_length=500)
   description = models.TextField()
@@ -301,6 +351,7 @@ class ResearchProject(models.Model):
     
   class Meta:
     verbose_name = "Research Project"
+    ordering = ['name']
     
 class LearningActivity(models.Model):
   name = models.CharField(max_length=500)
@@ -324,6 +375,7 @@ class LearningActivity(models.Model):
   class Meta:
     verbose_name = "Learning Activity"
     verbose_name_plural = "Learning Activities"
+    ordering = ['name']
   
   def __unicode__(self):
     return self.name
@@ -353,6 +405,7 @@ class ForestStory(models.Model):
   class Meta:
     verbose_name = "Forest Story"
     verbose_name_plural = "Forest Stories"
+    ordering = ['display_name']
   
   def __unicode__(self):
     return self.name    
