@@ -6,16 +6,17 @@
 {% with block.asset|klass as asset_klass %}
 {% with 1 as includehighlight %}
 {% with "featured" as prefix %}
-            
+        <div class="blocktext">      
    <!-- Asset Locations (Hidden. Used by maps.js to plot GMaps) -->
    {% include "portal/asset_location.html" %}
-   
-   <a href="{{block.asset|detail_url}}">
+
+  
+   <a class="display-name" href="{{block.asset|detail_url}}">
      {%  if current_object.display_name %}
         {{current_object.display_name }}
      {% else %}
         {{current_object.name}}
-     {% endif %}</a><p class="clear"><p />
+     {% endif %}</a>
 
    {% if block.detailed_display %}
     
@@ -33,7 +34,7 @@
                     {{ current_object.description|truncatewords:50 }}
                  {% endif %}
              </div>
-           </div><p class="clear"><p />
+           </div>
         {% else %}{% if asset_klass == "DigitalObject" %}
            <div>
              <div class="asset-summary">
@@ -42,7 +43,7 @@
                     {{ current_object.description|truncatewords:50 }}
                  {% endif %}
              </div>
-           </div><p class="clear"><p />
+           </div>
         {% else %}{% if asset_klass == "LearningActivity" %}
            <div>
               {% if current_object.display_image %}
@@ -51,7 +52,7 @@
               <div>
                 <b>Format</b>: 
                 {% if current_object.digital_format.count %}
-                    {% for f in current_object.digital_format.all %}{% if forloop.counter > 1 %}, {% endif %}{{ f.name }}{% endfor %}<p class="clear"><p />
+                    {% for f in current_object.digital_format.all %}{% if forloop.counter > 1 %}, {% endif %}{{ f.name }}{% endfor %}
                 {% endif %}
               </div>
               <div class="asset-summary">
@@ -60,7 +61,7 @@
                      {{ current_object.description|truncatewords:50 }}
                   {% endif %}
               </div>
-           </div><p class="clear"><p />
+           </div>
         {% else %}{% if asset_klass == "Location" %}
            {% if current_object.display_image %}
               <img alt="Location Image" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
@@ -72,14 +73,14 @@
                     {% for t in current_object.location_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}{% if current_object.location_subtype.count %},{% endif %}
                 {% endif %}
                 {% if current_object.location_subtype.count %}
-                     {% for t in current_object.location_subtype.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<p class="clear"><p />
+                     {% for t in current_object.location_subtype.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}
                 {% endif %}
                 {% endspaceless %}        
             </div>
             <div>
                <b>Region</b>:
                {% if current_object.region_set.count %}
-                     {% for r in current_object.region_set.all %}{% if forloop.counter > 1 %}, {% endif %}{{ r.name }}{% endfor %}<p class="clear"><p />
+                     {% for r in current_object.region_set.all %}{% if forloop.counter > 1 %}, {% endif %}{{ r.name }}{% endfor %}
                {% endif %} 
             </div>
         {% else %}{% if asset_klass == "Person" %}
@@ -104,7 +105,7 @@
                   {% if current_object.description %}
                      {{ current_object.description|truncatewords:50 }}
                   {% endif %}
-             </div><p class="clear"><p />
+             </div>
         {% else %}{% if asset_klass == "Publication" %}
               {% if current_object.display_image %}
                 <img alt="Publication Icon" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
@@ -112,7 +113,7 @@
                <div>
                   <b>Publication Type</b>: 
                   {% if current_object.publication_type.count %}
-                     {% for t in current_object.publication_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<p class="clear"><p />
+                     {% for t in current_object.publication_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}
                   {% endif %}
               </div>
               <div class="asset-summary">
@@ -120,7 +121,7 @@
                   {% if current_object.description %}
                      {{ current_object.description|truncatewords:50 }}
                   {% endif %}
-              </div><p class="clear"><p />
+              </div>
         {% else %}{% if asset_klass == "Region" %}
            {% if current_object.display_image %}
               <img alt="Region Icon" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
@@ -128,7 +129,7 @@
            <div>
                <b>Region Type</b>: 
                {% if current_object.region_type.count %}
-                  {% for t in current_object.region_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<p class="clear"><p />
+                  {% for t in current_object.region_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}
                {% endif %}
           </div>
           <div class="asset-summary">
@@ -136,7 +137,7 @@
              {% if current_object.description %}
                 {{ current_object.description|truncatewords:50 }}
              {% endif %}
-          </div><p class="clear"><p />
+          </div>
         {% else %}{% if asset_klass == "ResearchProject" %}
            {% if current_object.display_image %}
               <img alt="Research Project Icon" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
@@ -146,7 +147,7 @@
                {% if current_object.person.count %}
                   {% for p in current_object.person.all %}{% if forloop.counter > 1 %}, {% endif %}{{ p.name }}{% endfor %}
                {% endif %}
-           </div><p class="clear"><p />
+           </div>
            <div>
                <b>Location</b>
                {% if current_object.location %}
@@ -159,7 +160,7 @@
                   {% for d in current_object.dataset.all %}
                     <a href="/portal/browse/portal/dataset/objects/{{d.id}}">
                     {{ d.name }}
-                    </a><p class="clear"><p />
+                    </a>
                   {% endfor %}
                {% endif %}
            </div>
@@ -169,7 +170,7 @@
                   {% for p in current_object.publication.all %}
                      <a href="/portal/browse/portal/publication/objects/{{p.id}}">
                         {{ p.name }}
-                     </a><p class="clear"><p />
+                     </a>
                   {% endfor %}
                {% endif %}
            </div>
@@ -178,7 +179,7 @@
              {% if current_object.description %}
                 {{ current_object.description|truncatewords:50 }}
              {% endif %}
-          </div><p class="clear"><p />
+          </div>
        {% else %}{% if asset_klass == "Station" %}
            {% if current_object.display_image %}
               <img alt="Station Image" src="{{current_object.display_image.file.url}}"  class="featured_image"></img>
@@ -200,7 +201,7 @@
              {% if current_object.description %}
                 {{ current_object.description|truncatewords:50 }}
              {% endif %}
-          </div>       <p class="clear"><p />
+          </div>       
        {% else %}{% if asset_klass == "ForestStory" %}
            {% if current_object.display_image %}
               <img alt="Forest Story Image" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
@@ -210,11 +211,12 @@
              {% if current_object.description %}
                 {{ current_object.description|truncatewords:50 }}
              {% endif %}
-          </div>       <p class="clear"><p />
+          </div>       
         {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
       
           <!--  Customized Link -->
-          {% if asset_klass == "ForestStory" %}
+         
+         {% if asset_klass == "ForestStory" %}
              <a class="summary-link" href="/portal/foreststories/{{current_object.name}}/">
           {% else %}
              <a class="summary-link" href="/portal/browse/portal/{{asset_klass|lower}}/objects/{{current_object.id}}">
@@ -228,12 +230,12 @@
           {% else %}
             More >>
           {% endifequal %}{% endifequal %}{% endifequal %}
-          </a>
+          </a><p class="clear"></p>
       </div>
     {% else %}
         <!--  Featured, but not highlighted on the page. Default to regular asset_descriptions -->
         {% include "portal/asset_description.html" %}
     {% endif %}
 
-{% endwith %}{% endwith %}{% endwith %}{% endwith %}
+{% endwith %}{% endwith %}{% endwith %}{% endwith %}</div><p class="clear"><p />
 </div>

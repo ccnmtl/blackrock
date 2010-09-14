@@ -145,6 +145,7 @@ td#left {
   padding: 10px;
   border: none;
   border-collapse: collapse;
+  min-width: 400px;
 }
 
 
@@ -256,9 +257,20 @@ td#right {
 .assetlist .blocktext a {
     color: black;
     font-weight: bold;
-    margin: 10px 0 0;
+    margin: 0;
     display: block;
+
 }
+
+.assetlist .blocktext a.summary-link {
+
+display:block;
+float:left;
+margin:0 0 0 40%;
+width:60%;
+
+}
+
 
 .featuredasset {
 
@@ -291,47 +303,62 @@ td#right {
 }
 
 .featured_image {
-    width: 40%;
+    width: 35%;
     height: auto;
     float: left;
+    border: 1px solid #ccc;
 }
 
-.highlightonmap, .assetlist .blocktext a.highlightonmap {
+.highlightonmap{
     float: right;
     background-color: #fefeb3;
-margin:-11px -16px 20px 10px;
-padding:8px 10px;
+margin:-2px -21px 0px 0px;
 border: 1px solid #b49f93;
 }
+
+.assetlist .blocktext .highlightonmap a {
+
+	padding: 5px 10px;
+	margin: -2px 0 0 0;
+	white-space: nowrap;
+
+}
+
+
+.assetlist .blocktext a.display-name {
+
+	font-size: 120%;
+	font-weight: bold;
+	text-decoration: none;
+	margin: 10px 0;
+	clear: right;
+	
+}
+
+
     
     
     
 .pagetitle {
 
-	font-size: 120%;
+	font-size: 110%;
 	font-weight: bold;
 }
 
 .pagesubtitle {
 
-	font-size: 100%;
+	font-size: 90%;
 	font-weight: bold;
 }
 
 .asset-summary {
 	display: block;
-	width: 50%;
-	float: left;
+	width: 60%;
+	margin: 0 15px 15px 40%;
 
 }
 
-div.featuredasset p {
-	display: block;
-	width: 50%;
-	margin: 30px 0 0 40%;
 
-
-}
 
 .clear {
 
