@@ -102,7 +102,7 @@ if (!Portal.MapMarker) {
         self.infrastructure = [];
         self.marker = null;
         
-        this.create = function(mapInstance, assetIdentifier, name, description, lat, lng, featured, infrastructure) {
+        this.create = function(mapInstance, assetIdentifier, name, description, lat, lng, featured, infrastructure, iconName) {
             self.assetIdentifier = assetIdentifier;;
             self.description = description; 
             self.featured = featured;
@@ -121,6 +121,10 @@ if (!Portal.MapMarker) {
                 var iconName = featured[0];
                 iconName = iconName.replace("Featured ", "");
                 iconUrl = 'http://' + location.hostname + ':' + location.port + "/portal/media/images/mapicon_" + iconName.toLowerCase() + '.png';
+            } else if (iconName) {
+                iconUrl = 'http://' + location.hostname + ':' + location.port + "/portal/media/images/" + iconName;
+            } else {
+                iconUrl = 'http://' + location.hostname + ':' + location.port + "/portal/media/images/mapicon_main.png";
             }
 
             var shouldBeVisible = self.shouldBeVisible();
@@ -266,6 +270,11 @@ if (!Portal.Map) {
                         var latitude = document.getElementById(assetIdentifier + "-latitude").value;
                         var longitude = document.getElementById(assetIdentifier + "-longitude").value;
                         
+                        var iconname = null;
+                        var property = document.getElementById(assetIdentifier + "-iconname");
+                        if (property && property.value.length > 0)
+                            iconname = property.value;
+                        
                         var featured = null;
                         var infrastructure = null;
                         
@@ -278,7 +287,7 @@ if (!Portal.Map) {
                             featured = property.value.split(",")
                         
                         var marker = new Portal.MapMarker();
-                        marker.create(self.mapInstance, assetIdentifier, name, description, latitude, longitude, featured, infrastructure);
+                        marker.create(self.mapInstance, assetIdentifier, name, description, latitude, longitude, featured, infrastructure, iconname);
                         self.locations[assetIdentifier] = marker;
                     });
          });

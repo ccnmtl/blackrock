@@ -3,6 +3,8 @@ from haystack.views import SearchView, FacetedSearchView
 from haystack.forms import *
 from portal.models import *
 from django.utils.translation import ugettext_lazy as _
+from django.db.models import get_model, get_app
+from django.utils.text import capfirst
 
 class PortalSearchForm(SearchForm):
 
@@ -86,7 +88,17 @@ class PortalSearchForm(SearchForm):
         if facet in self.fields:
           for key, value in counts['fields'][facet]:
             if value > 0:
-              choice = (key, "%s (%s)" % (key, value))
+              # Look up the display name for this facet
+              display_name = key
+              try:
+                x = Facet.objects.get(name=key)
+                display_name = x.display_name
+              except:
+                model = get_model("portal", key)
+                if model:
+                  display_name = capfirst(model._meta.verbose_name)
+                
+              choice = (key, "%s (%s)" % (display_name, value))
               self.fields[facet].choices.append(choice)
   
           self.fields[facet].choices.sort()

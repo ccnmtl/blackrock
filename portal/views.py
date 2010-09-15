@@ -44,15 +44,6 @@ def page(request,path):
     section = h.get_first_leaf(current_root)
     ancestors = section.get_ancestors()
     
-    # Get all assets with valid "infrastructure" facets
-    sqs = SearchQuerySet()
-    sqs = sqs.facet("infrastructure")
-    sqs = sqs.narrow("infrastructure:[* TO *]")
-    
-    sqsFeatured = SearchQuerySet()
-    sqsFeatured = sqsFeatured.facet("featured")
-    sqsFeatured = sqsFeatured.narrow("featured:[* TO *]")
-    
     module = None
     if not section.is_root:
         module = ancestors[1]
@@ -60,9 +51,7 @@ def page(request,path):
     # retrieve the list of featured assets associated with this section
     return dict(section=section,
                 module=module,
-                root=ancestors[0],
-                infrastructure=sqs,
-                featured=sqsFeatured)
+                root=ancestors[0])
     
     
     

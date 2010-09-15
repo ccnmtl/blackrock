@@ -2,10 +2,11 @@
 {% load smartif %} 
 
 <div class="assetlist" id="{{asset_klass}}-{{current_object.id}}">
+
 {% with block.asset as current_object %}
 {% with block.asset|klass as asset_klass %}
 {% with 1 as includehighlight %}
-{% with "featured" as prefix %}
+{% with "featured" as prefix %}   
             
    <!-- Asset Locations (Hidden. Used by maps.js to plot GMaps) -->
    {% include "portal/asset_location.html" %}
@@ -219,6 +220,7 @@
           {% else %}
              <a class="summary-link" href="/portal/browse/portal/{{asset_klass|lower}}/objects/{{current_object.id}}">
           {% endif %}
+          
           {% ifequal block.audience.name "Education" %} 
             Learn More >>
           {% else %}{% ifequal block.audience.name "Experience" %}

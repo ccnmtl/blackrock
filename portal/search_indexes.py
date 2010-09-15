@@ -16,25 +16,25 @@ class AssetIndex(RealTimeSearchIndex):
   featured = MultiValueField(faceted=True)
   
   def prepare_study_type(self, obj):
-    return [facet.display_name for facet in obj.facet.filter(facet='Study Type')]
+    return [facet.name for facet in obj.facet.filter(facet='Study Type')]
 
   def prepare_species(self, obj):
-    return [facet.display_name for facet in obj.facet.filter(facet='Species')]
+    return [facet.name for facet in obj.facet.filter(facet='Species')]
 
   def prepare_discipline(self, obj):
-    return [facet.display_name for facet in obj.facet.filter(facet='Discipline')]
+    return [facet.name for facet in obj.facet.filter(facet='Discipline')]
   
   def prepare_audience(self, obj): 
     return [audience.name for audience in obj.audience.all()]
   
   def prepare_infrastructure(self, obj):
-    return [facet.display_name for facet in obj.facet.filter(facet='Infrastructure')]
+    return [facet.name for facet in obj.facet.filter(facet='Infrastructure')]
   
   def prepare_asset_type(self, obj):
     return obj._meta.object_name
   
   def prepare_featured(self, obj):
-    return [facet.display_name for facet in obj.facet.filter(facet='Featured')]
+    return [facet.name for facet in obj.facet.filter(facet='Featured')]
   
 class PersonIndex(AssetIndex):
   person_type = MultiValueField()

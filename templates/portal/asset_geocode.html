@@ -16,6 +16,10 @@
       <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-latitude" value="{{current_location.latitude}}"></input>
       <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-longitude" value="{{current_location.longitude}}"></input>
       
+      {% if iconname %}
+        <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-iconname" value="{{iconname}}"></input>
+      {% endif %}
+      
       <!-- Facets -->
       {% if show_infrastructure %}
         <input type="hidden" 
