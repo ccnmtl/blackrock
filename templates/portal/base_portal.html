@@ -47,15 +47,15 @@
                 <div class="menu-1" id="tab_home">
                     <a id="tab_home_link" href="/portal/">Home</a>
                 </div>
-                <div class="menu-1" id="tab_experience">
+                <div class="menu-1 experience" id="tab_experience">
                     <a id="tab_experience_link" href="/portal/experience/">The Forest Experience</a>
                 </div>
                 
-                <div class="menu-1" id="tab_education">
+                <div class="menu-1 education" id="tab_education">
                     <a id="tab_education_link" href="/portal/education/">Educational Tools</a>
                 </div>
         
-                <div class="menu-1" id="tab_research">
+                <div class="menu-1 research" id="tab_research">
                     <a id="tab_research_link" href="/portal/research/">Research at Black Rock</a>
                 </div>
             {% endblock %}
@@ -73,10 +73,16 @@
     
     {% block subnav-wrapper %}
     <div id="subnav">
-       <div id="subnav-bar">
-           {% block subnav %}
+        {% if module %}
+	   <div class="{{module.slug}}">
+        {% endif %}
+	   <div id="subnav-bar">
+	   {% block subnav %}
            {% endblock %}
-       </div>
+           </div>
+        {% if module %}
+           </div>
+        {% endif %}
     </div>
     {% endblock %}
 

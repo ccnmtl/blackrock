@@ -1,7 +1,10 @@
 {% load portal %}
 {% load smartif %} 
 
-<div class="assetlist" id="{{asset_klass}}-{{current_object.id}}">
+
+<div class="assetlist link_{{block.audience.name|lower}}" id="{{asset_klass}}-{{current_object.id}}">
+
+
 {% with block.asset as current_object %}
 {% with block.asset|klass as asset_klass %}
 {% with 1 as includehighlight %}

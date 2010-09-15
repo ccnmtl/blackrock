@@ -3,9 +3,9 @@
     {% ifequal s.id current.id %}
     {% else %}
        {% ifequal s.id selected.id %}
-          <div class="menu-{{s.depth}} menu-{{s.depth}}-selected">{{s.label}}</div>
+          <div class="{% if audience %}{{audience.slug}}{% else %}{{s.slug}}{% endif %} menu-{{s.depth}} menu-{{s.depth}}-selected">{{s.label}}</div>
        {% else %}   
-          <div class="menu-{{s.depth}}"><a href="{{menu_base}}/portal{{s.get_absolute_url}}">{{s.label}}</a></div>
+          <div class="{% if audience %}{{audience.slug}}{% else %}{{s.slug}}{% endif %} menu-{{s.depth}}"><a href="{{menu_base}}/portal{{s.get_absolute_url}}">{{s.label}}</a></div>
        {% endifequal %}
     {% endifequal %}
   {% endifnotequal %}
