@@ -642,7 +642,7 @@ def tree_png(request):
     response = HttpResponse(mimetype="image/png")
     im.crop( [0,0,int(parent.width),int(parent.height)] ).save(response, "PNG")
 
-    response['Cache-Control'] = 'max-age=%d'% 60*60*24*7
+    response['Cache-Control'] = 'max-age=%d' % (60*60*24*7)
     return response
 
 
