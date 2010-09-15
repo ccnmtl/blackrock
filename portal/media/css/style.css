@@ -160,7 +160,7 @@ td#right {
 }
 
 .blocktext {
-    padding: 1px 20px 20px;
+    padding: 1px 20px 10px;
     background-color: white;
     margin:0 0 10px;
     font-size: 70%;
@@ -256,7 +256,7 @@ td#right {
 
 .assetlist .blocktext a {
     color: black;
-    font-weight: bold;
+   
     margin: 0;
     display: block;
 
@@ -266,7 +266,8 @@ td#right {
 
 display:block;
 margin:0 15px 0 auto;
-width:57%;
+width:55%;
+text-decoration: none;
 
 }
 
@@ -302,25 +303,41 @@ width:57%;
 }
 
 .featured_image {
-    width: 35%;
+    width: 37%;
     height: auto;
     float: left;
     border: 1px solid #ccc;
    
 }
 
+.featured_details {
+    width: 35%;
+    height: auto;
+    float: left;
+    background-color: #dedede;
+    padding: 0 10px 10px 10px;
+   
+}
+
+.featured_details h4, asset_summary h4 {
+	margin: 20px 0 5px 0;
+   
+}
+
 .highlightonmap{
     float: right;
     background-color: #fefeb3;
-margin:-2px -21px 0px 0px;
+margin:-2px -21px 10px 0px;
 border: 1px solid #b49f93;
 }
 
 .assetlist .blocktext .highlightonmap a {
 
-	padding: 5px 10px;
-	margin: -2px 0 0 0;
+	padding: 7px 10px 5px;
+	margin: -1px 0 0 0;
 	white-space: nowrap;
+	 font-weight: bold;
+	 text-decoration: none;
 
 }
 
@@ -353,7 +370,7 @@ border: 1px solid #b49f93;
 
 .asset-summary {
 	display: block;
-	width: 57%;
+	width: 55%;
 	margin: 0 15px 15px auto;
 
 }

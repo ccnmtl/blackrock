@@ -12,8 +12,8 @@
                 {% include "portal/asset_location.html" %}
 
                 <!-- Name -->                 
-                <a href="{{current_object|detail_url}}">{{current_object.name}}</a>
-                <br />
+                <a class="display-name" href="{{current_object|detail_url}}">{{current_object.name}}</a>
+                
                 
                 <!-- Asset Descriptions (tailored to asset type) -->
                 {% include "portal/asset_description.html" %}
@@ -27,3 +27,5 @@
     <a href="/portal/search/?{{block.search_query}}">View All</a>
 </div>
 <input type="hidden" name="audience" value="{{block.audience}}" />
+
+
