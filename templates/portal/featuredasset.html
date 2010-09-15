@@ -222,11 +222,11 @@
              <a class="summary-link" href="/portal/browse/portal/{{asset_klass|lower}}/objects/{{current_object.id}}">
           {% endif %}
           {% ifequal block.audience.name "Education" %} 
-            Learn More >>
+             <span class="link_education"> Learn More >></span>
           {% else %}{% ifequal block.audience.name "Experience" %}
-            Let's Go >>
+            <span class="link_experience">Let's Go >></span>
           {% else %}{% ifequal block.audience.name "Research" %}
-            Investigate >>
+              <span class="link_research">Investigate >></span>
           {% else %}
             More >>
           {% endifequal %}{% endifequal %}{% endifequal %}

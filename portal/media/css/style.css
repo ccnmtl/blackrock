@@ -265,9 +265,8 @@ td#right {
 .assetlist .blocktext a.summary-link {
 
 display:block;
-float:left;
-margin:0 0 0 40%;
-width:60%;
+margin:0 15px 0 auto;
+width:57%;
 
 }
 
@@ -307,6 +306,7 @@ width:60%;
     height: auto;
     float: left;
     border: 1px solid #ccc;
+   
 }
 
 .highlightonmap{
@@ -353,8 +353,8 @@ border: 1px solid #b49f93;
 
 .asset-summary {
 	display: block;
-	width: 60%;
-	margin: 0 15px 15px 40%;
+	width: 57%;
+	margin: 0 15px 15px auto;
 
 }
 
