@@ -37,37 +37,43 @@ def infrastructure_assets(obj):
 
 @register.filter('infrastructure_counts')
 def infrastructure_counts(obj):
-  infrastructure_counts = {}
   
-  sqs = SearchQuerySet()
-  sqs = sqs.facet("infrastructure")
-  sqs = sqs.narrow("infrastructure:[* TO *]")
-
-  for infrastructure in sqs.facet_counts()['fields']['infrastructure']:
-    key = infrastructure[0].replace(' ', '')
-    key = key.replace('-', '')
-    infrastructure_counts[key] = infrastructure[1]
-  return infrastructure_counts
+  try:
+    infrastructure_counts = {}
+  
+    sqs = SearchQuerySet()
+    sqs = sqs.facet("infrastructure")
+    sqs = sqs.narrow("infrastructure:[* TO *]")
+  
+    for infrastructure in sqs.facet_counts()['fields']['infrastructure']:
+      key = infrastructure[0].replace(' ', '')
+      key = key.replace('-', '')
+      infrastructure_counts[key] = infrastructure[1]
+    return infrastructure_counts
+  except:
+    return None
 
 @register.filter('featured_counts')
 def featured_counts(obj):
-  featured_counts = {}
   
-  sqs = SearchQuerySet()
-  sqs = sqs.facet("featured")
-  sqs = sqs.narrow("featured:[* TO *]")
-
-  for featured in sqs.facet_counts()['fields']['featured']:
-    key = featured[0].replace(' ', '')
-    key = key.replace('-', '')
-    featured_counts[key] = featured[1]
-  return featured_counts
-
+  try:
+    featured_counts = {}
+    sqs = SearchQuerySet()
+    sqs = sqs.facet("featured")
+    sqs = sqs.narrow("featured:[* TO *]")
+  
+    for featured in sqs.facet_counts()['fields']['featured']:
+      key = featured[0].replace(' ', '')
+      key = key.replace('-', '')
+      featured_counts[key] = featured[1]
+    return featured_counts
+  except:
+    return None
     
 @register.filter('detail_url')
 def detail_url(obj):
     if obj._meta.object_name == 'ForestStory':
-      url = "/portal/foreststories/%s/" % (obj.name) 
+      url = "/portal/foreststories/%s" % (obj.name) 
     else:
       url = "/portal/browse/portal/%s/objects/%s" % (obj._meta.object_name.lower(), obj.id)
       

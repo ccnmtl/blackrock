@@ -1,0 +1,27 @@
+{% if current_object.display_image %}
+    {% if current_object.display_image.digital_format.is_image %}
+        <img alt="{{asset_klass}} Image" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
+    {% else %}{% if current_object.display_image.digital_format.is_video %}
+        <a
+            href="{{current_object.display_image.url}}"
+            style="display:block;width:400px;height:300px;"
+            id="player">
+        </a>
+        
+        <script>
+            // install Flowplayer inside the previous anchor tag
+            flowplayer("player", "http://releases.flowplayer.org/swf/flowplayer-3.2.4.swf", {
+                playlist: [
+                           {% if current_object.display_image.file %}
+                              {url: '{{current_object.display_image.file.url}}', scaling: 'orig'},
+                           {% endif %}
+
+                           // our MP3 does not start automatically
+                           {url: '{{current_object.display_image.url}}', autoPlay: false, autoBuffering: true}
+
+                       ]
+            });
+        </script>
+    {% endif %}{% endif %}
+
+{% endif %}

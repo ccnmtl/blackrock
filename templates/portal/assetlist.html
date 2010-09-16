@@ -1,7 +1,7 @@
 {% load portal %}
 
 {% load smartif %}     
-<div class="assetlist">  
+<div class="assetlist {{block.audience}}">  
     {% for result in block.list %}
         {% if forloop.counter <= block.list_count %}
             {% with result.object as current_object %}
@@ -17,6 +17,11 @@
                 
                 <!-- Asset Descriptions (tailored to asset type) -->
                 {% include "portal/asset_description.html" %}
+                
+                <!-- Customized Link -->
+                {% with block.audience as audience %}
+                    {% include "portal/asset_detaillink.html" %}
+                {% endwith %}
                  
                </div>
                 

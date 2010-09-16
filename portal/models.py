@@ -5,6 +5,7 @@ from django.contrib.contenttypes import generic
 from django import forms
 from haystack.query import SearchQuerySet
 from django.conf import settings
+import re
 
 MAX_DISPLAY_LENGTH = 50
 
@@ -20,6 +21,12 @@ class Audience(models.Model):
   
 class DigitalFormat(models.Model):
   name = models.CharField(max_length=100, unique=True)
+  
+  def is_image(self):
+    return self.name in ['png', 'jpg', 'gif', 'bmp']
+  
+  def is_video(self):
+    return self.name in ['mp4', 'flv', 'm4v']
 
   class Meta:
     ordering = ['name']
@@ -471,7 +478,14 @@ class AssetList(models.Model):
         c = c.replace(':', '=')
         query += c.strip() + "&"
       
-    return query   
+    return query  
+  
+  def audience(self):
+    try:
+      m = re.search("audience:\w*", self.search_criteria)
+      return m.group(0).split(":")[1].lower()
+    except:
+      return None 
   
 class FeaturedAsset(models.Model):
   pageblocks = generic.GenericRelation(PageBlock, related_name="featuredassetlist_pageblock")
@@ -561,6 +575,54 @@ class FeaturedAssetForm(forms.ModelForm):
       raise ValidationError('Please select only one object to display.')
     
     return self.cleaned_data
+#  
+#class VideoBlock(models.Model):
+#    pageblocks = generic.GenericRelation(PageBlock)
+#    file_url = models.CharField(max_length=512)
+#    image_url = models.CharField(max_length=512)
+#    width = models.IntegerField()
+#    height = models.IntegerField()
+#    
+#    template_file = "tobaccocessation_main/flashvideoblock.html"
+#    display_name = "Flash Video (using JW Player)"
+#
+#
+#    def pageblock(self):
+#        return self.pageblocks.all()[0]
+#
+#    def __unicode__(self):
+#        return unicode(self.pageblock())
+#
+#    def edit_form(self):
+#        class EditForm(forms.Form):
+#            file_url = forms.CharField(initial=self.file_url)
+#            image_url = forms.CharField(initial=self.image_url)
+#            width = forms.IntegerField(initial=self.width)
+#            height = forms.IntegerField(initial=self.height)
+#        return EditForm()
+#
+#    @classmethod
+#    def add_form(self):
+#        class AddForm(forms.Form):
+#            file_url = forms.CharField()
+#            image_url = forms.CharField()
+#            width = forms.IntegerField()
+#            height = forms.IntegerField()
+#        return AddForm()
+#
+#    @classmethod
+#    def create(self,request):
+#        return FlashVideoBlock.objects.create(file_url=request.POST.get('file_url',''), 
+#                                              image_url=request.POST.get('image_url',''),
+#                                              width=request.POST.get('width', ''),
+#                                              height=request.POST.get('height', ''))
+#
+#    def edit(self,vals,files):
+#        self.file_url = vals.get('file_url','')
+#        self.image_url = vals.get('image_url','')
+#        self.width = vals.get('width','')
+#        self.height = vals.get('height','')
+#        self.save()
   
   
   

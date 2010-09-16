@@ -27,9 +27,7 @@
           
           {% if asset_klass == "DataSet" %}
            <div>
-              {% if current_object.display_image %}
-                <img alt="Data Set Image" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
-              {% endif %}
+              {% include "portal/related_media.html" %}
               
               <div class="asset-summary">
                  <h4>Description</h4> 
@@ -49,9 +47,8 @@
            </div>
         {% else %}{% if asset_klass == "LearningActivity" %}
            <div>
-              {% if current_object.display_image %}
-                <img alt="Learning Activity Image" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
-              {% endif %}
+              {% include "portal/related_media.html" %}
+              
               <div class="featured_details">
                 <h4>Format</h4> 
                 {% if current_object.digital_format.count %}
@@ -66,9 +63,8 @@
               </div>
            </div>
         {% else %}{% if asset_klass == "Location" %}
-           {% if current_object.display_image %}
-              <img alt="Location Image" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
-           {% endif %}
+           {% include "portal/related_media.html" %}
+           
            <div class="asset-summary">
                 {% spaceless %}
                 <h4>Description</h4> 
@@ -86,9 +82,7 @@
                {% endif %} 
             </div>
         {% else %}{% if asset_klass == "Person" %}
-           {% if current_object.display_image %}
-              <img alt="Person Icon" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
-           {% endif %}
+           {% include "portal/related_media.html" %}
         
             <div class="featured_details">
                 <h4>Title</h4> 
@@ -108,9 +102,7 @@
                   {% endif %}
              
         {% else %}{% if asset_klass == "Publication" %}
-              {% if current_object.display_image %}
-                <img alt="Publication Icon" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
-              {% endif %}
+              {% include "portal/related_media.html" %}
                
                   <h4>Publication Type</h4> 
                   {% if current_object.publication_type.count %}
@@ -124,9 +116,8 @@
                   {% endif %}
               </div>
         {% else %}{% if asset_klass == "Region" %}
-           {% if current_object.display_image %}
-              <img alt="Region Icon" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
-           {% endif %}
+           {% include "portal/related_media.html" %}
+           
            <div class="featured_details">
                <h4>Region Type</h4> 
                {% if current_object.region_type.count %}
@@ -140,9 +131,8 @@
              {% endif %}
           </div>
         {% else %}{% if asset_klass == "ResearchProject" %}
-           {% if current_object.display_image %}
-              <img alt="Research Project Icon" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
-           {% endif %}
+           {% include "portal/related_media.html" %}
+           
             <div class="featured_details">
                <h4>Principal Investigator{% if current_object.person.count > 1 %}s{% endif %}</h4>
                {% if current_object.person.count %}
@@ -179,9 +169,8 @@
              {% endif %}
           </div>
        {% else %}{% if asset_klass == "Station" %}
-           {% if current_object.display_image %}
-              <img alt="Station Image" src="{{current_object.display_image.file.url}}"  class="featured_image"></img>
-           {% endif %}
+           {% include "portal/related_media.html" %}
+           
            <div class="featured_details">
               <h4>Activation Date</h4>
               {% if current_object.activation_date %}
@@ -200,9 +189,8 @@
              {% endif %}
           </div>       
        {% else %}{% if asset_klass == "ForestStory" %}
-           {% if current_object.display_image %}
-              <img alt="Forest Story Image" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
-           {% endif %}
+           {% include "portal/related_media.html" %}
+           
           <div class="asset-summary">
              <h4>Description</h4> 
              {% if current_object.description %}
@@ -211,23 +199,12 @@
           </div>       
         {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
       
-          <!--  Customized Link -->
-         
-         {% if asset_klass == "ForestStory" %}
-             <a class="summary-link" href="/portal/foreststories/{{current_object.name}}/">
-          {% else %}
-             <a class="summary-link" href="/portal/browse/portal/{{asset_klass|lower}}/objects/{{current_object.id}}">
-          {% endif %}
-          {% ifequal block.audience.name "Education" %} 
-             <span class="link_education"> Learn More >></span>
-          {% else %}{% ifequal block.audience.name "Experience" %}
-            <span class="link_experience">Let's Go >></span>
-          {% else %}{% ifequal block.audience.name "Research" %}
-              <span class="link_research">Investigate >></span>
-          {% else %}
-            More >>
-          {% endifequal %}{% endifequal %}{% endifequal %}
-          </a><p class="clear"></p>
+        {% with block.audience.name|lower as audience %}
+            {% include "portal/asset_detaillink.html" %}
+        {% endwith %}
+        
+        <p class="clear"></p>
+        
       </div>
     {% else %}
         <!--  Featured, but not highlighted on the page. Default to regular asset_descriptions -->
