@@ -197,10 +197,8 @@ if (!Portal.Map) {
         this.showInfoWindow = function(asset_identifier) {
             var location = self.locations[asset_identifier];
             
-            if (!location) {
-                log("Location undefined: " + asset_identifier)
-            } else {
-                 
+            if (location) {
+
                 if (self.infowindow)
                     self.infowindow.close()
                 
