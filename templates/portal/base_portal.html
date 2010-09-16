@@ -43,24 +43,25 @@
 
 <div id="wrapper">
     <div id="mainnav">
-        <div id="tab-bar">
+      
             {% block mainnav %}
-                <div class="menu-1" id="tab_home">
+                <ul>
+                <li class="home" id="tab_home">
                     <a id="tab_home_link" href="/portal/">Home</a>
-                </div>
-                <div class="menu-1 experience" id="tab_experience">
+                </li>
+                <li class="experience" id="tab_experience">
                     <a id="tab_experience_link" href="/portal/experience/">The Forest Experience</a>
-                </div>
+                </li>
                 
-                <div class="menu-1 education" id="tab_education">
+                <li class="education" id="tab_education">
                     <a id="tab_education_link" href="/portal/education/">Educational Tools</a>
-                </div>
+                </li>
         
-                <div class="menu-1 research" id="tab_research">
+                <li class="research" id="tab_research">
                     <a id="tab_research_link" href="/portal/research/">Research at Black Rock</a>
-                </div>
+                </li>
+		</ul>
             {% endblock %}
-        </div>
         
        {% block searchtab %}
        <div id="search">
@@ -73,17 +74,9 @@
     </div>
     
     {% block subnav-wrapper %}
-    <div id="subnav">
-        {% if module %}
-	   <div class="{{module.slug}}">
-        {% endif %}
-	   <div id="subnav-bar">
-	   {% block subnav %}
-           {% endblock %}
-           </div>
-        {% if module %}
-           </div>
-        {% endif %}
+    <div id="subnav" class="{{module.slug}}">
+       {% block subnav %}
+       {% endblock %}
     </div>
     {% endblock %}
 

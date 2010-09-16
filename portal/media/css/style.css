@@ -14,67 +14,81 @@ body {
 	padding: 0 auto;
 }
 
+
+/* Main Nav (Tabs) */
+
 div#mainnav
 {
     background-color: #b49f93;
     height: 40px;
-}
-
-div#tab-bar {
-    margin-left: 10px;
+    margin: 0;
 }
 
 
+div#mainnav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    
+    
+}
 
-div.menu-1 {
-    background-color: #897467; /* darkest brown */ 
+div#mainnav ul li {
+    background-color: #897467;  
 	color: black;
 	z-index: 100;
 	float: left;
-	padding: 5px 5px 5px 5px;
-	margin: 13px 10px -1px 0;
-	font-size: 12px;
+	padding: 5px 10px;
+	margin: 10px 0px 0px 10px;
+	font-size: 90%;
 	cursor: pointer;
 	font-weight: normal;
 	border: 1px solid #E4DBCC;
 	border-bottom: none;
-	color: white;
+
 }
 
 
+div#mainnav ul li.home.selected {background-color: #3d2800; color: #fff;}
+div#mainnav ul li.experience.selected {background-color: #436751; color: #fff;}
+div#mainnav ul li.education.selected {background-color: #730711; color: #fff;}
+div#mainnav ul li.research.selected {background-color: #0071bc; color: #fff;}
 
-div.menu-1 a {
+
+
+div#mainnav ul li a {
     color: white;
     text-decoration: none;
-    padding: 5px 5px 5px 5px;
+    display: block;
+   	padding: 5px 10px;
+   	margin: -5px -10px;
 }
 
-div.menu-1:hover {
+div#mainnav ul li:hover {
    background-color: #e4dbcc;
       color: black;
 
 }
 
-div.menu-1 a:hover {
+div#mainnav ul li a:hover {
    color: black;
 
 }
 
-div.menu-1-selected {
-	background-color: #3d2800;
-	color: #fff;
-}
-
-div.menu-1-selected.experience {background-color: #436751; color: #fff;}
-div.menu-1-selected.education{background-color: #730711; color: #fff;}
-div.menu-1-selected.research{background-color: #0071bc; color: #fff;}
 
 
 
-div.menu-1-selected a {
+
+
+
+div#mainnav ul li-selected a {
     color: black;
     text-decoration: none;
 }
+
+
+
+
 
 div#search {
     float: right;
@@ -90,68 +104,93 @@ div#search-tab {
     color: black;
     z-index: 100;
     float: right;
-    padding: 5px 5px 5px 5px;
-    margin: 13px 10px 0 0;
-    font-size: 12px;
+    padding: 5px 10px;
+    margin: 10px 10px 0 0;
+    font-size: 90%;
     cursor: pointer;
     font-weight: normal;
     background-color: #dcd3c2;
     border: 1px #dcd3c2 solid;
     color: black; 
+    
+
 }
 
+
+/* Sub Nav (Boxes) */
+
 div#subnav {
-    background-color: #e4dbcc;
+    display: block;
+    margin: 0px;
+    padding-left: 5px;
+    height: 29px; 
+    background-color: #897467;
     color: #fff;
     font-size: 12px;
-    height: 29px;
+    height: 4px;
     clear: both;
     margin-top: -1px;
 }
 
+div#subnav.home {height: 29px; background-color: #3d2800;}
+div#subnav.experience {height: 29px; background-color: #436751;}
+div#subnav.education {height: 29px; background-color: #730711;}
+div#subnav.research {height: 29px; background-color: #0071bc;}
+div#subnav.search {height: 5px; background-color: #dcd3c2;}
 
-div#subnav div.experience {height: 29px; background-color: #436751;}
-div#subnav div.education {height: 29px; background-color: #730711;}
-div#subnav div.research {height: 29px; background-color: #0071bc;}
 
-div#subnav-bar {
-    display: block;
-    margin: 0px 0px 0px 5px;
+div#subnav ul {
+    list-style: none;
+    color: black;
+    z-index: 100;
+    float: left;
+    padding: 0;
+    margin: 0;
+    font-size: 90%;
+    cursor: pointer;
+    font-weight: normal;
+      
 }
 
-div.menu-2 {
+div#subnav ul li {
  
     color: black;
     z-index: 100;
     float: left;
     padding: 3px 5px;
     margin: 5px 10px 0 0;
-    font-size: 90%;
+    font-size: 100%;
     cursor: pointer;
     font-weight: normal;
     color: black;  
 }
 
-div.menu-2:hover {
-    text-decoration: underline;
-}
-
-div#subnav div.experience div#subnav-bar div.experience {
-    height: auto;
-    background-color: #00be5b;
-    color: white;
-}
-
-div#subnav div.experience div#subnav-bar div.experience.menu-2.menu-2-selected {
-    background-color: #DCD3C2;
-    text-transform: uppercase;
+div#subnav ul li a {
+ 
     color: black;
-}
-
-div.menu-2 a {
-    color: black;
+    z-index: 100;
+    float: left;
+    padding: 3px 5px;
+    margin: -3px -5px;
+    cursor: pointer;
+    font-weight: normal;
+    color: black;  
     text-decoration: none;
 }
+
+div#subnav.home ul li {background-color: #8e7365;}
+div#subnav.experience ul li {background-color: green;}
+div#subnav.education ul li {background-color: red;}
+div#subnav.research ul li {background-color: blue;}
+
+div#subnav.home ul li.selected {background-color: #fff;}
+div#subnav.experience ul li.selected {background-color: #fff;}
+div#subnav.education ul li.selected {background-color: #fff;}
+div#subnav.research ul li.selected {background-color: #fff;}
+
+
+
+/*Page Body*/
 
 div#container {
    padding: 0;

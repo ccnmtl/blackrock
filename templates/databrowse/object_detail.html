@@ -4,9 +4,6 @@
 
 {% block title %}{{ object.model.verbose_name|capfirst }}: {{ object }}{% endblock %}
 
-{% block subnav-wrapper %}
-{% endblock %}
-
 {% block left %}
 <div class="blocktext">   
     {% with object.instance as current_object %}

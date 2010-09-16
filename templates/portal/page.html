@@ -6,16 +6,16 @@
     {% with root as current %}
     {% with section.get_parent as selected %}
     {% with "foreststories" as hidden %}
+    {% with 1 as audience %}
         {% include "portal/menu.html" %}
-    {% endwith %}{% endwith %}{% endwith %}
+    {% endwith %}{% endwith %}{% endwith %}{% endwith %}
 {% endblock %}
 
 {% block subnav %}
     {% with module as current %}
-    {% with module as audience %}
     {% with section as selected %}
             {% include "portal/menu.html" %}
-    {% endwith %}{% endwith %}{% endwith %}
+    {% endwith %}{% endwith %}
 {% endblock %}
 
 {% block left %} 
