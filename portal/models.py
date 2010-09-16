@@ -163,7 +163,7 @@ class Location(models.Model):
   audience = models.ManyToManyField(Audience, null=True, blank=True)
   display_image = models.ForeignKey(DigitalObject, null=True, blank=True)
   facet = models.ManyToManyField(Facet)
-  tag = models.ManyToManyField(Tag)
+  tag = models.ManyToManyField(Tag, null=True, blank=True)
 
   created_date = models.DateTimeField('created_date', default=datetime.now)
   modified_date = models.DateTimeField('modified_date', default=datetime.now)

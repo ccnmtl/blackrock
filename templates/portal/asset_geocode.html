@@ -18,7 +18,9 @@
       
       {% if iconname %}
         <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-iconname" value="{{iconname}}"></input>
-      {% endif %}
+      {% else %}{% if audience %}
+        <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-iconname" value="mapicon_{{audience}}list.png"></input>
+      {% endif %}{% endif %}
       
       <!-- Facets -->
       {% if show_infrastructure %}
