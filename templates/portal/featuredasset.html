@@ -198,10 +198,6 @@
              {% endif %}
           </div>       
         {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
-      
-        {% with block.audience.name|lower as audience %}
-            {% include "portal/asset_detaillink.html" %}
-        {% endwith %}
         
         <p class="clear"></p>
         
@@ -210,6 +206,10 @@
         <!--  Featured, but not highlighted on the page. Default to regular asset_descriptions -->
         {% include "portal/asset_description.html" %}
     {% endif %}
+    
+    {% with block.audience.name|lower as audience %}
+        {% include "portal/asset_detaillink.html" %}
+    {% endwith %}
 
 {% endwith %}{% endwith %}{% endwith %}{% endwith %}</div><p class="clear"><p />
 </div>
