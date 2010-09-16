@@ -1,6 +1,10 @@
 /* darkest brown background-color: #897467;  */ 
-/* deeper brown background background-color: #e4dbcc */
+/* deeper brown background background-color: #e4dbcc; */
 /* light tan background-color: #DCD3C2; */ 
+/*default links: #3d2800 */
+/*experience links: #436751 */
+/*education links: #730711 */
+/*research links: #0071bc */
 
 
 
@@ -20,6 +24,8 @@ div#tab-bar {
     margin-left: 10px;
 }
 
+
+
 div.menu-1 {
     background-color: #897467; /* darkest brown */ 
 	color: black;
@@ -31,8 +37,11 @@ div.menu-1 {
 	cursor: pointer;
 	font-weight: normal;
 	border: 1px solid #E4DBCC;
+	border-bottom: none;
 	color: white;
 }
+
+
 
 div.menu-1 a {
     color: white;
@@ -52,9 +61,15 @@ div.menu-1 a:hover {
 }
 
 div.menu-1-selected {
-	background-color: #e4dbcc;
-	color: #425140;
+	background-color: #3d2800;
+	color: #fff;
 }
+
+div.menu-1-selected.experience {background-color: #436751; color: #fff;}
+div.menu-1-selected.education{background-color: #730711; color: #fff;}
+div.menu-1-selected.research{background-color: #0071bc; color: #fff;}
+
+
 
 div.menu-1-selected a {
     color: black;
@@ -94,6 +109,11 @@ div#subnav {
     margin-top: -1px;
 }
 
+
+div#subnav div.experience {height: 29px; background-color: #436751;}
+div#subnav div.education {height: 29px; background-color: #730711;}
+div#subnav div.research {height: 29px; background-color: #0071bc;}
+
 div#subnav-bar {
     display: block;
     margin: 0px 0px 0px 5px;
@@ -116,10 +136,16 @@ div.menu-2:hover {
     text-decoration: underline;
 }
 
-div.menu-2-selected {
-    background-color: #b49f93;
+div#subnav div.experience div#subnav-bar div.experience {
+    height: auto;
+    background-color: #00be5b;
     color: white;
+}
+
+div#subnav div.experience div#subnav-bar div.experience.menu-2.menu-2-selected {
+    background-color: #DCD3C2;
     text-transform: upppercase;
+    color: black;
 }
 
 div.menu-2 a {
@@ -145,6 +171,7 @@ td#left {
   padding: 10px;
   border: none;
   border-collapse: collapse;
+  min-width: 400px;
 }
 
 
@@ -159,7 +186,7 @@ td#right {
 }
 
 .blocktext {
-    padding: 1px 20px 20px;
+    padding: 1px 20px 10px;
     background-color: white;
     margin:0 0 10px;
     font-size: 70%;
@@ -188,7 +215,7 @@ td#right {
 
 }
 
-.link_experience {
+assetlist.link_experience a, a.link_experience {
 
 	color: #436751;
 	font-weight: bold;
@@ -211,7 +238,7 @@ td#right {
 
 }
 
-.link_education {
+assetlist.link_education a, a.link_education {
 
 	color: #730711;
 	font-weight: bold;
@@ -234,7 +261,7 @@ td#right {
 
 }
 
-.link_research {
+assetlist.link_research a, a.link_research {
 
 	color: #0071bc;
 	font-weight: bold;
@@ -253,12 +280,22 @@ td#right {
    
 }
 
-.assetlist .blocktext a {
-    color: black;
-    font-weight: bold;
-    margin: 10px 0 0;
+.assetlist a {
+    color: #3d2800;
+    margin: 0;
     display: block;
+
 }
+
+.assetlist .blocktext a.summary-link {
+
+display:block;
+margin:0 15px 0 auto;
+width:55%;
+text-decoration: none;
+
+}
+
 
 .featuredasset {
 
@@ -291,47 +328,79 @@ td#right {
 }
 
 .featured_image {
-    width: 40%;
+    width: 37%;
     height: auto;
     float: left;
+    border: 1px solid #ccc;
+   
 }
 
-.highlightonmap, .assetlist .blocktext a.highlightonmap {
+.featured_details {
+    width: 35%;
+    height: auto;
+    float: left;
+    background-color: #dedede;
+    padding: 0 10px 10px 10px;
+   
+}
+
+.featured_details h4, .asset_summary h4, .blocktext h4 {
+	margin: 20px 0 5px 0;
+   
+}
+
+.highlightonmap{
     float: right;
     background-color: #fefeb3;
-margin:-11px -16px 20px 10px;
-padding:8px 10px;
+margin:-2px -21px 10px 0px;
 border: 1px solid #b49f93;
 }
+
+.assetlist .blocktext .highlightonmap a {
+
+	padding: 7px 10px 5px;
+	margin: -1px 0 0 0;
+	white-space: nowrap;
+	 font-weight: bold;
+	 text-decoration: none;
+
+}
+
+
+.assetlist .blocktext a.display-name {
+
+	font-size: 120%;
+	font-weight: bold;
+	text-decoration: none;
+	margin: 10px 0;
+	clear: right;
+	
+}
+
+
     
     
     
 .pagetitle {
 
-	font-size: 120%;
+	font-size: 110%;
 	font-weight: bold;
 }
 
 .pagesubtitle {
 
-	font-size: 100%;
+	font-size: 90%;
 	font-weight: bold;
 }
 
 .asset-summary {
 	display: block;
-	width: 50%;
-	float: left;
+	width: 55%;
+	margin: 0 15px 15px auto;
 
 }
 
-div.featuredasset p {
-	display: block;
-	width: 50%;
-	margin: 30px 0 0 40%;
 
-
-}
 
 .clear {
 

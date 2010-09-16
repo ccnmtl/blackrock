@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block left %}
-    
+<div class="blocktext">   
     {% with object.instance as current_object %}
     {% with object.instance|klass as asset_klass %}
     {% with 1 as includegeocode %}
@@ -22,131 +22,112 @@
     {% else %}    
         <h2>{{ current_object.name }}</h2>
     {% endif %}
-    <div><b>Record Type</b>: {{ current_object|klass_display }}</div>
+    <h4>Record Type:</h4> {{ current_object|klass_display }}
         
     {% if asset_klass == "DataSet" %}
-        <div>
-             <b>Description</b>:
+        
+             <h4>Description:</h4>
              {% if current_object.description %}
                 {{ current_object.description }}<br />
              {% endif %}
-        </div>
-        <div>
-            <b>Collection Start Date</b>:
+       
+            <h4>Collection Start Date:</h4>
             {% if current_object.collection_start_date %}
                 {{ current_object.collection_start_date|date }}
             {% endif %}
-        </div>
-        <div>
-            <b>Collection End Date</b>:
+       
+            <h4>Collection End Date:</h4>
             {% if current_object.collection_end_date %}
                 {{ current_object.collection_end_date|date }}
             {% endif %}
-        </div>
-        <div>
-            <b>Url</b>:
+        
+            <h4>Url:</h4>
             {% for u in current_object.url.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="u|detail_url">{{u.name}}</a>{% endfor %}<br />
-        </div>
-        <div>
-            <b>Keyword</b>:
+        
+            <h4>Keyword:</h4>
             {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.display_name }}</a>{% endfor %}<br />
-        </div>
-        <div>
-            <b>Categories</b>:
+       
+            <h4>Categories:</h4>
             {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
-        </div>
-        <div>
+       </div>
+       
             {% if current_object.location %}
                {% if current_object.location.station_set.count %}
-                  <b>Station</b>:
+                  <h4>Station:</h4>
                   <a href="{{current_object.location.station_set.all.0|detail_url}}">{{ current_object.location.station_set.all.0.name }}</a>
                {% else %}
-                  <b>Location</b>:
+                  <h4>Location:</h4>
                   <a href="{{current_object.location|detail_url}}">{{ current_object.location.name }}</a>
                {% endif %}
             {% else %}
-                <b>Location</b>: <!-- Show attribute label with no data -->
+                <h4>Location:</h4> <!-- Show attribute label with no data -->
             {% endif %}
-        </div>
-        <div>
-            <b>People</b>:
+        
+            <h4>People:</h4>
             {% for p in current_object.person.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{p|detail_url}}">{{p.name}}</a>{% endfor %}<br />
         </div>
     {% else %}{% if asset_klass == "DigitalObject" %}
-       <div>
-         <div>
-             <b>Description</b>:
+       
+             <h4>Description:</h4>
              {% if current_object.description %}
                 {{ current_object.description }}<br />
              {% endif %}
-         </div>
-         <div>
-            <b>Format</b>:
+        
+            <h4>Format:</h4>
             {% if current_object.digital_format %}
                 {{ current_object.digital_format }}<br />
              {% endif %}
-         </div>
-         <div>
-            <b>Download link</b>:
+         
+            <h4>Download link:</h4>
             {% if current_object.url %}
                 <a href="{{current_object.url}}">{{current_object.url}}</a>
             {% endif %}
-         </div>
-        <div>
-            <b>Keyword</b>:
+        
+            <h4>Keyword:</h4>
             {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.display_name }}</a>{% endfor %}<br />
-        </div>
-        <div>
-            <b>Categories</b>:
+        
+            <h4>Categories:</h4>
             {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
-        </div>
-        <div>
-            <b>Source</b>:
+        
+            <h4>Source:</h4>
             {% if current_object.source %}
                 {{ current_object.source }}
             {% endif %}
-        </div>
+        
        </div>
     {% else %}{% if asset_klass == "LearningActivity" %}
-       <div>
-          <div>
-            <b>Format</b>: 
+       
+            <h4>Format:</h4> 
             {% if current_object.digital_format.count %}
                 {% for f in current_object.digital_format.all %}{% if forloop.counter > 1 %}, {% endif %}{{ f.name }}{% endfor %}<br />
             {% endif %}
-          </div>
-          <div>
-              <b>Authors</b>:
+         
+              <h4>Authors:</h4>
               {% for x in current_object.author.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{x|detail_url}}">{{x.name}}</a>{% endfor %}<br />
-          </div>
-          <div>
-              <b>Description</b>:
+          
+              <h4>Description:</h4>
               {% if current_object.description %}
                  {{ current_object.description }}<br />
               {% endif %}
-          </div>
-          <div>
-              <b>Url</b>:
+         
+              <h4>Url:</h4>
               {% for u in current_object.url.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{u.name}}">{{ u.name }}</a>{% endfor %}<br />
-          </div>
-          <div>
-              <b>Keyword</b>:
+          
+              <h4>Keyword:</h4>
               {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.display_name }}</a>{% endfor %}<br />
-          </div>
-          <div>
-              <b>Categories</b>:
+         
+              <h4>Categories:</h4>
               {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
-          </div>
-          <div>
-              <b>Location</b>:
+          
+              <h4>Location:</h4>
               {% if current_object.location %}
                  <a href="{{current_object.location|detail_url}}">{{ current_object.location.name }}</a>
               {% endif %}
           </div>
-          <br /><br />
+          
           {% if current_object.dataset.count %}
-          <div>
-             <b>Related DataSets</b>:
+          </div><div class="blocktext">
+             <h4>Related DataSets:</h4>
              <ul class="related_assetlist">
              {% for x in current_object.dataset.all %}
                  {% with x as current_object %}
@@ -166,7 +147,7 @@
           
           {% if current_object.digitalobject.count %}
           <div>
-             <b>Related Digital Objects</b>:
+             <h4>Related Digital Objects:</h4>
              <ul class="related_assetlist">
              {% for x in current_object.digitalobject.all %}
                 <li class="related_asset"><a href="{{x|detail_url}}">{{x.name}}</a></li>
@@ -176,8 +157,10 @@
           {% endif %}
           
           {% if current_object.person.count %}
-          <div>
-             <b>Related People</b>:
+          </div>
+          
+          <div class="blocktext">
+             <h4>Related People:</h4>
              <ul class="related_assetlist">
              
              {% for x in current_object.person.all %}
@@ -188,113 +171,113 @@
        </div>
     {% else %}{% if asset_klass == "Location" %}
         <div>
-            <b>Location Type</b>: 
+            <h4>Location Type:</h4> 
             {% if current_object.location_type.count %}
                 {% for t in current_object.location_type.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}
             {% endif %}
         </div>
         <div>
-            <b>Location Subtype</b>:
+            <h4>Location Subtype:</h4>
             {% if current_object.location_subtype.count %}
                  {% for t in current_object.location_subtype.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
             {% endif %}
         </div>
-        <div><b>Latitude</b>: {{current_object.latitude}}</div>
-        <div><b>Longitude</b>: {{current_object.longitude}}</div>
+        <h4>Latitude:</h4> {{current_object.latitude}}</div>
+        <h4>Longitude:</h4> {{current_object.longitude}}</div>
         <div>
-            <b>Keyword</b>:
+            <h4>Keyword:</h4>
             {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.display_name }}</a>{% endfor %}<br />
         </div>
         <div>
-            <b>Categories</b>:
+            <h4>Categories:</h4>
             {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
         </div>
     {% else %}{% if asset_klass == "Person" %}
         <div>
-            <b>Title</b>: 
+            <h4>Title:</h4> 
             {% if current_object.professional_title %}
                 {{ current_object.professional_title }}
             {% endif %}
         </div>
         <div>
-            <b>Institution</b>:
+            <h4>Institution:</h4>
             {% if current_object.institution %}
                  {% for i in current_object.institution.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{i|detail_url}}">{{ i.name }}</a>{% endfor %}
             {% endif %}
          </div>
          <div>
-             <b>Biography</b>:
+             <h4>Biography:</h4>
              {% if current_object.description %}
                  {{ current_object.description }}<br />
              {% endif %}
          </div>
          <div>
-             <b>Url</b>:
+             <h4>Url:</h4>
              {% for u in current_object.url.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="u|detail_url">{{u.name}}</a>{% endfor %}<br />
          </div>
          <div>
-             <b>Keyword</b>:
+             <h4>Keyword:</h4>
              {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.display_name }}</a>{% endfor %}<br />
          </div>
          <div>
-             <b>Categories</b>:
+             <h4>Categories:</h4>
              {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
          </div>
          <div>
-            <b>Roles</b>:
+            <h4>Roles:</h4>
             {% for t in current_object.person_type.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
          </div>
     {% else %}{% if asset_klass == "Publication" %}
            <div>
-              <b>Publication Type</b>: 
+              <h4>Publication Type:</h4> 
               {% if current_object.publication_type.count %}
                  {% for t in current_object.publication_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
               {% endif %}
           </div>
           <div>
-            <b>Publication Date</b>:
+            <h4>Publication Date:</h4>
             {% if current_object.publication_date %}
                 {{ current_object.publication_date|date }}
             {% endif %}
           </div>
           <div>
-              <b>Citation</b>:
+              <h4>Citation:</h4>
               {% if current_object.citation %}
                  {{ current_object.citation }}<br />
               {% endif %}
           </div>
           <div>
-              <b>Description</b>:
+              <h4>Description:</h4>
               {% if current_object.description %}
                  {{ current_object.description }}<br />
               {% endif %}
           </div>
          <div>
-             <b>Url</b>:
+             <h4>Url:</h4>
              {% for u in current_object.url.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="u|detail_url">{{u.name}}</a>{% endfor %}<br />
          </div>
          <div>
-             <b>DOI</b>:
+             <h4>DOI:</h4>
              {% if current_object.doi_citation %}
                 {{ current_object.doi_citation }}
              {% endif %}
          </div>
          <div>
-             <b>Keyword</b>:
+             <h4>Keyword:</h4>
              {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.display_name }}</a>{% endfor %}<br />
          </div>
          <div>
-             <b>Categories</b>:
+             <h4>Categories:</h4>
              {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
          </div>
          <div>
-            <b>Rights</b>:
+            <h4>Rights:</h4>
             {% for r in current_object.rights.all %}{% if forloop.counter > 1 %}, {% endif %}{{ r.name }}{% endfor %}<br />
          </div>
          {% if current_object.person.count %}
             <br /><br />
-            <div>
-                <b>Related People</b>:
+            </div><div class="blocktext">
+                <h4>Related People:</h4>
                 <ul class="related_assetlist">
                     {% for x in current_object.person.all %}
                         <li class="related_asset"><a href="{{x|detail_url}}">{{x.name}}</a></li>
@@ -304,29 +287,29 @@
          {% endif %} 
     {% else %}{% if asset_klass == "Region" %}
         <div>
-           <b>Type</b>: 
+           <h4>Type:</h4> 
            {% if current_object.region_type.count %}
               {% for t in current_object.region_type.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
            {% endif %}
         </div>
         <div>
-            <b>Description</b>: 
+            <h4>Description:</h4> 
             {% if current_object.description %}
                 {{ current_object.description }}<br />
             {% endif %}
         </div>
         <div>
-            <b>Keyword</b>:
+            <h4>Keyword:</h4>
             {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.display_name }}</a>{% endfor %}<br />
         </div>
         <div>
-            <b>Categories</b>:
+            <h4>Categories:</h4>
             {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
         </div>
         <br />
         <br />
-        <div>
-            <b>Related Locations</b>:
+        </div><div class="blocktext">
+            <h4>Related Locations:</h4>
             <ul class="related_assetlist">
                 {% for x in current_object.location.all %}
                      {% with x as current_object %}
@@ -344,25 +327,25 @@
         
     {% else %}{% if asset_klass == "ResearchProject" %}
         <div>
-            <b>Project Start Date</b>:
+            <h4>Project Start Date:</h4>
             {% if current_object.start_date %}
                 {{ current_object.start_date|date }}
             {% endif %} 
         </div>
         <div>
-            <b>Project End Date</b>:
+            <h4>Project End Date:</h4>
             {% if current_object.end_date %}
                 {{ current_object.end_date|date }}
             {% endif %} 
         </div>
         <div>
-           <b>Principal Investigator{% if current_object.person.count > 1 %}s{% endif %}:</b>
+           <h4>Principal Investigator{% if current_object.person.count > 1 %}s{% endif %}:</h4>
            {% if current_object.person.count %}
               {% for p in current_object.person.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{p|detail_url}}"/>{{ p.name }}</a>{% endfor %}<br />
            {% endif %}
         </div>
         <div>
-           <b>Description</b>: 
+           <h4>Description:</h4> 
            {% if current_object.description %}
               {{ current_object.description }}<br />
            {% endif %}
@@ -370,28 +353,28 @@
         <div>
             {% if current_object.location %}
                {% if current_object.location.station_set.count %}
-                  <b>Station</b>:
+                  <h4>Station:</h4>
                   <a href="{{current_object.location.station_set.all.0|detail_url}}">{{ current_object.location.station_set.all.0.name }}</a>
                {% else %}
-                  <b>Location</b>:
+                  <h4>Location:</h4>
                   <a href="{{current_object.location|detail_url}}">{{ current_object.location.name }}</a>
                {% endif %}
             {% else %}
-                <b>Location</b>: <!-- Show attribute label with no data -->
+                <h4>Location:</h4> <!-- Show attribute label with no data -->
             {% endif %}
         </div>
         <div>
-             <b>Keyword</b>:
+             <h4>Keyword:</h4>
              {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.display_name }}</a>{% endfor %}<br />
         </div>
         <div>
-             <b>Categories</b>:
+             <h4>Categories:</h4>
              {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
          </div>
        <br /><br />
-       <div>
+       </div><div class="blocktext">
            {% if current_object.dataset.count %}
-              <b>Related DataSets</b>:
+              <h4>Related DataSets:</h4>
               <ul class="related_assetlist">
               {% for d in current_object.dataset.all %}
                  {% with d as current_object %}
@@ -406,9 +389,9 @@
               </ul>
            {% endif %}
        </div>
-       <div>
+       </div><div class="blocktext">
            {% if current_object.publication.count %}
-              <b>Related Publications</b>:
+              <h4>Related Publications:</h4>
               <ul class="related_assetlist">
               {% for p in current_object.publication.all %}
                 <li class="related_asset"><a href="{{p|detail_url}}">{{ p.name }}</a></li>
@@ -418,36 +401,36 @@
        </div>
    {% else %}{% if asset_klass == "Station" %}
        <div>
-          <b>Activation Date</b>:
+          <h4>Activation Date:</h4>
           {% if current_object.activation_date %}
              {{ current_object.activation_date|date }}
           {% endif %}
        </div>
        <div>
-           <b>Location</b>:
+           <h4>Location:</h4>
            {% if current_object.location %}
               <a href="{{current_object.location|detail_url}}">{{ current_object.location.name }}</a>
            {% endif %}
        </div>
       <div>
-         <b>Description</b>: 
+         <h4>Description:</h4> 
          {% if current_object.description %}
             {{ current_object.description }}<br />
          {% endif %}
       </div>
       <div>
-         <b>Keyword</b>:
+         <h4>Keyword:</h4>
          {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.display_name }}</a>{% endfor %}<br />
       </div>
       <div>
-         <b>Categories</b>:
+         <h4>Categories:</h4>
          {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
       </div>
-      <br /><br />  
+      
         {% if current_object.research_projects|length %}
-            <br /><br />
-            <div>
-            <b>Related Research Projects</b>:
+            
+            </div><div class="blocktext">
+            <h4>Related Research Projects:</h4>
             <ul class="related_assetlist">
             {% for x in current_object.research_projects %}
                 {% with x as current_object %}
@@ -464,7 +447,7 @@
         {% endif %}
         {% if current_object.datasets|length %}
             <div>
-            <b>Related DataSets</b>:
+            <h4>Related DataSets:</h4>
             <ul class="related_assetlist">
             {% for x in current_object.datasets %}
                 {% with x as current_object %}
@@ -486,7 +469,7 @@
           <img alt="Forest Story Icon" src="/portal/media/images/foreststory.png"></img>
        {% endif %}
       <div>
-         <b>Description</b>: 
+         <h4>Description:</h4> 
          {% if current_object.description %}
             {{ current_object.description }}<br />
          {% endif %}
@@ -494,10 +477,10 @@
     {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
     
     {% for related_object in object.related_objects %}
-      <div class="related">
+   <div class="blocktext related">
       {% if related_object.object_list %}
           <br />
-          <b>Related {{ related_object.model.verbose_name_plural|capfirst }}</b>
+          <h4>Related {{ related_object.model.verbose_name_plural|capfirst }}</h4>
           <ul class="related_assetlist">
             {% for object in related_object.object_list %}
                 {% with object.instance as current_object %}
@@ -509,7 +492,7 @@
                 
                 <li class="related_asset"><a href="{{ object.instance|detail_url }}">{% if object.instance.display_name %}{{object.instance.display_name}}{% else %}{{object.instance.name}}{%endif%}</a></li>
             {% endfor %}
-          </ul>
+          </ul></div>
       {% endif %}
       </div>
    {% endfor %}
