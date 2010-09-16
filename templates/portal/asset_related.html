@@ -1,0 +1,12 @@
+{% load portal %}
+
+ <div class="blocktext">
+     <!-- Asset Locations (Hidden. Used by maps.js to plot GMaps) -->
+     {% include "portal/asset_location.html" %}
+
+     <!-- Name -->                 
+     <a class="display-name" href="{{current_object|detail_url}}">{{current_object.name}}</a>
+
+     <!-- Asset Descriptions (tailored to asset type) -->
+     {% include "portal/asset_description.html" %}
+  </div>                 
