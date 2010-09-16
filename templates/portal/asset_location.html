@@ -26,7 +26,7 @@ prefix -- Prefix for the identifier to prevent duplications
                 {% ifequal forloop.counter 1 %}
                     {% if l.latitude %} 
                         <!--  Highlight this asset's first location -->
-                        <div class="highlightonmap"><a href="#" onmouseout="portalMapInstance.hideInfoWindow(); return false;" onmouseover="portalMapInstance.showInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{l.id}}'); return false;">Highlight On Map</a></div>
+                        <div class="highlightonmap"><a href="#" onmouseover="portalMapInstance.showInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{l.id}}'); return false;">Highlight On Map</a></div>
                      {% endif %}
                 {% endifequal %}
             {% endif %}
@@ -38,7 +38,7 @@ prefix -- Prefix for the identifier to prevent duplications
 {% else %}{% if current_object.location %}
     {% with current_object.location as current_location %}
         {% if includehighlight %}
-            <div class="highlightonmap"><a href="#" onmouseout="portalMapInstance.hideInfoWindow(); return false;" onmouseover="portalMapInstance.showInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}'); return false;">Highlight On Map</a></div>
+            <div class="highlightonmap"><a href="#" onmouseover="portalMapInstance.showInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}'); return false;">Highlight On Map</a></div>
         {% endif %}
         {% if includegeocode %}
             {% include "portal/asset_geocode.html" %}
@@ -48,7 +48,7 @@ prefix -- Prefix for the identifier to prevent duplications
 
 {% if current_object.latitude %}
     {% if includehighlight %}
-        <div class="highlightonmap"><a href="#" onmouseout="portalMapInstance.hideInfoWindow(); return false;" onmouseover="portalMapInstance.showInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_object.id}}'); return false;">Highlight On Map</a></div>
+        <div class="highlightonmap"><a href="#" onmouseover="portalMapInstance.showInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_object.id}}'); return false;">Highlight On Map</a></div>
     {% endif %}
     {% if includegeocode %}
         {% with current_object as current_location %}
