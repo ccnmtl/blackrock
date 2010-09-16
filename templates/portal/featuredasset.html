@@ -4,25 +4,23 @@
 
 <div class="assetlist link_{{block.audience.name|lower}}" id="{{asset_klass}}-{{current_object.id}}">
 
-
 {% with block.asset as current_object %}
 {% with block.asset|klass as asset_klass %}
 {% with 1 as includehighlight %}
 {% with "featured" as prefix %}
-        <div class="blocktext">      
+   <div class="blocktext">
+         
    <!-- Asset Locations (Hidden. Used by maps.js to plot GMaps) -->
    {% include "portal/asset_location.html" %}
-
   
    <a class="display-name" href="{{block.asset|detail_url}}">
-     {%  if current_object.display_name %}
+     {% if current_object.display_name %}
         {{current_object.display_name }}
      {% else %}
         {{current_object.name}}
      {% endif %}</a>
 
-   {% if block.detailed_display %}
-    
+     {% if block.detailed_display %}
       <div class="featuredasset">
           
           {% if asset_klass == "DataSet" %}
@@ -198,18 +196,20 @@
              {% endif %}
           </div>       
         {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
-        
-        <p class="clear"></p>
+
+        {% with block.audience.name|lower as audience %}
+            {% include "portal/asset_detaillink.html" %}
+        {% endwith %}<p class="clear"></p>
         
       </div>
     {% else %}
         <!--  Featured, but not highlighted on the page. Default to regular asset_descriptions -->
         {% include "portal/asset_description.html" %}
+        
+        {% with block.audience.name|lower as audience %}
+            {% include "portal/asset_detaillink.html" %}
+        {% endwith %}<p class="clear"></p>
     {% endif %}
-    
-    {% with block.audience.name|lower as audience %}
-        {% include "portal/asset_detaillink.html" %}
-    {% endwith %}
 
 {% endwith %}{% endwith %}{% endwith %}{% endwith %}</div><p class="clear"><p />
 </div>
