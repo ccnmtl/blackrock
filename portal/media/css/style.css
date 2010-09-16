@@ -329,9 +329,10 @@ assetlist.link_research a, a.link_research {
 .assetlist .blocktext a.summary-link {
 
 display:block;
-margin:0 15px 0 auto;
-width:55%;
+margin:15px 15px 0 auto;
+width:55% auto;
 text-decoration: none;
+font-weight: bold;
 
 }
 
@@ -371,6 +372,7 @@ text-decoration: none;
     height: auto;
     float: left;
     border: 1px solid #ccc;
+    margin-right: 20px;
    
 }
 
@@ -380,6 +382,7 @@ text-decoration: none;
     float: left;
     background-color: #dedede;
     padding: 0 10px 10px 10px;
+    margin-right: 20px;
    
 }
 
@@ -434,8 +437,8 @@ border: 1px solid #b49f93;
 
 .asset-summary {
 	display: block;
-	width: 55%;
-	margin: 0 15px 15px auto;
+	width: auto;
+	margin: 15px 15px 15px auto;
 
 }
 
