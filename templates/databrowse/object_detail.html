@@ -4,7 +4,7 @@
 
 {% block title %}{{ object.model.verbose_name|capfirst }}: {{ object }}{% endblock %}
 
-{% block left %}
+{% block container %}
 <div class="blocktext">   
     {% with object.instance as current_object %}
     {% with object.instance|klass as asset_klass %}
@@ -493,6 +493,8 @@
       {% endif %}
       </div>
    {% endfor %}
+
+   {% include "portal/asset_map.html" %}
     
 {% endwith %}{% endwith %}{% endwith %}{% endwith %}
 {% endblock %}

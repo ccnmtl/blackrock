@@ -5,6 +5,7 @@
 /*experience links: #436751 */
 /*education links: #730711 */
 /*research links: #0071bc */
+/*serach page #89a08c */
 
 
 
@@ -105,12 +106,13 @@ div#search-tab {
     z-index: 100;
     float: right;
     padding: 5px 10px;
-    margin: 10px 10px 0 0;
+    margin: 10px 10px -5px 0;
     font-size: 90%;
     cursor: pointer;
     font-weight: normal;
-    background-color: #dcd3c2;
+    background-color: #89a08c;
     border: 1px #dcd3c2 solid;
+    border-bottom: 5px solid #89a08c;
     color: black; 
     
 
@@ -449,6 +451,59 @@ border: 1px solid #b49f93;
 	clear: both;
 	
 }
+
+
+/* Search Page Styles*/
+
+div#search-wrapper {
+
+	background-color: #89a08c;
+	padding: 10px;
+}
+
+
+div#facets.blocktext {
+
+width:35%;
+border: 1px solid red;
+
+}
+
+div#facets.blocktext form table tbody tr td {
+
+    font-size: 70%;
+
+}
+
+div#facets.blocktext form table tbody tr td {
+
+    padding: 10px;
+
+
+}
+
+div#facets.blocktext form table tbody tr th; {
+
+	width: 200px;
+	text-align: right;
+
+}
+
+
+div#facets.blocktext form table tbody tr td ul{
+list-style: none;
+}
+
+
+
+
+div#search-results {
+
+
+	margin-left: auto;
+	border: 1px solid green;
+}
+
 
 
 

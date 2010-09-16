@@ -34,8 +34,12 @@
     </div>
 {% endblock %}
 
-{% block left %} 
-   <form method="get" action=".">
+{% block container %}
+ <div id="search-wrapper">
+  
+  <div id="facets" class="blocktext">
+  <form method="get" action=".">
+
         <table>
             <tbody>
                 {{ form.as_table }}
@@ -46,14 +50,15 @@
             </tbody>
         </table>
     </form>
-{% endblock %}
+    </div>
+  <div id="search-results"> 
+   
 
-{% block right %}
-        <b>Assets {{count}} </b>
+        <h2>Search Results ({{count}}) </h2>
         <div class="assetlist">
         {% for result in page.object_list %}
-            <div>
-                <a href="{{result.object|detail_url}}">
+             <div class="blocktext">
+                <a class="display-name" href="{{result.object|detail_url}}">
                     {% if result.object.display_name %}
                         {{result.object.display_name}}
                     {% else %}
@@ -71,8 +76,8 @@
                 <br />
                 <b>Categories</b>: 
                 {% for c in result.object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ c.display_name }}{% endfor %}
-            </div>
-            <br />
+            <a href="{{result.object|detail_url}}" class="summary-link">Details</a> </div>
+          
         {% endfor %}
         </div>
         {% if page.has_previous or page.has_next %}
@@ -84,3 +89,6 @@
         {% endif %}
     </div>
 {% endblock %}
+</div>
+</div>
+</div>
