@@ -256,7 +256,7 @@ td#right {
 
 }
 
-assetlist.link_experience a, a.link_experience {
+a.link_experience, span.link_experience {
 
 	color: #436751;
 	font-weight: bold;
@@ -279,7 +279,7 @@ assetlist.link_experience a, a.link_experience {
 
 }
 
-assetlist.link_education a, a.link_education {
+a.link_education, span.link_education {
 
 	color: #730711;
 	font-weight: bold;
@@ -302,7 +302,7 @@ assetlist.link_education a, a.link_education {
 
 }
 
-assetlist.link_research a, a.link_research {
+a.link_research, span.link_research {
 
 	color: #0071bc;
 	font-weight: bold;
@@ -411,7 +411,7 @@ border: 1px solid #b49f93;
 }
 
 
-.assetlist .blocktext a.display-name {
+a.display-name {
 
 	font-size: 120%;
 	font-weight: bold;
@@ -462,10 +462,10 @@ div#search-wrapper {
 }
 
 
-div#facets.blocktext {
+div#facets {
 
 width:35%;
-border: 1px solid red;
+float: left;
 
 }
 
@@ -501,9 +501,46 @@ div#search-results {
 
 
 	margin-left: auto;
-	border: 1px solid green;
+	width: 60%;
 }
 
 
+/*Details Page*/
 
+div#details-wrapper {
+
+}
+
+
+div#asset-details {
+
+width: 50%;
+float: left;
+
+
+
+}
+
+div#map-column {
+
+width:30%;
+float: left;
+background-color:#E6EBDD;
+border:2px solid white;
+margin:0;
+padding:0;
+vertical-align:top;
+
+
+
+}
+
+div#related-items {
+
+width:20%;
+margin-left: auto;
+padding: 10px;
+background-color: #DCD3C2;
+
+}
 
