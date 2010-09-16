@@ -14,7 +14,13 @@
                 {% include "portal/asset_location.html" %}
 
                 <!-- Name -->                 
-                <a class="display-name" href="{{current_object|detail_url}}">{{current_object.name}}</a>
+                <a class="display-name" href="{{current_object|detail_url}}">
+                  {% if current_object.display_name %}
+		     {{ current_object.display_name }}
+		  {% else %}
+		     {{current_object.name}}
+                  {% endif %}
+		</a>
                 
                 
                 <!-- Asset Descriptions (tailored to asset type) -->

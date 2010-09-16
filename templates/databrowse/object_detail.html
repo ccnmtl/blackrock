@@ -4,13 +4,18 @@
 
 {% block title %}{{ object.model.verbose_name|capfirst }}: {{ object }}{% endblock %}
 
-{% block left %}
-<div class="blocktext">   
-    {% with object.instance as current_object %}
-    {% with object.instance|klass as asset_klass %}
-    {% with 1 as includegeocode %}
-    {% with 1 as includehighlight %}
+{% block container %}
+{% with object.instance as current_object %}
+{% with object.instance|klass as asset_klass %}
+{% with object.instance|klass_display as asset_klass_display %}
+{% with 1 as includegeocode %}
+{% with 1 as includehighlight %}
     
+<div id="details-wrapper">
+
+<div id="asset-details" class="blocktext">
+
+
     <!-- Asset Locations (Hidden. Used by maps.js to plot GMaps) -->
     {% include "portal/asset_location.html" %}
     
@@ -40,13 +45,11 @@
         
             <h4>Url:</h4>
             {% for u in current_object.url.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="u|detail_url">{{u.name}}</a>{% endfor %}<br />
-        
             <h4>Keyword:</h4>
             {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.display_name }}</a>{% endfor %}<br />
        
             <h4>Categories:</h4>
             {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
-       </div>
        
             {% if current_object.location %}
                {% if current_object.location.station_set.count %}
@@ -121,50 +124,6 @@
                  <a href="{{current_object.location|detail_url}}">{{ current_object.location.name }}</a>
               {% endif %}
           </div>
-          
-          {% if current_object.dataset.count %}
-          </div><div class="blocktext">
-             <h4>Related DataSets:</h4>
-             <ul class="related_assetlist">
-             {% for x in current_object.dataset.all %}
-                 {% with x as current_object %}
-                 {% with 1 as includegeocode %}
-                 {% with 1 as includehighlight %}
-                 {% with "mapicon_related.png" as iconname %}
-                 
-                    <!-- Asset Locations (Hidden. Used by maps.js to plot GMaps) -->
-                    {% include "portal/asset_location.html" %}
-             
-                    <li class="related_asset"><a href="{{x|detail_url}}">{{x.name}}</a></li>
-                  {% endwith %}{% endwith %}{% endwith %}{% endwith %}
-             {% endfor %}
-             </ul>
-          </div>
-          {% endif %}
-          
-          {% if current_object.digitalobject.count %}
-          <div>
-             <h4>Related Digital Objects:</h4>
-             <ul class="related_assetlist">
-             {% for x in current_object.digitalobject.all %}
-                <li class="related_asset"><a href="{{x|detail_url}}">{{x.name}}</a></li>
-             {% endfor %}
-             </ul>
-          </div>
-          {% endif %}
-          
-          {% if current_object.person.count %}
-          </div>
-          
-          <div class="blocktext">
-             <h4>Related People:</h4>
-             <ul class="related_assetlist">
-             
-             {% for x in current_object.person.all %}
-                <li class="related_asset"><a href="{{x|detail_url}}">{{x.name}}</a>{% endfor %}</li>
-             </ul>
-          </div>
-          {% endif %}
        </div>
     {% else %}{% if asset_klass == "Location" %}
         <div>
@@ -275,11 +234,11 @@
             <br /><br />
             </div><div class="blocktext">
                 <h4>Related People:</h4>
-                <ul class="related_assetlist">
+                
                     {% for x in current_object.person.all %}
                         <li class="related_asset"><a href="{{x|detail_url}}">{{x.name}}</a></li>
                     {% endfor %}
-                </ul>
+                
             </div>
          {% endif %} 
     {% else %}{% if asset_klass == "Region" %}
@@ -307,7 +266,7 @@
         <br />
         </div><div class="blocktext">
             <h4>Related Locations:</h4>
-            <ul class="related_assetlist">
+            
                 {% for x in current_object.location.all %}
                      {% with x as current_object %}
                      {% with 1 as includegeocode %}
@@ -319,7 +278,7 @@
                     
                     <li class="related_asset"><a href="{{x|detail_url}}">{{ x.name }}</a></li>
                 {% endfor %}
-            </ul>
+            
         </div>
         
     {% else %}{% if asset_klass == "ResearchProject" %}
@@ -369,33 +328,9 @@
              {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
          </div>
        <br /><br />
-       </div><div class="blocktext">
-           {% if current_object.dataset.count %}
-              <h4>Related DataSets:</h4>
-              <ul class="related_assetlist">
-              {% for d in current_object.dataset.all %}
-                 {% with d as current_object %}
-                 {% with 1 as includegeocode %}
-                 {% with 1 as includehighlight %}
-                 {% with "mapicon_related.png" as iconname %}
-                    <!-- Asset Locations (Hidden. Used by maps.js to plot GMaps) -->
-                    {% include "portal/asset_location.html" %}
-                {% endwith %}{% endwith %}{% endwith %}{% endwith %}
-                <li class="related_asset"><a href="{{d|detail_url}}">{{ d.name }}</a></li>
-              {% endfor %}
-              </ul>
-           {% endif %}
        </div>
-       </div><div class="blocktext">
-           {% if current_object.publication.count %}
-              <h4>Related Publications:</h4>
-              <ul class="related_assetlist">
-              {% for p in current_object.publication.all %}
-                <li class="related_asset"><a href="{{p|detail_url}}">{{ p.name }}</a></li>
-              {% endfor %}
-              </ul>
-           {% endif %}
-       </div>
+
+
    {% else %}{% if asset_klass == "Station" %}
        <div>
           <h4>Activation Date:</h4>
@@ -428,7 +363,7 @@
             
             </div><div class="blocktext">
             <h4>Related Research Projects:</h4>
-            <ul class="related_assetlist">
+            
             {% for x in current_object.research_projects %}
                 {% with x as current_object %}
                 {% with 1 as includegeocode %}
@@ -440,12 +375,12 @@
                 <li class="related_asset"><a href="{{x|detail_url}}">{{ x.name }}</a></li>
             {% endfor %}
             </div>
-            </ul>
+            
         {% endif %}
         {% if current_object.datasets|length %}
             <div>
             <h4>Related DataSets:</h4>
-            <ul class="related_assetlist">
+            
             {% for x in current_object.datasets %}
                 {% with x as current_object %}
                 {% with 1 as includegeocode %}
@@ -456,7 +391,7 @@
                 {% endwith %}{% endwith %}{% endwith %}{% endwith %}
                 <li class="related_asset"><a href="{{x|detail_url}}">{{ x.name }}</a></li>
             {% endfor %}
-            </ul>
+            
             </div>
         {% endif %}            
    {% else %}{% if asset_klass == "ForestStory" %}
@@ -472,30 +407,77 @@
          {% endif %}
       </div>      
     {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
-    
-    {% for related_object in object.related_objects %}
-   <div class="blocktext related">
-      {% if related_object.object_list %}
-          <br />
-          <h4>Related {{ related_object.model.verbose_name_plural|capfirst }}</h4>
-          <ul class="related_assetlist">
-            {% for object in related_object.object_list %}
-                {% with object.instance as current_object %}
-                {% with 1 as includegeocode %}
-                {% with 1 as includehighlight %}
-                {% with "mapicon_related.png" as iconname %}
-                    {% include "portal/asset_location.html" %}
-                {% endwith %}{% endwith %}{% endwith %}{% endwith %}
-                
-                <li class="related_asset"><a href="{{ object.instance|detail_url }}">{% if object.instance.display_name %}{{object.instance.display_name}}{% else %}{{object.instance.name}}{%endif%}</a></li>
-            {% endfor %}
-          </ul></div>
-      {% endif %}
-      </div>
-   {% endfor %}
-    
-{% endwith %}{% endwith %}{% endwith %}{% endwith %}
-{% endblock %}
+   </div>
+ 
+   <div id="map-column">
+      {% with 1 as hide_featured %} 
+        {% include "portal/asset_map.html" %}
+      {% endwith %}
+   </div>
 
-{% block featured %}
+  {% with "mapicon_related.png" as iconname %}
+  <div id="related-items">
+  <h4>Related {{asset_klass_display}}:</h4>
+
+  
+    {% if asset_klass == "LearningActivity" %}
+           {% if current_object.dataset.count %}
+              
+                 {% for x in current_object.dataset.all %}
+                     {% with x as current_object %}
+                         {% include "portal/asset_related.html" %}
+                      {% endwith %}
+                 {% endfor %}
+           {% endif %}
+          
+           {% if current_object.digitalobject.count %}
+                 {% for x in current_object.digitalobject.all %}
+                    {% with x as current_object %}
+                         {% include "portal/asset_related.html" %}
+                      {% endwith %}
+                 {% endfor %}
+              {% endif %}
+          
+          {% if current_object.person.count %}
+                {% for x in current_object.digitalobject.all %}
+                    {% with x as current_object %}
+                         {% include "portal/asset_related.html" %}
+                      {% endwith %}
+                {% endfor %}
+          {% endif %}
+    {% else %}{% if asset_klass == "Research Project" %}
+           {% if current_object.dataset.count %}
+              {% for d in current_object.dataset.all %}
+                 {% with x as current_object %}
+                    {% include "portal/asset_related.html" %}
+                 {% endwith %}
+              {% endfor %}
+           {% endif %}
+
+           {% if current_object.publication.count %}
+              {% for x in current_object.publication.all %}
+                 {% with x as current_object %}
+                    {% include "portal/asset_related.html" %}
+                 {% endwith %}
+              {% endfor %}
+           {% endif %}
+
+    {% else %}
+       {% for related_object in object.related_objects %}
+          {% if related_object.object_list %}
+             {% for object in related_object.object_list %}
+                {% with object.instance as current_object %}		   
+	           {% include "portal/asset_related.html" %}
+                {% endwith %}
+             {% endfor %}
+          {% endif %}
+       {% endfor %}
+   {% endif %}{% endif %}
+   </div> <!-- end related section -->
+   {% endwith %}
+   
+<p class="clear"></p>
+</div> <!-- end detail-page -->
+    
+{% endwith %}{% endwith %}{% endwith %}{% endwith %}{% endwith %}
 {% endblock %}

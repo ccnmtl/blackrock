@@ -36,15 +36,15 @@
       <!--  Map Callout Template -->
       <div id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-description">
         {% spaceless %}
-        <b>
-            <a href="{{current_object|detail_url}}">
+        
+            <a class="display-name" href="{{current_object|detail_url}}">
                 {% if current_object.display_name %}
                   {{current_object.display_name}}
                 {% else %}
                   {{current_object.name}}
                 {% endif %}
             </a>
-        </b>
+        
         {% endspaceless %}  
         <br />
         <div style="color: #c6c6c6; padding-bottom: 5px;">{{current_object|klass_display}}<br /></div>

@@ -86,7 +86,8 @@ ENABLED_MODULES = (
 PAGEBLOCKS = ['pageblocks.HTMLBlock', 
               'pageblocks.ImageBlock',
               'portal.AssetList',
-              'portal.FeaturedAsset'] 
+              'portal.FeaturedAsset',
+              'pageblocks.TextBlock'] 
 
 THUMBNAIL_SUBDIR = "thumbs"
 #THUMBNAIL_DEBUG = "True"
