@@ -16,6 +16,10 @@ body {
 	background-color: #897467;
 }
 
+h4 {font-size: 90%;}
+
+h5 {font-size: 80%;}
+
 
 /* Main Nav (Tabs) */
 
@@ -76,10 +80,6 @@ div#mainnav ul li a:hover {
    color: black;
 
 }
-
-
-
-
 
 
 
@@ -335,7 +335,7 @@ a.link_research, span.link_research {
 
 }
 
-.assetlist .blocktext a.summary-link {
+.assetlist .blocktext a.summary-link, a.summary-link {
 
 display:block;
 margin:15px 15px 0 auto;
@@ -417,13 +417,14 @@ margin:-2px -21px 10px 0px;
 border: 1px solid #b49f93;
 }
 
-.assetlist .blocktext .highlightonmap a {
+.blocktext .highlightonmap a {
 
 	padding: 7px 10px 5px;
 	margin: -1px 0 0 0;
 	white-space: nowrap;
 	 font-weight: bold;
 	 text-decoration: none;
+	 display: block;
 
 }
 
@@ -435,7 +436,21 @@ a.display-name {
 	text-decoration: none;
 	margin: 10px 0;
 	clear: right;
+	display: block;
 	
+}
+
+#related-items a.display-name {
+
+	font-size: 105%;
+	display: block;
+	
+}
+
+#related-items .highlightonmap a {
+
+	font-size: 80%; 
+
 }
 
 
@@ -528,22 +543,32 @@ div#details-wrapper {
 
 }
 
+table#details-table {width: 100%; background-color: #B49F93;}
+
+table#details-table tr td {vertical-align: top;}
+
+table#details-table tr td#left {width: 40%;}
+
+table#details-table tr td#center {
+	width: 30%; 
+	background-color:#E6EBDD;
+	border:2px solid white;
+	}
+
+table#details-table tr td#right {width: 30%; border: none; 
+}
 
 div#asset-details {
 
-width: 50%;
-float: left;
-
-
+	background-color: #fff;
+	margin: 5px;
 
 }
 
 div#map-column {
 
-width:30%;
-float: left;
-background-color:#E6EBDD;
-border:2px solid white;
+	float: left;
+	
 margin:0;
 padding:0;
 vertical-align:top;
@@ -554,8 +579,6 @@ vertical-align:top;
 
 div#related-items {
 
-width:20%;
-margin-left: auto;
 padding: 10px;
 background-color: #DCD3C2;
 
@@ -566,3 +589,8 @@ background-color: #DCD3C2;
 	font-size: 65%;
 }
 
+div.asset-types {
+
+	margin: 5px 0 10px 0;
+	display: block;
+}

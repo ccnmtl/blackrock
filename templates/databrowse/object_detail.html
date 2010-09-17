@@ -8,8 +8,11 @@
 {% with object.instance as current_object %}
 {% with object.instance|klass as asset_klass %}
 
-    
+
 <div id="details-wrapper">
+<table id="details-table">
+<tr>
+<td id="left">
     <div id="asset-details" class="blocktext">
         <!-- Asset Location Highlight On Map Link. Including geocode later to get this icon to paint last -->
         {% with 1 as includehighlight %}
@@ -214,15 +217,16 @@
         <h4>Categories:</h4>
         {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
    </div>
- 
+</td>
+<td id="center"> 
    <div id="map-column">
       {% with 1 as hide_featured %} 
         {% include "portal/asset_map.html" %}
       {% endwith %}
-   </div>
+   </div></td>
 
     <!--  Hand-Picked "Related" Records -->
-    <div id="related-items">
+  <td id="right">  <div id="related-items">
     {% with "mapicon_related.png" as iconname %}
     {% with 1 as includegeocode %}
     {% with 1 as includehighlight %}
@@ -324,7 +328,7 @@
             {% endif %}
         {% endfor %}
    {% endwith %}{% endwith %}{% endwith %}    
-   </div> <!-- end related section -->
+   </div> </td><!-- end related section --></tr></table>
    
    {% with 1 as includegeocode %}
        {% include "portal/asset_location.html" %}
