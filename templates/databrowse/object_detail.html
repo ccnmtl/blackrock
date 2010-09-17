@@ -37,7 +37,7 @@
             {% endif %}
         
             <h4>Url:</h4>
-            {% for u in current_object.url.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="u|detail_url">{{u.name}}</a>{% endfor %}<br />
+            {% for u in current_object.url.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{ u.name }}">{{u.name}}</a>{% endfor %}<br />
        
             {% if current_object.location %}
                 {% if current_object.location.station_set.count %}
@@ -120,7 +120,7 @@
                 {{ current_object.description }}<br />
             {% endif %}
             <h4>Url:</h4>
-            {% for u in current_object.url.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="u|detail_url">{{u.name}}</a>{% endfor %}<br />
+            {% for u in current_object.url.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{ u.name }}">{{u.name}}</a>{% endfor %}<br />
             {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
             <h4>Roles:</h4>
             {% for t in current_object.person_type.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
@@ -142,7 +142,7 @@
                 {{ current_object.description }}<br />
             {% endif %}
             <h4>Url:</h4>
-            {% for u in current_object.url.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="u|detail_url">{{u.name}}</a>{% endfor %}<br />
+            {% for u in current_object.url.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{ u.name }}">{{u.name}}</a>{% endfor %}<br />
             <h4>DOI:</h4>
             {% if current_object.doi_citation %}
                 {{ current_object.doi_citation }}<br />
