@@ -12,10 +12,12 @@
 {% endblock %}
 
 {% block subnav %}
-    {% with module as current %}
-    {% with section as selected %}
-            {% include "portal/menu.html" %}
-    {% endwith %}{% endwith %}
+    {% ifnotequal module.slug "foreststories" %} 
+        {% with module as current %}
+        {% with section as selected %}
+                {% include "portal/menu.html" %}
+        {% endwith %}{% endwith %}
+    {% endifnotequal %}
 {% endblock %}
 
 {% block left %} 
