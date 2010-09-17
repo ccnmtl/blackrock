@@ -9,6 +9,7 @@
               {% block featured %}
               {% with result|featured_counts as featured_counts %}
               <td id="featured_filter">
+              <h3>Points of Interest</h3>
                   <div><input type="checkbox" class="featured_option" id="id_experience" value="Featured Experience" /><img src="/portal/media/images/nonmapicon_experience.png/">Forest Experience ({{featured_counts.FeaturedExperience}})</div>
                   <div><input type="checkbox" class="featured_option" id="id_education" value="Featured Education" /><img src="/portal/media/images/nonmapicon_education.png/"></img>Education ({{featured_counts.FeaturedEducation}})</div>
                   <div><input type="checkbox" class="featured_option" id="id_research" value="Featured Research" /><img src="/portal/media/images/nonmapicon_research.png/">Research ({{featured_counts.FeaturedResearch}})</div>
@@ -20,6 +21,7 @@
               {% block infrastructure %}
               {% with object|infrastructure_counts as infrastructure_counts %}
               <td id="infrastructure_filter">
+              <h3>Forest Resources</h3>
                   <div><input type="checkbox" class="infrastructure_option" id="idFacilities" value="Forest Facilities" checked="checked" /><img src="/portal/media/images/nonmapicon_forestfacilities.png/"/>Forest Facilities ({{infrastructure_counts.ForestFacilities}})</div>
                   <div><input type="checkbox" class="infrastructure_option" id="idEnvironmentalMonitoring" value="Environmental Monitoring" /><img src="/portal/media/images/nonmapicon_environmentalmonitoring.png/"/>Environmental Monitoring ({{infrastructure_counts.EnvironmentalMonitoringInfrastructure}})</div>
                   <div><input type="checkbox" class="infrastructure_option" id="idWebcams" value="Webcams" /><img src="/portal/media/images/nonmapicon_webcams.png/"/>Webcams  ({{infrastructure_counts.Webcams}})</div>
