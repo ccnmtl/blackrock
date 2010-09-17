@@ -55,10 +55,10 @@ div#mainnav ul li {
 }
 
 
-div#mainnav ul li.home.selected {background-color: #3d2800; color: #fff;}
-div#mainnav ul li.experience.selected {background-color: #436751; color: #fff;}
-div#mainnav ul li.education.selected {background-color: #730711; color: #fff;}
-div#mainnav ul li.research.selected {background-color: #0071bc; color: #fff;}
+div#mainnav ul li.home.selected {background-color: #3d2800; color: #fff; border-bottom: 1px solid #3d2800; margin-bottom:-1px;}
+div#mainnav ul li.experience.selected {background-color: #126a37; color: #fff; border-bottom: 1px solid #126a37; margin-bottom:-1px;}
+div#mainnav ul li.education.selected {background-color: #84232e; color: #fff; border-bottom: 1px solid #84232e; margin-bottom:-1px;}
+div#mainnav ul li.research.selected {background-color: #2a6ebb; color: #fff; border-bottom: 1px solid #2a6ebb; margin-bottom:-1px;}
 
 
 
@@ -133,13 +133,14 @@ div#subnav {
     height: 4px;
     clear: both;
     margin-top: -1px;
+    border-top: 1px solid #e4dbcc;
 }
 
 div#subnav.home {height: 29px; background-color: #3d2800;}
-div#subnav.experience {height: 29px; background-color: #436751;}
+div#subnav.experience {height: 29px; background-color: #126a37;}
 div#subnav.foreststories {}
-div#subnav.education {height: 29px; background-color: #730711;}
-div#subnav.research {height: 29px; background-color: #0071bc;}
+div#subnav.education {height: 29px; background-color: #84232e;}
+div#subnav.research {height: 29px; background-color: #2a6ebb;}
 div#subnav.search {height: 5px; background-color: #dcd3c2;}
 
 
@@ -182,15 +183,15 @@ div#subnav ul li a {
     text-decoration: none;
 }
 
-div#subnav.home ul li {background-color: #8e7365;}
-div#subnav.experience ul li {background-color: green;}
-div#subnav.education ul li {background-color: red;}
-div#subnav.research ul li {background-color: blue;}
+div#subnav.home ul li {background-color: #796456;}
+div#subnav.experience ul li {background-color: #529873;}
+div#subnav.education ul li {background-color: #a9676d; }
+div#subnav.research ul li {background-color: #5a9bcf;}
 
-div#subnav.home ul li.selected {background-color: #fff;}
-div#subnav.experience ul li.selected {background-color: #fff;}
-div#subnav.education ul li.selected {background-color: #fff;}
-div#subnav.research ul li.selected {background-color: #fff;}
+div#subnav.home ul li.selected {background-color: #E4DBCC;}
+div#subnav.experience ul li.selected {background-color: #E4DBCC;}
+div#subnav.education ul li.selected {background-color: #E4DBCC;}
+div#subnav.research ul li.selected {background-color: #E4DBCC;}
 
 
 
@@ -219,7 +220,7 @@ div#container table td#left {
 
 
 
-div#container tabletd#right {
+div#container table td#right {
   width: 55%;
   background-color: #e6ebdd;
   margin: 0px;
@@ -316,7 +317,7 @@ a.link_research, span.link_research {
 
 #map_canvas {
     background-color: white;
-    height:300px;
+    height:400px;
 }
 
 .assetlist {
