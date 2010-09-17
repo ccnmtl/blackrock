@@ -202,7 +202,7 @@ if (!Portal.Map) {
                 if (self.infowindow)
                     self.infowindow.close()
                 
-                var offset = new google.maps.Size(0,-30);
+                var offset = new google.maps.Size(0,-20);
     
                 self.infowindow = new google.maps.InfoWindow({content: location.description, position: location.marker.position, pixelOffset: offset});
                 self.infowindow.open(self.mapInstance);
