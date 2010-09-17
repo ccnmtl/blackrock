@@ -1,56 +1,32 @@
 {% load portal %}
 {% load smartif %}                            
-                           <div id="map_canvas"></div>
-                           <div id="map_filter">
-                              <table>
-                                  <tr>
-				      {% if hide_featured %}
-                                      {% else %}
-                                      {% block featured %}
-                                      {% with result|featured_counts as featured_counts %}
-                                      <td id="featured_filter">
-                                          <div><input type="checkbox" class="featured_option" id="id_experience" value="Featured Experience" /><img src="/portal/media/images/nonmapicon_experience.png/">Forest Experience ({{featured_counts.FeaturedExperience}})</div>
-                                          <div><input type="checkbox" class="featured_option" id="id_education" value="Featured Education" /><img src="/portal/media/images/nonmapicon_education.png/"></img>Education ({{featured_counts.FeaturedEducation}})</div>
-                                          <div><input type="checkbox" class="featured_option" id="id_research" value="Featured Research" /><img src="/portal/media/images/nonmapicon_research.png/">Research ({{featured_counts.FeaturedResearch}})</div>
-                                      </td>
-                                      {% endwith %}
-                                      {% endblock %}
-                                      {% endif %}
-                                      
-                                      {% block infrastructure %}
-                                      {% with object|infrastructure_counts as infrastructure_counts %}
-                                      <td id="infrastructure_filter">
-                                          <div><input type="checkbox" class="infrastructure_option" id="idFacilities" value="Forest Facilities" checked="checked" /><img src="/portal/media/images/nonmapicon_forestfacilities.png/"/>Forest Facilities ({{infrastructure_counts.ForestFacilities}})</div>
-                                          <div><input type="checkbox" class="infrastructure_option" id="idEnvironmentalMonitoring" value="Environmental Monitoring" /><img src="/portal/media/images/nonmapicon_environmentalmonitoring.png/"/>Environmental Monitoring ({{infrastructure_counts.EnvironmentalMonitoringInfrastructure}})</div>
-                                          <div><input type="checkbox" class="infrastructure_option" id="idWebcams" value="Webcams" /><img src="/portal/media/images/nonmapicon_webcams.png/"/>Webcams  ({{infrastructure_counts.Webcams}})</div>
-                                          <div><input type="checkbox" class="infrastructure_option" id="idLongtermPlots" value="Long-Term Plots" /><img src="/portal/media/images/nonmapicon_longtermplots.png/"/>Long-Term Plots  ({{infrastructure_counts.LongTermPlots}})</div>
-                                      </td>
-                                      {% endwith %}
-                                      {% endblock %}
-                                  </tr>
-                              </table>
-                           </div>
-                           
-                           <!--  Geocoded information for all Infrastructure assets -->
-                           <div id="infrastructure_assets" style="display:none">
-                            {% for result in result|infrastructure_assets %}
-                                {% with result.object as current_object %}
-                                {% with 1 as show_infrastructure %}
-                                {% with 1 as includegeocode %}
-                                {% with "infra" as prefix %}
-                                    {% include "portal/asset_location.html" %}
-                                {% endwith %}{% endwith %}{% endwith %}{% endwith %}
-                            {% endfor %}
-                           </div>
-                           
-                           <!--  Geocoded information for all Featured assets -->
-                           <div id="featured_assets" style="display:none">
-                            {% for result in result|featured_assets %}
-                                {% with result.object as current_object %}
-                                {% with 1 as show_featured %}
-                                {% with 1 as includegeocode %}
-                                {% with "featured" as prefix %}
-                                    {% include "portal/asset_location.html" %}
-                                {% endwith %}{% endwith %}{% endwith %}{% endwith %}
-                            {% endfor %}
-                           </div>
+   <div id="map_canvas"></div>
+   <div id="map_filter">
+      <table>
+          <tr>
+{% if hide_featured %}
+              {% else %}
+              {% block featured %}
+              {% with result|featured_counts as featured_counts %}
+              <td id="featured_filter">
+                  <div><input type="checkbox" class="featured_option" id="id_experience" value="Featured Experience" /><img src="/portal/media/images/nonmapicon_experience.png/">Forest Experience ({{featured_counts.FeaturedExperience}})</div>
+                  <div><input type="checkbox" class="featured_option" id="id_education" value="Featured Education" /><img src="/portal/media/images/nonmapicon_education.png/"></img>Education ({{featured_counts.FeaturedEducation}})</div>
+                  <div><input type="checkbox" class="featured_option" id="id_research" value="Featured Research" /><img src="/portal/media/images/nonmapicon_research.png/">Research ({{featured_counts.FeaturedResearch}})</div>
+              </td>
+              {% endwith %}
+              {% endblock %}
+              {% endif %}
+              
+              {% block infrastructure %}
+              {% with object|infrastructure_counts as infrastructure_counts %}
+              <td id="infrastructure_filter">
+                  <div><input type="checkbox" class="infrastructure_option" id="idFacilities" value="Forest Facilities" checked="checked" /><img src="/portal/media/images/nonmapicon_forestfacilities.png/"/>Forest Facilities ({{infrastructure_counts.ForestFacilities}})</div>
+                  <div><input type="checkbox" class="infrastructure_option" id="idEnvironmentalMonitoring" value="Environmental Monitoring" /><img src="/portal/media/images/nonmapicon_environmentalmonitoring.png/"/>Environmental Monitoring ({{infrastructure_counts.EnvironmentalMonitoringInfrastructure}})</div>
+                  <div><input type="checkbox" class="infrastructure_option" id="idWebcams" value="Webcams" /><img src="/portal/media/images/nonmapicon_webcams.png/"/>Webcams  ({{infrastructure_counts.Webcams}})</div>
+                  <div><input type="checkbox" class="infrastructure_option" id="idLongtermPlots" value="Long-Term Plots" /><img src="/portal/media/images/nonmapicon_longtermplots.png/"/>Long-Term Plots  ({{infrastructure_counts.LongTermPlots}})</div>
+              </td>
+              {% endwith %}
+              {% endblock %}
+          </tr>
+      </table>
+   </div>

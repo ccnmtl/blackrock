@@ -11,6 +11,10 @@ def klass(obj):
 def klass_display(obj):
     return capfirst(obj._meta.verbose_name)
   
+@register.filter('klass_display_plural')
+def klass_display_plural(obj):
+    return capfirst(obj._meta.verbose_name_plural)  
+  
 @register.filter('infrastructure')
 def infrastructure(obj):
     return [facet.display_name for facet in obj.facet.filter(facet='Infrastructure')]
@@ -78,4 +82,10 @@ def detail_url(obj):
       url = "/portal/browse/portal/%s/objects/%s" % (obj._meta.object_name.lower(), obj.id)
       
     return url
-    
+
+@register.filter('display_name')
+def display_name(obj):
+  if hasattr(obj, "display_name") and len(obj.display_name) > 0:
+    return obj.display_name
+  else:
+    return obj.name

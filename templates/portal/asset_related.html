@@ -5,8 +5,11 @@
      {% include "portal/asset_location.html" %}
 
      <!-- Name -->                 
-     <a class="display-name" href="{{current_object|detail_url}}">{{current_object.name}}</a>
+     <a class="display-name" href="{{current_object|detail_url}}">{{current_object|display_name}}</a>
 
      <!-- Asset Descriptions (tailored to asset type) -->
      {% include "portal/asset_description.html" %}
+     
+     <!--  link -->
+     {% include "portal/asset_detaillink.html" %}
   </div>                 

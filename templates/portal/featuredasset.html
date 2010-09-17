@@ -13,12 +13,7 @@
    <!-- Asset Locations (Hidden. Used by maps.js to plot GMaps) -->
    {% include "portal/asset_location.html" %}
   
-   <a class="display-name" href="{{block.asset|detail_url}}">
-     {% if current_object.display_name %}
-        {{current_object.display_name }}
-     {% else %}
-        {{current_object.name}}
-     {% endif %}</a>
+   <a class="display-name" href="{{block.asset|detail_url}}">{{current_object|display_name}}</a>
 
      {% if block.detailed_display %}
       <div class="featuredasset">

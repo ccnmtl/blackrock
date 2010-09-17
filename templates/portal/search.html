@@ -34,6 +34,9 @@
     </div>
 {% endblock %}
 
+{% block mapassets %}
+{% endblock %}
+
 {% block container %}
  <div id="search-wrapper">
   
@@ -58,13 +61,7 @@
         <div class="assetlist">
         {% for result in page.object_list %}
              <div class="blocktext">
-                <a class="display-name" href="{{result.object|detail_url}}">
-                    {% if result.object.display_name %}
-                        {{result.object.display_name}}
-                    {% else %}
-                        {{result.object.name}}
-                    {% endif %}
-                </a>
+                <a class="display-name" href="{{result.object|detail_url}}">{{result.object|display_name}}</a>
                 <br />
                 <b>Type</b>: {{result.object|klass_display}}
                 <br />

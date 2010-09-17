@@ -7,31 +7,24 @@
 {% block container %}
 {% with object.instance as current_object %}
 {% with object.instance|klass as asset_klass %}
-{% with object.instance|klass_display as asset_klass_display %}
-{% with 1 as includegeocode %}
-{% with 1 as includehighlight %}
+
     
 <div id="details-wrapper">
-
-<div id="asset-details" class="blocktext">
-
-
-    <!-- Asset Locations (Hidden. Used by maps.js to plot GMaps) -->
-    {% include "portal/asset_location.html" %}
-    
-    {% if current_object.display_name %}
-        <h2>{{ current_object.display_name }}</h2>
-    {% else %}    
-        <h2>{{ current_object.name }}</h2>
-    {% endif %}
-    <h4>Record Type:</h4> {{ current_object|klass_display }}
+    <div id="asset-details" class="blocktext">
+        <!-- Asset Location Highlight On Map Link. Including geocode later to get this icon to paint last -->
+        {% with 1 as includehighlight %}
+            {% include "portal/asset_location.html" %}
+        {% endwith %}
         
-    {% if asset_klass == "DataSet" %}
-        
-             <h4>Description:</h4>
-             {% if current_object.description %}
+        <h2>{{ current_object|display_name }}</h2>
+        <h4>Record Type:</h4> {{ current_object|klass_display }}
+            
+        {% if asset_klass == "DataSet" %}
+            
+            <h4>Description:</h4>
+            {% if current_object.description %}
                 {{ current_object.description }}<br />
-             {% endif %}
+            {% endif %}
        
             <h4>Collection Start Date:</h4>
             {% if current_object.collection_start_date %}
@@ -45,34 +38,28 @@
         
             <h4>Url:</h4>
             {% for u in current_object.url.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="u|detail_url">{{u.name}}</a>{% endfor %}<br />
-            <h4>Keyword:</h4>
-            {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.display_name }}</a>{% endfor %}<br />
-       
-            <h4>Categories:</h4>
-            {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
        
             {% if current_object.location %}
-               {% if current_object.location.station_set.count %}
-                  <h4>Station:</h4>
-                  <a href="{{current_object.location.station_set.all.0|detail_url}}">{{ current_object.location.station_set.all.0.name }}</a>
-               {% else %}
-                  <h4>Location:</h4>
-                  <a href="{{current_object.location|detail_url}}">{{ current_object.location.name }}</a>
-               {% endif %}
+                {% if current_object.location.station_set.count %}
+                    <h4>Station:</h4>
+                    <a href="{{current_object.location.station_set.all.0|detail_url}}">{{ current_object.location.station_set.all.0.name }}</a>
+                {% else %}
+                    <h4>Location:</h4>
+                    <a href="{{current_object.location|detail_url}}">{{ current_object.location.name }}</a>
+                {% endif %}
             {% else %}
                 <h4>Location:</h4> <!-- Show attribute label with no data -->
             {% endif %}
         
             <h4>People:</h4>
             {% for p in current_object.person.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{p|detail_url}}">{{p.name}}</a>{% endfor %}<br />
-        </div>
-    {% else %}{% if asset_klass == "DigitalObject" %}
-       
-             <h4>Description:</h4>
-             {% if current_object.description %}
+        {% else %}{% if asset_klass == "DigitalObject" %}
+           
+            <h4>Description:</h4>
+            {% if current_object.description %}
                 {{ current_object.description }}<br />
-             {% endif %}
-        
+            {% endif %}
+            
             <h4>Format:</h4>
             {% if current_object.digital_format %}
                 {{ current_object.digital_format }}<br />
@@ -83,330 +70,149 @@
                 <a href="{{current_object.url}}">{{current_object.url}}</a>
             {% endif %}
         
-            <h4>Keyword:</h4>
-            {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.display_name }}</a>{% endfor %}<br />
-        
-            <h4>Categories:</h4>
-            {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
-        
             <h4>Source:</h4>
             {% if current_object.source %}
                 {{ current_object.source }}
             {% endif %}
-        
-       </div>
-    {% else %}{% if asset_klass == "LearningActivity" %}
-       
+        {% else %}{% if asset_klass == "LearningActivity" %}
             <h4>Format:</h4> 
             {% if current_object.digital_format.count %}
                 {% for f in current_object.digital_format.all %}{% if forloop.counter > 1 %}, {% endif %}{{ f.name }}{% endfor %}<br />
             {% endif %}
-         
-              <h4>Authors:</h4>
-              {% for x in current_object.author.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{x|detail_url}}">{{x.name}}</a>{% endfor %}<br />
-          
-              <h4>Description:</h4>
-              {% if current_object.description %}
-                 {{ current_object.description }}<br />
-              {% endif %}
-         
-              <h4>Url:</h4>
-              {% for u in current_object.url.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{u.name}}">{{ u.name }}</a>{% endfor %}<br />
-          
-              <h4>Keyword:</h4>
-              {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.display_name }}</a>{% endfor %}<br />
-         
-              <h4>Categories:</h4>
-              {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
-          
-              <h4>Location:</h4>
-              {% if current_object.location %}
-                 <a href="{{current_object.location|detail_url}}">{{ current_object.location.name }}</a>
-              {% endif %}
-          </div>
-       </div>
-    {% else %}{% if asset_klass == "Location" %}
-        <div>
+             
+            <h4>Authors:</h4>
+            {% for x in current_object.author.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{x|detail_url}}">{{x.name}}</a>{% endfor %}<br />
+      
+            <h4>Description:</h4>
+            {% if current_object.description %}
+                {{ current_object.description }}<br />
+            {% endif %}
+     
+            <h4>Url:</h4>
+            {% for u in current_object.url.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{u.name}}">{{ u.name }}</a>{% endfor %}<br />
+      
+            <h4>Location:</h4>
+            {% if current_object.location %}
+                <a href="{{current_object.location|detail_url}}">{{ current_object.location.name }}</a>
+            {% endif %}
+        {% else %}{% if asset_klass == "Location" %}
             <h4>Location Type:</h4> 
             {% if current_object.location_type.count %}
-                {% for t in current_object.location_type.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}
+                {% for t in current_object.location_type.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
             {% endif %}
-        </div>
-        <div>
             <h4>Location Subtype:</h4>
             {% if current_object.location_subtype.count %}
                  {% for t in current_object.location_subtype.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
             {% endif %}
-        </div>
-        <h4>Latitude:</h4> {{current_object.latitude}}</div>
-        <h4>Longitude:</h4> {{current_object.longitude}}</div>
-        <div>
-            <h4>Keyword:</h4>
-            {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.display_name }}</a>{% endfor %}<br />
-        </div>
-        <div>
-            <h4>Categories:</h4>
-            {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
-        </div>
-    {% else %}{% if asset_klass == "Person" %}
-        <div>
+            <h4>Latitude:</h4> {{current_object.latitude}}<br />
+            <h4>Longitude:</h4> {{current_object.longitude}}<br />
+        {% else %}{% if asset_klass == "Person" %}
             <h4>Title:</h4> 
             {% if current_object.professional_title %}
-                {{ current_object.professional_title }}
+                {{ current_object.professional_title }}<br />
             {% endif %}
-        </div>
-        <div>
             <h4>Institution:</h4>
             {% if current_object.institution %}
-                 {% for i in current_object.institution.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{i|detail_url}}">{{ i.name }}</a>{% endfor %}
+                 {% for i in current_object.institution.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{i|detail_url}}">{{ i.name }}</a>{% endfor %}<br />
             {% endif %}
-         </div>
-         <div>
-             <h4>Biography:</h4>
-             {% if current_object.description %}
-                 {{ current_object.description }}<br />
-             {% endif %}
-         </div>
-         <div>
-             <h4>Url:</h4>
-             {% for u in current_object.url.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="u|detail_url">{{u.name}}</a>{% endfor %}<br />
-         </div>
-         <div>
-             <h4>Keyword:</h4>
-             {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.display_name }}</a>{% endfor %}<br />
-         </div>
-         <div>
-             <h4>Categories:</h4>
-             {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
-         </div>
-         <div>
+            <h4>Biography:</h4>
+            {% if current_object.description %}
+                {{ current_object.description }}<br />
+            {% endif %}
+            <h4>Url:</h4>
+            {% for u in current_object.url.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="u|detail_url">{{u.name}}</a>{% endfor %}<br />
+            {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
             <h4>Roles:</h4>
             {% for t in current_object.person_type.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
-         </div>
-    {% else %}{% if asset_klass == "Publication" %}
-           <div>
-              <h4>Publication Type:</h4> 
-              {% if current_object.publication_type.count %}
-                 {% for t in current_object.publication_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
-              {% endif %}
-          </div>
-          <div>
+        {% else %}{% if asset_klass == "Publication" %}
+            <h4>Publication Type:</h4> 
+            {% if current_object.publication_type.count %}
+                {% for t in current_object.publication_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
+            {% endif %}
             <h4>Publication Date:</h4>
             {% if current_object.publication_date %}
-                {{ current_object.publication_date|date }}
+                {{ current_object.publication_date|date }}<br />
             {% endif %}
-          </div>
-          <div>
-              <h4>Citation:</h4>
-              {% if current_object.citation %}
-                 {{ current_object.citation }}<br />
-              {% endif %}
-          </div>
-          <div>
-              <h4>Description:</h4>
-              {% if current_object.description %}
-                 {{ current_object.description }}<br />
-              {% endif %}
-          </div>
-         <div>
-             <h4>Url:</h4>
-             {% for u in current_object.url.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="u|detail_url">{{u.name}}</a>{% endfor %}<br />
-         </div>
-         <div>
-             <h4>DOI:</h4>
-             {% if current_object.doi_citation %}
-                {{ current_object.doi_citation }}
-             {% endif %}
-         </div>
-         <div>
-             <h4>Keyword:</h4>
-             {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.display_name }}</a>{% endfor %}<br />
-         </div>
-         <div>
-             <h4>Categories:</h4>
-             {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
-         </div>
-         <div>
+            <h4>Citation:</h4>
+            {% if current_object.citation %}
+                {{ current_object.citation }}<br />
+            {% endif %}
+            <h4>Description:</h4>
+            {% if current_object.description %}
+                {{ current_object.description }}<br />
+            {% endif %}
+            <h4>Url:</h4>
+            {% for u in current_object.url.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="u|detail_url">{{u.name}}</a>{% endfor %}<br />
+            <h4>DOI:</h4>
+            {% if current_object.doi_citation %}
+                {{ current_object.doi_citation }}<br />
+            {% endif %}
             <h4>Rights:</h4>
             {% for r in current_object.rights.all %}{% if forloop.counter > 1 %}, {% endif %}{{ r.name }}{% endfor %}<br />
-         </div>
-         {% if current_object.person.count %}
-            <br /><br />
-            </div><div class="blocktext">
-                <h4>Related People:</h4>
-                
-                    {% for x in current_object.person.all %}
-                        <li class="related_asset"><a href="{{x|detail_url}}">{{x.name}}</a></li>
-                    {% endfor %}
-                
-            </div>
-         {% endif %} 
-    {% else %}{% if asset_klass == "Region" %}
-        <div>
-           <h4>Type:</h4> 
-           {% if current_object.region_type.count %}
-              {% for t in current_object.region_type.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
-           {% endif %}
-        </div>
-        <div>
+        {% else %}{% if asset_klass == "Region" %}
+            <h4>Type:</h4> 
+            {% if current_object.region_type.count %}
+                {% for t in current_object.region_type.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
+            {% endif %}
             <h4>Description:</h4> 
             {% if current_object.description %}
                 {{ current_object.description }}<br />
             {% endif %}
-        </div>
-        <div>
-            <h4>Keyword:</h4>
-            {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.display_name }}</a>{% endfor %}<br />
-        </div>
-        <div>
-            <h4>Categories:</h4>
-            {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
-        </div>
-        <br />
-        <br />
-        </div><div class="blocktext">
-            <h4>Related Locations:</h4>
-            
-                {% for x in current_object.location.all %}
-                     {% with x as current_object %}
-                     {% with 1 as includegeocode %}
-                     {% with 1 as includehighlight %}
-                     {% with "mapicon_related.png" as iconname %}
-                        <!-- Asset Locations (Hidden. Used by maps.js to plot GMaps) -->
-                        {% include "portal/asset_location.html" %}
-                    {% endwith %}{% endwith %}{% endwith %}{% endwith %}
-                    
-                    <li class="related_asset"><a href="{{x|detail_url}}">{{ x.name }}</a></li>
-                {% endfor %}
-            
-        </div>
-        
-    {% else %}{% if asset_klass == "ResearchProject" %}
-        <div>
+        {% else %}{% if asset_klass == "ResearchProject" %}
             <h4>Project Start Date:</h4>
             {% if current_object.start_date %}
-                {{ current_object.start_date|date }}
+                {{ current_object.start_date|date }}<br />
             {% endif %} 
-        </div>
-        <div>
             <h4>Project End Date:</h4>
             {% if current_object.end_date %}
-                {{ current_object.end_date|date }}
+                {{ current_object.end_date|date }}<br />
             {% endif %} 
-        </div>
-        <div>
-           <h4>Principal Investigator{% if current_object.person.count > 1 %}s{% endif %}:</h4>
-           {% if current_object.person.count %}
-              {% for p in current_object.person.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{p|detail_url}}"/>{{ p.name }}</a>{% endfor %}<br />
-           {% endif %}
-        </div>
-        <div>
-           <h4>Description:</h4> 
-           {% if current_object.description %}
-              {{ current_object.description }}<br />
-           {% endif %}
-        </div>
-        <div>
+            <h4>Principal Investigator{% if current_object.person.count > 1 %}s{% endif %}:</h4>
+            {% if current_object.person.count %}
+                {% for p in current_object.person.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{p|detail_url}}"/>{{ p.name }}</a>{% endfor %}<br />
+            {% endif %}
+            <h4>Description:</h4> 
+            {% if current_object.description %}
+                {{ current_object.description }}<br />
+            {% endif %}
             {% if current_object.location %}
-               {% if current_object.location.station_set.count %}
-                  <h4>Station:</h4>
-                  <a href="{{current_object.location.station_set.all.0|detail_url}}">{{ current_object.location.station_set.all.0.name }}</a>
-               {% else %}
-                  <h4>Location:</h4>
-                  <a href="{{current_object.location|detail_url}}">{{ current_object.location.name }}</a>
-               {% endif %}
+                {% if current_object.location.station_set.count %}
+                    <h4>Station:</h4>
+                    <a href="{{current_object.location.station_set.all.0|detail_url}}">{{ current_object.location.station_set.all.0.name }}</a><br />
+                {% else %}
+                    <h4>Location:</h4>
+                    <a href="{{current_object.location|detail_url}}">{{ current_object.location.name }}</a><br />
+                {% endif %}
             {% else %}
                 <h4>Location:</h4> <!-- Show attribute label with no data -->
             {% endif %}
-        </div>
-        <div>
-             <h4>Keyword:</h4>
-             {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.display_name }}</a>{% endfor %}<br />
-        </div>
-        <div>
-             <h4>Categories:</h4>
-             {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
-         </div>
-       <br /><br />
-       </div>
-
-
-   {% else %}{% if asset_klass == "Station" %}
-       <div>
-          <h4>Activation Date:</h4>
-          {% if current_object.activation_date %}
-             {{ current_object.activation_date|date }}
-          {% endif %}
-       </div>
-       <div>
-           <h4>Location:</h4>
-           {% if current_object.location %}
-              <a href="{{current_object.location|detail_url}}">{{ current_object.location.name }}</a>
-           {% endif %}
-       </div>
-      <div>
-         <h4>Description:</h4> 
-         {% if current_object.description %}
-            {{ current_object.description }}<br />
-         {% endif %}
-      </div>
-      <div>
-         <h4>Keyword:</h4>
-         {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.display_name }}</a>{% endfor %}<br />
-      </div>
-      <div>
-         <h4>Categories:</h4>
-         {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
-      </div>
-      
-        {% if current_object.research_projects|length %}
-            
-            </div><div class="blocktext">
-            <h4>Related Research Projects:</h4>
-            
-            {% for x in current_object.research_projects %}
-                {% with x as current_object %}
-                {% with 1 as includegeocode %}
-                {% with 1 as includehighlight %}
-                {% with "mapicon_related.png" as iconname %}
-                    <!-- Asset Locations (Hidden. Used by maps.js to plot GMaps) -->
-                    {% include "portal/asset_location.html" %}
-                {% endwith %}{% endwith %}{% endwith %}{% endwith %}
-                <li class="related_asset"><a href="{{x|detail_url}}">{{ x.name }}</a></li>
-            {% endfor %}
-            </div>
-            
-        {% endif %}
-        {% if current_object.datasets|length %}
-            <div>
-            <h4>Related DataSets:</h4>
-            
-            {% for x in current_object.datasets %}
-                {% with x as current_object %}
-                {% with 1 as includegeocode %}
-                {% with 1 as includehighlight %}
-                {% with "mapicon_related.png" as iconname %}
-                    <!-- Asset Locations (Hidden. Used by maps.js to plot GMaps) -->
-                    {% include "portal/asset_location.html" %}
-                {% endwith %}{% endwith %}{% endwith %}{% endwith %}
-                <li class="related_asset"><a href="{{x|detail_url}}">{{ x.name }}</a></li>
-            {% endfor %}
-            
-            </div>
-        {% endif %}            
-   {% else %}{% if asset_klass == "ForestStory" %}
-       {% if current_object.display_image %}
-          <img alt="Forest Story Icon" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
-       {% else %}
-          <img alt="Forest Story Icon" src="/portal/media/images/foreststory.png"></img>
-       {% endif %}
-      <div>
-         <h4>Description:</h4> 
-         {% if current_object.description %}
-            {{ current_object.description }}<br />
-         {% endif %}
-      </div>      
-    {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
+       {% else %}{% if asset_klass == "Station" %}
+            <h4>Activation Date:</h4>
+            {% if current_object.activation_date %}
+                {{ current_object.activation_date|date }}<br />
+            {% endif %}
+            <h4>Location:</h4>
+            {% if current_object.location %}
+                <a href="{{current_object.location|detail_url}}">{{ current_object.location.name }}</a><br />
+            {% endif %}
+            <h4>Description:</h4> 
+            {% if current_object.description %}
+                {{ current_object.description }}<br />
+            {% endif %}
+        {% else %}{% if asset_klass == "ForestStory" %}
+            {% if current_object.display_image %}
+                <img alt="Forest Story Icon" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
+            {% endif %}
+            <h4>Description:</h4> 
+            {% if current_object.description %}
+                {{ current_object.description }}<br />
+            {% endif %}
+        {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
+       
+        <h4>Keyword:</h4>
+        {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{f|detail_url}}">{{ f.display_name }}</a>{% endfor %}<br />
+        <h4>Categories:</h4>
+        {% for t in current_object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
    </div>
  
    <div id="map-column">
@@ -415,69 +221,117 @@
       {% endwith %}
    </div>
 
-  {% with "mapicon_related.png" as iconname %}
-  <div id="related-items">
-  <h4>Related {{asset_klass_display}}:</h4>
-
-  
-    {% if asset_klass == "LearningActivity" %}
-           {% if current_object.dataset.count %}
-              
-                 {% for x in current_object.dataset.all %}
-                     {% with x as current_object %}
-                         {% include "portal/asset_related.html" %}
-                      {% endwith %}
-                 {% endfor %}
-           {% endif %}
-          
-           {% if current_object.digitalobject.count %}
-                 {% for x in current_object.digitalobject.all %}
+    <!--  Hand-Picked "Related" Records -->
+    <div id="related-items">
+    {% with "mapicon_related.png" as iconname %}
+    {% with 1 as includegeocode %}
+    {% with 1 as includehighlight %}
+        {% if asset_klass == "LearningActivity" %}
+            {% if current_object.dataset.count %}
+                <h4>Related Data Sets:</h4>
+                {% for x in current_object.dataset.all %}
                     {% with x as current_object %}
-                         {% include "portal/asset_related.html" %}
-                      {% endwith %}
-                 {% endfor %}
-              {% endif %}
-          
-          {% if current_object.person.count %}
+                        {% include "portal/asset_related.html" %}
+                    {% endwith %}
+                {% endfor %}
+            {% endif %}
+            {% if current_object.digitalobject.count %}
+                <h4>Related Digital Objects:</h4>
                 {% for x in current_object.digitalobject.all %}
+                    {% with x as current_object %}
+                        {% include "portal/asset_related.html" %}
+                    {% endwith %}
+                {% endfor %}
+            {% endif %}
+            {% if current_object.person.count %}
+                <h4>Related People:</h4>
+                {% for x in current_object.person.all %}
                     {% with x as current_object %}
                          {% include "portal/asset_related.html" %}
                       {% endwith %}
                 {% endfor %}
-          {% endif %}
-    {% else %}{% if asset_klass == "Research Project" %}
-           {% if current_object.dataset.count %}
-              {% for d in current_object.dataset.all %}
-                 {% with x as current_object %}
-                    {% include "portal/asset_related.html" %}
-                 {% endwith %}
-              {% endfor %}
-           {% endif %}
+            {% endif %}
+        {% else %}{% if asset_klass == "ResearchProject" %}
+            {% if current_object.dataset.count %}
+                <h4>Related Data Sets:</h4>
+                {% for x in current_object.dataset.all %}
+                    {% with x as current_object %}
+                        {% include "portal/asset_related.html" %}
+                    {% endwith %}
+                {% endfor %}
+            {% endif %}
 
-           {% if current_object.publication.count %}
-              {% for x in current_object.publication.all %}
-                 {% with x as current_object %}
-                    {% include "portal/asset_related.html" %}
-                 {% endwith %}
-              {% endfor %}
-           {% endif %}
-
-    {% else %}
-       {% for related_object in object.related_objects %}
-          {% if related_object.object_list %}
-             {% for object in related_object.object_list %}
-                {% with object.instance as current_object %}		   
-	           {% include "portal/asset_related.html" %}
-                {% endwith %}
-             {% endfor %}
-          {% endif %}
-       {% endfor %}
-   {% endif %}{% endif %}
+            {% if current_object.publication.count %}
+                <h4>Related Publications:</h4>
+                {% for x in current_object.publication.all %}
+                    {% with x as current_object %}
+                        {% include "portal/asset_related.html" %}
+                    {% endwith %}
+                {% endfor %}
+            {% endif %}
+        {% else %}{% if asset_klass == "Station" %}
+            {% if current_object.research_projects|length %}
+                <h4>Related Research Projects:</h4>
+                {% if current_object.dataset.count %}
+                    <h4>Related Research Projects:</h4>
+                    {% for x in current_object.researchproject.all %}
+                        {% with x as current_object %}
+                            {% include "portal/asset_related.html" %}
+                        {% endwith %}
+                    {% endfor %}
+                {% endif %}
+            {% endif %}
+            {% if current_object.dataset.count %}
+                <h4>Related Data Sets:</h4>
+                {% for x in current_object.dataset.all %}
+                    {% with x as current_object %}
+                        {% include "portal/asset_related.html" %}
+                    {% endwith %}
+                {% endfor %}
+            {% endif %}  
+        {% else %}{%if asset_klass == "Publication" %}
+            {% if current_object.person.count %}
+                <h4>Related People:</h4>
+                {% for x in current_object.person.all %}
+                    {% with x as current_object %}
+                         {% include "portal/asset_related.html" %}
+                      {% endwith %}
+                {% endfor %}
+            {% endif %} 
+        {% else %}{% if asset_klass == "Region" %}
+            {% if current_object.location.count %}
+                <h4>Related Locations:</h4>
+                {% for x in current_object.location.all %}
+                    {% with x as current_object %}
+                         {% include "portal/asset_related.html" %}
+                    {% endwith %}
+                {% endfor %}
+            {% endif %} 
+        {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
+        
+        <!--  Related Database Records -->
+        {% for related_object in object.related_objects %}
+            {% if related_object.object_list %}
+                {% for object in related_object.object_list %}
+                    {% ifequal forloop.counter 1 %}
+                        <h4>Related {{object.instance|klass_display_plural}}:</h4>
+                    {% endifequal %}
+                
+                    {% with object.instance as current_object %}		   
+	                   {% include "portal/asset_related.html" %}
+                    {% endwith %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+   {% endwith %}{% endwith %}{% endwith %}    
    </div> <!-- end related section -->
+   
+   {% with 1 as includegeocode %}
+       {% include "portal/asset_location.html" %}
    {% endwith %}
    
 <p class="clear"></p>
 </div> <!-- end detail-page -->
     
-{% endwith %}{% endwith %}{% endwith %}{% endwith %}{% endwith %}
+{% endwith %}{% endwith %}
 {% endblock %}

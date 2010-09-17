@@ -1,7 +1,7 @@
 {% load portal %}
-
-{% load smartif %}     
-<div class="assetlist {{block.audience}}">  
+{% load smartif %}
+     
+<div class="assetlist {{block.audience}}">
     {% for result in block.list %}
         {% if forloop.counter <= block.list_count %}
             {% with result.object as current_object %}
@@ -9,19 +9,12 @@
             {% with 1 as includegeocode %}
             {% with block.audience as audience %}
             
-             <div class="blocktext">  §
+             <div class="blocktext">
                 <!-- Asset Locations (Hidden. Used by maps.js to plot GMaps) -->
                 {% include "portal/asset_location.html" %}
 
                 <!-- Name -->                 
-                <a class="display-name" href="{{current_object|detail_url}}">
-                  {% if current_object.display_name %}
-		     {{ current_object.display_name }}
-		  {% else %}
-		     {{current_object.name}}
-                  {% endif %}
-		</a>
-                
+                <a class="display-name" href="{{current_object|detail_url}}">{{current_object|display_name}}</a><br />
                 
                 <!-- Asset Descriptions (tailored to asset type) -->
                 {% include "portal/asset_description.html" %}

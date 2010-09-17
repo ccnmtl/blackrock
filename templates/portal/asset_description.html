@@ -13,9 +13,7 @@
                  {% for t in current_object.location_subtype.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
             {% endif %}
             {% endspaceless %}
-            
         </div>
-         <div style="clear: both"></div>
     {% else %}{% if current_object|klass == "Person" %}
         <div>
             <b>Description</b>:
