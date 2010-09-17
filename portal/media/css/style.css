@@ -495,7 +495,7 @@ table#search-table {width: 100%;}
 
 table#search-table tr td {vertical-align: top;}
 
-table#search-table tr td#facets_column {max-width: 380px;}
+table#search-table tr td#facets_column {width: 380px;}
 
 table#search-table tr td#results_column {
 	
