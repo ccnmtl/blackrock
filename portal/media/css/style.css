@@ -208,7 +208,7 @@ div#container table {
 
 
 
-td#left {
+div#container table td#left {
   width: 45%;
   vertical-align: top;
   border: none;
@@ -219,7 +219,7 @@ td#left {
 
 
 
-td#right {
+div#container tabletd#right {
   width: 55%;
   background-color: #e6ebdd;
   margin: 0px;
@@ -321,8 +321,6 @@ a.link_research, span.link_research {
 
 .assetlist {
 
-	max-height: 435px;
-	overflow: auto;
 	padding: 10px;
 	margin: -10px;
    
@@ -348,9 +346,9 @@ font-weight: bold;
 a.view-all {
 
 	font-weight: bold;
-	font-size: 110%;
+	font-size: 85%;
 	text-align: right;
-	margin-top: 10px;
+	margin: 10px;
 
 }
 
@@ -493,17 +491,47 @@ div#search-wrapper {
 	padding: 10px;
 }
 
+table#search-table {width: 100%;}
+
+table#search-table tr td {vertical-align: top;}
+
+table#search-table tr td#facets_column {max-width: 380px;}
+
+table#search-table tr td#results_column {
+	
+	border: none; 
+	background-color: none;
+	text-align: left;
+
+}
+
+
 
 div#facets {
 
-width:35%;
-float: left;
+width: 380px;
+padding-top: 10px;
 
 }
+
+div#facets th {
+
+text-align: right;
+font-size: 85%;
+width: 40%;
+vertical-align:top;
+padding: 10px;
+white-space: nowrap;
+width: 200px;
+
+
+}
+
 
 div#facets.blocktext form table tbody tr td {
 
     font-size: 70%;
+    white-space: nowrap;
 
 }
 
@@ -514,27 +542,24 @@ div#facets.blocktext form table tbody tr td {
 
 }
 
-div#facets.blocktext form table tbody tr th; {
 
-	width: 200px;
-	text-align: right;
-
-}
 
 
 div#facets.blocktext form table tbody tr td ul{
 list-style: none;
+margin-left: -45px;
 }
 
 
 
 
 div#search-results {
+	margin: 10px 10px 10px 20px;
 
-
-	margin-left: auto;
-	width: 60%;
 }
+
+
+
 
 
 /*Details Page*/
@@ -567,8 +592,7 @@ div#asset-details {
 
 div#map-column {
 
-	float: left;
-	
+
 margin:0;
 padding:0;
 vertical-align:top;

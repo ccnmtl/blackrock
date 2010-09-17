@@ -39,7 +39,9 @@
 
 {% block container %}
  <div id="search-wrapper">
-  
+ <table id="search-table">
+ <tr>
+ <td id="facets_column">
   <div id="facets" class="blocktext">
   <form method="get" action=".">
 
@@ -54,6 +56,8 @@
         </table>
     </form>
     </div>
+    </td>
+    <td id="results_column">
   <div id="search-results"> 
    
 
@@ -87,5 +91,5 @@
     </div>
 {% endblock %}
 </div>
-</div>
+</div></tr></div>
 </div>
