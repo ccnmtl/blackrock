@@ -21,8 +21,14 @@
 {% endblock %}
 
 {% block left %} 
+    {% ifequal module.slug "foreststories" %} 
+       <div id="page_foreststory" class="blocktext">
+    {% endifequal %}
     {% for block in section.pageblock_set.all %}
         {% if block.label %}<h4>{{block.label}}</h4>{% endif %}
         {{ block.render }}
     {% endfor %}
+    {% ifequal module.slug "foreststories" %}
+       </div>
+    {% endifequal %}
 {% endblock %}

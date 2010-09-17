@@ -13,6 +13,7 @@ body {
 	font-family: "Lucida Grande", "Trebuchet MS", arial, helvetica, sans-serif !important; 
 	margin: 0 auto;
 	padding: 0 auto;
+	background-color: #897467;
 }
 
 
@@ -136,6 +137,7 @@ div#subnav {
 
 div#subnav.home {height: 29px; background-color: #3d2800;}
 div#subnav.experience {height: 29px; background-color: #436751;}
+div#subnav.foreststories {}
 div#subnav.education {height: 29px; background-color: #730711;}
 div#subnav.research {height: 29px; background-color: #0071bc;}
 div#subnav.search {height: 5px; background-color: #dcd3c2;}
@@ -209,9 +211,9 @@ div#container table {
 td#left {
   width: 45%;
   vertical-align: top;
-  padding: 10px;
   border: none;
   border-collapse: collapse;
+  padding: 10px;
   min-width: 400px;
 }
 
@@ -314,10 +316,15 @@ a.link_research, span.link_research {
 
 #map_canvas {
     background-color: white;
-    height:400px;
+    height:300px;
 }
 
 .assetlist {
+
+	max-height: 435px;
+	overflow: auto;
+	padding: 10px;
+	margin: -10px;
    
 }
 
@@ -335,6 +342,15 @@ margin:15px 15px 0 auto;
 width:55% auto;
 text-decoration: none;
 font-weight: bold;
+
+}
+
+a.view-all {
+
+	font-weight: bold;
+	font-size: 110%;
+	text-align: right;
+	margin-top: 10px;
 
 }
 
@@ -389,7 +405,8 @@ font-weight: bold;
 }
 
 .featured_details h4, .asset_summary h4, .blocktext h4 {
-	margin: 20px 0 5px 0;
+	margin: 20px 0 10px 0;
+	font-size: 120%;
    
 }
 
@@ -542,5 +559,10 @@ margin-left: auto;
 padding: 10px;
 background-color: #DCD3C2;
 
+}
+
+.gmnoprint {
+
+	font-size: 65%;
 }
 
