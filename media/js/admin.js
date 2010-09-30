@@ -94,16 +94,23 @@ function waitForResults() {
     deferred.addCallbacks(onWaitSuccess, onWaitError);
 }
 
+function inArray(obj, a) {
+    for (var i=0; i < a.length; i++)
+      if (a[i] == obj) return true;
+}
+
 function onPreviewSuccess(doc) {
     var json = JSON.parse(doc.responseText, null);
    
     var count = 0;
     var sets = ""
     for (import_set in json['sets']) {
-        count++;
-        if (sets.length < 1)
-            sets = "<tr><td><b>Import Set</b></td><td><b>Rows To Retrieve</b></td></tr>";
-        sets += "<tr><td>" + import_set + "</td><td>" + json['sets'][import_set] + "</td></tr>";
+        if (requested_import_sets && inArray(import_set, requested_import_sets)) {
+            count++;
+            if (sets.length < 1)
+                sets = "<tr><td><b>Import Set</b></td><td><b>Rows To Retrieve</b></td></tr>";
+            sets += "<tr><td>" + import_set + "</td><td>" + json['sets'][import_set] + "</td></tr>";
+        }
     }
     
     $('previewsolr').innerHTML = sets;

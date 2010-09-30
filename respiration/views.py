@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpRequest, HttpRes
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import user_passes_test
-from respiration.models import Temperature
+from respiration.models import Temperature, StationMapping
 import csv, datetime, time, urllib, urllib2
 from django.utils import simplejson
 from xml.dom import minidom
@@ -309,6 +309,10 @@ def loadsolr(request):
   import_set_type = request.POST.get('import_set_type', '')
   facet_field = request.POST.get('facet_field', '')
   
+  stations = {}
+  for sm in StationMapping.objects.all():
+    stations[sm.abbreviation] = sm.station
+  
   created_count = 0
   updated_count = 0
   try:
@@ -317,45 +321,50 @@ def loadsolr(request):
     sets = SolrUtilities.get_importsets_by_lastmodified(collection_id, import_set_type, last_import_date, import_set, facet_field)
     
     for import_set in sets:
-      next_expected_timestamp = None
-      last_valid_temp = None
-      prev_station = None
-      retrieved = 0
-       
-      while (retrieved < sets[import_set]):
-        to_retrieve = min(1000, sets[import_set] - retrieved)
-        
-        data_query = SolrUtilities.base_query() + '&collection_id=' + collection_id  + '&q=import_set:"' + import_set + '"%20AND%20(record_subject:"Array%20ID%2060"%20OR%20record_subject:"Array%20ID%20101")&fl=collection_id,import_set,record_datetime,record_subject,location_name,latitude,longitude,temp_c_avg,temp_avg,hour,jul_day&sort=record_datetime%20asc'
-        url = '%s&start=%d&rows=%d' % (data_query, retrieved, to_retrieve)
-        
-        xmldoc = SolrUtilities.solr_request(url)
-        for node in xmldoc.getElementsByTagName('doc'):
-          station = None
-          dt = None
-          temp = None
-          jul_day = None
-          hour = None
+      if import_set.find("_") > 0:
+        next_expected_timestamp = None
+        last_valid_temp = None
+        prev_station = None
+        retrieved = 0
+         
+        while (retrieved < sets[import_set]):
+          to_retrieve = min(1000, sets[import_set] - retrieved)
           
-          for child in node.childNodes:
-            name = child.getAttribute('name')
-            if (name == 'location_name'):
-              station = child.childNodes[0].nodeValue.rstrip(' Station')
-            elif (name == 'temp_c_avg' or name == 'temp_avg'):
-              temp = Decimal(child.childNodes[0].nodeValue).quantize(Decimal("0.01"), ROUND_HALF_UP)
-            elif (name == 'record_datetime'):
-              dt = SolrUtilities.utc_to_est(child.childNodes[0].nodeValue)
-            elif (name == 'jul_day'):
-              jul_day = child.childNodes[0].nodeValue
-            elif (name == 'hour'):
-              hour = child.childNodes[0].nodeValue
+          data_query = SolrUtilities.base_query() + '&collection_id=' + collection_id  + '&q=import_classifications:"' + import_set + '"%20AND%20(record_subject:"Array%20ID%2060"%20OR%20record_subject:"Array%20ID%20101")&fl=collection_id,import_set,record_datetime,record_subject,location_name,latitude,longitude,temp_c_avg,temp_avg,hour,jul_day,import_classifications&sort=record_datetime%20asc'
+          url = '%s&start=%d&rows=%d' % (data_query, retrieved, to_retrieve)
+          print "Solr Query: %s" % url
           
-          if (station and dt and temp is not None):
-            (next_expected_timestamp, last_valid_temp, prev_station, created, updated) = _process_row(cursor, dt, station, float(temp), next_expected_timestamp, last_valid_temp, prev_station)
-            created_count = created_count + created
-            updated_count = updated_count + updated
+          xmldoc = SolrUtilities.solr_request(url)
+          for node in xmldoc.getElementsByTagName('doc'):
+            station = None
+            dt = None
+            temp = None
+            jul_day = None
+            hour = None
             
-        xmldoc.unlink()
-        retrieved = retrieved + to_retrieve
+            for child in node.childNodes:
+              name = child.getAttribute('name')
+              if (name == 'temp_c_avg' or name == 'temp_avg'):
+                temp = Decimal(child.childNodes[0].nodeValue).quantize(Decimal("0.01"), ROUND_HALF_UP)
+              elif (name == 'record_datetime'):
+                dt = SolrUtilities.utc_to_est(child.childNodes[0].nodeValue)
+              elif (name == 'jul_day'):
+                jul_day = child.childNodes[0].nodeValue
+              elif (name == 'hour'):
+                hour = child.childNodes[0].nodeValue
+              elif (name == 'import_classifications'):
+                for x in child.childNodes:
+                  if x.childNodes[0].nodeValue in stations:
+                    station = stations[x.childNodes[0].nodeValue]
+                    break
+            
+            if (station and dt and temp is not None):
+              (next_expected_timestamp, last_valid_temp, prev_station, created, updated) = _process_row(cursor, dt, station, float(temp), next_expected_timestamp, last_valid_temp, prev_station)
+              created_count = created_count + created
+              updated_count = updated_count + updated
+              
+          xmldoc.unlink()
+          retrieved = retrieved + to_retrieve
     
     # Update the last import date
     lid = SolrUtilities.update_last_import_date('respiration')

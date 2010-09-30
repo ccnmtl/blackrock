@@ -139,7 +139,6 @@ _sets = ['Pollen Types', 'Raw Counts of 65 Pollen Types', 'Percentages of 15 Pol
              
 @user_passes_test(lambda u: u.is_staff)
 def loadsolr(request):
-  
   import_set = request.POST.get('import_set', '')
   collection_id = request.POST.get('collection_id', '')
   import_set_type = request.POST.get('import_set_type', '')
@@ -184,7 +183,7 @@ def loadsolr(request):
 def _import_pollen_types(set, count, collection_id):
   created_count = 0
   updated_count = 0
-  url = SolrUtilities.base_query() + '&collection_id=' + collection_id  + '&q=import_set_section:"' + urlquote(set) + '"&rows=' + str(count) + '&fl=plant_name,plant_type'
+  url = SolrUtilities.base_query() + '&collection_id=' + collection_id  + '&q=import_classifications:"' + urlquote(set) + '"&rows=' + str(count) + '&fl=plant_name,plant_type'
   xmldoc = SolrUtilities.solr_request(url)
   
   for node in xmldoc.getElementsByTagName('doc'):
@@ -217,7 +216,7 @@ def _import_counts(set, count, fieldname, collection_id, import_set_type):
   updated_count = 0
   exceptions = ['longitude', 'latitude', 'depth_cm', 'workbook_row_number']
   
-  url = SolrUtilities.base_query() + '&collection_id=' + collection_id  + '&q=import_set_type:"' + import_set_type + '"%20AND%20import_set_section:"' + urlquote(set) + '"&rows=' + str(count) + '&sort=depth_cm%20asc'
+  url = SolrUtilities.base_query() + '&collection_id=' + collection_id  + '&q=import_classifications:("' + import_set_type + '"%20AND%20"' + urlquote(set) + '")&rows=' + str(count)
   xmldoc = SolrUtilities.solr_request(url)
   
   pinus_pollen = PollenType.objects.get(name='Pinus')

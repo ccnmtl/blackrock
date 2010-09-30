@@ -5,6 +5,13 @@ from time import time
 
 Rg = 8.314
 
+class StationMapping(models.Model):
+  abbreviation = models.CharField(max_length=5)
+  station = models.CharField(max_length=50, unique=True)
+  
+  def __unicode__(self):
+    return "%s (%s)" % (self.station, self.abbreviation)
+
 class Temperature(models.Model):
   def __unicode__(self):
     if self.reading is None:

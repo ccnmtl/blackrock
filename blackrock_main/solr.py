@@ -4,6 +4,11 @@ from xml.dom import minidom
 from django.utils.tzinfo import FixedOffset
 from django.utils.http import urlquote
 
+# Paleo Query Examples
+# Count Query: http://seasnail.cc.columbia.edu:8181/solr/blackrock/select/?qt=forest-data&collection_id=paleo&facet=true&facet.field=import_set_section&rows=0&q=import_set_type:"educational"
+
+#http://seasnail.cc.columbia.edu:8181/solr/blackrock/select/?qt=forest-data&collection_id=paleo&facet=true&facet.field=import_classifications&rows=0&q=*:*&facet.mincount=1&fq=import_classifications:"educational"
+
 class SolrUtilities:
   _solr_base_query = 'http://seasnail.cc.columbia.edu:8181/solr/blackrock/select/?qt=forest-data&'
   
@@ -67,14 +72,14 @@ class SolrUtilities:
     sets = {}
     
     count_query = self._solr_base_query + 'collection_id=' + collection_id + '&facet=true&facet.field=' + facet_field + '&rows=0'
-    count_query = count_query + '&q=import_set_type:"' + import_set_type + '"'
+    count_query = count_query + '&q=*:*&facet.mincount=1&fq=import_classifications:"' + import_set_type + '"'
     
     if last_import_date:
       utc = last_import_date.astimezone(FixedOffset(0))
       count_query = count_query + '%20AND%20last_modified:[' + utc.strftime('%Y-%m-%dT%H:%M:%SZ') + '%20TO%20NOW]'
     if len(import_set) > 0:
       count_query = count_query + '%20AND%20import_set:"' + import_set + '"'
-      
+    
     xmldoc = self.solr_request(count_query)
     for node in xmldoc.getElementsByTagName('int'):
       if node.hasAttribute('name') and int(node.childNodes[0].nodeValue) > 0:
