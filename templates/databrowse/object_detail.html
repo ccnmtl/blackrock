@@ -40,7 +40,11 @@
             {% endif %}
         
             <h4>Url:</h4>
-            {% for u in current_object.url.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{ u.name }}">{{u.name}}</a>{% endfor %}<br />
+            <ul>
+            {% for u in current_object.url.all %}
+                <li><a href="{{ u.name }}">{{u.document}}</a></li>
+            {% endfor %}
+            </ul>
        
             {% if current_object.location %}
                 {% if current_object.location.station_set.count %}

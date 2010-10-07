@@ -1,14 +1,11 @@
 <script type="text/javascript">
-   var requested_import_sets = ["RT_2008(1)", "OL_2008", "FT_2007(1)", "FT_2008(1)", "OL_2009", "RT_2009"]
    addLoadEvent(previewSolr);
 </script>
 
 <form name="solr_loader" id="id_solr_loader" action="../../respiration/loadsolr" method="POST" onSubmit="return submitSolrQuery(this, 'solr_progress');">
      <input type="hidden" name="application" value="respiration"></input>
      <input type="hidden" name="collection_id" value="environmental-monitoring"></input>
-     <input type="hidden" name="import_set_type" value="educational"></input>
-     <input type="hidden" name="facet_field" value="import_classifications"></input>
-     <input type="hidden" name="import_set" value=""></input>
+     <input type="hidden" name="import_classification" value="educational"></input>
      
      <fieldset class="module aligned">
         <h2>Import Respiration Data from SOLR</h2>

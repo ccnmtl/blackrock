@@ -2,17 +2,36 @@ from blackrock_main.models import LastImportDate
 import datetime, time, pytz, urllib, urllib2
 from xml.dom import minidom
 from django.utils.tzinfo import FixedOffset
-from django.utils.http import urlquote
+from django.conf import settings
 
-# Paleo Query Examples
-# Count Query: http://seasnail.cc.columbia.edu:8181/solr/blackrock/select/?qt=forest-data&collection_id=paleo&facet=true&facet.field=import_set_section&rows=0&q=import_set_type:"educational"
-
-#http://seasnail.cc.columbia.edu:8181/solr/blackrock/select/?qt=forest-data&collection_id=paleo&facet=true&facet.field=import_classifications&rows=0&q=*:*&facet.mincount=1&fq=import_classifications:"educational"
 
 class SolrUtilities:
-  _solr_base_query = 'http://seasnail.cc.columbia.edu:8181/solr/blackrock/select/?qt=forest-data&'
+  _solr_base_query = "%s/solr/blackrock/select/?qt=forest-data&" % settings.CDRS_SOLR_URL
   
-  @classmethod
+  def process_request(self, options, processor):
+    response = None
+    xmldoc = None
+    try:
+      url = self._solr_base_query + '&'.join([key + "=" + value for key,value in options.items()])
+      
+      response = urllib2.urlopen(url)
+      xmldoc = minidom.parse(response)
+      rv = processor(xmldoc)
+    finally:
+      if xmldoc:
+        xmldoc.unlink()
+      if response:
+        response.close()
+    return rv
+  
+  def make_request(self, options):
+    url = self._solr_base_query + '&'.join([key + "=" + value for key,value in options.items()])
+      
+    response = urllib2.urlopen(url)
+    xmldoc = minidom.parse(response)
+    response.close()
+    return xmldoc
+  
   def update_last_import_date(self, application):
     dt = datetime.datetime.now()
     try:
@@ -23,7 +42,6 @@ class SolrUtilities:
     lid.save()
     return dt
   
-  @classmethod
   def get_last_import_date(self, request, application):
     dt = request.POST.get('last_import_date', '')
     tm =  urllib.unquote(request.POST.get('last_import_time', '00:00'))
@@ -38,7 +56,6 @@ class SolrUtilities:
   
     return last_import_date
 
-  @classmethod
   def string_to_eastern_dst(self, date_string, time_string):
     try:
       t = time.strptime(date_string + ' ' + time_string, '%Y-%m-%d %H:%M:%S')
@@ -47,47 +64,33 @@ class SolrUtilities:
       return dt
     except:
       return None
-   
-  # Convert the UTC solr datetime string to an EST datetime object
-  @classmethod
-  def utc_to_est(self, date_string):
-    try:
-      t = time.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
-      utc = datetime.datetime(t[0], t[1], t[2], t[3], t[4], t[5], tzinfo=FixedOffset(0))
-      est = utc.astimezone(FixedOffset(-300)) #UTC -5 hours. Solr dates are always EST and do not take dst into account
-      return est
-    except:
-      return None
     
-  @classmethod
-  def solr_request(self, url):
-    response = urllib2.urlopen(url)
-    xmldoc = minidom.parse(response)
-    response.close()
-    return xmldoc
   
-  # Retrieve a list of modified import sets and row count based on the last time these sets were imported
-  @classmethod
-  def get_importsets_by_lastmodified(self, collection_id, import_set_type, last_import_date, import_set, facet_field):
-    sets = {}
-    
-    count_query = self._solr_base_query + 'collection_id=' + collection_id + '&facet=true&facet.field=' + facet_field + '&rows=0'
-    count_query = count_query + '&q=*:*&facet.mincount=1&fq=import_classifications:"' + import_set_type + '"'
+  # Retrieve a list of modified records and row count based on the last time these sets were imported
+  def get_count_by_lastmodified(self, collection_id, import_classification, last_import_date):
+    record_count = 0
+    options = { 'collection_id': collection_id,
+                'facet': 'true',
+                'facet.field': 'import_classifications',
+                'facet.mincount': '1',
+                'fq': 'import_classifications:"' + import_classification + '"',
+                'rows': '0',
+                'q': '*:*',
+               }
+#    count_query = self._solr_base_query + 'collection_id=' + collection_id + '&facet=true&facet.field=import_classifications&rows=0'
+#    count_query = count_query + '&q=*:*&facet.mincount=1&fq=import_classifications:"' + import_classification + '"'
     
     if last_import_date:
       utc = last_import_date.astimezone(FixedOffset(0))
-      count_query = count_query + '%20AND%20last_modified:[' + utc.strftime('%Y-%m-%dT%H:%M:%SZ') + '%20TO%20NOW]'
-    if len(import_set) > 0:
-      count_query = count_query + '%20AND%20import_set:"' + import_set + '"'
+      options['fq'] += '%20AND%20last_modified:[' + utc.strftime('%Y-%m-%dT%H:%M:%SZ') + '%20TO%20NOW]'
     
-    xmldoc = self.solr_request(count_query)
+    import_classification = urllib.unquote(import_classification)
+    
+    xmldoc = self.make_request(options)
     for node in xmldoc.getElementsByTagName('int'):
-      if node.hasAttribute('name') and int(node.childNodes[0].nodeValue) > 0:
-        sets[node.getAttribute('name')] = int(node.childNodes[0].nodeValue)
+      if node.hasAttribute('name') and int(node.childNodes[0].nodeValue) > 0 and node.getAttribute('name') == import_classification:
+        record_count = int(node.childNodes[0].nodeValue)
+        break
     xmldoc.unlink()
-    
-    return sets
-  
-  @classmethod
-  def base_query(self):
-    return self._solr_base_query
+
+    return record_count

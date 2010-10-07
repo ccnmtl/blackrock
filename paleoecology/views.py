@@ -52,19 +52,6 @@ def getcsv(request):
   response = HttpResponse(mimetype='text/csv')
   response['Content-Disposition'] = 'attachment; filename=coresamples.csv'
   writer = csv.writer(response)
-
-  # write headers
-  #headers = ['station', 'year', 'julian day', 'hour', 'avg temp deg C']
-  #writer.writerow(headers)
-
-  # write data
-  #for t in Temperature.objects.order_by("station", "date"):
-  #  julian_day = (t.date - datetime.datetime(year=t.date.year, month=1, day=1)).days + 1
-  #  hour = (t.date.hour + 1) * 100
-  #  year = t.date.year
-  #  row = [t.station, year, julian_day, hour, t.reading];
-  #  writer.writerow(row)
-  
   return response
 
 @user_passes_test(lambda u: u.is_staff)
@@ -139,10 +126,9 @@ _sets = ['Pollen Types', 'Raw Counts of 65 Pollen Types', 'Percentages of 15 Pol
              
 @user_passes_test(lambda u: u.is_staff)
 def loadsolr(request):
-  import_set = request.POST.get('import_set', '')
   collection_id = request.POST.get('collection_id', '')
-  import_set_type = request.POST.get('import_set_type', '')
-  facet_field = request.POST.get('facet_field', '')
+  import_classification = request.POST.get('import_classification', '')
+  solr = SolrUtilities()
   
   created_count = 0
   updated_count = 0
@@ -150,23 +136,28 @@ def loadsolr(request):
   PollenSample.objects.all().delete();
   
   try:
-    sets = SolrUtilities.get_importsets_by_lastmodified(collection_id, import_set_type, None, import_set, facet_field)
+    set = "Pollen Types"
+    options = { 'collection_id' : collection_id,
+                'q': 'import_classifications:("' + import_classification + '"%20AND%20"' + urlquote(set) + '")',
+                'rows': '1000',
+                'fl' : 'plant_name,plant_type'
+               }
+    created, updated = solr.process_request(options, process_pollen_types)
+    created_count += created
+    updated_count += updated
     
-    for set in _sets:
-      if set == 'Pollen Types' and set in sets:
-        created, updated = _import_pollen_types(set, sets[set], collection_id)
-        created_count += created
-        updated_count += updated
+    set = 'Raw Counts of 65 Pollen Types'
+    del(options['fl'])
+    options['q'] = 'import_classifications:("' + import_classification + '"%20AND%20"' + urlquote(set) + '")'
+    created, updated = solr.process_request(options, process_counts)
+    created_count += created
+    updated_count += updated
         
-      if set == 'Raw Counts of 65 Pollen Types' and set in sets:
-        created, updated = _import_counts(set, sets[set], 'count', collection_id, import_set_type)
-        created_count += created
-        updated_count += updated
-        
-      if set == 'Percentages of 15 Pollen Types' and set in sets:
-        created, updated = _import_counts(set, sets[set], 'percentage', collection_id, import_set_type)
-        created_count = created_count + created
-        updated_count = updated_count + updated
+    set = 'Percentages of 15 Pollen Types'
+    options['q'] = 'import_classifications:("' + import_classification + '"%20AND%20"' + urlquote(set) + '")'
+    created, updated = solr.process_request(options, process_percentages)
+    created_count = created_count + created
+    updated_count = updated_count + updated
 
     cache.set('solr_created', created_count)
     cache.set('solr_updated', updated_count)
@@ -180,12 +171,10 @@ def loadsolr(request):
   http_response['Cache-Control']='max-age=0,no-cache,no-store' 
   return http_response
 
-def _import_pollen_types(set, count, collection_id):
+def process_pollen_types(xmldoc):
   created_count = 0
   updated_count = 0
-  url = SolrUtilities.base_query() + '&collection_id=' + collection_id  + '&q=import_classifications:"' + urlquote(set) + '"&rows=' + str(count) + '&fl=plant_name,plant_type'
-  xmldoc = SolrUtilities.solr_request(url)
-  
+    
   for node in xmldoc.getElementsByTagName('doc'):
     plant_name = None
     plant_type = None
@@ -206,18 +195,19 @@ def _import_pollen_types(set, count, collection_id):
   # a few manual entries for summary purposes 
   _get_or_create_pollen_type("Pinus", "A", "Pinus (Pine)")
   _get_or_create_pollen_type("Asteraceae", "B", "Asteraceae (Ragweed & herbs)")
-            
-  xmldoc.unlink()
   
   return created_count, updated_count
 
-def _import_counts(set, count, fieldname, collection_id, import_set_type):
+def process_percentages(xmldoc):
+  return _process_samples(xmldoc, "percentage")
+  
+def process_counts(xmldoc):
+  return _process_samples(xmldoc, "count")
+
+def _process_samples(xmldoc, fieldname):
   created_count = 0
   updated_count = 0
   exceptions = ['longitude', 'latitude', 'depth_cm', 'workbook_row_number']
-  
-  url = SolrUtilities.base_query() + '&collection_id=' + collection_id  + '&q=import_classifications:("' + import_set_type + '"%20AND%20"' + urlquote(set) + '")&rows=' + str(count)
-  xmldoc = SolrUtilities.solr_request(url)
   
   pinus_pollen = PollenType.objects.get(name='Pinus')
   asteraceae_pollen = PollenType.objects.get(name='Asteraceae')
@@ -229,7 +219,7 @@ def _import_counts(set, count, fieldname, collection_id, import_set_type):
       name = child.getAttribute('name')
       if (name == 'record_subject'):
         # record_subject always comes first. the logic counts on this order.
-        core_sample, created = _add_core_sample(child.childNodes[0].nodeValue)
+        core_sample, created = _get_or_create_core_sample(child.childNodes[0].nodeValue)
       elif (child.tagName == 'double' or child.tagName == 'int') and name not in exceptions:
         pollen_name = _normalize_pollen_name(name) # solr names for count/percentages come in lowercase with underscores replacing spaces
         pollen_type = PollenType.objects.get(name__iexact=pollen_name)
@@ -248,7 +238,6 @@ def _import_counts(set, count, fieldname, collection_id, import_set_type):
           elif pollen_name.lower() in ["asteraceae subf asteroideae undiff", "asteraceae subf cichorioideae", "ambrosia", "artemisia"]:
             _update_or_create_pollen_sample(asteraceae_pollen, core_sample, fieldname, child.childNodes[0].nodeValue, summarize=True)
 
-  xmldoc.unlink()
   return created_count, updated_count
 
 def _get_or_create_pollen_type(name, type, display_name=""):
@@ -265,7 +254,7 @@ def _get_or_create_pollen_type(name, type, display_name=""):
   return pt, created
 
 # Format of record_subject is Depth of XX cm. Parse out the XX, find or create a core sample. Continue.
-def _add_core_sample(depth):
+def _get_or_create_core_sample(depth):
   d = re.search('\d+.\d+', depth) or re.search('\d+', depth) 
   return CoreSample.objects.get_or_create(depth=d.group(0))
   

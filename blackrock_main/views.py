@@ -44,20 +44,16 @@ def loadsolr_poll(request):
 
 @user_passes_test(lambda u: u.is_staff)
 def previewsolr(request):
-  response = { 'sets': {} }
+  response = {}
+  solr = SolrUtilities()
   
-  import_set = request.POST.get('import_set', '')
   application = request.POST.get('application', '')
   collection_id = request.POST.get('collection_id', '')
-  import_set_type = request.POST.get('import_set_type', '')
-  facet_field = request.POST.get('facet_field', '')
+  import_classification = request.POST.get('import_classification', '')
   
-  last_import_date = SolrUtilities.get_last_import_date(request, application)
-  sets = SolrUtilities.get_importsets_by_lastmodified(collection_id, import_set_type, last_import_date, import_set, facet_field)
+  last_import_date = solr.get_last_import_date(request, application)
+  response['record_count'] = solr.get_count_by_lastmodified(collection_id, import_classification, last_import_date)
     
-  for set in sets:
-    response['sets'][set] = sets[set]
-  
   if last_import_date:
     response['last_import_date'] = last_import_date.strftime('%Y-%m-%d');
     response['last_import_time'] = last_import_date.strftime('%H:%M:%S');  

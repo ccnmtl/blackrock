@@ -34,9 +34,7 @@ function submitSolrQuery(form) {
         }
         params[$('id_solr_loader').application.name] = escape($('id_solr_loader').application.value)
         params[$('id_solr_loader').collection_id.name] = escape($('id_solr_loader').collection_id.value)
-        params[$('id_solr_loader').import_set_type.name] = escape($('id_solr_loader').import_set_type.value)
-        params[$('id_solr_loader').facet_field.name] = escape($('id_solr_loader').facet_field.value)
-        params[$('id_solr_loader').import_set.name] = escape($('id_solr_loader').import_set.value)
+        params[$('id_solr_loader').import_classification.name] = escape($('id_solr_loader').import_classification.value)
         
         original_request = doXHR(form.action, 
           { 
@@ -101,19 +99,9 @@ function inArray(obj, a) {
 
 function onPreviewSuccess(doc) {
     var json = JSON.parse(doc.responseText, null);
-   
-    var count = 0;
-    var sets = ""
-    for (import_set in json['sets']) {
-        if (requested_import_sets && inArray(import_set, requested_import_sets)) {
-            count++;
-            if (sets.length < 1)
-                sets = "<tr><td><b>Import Set</b></td><td><b>Rows To Retrieve</b></td></tr>";
-            sets += "<tr><td>" + import_set + "</td><td>" + json['sets'][import_set] + "</td></tr>";
-        }
-    }
-    
-    $('previewsolr').innerHTML = sets;
+
+    $('previewsolr').innerHTML = "<tr><td><b>Import Classification</b></td><td><b>Rows To Retrieve</b></td></tr>" +
+                                 "<tr><td>" + $('id_solr_loader').import_classification.value + "</td><td>" + json['record_count'] + "</td></tr>"; 
     
     if (!json['last_import_date']) {
         $('no_last_import_date').style.display = 'block';
@@ -146,9 +134,7 @@ function previewSolr() {
     }
     params[$('id_solr_loader').application.name] = escape($('id_solr_loader').application.value)
     params[$('id_solr_loader').collection_id.name] = escape($('id_solr_loader').collection_id.value)
-    params[$('id_solr_loader').import_set_type.name] = escape($('id_solr_loader').import_set_type.value)
-    params[$('id_solr_loader').facet_field.name] = escape($('id_solr_loader').facet_field.value)
-    params[$('id_solr_loader').import_set.name] = escape($('id_solr_loader').import_set.value)
+    params[$('id_solr_loader').import_classification.name] = escape($('id_solr_loader').import_classification.value)
     
     url = 'http://' + location.hostname + ':' + location.port + "/blackrock_main/previewsolr"
     deferred = doXHR(url, { method: 'POST',

@@ -129,6 +129,11 @@ class Url(models.Model):
   def __unicode__(self):
     return self.name  
   
+  def document(self):
+    a = self.name.split("/")
+    return a[len(a) - 1]
+    
+  
 # Base Assets
 class DigitalObject(models.Model):
   name = models.CharField(max_length=500)
@@ -281,9 +286,10 @@ class DataSet(models.Model):
   description = models.TextField(null=True, blank=True)
   collection_start_date = models.DateField()
   collection_end_date = models.DateField(null=True, blank=True)
-  rights_type = models.ManyToManyField(RightsType)
+  rights_type = models.TextField(default="open")
   url = models.ManyToManyField(Url, null=True, blank=True)
   spatial_explicit = models.BooleanField(default=False)
+  blackrock_id = models.CharField(max_length=50, unique=True, null=True, blank=True)
   
   audience = models.ManyToManyField(Audience, null=True, blank=True)
   display_image = models.ForeignKey(DigitalObject, null=True, blank=True)

@@ -1,15 +1,12 @@
 <script type="text/javascript">
-   var requested_import_sets = ["Pollen Types", "Raw Counts of 65 Pollen Types", "Percentages of 15 Pollen Types"]
    addLoadEvent(previewSolr);
 </script>
 
 <form name="solr_loader" id="id_solr_loader" action="../../paleoecology/loadsolr" method="POST" onSubmit="return submitSolrQuery(this, 'solr_progress');">
      <input type="hidden" name="application" value="paleoecology"></input>
      <input type="hidden" name="collection_id" value="paleo"></input>
-     <input type="hidden" name="import_set_type" value="educational"></input>
-     <input type="hidden" name="facet_field" value="import_classifications"></input>
-     <input type="hidden" name="import_set" value=""></input>
-
+     <input type="hidden" name="import_classification" value="educational"></input>
+     
      <fieldset class="module aligned">
         <h2>Import Data from SOLR</h2>
         <div style="color: #F00; font-weight: bold; margin: 5px 5px;"><div id="solr_error"></div></div>
