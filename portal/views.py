@@ -87,8 +87,7 @@ def process_location(values):
 
 def process_metadata(xmldoc):
   docnode = xmldoc.getElementsByTagName('doc')[0]
-  created = 0
-  updated = 0
+  created = False
   dataset_field_map = { 'dataset_id': 'blackrock_id',
                         'title': 'name',
                         'abstract': 'description',
@@ -122,10 +121,10 @@ def process_metadata(xmldoc):
   dataset = None
   try:
     dataset = DataSet.objects.get(blackrock_id=values['blackrock_id'][0])
-    updated += 1
   except DataSet.DoesNotExist:
     dataset = DataSet()
-    created += 1
+    created = True
+
   
   for field in dataset._meta.fields:
     if field.name in values.keys():
@@ -144,19 +143,20 @@ def process_metadata(xmldoc):
       for v in values[field.name]:
         if field.name == 'url':
           v = settings.CDRS_SOLR_FILEURL + v
-        related_obj, created = related_model.objects.get_or_create(name=v.strip()) 
+        related_obj, temp_created = related_model.objects.get_or_create(name=v.strip()) 
         dataset.__getattribute__(field.name).add(related_obj)
   
+  dataset.audience.add(Audience.objects.get(name='Research'))
   dataset.save()
   
-  return created, updated       
+  return created
     
 @user_passes_test(lambda u: u.is_staff)
 def admin_cdrs_import(request):
   ctx = Context({ 'server': settings.CDRS_SOLR_URL})
   application = "portal"
-  new_datasets = 0
-  updated_datasets = 0
+  created = 0
+  updated = 0
   
   if (request.method == 'POST'):
     try:
@@ -181,14 +181,15 @@ def admin_cdrs_import(request):
                               'rows': '1',
                               'fl': 'dataset_id,title,field_study_data_collection_start_date,field_study_data_collection_end_date,related_files,lead_investigators,abstract,restriction_on_access,educational_data_files,latitude,longitude,other_investigators,species,discipline,audience,keywords' } 
           
-          created, updated = solr.process_request(metadata_options, process_metadata)
-          new_datasets += created
-          updated_datasets += updated 
+          if solr.process_request(metadata_options, process_metadata):
+            created += 1
+          else:
+            updated += 1 
     except Exception, e:
       ctx['error'] = str(e)
        
-  ctx['created'] = new_datasets
-  ctx['updated'] = updated_datasets
+  ctx['created'] = created
+  ctx['updated'] = updated
   return render_to_response('portal/admin_cdrs.html', context_instance=ctx)
 
 
