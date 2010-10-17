@@ -11,6 +11,8 @@ from django.core.cache import cache
 from blackrock_main.models import LastImportDate
 from blackrock_main.solr import SolrUtilities
 from decimal import Decimal, ROUND_HALF_UP
+from django.conf import settings
+from pysolr import Solr, SolrError
 
 def index(request, admin_msg=""):
   return render_to_response('respiration/index.html',
@@ -314,7 +316,8 @@ def _utc_to_est(date_string):
 def loadsolr(request):
   collection_id = request.POST.get('collection_id', '')
   import_classification = request.POST.get('import_classification', '')
-  solr = SolrUtilities()
+  solr = Solr(settings.CDRS_SOLR_URL)
+  solr_util = SolrUtilities()
   
   # stash the station mappings into a python map
   stations = {}
@@ -325,52 +328,47 @@ def loadsolr(request):
   updated_count = 0
   try:
     cursor = connection.cursor()
-    last_import_date = solr.get_last_import_date(request, 'respiration')
-    record_count = solr.get_count_by_lastmodified(collection_id, import_classification, last_import_date)
-    
     next_expected_timestamp = None
     last_valid_temp = None
     prev_station = None
     retrieved = 0
-    options = { 'collection_id': collection_id,
-                'q': 'import_classifications:"' + import_classification + '"%20AND%20(record_subject:"Array%20ID%2060"%20OR%20record_subject:"Array%20ID%20101")',
-                'fl': 'collection_id,record_datetime,record_subject,location_name,latitude,longitude,temp_c_avg,temp_avg,hour,jul_day,import_classifications',
-                'sort': 'latitude%20asc,record_datetime%20asc',
-               }
+    
+    q = 'import_classifications:"' + import_classification + '" AND (record_subject:"Array ID 60" OR record_subject:"Array ID 101")'
+    options = { 'qt': 'forest-data',
+                'collection_id': collection_id,
+                'sort': 'latitude asc,record_datetime asc' }
+    
+    last_import_date = solr_util.get_last_import_date(request, 'respiration')
+    if last_import_date:
+      utc = last_import_date.astimezone(FixedOffset(0))
+      q += ' AND last_modified:[' + utc.strftime('%Y-%m-%dT%H:%M:%SZ') + ' TO NOW]'
+      
+    record_count = solr_util.get_count_by_lastmodified(collection_id, import_classification, last_import_date)
      
     while (retrieved < record_count):
-      to_retrieve = min(2000, record_count - retrieved)
+      to_retrieve = min(100, record_count - retrieved)
       options['start'] = str(retrieved)
       options['rows'] = str(to_retrieve)
       
-      xmldoc = solr.make_request(options)
-      for node in xmldoc.getElementsByTagName('doc'):
-        station = None
-        dt = None
-        temp = None
-        
-        for child in node.childNodes:
-          name = child.getAttribute('name')
-          if (name == 'temp_c_avg' or name == 'temp_avg'):
-            temp = Decimal(child.childNodes[0].nodeValue).quantize(Decimal("0.01"), ROUND_HALF_UP)
-          elif (name == 'record_datetime'):
-            dt = _utc_to_est(child.childNodes[0].nodeValue)
-          elif (name == 'import_classifications'):
-            for x in child.childNodes:
-              if x.childNodes[0].nodeValue in stations:
-                station = stations[x.childNodes[0].nodeValue]
-                break
+      results = solr.search(q, **options)
+      for result in results:
+        temp = Decimal(str(result['temp_c_avg'])).quantize(Decimal("0.01"), ROUND_HALF_UP)
+        dt = _utc_to_est(result['record_datetime'])
+    
+        for x in result['import_classifications']:
+          if x in stations:
+            station = stations[x]
+            break
         
         if (station and dt and temp is not None):
           (next_expected_timestamp, last_valid_temp, prev_station, created, updated) = _process_row(cursor, dt, station, float(temp), next_expected_timestamp, last_valid_temp, prev_station)
           created_count = created_count + created
           updated_count = updated_count + updated
           
-      xmldoc.unlink()
       retrieved = retrieved + to_retrieve
     
     # Update the last import date
-    lid = solr.update_last_import_date('respiration')
+    lid = solr_util.update_last_import_date('respiration')
     cache.set('solr_import_date', lid.strftime('%Y-%m-%d'))
     cache.set('solr_import_time', lid.strftime('%H:%M:%S'))  
     cache.set('solr_created', created_count)

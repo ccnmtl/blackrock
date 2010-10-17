@@ -3,34 +3,9 @@ import datetime, time, pytz, urllib, urllib2
 from xml.dom import minidom
 from django.utils.tzinfo import FixedOffset
 from django.conf import settings
-
+from pysolr import Solr, SolrError
 
 class SolrUtilities:
-  _solr_base_query = "%s/solr/blackrock/select/?qt=forest-data&" % settings.CDRS_SOLR_URL
-  
-  def process_request(self, options, processor):
-    response = None
-    xmldoc = None
-    try:
-      url = self._solr_base_query + '&'.join([key + "=" + value for key,value in options.items()])
-      
-      response = urllib2.urlopen(url)
-      xmldoc = minidom.parse(response)
-      rv = processor(xmldoc)
-    finally:
-      if xmldoc:
-        xmldoc.unlink()
-      if response:
-        response.close()
-    return rv
-  
-  def make_request(self, options):
-    url = self._solr_base_query + '&'.join([key + "=" + value for key,value in options.items()])
-      
-    response = urllib2.urlopen(url)
-    xmldoc = minidom.parse(response)
-    response.close()
-    return xmldoc
   
   def update_last_import_date(self, application):
     dt = datetime.datetime.now()
@@ -64,33 +39,31 @@ class SolrUtilities:
       return dt
     except:
       return None
-    
   
   # Retrieve a list of modified records and row count based on the last time these sets were imported
   def get_count_by_lastmodified(self, collection_id, import_classification, last_import_date):
+    solr_conn = Solr(settings.CDRS_SOLR_URL)
     record_count = 0
-    options = { 'collection_id': collection_id,
+    options = { 'qt': 'forest-data',
+                'collection_id': collection_id,
                 'facet': 'true',
                 'facet.field': 'import_classifications',
                 'facet.mincount': '1',
-                'fq': 'import_classifications:"' + import_classification + '"',
                 'rows': '0',
-                'q': '*:*',
+                'fq': 'import_classifications:"' + import_classification + '"',
+                'json.nl': 'map'
                }
-#    count_query = self._solr_base_query + 'collection_id=' + collection_id + '&facet=true&facet.field=import_classifications&rows=0'
-#    count_query = count_query + '&q=*:*&facet.mincount=1&fq=import_classifications:"' + import_classification + '"'
     
     if last_import_date:
       utc = last_import_date.astimezone(FixedOffset(0))
-      options['fq'] += '%20AND%20last_modified:[' + utc.strftime('%Y-%m-%dT%H:%M:%SZ') + '%20TO%20NOW]'
+      options['fq'] += ' AND last_modified:[' + utc.strftime('%Y-%m-%dT%H:%M:%SZ') + ' TO NOW]'
     
     import_classification = urllib.unquote(import_classification)
     
-    xmldoc = self.make_request(options)
-    for node in xmldoc.getElementsByTagName('int'):
-      if node.hasAttribute('name') and int(node.childNodes[0].nodeValue) > 0 and node.getAttribute('name') == import_classification:
-        record_count = int(node.childNodes[0].nodeValue)
+    results = solr_conn.search('*:*', **options)
+    for key, value in results.facets["facet_fields"]["import_classifications"].items():
+      if key == import_classification:
+        record_count= value
         break
-    xmldoc.unlink()
-
+        
     return record_count

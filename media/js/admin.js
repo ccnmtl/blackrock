@@ -56,15 +56,15 @@ function onWaitSuccess(doc) {
         var status = "";
         if (json.solr_error)
             status = status + json.solr_error + "<br />"
-        if (json.solr_created)
-            status += json.solr_created + " rows created.<br />";
-        if (json.solr_updated)
-            status += json.solr_updated + " rows updated.<br />";
+        
+        status += json.solr_created + " rows created.<br />";
+        status += json.solr_updated + " rows updated.<br />";
+        
         if (json.solr_import_date)
             if ($('id_solr_loader').last_import_date)
                 $('id_last_import_date').value = json.solr_import_date;
         if (json.solr_import_time)
-            $('id_last_import_time').value = json.solr_import_time;    
+            $('id_last_import_time').value = json.solr_import_time;
         
         $('solr_status').innerHTML = status;
         $('solr_progress').style.display = 'none';
@@ -102,7 +102,7 @@ function onPreviewSuccess(doc) {
 
     $('previewsolr').innerHTML = "<tr><td><b>Import Classification</b></td><td><b>Rows To Retrieve</b></td></tr>" +
                                  "<tr><td>" + $('id_solr_loader').import_classification.value + "</td><td>" + json['record_count'] + "</td></tr>"; 
-    
+
     if (!json['last_import_date']) {
         $('no_last_import_date').style.display = 'block';
     } else {

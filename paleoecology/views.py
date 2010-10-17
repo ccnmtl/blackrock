@@ -3,15 +3,14 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import user_passes_test
 from blackrock.paleoecology.models import PollenType, PollenSample, CoreSample
-import csv
+import csv, re, unicodedata
 import simplejson as json
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.http import urlquote
-from blackrock_main.solr import SolrUtilities
 from django.core.cache import cache
 from blackrock_main.models import LastImportDate
-import re
-import unicodedata
+from django.conf import settings
+from pysolr import Solr, SolrError
 
 def index(request, admin_msg=""):
   return render_to_response('paleoecology/index.html',
@@ -128,34 +127,36 @@ _sets = ['Pollen Types', 'Raw Counts of 65 Pollen Types', 'Percentages of 15 Pol
 def loadsolr(request):
   collection_id = request.POST.get('collection_id', '')
   import_classification = request.POST.get('import_classification', '')
-  solr = SolrUtilities()
+  solr = Solr(settings.CDRS_SOLR_URL)
   
   created_count = 0
   updated_count = 0
   
   PollenSample.objects.all().delete();
   
+  options = { 'qt': 'forest-data',
+              'collection_id' : collection_id,
+              'rows': '1000',
+              'json.nl': 'map'
+            }
+  
   try:
+    # http://seasnail.cc.columbia.edu:8181/solr/blackrock/select/?qt=forest-data&q=import_classifications:("educational"%20AND%20"Pollen%20Types")&collection_id=paleo&rows=1000&fl=plant_name,plant_type
     set = "Pollen Types"
-    options = { 'collection_id' : collection_id,
-                'q': 'import_classifications:("' + import_classification + '"%20AND%20"' + urlquote(set) + '")',
-                'rows': '1000',
-                'fl' : 'plant_name,plant_type'
-               }
-    created, updated = solr.process_request(options, process_pollen_types)
+    results = solr.search('import_classifications:("' + import_classification + '" AND "' + set + '")', **options)
+    created,updated = process_pollen_types(results)
     created_count += created
     updated_count += updated
     
     set = 'Raw Counts of 65 Pollen Types'
-    del(options['fl'])
-    options['q'] = 'import_classifications:("' + import_classification + '"%20AND%20"' + urlquote(set) + '")'
-    created, updated = solr.process_request(options, process_counts)
+    results = solr.search('import_classifications:("' + import_classification + '" AND "' + set + '")', **options)
+    created, updated = _process_samples(results, "count") 
     created_count += created
     updated_count += updated
         
     set = 'Percentages of 15 Pollen Types'
-    options['q'] = 'import_classifications:("' + import_classification + '"%20AND%20"' + urlquote(set) + '")'
-    created, updated = solr.process_request(options, process_percentages)
+    results = solr.search('import_classifications:("' + import_classification + '" AND "' + set + '")', **options)
+    created, updated = _process_samples(results, "percentage")
     created_count = created_count + created
     updated_count = updated_count + updated
 
@@ -171,26 +172,20 @@ def loadsolr(request):
   http_response['Cache-Control']='max-age=0,no-cache,no-store' 
   return http_response
 
-def process_pollen_types(xmldoc):
+def process_pollen_types(results):
   created_count = 0
   updated_count = 0
     
-  for node in xmldoc.getElementsByTagName('doc'):
-    plant_name = None
-    plant_type = None
-    for child in node.childNodes:
-      name = child.getAttribute('name')
-      if (name == 'plant_name'):
-        plant_name = _normalize_pollen_name(child.childNodes[0].nodeValue)
-      elif (name == 'plant_type'):
-        plant_type = child.childNodes[0].nodeValue
+  for result in results:
+    plant_name = _normalize_pollen_name(result['plant_name'])
+    plant_type = result['plant_type']
     
     pt, created = _get_or_create_pollen_type(plant_name, plant_type)
     
     if created:
-      created_count = created_count + 1
+      created_count += 1
     else:
-      updated_count = updated_count + 1
+      updated_count += 1
   
   # a few manual entries for summary purposes 
   _get_or_create_pollen_type("Pinus", "A", "Pinus (Pine)")
@@ -198,13 +193,7 @@ def process_pollen_types(xmldoc):
   
   return created_count, updated_count
 
-def process_percentages(xmldoc):
-  return _process_samples(xmldoc, "percentage")
-  
-def process_counts(xmldoc):
-  return _process_samples(xmldoc, "count")
-
-def _process_samples(xmldoc, fieldname):
+def _process_samples(results, fieldname):
   created_count = 0
   updated_count = 0
   exceptions = ['longitude', 'latitude', 'depth_cm', 'workbook_row_number']
@@ -212,20 +201,14 @@ def _process_samples(xmldoc, fieldname):
   pinus_pollen = PollenType.objects.get(name='Pinus')
   asteraceae_pollen = PollenType.objects.get(name='Asteraceae')
   
-  for node in xmldoc.getElementsByTagName('doc'):
-    core_sample = None
-    
-    for child in node.childNodes:
-      name = child.getAttribute('name')
-      if (name == 'record_subject'):
-        # record_subject always comes first. the logic counts on this order.
-        core_sample, created = _get_or_create_core_sample(child.childNodes[0].nodeValue)
-      elif (child.tagName == 'double' or child.tagName == 'int') and name not in exceptions:
+  for result in results:
+    core_sample, created = _get_or_create_core_sample(result['record_subject']) 
+    for name, value in result.items():
+      if name not in exceptions and type(value) == type(float()): 
         pollen_name = _normalize_pollen_name(name) # solr names for count/percentages come in lowercase with underscores replacing spaces
         pollen_type = PollenType.objects.get(name__iexact=pollen_name)
-        
-        value = round(float(child.childNodes[0].nodeValue), 2)
-        
+        value = round(value, 2)
+    
         pollen_count, created = _update_or_create_pollen_sample(pollen_type, core_sample, fieldname, value)
         if created:
           created_count += 1
@@ -234,9 +217,9 @@ def _process_samples(xmldoc, fieldname):
           
         if fieldname == 'count':
           if pollen_name.lower() in ["pinus subg pinus", "pinus subg strobus", "pinus undiff"]:
-            _update_or_create_pollen_sample(pinus_pollen, core_sample, fieldname, child.childNodes[0].nodeValue, summarize=True)
+            _update_or_create_pollen_sample(pinus_pollen, core_sample, fieldname, value, summarize=True)
           elif pollen_name.lower() in ["asteraceae subf asteroideae undiff", "asteraceae subf cichorioideae", "ambrosia", "artemisia"]:
-            _update_or_create_pollen_sample(asteraceae_pollen, core_sample, fieldname, child.childNodes[0].nodeValue, summarize=True)
+            _update_or_create_pollen_sample(asteraceae_pollen, core_sample, fieldname, value, summarize=True)
 
   return created_count, updated_count
 

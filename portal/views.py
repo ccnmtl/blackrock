@@ -124,7 +124,6 @@ def process_metadata(xmldoc):
   except DataSet.DoesNotExist:
     dataset = DataSet()
     created = True
-
   
   for field in dataset._meta.fields:
     if field.name in values.keys():
