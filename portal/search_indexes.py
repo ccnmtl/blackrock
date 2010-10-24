@@ -1,10 +1,10 @@
 import datetime
 from haystack import site
-from haystack.indexes import RealTimeSearchIndex
+from haystack.indexes import RealTimeSearchIndex, SearchIndex
 from haystack.fields import MultiValueField, CharField
 from portal.models import *
 
-class AssetIndex(RealTimeSearchIndex):
+class AssetIndex(SearchIndex):
   text = CharField(document=True, use_template=True)
   name = CharField(model_attr='name')
   audience = MultiValueField(faceted=True)

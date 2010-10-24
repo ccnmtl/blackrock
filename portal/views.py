@@ -6,13 +6,20 @@ from django.db.models import get_model, DateField
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.core import management
-import StringIO, sys, urllib, datetime, time
+from django.db.models.fields.related import OneToOneField
+import StringIO, sys, urllib
+from datetime import datetime, date
+from time import strptime
 from pagetree.models import Hierarchy
 from haystack.query import SearchQuerySet
 from django.contrib.auth.decorators import user_passes_test
 from blackrock_main.solr import SolrUtilities
 from portal.models import * 
 from decimal import Decimal
+from pysolr import Solr, SolrError
+from django.core.cache import cache
+from blackrock_main.models import LastImportDate
+from django.utils import simplejson
 
 @user_passes_test(lambda u: u.is_staff)
 def admin_rebuild_index(request):
@@ -66,29 +73,18 @@ def process_datasets(xmldoc):
 
 def process_date(date_string):
   if re.match('\d\d\d\d-\d\d?-\d\d?', date_string):
-    t = time.strptime(date_string, '%Y-%m-%d')
+    t = strptime(date_string, '%Y-%m-%d')
   elif re.match('\d\d\d\d-\d\d?', date_string):
-    t = time.strptime(date_string, '%Y-%m')
+    t = strptime(date_string, '%Y-%m')
   elif re.match('\d\d\d\d', date_string):
-    t = time.strptime(date_string, '%Y')
+    t = strptime(date_string, '%Y')
   
   if t:
-    return datetime(t[0], t[1], t[2], t[3], t[4], t[5])
+    return date(t[0], t[1], t[2])
   
   return None
 
-def process_location(values):
-  location = None
-  if values.has_key('latitude') and values.has_key('longitude'):
-    lat = Decimal(values['latitude'][0].replace('+', ''))
-    lng = Decimal(values['longitude'][0])
-    location,created = Location.objects.get_or_create(name=values['name'][0], latitude=lat, longitude=lng)
-  return location
-
-def process_metadata(xmldoc):
-  docnode = xmldoc.getElementsByTagName('doc')[0]
-  created = False
-  dataset_field_map = { 'dataset_id': 'blackrock_id',
+_dataset_field_map = {  'dataset_id' : 'blackrock_id',
                         'title': 'name',
                         'abstract': 'description',
                         'field_study_data_collection_start_date' : 'collection_start_date',
@@ -105,25 +101,44 @@ def process_metadata(xmldoc):
                         'scientific_study_type' : 'facet',
                         'keywords' : 'tag'
                       }
-  
-  values = {}
-  for node in docnode.childNodes:
-    key = dataset_field_map[node.getAttribute("name")]
-    if not values.has_key(key):
-      values[key] = []
-      
-    if node.tagName == "str":
-      values[key].append(node.firstChild.nodeValue)
-    elif node.tagName == "arr":
-      for child in node.childNodes:
-        values[key].append(child.firstChild.nodeValue)
-  
+
+def _is_dirty(original_state, new_state):
+  for key, value in original_state.iteritems():
+     if new_state[key] != None and value != new_state[key]:
+       return True
+  return False
+
+def process_location(values):
+  location = None
+  if values.has_key('latitude') and values.has_key('longitude'):
+    lat = Decimal(values['latitude'][0].replace('+', ''))
+    lng = Decimal(values['longitude'][0])
+    location,created = Location.objects.get_or_create(name=values['name'][0], latitude=lat, longitude=lng)
+  return location
+
+def process_metadata(result):
+  created = False
   dataset = None
+  
   try:
-    dataset = DataSet.objects.get(blackrock_id=values['blackrock_id'][0])
+    id = result['dataset_id']
+    dataset = DataSet.objects.get(blackrock_id=id)
   except DataSet.DoesNotExist:
     dataset = DataSet()
     created = True
+
+  original_state = dict(dataset.__dict__)
+
+  values = {}
+  for key, value in result.items():
+    if value and key in _dataset_field_map.keys():
+        fieldname = _dataset_field_map[key]
+        if not values.has_key(fieldname):
+          values[fieldname] = []
+        if type(value) == type(list()):
+          values[fieldname].extend(value)
+        else:
+          values[fieldname].append(value)
   
   for field in dataset._meta.fields:
     if field.name in values.keys():
@@ -134,7 +149,8 @@ def process_metadata(xmldoc):
       dataset.__setattr__(field.name, value)
   
   dataset.location = process_location(values)
-  dataset.save()
+  if created:
+    dataset.save()
 
   for field in dataset._meta.many_to_many:
     if field.name in values.keys():
@@ -146,50 +162,73 @@ def process_metadata(xmldoc):
         dataset.__getattribute__(field.name).add(related_obj)
   
   dataset.audience.add(Audience.objects.get(name='Research'))
-  dataset.save()
+  
+  if _is_dirty(original_state, dict(dataset.__dict__)):
+    dataset.save()
   
   return created
     
 @user_passes_test(lambda u: u.is_staff)
 def admin_cdrs_import(request):
-  ctx = Context({ 'server': settings.CDRS_SOLR_URL})
-  application = "portal"
+  if (request.method != 'POST'):
+    return render_to_response('portal/admin_cdrs.html', {})
+  
   created = 0
   updated = 0
+  solr = Solr(settings.CDRS_SOLR_URL)
   
-  if (request.method == 'POST'):
-    try:
-      collection_id = request.POST.get('collection_id', '')
-      import_classification = request.POST.get('import_classification', '')
+  application = request.POST.get('application', '')
+  collection_id = request.POST.get('collection_id', '')
+  import_classification = request.POST.get('import_classification', '')
+  dt = request.POST.get('last_import_date', '')
+  tm =  urllib.unquote(request.POST.get('last_import_time', '00:00'))
+  
+  q = 'import_classifications:"' + import_classification + '"'
+  options = { 'qt': 'forest-data' }
+  
+  last_import_date = LastImportDate.get_last_import_date(dt, tm, application)
+  if last_import_date:
+    utc = last_import_date.astimezone(FixedOffset(0))
+    q += ' AND last_modified:[' + utc.strftime('%Y-%m-%dT%H:%M:%SZ') + ' TO NOW]'
+
+  try:
+    collections = urllib.unquote(collection_id).split(",")
+    for c in collections:
+      # Get list of datasets in each collection id
+      record_count = SolrUtilities().get_count_by_lastmodified(c, import_classification, last_import_date)
+      retrieved = 0
+      while (retrieved < record_count):
+        to_retrieve = min(1000, record_count - retrieved)
+        options['collection_id'] = c
+        options['start'] = str(retrieved)
+        options['rows'] = str(to_retrieve)
       
-      collections = collection_id.split(",")
-      for c in collections:
-        # Get list of datasets in each collection id
-        options = {'collection_id': c,
-                   'q': 'import_classifications:"' + import_classification + '"',
-                   'facet': "true", 
-                   'facet.field': "dataset_id",
-                   'rows': '0',
-                   'facet.mincount': '1' }
-        
-        solr = SolrUtilities()
-        datasets = solr.process_request(options, process_datasets)
-        for d in datasets:
-          metadata_options = {'collection_id': c,
-                              'q': 'import_classifications:"' + import_classification + '"%20AND%20dataset_id:"' + urllib.quote(d) + '"',
-                              'rows': '1',
-                              'fl': 'dataset_id,title,field_study_data_collection_start_date,field_study_data_collection_end_date,related_files,lead_investigators,abstract,restriction_on_access,educational_data_files,latitude,longitude,other_investigators,species,discipline,audience,keywords' } 
+        results = solr.search(q, **options)
+        for result in results:
+          if result.has_key('dataset_id'):
+            if process_metadata(result):
+              created += 1
+            else:
+              updated += 1
           
-          if solr.process_request(metadata_options, process_metadata):
-            created += 1
-          else:
-            updated += 1 
-    except Exception, e:
-      ctx['error'] = str(e)
+        retrieved = retrieved + to_retrieve
+        
+    # Update the last import date
+    lid = LastImportDate.update_last_import_date(application)
+    cache.set('solr_import_date', lid.strftime('%Y-%m-%d'))
+    cache.set('solr_import_time', lid.strftime('%H:%M:%S'))  
+    cache.set('solr_created', created)
+    cache.set('solr_updated', updated)
+  except Exception, e:
+    cache.set('solr_error', str(e)) 
        
-  ctx['created'] = created
-  ctx['updated'] = updated
-  return render_to_response('portal/admin_cdrs.html', context_instance=ctx)
+  cache.set('solr_complete', True)
+  
+  response = { 'complete': True }
+  http_response = HttpResponse(simplejson.dumps(response), mimetype='application/json')
+  http_response['Cache-Control']='max-age=0,no-cache,no-store' 
+  return http_response
+
 
 
 

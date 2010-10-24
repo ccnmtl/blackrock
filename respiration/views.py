@@ -310,14 +310,16 @@ def _utc_to_est(date_string):
   except:
     return None
 
-
 @user_passes_test(lambda u: u.is_staff)
 @transaction.commit_on_success
 def loadsolr(request):
+  application = request.POST.get('application', '')
   collection_id = request.POST.get('collection_id', '')
   import_classification = request.POST.get('import_classification', '')
+  dt = request.POST.get('last_import_date', '')
+  tm =  urllib.unquote(request.POST.get('last_import_time', '00:00'))
+
   solr = Solr(settings.CDRS_SOLR_URL)
-  solr_util = SolrUtilities()
   
   # stash the station mappings into a python map
   stations = {}
@@ -338,15 +340,15 @@ def loadsolr(request):
                 'collection_id': collection_id,
                 'sort': 'latitude asc,record_datetime asc' }
     
-    last_import_date = solr_util.get_last_import_date(request, 'respiration')
+    last_import_date = LastImportDate.get_last_import_date(dt, tm, application)
     if last_import_date:
       utc = last_import_date.astimezone(FixedOffset(0))
       q += ' AND last_modified:[' + utc.strftime('%Y-%m-%dT%H:%M:%SZ') + ' TO NOW]'
       
-    record_count = solr_util.get_count_by_lastmodified(collection_id, import_classification, last_import_date)
-     
+    record_count = SolrUtilities().get_count_by_lastmodified(collection_id, import_classification, last_import_date)
+    
     while (retrieved < record_count):
-      to_retrieve = min(100, record_count - retrieved)
+      to_retrieve = min(1000, record_count - retrieved)
       options['start'] = str(retrieved)
       options['rows'] = str(to_retrieve)
       
@@ -368,7 +370,7 @@ def loadsolr(request):
       retrieved = retrieved + to_retrieve
     
     # Update the last import date
-    lid = solr_util.update_last_import_date('respiration')
+    lid = LastImportDate.update_last_import_date(application)
     cache.set('solr_import_date', lid.strftime('%Y-%m-%d'))
     cache.set('solr_import_time', lid.strftime('%H:%M:%S'))  
     cache.set('solr_created', created_count)

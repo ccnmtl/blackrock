@@ -50,8 +50,10 @@ def previewsolr(request):
   application = request.POST.get('application', '')
   collection_id = request.POST.get('collection_id', '')
   import_classification = request.POST.get('import_classification', '')
-  
-  last_import_date = solr.get_last_import_date(request, application)
+  dt = request.POST.get('last_import_date', '')
+  tm =  urllib.unquote(request.POST.get('last_import_time', '00:00'))
+
+  last_import_date = LastImportDate.get_last_import_date(dt, tm, application)
   response['record_count'] = solr.get_count_by_lastmodified(collection_id, import_classification, last_import_date)
     
   if last_import_date:
