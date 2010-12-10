@@ -1,6 +1,7 @@
 {% extends "portal/base_portal.html" %}
 {% load smartif %}
 {% load portal %}
+{% load markup %}
 
 {% block title %}{{ object.model.verbose_name|capfirst }}: {{ object }}{% endblock %}
 
@@ -20,9 +21,9 @@
         {% endwith %}
         
         <h2>{{ current_object|display_name }}</h2>
-        <h4>Record Type:</h4> {{ current_object|klass_display }}
             
         {% if asset_klass == "DataSet" %}
+            <h4>Record Type:</h4> {{ current_object|klass_display }}
             
             <h4>Description:</h4>
             {% if current_object.description %}
@@ -61,7 +62,13 @@
             <h4>People:</h4>
             {% for p in current_object.person.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{p|detail_url}}">{{p.name}}</a>{% endfor %}<br />
         {% else %}{% if asset_klass == "DigitalObject" %}
-           
+            
+            {% if current_object.markup %}
+                {{ current_object.markup|markdown }}<br />
+            {% endif %}
+            
+            <h4>Record Type:</h4> {{ current_object|klass_display }}
+            
             <h4>Description:</h4>
             {% if current_object.description %}
                 {{ current_object.description }}<br />
@@ -82,6 +89,8 @@
                 {{ current_object.source }}
             {% endif %}
         {% else %}{% if asset_klass == "LearningActivity" %}
+            <h4>Record Type:</h4> {{ current_object|klass_display }}
+            
             <h4>Format:</h4> 
             {% if current_object.digital_format.count %}
                 {% for f in current_object.digital_format.all %}{% if forloop.counter > 1 %}, {% endif %}{{ f.name }}{% endfor %}<br />
@@ -103,6 +112,8 @@
                 <a href="{{current_object.location|detail_url}}">{{ current_object.location.name }}</a>
             {% endif %}
         {% else %}{% if asset_klass == "Location" %}
+            <h4>Record Type:</h4> {{ current_object|klass_display }}
+        
             <h4>Location Type:</h4> 
             {% if current_object.location_type.count %}
                 {% for t in current_object.location_type.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
@@ -114,6 +125,8 @@
             <h4>Latitude:</h4> {{current_object.latitude}}<br />
             <h4>Longitude:</h4> {{current_object.longitude}}<br />
         {% else %}{% if asset_klass == "Person" %}
+            <h4>Record Type:</h4> {{ current_object|klass_display }}
+            
             <h4>Title:</h4> 
             {% if current_object.professional_title %}
                 {{ current_object.professional_title }}<br />
@@ -132,6 +145,8 @@
             <h4>Roles:</h4>
             {% for t in current_object.person_type.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
         {% else %}{% if asset_klass == "Publication" %}
+            <h4>Record Type:</h4> {{ current_object|klass_display }}
+        
             <h4>Publication Type:</h4> 
             {% if current_object.publication_type.count %}
                 {% for t in current_object.publication_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
@@ -157,6 +172,8 @@
             <h4>Rights:</h4>
             {% for r in current_object.rights.all %}{% if forloop.counter > 1 %}, {% endif %}{{ r.name }}{% endfor %}<br />
         {% else %}{% if asset_klass == "Region" %}
+            <h4>Record Type:</h4> {{ current_object|klass_display }}
+        
             <h4>Type:</h4> 
             {% if current_object.region_type.count %}
                 {% for t in current_object.region_type.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{t|detail_url}}">{{ t.name }}</a>{% endfor %}<br />
@@ -166,6 +183,8 @@
                 {{ current_object.description }}<br />
             {% endif %}
         {% else %}{% if asset_klass == "ResearchProject" %}
+            <h4>Record Type:</h4> {{ current_object|klass_display }}
+        
             <h4>Project Start Date:</h4>
             {% if current_object.start_date %}
                 {{ current_object.start_date|date }}<br />
@@ -194,6 +213,8 @@
                 <h4>Location:</h4> <!-- Show attribute label with no data -->
             {% endif %}
        {% else %}{% if asset_klass == "Station" %}
+            <h4>Record Type:</h4> {{ current_object|klass_display }}
+       
             <h4>Activation Date:</h4>
             {% if current_object.activation_date %}
                 {{ current_object.activation_date|date }}<br />
@@ -207,6 +228,8 @@
                 {{ current_object.description }}<br />
             {% endif %}
         {% else %}{% if asset_klass == "ForestStory" %}
+            <h4>Record Type:</h4> {{ current_object|klass_display }}
+        
             {% if current_object.display_image %}
                 <img alt="Forest Story Icon" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
             {% endif %}

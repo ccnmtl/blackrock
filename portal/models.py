@@ -150,6 +150,8 @@ class DigitalObject(models.Model):
   created_date = models.DateTimeField('created_date', default=datetime.now)
   modified_date = models.DateTimeField('modified_date', default=datetime.now)
   
+  markup = models.TextField(null=True, blank=True)
+  
   def __unicode__(self):
     return self.name
   
