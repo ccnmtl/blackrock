@@ -40,11 +40,22 @@
               {% for t in current_object.region_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
            {% endif %}
       </div>
-    {% else %}
+    {% else %}{% if current_object|klass == "DigitalObject" %}
+       <div>
+           <b>Description</b>: 
+           {% if current_object.description %}
+               {{ current_object.description|truncatewords:25 }}
+           {% endif %}
+           <br />
+           {% if current_object.digital_format %}
+                <b>Format:</b> {{ current_object.digital_format }}<br />
+           {% endif %}
+      </div>
+    {% else %}    
          <b>Description</b>: 
          {% if current_object.description %}
             {{ current_object.description|truncatewords:25 }}<br />
          {% endif %}
-    {% endif %}{% endif %}{% endif %}{% endif %}
+    {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
 
 </div>
