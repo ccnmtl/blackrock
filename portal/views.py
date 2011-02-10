@@ -20,6 +20,8 @@ from pysolr import Solr, SolrError
 from django.core.cache import cache
 from blackrock_main.models import LastImportDate
 from django.utils import simplejson
+from django.utils.tzinfo import FixedOffset
+
 
 @user_passes_test(lambda u: u.is_staff)
 def admin_rebuild_index(request):
