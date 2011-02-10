@@ -8,6 +8,13 @@ TEMPLATE_DIRS = (
 
 MEDIA_ROOT = '/var/www/blackrock/uploads/'
 
+# put any static media here to override app served static media
+STATICMEDIA_MOUNTS = (
+    ('/sitemedia', '/var/www/blackrock/blackrock/sitemedia'),     
+)
+
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 HAYSTACK_SOLR_URL = "http://wwwapp.cc.columbia.edu/ccnmtl/solr/blackrock_portal"
+
+

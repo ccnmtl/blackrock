@@ -1,7 +1,7 @@
 from django.test.client import Client
 from django.test import TestCase
 from django.contrib.auth.models import User
-from blackrock.respiration.models import Temperature
+from blackrock.respiration.models import Temperature, StationMapping
 import datetime
 import os.path
 from django.utils import simplejson
@@ -93,17 +93,24 @@ class ImportTestCases(TestCase):
         
     def test_solr_import_set(self):
       Temperature.objects.get_or_create(station='Ridgetop', date=datetime.datetime(1997, 1, 1, 1, 00), reading=1.1)
-      Temperature.objects.get_or_create(station='Ridgetop', date=datetime.datetime(2009, 6, 1, 1, 00), reading=1.1)
+      Temperature.objects.get_or_create(station='Ridgetop', date=datetime.datetime(2009, 1, 1, 1, 00), reading=1.1)
       Temperature.objects.get_or_create(station='Ridgetop', date=datetime.datetime(2009, 7, 1, 1, 00), reading=1.1)
       Temperature.objects.get_or_create(station='Ridgetop', date=datetime.datetime(2009, 8, 1, 1, 00), reading=1.1)
+      
+      StationMapping.objects.get_or_create(station="Open Lowland", abbreviation="OL")
+      StationMapping.objects.get_or_create(station="Ridgetop", abbreviation="RT")
+      StationMapping.objects.get_or_create(station="Fire Tower", abbreviation="FT")
       
       self._login(self.client, 'testuser', 'test')
         
       response = self.client.get('/admin/respiration/')
       self.assertContains(response, 'Import Respiration Data from SOLR', status_code=200)
         
-      data = { 'import_set': 'RT_2009'}
-                
+      data = { 'import_classification': 'RT_2009',
+               'application': 'respiration',
+               'collection_id': 'environmental-monitoring',
+               'limit_records': '5' }
+                      
       response = self.client.post('/respiration/loadsolr', data)
       
       json = simplejson.loads(response.content)
@@ -111,23 +118,26 @@ class ImportTestCases(TestCase):
       
       self.assertTrue(cache.has_key('solr_complete'))
       self.assertFalse(cache.has_key('solr_error'))
-      self.assertEquals(cache.get('solr_created'), 8028)
-      self.assertEquals(cache.get('solr_updated'), 337)
+      self.assertEquals(cache.get('solr_created'), 4)
+      self.assertEquals(cache.get('solr_updated'), 1)
       
       qs = Temperature.objects.filter(station='Ridgetop').order_by('date')
-      self.assertEquals(qs.count(), 8032)  
+      self.assertEquals(qs.count(), 8)  
       self.assertEquals(qs[0].date, datetime.datetime(1997, 1, 1, 1, 0))
       
-      self.assertEquals(qs[1].date, datetime.datetime(2005, 1, 13, 16, 0))
-      self.assertEquals(qs[1].reading, 9.11)
+      self.assertEquals(qs[1].date, datetime.datetime(2009, 1, 1, 0, 0))
+      self.assertEquals(qs[1].reading, -13.01)
                         
-      self.assertEquals(qs[2].date, datetime.datetime(2009, 1, 1, 0, 0))
-      self.assertEquals(qs[2].reading, -13.01 )
+      self.assertEquals(qs[2].date, datetime.datetime(2009, 1, 1, 1, 0))
+      self.assertEquals(qs[2].reading, -13.119999999999999 )
       
-      response = self.client.get('/respiration/loadsolrpoll', {})
+      self.assertEquals(qs[3].date, datetime.datetime(2009, 1, 1, 2, 0))
+      self.assertEquals(qs[3].reading, -13.34 )
+      
+      response = self.client.get('/blackrock_main/loadsolrpoll', {})
       json = simplejson.loads(response.content)
-      self.assertEquals(json['solr_created'], 8028)
-      self.assertEquals(json['solr_updated'], 337)
+      self.assertEquals(json['solr_created'], 4)
+      self.assertEquals(json['solr_updated'], 1)
       
       self.assertFalse(cache.has_key('solr_complete'))
       self.assertFalse(cache.has_key('solr_created'))

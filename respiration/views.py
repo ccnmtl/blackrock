@@ -318,6 +318,7 @@ def loadsolr(request):
   import_classification = request.POST.get('import_classification', '')
   dt = request.POST.get('last_import_date', '')
   tm =  urllib.unquote(request.POST.get('last_import_time', '00:00'))
+  limit_records = int(request.POST.get('limit_records', '0'))
 
   solr = Solr(settings.CDRS_SOLR_URL)
   
@@ -346,6 +347,8 @@ def loadsolr(request):
       q += ' AND last_modified:[' + utc.strftime('%Y-%m-%dT%H:%M:%SZ') + ' TO NOW]'
       
     record_count = SolrUtilities().get_count_by_lastmodified(collection_id, import_classification, last_import_date)
+    if limit_records > 0:
+        record_count = limit_records;
     
     while (retrieved < record_count):
       to_retrieve = min(1000, record_count - retrieved)

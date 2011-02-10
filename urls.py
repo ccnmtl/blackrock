@@ -5,6 +5,7 @@ from django.conf import settings
 from blackrock_main.urls import *
 import os.path
 from pagetree.urls import *
+import staticmedia
 
 admin.autodiscover()
 
@@ -13,6 +14,7 @@ site_media_root = os.path.join(os.path.dirname(__file__),"media")
 urlpatterns = patterns('',
                        ('^accounts/',include('djangowind.urls')),
                        (r'^admin/pagetree/',include('pagetree.urls')),
+                       (r'^pagetree/',include('pagetree.urls')),
                        (r'^admin/portal/', include('gspreadsheet_importer.urls')),
                        (r'^admin/portal/rebuild_index', 'blackrock.portal.views.admin_rebuild_index'),
                        (r'^admin/portal/import_cdrs', 'blackrock.portal.views.admin_cdrs_import'),
@@ -26,4 +28,4 @@ urlpatterns = patterns('',
                        (r'^blackrock_main/', include('blackrock.blackrock_main.urls')),
                        (r'^portal/', include('blackrock.portal.urls')),
                        (r'', 'blackrock.views.index')
-)
+) + staticmedia.serve()

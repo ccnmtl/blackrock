@@ -29,6 +29,12 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.load_template_source',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.request',
+)
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -72,6 +78,9 @@ INSTALLED_APPS = (
     'tinymce',
     'pagetree',
     'pageblocks',
+    'template_utils',
+    'typogrify',
+    'sentry.client',
 )
 
 # Enabled Blackrock modules - edit to control what displays on the main page
@@ -92,10 +101,6 @@ PAGEBLOCKS = ['pageblocks.HTMLBlock',
 THUMBNAIL_SUBDIR = "thumbs"
 #THUMBNAIL_DEBUG = "True"
 
-# WIND settings
-
-AUTHENTICATION_BACKENDS = ('djangowind.auth.WindAuthBackend','django.contrib.auth.backends.ModelBackend',)
-
 TEMPLATE_CONTEXT_PROCESSORS = (
   'django.core.context_processors.auth', 
   'django.core.context_processors.debug', 
@@ -103,6 +108,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 LOGIN_URL = "/admin/login"
+
+# put any static media here to override app served static media                                                                                                                           
+STATICMEDIA_MOUNTS = (
+    ('/sitemedia', 'sitemedia'),
+)
 
 # TinyMCE settings
 TINYMCE_JS_URL = '/site_media/js/tiny_mce/tiny_mce.js'

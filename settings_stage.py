@@ -8,5 +8,10 @@ TEMPLATE_DIRS = (
 
 MEDIA_ROOT = '/usr/local/share/sandboxes/common/blackrock/uploads/'
 
+# put any static media here to override app served static media
+STATICMEDIA_MOUNTS = (
+    ('/sitemedia', '/var/www/blackrock/blackrock/sitemedia'),     
+)
+
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
