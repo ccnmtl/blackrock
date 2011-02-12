@@ -92,7 +92,7 @@ ENABLED_MODULES = (
 )
 
 # Pageblocks/Pagetree settings 
-PAGEBLOCKS = ['pageblocks.HTMLBlock', 
+PAGEBLOCKS = ['pageblocks.HTMLBlockWYSIWYG', 
               'pageblocks.ImageBlock',
               'portal.AssetList',
               'portal.FeaturedAsset',
