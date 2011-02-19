@@ -10,7 +10,7 @@ MEDIA_ROOT = '/usr/local/share/sandboxes/common/blackrock/uploads/'
 
 # put any static media here to override app served static media
 STATICMEDIA_MOUNTS = (
-    ('/sitemedia', '/var/www/blackrock/blackrock/sitemedia'),     
+    ('/sitemedia', '/usr/local/share/sandboxes/common/blackrock/blackrock/sitemedia'),     
 )
 
 DEBUG = False
