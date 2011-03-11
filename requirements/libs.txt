@@ -18,6 +18,6 @@ requirements/src/uuid-1.30.tar.gz
 requirements/src/psycopg2-2.2.1.tar.gz
 requirements/src/Imaging-1.1.7.tar.gz
 requirements/src/gspreadsheet_importer-0.1.tar.gz
-requirements/src/pysolr-2.0.13.tar.gz
+requirements/src/pysolr-2.0.14-beta.tar.gz
 requirements/src/gdata-2.0.10.tar.gz
 requirements/src/django-tinymce-1.5.1a1.tar.gz

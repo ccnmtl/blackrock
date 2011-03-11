@@ -80,6 +80,9 @@ class SearchBackend(BaseSearchBackend):
             self.conn.delete(id=solr_id, commit=commit)
         except (IOError, SolrError), e:
             self.log.error("Failed to remove document '%s' from Solr: %s", solr_id, e)
+            
+    def readercycle(self):
+        self.conn.readercycle()
     
     def clear(self, models=[], commit=True):
         try:
@@ -184,7 +187,15 @@ class SearchBackend(BaseSearchBackend):
         
         try:
             raw_results = self.conn.search(query_string, **kwargs)
-        except (IOError, SolrError), e:
+        except IOError as (errno, strerror):
+            try:
+                self.log.error("IOError -- %s %s", errno, strerror)
+                self.conn.readercycle()
+                raw_results = self.conn.search(query_string, **kwargs)
+            except Exception, e:
+                self.log.error("Failed to query Solr using '%s': %s", query_string, e)
+                raw_results = EmptyResults()
+        except SolrError, e:
             self.log.error("Failed to query Solr using '%s': %s", query_string, e)
             raw_results = EmptyResults()
         

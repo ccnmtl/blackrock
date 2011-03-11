@@ -231,3 +231,12 @@ def admin_rebuild_index(request):
     ctx['results'] = buffer.getvalue().split('\n')[1:-2]
 
   return render_to_response('portal/admin_solr.html', context_instance=ctx)
+
+def admin_readercycle(request):
+    try:
+        solr = Solr(settings.HAYSTACK_SOLR_URL)
+        solr.readercycle()
+        return HttpResponse("Cycled")
+    except (IOError, SolrError), e:
+        msg = "Failed to cycle Solr %s %s" % (settings.HAYSTACK_SOLR_URL, e)
+        return HttpResponse(msg)
