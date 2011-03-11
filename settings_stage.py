@@ -15,3 +15,6 @@ STATICMEDIA_MOUNTS = (
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
+
+HAYSTACK_SOLR_URL = 'http://wwwappdev.cc.columbia.edu/ccnmtl/solr/blackrock_portal'
+
