@@ -23,18 +23,6 @@ from django.utils import simplejson
 from django.utils.tzinfo import FixedOffset
 
 
-@user_passes_test(lambda u: u.is_staff)
-def admin_rebuild_index(request):
-  ctx = Context({ 'server': settings.HAYSTACK_SOLR_URL})
-  
-  if (request.method == 'POST'):
-    sys.stdout = buffer = StringIO.StringIO()
-    management.call_command('rebuild_index', interactive=False)
-    sys.stdout = sys.__stdout__
-    ctx['results'] = buffer.getvalue().split('\n')[1:-2]
-
-  return render_to_response('portal/admin_solr.html', context_instance=ctx)
-
 class rendered_with(object):
     def __init__(self, template_name):
         self.template_name = template_name
@@ -57,7 +45,7 @@ def page(request,path):
     ancestors = section.get_ancestors()
     
     module = None
-    if not section.is_root:
+    if not section.is_root():
         module = ancestors[1]
         
     # retrieve the list of featured assets associated with this section
@@ -232,16 +220,14 @@ def admin_cdrs_import(request):
   return http_response
 
 
-
-
-
-
-
-
-
-
+@user_passes_test(lambda u: u.is_staff)
+def admin_rebuild_index(request):
+  ctx = Context({ 'server': settings.HAYSTACK_SOLR_URL})
   
+  if (request.method == 'POST'):
+    sys.stdout = buffer = StringIO.StringIO()
+    management.call_command('rebuild_index', interactive=False)
+    sys.stdout = sys.__stdout__
+    ctx['results'] = buffer.getvalue().split('\n')[1:-2]
 
-  
-
-  
+  return render_to_response('portal/admin_solr.html', context_instance=ctx)
