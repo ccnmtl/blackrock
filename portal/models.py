@@ -583,57 +583,39 @@ class FeaturedAssetForm(forms.ModelForm):
       raise ValidationError('Please select only one object to display.')
     
     return self.cleaned_data
-#  
-#class VideoBlock(models.Model):
-#    pageblocks = generic.GenericRelation(PageBlock)
-#    file_url = models.CharField(max_length=512)
-#    image_url = models.CharField(max_length=512)
-#    width = models.IntegerField()
-#    height = models.IntegerField()
-#    
-#    template_file = "tobaccocessation_main/flashvideoblock.html"
-#    display_name = "Flash Video (using JW Player)"
-#
-#
-#    def pageblock(self):
-#        return self.pageblocks.all()[0]
-#
-#    def __unicode__(self):
-#        return unicode(self.pageblock())
-#
-#    def edit_form(self):
-#        class EditForm(forms.Form):
-#            file_url = forms.CharField(initial=self.file_url)
-#            image_url = forms.CharField(initial=self.image_url)
-#            width = forms.IntegerField(initial=self.width)
-#            height = forms.IntegerField(initial=self.height)
-#        return EditForm()
-#
-#    @classmethod
-#    def add_form(self):
-#        class AddForm(forms.Form):
-#            file_url = forms.CharField()
-#            image_url = forms.CharField()
-#            width = forms.IntegerField()
-#            height = forms.IntegerField()
-#        return AddForm()
-#
-#    @classmethod
-#    def create(self,request):
-#        return FlashVideoBlock.objects.create(file_url=request.POST.get('file_url',''), 
-#                                              image_url=request.POST.get('image_url',''),
-#                                              width=request.POST.get('width', ''),
-#                                              height=request.POST.get('height', ''))
-#
-#    def edit(self,vals,files):
-#        self.file_url = vals.get('file_url','')
-#        self.image_url = vals.get('image_url','')
-#        self.width = vals.get('width','')
-#        self.height = vals.get('height','')
-#        self.save()
   
-  
-  
+class PhotoGallery(models.Model):
+  pageblocks = generic.GenericRelation(PageBlock, related_name="photogallery_pageblock")
+  template_file = "portal/photogallery.html"
+  display_name = "Photo Gallery"
+    
+  def pageblock(self):
+    return self.pageblocks.all()[0]
 
+  def __unicode__(self):
+    return unicode(self.pageblock())
 
-   
+  def needs_submit(self):
+    return False
+  
+  @classmethod
+  def add_form(self):
+    return PhotoGalleryForm()
+  
+  def edit_form(self):
+    return PhotoGalleryForm(instance=self)
+
+  @classmethod
+  def create(self,request):
+    form = PhotoGalleryForm(request.POST)
+    return form.save()
+  
+  def edit(self, vals, files):
+    form = PhotoGalleryForm(data=vals, files=files, instance=self)
+    if form.is_valid():
+      form.save()
+      
+      
+class PhotoGalleryForm(forms.ModelForm):
+  class Meta:
+    model = PhotoGallery

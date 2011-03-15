@@ -108,6 +108,7 @@
 
         <div id="container">
             {% block container %}
+                {% comment %}
                 <table width="100%">
                 <tr>
                     <td id="left">
@@ -119,12 +120,13 @@
                     <td id="right">
                         {% block right %}
 
-			   {% include "portal/asset_map.html" %}
+			                 {% include "portal/asset_map.html" %}
 
                         {% endblock %} 
                     </td>
                 </tr>
                 </table>
+                {% endcomment %}
             {% endblock %}
         </div>
 </div>
