@@ -1,6 +1,8 @@
 from settings_shared import *
 
-#DATABASE_ENGINE = 'sqlite3' # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_ENGINE = 'postgresql_psycopg2'
-DATABASE_USER = 'postgres'
-MEDIA_ROOT = '/usr/local/share/sandboxes/common/blackrock/uploads'
+from settings_shared import *
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
