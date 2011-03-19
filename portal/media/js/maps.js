@@ -132,7 +132,7 @@ if (!Portal.MapMarker) {
                 position: new google.maps.LatLng(lat, lng), 
                 title: name,
                 icon: iconUrl,
-                map: shouldBeVisible ? mapInstance : null,
+                map: shouldBeVisible ? mapInstance : null
              });
             
             google.maps.event.addListener(self.marker, 'click', function() {

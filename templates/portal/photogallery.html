@@ -23,24 +23,24 @@ This is the photogallery
 
         // Link selectors
         jQuery(".jcarousel-selector").bind('click', function() {
-            var idx = parseInt(jQuery(this).children('a').html());
+            var idx = parseInt(jQuery(this).children('a').html(), 10);
             carousel.scroll(idx, false); 
             carousel.stopAuto();
             jQuery("#toggle_play").removeClass("jcarousel-pause");
             jQuery("#toggle_play").addClass("jcarousel-play");
         });
-    };
+    }
 
     function carousel_visibleOutCallback(carousel, item, pos, action) {
         jQuery(item).contents(".jcarousel-caption").hide();
-    };
+    }
 
     function carousel_visibleInCallback(carousel, item, pos, action) {
         jQuery(".jcarousel-selected").removeClass("jcarousel-selected");
         var id = jQuery(item).children('input').val();
         jQuery("#"+id).addClass("jcarousel-selected");
         jQuery(item).contents(".jcarousel-caption").show();
-    };
+    }
     
     jQuery(document).ready(function() {
         jQuery('#scrolling-photo-gallery').jcarousel({
@@ -64,7 +64,6 @@ This is the photogallery
         <div style="overflow: hidden; position: relative;" class="jcarousel-clip jcarousel-clip-horizontal">
             <ul id="scrolling-photo-gallery" class="jcarousel-list jcarousel-list-horizontal">
                <li jcarouselindex="1" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-1 jcarousel-item-1-horizontal">
-                    <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/093/custom/antelope-canyon_9384_744x417.jpg">
                     <div class="jcarousel-caption">
                         <h4>Slideshow Image #1</h4>
                         <p></p>
@@ -74,9 +73,9 @@ This is the photogallery
                         </p>
                     </div>
                     <input type="hidden" value="jcarousel-selector-1"></input>
+                    <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/093/custom/antelope-canyon_9384_744x417.jpg">
                 </li>
                 <li jcarouselindex="2" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-2 jcarousel-item-2-horizontal">
-                    <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/333/custom/full-moon-biggest-2011-supermoon_33352_744x417.jpg">
                     <div class="jcarousel-caption">
                         <h4>Slideshow Image #2</h4>
                         <p></p>
@@ -86,9 +85,9 @@ This is the photogallery
                         </p>
                     </div>
                     <input type="hidden" value="jcarousel-selector-2"></input>
+                    <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/333/custom/full-moon-biggest-2011-supermoon_33352_744x417.jpg">
                 </li>
                 <li jcarouselindex="3" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-3 jcarousel-item-3-horizontal">
-                    <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/330/custom/frogs-breeding-pond-alps-2_33063_744x417.jpg">
                     <div class="jcarousel-caption">
                         <h4>Slideshow Image #3</h4>
                         <p></p>
@@ -98,9 +97,9 @@ This is the photogallery
                         </p>
                     </div>
                     <input type="hidden" value="jcarousel-selector-3"></input>
+                    <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/330/custom/frogs-breeding-pond-alps-2_33063_744x417.jpg">
                 </li>
                 <li jcarouselindex="4" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-4 jcarousel-item-4-horizontal">
-                    <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/167/custom/black-penguin-contrast_16725_744x417.jpg">
                     <div class="jcarousel-caption">
                         <h4>Slideshow Image #4</h4>
                         <p></p>
@@ -110,6 +109,7 @@ This is the photogallery
                         </p>
                     </div>
                     <input type="hidden" value="jcarousel-selector-4"></input>
+                    <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/167/custom/black-penguin-contrast_16725_744x417.jpg">
                 </li>
                 <li jcarouselindex="5" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-5 jcarousel-item-5-horizontal">
                     <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/330/custom/new-stingless-stingrays-x-ray_33017_744x417.jpg">
@@ -122,6 +122,7 @@ This is the photogallery
                         </p>
                     </div>
                     <input type="hidden" value="jcarousel-selector-5"></input>
+                    <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/167/custom/black-penguin-contrast_16725_744x417.jpg">
                 </li>
             </ul>
             
