@@ -623,9 +623,9 @@ div.asset-types {
 .jcarousel-container-horizontal, 
 .jcarousel-clip-horizontal,  
 .jcarousel-item-horizontal
-{height: 280px; width: 598px;  }
+{height: 417px; width: 744px;  }
 
-.jcarousel-clip  {position: absolute; height: 280px; width: 598px;  }
+.jcarousel-clip  {position: absolute; height: 417px; width: 744px;  }
 
 .jcarousel-clip li div {
     bottom: -1px;
@@ -638,12 +638,10 @@ div.asset-types {
 }
 
 .jcarousel-clip li div h4 {
-    /** color: #FFFFFF; **/
-    color: red;
+    color: white;
     font-size: 1.5em;
     font-weight: normal;
     margin-bottom: 5px;
-    z-index: 100000;
 }
 
 .jcarousel-clip li div p {
@@ -672,7 +670,7 @@ div.asset-types {
     float: right;
     position: absolute;
     right: 16px;
-    z-index: 2;
+    z-index: 100;
 }
 
 .jcarousel-clip ol, .jcarousel-clip ul {
@@ -680,21 +678,37 @@ div.asset-types {
 }
 
 .jcarousel-clip .dl_navigation li {
-    background: url("/portal/media/images/circle.png") no-repeat transparent;
     font-size: 0.938em;
     height: 20px;
     margin: 0 5px;
     text-align: center;
-    width: 17px;
+    width: 20px;
 }
 
 .jcarousel-clip .dl_navigation li.prev, .jcarousel-clip .dl_navigation li.next {
     display: none !important;
 }
 
-.jcarousel-clip .dl_navigation li.play {
-    margin-left: 15px;
-    border: none;
+.jcarousel-clip .dl_navigation li.jcarousel-selector {
+    background-color: white;
+}
+
+.jcarousel-clip .dl_navigation li.jcarousel-selector:hover, .jcarousel-clip .dl_navigation li.jcarousel-selected {
+    background-color: yellow;
+}
+
+.jcarousel-clip .dl_navigation li a {
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
+.jcarousel-clip .dl_navigation li a.jcarousel-pause {
+    background: url("/portal/media/images/pause.png") no-repeat transparent;
+}
+
+.jcarousel-clip .dl_navigation li a.jcarousel-play {
+    background: url("/portal/media/images/play.png") no-repeat transparent;
 }
 
 .jcarousel-clip .nav li {
@@ -704,6 +718,7 @@ div.asset-types {
 .jcarousel-clip .nav li a {
     color: #000;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .jcarousel-caption {

@@ -3,4 +3,141 @@
  
 This is the photogallery
 
+<script type="text/javascript">
+    function carousel_initCallback(carousel) {
+        // Disable autoscrolling if the user clicks the prev or next button.
+        jQuery('#toggle_play').bind('click', function() {
+            if (carousel.autoStopped) {
+                carousel.startAuto();
+                jQuery(this).removeClass("jcarousel-play");
+                jQuery(this).addClass("jcarousel-pause");
 
+                // tell jcarousel to move to the next
+                carousel.next();
+            } else {
+                carousel.stopAuto();
+                jQuery(this).removeClass("jcarousel-pause");
+                jQuery(this).addClass("jcarousel-play");
+            }
+        });
+
+        // Link selectors
+        jQuery(".jcarousel-selector").bind('click', function() {
+            var idx = parseInt(jQuery(this).children('a').html());
+            carousel.scroll(idx, false); 
+            carousel.stopAuto();
+            jQuery("#toggle_play").removeClass("jcarousel-pause");
+            jQuery("#toggle_play").addClass("jcarousel-play");
+        });
+    };
+
+    function carousel_visibleOutCallback(carousel, item, pos, action) {
+        jQuery(item).contents(".jcarousel-caption").hide();
+    };
+
+    function carousel_visibleInCallback(carousel, item, pos, action) {
+        jQuery(".jcarousel-selected").removeClass("jcarousel-selected");
+        var id = jQuery(item).children('input').val();
+        jQuery("#"+id).addClass("jcarousel-selected");
+        jQuery(item).contents(".jcarousel-caption").show();
+    };
+    
+    jQuery(document).ready(function() {
+        jQuery('#scrolling-photo-gallery').jcarousel({
+            animation: 2000, // fade in/out speed
+            fade: 1,
+            auto: 5,
+            scroll: 1,
+            size: 5,
+            wrap: "circular",
+            initCallback: carousel_initCallback,
+            itemVisibleOutCallback: carousel_visibleOutCallback,
+            itemVisibleInCallback: { onBeforeAnimation: carousel_visibleInCallback, onAfterAnimation: null }
+         });
+    });
+
+    </script>
+    
+    <div class=" jcarousel-skin-blackrock">
+    <div class="jcarousel-container-horizontal">
+    <div style="position: relative; display: block;" class="jcarousel-container jcarousel-container-horizontal">
+        <div style="overflow: hidden; position: relative;" class="jcarousel-clip jcarousel-clip-horizontal">
+            <ul id="scrolling-photo-gallery" class="jcarousel-list jcarousel-list-horizontal">
+               <li jcarouselindex="1" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-1 jcarousel-item-1-horizontal">
+                    <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/093/custom/antelope-canyon_9384_744x417.jpg">
+                    <div class="jcarousel-caption">
+                        <h4>Slideshow Image #1</h4>
+                        <p></p>
+                        <p>Proin risus mi, rhoncus ut fringilla ut, congue ut felis. Nam nec adipiscing quam. Vivamus non turpis ac eros dapibus rutrum. Phasellus vel ipsum sit amet elit adipiscing pretium suscipit sit amet ipsum.</p>
+                        <p class="action">
+                            <a href="http://ccnmtl.columbia.edu">Learn More >></a>
+                        </p>
+                    </div>
+                    <input type="hidden" value="jcarousel-selector-1"></input>
+                </li>
+                <li jcarouselindex="2" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-2 jcarousel-item-2-horizontal">
+                    <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/333/custom/full-moon-biggest-2011-supermoon_33352_744x417.jpg">
+                    <div class="jcarousel-caption">
+                        <h4>Slideshow Image #2</h4>
+                        <p></p>
+                        <p>Maecenas porta viverra augue, vitae porttitor lectus ullamcorper quis. Etiam ligula arcu, scelerisque mollis ornare ultrices, blandit eget orci. </p>
+                        <p class="action">
+                            <a href="http://ccnmtl.columbia.edu">Learn More >></a>
+                        </p>
+                    </div>
+                    <input type="hidden" value="jcarousel-selector-2"></input>
+                </li>
+                <li jcarouselindex="3" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-3 jcarousel-item-3-horizontal">
+                    <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/330/custom/frogs-breeding-pond-alps-2_33063_744x417.jpg">
+                    <div class="jcarousel-caption">
+                        <h4>Slideshow Image #3</h4>
+                        <p></p>
+                        <p>Etiam eu ante quam.</p>
+                        <p class="action">
+                            <a href="http://ccnmtl.columbia.edu">Learn More >></a>
+                        </p>
+                    </div>
+                    <input type="hidden" value="jcarousel-selector-3"></input>
+                </li>
+                <li jcarouselindex="4" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-4 jcarousel-item-4-horizontal">
+                    <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/167/custom/black-penguin-contrast_16725_744x417.jpg">
+                    <div class="jcarousel-caption">
+                        <h4>Slideshow Image #4</h4>
+                        <p></p>
+                        <p>Aenean posuere dignissim ornare. Proin faucibus vulputate dapibus. Donec feugiat lorem id nunc sollicitudin eu adipiscing arcu faucibus. Sed sed est non ipsum feugiat dignissim.</p>
+                        <p class="action">
+                            <a href="http://ccnmtl.columbia.edu">Learn More >></a>
+                        </p>
+                    </div>
+                    <input type="hidden" value="jcarousel-selector-4"></input>
+                </li>
+                <li jcarouselindex="5" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-5 jcarousel-item-5-horizontal">
+                    <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/330/custom/new-stingless-stingrays-x-ray_33017_744x417.jpg">
+                    <div class="jcarousel-caption">
+                        <h4>Slideshow Image #5</h4>
+                        <p></p>
+                        <p>Aenean posuere dignissim ornare. Proin faucibus vulputate dapibus. Donec feugiat lorem id nunc sollicitudin eu adipiscing arcu faucibus. Sed sed est non ipsum feugiat dignissim.</p>
+                        <p class="action">
+                            <a href="http://ccnmtl.columbia.edu">Learn More >></a>
+                        </p>
+                    </div>
+                    <input type="hidden" value="jcarousel-selector-5"></input>
+                </li>
+            </ul>
+            
+            <ul class="nav dl_navigation">
+                <li id="jcarousel-selector-1" class="jcarousel-selector"><a>1</a></li>
+                <li id="jcarousel-selector-2" class="jcarousel-selector"><a>2</a></li>
+                <li id="jcarousel-selector-3" class="jcarousel-selector"><a>3</a></li>
+                <li id="jcarousel-selector-4" class="jcarousel-selector"><a>4</a></li>
+                <li id="jcarousel-selector-5" class="jcarousel-selector"><a>5</a></li>
+                <li><a id="toggle_play" class="jcarousel-pause"></a></li>
+            </ul>
+        </div>
+    </div>
+    </div>
+</div>
+    
+    
+<br />
+<br />

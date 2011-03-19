@@ -26,6 +26,7 @@
         visible: null,
         animation: 'normal',
         easing: 'swing',
+        fade: 0,
         auto: 0,
         wrap: null,
         initCallback: null,
@@ -737,6 +738,11 @@
             if (!this.options.animation || a === false) {
                 this.list.css(this.lt, p + 'px');
                 scrolled();
+            } else if (this.options.fade) { 
+                this.list.fadeOut(this.options.animation, function() {
+                    self.list.css(self.lt, p + 'px');
+                    self.list.fadeIn(self.options.animation, scrolled);
+                });
             } else {
                 var o = !this.options.vertical ? (this.options.rtl ? {'right': p} : {'left': p}) : {'top': p};
                 this.list.animate(o, this.options.animation, this.options.easing, scrolled);
