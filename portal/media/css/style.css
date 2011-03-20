@@ -135,13 +135,14 @@ div#subnav {
     border-top: 1px solid #e4dbcc;
 }
 
-div#subnav.home {height: 29px; background-color: #3d2800;}
+div#subnav.home {height: 5px; background-color: #3d2800;}
 div#subnav.experience {height: 29px; background-color: #126a37;}
 div#subnav.foreststories {}
 div#subnav.education {height: 29px; background-color: #84232e;}
 div#subnav.research {height: 29px; background-color: #2a6ebb;}
 div#subnav.search {height: 5px; background-color: #dcd3c2;}
 
+div#subnav.home ul, div#subnav.home ul li {display: none;}
 
 div#subnav ul {
     list-style: none;
@@ -200,6 +201,66 @@ div#container {
    padding: 0;
     background-color: #b49f93;
 }
+
+div.bannerbutton a {
+
+	border: 1px solid #fff;
+	padding: 5px;
+	color: #fff;
+	text-decoration: none;
+}
+
+
+/*Home page*/
+
+div#home_banner {
+
+	height: 380px;
+	/*background: url("../images/homebanners/weather.jpg");*/
+	background-repeat: none;
+	margin: 0;
+	padding: 10px;
+}
+
+div#home_banner > #weather-widget {
+
+	width: 200px;
+	height: 370px;
+	background-color: #ccc;
+	float: right;
+	padding: 5px;
+}
+
+
+/**
+div#home_banner > #photoswitcher ul {
+
+	list-style: none;
+	padding: 0;
+	background-color: pink;
+	display: inline;
+}
+**/
+
+div#home_banner > #photoswitcher ul li {
+
+	display: inline;
+
+}
+
+
+div#home_banner > .home_banner_desc {
+
+	margin: 20px;
+	margin: 200px 230px 10px 10px;
+}
+
+div#home_banner > .home_banner_desc h1 {
+
+	margin: 0;
+	font-size: 120%;
+}
+
 
 div#container table {
 	border: none;
