@@ -628,7 +628,7 @@ div.asset-types {
 .jcarousel-clip  {position: absolute; height: 417px; width: 744px;  }
 
 .jcarousel-clip li div {
-    bottom: -1px;
+    top: 225px;
     letter-spacing: 0.03em;
     line-height: normal;
     padding: 20px 20px 18px;

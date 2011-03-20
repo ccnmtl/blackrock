@@ -32,14 +32,14 @@ This is the photogallery
     }
 
     function carousel_visibleOutCallback(carousel, item, pos, action) {
-        jQuery(item).contents(".jcarousel-caption").hide();
+        jQuery(item).children(".jcarousel-caption").hide();
     }
 
     function carousel_visibleInCallback(carousel, item, pos, action) {
         jQuery(".jcarousel-selected").removeClass("jcarousel-selected");
         var id = jQuery(item).children('input').val();
         jQuery("#"+id).addClass("jcarousel-selected");
-        jQuery(item).contents(".jcarousel-caption").show();
+        jQuery(item).children(".jcarousel-caption").show();
     }
     
     jQuery(document).ready(function() {
@@ -112,7 +112,6 @@ This is the photogallery
                     <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/167/custom/black-penguin-contrast_16725_744x417.jpg">
                 </li>
                 <li jcarouselindex="5" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-5 jcarousel-item-5-horizontal">
-                    <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/330/custom/new-stingless-stingrays-x-ray_33017_744x417.jpg">
                     <div class="jcarousel-caption">
                         <h4>Slideshow Image #5</h4>
                         <p></p>
@@ -122,7 +121,7 @@ This is the photogallery
                         </p>
                     </div>
                     <input type="hidden" value="jcarousel-selector-5"></input>
-                    <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/167/custom/black-penguin-contrast_16725_744x417.jpg">
+                    <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/330/custom/new-stingless-stingrays-x-ray_33017_744x417.jpg">
                 </li>
             </ul>
             
