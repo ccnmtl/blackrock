@@ -76,6 +76,6 @@ class ForestStoryAdmin(admin.ModelAdmin):
   list_display = ('display_name',)
   
 admin.site.register(ForestStory, ForestStoryAdmin)
-
+admin.site.register(PhotoGalleryItem)
 
 

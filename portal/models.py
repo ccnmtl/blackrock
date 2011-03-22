@@ -583,39 +583,52 @@ class FeaturedAssetForm(forms.ModelForm):
       raise ValidationError('Please select only one object to display.')
     
     return self.cleaned_data
-  
-class PhotoGallery(models.Model):
-  pageblocks = generic.GenericRelation(PageBlock, related_name="photogallery_pageblock")
-  template_file = "portal/photogallery.html"
-  display_name = "Photo Gallery"
+
+class PhotoGalleryItem(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.CharField(max_length=500)
+    action = models.URLField()
+    image = models.ForeignKey(DigitalObject, null=True, blank=True, related_name="gallery_display_image")
+    position = models.IntegerField()
     
-  def pageblock(self):
-    return self.pageblocks.all()[0]
-
-  def __unicode__(self):
-    return unicode(self.pageblock())
-
-  def needs_submit(self):
-    return False
-  
-  @classmethod
-  def add_form(self):
-    return PhotoGalleryForm()
-  
-  def edit_form(self):
-    return PhotoGalleryForm(instance=self)
-
-  @classmethod
-  def create(self,request):
-    form = PhotoGalleryForm(request.POST)
-    return form.save()
-  
-  def edit(self, vals, files):
-    form = PhotoGalleryForm(data=vals, files=files, instance=self)
-    if form.is_valid():
-      form.save()
-      
-      
+    class Meta:
+        ordering = ('position',)
+        
+    def __unicode__(self):
+      return title    
+    
+class PhotoGallery(models.Model):
+    pageblocks = generic.GenericRelation(PageBlock, related_name="photogallery_pageblock")
+    template_file = "portal/photogallery.html"
+    display_name = "Photo Gallery"
+    item = models.ManyToManyField(PhotoGalleryItem, null=True, blank=True)
+    
+    def pageblock(self):
+      return self.pageblocks.all()[0]
+    
+    def __unicode__(self):
+      return unicode(self.pageblock())
+    
+    def needs_submit(self):
+      return False
+    
+    @classmethod
+    def add_form(self):
+      return PhotoGalleryForm()
+    
+    def edit_form(self):
+      return PhotoGalleryForm(instance=self)
+    
+    @classmethod
+    def create(self,request):
+      form = PhotoGalleryForm(request.POST)
+      return form.save()
+    
+    def edit(self, vals, files):
+      form = PhotoGalleryForm(data=vals, files=files, instance=self)
+      if form.is_valid():
+        form.save()
+        
 class PhotoGalleryForm(forms.ModelForm):
-  class Meta:
-    model = PhotoGallery
+    class Meta:
+        model = PhotoGallery

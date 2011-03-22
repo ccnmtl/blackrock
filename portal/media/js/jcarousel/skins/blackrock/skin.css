@@ -3,9 +3,9 @@
 .jcarousel-container-horizontal, 
 .jcarousel-clip-horizontal,  
 .jcarousel-item-horizontal
-{height: 417px; width: 744px;  }
+{height: 400px; width: 1200px;  }
 
-.jcarousel-clip  {position: absolute; height: 417px; width: 744px;  }
+.jcarousel-clip  {position: absolute; height: 400px; width: 1200px;  }
 
 .jcarousel-clip li div {
     top: 225px;
@@ -14,7 +14,7 @@
     padding: 20px 20px 18px;
     position: absolute;
     z-index: 10;
-    width: 400px;
+    width: 600px;
 }
 
 .jcarousel-clip li div h4 {

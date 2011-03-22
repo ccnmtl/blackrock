@@ -8,81 +8,32 @@
     <div id="weather-widget">
         Current Conditions @BRF
     </div>
-    
     <div id="photoswitcher">
     <div class=" jcarousel-skin-blackrock">
     <div class="jcarousel-container-horizontal">
     <div style="position: relative; display: block;" class="jcarousel-container jcarousel-container-horizontal">
     <div style="overflow: hidden; position: relative;" class="jcarousel-clip jcarousel-clip-horizontal">
         <ul id="scrolling-photo-gallery" class="jcarousel-list jcarousel-list-horizontal">
-           <li jcarouselindex="1" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-1 jcarousel-item-1-horizontal">
-                <div class="jcarousel-caption">
-                    <h4>Slideshow Image #1</h4>
-                    <p></p>
-                    <p>Proin risus mi, rhoncus ut fringilla ut, congue ut felis. Nam nec adipiscing quam. Vivamus non turpis ac eros dapibus rutrum. Phasellus vel ipsum sit amet elit adipiscing pretium suscipit sit amet ipsum.</p>
-                    <p class="action">
-                        <a href="http://ccnmtl.columbia.edu">Learn More >></a>
-                    </p>
-                </div>
-                <input type="hidden" value="jcarousel-selector-1"></input>
-                <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/093/custom/antelope-canyon_9384_744x417.jpg">
-            </li>
-            <li jcarouselindex="2" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-2 jcarousel-item-2-horizontal">
-                <div class="jcarousel-caption">
-                    <h4>Slideshow Image #2</h4>
-                    <p></p>
-                    <p>Maecenas porta viverra augue, vitae porttitor lectus ullamcorper quis. Etiam ligula arcu, scelerisque mollis ornare ultrices, blandit eget orci. </p>
-                    <p class="action">
-                        <a href="http://ccnmtl.columbia.edu">Learn More >></a>
-                    </p>
-                </div>
-                <input type="hidden" value="jcarousel-selector-2"></input>
-                <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/333/custom/full-moon-biggest-2011-supermoon_33352_744x417.jpg">
-            </li>
-            <li jcarouselindex="3" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-3 jcarousel-item-3-horizontal">
-                <div class="jcarousel-caption">
-                    <h4>Slideshow Image #3</h4>
-                    <p></p>
-                    <p>Etiam eu ante quam.</p>
-                    <p class="action">
-                        <a href="http://ccnmtl.columbia.edu">Learn More >></a>
-                    </p>
-                </div>
-                <input type="hidden" value="jcarousel-selector-3"></input>
-                <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/330/custom/frogs-breeding-pond-alps-2_33063_744x417.jpg">
-            </li>
-            <li jcarouselindex="4" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-4 jcarousel-item-4-horizontal">
-                <div class="jcarousel-caption">
-                    <h4>Slideshow Image #4</h4>
-                    <p></p>
-                    <p>Aenean posuere dignissim ornare. Proin faucibus vulputate dapibus. Donec feugiat lorem id nunc sollicitudin eu adipiscing arcu faucibus. Sed sed est non ipsum feugiat dignissim.</p>
-                    <p class="action">
-                        <a href="http://ccnmtl.columbia.edu">Learn More >></a>
-                    </p>
-                </div>
-                <input type="hidden" value="jcarousel-selector-4"></input>
-                <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/167/custom/black-penguin-contrast_16725_744x417.jpg">
-            </li>
-            <li jcarouselindex="5" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-5 jcarousel-item-5-horizontal">
-                <div class="jcarousel-caption">
-                    <h4>Slideshow Image #5</h4>
-                    <p></p>
-                    <p>Aenean posuere dignissim ornare. Proin faucibus vulputate dapibus. Donec feugiat lorem id nunc sollicitudin eu adipiscing arcu faucibus. Sed sed est non ipsum feugiat dignissim.</p>
-                    <p class="action">
-                        <a href="http://ccnmtl.columbia.edu">Learn More >></a>
-                    </p>
-                </div>
-                <input type="hidden" value="jcarousel-selector-5"></input>
-                <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/330/custom/new-stingless-stingrays-x-ray_33017_744x417.jpg">
-            </li>
+            {% for item in block.item.all %}
+                <li jcarouselindex="{{item.position}}" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-{{item.position}} jcarousel-item-{{item.position}}-horizontal">
+                    <div class="jcarousel-caption">
+                        <h4>{{item.title}}</h4>
+                        <p></p>
+                        <p>{{item.description}}</p>
+                        <p class="action">
+                            <a href="{{item.action}}">Learn More >></a>
+                        </p>
+                    </div>
+                    <input type="hidden" value="jcarousel-selector-{{item.position}}"></input>
+                    <img src="{{item.image.file.url}}">
+                </li>
+            {% endfor %}
         </ul>
             
         <ul class="nav dl_navigation">
-            <li id="jcarousel-selector-1" class="jcarousel-selector"><a>1</a></li>
-            <li id="jcarousel-selector-2" class="jcarousel-selector"><a>2</a></li>
-            <li id="jcarousel-selector-3" class="jcarousel-selector"><a>3</a></li>
-            <li id="jcarousel-selector-4" class="jcarousel-selector"><a>4</a></li>
-            <li id="jcarousel-selector-5" class="jcarousel-selector"><a>5</a></li>
+            {% for item in block.item.all %}
+                <li id="jcarousel-selector-{{item.position}}" class="jcarousel-selector"><a>{{item.position}}</a></li>
+             {% endfor %}
             <li><a id="toggle_play" class="jcarousel-pause"></a></li>
         </ul>
     </div>
