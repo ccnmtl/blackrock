@@ -11,9 +11,11 @@
 
 body { 
 	font-family: "Lucida Grande", "Trebuchet MS", arial, helvetica, sans-serif !important; 
-	margin: 0 auto;
+	margin: 0;
 	padding: 0 auto;
 	background-color: #897467;
+	min-width: 805px;
+	max-width: 1600px;
 }
 
 h4 {font-size: 90%;}
@@ -215,11 +217,12 @@ div.bannerbutton a {
 
 div#home_banner {
 
-	height: 380px;
-	/*background: url("../images/homebanners/weather.jpg");*/
-	background-repeat: none;
+	height: 400px;
+	width: 100%;
+	max-width: 1600px;
 	margin: 0;
-	padding: 10px;
+	background-color: #3D2800;
+
 }
 
 div#home_banner > #weather-widget {
@@ -227,10 +230,47 @@ div#home_banner > #weather-widget {
 	width: 200px;
 	height: 370px;
 	background-color: #ccc;
-	float: right;
+	position: relative;
 	padding: 5px;
+	top: 10px;
+	left: 100%;
+	margin-left: -220px;
+	
 }
 
+div#home_banner > #weather-widget > #data {
+
+	position: absolute;
+	height: 240px;
+	
+}
+
+div#home_banner > #weather-widget > #webcam {
+
+	position: absolute;
+	height: 160px;
+	top: 215px;
+	
+}
+
+div#home_banner > #weather-widget > #webcam img {
+
+	width: 200px;
+	margin-top: 5px;
+	
+}
+
+
+div#home_banner > #photoswitcher {
+
+	list-style: none;
+	padding: 0;
+	display: block;
+	float: left;
+	width: 100%;
+	max-width: 1600px;
+	height: 400px;
+}
 
 /**
 div#home_banner > #photoswitcher ul {
