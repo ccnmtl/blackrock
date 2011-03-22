@@ -365,7 +365,8 @@ class SearchQuerySet(object):
             if exclude:
                 clone = clone.exclude(text=cleaned_keyword)
             else:
-                clone = clone.filter(text__startswith=cleaned_keyword)
+                clone = clone.filter_or(text__startswith=cleaned_keyword)
+                clone = clone.filter_or(text=cleaned_keyword)
         
         return clone
     
