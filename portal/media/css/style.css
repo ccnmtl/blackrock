@@ -450,7 +450,6 @@ a.view-all {
     float: left;
     border: 1px solid #ccc;
     margin-right: 20px;
-   
 }
 
 .featured_details {
@@ -469,11 +468,18 @@ a.view-all {
    
 }
 
+.object_detail_image {
+    max-width: 450px;
+    height: auto;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
 .highlightonmap{
     float: right;
     background-color: #fefeb3;
-margin:-2px -21px 10px 0px;
-border: 1px solid #b49f93;
+    margin:-2px -21px 10px 0px;
+    border: 1px solid #b49f93;
 }
 
 .blocktext .highlightonmap a {

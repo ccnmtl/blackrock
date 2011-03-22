@@ -64,6 +64,15 @@
                 {% for p in current_object.person.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{p|detail_url}}">{{p.name}}</a>{% endfor %}<br />
             {% endif %}
         {% else %}{% if asset_klass == "DigitalObject" %}
+        
+            {% if current_object.digital_format.is_image %}
+                {% if current_object.file.url %}
+                    <img src="{{current_object.file.url}}" class="object_detail_image"></img>
+                {% else %}{% if current_object.url %}
+                    <img src="{{current_object.url}}" class="object_detail_image"></img>
+                {% endif %}{% endif %} 
+            {% endif %}
+
             
             {% if current_object.markup %}
                 {{ current_object.markup|markdown }}<br />

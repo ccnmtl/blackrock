@@ -595,7 +595,7 @@ class PhotoGalleryItem(models.Model):
         ordering = ('position',)
         
     def __unicode__(self):
-      return title    
+      return self.title    
     
 class PhotoGallery(models.Model):
     pageblocks = generic.GenericRelation(PageBlock, related_name="photogallery_pageblock")
