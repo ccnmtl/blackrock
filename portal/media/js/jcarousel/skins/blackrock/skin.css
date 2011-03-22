@@ -3,9 +3,9 @@
 .jcarousel-container-horizontal, 
 .jcarousel-clip-horizontal,  
 .jcarousel-item-horizontal
-{height: 400px; width: 1200px;  }
+{height: 400px; width: 100%; max-width: 1600px;  }
 
-.jcarousel-clip  {position: absolute; height: 400px; width: 1200px;  }
+.jcarousel-clip  {position: absolute; height: 400px; width: 100%; max-width: 1600px;  }
 
 .jcarousel-clip li div {
     top: 225px;
@@ -39,17 +39,16 @@
 }
 
 .jcarousel-clip li div p.action {
-    border-bottom: 1px solid #FFFFFF;
-    border-left: 1px solid #FFFFFF;
+    border: 1px solid #FFFFFF;
     padding-top: 5px;
     width: 100px;
 }
 
 .jcarousel-clip .dl_navigation {
-    bottom: 16px;
-    float: right;
+    top: 0px;
+    float: left;
     position: absolute;
-    right: 16px;
+    left: 0px;
     z-index: 100;
 }
 
