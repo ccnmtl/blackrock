@@ -16,6 +16,7 @@ body {
 	background-color: #897467;
 	min-width: 805px;
 	max-width: 1600px;
+	overflow: hidden;
 }
 
 h4 {font-size: 90%;}
