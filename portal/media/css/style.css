@@ -16,7 +16,7 @@ body {
 	background-color: #897467;
 	min-width: 805px;
 	max-width: 1600px;
-	overflow: hidden;
+	overflow-x: hidden;
 }
 
 h4 {font-size: 90%;}
@@ -223,40 +223,69 @@ div#home_banner {
 	max-width: 1600px;
 	margin: 0;
 	background-color: #3D2800;
+	min-width: 800px;
 
 }
 
 div#home_banner > #weather-widget {
 
-	width: 200px;
-	height: 370px;
+	border: 1px solid yellow;
 	background-color: #ccc;
 	position: relative;
 	padding: 5px;
-	top: 10px;
-	left: 100%;
-	margin-left: -220px;
+	margin-top: -395px;
+	right: 5px;
+	float: right;
+	min-height: 30px;
+	min-width: 30px;
+
+
 	
+}
+
+div#home_banner > #weather-widget h2 {
+
+	font-size: 90%;
+	margin: 0 0 5px 0;
+
+	
+}
+
+div#home_banner > #weather-widget > #data > p.action,
+div#home_banner > #weather-widget > #webcam > p.action
+
+{
+    border: 1px solid #ccc;
+    padding: 5px;
+    width: 100px;
+    background-color: #4B6952;
+    margin: 5px 0 0 5px;
+    color: #fff;
 }
 
 div#home_banner > #weather-widget > #data {
 
-	position: absolute;
-	height: 240px;
+    float: left;
+	background-color: #fff;
+	margin-right: 5px;
+	padding: 5px 5px 0 5px;
 	
 }
 
 div#home_banner > #weather-widget > #webcam {
+ 
+    float: left;
+	background-color: #fff;
+	padding: 5px 5px 0 5px;
 
-	position: absolute;
-	height: 160px;
-	top: 215px;
 	
 }
 
+div#home_banner > #weather-widget > #data img,
 div#home_banner > #weather-widget > #webcam img {
 
-	width: 200px;
+	height: 135px;
+	width: auto;
 	margin-top: 5px;
 	
 }
