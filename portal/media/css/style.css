@@ -227,7 +227,7 @@ div#home_banner {
 
 }
 
-div#home_banner > #weather-widget {
+div#weather-widget {
 
 	border: 1px solid yellow;
 	background-color: #ccc;
@@ -243,7 +243,7 @@ div#home_banner > #weather-widget {
 	
 }
 
-div#home_banner > #weather-widget h2 {
+div#weather-widget h2 {
 
 	font-size: 90%;
 	margin: 0 0 5px 0;
@@ -251,8 +251,8 @@ div#home_banner > #weather-widget h2 {
 	
 }
 
-div#home_banner > #weather-widget > #data > p.action,
-div#home_banner > #weather-widget > #webcam > p.action
+div#data > p.action,
+div#webcam > p.action
 
 {
     border: 1px solid #ccc;
@@ -263,7 +263,7 @@ div#home_banner > #weather-widget > #webcam > p.action
     color: #fff;
 }
 
-div#home_banner > #weather-widget > #data {
+div#data {
 
     float: left;
 	background-color: #fff;
@@ -272,7 +272,7 @@ div#home_banner > #weather-widget > #data {
 	
 }
 
-div#home_banner > #weather-widget > #webcam {
+div#webcam {
  
     float: left;
 	background-color: #fff;
