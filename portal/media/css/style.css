@@ -229,7 +229,6 @@ div#home_banner {
 
 div#weather-widget {
 
-	border: 1px solid yellow;
 	background-color: #ccc;
 	position: relative;
 	padding: 5px;
@@ -281,8 +280,8 @@ div#webcam {
 	
 }
 
-div#home_banner > #weather-widget > #data img,
-div#home_banner > #weather-widget > #webcam img {
+div#data img,
+div#webcam img {
 
 	height: 135px;
 	width: auto;
@@ -291,7 +290,7 @@ div#home_banner > #weather-widget > #webcam img {
 }
 
 
-div#home_banner > #photoswitcher {
+div#photoswitcher {
 
 	list-style: none;
 	padding: 0;
@@ -303,7 +302,7 @@ div#home_banner > #photoswitcher {
 }
 
 /**
-div#home_banner > #photoswitcher ul {
+div#photoswitcher ul {
 
 	list-style: none;
 	padding: 0;
@@ -312,20 +311,20 @@ div#home_banner > #photoswitcher ul {
 }
 **/
 
-div#home_banner > #photoswitcher ul li {
+div#photoswitcher ul li {
 
 	display: inline;
 
 }
 
 
-div#home_banner > .home_banner_desc {
+div#home_banner .home_banner_desc {
 
 	margin: 20px;
 	margin: 200px 230px 10px 10px;
 }
 
-div#home_banner > .home_banner_desc h1 {
+div#home_banner .home_banner_desc h1 {
 
 	margin: 0;
 	font-size: 120%;
