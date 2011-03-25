@@ -2,6 +2,7 @@ function carousel_initCallback(carousel) {
     // Disable autoscrolling if the user clicks the prev or next button.
     jQuery('#toggle_play').bind('click', function() {
         if (carousel.autoStopped) {
+            carousel.options.auto = 10;
             carousel.startAuto();
             jQuery(this).removeClass("jcarousel-play");
             jQuery(this).addClass("jcarousel-pause");
@@ -40,7 +41,7 @@ jQuery(document).ready(function() {
     jQuery('#scrolling-photo-gallery').jcarousel({
         animation: 2000, // fade in/out speed
         fade: 1,
-        auto: 5,
+        auto: 0,
         scroll: 1,
         size: 5,
         wrap: "circular",

@@ -6,7 +6,7 @@
     
 <div id="home_banner">
 
-    <div id="photoswitcher">
+<div id="photoswitcher">
     <div class=" jcarousel-skin-blackrock">
     <div class="jcarousel-container-horizontal">
     <div style="position: relative; display: block;" class="jcarousel-container jcarousel-container-horizontal">
@@ -32,7 +32,7 @@
             {% for item in block.item.all %}
                 <li id="jcarousel-selector-{{item.position}}" class="jcarousel-selector"><a>{{item.position}}</a></li>
              {% endfor %}
-            <li><a id="toggle_play" class="jcarousel-pause"></a></li>
+            <li><a id="toggle_play" class="jcarousel-play"></a></li>
         </ul>
     </div>
     </div>
@@ -40,17 +40,20 @@
     </div>
     </div>
         
-    <div id="weather-widget">
-  <!--  <div id="data">
+    <div id="weatherwidget">
+    <!--<div id="data">
     <h2>Current Conditions</h2>
      <image src="http://ccnmtl.columbia.edu/draft/lizday/blackrock/conditions.jpg" />
      <p class="action"><a href="#">More >></a></p>
     </div>-->
-    <div id="webcam">
+   <!-- <div id="webcam">
     <h2>Webcam View</h2>
-    <!--<image src="http://kang.ccnmtl.columbia.edu/sb/jonah/blackrock_photo_fetcher/downloads/webcam/2011/03/22/Black_Rock_17_30.jpg" />-->
-   <p class="action"><a href="#">More >></a></p>
-   </div>
+    <image src="http://kang.ccnmtl.columbia.edu/sb/jonah/blackrock_photo_fetcher/downloads/webcam/2011/03/22/Black_Rock_17_30.jpg" />
+    <p class="action"><a href="#">More >></a></p>
+   </div>-->
+   
    </div>
     
-</div>
+</div>    
+<br />
+<br />
