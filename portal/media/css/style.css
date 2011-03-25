@@ -250,29 +250,22 @@ div#weather-widget h2 {
 	
 }
 
-div#data p,
-div#webcam p
-
-{
-
-    margin: 0;
-
-}
-
-div#data p.action,
-div#webcam p.action
+div.action
 
 {
     border: 1px solid #ccc;
     padding: 5px;
     width: 100px;
     background-color: #4B6952;
-    margin: 5px 0 0 0;
+    margin: 5px -5px 0 0;
+    float: right;
+
 
 }
 
-div#data p.action a,
-div#webcam p.action a
+
+
+div.action a
 
 {
     color: #fff;
@@ -286,6 +279,7 @@ div#data {
 	background-color: #fff;
 	margin-right: 5px;
 	padding: 5px 5px 0 5px;
+	width: 155px;
 	
 }
 
@@ -294,6 +288,14 @@ div#webcam {
     float: left;
 	background-color: #fff;
 	padding: 5px 5px 0 5px;
+	width: 200px;
+	
+}
+
+div#data p,
+div#webcam p{
+
+	margin: 0;
 
 	
 }

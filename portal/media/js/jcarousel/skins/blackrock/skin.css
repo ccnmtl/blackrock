@@ -11,10 +11,10 @@
     top: 225px;
     letter-spacing: 0.03em;
     line-height: normal;
-    padding: 20px 20px 18px;
+    padding: 0 18px;
     position: absolute;
     z-index: 10;
-    width: 600px;
+    width: 650px;
 }
 
 .jcarousel-clip li div h4 {
@@ -26,7 +26,8 @@
 
 .jcarousel-clip li div p {
     color: #FFFFFF;
-    font-size: .65em;
+    font-size: .75em;
+    line-height: 1.5em;
 }
 
 .jcarousel-clip li div a {
