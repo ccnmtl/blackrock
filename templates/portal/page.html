@@ -22,13 +22,24 @@
 
 {% block container %} 
     {% ifequal module.slug "foreststories" %} 
-       <div id="page_foreststory" class="blocktext">
-    {% endifequal %}
-    {% for block in section.pageblock_set.all %}
-        {% if block.label %}<h4>{{block.label}}</h4>{% endif %}
-        {{ block.render }}
-    {% endfor %}
-    {% ifequal module.slug "foreststories" %}
-       </div>
+        <table width="100%">
+            <tr>
+                <td id="left">
+                    {% for block in section.pageblock_set.all %}
+                        {% if block.label %}<h4>{{block.label}}</h4>{% endif %}
+                        {{ block.render }}
+                    {% endfor %}
+                </td>
+              
+                <td id="right">
+                    {% include "portal/asset_map.html" %}
+                </td>
+            </tr>
+        </table>
+    {% else %}
+        {% for block in section.pageblock_set.all %}
+            {% if block.label %}<h4>{{block.label}}</h4>{% endif %}
+            {{ block.render }}
+        {% endfor %}
     {% endifequal %}
 {% endblock %}

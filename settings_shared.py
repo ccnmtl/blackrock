@@ -97,7 +97,9 @@ PAGEBLOCKS = ['pageblocks.HTMLBlockWYSIWYG',
               'portal.AssetList',
               'portal.FeaturedAsset',
               'pageblocks.TextBlock',
-              'portal.PhotoGallery'] 
+              'portal.PhotoGallery',
+              'portal.Webcam',
+              'portal.Weather'] 
 
 THUMBNAIL_SUBDIR = "thumbs"
 #THUMBNAIL_DEBUG = "True"

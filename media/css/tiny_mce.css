@@ -1,44 +1,125 @@
-.head_default {
+/** Light Brown Selected E4DBCC **/
+/* Research: Dark Blue: 2A6EBB, Light Blue: 5A9BCF*/
+/* Education: Dark Red: 84232E, Light Red: A9676D*/
+/* Experience: Dark Green: 126A37, Light Green: 529873 */
 
-
+.home_module {
+    float: left;
+    width: 48%;
+    height: 290px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    vertical-align: top;
 }
 
-.head_experience {
-
-
+.home_module h4 {
+    font-size: 90%;
+    font-weight: normal;
+    color: white;
+    background-repeat: no-repeat;
+    background-position: 5,3;
+    padding-left: 40px;
+    line-height: 35px;
+    margin: 0 0 5px;
 }
 
-.link_experience {
 
+.home_module div {
+    padding: 1px 10px 10px;
+    background-color: white;
+    margin:0 0 10px;
+    font-size: 70%;
+    vertical-align: top;
 }
 
-.head_education {
-
-
+.home_module div a {
+    font-size: 120%;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 10px 0;
+    display: block;
 }
 
-.link_education {
-
+.home_module ul {
+    list-style-image: url(../../portal/media/images/listbullet.png);
+    margin-right: 5px;
 }
 
-.head_research {
-
-
+.home_module li a {
+    font-weight: bold;
+    font-size: 70%;
+    margin: 10px 0 0; 
+    display: block;
 }
 
-.link_research {
-
+.home_module div img {
+    width: 125px;
+    height: auto;
+    float: left;
+    border: 1px solid #ccc;
+    margin-right: 10px;
 }
 
-.pagetitle {
-
+.research_module {
+    border-color: #2A6EBB;
 }
 
-.pagesubtitle {
-
-
+.home_module ul {
+    list-style-type: square;
 }
 
+.research_module h4 {
+    background-image: url(../../portal/media/images/nonmapicon_research.png);
+    background-color: #5A9BCF;
+}
+
+.research_module a {
+    color: #0071bc;
+}
+
+.education_module {
+    border-color: #84232E;
+    width: 49%;
+}
+
+.education_module h4 {
+    background-image: url(../../portal/media/images/nonmapicon_education.png);
+    background-color: #A9676D;
+}
+
+.education_module a {
+    color: #730711;
+}
+
+.tools_module {
+    clear: both;
+    width: 98%;
+    border-color: #3D2800;
+    height: 200px;
+}
+
+.tools_module h4 {
+    background-image: url(../../portal/media/images/nonmapicon_forestfacilities.png);
+    background-color: #bb9e96;
+}
+
+.tools_module a {
+    color: #3D2800;
+}
+
+.tools_module .tool {
+    float: left;
+    width: 30%;
+    height: 90%;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    background-color: white;
+}
 
 
 

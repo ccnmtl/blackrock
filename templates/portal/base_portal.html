@@ -11,6 +11,7 @@
     <style media="screen" type="text/css">
       @import "/site_media/css/site.css" ;
       @import "/site_media/css/style.css" ;
+      @import "/site_media/css/tiny_mce.css" ;
       @import "/portal/media/css/style.css";
     </style>
     {% block css %}{% endblock %}
@@ -102,10 +103,10 @@
     </div>
     
     {% block subnav-wrapper %}
-    <div id="subnav" class="{{module.slug}}">
-       {% block subnav %}
-       {% endblock %}
-    </div>
+        <div id="subnav" class="{{module.slug}}">
+           {% block subnav %}
+           {% endblock %}
+        </div>
     {% endblock %}
 
         <div id="container">
@@ -121,9 +122,7 @@
                   
                     <td id="right">
                         {% block right %}
-
-			                 {% include "portal/asset_map.html" %}
-
+			               {% include "portal/asset_map.html" %}
                         {% endblock %} 
                     </td>
                 </tr>
