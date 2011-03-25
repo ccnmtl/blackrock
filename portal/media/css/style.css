@@ -232,13 +232,13 @@ div#weather-widget {
 	background-color: #ccc;
 	position: relative;
 	padding: 5px;
-	margin-top: -395px;
-	right: 5px;
+	margin-top: -400px;
+	right: 0;
 	float: right;
 	min-height: 30px;
 	min-width: 30px;
-
-
+	-moz-border-radius-bottomleft: 10px 10px;
+	border-bottom-left-radius: 10px 10px;
 	
 }
 
@@ -280,6 +280,8 @@ div#data {
 	margin-right: 5px;
 	padding: 5px 5px 0 5px;
 	width: 155px;
+	-moz-border-radius-bottomleft: 10px 10px;
+	border-bottom-left-radius: 10px 10px;
 	
 }
 
