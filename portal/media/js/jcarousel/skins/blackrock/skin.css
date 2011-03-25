@@ -50,20 +50,21 @@
     position: absolute;
     left: 0px;
     z-index: 100;
-    border: 1px solid white;
+
 }
 
 .jcarousel-clip ol, .jcarousel-clip ul {
     list-style: none outside none;
     margin: 18px;
+    padding: 0;
 }
 
 .jcarousel-clip .dl_navigation li {
     font-size: 0.938em;
-    height: 20px;
-    margin: 0 5px;
+    height: 19px;
+    margin: 0 10px 0 0;
     text-align: center;
-    width: 20px;
+    width: 19px;
 }
 
 .jcarousel-clip .dl_navigation li.prev, .jcarousel-clip .dl_navigation li.next {
@@ -72,6 +73,8 @@
 
 .jcarousel-clip .dl_navigation li.jcarousel-selector {
     background-color: white;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
 }
 
 .jcarousel-clip .dl_navigation li.jcarousel-selector:hover, .jcarousel-clip .dl_navigation li.jcarousel-selected {
@@ -80,8 +83,10 @@
 
 .jcarousel-clip .dl_navigation li a {
     display: block;
-    width: 20px;
-    height: 20px;
+    width: 19px;
+    height: 19px;
+    font-size: 85%;
+    padding-top: 1px;
 }
 
 .jcarousel-clip .dl_navigation li a.jcarousel-pause {
