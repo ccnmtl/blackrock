@@ -28,9 +28,10 @@ h5 {font-size: 80%;}
 
 div#mainnav
 {
-    background-color: #b49f93;
+    background-color: #1F2A1E;
     height: 40px;
     margin: 0;
+
 }
 
 
@@ -100,7 +101,7 @@ div#search {
     color: black; 
     font-weight: normal;
     font-size: 80%;
-    margin: 7px 7px 0 0;
+    margin: 7px 7px -9px 0px;
     padding: 0;
     height: 24px;
 }
@@ -136,6 +137,7 @@ div#subnav {
     clear: both;
     margin-top: -1px;
     border-top: 1px solid #e4dbcc;
+
 }
 
 div#subnav.home {height: 5px; background-color: #3d2800;}
@@ -157,6 +159,7 @@ div#subnav ul {
     font-size: 90%;
     cursor: pointer;
     font-weight: normal;
+
       
 }
 
@@ -202,7 +205,8 @@ div#subnav.research ul li.selected {background-color: #E4DBCC;}
 
 div#container {
    padding: 0;
-    background-color: #b49f93;
+   background-color: #897467;
+ 
 }
 
 div.bannerbutton a {
@@ -221,9 +225,9 @@ div#home_banner {
 	height: 400px;
 	width: 100%;
 	max-width: 1600px;
-	margin: 0;
 	background-color: #3D2800;
 	min-width: 800px;
+
 
 }
 
@@ -317,21 +321,12 @@ div#photoswitcher {
 	list-style: none;
 	padding: 0;
 	display: block;
-	float: left;
+	/*float: left;*/
 	width: 100%;
 	max-width: 1600px;
 	height: 400px;
 }
 
-/**
-div#photoswitcher ul {
-
-	list-style: none;
-	padding: 0;
-	background-color: pink;
-	display: inline;
-}
-**/
 
 div#photoswitcher ul li {
 
@@ -383,7 +378,7 @@ div#container table td#right {
 .blocktext {
     padding: 1px 20px 10px;
     background-color: white;
-    margin:0 0 10px;
+    margin: 10px;
     font-size: 70%;
 }
 
@@ -636,6 +631,8 @@ a.display-name {
 .clear {
 
 	clear: both;
+	margin: 0;
+	padding: 0;
 	
 }
 

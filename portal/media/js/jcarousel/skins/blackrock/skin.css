@@ -47,14 +47,15 @@
 
 .jcarousel-clip .dl_navigation {
     top: 0px;
-    float: left;
     position: absolute;
     left: 0px;
     z-index: 100;
+    border: 1px solid white;
 }
 
 .jcarousel-clip ol, .jcarousel-clip ul {
     list-style: none outside none;
+    margin: 18px;
 }
 
 .jcarousel-clip .dl_navigation li {
