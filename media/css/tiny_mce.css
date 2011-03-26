@@ -3,22 +3,26 @@
 /* Education: Dark Red: 84232E, Light Red: A9676D*/
 /* Experience: Dark Green: 126A37, Light Green: 529873 */
 
+.home_module_container {
+    min-width: 1000px;
+}
+
 .home_module {
     float: left;
     width: 48%;
-    height: 290px;
+    height: 265px;
     margin-left: 10px;
     margin-top: 10px;
-    margin-bottom: 5px;
     background-color: white;
     border-style: solid;
     border-width: 1px;
     vertical-align: top;
-
+    font-size: 75%;
+    min-width: 450px;
+    padding-bottom: 5px;
 }
 
 .home_module h4 {
-    font-size: 90%;
     font-weight: normal;
     color: white;
     background-repeat: no-repeat;
@@ -26,23 +30,26 @@
     padding-left: 40px;
     line-height: 35px;
     margin: 0 0 5px;
-}
-
-
-.home_module div {
-    padding: 1px 10px 10px;
-    background-color: white;
-    margin:0 0 10px;
-    font-size: 70%;
-    vertical-align: top;
-}
-
-.home_module div a {
     font-size: 120%;
+}
+
+.home_module .image_block {
+    float: left;
+    margin-right: 6px;
+    margin-left: 8px;
+}
+
+.home_module .text_block {
+    padding-right: 5px;
+    height: 120px;
+}
+
+.home_module a {
     font-weight: bold;
     text-decoration: none;
-    margin: 10px 0;
+    margin: 5px 0;
     display: block;
+    font-size: 110%;
 }
 
 .home_module ul {
@@ -52,17 +59,14 @@
 
 .home_module li a {
     font-weight: bold;
-    font-size: 70%;
     margin: 10px 0 0; 
     display: block;
 }
 
-.home_module div img {
+.home_module img {
     width: 125px;
     height: auto;
-    float: left;
     border: 1px solid #ccc;
-    margin-right: 10px;
 }
 
 .research_module {
@@ -84,7 +88,7 @@
 
 .education_module {
     border-color: #84232E;
-    width: 49%;
+    
 }
 
 .education_module h4 {
@@ -98,9 +102,14 @@
 
 .tools_module {
     clear: both;
-    width: 98%;
+    width: 97.5%;
     border-color: #3D2800;
-    height: 200px;
+    height: 240px;
+    vertical-align: top;
+}
+
+.tools_module .image_block {
+    height: 100%;
 }
 
 .tools_module h4 {
@@ -114,12 +123,10 @@
 
 .tools_module .tool {
     float: left;
-    width: 30%;
-    height: 90%;
-    margin-left: 10px;
-    margin-top: 10px;
-    margin-bottom: 5px;
+    width: 32%;
+    height: 185px;
     background-color: white;
+    margin-right: 12px;
 }
 
 

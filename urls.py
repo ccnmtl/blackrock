@@ -28,5 +28,5 @@ urlpatterns = patterns('',
                        (r'^paleoecology/', include('blackrock.paleoecology.urls')),
                        (r'^blackrock_main/', include('blackrock.blackrock_main.urls')),
                        (r'^portal/', include('blackrock.portal.urls')),
-                       (r'', 'blackrock.views.index')
+                       (r'^$', 'blackrock.views.index')
 ) + staticmedia.serve()
