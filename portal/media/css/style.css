@@ -204,10 +204,16 @@ div#subnav.research ul li.selected {background-color: #E4DBCC;}
 /*Page Body*/
 
 div#container {
-   padding: 0;
-   background-color: #897467;
+   background-color: #d8d8d0;
+
  
 }
+
+div#container h2 {
+	margin: 0;
+	padding: 0;
+}
+
 
 div.bannerbutton a {
 
@@ -375,14 +381,6 @@ div#container table td#right {
   border: 2px solid white;
 }
 
-.blocktext {
-    padding: 1px 20px 10px;
-    background-color: white;
-    margin: 10px;
-    font-size: 70%;
-}
-
-
 .head_default {
 
 	font-size: 110%;
@@ -469,7 +467,7 @@ a.link_research, span.link_research {
 .assetlist {
 
 	padding: 10px;
-	margin: -10px;
+
    
 }
 
@@ -772,3 +770,102 @@ div.asset-types {
 	margin: 5px 0 10px 0;
 	display: block;
 }
+
+
+/*Weather Page*/
+
+div#weather{
+
+	padding: 5px;
+	font-weight: bold;
+	font-size: 90%;
+}
+
+div#weather h3{
+
+	margin: 0;
+	padding: 0;
+
+}
+
+
+
+div#weather div.header-row{
+
+	background-color: #297643;
+	border: 1px solid #a9a9a9;
+	-webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-topright: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    color: #fff;
+    padding: 5px;
+    
+   
+}
+
+
+div.station-id {
+    padding: 5px;
+}
+
+div.current-graphic {
+    padding: 0px;
+}
+
+
+div.station-id, div.current-graphic {
+	background-color: #fff;
+	border: 1px solid #a9a9a9;
+	border-top: none;
+}
+
+div#weather ul {
+
+	list-style: none;
+	background: #D9D9D9; /* old browsers */
+    background: -moz-linear-gradient(top, #D9D9D9 0%, #fff 100%); /* firefox */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#D9D9D9), color-stop(100%,#fff)); /* webkit */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#D9D9D9', endColorstr='#fff',GradientType=0 ); /* ie */
+    margin: 0;
+    height: 45px;
+    padding: 0;
+    border-left: 1px solid #a9a9a9;
+	border-right: 1px solid #a9a9a9;
+	min-width: 1000px;
+}
+
+div#weather ul li {
+	display: block;
+	float: left;
+	border-right: 1px solid #a9a9a9;
+}
+
+div#weather ul li.aag {
+
+	background-color: #fff;
+	width: 255px;
+	color: #000;
+	padding: 13px 10px 7px;
+	height: 25px;
+}
+
+div#weather ul li a {
+
+	padding: 13px 25px 7px;
+	height: 25px;
+	text-decoration: none;
+	display: block;
+	color: #000;
+}
+
+div#weather ul li a.selected {
+
+	background: #D9D9D9; /* old browsers */
+    background: -moz-linear-gradient(top, #D9D9D9 0%, #959595 100%); /* firefox */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#D9D9D9), color-stop(100%,#959595)); /* webkit */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#D9D9D9', endColorstr='#959595',GradientType=0 ); /* ie */
+}
+
