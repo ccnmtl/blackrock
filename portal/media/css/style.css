@@ -872,3 +872,39 @@ div#weather ul li a.selected {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#D9D9D9', endColorstr='#959595',GradientType=0 ); /* ie */
 }
 
+/*Webcam Page */
+
+div#webcam_page {
+
+	padding: 5px;
+	background-color: none;
+}
+
+div#webcam_page #image-viewer, div#webcam_page #timelapse{
+
+	padding: 5px;
+	background-color: #fff;
+	display: block;
+	width: 100%;
+	margin: 10px 0;
+}
+
+div#webcam_page #image-viewer #js-placeholder{
+
+	padding: 5px;
+	background-color: #ccc;
+	display: block;
+	width: auto;
+	margin: 10px 0;
+}
+
+
+div#webcam_page #timelapse .video {
+
+	margin: 10px 0;
+	width: 480px;
+	display: block;
+	
+}
+
+
