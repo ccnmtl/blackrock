@@ -5,14 +5,23 @@
 
 .home_module_container {
     min-width: 1000px;
+    margin-top: 10px;
+
+}
+
+table#half-width {
+	margin-top: 20px;
+}
+
+table#half-width td {
+	padding: 0;
+	width: 50%;
+	vertical-align: top;
 }
 
 .home_module {
     float: left;
-    width: 48%;
-    height: 265px;
-    margin-left: 10px;
-    margin-top: 10px;
+    height: 285px;
     background-color: white;
     border-style: solid;
     border-width: 1px;
@@ -20,6 +29,7 @@
     font-size: 75%;
     min-width: 450px;
     padding-bottom: 5px;
+
 }
 
 .home_module h4 {
@@ -71,6 +81,7 @@
 
 .research_module {
     border-color: #2A6EBB;
+    margin-right: 10px;
 }
 
 .home_module ul {
@@ -88,6 +99,7 @@
 
 .education_module {
     border-color: #84232E;
+ 
     
 }
 
@@ -101,8 +113,7 @@
 }
 
 .tools_module {
-    clear: both;
-    width: 97.5%;
+ 
     border-color: #3D2800;
     height: 240px;
     vertical-align: top;

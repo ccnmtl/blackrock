@@ -19,10 +19,6 @@ body {
 	overflow-x: hidden;
 }
 
-h4 {font-size: 90%;}
-
-h5 {font-size: 80%;}
-
 
 /* Main Nav (Tabs) */
 
@@ -205,6 +201,16 @@ div#subnav.research ul li.selected {background-color: #E4DBCC;}
 
 div#container {
    background-color: #d8d8d0;
+   padding: 10px;
+
+
+ 
+}
+
+div#subcontainer {
+   background-color: #d8d8d0;
+   padding: 10px;
+   border: 1px solid blue;
 
  
 }
@@ -233,6 +239,7 @@ div#home_banner {
 	max-width: 1600px;
 	background-color: #3D2800;
 	min-width: 800px;
+	margin: -10px;
 
 
 }
@@ -243,7 +250,7 @@ div#weather-widget {
 	position: relative;
 	padding: 5px;
 	margin-top: -400px;
-	right: 0;
+	right: -20px;
 	float: right;
 	min-height: 30px;
 	min-width: 30px;
@@ -353,6 +360,10 @@ div#home_banner .home_banner_desc h1 {
 	font-size: 120%;
 }
 
+div#home_modules {
+
+	background-color: green;
+}
 
 div#container table {
 	border: none;
@@ -366,7 +377,6 @@ div#container table td#left {
   vertical-align: top;
   border: none;
   border-collapse: collapse;
-  padding: 10px;
   min-width: 400px;
 }
 
@@ -380,6 +390,7 @@ div#container table td#right {
   vertical-align: top;
   border: 2px solid white;
 }
+
 
 .head_default {
 
@@ -467,6 +478,8 @@ a.link_research, span.link_research {
 .assetlist {
 
 	padding: 10px;
+	background-color: #fff;
+	margin-bottom: 10px;
 
    
 }
@@ -491,7 +504,6 @@ font-weight: bold;
 a.view-all {
 
 	font-weight: bold;
-	font-size: 85%;
 	text-align: right;
 	margin: 10px;
 
@@ -548,7 +560,6 @@ a.view-all {
 
 .featured_details h4, .asset_summary h4, .blocktext h4 {
 	margin: 20px 0 10px 0;
-	font-size: 120%;
    
 }
 
@@ -562,8 +573,8 @@ a.view-all {
 .highlightonmap{
     float: right;
     background-color: #fefeb3;
-    margin:-2px -21px 10px 0px;
     border: 1px solid #b49f93;
+    margin: -22px -11px;
 }
 
 .blocktext .highlightonmap a {
@@ -580,7 +591,6 @@ a.view-all {
 
 a.display-name {
 
-	font-size: 120%;
 	font-weight: bold;
 	text-decoration: none;
 	margin: 10px 0;
@@ -590,14 +600,12 @@ a.display-name {
 
 #related-items a.display-name {
 
-	font-size: 105%;
 	display: block;
 	
 }
 
 #related-items .highlightonmap a {
 
-	font-size: 80%; 
 
 }
 
@@ -607,13 +615,11 @@ a.display-name {
     
 .pagetitle {
 
-	font-size: 110%;
 	font-weight: bold;
 }
 
 .pagesubtitle {
 
-	font-size: 90%;
 	font-weight: bold;
 }
 
@@ -669,7 +675,6 @@ padding-top: 10px;
 div#facets th {
 
 text-align: right;
-font-size: 85%;
 width: 40%;
 vertical-align:top;
 padding: 10px;
@@ -682,7 +687,6 @@ width: 200px;
 
 div#facets.blocktext form table tbody tr td {
 
-    font-size: 70%;
     white-space: nowrap;
 
 }
@@ -720,7 +724,7 @@ div#details-wrapper {
 
 }
 
-table#details-table {width: 100%; background-color: #B49F93;}
+table#details-table {width: 100%;  border: none;}
 
 table#details-table tr td {vertical-align: top;}
 
@@ -738,7 +742,7 @@ table#details-table tr td#right {width: 30%; border: none;
 div#asset-details {
 
 	background-color: #fff;
-	margin: 5px;
+	padding: 10px;
 
 }
 
@@ -778,7 +782,6 @@ div#weather{
 
 	padding: 5px;
 	font-weight: bold;
-	font-size: 90%;
 }
 
 div#weather h3{
