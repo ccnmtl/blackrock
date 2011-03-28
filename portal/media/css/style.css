@@ -378,7 +378,10 @@ div#container table td#left {
   border: none;
   border-collapse: collapse;
   min-width: 400px;
+  padding-right: 10px;
+
 }
+
 
 
 
@@ -491,7 +494,7 @@ a.link_research, span.link_research {
 
 }
 
-.assetlist .blocktext a.summary-link, a.summary-link {
+.assetlist .single-record a.summary-link, a.summary-link {
 
 display:block;
 margin:15px 15px 0 auto;
@@ -558,7 +561,7 @@ a.view-all {
    
 }
 
-.featured_details h4, .asset_summary h4, .blocktext h4 {
+.featured_details h4, .asset_summary h4, .single-record h4 {
 	margin: 20px 0 10px 0;
    
 }
@@ -577,7 +580,7 @@ a.view-all {
     margin: -22px -11px;
 }
 
-.blocktext .highlightonmap a {
+.single-record .highlightonmap a {
 
 	padding: 7px 10px 5px;
 	margin: -1px 0 0 0;
@@ -685,13 +688,13 @@ width: 200px;
 }
 
 
-div#facets.blocktext form table tbody tr td {
+div#facets.single-record form table tbody tr td {
 
     white-space: nowrap;
 
 }
 
-div#facets.blocktext form table tbody tr td {
+div#facets.single-record form table tbody tr td {
 
     padding: 10px;
 
@@ -701,7 +704,7 @@ div#facets.blocktext form table tbody tr td {
 
 
 
-div#facets.blocktext form table tbody tr td ul{
+div#facets.single-record form table tbody tr td ul{
 list-style: none;
 margin-left: -45px;
 }
@@ -782,6 +785,7 @@ div#weather{
 
 	padding: 5px;
 	font-weight: bold;
+	min-width: 1003px;
 }
 
 div#weather h3{
@@ -812,6 +816,17 @@ div#weather div.header-row{
 
 div.station-id {
     padding: 5px;
+}
+
+div#time-switcher {
+
+	display: block;
+	width: 250px;
+	height: 30px;
+	float: right;
+	margin: 10px;
+	border: 1px solid red;
+	padding: 5px;
 }
 
 div.current-graphic {
