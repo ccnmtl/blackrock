@@ -478,7 +478,7 @@ a.link_research, span.link_research {
     height:400px;
 }
 
-.assetlist {
+.single-record {
 
 	padding: 10px;
 	background-color: #fff;
@@ -577,7 +577,7 @@ a.view-all {
     float: right;
     background-color: #fefeb3;
     border: 1px solid #b49f93;
-    margin: -22px -11px;
+    margin: -11px -11px 10px 10px;
 }
 
 .single-record .highlightonmap a {
