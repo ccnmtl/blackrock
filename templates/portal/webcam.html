@@ -1,11 +1,41 @@
 {% load smartif %}
+<link rel="stylesheet" type="text/css" href="/portal/media/js/imageflow/imageflow.css" />
+
+<script  type="text/javascript" src="/portal/media/js/imageflow/imageflow.js"></script>
+<script  type="text/javascript" src="/portal/media/js/blackrock_webcam.js"></script>
+
+<script type="text/javascript">
+  jQuery(document).ready(function() {
+    console.log("Goodbye, Cruel World");
+    // add the webcam images to the dom
+    var webcamImageArray = get_webcam_image_array();
+    for (i = 0; i < webcamImageArray.length; i++) {
+        console.log(webcamImageArray[i].src);
+	jQuery("#webcam_flow").append(
+		  jQuery("<img/>")
+		    .attr("src", webcamImageArray[i].src)
+		    .attr("longdesc", webcamImageArray[i].src)
+		    .attr("width", "75")
+		    .attr("height", "75")
+		    .attr("alt", webcamImageArray[i].text)
+		    )
+	
+    }
+    var instanceOne = new ImageFlow();
+    console.log("initializing imageflow");
+    instanceOne.init({ ImageFlowID:'webcam_flow',
+                       reflections: false,  
+                       reflectionP: 0.0
+                     });
+  });
+</script>
  
 <h2>Webcam</h2>
 <div id="webcam_page"> 
 
 	<div id="image-viewer">
-	<h3>Webcam Viewer</h3>
-	<div id="js-placeholder">Image Switcher goes here</div>
+	   <h3>Webcam Viewer</h3>
+	   <div id="webcam_flow" class="imageflow"></div>
 	</div>
 	
 	
@@ -16,6 +46,7 @@
 		<div class="video">
 		<script type="text/javascript" src="http://ccnmtl.columbia.edu/stream/jsembed?player=download_mp4_v3&file=projects/mp4/virtualforest_schuster_turtles_turtle_races.mp4&width=480&height=272&poster=http://ccnmtl.columbia.edu/broadcast/projects/mp4/virtualforest_schuster_turtles_turtle_races.jpg&protection=5500fac33addf0ad7329152fbd5564cce6b38d5e"></script>
 		</div>
+
 <!--Hiding to protect Liz's sad computer
 
 		<h4>Video 2 Title</h4>		

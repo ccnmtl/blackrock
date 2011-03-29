@@ -882,7 +882,7 @@ div#webcam_page {
 	background-color: none;
 }
 
-div#webcam_page #image-viewer, div#webcam_page #timelapse{
+div#webcam_page div#webcam_page #timelapse{
 
 	padding: 5px;
 	background-color: #fff;
@@ -891,15 +891,33 @@ div#webcam_page #image-viewer, div#webcam_page #timelapse{
 	margin: 10px 0;
 }
 
-div#webcam_page #image-viewer #js-placeholder{
+div#webcam_page {
 
 	padding: 5px;
 	background-color: #ccc;
 	display: block;
 	width: auto;
 	margin: 10px 0;
+	
 }
 
+#image-viewer {
+		color:#fff;
+		background-color:#000;
+		font-size:0.8em;
+		line-height:1.4em;
+		padding:1em 0;
+		margin:0;
+}
+
+#image-viewer.a {
+		color:#fff;
+	}
+#image-veiewer-h1 {
+		font-size:2.2em;
+		text-align:center;
+		margin:0.4em 0 1.3em 0;
+	}
 
 div#webcam_page #timelapse .video {
 
