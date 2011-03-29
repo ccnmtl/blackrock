@@ -656,69 +656,56 @@ table#search-table {width: 100%;}
 
 table#search-table tr td {vertical-align: top;}
 
-table#search-table tr td#facets_column {width: 380px;}
+table#search-table tr td#facets_column { width: 380px; }
 
 table#search-table tr td#results_column {
-	
 	border: none; 
 	background-color: none;
 	text-align: left;
-
 }
 
-
-
 div#facets {
-
-width: 380px;
-padding-top: 10px;
-
+    width: 380px;
+    padding: 10px;
+    background-color: white;
+    list-style: none;
+     
 }
 
 div#facets th {
-
-text-align: right;
-width: 40%;
-vertical-align:top;
-padding: 10px;
-white-space: nowrap;
-width: 200px;
-
-
-}
-
-
-div#facets.single-record form table tbody tr td {
-
-    white-space: nowrap;
-
-}
-
-div#facets.single-record form table tbody tr td {
-
+    text-align: right;
+    width: 40%;
+    vertical-align:top;
     padding: 10px;
-
-
+    white-space: nowrap;
+    width: 200px;
+    font-size: 90%;
 }
 
-
-
-
-div#facets.single-record form table tbody tr td ul{
-list-style: none;
-margin-left: -45px;
+div#facets form table tbody tr td {
+    white-space: nowrap;
+    font-size: 80%;
 }
 
+div#facets form table tbody tr td {
+    padding: 10px;
+}
 
-
+div#facets form table tbody tr td ul {
+    list-style: none;
+    margin-left: -45px;
+}
 
 div#search-results {
-	margin: 10px 10px 10px 20px;
-
+	margin: 10px 10px 10px 20px;	
 }
 
-
-
+div.single_result {
+    padding: 1px 20px 10px;
+    background-color: white;
+    margin:0 0 10px;
+    font-size: 80%;
+}
 
 
 /*Details Page*/

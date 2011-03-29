@@ -6,23 +6,6 @@
 
 {% block js %}
     {{ block.super }}
-    
-    <script type="text/javascript">
-    /**
-        function hideElements() 
-        { 
-            {% for hidden_name in hidden %}
-              id = "id_" + "{{ hidden_name }}" + "_0";
-              forEach(getElementsByTagAndClassName("label", null, parent=document), function(e) {
-                if ( e.getAttribute("for") == id) {
-                    e.style.display = "none";
-                }
-              });
-            {% endfor %} 
-        }
-        MochiKit.Signal.connect(window, "onload", hideElements);
-    **/
-    </script> 
 {% endblock %}
 
 {% block searchtab %}
@@ -40,31 +23,28 @@
 {% block container %}
  <div id="search-wrapper">
  <table id="search-table">
- <tr>
- <td id="facets_column">
-  <div id="facets" class="">
-  <form method="get" action=".">
-
-        <table>
-            <tbody>
-                {{ form.as_table }}
-                <tr>
-                    <td>&nbsp;</td>
-                    <td><input type="submit" value="Search">&nbsp;<input type="reset" value="Reset" onclick="parent.location='/portal/search/'"></td>
-                </tr>
-            </tbody>
-        </table>
-    </form>
-    </div>
+    <tr>
+    <td id="facets_column">
+        <div id="facets" class="">
+            <form method="get" action=".">
+                <table>
+                    <tbody>
+                        {{ form.as_table }}
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td><input type="submit" value="Search">&nbsp;<input type="reset" value="Reset" onclick="parent.location='/portal/search/'"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
     </td>
     <td id="results_column">
-  <div id="search-results"> 
-   
-
-        <h2>Search Results ({{count}}) </h2>
+        <div id="search-results"> 
+        <h2>Search Results ({{count}}) </h2><br />
         <div class="assetlist">
         {% for result in page.object_list %}
-             <div class="blocktext">
+             <div class="single_result">
                 <a class="display-name" href="{{result.object|detail_url}}">{{result.object|display_name}}</a>
                 <br />
                 <b>Type</b>: {{result.object|klass_display}}
@@ -91,5 +71,8 @@
     </div>
 {% endblock %}
 </div>
-</div></tr></div>
+</div>
+</tr>
+</table>
+</div>
 </div>
