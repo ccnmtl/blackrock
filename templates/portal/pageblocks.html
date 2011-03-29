@@ -1,0 +1,4 @@
+{% for block in section.pageblock_set.all %}
+    {% if block.label %}<h4>{{block.label}}</h4>{% endif %}
+    {{ block.render }}
+{% endfor %}

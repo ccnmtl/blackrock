@@ -21,26 +21,23 @@
 {% endblock %}
 
 {% block container %} 
-    {% ifequal module.slug "foreststories" %} 
+    {% ifequal module.slug "home" %}
+        {% include "portal/pageblocks.html" %}
+    {% else %}{% ifequal section.slug "weather" %}
+        {% include "portal/pageblocks.html" %}
+    {% else %}{% ifequal section.slug "webcams" %}
+        {% include "portal/pageblocks.html" %}
+    {% else %}     
         <table width="100%">
             <tr>
                 <td id="left">
-                    {% for block in section.pageblock_set.all %}
-                        {% if block.label %}<h4>{{block.label}}</h4>{% endif %}
-                        {{ block.render }}
-                    {% endfor %}
+                    {% include "portal/pageblocks.html" %}
                 </td>
-              
                 <td id="right">
                     {% include "portal/asset_map.html" %}
                 </td>
             </tr>
         </table>
-    {% else %}
-        {% for block in section.pageblock_set.all %}
-            {% if block.label %}<h4>{{block.label}}</h4>{% endif %}
-            {{ block.render }}
-        {% endfor %}
-    {% endifequal %}
+    {% endifequal %}{% endifequal %}{% endifequal %}
 {% endblock %}
 
