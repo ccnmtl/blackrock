@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load charts %}
+
+{% block content %}
+
+<table>
+
+{% for row in series.row_set.all %}
+<tr>
+<td>{{row.timestamp}}</td>
+<td>{{row.value}}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+{% endblock %}

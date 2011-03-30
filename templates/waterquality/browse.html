@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<table width="100%">
+<tr>
+  <th>series</th>
+  <th>units</th>
+  <th>count</th>
+  <th colspan="2">range</th>
+  <th>min</th>
+  <th>max</th>
+  <th>mean</th>
+  <th>stddev</th>
+</tr>
+{% for series in series %}
+<tr class="{% cycle 'even' 'odd' %}">
+<th>{{series.location.site.name}}/{{series.location.name}}/<a href="{% url waterquality-series series.id %}">{{series.name}}</a></th>
+<td>{{series.units}}</td>
+<td>{{series.count}}</td>
+<td>{{series.start.timestamp}}</td><td>{{series.end.timestamp}}</td>
+<td>{{series.min|floatformat}}</td>
+<td>{{series.max|floatformat}}</td>
+<td>{{series.mean|floatformat}}</td>
+<td>{{series.stddev|floatformat}}</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

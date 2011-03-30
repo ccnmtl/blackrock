@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load charts %}
+
+{% block js %}
+
+{% endblock %}
+
+{% block content %}
+
+<h3>box plot</h3>
+{% with lseries.box_data as box_data %}
+
+  <img src="https://chart.googleapis.com/chart?chs=400x200&cht=lc&chd=t0:0,{{box_data.min}},0|0,{{box_data.lq}},0|0,{{box_data.uq}},0|0,{{box_data.max}},0|0,{{box_data.median}},0&chm=F,0000FF,0,1,20|H,0000FF,0,1,1:20|H,0000FF,3,1,1:20|H,0000FF,4,1,1:20&chxt=y&chxr=0,{{lseries.min}},{{lseries.max}},0" width="400" height="200" />
+
+<table>
+<tr><th>Min</th><td>{{lseries.min|floatformat}}</td></tr>
+<tr><th>Max</th><td>{{lseries.max|floatformat}}</td></tr>
+<tr><th>Median</th><td>{{lseries.median|floatformat}}</td></tr>
+<tr><th>uq</th><td>{{lseries.uq|floatformat}}</td></tr>
+<tr><th>lq</th><td>{{lseries.lq|floatformat}}</td></tr>
+<tr><th>Mean</th><td>{{lseries.mean|floatformat}}</td></tr>
+<tr><th>StdDev</th><td>{{lseries.stddev|floatformat}}</td></tr>
+</table>
+
+{% endwith %}
+
+<h3>whole series sampled down</h3>
+{% chart as c %}
+    {% chart-data lseries.range_data %}
+    {% chart-type "line" %}
+    {% chart-size "800x200" %}
+    {% axis "left" %}
+      {% axis-range lseries.min lseries.max %}
+    {% endaxis %}
+
+    {% chart-legend series.name %}
+  {% endchart %}
+  <img src="{{ c.url }}" width="800" height="200" />
+
+<a href="{% url waterquality-series-all series.id %}">all</a>
+
+{% endblock %}

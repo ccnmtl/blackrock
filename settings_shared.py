@@ -80,6 +80,8 @@ INSTALLED_APPS = (
     'template_utils',
     'typogrify',
     'sentry.client',
+    'waterquality',
+    'googlecharts',
 )
 
 # Enabled Blackrock modules - edit to control what displays on the main page
