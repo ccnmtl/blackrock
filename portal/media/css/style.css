@@ -908,6 +908,7 @@ div#webcam_page {
 		line-height:1.4em;
 		padding:1em 0;
 		margin:0;
+		width: 600px;
 }
 
 #image-viewer.a {
@@ -918,6 +919,14 @@ div#webcam_page {
 		text-align:center;
 		margin:0.4em 0 1.3em 0;
 	}
+
+image-viewer#webcam-flow {
+		/* heigth: 226px; */
+	}
+
+.imageflow {
+
+}
 
 div#webcam_page #timelapse .video {
 

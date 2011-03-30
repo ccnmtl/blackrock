@@ -91,9 +91,13 @@ function get_webcam_image_array(start_date, start_month, start_year, start_hour,
 	path = "/" + year + "/" + month + "/" + date + "/"; 
 	image_filename = "Black_Rock_" + hour + "_" + min + ".jpg";
 	full_image_path = BASE_IMAGE_URL + path + image_filename;
+
+	thumb_filename = "Black_Rock_" + hour + "_" + min + "_thumb.jpg";
+	full_thumb_path = BASE_IMAGE_URL + path + thumb_filename;
 	//console.log(image_filename);
 	// console.log(full_image_path);
 	imageObjArray.push({src: full_image_path,
+                            thumb: full_thumb_path,
 			    title: image_filename,
 		            text:"This photo was taken on " + month + "/" + date + "/" + year + " (" + hour + ":" + min + ")"});
 	}
