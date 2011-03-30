@@ -5,13 +5,17 @@
 <script  type="text/javascript" src="/portal/media/js/blackrock_webcam.js"></script>
 
 <script type="text/javascript">
+  function swap_webcam_image(url) {
+
+  }
+
   jQuery(document).ready(function() {
     console.log("Goodbye, Cruel World");
     // add the webcam images to the dom
     var webcamImageArray = get_webcam_image_array();
     for (i = 0; i < webcamImageArray.length; i++) {
         console.log(webcamImageArray[i].src);
-	jQuery("#webcam_flow").append(
+	jQuery("#webcam-flow").append(
 		  jQuery("<img/>")
 		    .attr("src", webcamImageArray[i].src)
 		    .attr("longdesc", webcamImageArray[i].src)
@@ -23,9 +27,19 @@
     }
     var instanceOne = new ImageFlow();
     console.log("initializing imageflow");
-    instanceOne.init({ ImageFlowID:'webcam_flow',
+    instanceOne.init({ ImageFlowID:'webcam-flow',
+		       preloadImages: false,
+		       aspectRatio: 2.333, 
+		       //imageFocusM: 1.618,
+		       // imageScaling: false,
+		       imageFocusMax: 1,
+		       xStep: 350,
+		       buttons: true,
+		       startID: 288,
                        reflections: false,  
-                       reflectionP: 0.0
+                       reflectionP: 0.0,
+		       slideshow: true,
+		       onClick: function() { jQuery("#webcam-focus").attr("src", this.url) }
                      });
   });
 </script>
@@ -34,8 +48,11 @@
 <div id="webcam_page"> 
 
 	<div id="image-viewer">
-	   <h3>Webcam Viewer</h3>
-	   <div id="webcam_flow" class="imageflow"></div>
+	   <h3>Webcam Scrubber</h3>
+	   <div id="webcam-focus-container">
+	     <img id="webcam-focus" src="http://kang.ccnmtl.columbia.edu/sb/jonah/blackrock_photo_fetcher/downloads/webcam/current.jpg" width="550" />
+	   </div>
+	   <div id="webcam-flow" class="imageflow"></div>
 	</div>
 	
 	
