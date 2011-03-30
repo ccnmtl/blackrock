@@ -70,6 +70,7 @@ INSTALLED_APPS = (
     'blackrock.paleoecology',
     'blackrock.blackrock_main',
     'blackrock.portal',
+    'blackrock.deploy_specific',
     'django.contrib.databrowse',
     'gspreadsheet_importer',
     'haystack',
@@ -140,8 +141,6 @@ SESSION_COOKIE_AGE = 900
 #then you can put a settings.py file and templates/ overrides there
 try:
     from blackrock.deploy_specific.settings import *
-    INSTALLED_APPS = INSTALLED_APPS + ['blackrock.deploy_specific']
-
     if locals().has_key('EXTRA_INSTALLED_APPS'):
         INSTALLED_APPS = EXTRA_INSTALLED_APPS + INSTALLED_APPS
 except ImportError:
