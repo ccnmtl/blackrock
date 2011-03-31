@@ -29,6 +29,7 @@ table#half-width td {
     font-size: 75%;
     min-width: 450px;
     padding-bottom: 5px;
+    width: 100% auto;
 
 }
 
