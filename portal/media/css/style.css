@@ -776,10 +776,8 @@ div#weather{
 }
 
 div#weather h3{
-
 	margin: 0;
 	padding: 0;
-
 }
 
 
@@ -805,23 +803,21 @@ div.station-id {
     padding: 5px;
 }
 
-div#time-switcher {
-
+div#time-slider {
+    width: 250px;
 	display: block;
-	width: 250px;
 	height: 30px;
 	float: right;
 	margin: 10px;
-	border: 1px solid red;
 	padding: 5px;
 }
 
-div.current-graphic {
+div.weather-image {
     padding: 0px;
 }
 
 
-div.station-id, div.current-graphic {
+div.station-id, div.weather-image {
 	background-color: #fff;
 	border: 1px solid #a9a9a9;
 	border-top: none;
@@ -864,14 +860,14 @@ div#weather ul li a {
 	text-decoration: none;
 	display: block;
 	color: #000;
-}
-
-div#weather ul li a.selected {
-
 	background: #D9D9D9; /* old browsers */
     background: -moz-linear-gradient(top, #D9D9D9 0%, #959595 100%); /* firefox */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#D9D9D9), color-stop(100%,#959595)); /* webkit */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#D9D9D9', endColorstr='#959595',GradientType=0 ); /* ie */
+}
+
+div#weather ul li a.selected {
+    background: none;
 }
 
 /*Webcam Page */

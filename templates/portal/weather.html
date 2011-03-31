@@ -1,19 +1,84 @@
 {% load smartif %}
+{% load portal %}
+
+<script type="text/javascript">
+
+    function timerange(value) {
+        jQuery(".weather-image").hide();
+        
+        var increment = ".twentyfourhours";
+        if (value == 1)
+            increment = ".sevendays";
+        else if (value == 2)
+            increment = ".thirtydays";
+        return increment;
+    }
+    
+    jQuery(document).ready(function() {
+        jQuery(".weather-category-selector").click(function() {
+            jQuery(".weather-category-selector").removeClass("selected");
+            jQuery(this).addClass("selected");
+
+            var category = "." + jQuery(this).attr("id");
+            var value = jQuery("#slider").slider( "option", "value" );
+            jQuery(category+timerange(value)).show();
+        });
+
+        jQuery( "#slider" ).slider({
+            max: 2,
+            step: 1,
+            slide: function( event, ui ) {
+                var category = "." + jQuery(".weather-category-selector.selected").attr("id");
+                jQuery(category+timerange(ui.value)).show();
+            }
+        });
+    });
+    
+
+</script>
 
 <h2>Environmental Monitoring Data</h2>
 <div id="weather"> 
-	<div class="header-row"><h3>Conditions as of [date and time pull from server] (updated every five minutes)</h3></div>
+	<div class="header-row"><h3>Conditions as of [@todo -- date and time pull from server] (updated every five minutes)</h3></div>
 	<div class="station-id"><h3>Open Lowland Station:</h3><br />Elevation 270 feet</div>
-		<div id="weather-viewer">
-			<ul>
-				<li class="aag">At a Glance</li>
-				<li><a class="selected" href="#">Air and Soil Temperature</a></li>
-				<li><a href="#">Precipitation</a></li>
-				<li><a href="#">Wind</a></li>
-				<li><a href="#">Barometric Pressure</a></li>
-			</ul>
-		<div id="time-switcher">24 hours | 7 days | 30 days</div>	
-		<div class="current-graphic"><img src="http://kang.ccnmtl.columbia.edu/sb/jonah/blackrock_photo_fetcher/downloads/data/current/Air-Soil-24Hr.png"></div>
-		</div>
+	<div id="weather-viewer">
+		<ul>
+			<li class="aag">At a Glance</li>
+			<li><a class="weather-category-selector selected" id="air-soil">Air and Soil Temperature</a></li>
+			<li><a class="weather-category-selector" id="precip">Precipitation</a></li>
+			<li><a class="weather-category-selector" id="wind">Wind</a></li>
+			<li><a class="weather-category-selector" id="baro">Barometric Pressure</a></li>
+		</ul>
+        <div id="time-slider">
+            <table>
+                <tr><td style="width: 32%">24 hours</td><td style="width: 32%">7 days</td><td>30 days</td></tr>
+                <tr>
+                    <td colspan="3">
+                    <div class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" id="slider"><a style="left: 50%;" class="ui-slider-handle ui-state-default ui-corner-all ui-state-focus" href="#"></a></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+         	
+        <!-- Air Soil -->
+		<div class="weather-image air-soil twentyfourhours"><img src='{% value_from_settings PORTAL_WEATHER_IMAGES %}Air-Soil-24Hr.png'></div>
+        <div class="weather-image air-soil sevendays" style="display: none"><img src='{% value_from_settings PORTAL_WEATHER_IMAGES %}Air-Soil-7Day.png'></div>
+        <div class="weather-image air-soil thirtydays" style="display: none"><img src='{% value_from_settings PORTAL_WEATHER_IMAGES %}Air-Soil-30Day.png'></div>
+
+        <!-- Precipitation -->
+        <div class="weather-image precip twentyfourhours" style="display: none"><img src='{% value_from_settings PORTAL_WEATHER_IMAGES %}/Precip-24Hr.png'></div>
+        <div class="weather-image precip sevendays" style="display: none"><img src='{% value_from_settings PORTAL_WEATHER_IMAGES %}/Precip-7Day.png'></div>
+        <div class="weather-image precip thirtydays" style="display: none"><img src='{% value_from_settings PORTAL_WEATHER_IMAGES %}/Precip-30Day.png'></div>
+        
+        <!-- Wind -->
+        <div class="weather-image wind twentyfourhours" style="display: none"><img src='{% value_from_settings PORTAL_WEATHER_IMAGES %}/Wind-24Hr.png'></div>
+        <div class="weather-image wind sevendays" style="display: none"><img src='{% value_from_settings PORTAL_WEATHER_IMAGES %}/Wind-7Day.png'></div>
+        <div class="weather-image wind thirtydays" style="display: none"><img src='{% value_from_settings PORTAL_WEATHER_IMAGES %}/Wind-30Day.png'></div>
+        
+        <!-- Baro -->
+        <div class="weather-image baro twentyfourhours" style="display: none"><img src='{% value_from_settings PORTAL_WEATHER_IMAGES %}/Baro-24Hr.png'></div>
+        <div class="weather-image baro sevendays" style="display: none"><img src='{% value_from_settings PORTAL_WEATHER_IMAGES %}/Baro-7Day.png'></div>
+        <div class="weather-image baro thirtydays" style="display: none"><img src='{% value_from_settings PORTAL_WEATHER_IMAGES %}/Baro-30Day.png'></div>
+   </div>
 </div>
 
