@@ -19,7 +19,7 @@ function getParameterByName( name )
 function get_webcam_image_array(start_date, start_month, start_year, start_hour, start_minute) {
     // ndays_ago =  ndays_ago || 0;
     
-    var BASE_IMAGE_URL = "http://kang.ccnmtl.columbia.edu/sb/jonah/blackrock_photo_fetcher/downloads/webcam";
+    var BASE_IMAGE_URL = "http://ccnmtl.columbia.edu/projects/blackrock/forestdata/webcam";
     var viewer;
     var now = new Date();
     
