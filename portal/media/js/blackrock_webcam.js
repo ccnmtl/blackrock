@@ -10,7 +10,7 @@ function getParameterByName( name )
     var regexS = "[\\?&]"+name+"=([^&#]*)";
     var regex = new RegExp( regexS );
     var results = regex.exec( window.location.href );
-    if( results == null )
+    if( results === null )
 	return "";
     else
 	return results[1];
@@ -23,7 +23,7 @@ function get_webcam_image_array(start_date, start_month, start_year, start_hour,
     var viewer;
     var now = new Date();
     
-    var imageObjArray  = new Array;
+    var imageObjArray  = [];
     // playing around w/ pulling in last N days
     // for (n = 1; n < 2; n++) {
     // some quick date arithmetic to compute N days ago
@@ -41,8 +41,8 @@ function get_webcam_image_array(start_date, start_month, start_year, start_hour,
     
     // console.log("the start_date is:", start_date, start_month, start_year, start_hour, start_minute);
     
-    var start_date = new Date(start_year, start_month, start_date, start_hour, start_minute);
-    var yesterday_date = new Date(start_date.getTime() - millisecs_per_day);
+    var start_date_object = new Date(start_year, start_month, start_date, start_hour, start_minute);
+    var yesterday_date = new Date(start_date_object.getTime() - millisecs_per_day);
     
     /*  count through a 24 hour period, incremending by 5 minutes  (19 / hour * 24 = )cal
 	    looping past midnight... e.g. 22,23, 00, 01, 02
@@ -51,7 +51,7 @@ function get_webcam_image_array(start_date, start_month, start_year, start_hour,
         */
     // var start_hour = yesterday_date.getHours();
     // using the current minute, round to the nearest 5 minute
-    start_minute = Math.round(parseInt(yesterday_date.getMinutes())/5) * 5;
+    start_minute = Math.round((parseInt(yesterday_date.getMinutes(), 10) / 5) * 5);
     start_min_date = new Date(yesterday_date.getFullYear(), 
 			      yesterday_date.getMonth(), 
 			      yesterday_date.getDate(), 
@@ -62,7 +62,7 @@ function get_webcam_image_array(start_date, start_month, start_year, start_hour,
 	// h = (start_hour + i) % 24;
 	//console.log("entering main loop: " + i)
 	
-	current_min_date = new Date(start_min_date.getTime() + (millisecs_per_five_min * i))
+	current_min_date = new Date(start_min_date.getTime() + (millisecs_per_five_min * i));
 	var year =  current_min_date.getFullYear();
 	
 	// month in our script is 01-12, and starts at 1, not 0
@@ -73,8 +73,8 @@ function get_webcam_image_array(start_date, start_month, start_year, start_hour,
 	// date is 0 padded in our script, so adjust
 	date = current_min_date.getDate();
 	if (date < 10) { 
-	    date = "0" + date
-	};
+	    date = "0" + date;
+	}
 	
 	var hour = current_min_date.getHours();
 	if (hour < 10) { 
