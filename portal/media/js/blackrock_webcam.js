@@ -51,7 +51,7 @@ function get_webcam_image_array(start_date, start_month, start_year, start_hour,
         */
     // var start_hour = yesterday_date.getHours();
     // using the current minute, round to the nearest 5 minute
-    start_minute = Math.round((parseInt(yesterday_date.getMinutes(), 10) / 5) * 5);
+    start_minute = Math.round((parseInt(yesterday_date.getMinutes(), 10) / 5)) * 5;
     start_min_date = new Date(yesterday_date.getFullYear(), 
 			      yesterday_date.getMonth(), 
 			      yesterday_date.getDate(), 
