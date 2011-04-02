@@ -862,6 +862,7 @@ div#weather ul {
     border-left: 1px solid #a9a9a9;
 	border-right: 1px solid #a9a9a9;
 	min-width: 1000px;
+	font-size: 90%;
 }
 
 div#weather ul li {
@@ -871,7 +872,6 @@ div#weather ul li {
 }
 
 div#weather ul li.aag {
-
 	background-color: #fff;
 	width: 255px;
 	color: #000;
@@ -880,7 +880,7 @@ div#weather ul li.aag {
 }
 
 div#weather ul li a {
-
+    display: inline;
 	padding: 13px 25px 7px;
 	height: 25px;
 	text-decoration: none;
