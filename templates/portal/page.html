@@ -1,6 +1,6 @@
 {% extends "portal/base_portal.html" %} 
 
-{% block title %}{{section.label}}{% endblock %}
+{% block title %}{{module.label}}: {{section.label}}{% endblock %}
 
 {% block mainnav %}
     {% with root as current %}
