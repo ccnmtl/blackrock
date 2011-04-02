@@ -17,8 +17,8 @@
     function getDisplayHour() {
         var now = new Date();
         var hour = now.getHours();
-        var ap = "AM";
-        if (hour   > 11) { ap = "PM";             }
+        var ap = "am";
+        if (hour   > 11) { ap = "pm";             }
         if (hour   > 12) { hour = hour - 12;      }
         if (hour   == 0) { hour = 12;             }
 
@@ -44,7 +44,7 @@
             }
         });
         
-        jQuery( "#header-copy").html('Conditions as of ' + getDisplayHour() + '.');
+        jQuery( "#header-copy").html('Conditions as of ' + getDisplayHour());
     });
     
 
@@ -53,7 +53,7 @@
 <h2>Environmental Monitoring Data</h2>
 <div id="weather"> 
 	<div class="header-row"><h3 id="header-copy"></h3></div>
-	<div class="station-id"><h3>Open Lowland Station:</h3><br />Elevation 270 feet</div>
+	<div class="station-id"><h3>Open Lowland Station: Elevation 270 feet</h3></div>
 	<div id="weather-viewer">
 		<ul>
 			<li class="aag">At a Glance</li>
@@ -74,24 +74,24 @@
         </div>
          	
         <!-- Air Soil -->
-		<div class="weather-image air-soil twentyfourhours"><img src='http://ccnmtl.columbia.edu/projects/blackrock/forestdata/data/current/Air-Soil-24Hr.png'></div>
-        <div class="weather-image air-soil sevendays" style="display: none"><img src='http://ccnmtl.columbia.edu/projects/blackrock/forestdata/data/current/Air-Soil-7Day.png'></div>
-        <div class="weather-image air-soil thirtydays" style="display: none"><img src='http://ccnmtl.columbia.edu/projects/blackrock/forestdata/data/current/Air-Soil-30Day.png'></div>
+		<div class="weather-image air-soil twentyfourhours"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/Air-Soil-24Hr.png'></div>
+        <div class="weather-image air-soil sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/Air-Soil-7Day.png'></div>
+        <div class="weather-image air-soil thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/Air-Soil-30Day.png'></div>
 
         <!-- Precipitation -->
-        <div class="weather-image precip twentyfourhours" style="display: none"><img src='http://ccnmtl.columbia.edu/projects/blackrock/forestdata/data/current//Precip-24Hr.png'></div>
-        <div class="weather-image precip sevendays" style="display: none"><img src='http://ccnmtl.columbia.edu/projects/blackrock/forestdata/data/current//Precip-7Day.png'></div>
-        <div class="weather-image precip thirtydays" style="display: none"><img src='http://ccnmtl.columbia.edu/projects/blackrock/forestdata/data/current//Precip-30Day.png'></div>
+        <div class="weather-image precip twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/Precip-24Hr.png'></div>
+        <div class="weather-image precip sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/Precip-7Day.png'></div>
+        <div class="weather-image precip thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/Precip-30Day.png'></div>
         
         <!-- Wind -->
-        <div class="weather-image wind twentyfourhours" style="display: none"><img src='http://ccnmtl.columbia.edu/projects/blackrock/forestdata/data/current//Wind-24Hr.png'></div>
-        <div class="weather-image wind sevendays" style="display: none"><img src='http://ccnmtl.columbia.edu/projects/blackrock/forestdata/data/current//Wind-7Day.png'></div>
-        <div class="weather-image wind thirtydays" style="display: none"><img src='http://ccnmtl.columbia.edu/projects/blackrock/forestdata/data/current//Wind-30Day.png'></div>
+        <div class="weather-image wind twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/Wind-24Hr.png'></div>
+        <div class="weather-image wind sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/Wind-7Day.png'></div>
+        <div class="weather-image wind thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/Wind-30Day.png'></div>
         
         <!-- Baro -->
-        <div class="weather-image baro twentyfourhours" style="display: none"><img src='http://ccnmtl.columbia.edu/projects/blackrock/forestdata/data/current//Baro-24Hr.png'></div>
-        <div class="weather-image baro sevendays" style="display: none"><img src='http://ccnmtl.columbia.edu/projects/blackrock/forestdata/data/current//Baro-7Day.png'></div>
-        <div class="weather-image baro thirtydays" style="display: none"><img src='http://ccnmtl.columbia.edu/projects/blackrock/forestdata/data/current//Baro-30Day.png'></div>
+        <div class="weather-image baro twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/Baro-24Hr.png'></div>
+        <div class="weather-image baro sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/Baro-7Day.png'></div>
+        <div class="weather-image baro thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/Baro-30Day.png'></div>
    </div>
 </div>
 

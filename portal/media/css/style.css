@@ -313,13 +313,17 @@ div#webcam {
 
 div#data p,
 div#webcam p{
-
 	margin: 0;
-
-	
 }
 
-div#data img,
+div#data img {
+    position: absolute;
+    margin-top: -50px;
+    margin-left: -40px;
+    clip: rect(50px 200px 223px 35px);
+    height: 250px;
+}
+
 div#webcam img {
 
 	height: 135px;
