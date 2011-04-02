@@ -813,13 +813,12 @@ div.station-id {
 
 div#time-slider {
     position: absolute;
-    left: 775px;
-    width: 275px;
-	display: block;
-	height: 30px;
-	margin: 10px;
-	margin-top: 20px;
-	padding: 5px;
+    left: 740px;
+    width: 280px;
+    display: block;
+    height: 30px;
+    margin-top: 20px;
+    padding: 5px;
 }
 
 div#time-slider .legend {
@@ -880,11 +879,11 @@ div#weather ul li.aag {
 }
 
 div#weather ul li a {
-    display: inline;
+    display: block; /* required for FF & Safari */
+    #display: inline; /* required for IE */
 	padding: 13px 25px 7px;
 	height: 25px;
 	text-decoration: none;
-	display: block;
 	color: #000;
 	background: #D9D9D9; /* old browsers */
     background: -moz-linear-gradient(top, #D9D9D9 0%, #959595 100%); /* firefox */
