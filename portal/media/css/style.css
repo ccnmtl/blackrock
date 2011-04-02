@@ -780,14 +780,20 @@ div#weather{
 }
 
 div#weather h3{
-	margin: 0;
-	padding: 0;
+	color: #297643;
+	font-size: 90%;
+	margin-left: 5px;
 }
 
-
+div#weather h5 {
+    margin: 0;
+    padding: 0;
+    font-size: 70%;
+    text-decoration: none;
+    margin-left: 5px;
+}
 
 div#weather div.header-row{
-
 	background-color: #297643;
 	border: 1px solid #a9a9a9;
 	-webkit-border-top-left-radius: 10px;
@@ -798,8 +804,6 @@ div#weather div.header-row{
     border-top-right-radius: 10px;
     color: #fff;
     padding: 5px;
-    
-   
 }
 
 
@@ -808,12 +812,30 @@ div.station-id {
 }
 
 div#time-slider {
-    width: 250px;
+    position: absolute;
+    left: 775px;
+    width: 275px;
 	display: block;
 	height: 30px;
-	float: right;
 	margin: 10px;
+	margin-top: 20px;
 	padding: 5px;
+}
+
+div#time-slider .legend {
+    margin-bottom: 20px;
+}
+
+div#time-slider .label {
+    font-size: 70%;
+    float: left;
+    width: 91px;
+    text-decoration: none;
+}
+
+div#slider {
+    width: 200px;
+    margin-left: 10px;
 }
 
 div.weather-image {
@@ -868,6 +890,8 @@ div#weather ul li a {
     background: -moz-linear-gradient(top, #D9D9D9 0%, #959595 100%); /* firefox */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#D9D9D9), color-stop(100%,#959595)); /* webkit */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#D9D9D9', endColorstr='#959595',GradientType=0 ); /* ie */
+    cursor: pointer;
+    cursor: hand;
 }
 
 div#weather ul li a.selected {

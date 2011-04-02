@@ -25,6 +25,17 @@
         return hour + "" + ap;
     }
 
+    function getDisplayDate() {
+        var now = new Date();
+        var d = now.getDate();
+        var day = (d < 10) ? '0' + d : d;
+        var m = now.getMonth() + 1;
+        var month = (m < 10) ? '0' + m : m;
+        var yy = now.getYear();
+        
+        return month + "/" + day + "/" + now.getFullYear();
+    }
+
     jQuery(document).ready(function() {
         jQuery(".weather-category-selector").click(function() {
             jQuery(".weather-category-selector").removeClass("selected");
@@ -44,7 +55,7 @@
             }
         });
         
-        jQuery( "#header-copy").html('Conditions as of ' + getDisplayHour());
+        jQuery( "#header-copy").html('Conditions as of ' + getDisplayHour() + ' on ' + getDisplayDate());
     });
     
 
@@ -52,7 +63,7 @@
 
 <h2>Environmental Monitoring Data</h2>
 <div id="weather"> 
-	<div class="header-row"><h3 id="header-copy"></h3></div>
+	<div class="header-row"><h5 id="header-copy"></h5></div>
 	<div class="station-id"><h3>Open Lowland Station: Elevation 270 feet</h3></div>
 	<div id="weather-viewer">
 		<ul>
@@ -63,14 +74,15 @@
 			<li><a class="weather-category-selector" id="baro">Barometric Pressure</a></li>
 		</ul>
         <div id="time-slider">
-            <table>
-                <tr><td style="width: 32%">24 hours</td><td style="width: 32%">7 days</td><td>30 days</td></tr>
-                <tr>
-                    <td colspan="3">
-                    <div class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" id="slider"><a style="left: 50%;" class="ui-slider-handle ui-state-default ui-corner-all ui-state-focus" href="#"></a></div>
-                    </td>
-                </tr>
-            </table>
+            <div class="legend">
+                <div class="label">24 hours</div>
+                <div class="label">&nbsp;7 days</div>
+                <div class="label">30 days</div>
+            </div>
+            <div class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" id="slider">
+                <a style="left: 50%;" class="ui-slider-handle ui-state-default ui-corner-all ui-state-focus" href="#"></a>
+            </div>
+            </div>
         </div>
          	
         <!-- Air Soil -->
