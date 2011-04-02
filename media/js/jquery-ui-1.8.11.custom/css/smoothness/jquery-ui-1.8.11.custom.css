@@ -462,20 +462,21 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
  * http://docs.jquery.com/UI/Slider#theming
  */
 .ui-slider { position: relative; text-align: left; }
-.ui-slider .ui-slider-handle { position: absolute; z-index: 2; width: .7em; height: .7em; cursor: default; }
+.ui-slider .ui-slider-handle { position: absolute; z-index: 2; width: .9em; height: .9em; font-size: 9em; cursor: default; }
 .ui-slider .ui-slider-range { position: absolute; z-index: 1; font-size: .7em; display: block; border: 0; background-position: 0 0; }
 
 .ui-slider-horizontal { height: .2em; background: none repeat scroll 0 0 transparent; background-color: #333; }
 .ui-slider-horizontal .ui-slider-handle { 
-    top: -.3em; 
+    top: -.4em; 
     margin-left: -.2em; 
     margin-right: -.5em; 
     color: #111;
     outline: none;
-    background: #999; /* for non-css3 browsers */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cccccc', endColorstr='#555'); /* for IE */
     background: -webkit-gradient(linear, left top, left bottom, from(#ccc), to(#555)); /* for webkit browsers */
-    background: -moz-linear-gradient(top,  #ccc,  #555); /* for firefox 3.6+ */ 
+    background: -moz-linear-gradient(top,  #ccc,  #555); /* for firefox 3.6+ */
+    #background: #999; /* for non-css3 browsers and IE */
+    /* make sure i'm last */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cccccc', endColorstr='#555'); /* for IE */
 }
 .ui-slider-horizontal .ui-slider-range { top: 0; height: 100%; }
 .ui-slider-horizontal .ui-slider-range-min { left: 0; }
