@@ -597,23 +597,42 @@ a.view-all {
 
 
 a.display-name {
-
 	font-weight: bold;
 	text-decoration: none;
 	margin: 10px 0;
 	display: block;
-	
 }
 
 #related-items a.display-name {
 
 	display: block;
-	
 }
 
 #related-items .highlightonmap a {
 
 
+}
+
+a.callout-display-name {
+    font-weight: bold;
+    text-decoration: none;
+    margin: 10px 0;
+    font-size: 90%;
+}
+
+div.callout-asset-types {
+    margin: 5px 0 5px 0;
+    display: block;
+    font-size: 80%;
+}
+
+a.callout-summary-link {
+    display:block;
+    margin:15px 15px 0 auto;
+    width:55% auto;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 80%;
 }
 
 

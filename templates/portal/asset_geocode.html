@@ -35,9 +35,8 @@
       
       <!--  Map Callout Template -->
       <div id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-description">
-        <a class="display-name" href="{{current_object|detail_url}}">{{current_object|display_name}}</a><br />
-        <div class="asset-types">{{current_object|klass_display}}</div>
-        
+        <a class="callout-display-name" href="{{current_object|detail_url}}">{{current_object|display_name}}</a>
+        <div class="callout-asset-types">{{current_object|klass_display}}</div>
         <div>
             <!--  Audience Icons -->
             {% for a in current_object.audience.all %}
@@ -49,7 +48,7 @@
             {% endfor %}
         </div>
         
-        <a class="summary-link" href="{{current_object|detail_url}}">More >></a>
+        <a class="callout-summary-link" href="{{current_object|detail_url}}">More >></a>
      </div>
       
    </div>
