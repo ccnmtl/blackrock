@@ -2,6 +2,14 @@
 
 {% block title %}{{module.label}}: {{section.label}}{% endblock %}
 
+{% block mapassets %}
+    {% ifnotequal module.slug "home" %}
+    {% ifnotequal section.slug "weather" %}
+    {% ifnotequal section.slug "webcams" %}
+        {{ block.super }}
+    {% endifnotequal %}{% endifnotequal %}{% endifnotequal %}
+{% endblock %}
+
 {% block mainnav %}
     {% with root as current %}
     {% with section.get_parent as selected %}
