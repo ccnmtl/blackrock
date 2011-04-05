@@ -20,7 +20,7 @@
             {% include "portal/asset_location.html" %}
         {% endwith %}
         
-        <h2>{{ current_object|display_name }}</h2>
+        <h3>{{ current_object|display_name }}</h3>
             
         {% if asset_klass == "DataSet" %}
             <h4>Record Type:</h4> {{ current_object|klass_display }}
