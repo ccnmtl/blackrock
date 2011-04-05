@@ -961,9 +961,9 @@ div#webcam_page {
 		background-color:#000;
 		font-size:0.8em;
 		line-height:1.4em;
-		padding:1em 0;
+		padding: 1em;
 		margin:0;
-		width: 100%;
+		width: 100% auto;
 
 }
 
