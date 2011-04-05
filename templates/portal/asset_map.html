@@ -23,17 +23,22 @@
               {% endif %}
               
               {% block infrastructure %}
-                {% cache 1800 infrastructure %}
                   {% with object|infrastructure_counts as infrastructure_counts %}
                   <td id="infrastructure_filter">
                   <h3>Forest Resources</h3>
-                      <div><input type="checkbox" class="infrastructure_option" id="idFacilities" value="Forest Facilities" checked="checked" /><img src="/portal/media/images/nonmapicon_forestfacilities.png/"/>Forest Facilities ({{infrastructure_counts.ForestFacilities}})</div>
+                  {% if module and module.slug == "foreststories" %}
+                      <div><input type="checkbox" class="infrastructure_option" id="idFacilities" value="Forest Facilities" /><img src="/portal/media/images/nonmapicon_forestfacilities.png/"/>Forest Facilities ({{infrastructure_counts.ForestFacilities}})</div>
+                      <div><input type="checkbox" class="infrastructure_option" id="idEnvironmentalMonitoring" value="Environmental Monitoring" {% ifequal section.slug "environmentalmonitoring" %}checked="checked"{% endifequal %} /><img src="/portal/media/images/nonmapicon_environmentalmonitoring.png/"/>Environmental Monitoring ({{infrastructure_counts.EnvironmentalMonitoringInfrastructure}})</div>
+                      <div><input type="checkbox" class="infrastructure_option" id="idWebcams" value="Webcams" /><img src="/portal/media/images/nonmapicon_webcams.png/"/>Webcams  ({{infrastructure_counts.Webcams}})</div>
+                      <div><input type="checkbox" class="infrastructure_option" id="idLongtermPlots" value="Long-Term Plots" {% ifequal section.slug "longtermplots" %}checked="checked"{% endifequal%} /><img src="/portal/media/images/nonmapicon_longtermplots.png/"/>Long-Term Plots  ({{infrastructure_counts.LongTermPlots}})</div>
+                  {% else %}
+                       <div><input type="checkbox" class="infrastructure_option" id="idFacilities" value="Forest Facilities" checked="checked" /><img src="/portal/media/images/nonmapicon_forestfacilities.png/"/>Forest Facilities ({{infrastructure_counts.ForestFacilities}})</div>
                       <div><input type="checkbox" class="infrastructure_option" id="idEnvironmentalMonitoring" value="Environmental Monitoring" /><img src="/portal/media/images/nonmapicon_environmentalmonitoring.png/"/>Environmental Monitoring ({{infrastructure_counts.EnvironmentalMonitoringInfrastructure}})</div>
                       <div><input type="checkbox" class="infrastructure_option" id="idWebcams" value="Webcams" /><img src="/portal/media/images/nonmapicon_webcams.png/"/>Webcams  ({{infrastructure_counts.Webcams}})</div>
                       <div><input type="checkbox" class="infrastructure_option" id="idLongtermPlots" value="Long-Term Plots" /><img src="/portal/media/images/nonmapicon_longtermplots.png/"/>Long-Term Plots  ({{infrastructure_counts.LongTermPlots}})</div>
+                  {% endif %}    
                   </td>
                   {% endwith %}
-                  {% endcache %}
               {% endblock %}
           </tr>
       </table>
