@@ -586,9 +586,11 @@ a.view-all {
     background-color: #fefeb3;
     border: 1px solid #b49f93;
     margin: -11px -11px 10px 10px;
+    
 }
 
-.single-record .highlightonmap a {
+
+.highlightonmap a {
 
 	padding: 7px 10px 5px;
 	margin: -1px 0 0 0;
