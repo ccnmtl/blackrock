@@ -317,18 +317,21 @@ div#webcam p{
 }
 
 div#data img {
-    position: absolute;
+  /*  position: absolute;
     margin-top: -50px;
     margin-left: -40px;
     clip: rect(50px 200px 223px 35px);
-    height: 250px;
+    height: 250px;*/
+    width: auto;
+    height: 135px;
+    
 }
 
 div#webcam img {
 
 	height: 135px;
 	width: auto;
-	margin-top: 5px;
+
 	
 }
 
@@ -891,7 +894,7 @@ div#weather ul li {
 
 div#weather ul li.aag {
 	background-color: #fff;
-	width: 255px;
+	width: 269px;
 	color: #000;
 	padding: 13px 10px 7px;
 	height: 25px;
@@ -900,7 +903,7 @@ div#weather ul li.aag {
 div#weather ul li a {
     display: block; /* required for FF & Safari */
     #display: inline; /* required for IE */
-	padding: 13px 25px 7px;
+	padding: 13px 30px 7px;
 	height: 25px;
 	text-decoration: none;
 	color: #000;
@@ -936,7 +939,6 @@ div#webcam_page div#webcam_page #timelapse{
 div#webcam_page {
 
 	padding: 5px;
-	background-color: #ccc;
 	display: block;
 	width: auto;
 	margin: 10px 0;
@@ -951,7 +953,9 @@ div#webcam_page {
 		padding:1em 0;
 		margin:0;
 		width: 100%;
+
 }
+
 
 #image-viewer.a {
 		color:#fff;

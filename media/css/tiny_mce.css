@@ -46,8 +46,11 @@ table#half-width td {
 
 .home_module .image_block {
     float: left;
-    margin-right: 6px;
-    margin-left: 8px;
+    margin: 0px 15px 10px 0px;
+    max-height: 85px;
+    overflow: hidden;
+        border: 1px solid #666;
+
 }
 
 .home_module .text_block {
@@ -75,9 +78,9 @@ table#half-width td {
 }
 
 .home_module img {
-    width: 125px;
+    width: 130px;
     height: auto;
-    border: 1px solid #ccc;
+
 }
 
 .research_module {
@@ -122,6 +125,7 @@ table#half-width td {
 
 .tools_module .image_block {
     height: 100%;
+ 
 }
 
 .tools_module h4 {
@@ -133,12 +137,18 @@ table#half-width td {
     color: #3D2800;
 }
 
+.home_module .tool{
+
+    margin: 10px;
+}
+
 .tools_module .tool {
     float: left;
-    width: 32%;
+    width: 31%;
     height: 185px;
     background-color: white;
-    margin-right: 12px;
+    margin: 5px 10px;
+
 }
 
 
