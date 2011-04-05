@@ -187,17 +187,14 @@ class SearchBackend(BaseSearchBackend):
         
         try:
             raw_results = self.conn.search(query_string, **kwargs)
-        except IOError as (errno, strerror):
+        except (IOError, SolrError), e:
+            self.log.error("search: Failed to query Solr '%s': '%s'. Cycling reader.", query_string, e)
             try:
-                self.log.error("IOError -- %s %s", errno, strerror)
                 self.conn.readercycle()
                 raw_results = self.conn.search(query_string, **kwargs)
             except Exception, e:
-                self.log.error("Failed to query Solr using '%s': %s", query_string, e)
+                self.log.error("search: Failed to query Solr using '%s': %s", query_string, e)
                 raw_results = EmptyResults()
-        except SolrError, e:
-            self.log.error("Failed to query Solr using '%s': %s", query_string, e)
-            raw_results = EmptyResults()
         
         return self._process_results(raw_results, highlight=highlight)
     
