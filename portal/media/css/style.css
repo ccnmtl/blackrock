@@ -174,21 +174,20 @@ div#subnav ul li {
 
 div#subnav ul li a {
  
-    color: black;
+    color: #E4DBCC;
     z-index: 100;
     float: left;
     padding: 3px 5px;
     margin: -3px -5px;
     cursor: pointer;
     font-weight: normal;
-    color: black;  
     text-decoration: none;
 }
 
-div#subnav.home ul li {background-color: #796456;}
-div#subnav.experience ul li {background-color: #529873;}
+/*div#subnav.home ul li {background-color: #796456;}
+div#subnav.experience ul li {background-color: #d4e2d8;}
 div#subnav.education ul li {background-color: #a9676d; }
-div#subnav.research ul li {background-color: #5a9bcf;}
+div#subnav.research ul li {background-color: #5a9bcf;}*/
 
 div#subnav.home ul li.selected {background-color: #E4DBCC;}
 div#subnav.experience ul li.selected {background-color: #E4DBCC;}
@@ -958,14 +957,13 @@ div#webcam_page {
 
 #image-viewer {
 		color:#000;
-		background-color:#897467;
 		font-size:0.8em;
 		line-height:1.4em;
 		padding: 1em;
 		margin:0;
 		/*width: 660px;*/
 		width: auto;
-		border: 1px solid #B49F93;
+		border: 1px solid #B3b3b3;
 
 }
 
@@ -991,10 +989,16 @@ div#webcam_page {
 
 div#webcam_page #timelapse .video {
 
-	margin: 10px 0;
-	width: 480px;
+
+	width: 400px;
 	display: block;
 	
+}
+
+.floatleft {
+	float: left;
+	margin: 0 10px 20px 0;
+
 }
 
 
