@@ -27,12 +27,12 @@
     var instanceOne = new ImageFlow();
     // console.log("initializing imageflow");
     instanceOne.init({ ImageFlowID:'webcam-flow',
-		       preloadImages: false,
+		       preloadImages: true,
 		       //aspectRatio: 2.333, 
 		       //aspectRatio: 1, 
 		       imageFocusMax: 1,
-		       imageFocusM: 2,
-		       xStep: 350,
+		       imageFocusM: 1.5,
+		       xStep: 220,
 		       buttons: true,
 		       startID: 287,
                        reflections: false,  
@@ -47,43 +47,49 @@
 		       //imageFocusM: 1.618,
 
                      });
+                     
+  jQuery("#webcam-flow_previous").html("<span class='flowlabel'><br />Earlier Views</span>");
+  jQuery("#webcam-flow_next").html("<span class='flowlabel'><br />Current View</span>");
+                   
+                     
   });
 </script>
  
 <h2>Forest View</h2>
 <div id="webcam_page"> 
-
+<h3>Today at the Forest</h3>
 	<div id="image-viewer">
-	   <h3>Drag the slider to srcroll through the last 24 hours of forest view photos</h3>
+	   
 	   <div id="webcam-focus-container">
 	     <!-- <img id="webcam-focus" src="http://ccnmtl.columbia.edu/projects/blackrock/forestdata/webcam/current.jpg" width="550" /> -->
 	   </div>
 	   <div id="webcam-flow" class="imageflow"></div>
+	   <p style="text-align: center;" >Drag the slider to scroll through the last 24 hours of forest view photos</p>
 	</div>
 	
 	
 	<div id="timelapse">
-	<h3>Time Lapse Videos</h3>	
-		
-		<h4>Video 1 Title</h4>
+	<h3>Featured Events</h3>	
+<!--		
+		<h4>Sunrise</h4>
 		<div class="video">
-		<script type="text/javascript" src="http://ccnmtl.columbia.edu/stream/jsembed?player=download_mp4_v3&file=projects/mp4/virtualforest_schuster_turtles_turtle_races.mp4&width=480&height=272&poster=http://ccnmtl.columbia.edu/broadcast/projects/mp4/virtualforest_schuster_turtles_turtle_races.jpg&protection=5500fac33addf0ad7329152fbd5564cce6b38d5e"></script>
-		</div>
-
-<!--Hiding to protect Liz's sad computer
-
-		<h4>Video 2 Title</h4>		
-		<div class="video">
-		<script type="text/javascript" src="http://ccnmtl.columbia.edu/stream/jsembed?player=download_mp4_v3&file=projects/mp4/virtualforest_schuster_turtles_pulling_turtle_traps.mp4&width=480&height=272&poster=http://ccnmtl.columbia.edu/broadcast/projects/mp4/virtualforest_schuster_turtles_pulling_turtle_traps.jpg&protection=3babea366e98904ff63d341552d7de109d8701c1"></script>
-		</div>
-		
-		<h4>Video 3 Title</h4>
-		<div class="video">
-		<script type="text/javascript" src="http://ccnmtl.columbia.edu/stream/jsembed?player=download_mp4_v3&file=projects/mp4/virtualforest_schuster_turtles_data_collection.mp4&width=480&height=272&poster=http://ccnmtl.columbia.edu/broadcast/projects/mp4/virtualforest_schuster_turtles_data_collection.jpg&protection=69982bcc2185766084b7b5b45a45a261417c922a"></script>
-		</div>
--->
+	<script type="text/javascript" src="http://ccnmtl.columbia.edu/stream/jsembed?player=download_mp4_v3&file=projects/mp4/virtualforest_time_lapse01_glare.mp4&width=480&height=360&poster=http://ccnmtl.columbia.edu/broadcast/projects/mp4/virtualforest_time_lapse01_glare.jpg&protection=5b9e4fe881b47f0a4ffcaa630dc4f0ca4d36d1e1"></script>
 	</div>
 
+
+		<h4>Snow Melting</h4>		
+		<div class="video">
+		<script type="text/javascript" src="http://ccnmtl.columbia.edu/stream/jsembed?player=download_mp4_v3&file=projects/mp4/virtualforest_time_lapse03_snow_long.mp4&width=480&height=360&poster=http://ccnmtl.columbia.edu/broadcast/projects/mp4/virtualforest_time_lapse03_snow_long.jpg&protection=c0a8e54641fecf4f2d2daf1ffe96fc5b83c28dca"></script>
+
 </div>
+		
+		<h4>April Showers</h4>
+		<div class="video">
+		<script type="text/javascript" src="http://ccnmtl.columbia.edu/stream/jsembed?player=download_mp4_v3&file=projects/mp4/virtualforest_time_lapse02_april_showers.mp4&width=480&height=360&poster=http://ccnmtl.columbia.edu/broadcast/projects/mp4/virtualforest_time_lapse02_april_showers.jpg&protection=3bf74c25d2c49a56a6d6c9612134a2d25fb3e1c1"></script>
+		</div>
+
+	</div>
+
+</div>-->
 
 <br class="clear" />

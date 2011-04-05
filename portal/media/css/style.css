@@ -957,13 +957,15 @@ div#webcam_page {
 }
 
 #image-viewer {
-		color:#fff;
-		background-color:#000;
+		color:#000;
+		background-color:#897467;
 		font-size:0.8em;
 		line-height:1.4em;
 		padding: 1em;
 		margin:0;
-		width: 100% auto;
+		/*width: 660px;*/
+		width: auto;
+		border: 1px solid #B49F93;
 
 }
 
@@ -977,12 +979,14 @@ div#webcam_page {
 		margin:0.4em 0 1.3em 0;
 	}
 
-image-viewer#webcam-flow {
-		height: 250px; 
-	}
 
 .imageflow {
 
+}
+
+.flowlabel {
+
+	padding-top: 30px;
 }
 
 div#webcam_page #timelapse .video {
