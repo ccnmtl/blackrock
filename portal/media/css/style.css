@@ -940,14 +940,10 @@ div#webcam_page {
 		line-height:1.4em;
 		padding:1em 0;
 		margin:0;
-		width: 600px;
+		width: 100%;
 
 }
 
-#webcam-focus-container {
-	display: none;
-
-}
 
 #image-viewer.a {
 		color:#fff;
@@ -959,7 +955,7 @@ div#webcam_page {
 	}
 
 image-viewer#webcam-flow {
-		/* heigth: 226px; */
+		height: 250px; 
 	}
 
 .imageflow {

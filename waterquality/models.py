@@ -103,8 +103,6 @@ class LimitedSeries(object):
         if rows.count() > max_points:
             # need to downsample so the graphing library can handle it
             inc = int(float(rows.count())/max_points)
-            print inc
-            print rows.count()
         return [r.value for r in rows[::inc]]
 
 
