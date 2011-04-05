@@ -1459,14 +1459,12 @@ domReadyEvent.init();
 /*
 domReady(function()
 {
-    console.log("initializing imageflow");
     var instanceOne = new ImageFlow();
     instanceOne.init({ ImageFlowID:'webcam_flow',
                        reflections: false,  
                        reflectionP: 0.0
 
 		     });
-    console.log("done initializing imageflow");
-
+ 
 });
 */

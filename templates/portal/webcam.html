@@ -18,8 +18,8 @@
 		  jQuery("<img/>")
 		    .attr("src", webcamImageArray[i].src)
 		    .attr("longdesc", webcamImageArray[i].src)
-		    .attr("width", "75")
-		    .attr("height", "75")
+		    .attr("width", "70")
+		    .attr("height", "48")
 		    .attr("alt", webcamImageArray[i].text)
 		    )
 	
@@ -28,17 +28,24 @@
     // console.log("initializing imageflow");
     instanceOne.init({ ImageFlowID:'webcam-flow',
 		       preloadImages: false,
-		       aspectRatio: 2.333, 
-		       //imageFocusM: 1.618,
-		       // imageScaling: false,
+		       //aspectRatio: 2.333, 
+		       //aspectRatio: 1, 
 		       imageFocusMax: 1,
+		       imageFocusM: 2,
 		       xStep: 350,
 		       buttons: true,
-		       startID: 288,
+		       startID: 287,
                        reflections: false,  
                        reflectionP: 0.0,
-		       slideshow: true,
-		       onClick: function() { jQuery("#webcam-focus").attr("src", this.url) }
+		       //onClick: function() { alert('hello'); jQuery("#webcam-focus").get(0).src = this.url; return true; }
+
+		       onClick: function() { return jQuery("#webcam-focus").attr("src", this.url);  }
+		       // eeek - slideshow doesn't work in ie - http://finnrudolph.de/Shoutbox/127417304
+                       // slideshow: true
+		       // and this doesn't seem to work at all 
+		       // imageScaling: false,
+		       //imageFocusM: 1.618,
+
                      });
   });
 </script>
@@ -47,9 +54,9 @@
 <div id="webcam_page"> 
 
 	<div id="image-viewer">
-	   <h3>Webcam Scrubber</h3>
+	   <h3>Drag the slider to srcroll through the last 24 hours of forest view photos</h3>
 	   <div id="webcam-focus-container">
-	     <img id="webcam-focus" src="http://ccnmtl.columbia.edu/projects/blackrock/forestdata/webcam/current.jpg" width="550" />
+	     <!-- <img id="webcam-focus" src="http://ccnmtl.columbia.edu/projects/blackrock/forestdata/webcam/current.jpg" width="550" /> -->
 	   </div>
 	   <div id="webcam-flow" class="imageflow"></div>
 	</div>
