@@ -6,6 +6,7 @@
 .home_module_container {
     min-width: 1000px;
     margin-top: 10px;
+
 }
 
 table#half-width {
@@ -25,6 +26,7 @@ table#half-width td {
     border-style: solid;
     border-width: 1px;
     vertical-align: top;
+    font-size: 75%;
     min-width: 450px;
     padding-bottom: 5px;
     width: 100% auto;
@@ -39,6 +41,7 @@ table#half-width td {
     padding-left: 40px;
     line-height: 35px;
     margin: 0 0 5px;
+    font-size: 120%;
 }
 
 .home_module .image_block {
@@ -60,6 +63,7 @@ table#half-width td {
     text-decoration: none;
     margin: 5px 0;
     display: block;
+    font-size: 110%;
 }
 
 .home_module ul {

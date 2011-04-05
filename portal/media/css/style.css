@@ -10,13 +10,13 @@
 
 
 body { 
+	font-family: "Lucida Grande", "Trebuchet MS", arial, helvetica, sans-serif !important; 
 	margin: 0;
 	padding: 0 auto;
 	background-color: #897467;
 	min-width: 805px;
 	max-width: 1600px;
 	overflow-x: hidden;
-	font-size: .8em;
 }
 
 
@@ -46,6 +46,7 @@ div#mainnav ul li {
 	float: left;
 	padding: 5px 10px;
 	margin: 10px 0px 0px 10px;
+	font-size: 90%;
 	cursor: pointer;
 	font-weight: normal;
 	border: 1px solid #E4DBCC;
@@ -107,6 +108,7 @@ div#search-tab {
     float: right;
     padding: 5px 10px;
     margin: 10px 10px -5px 0;
+    font-size: 90%;
     cursor: pointer;
     font-weight: normal;
     background-color: #89a08c;
@@ -126,6 +128,7 @@ div#subnav {
     height: 29px; 
     background-color: #897467;
     color: #fff;
+    font-size: 12px;
     height: 4px;
     clear: both;
     margin-top: -1px;
@@ -149,6 +152,7 @@ div#subnav ul {
     float: left;
     padding: 0;
     margin: 0;
+    font-size: 90%;
     cursor: pointer;
     font-weight: normal;
 
@@ -162,7 +166,7 @@ div#subnav ul li {
     float: left;
     padding: 3px 5px;
     margin: 5px 10px 0 0;
-    /* font-size: 100%; */
+    font-size: 100%;
     cursor: pointer;
     font-weight: normal;
     color: black;  
@@ -257,6 +261,7 @@ div#weather-widget {
 
 div#weather-widget h2 {
 
+	font-size: 90%;
 	margin: 0 0 5px 0;
 
 	
@@ -423,6 +428,7 @@ a.link_experience, span.link_experience {
 
 	color: #436751;
 	font-weight: bold;
+	font-size: 90%;
 	margin: 10px 0 0; 
 	display: block;
 
@@ -445,6 +451,7 @@ a.link_education, span.link_education {
 
 	color: #730711;
 	font-weight: bold;
+	font-size: 90%;
 	margin: 10px 0 0; 
 	display: block;
 
@@ -467,6 +474,7 @@ a.link_research, span.link_research {
 
 	color: #0071bc;
 	font-weight: bold;
+	font-size: 90%;
 	margin: 10px 0 0; 
 	display: block;
 
@@ -612,6 +620,7 @@ a.callout-display-name {
     font-weight: bold;
     text-decoration: none;
     margin: 10px 0;
+    font-size: 90%;
 }
 
 div.callout-asset-types {
@@ -696,6 +705,7 @@ div#facets th {
     padding: 10px;
     white-space: nowrap;
     width: 200px;
+    font-size: 90%;
 }
 
 div#facets form table tbody tr td {
@@ -793,6 +803,7 @@ div#weather{
 
 div#weather h3{
 	color: #297643;
+	font-size: 90%;
 	margin-left: 5px;
 }
 
@@ -872,6 +883,7 @@ div#weather ul {
     border-left: 1px solid #a9a9a9;
 	border-right: 1px solid #a9a9a9;
 	min-width: 1000px;
+	font-size: 90%;
 }
 
 div#weather ul li {
