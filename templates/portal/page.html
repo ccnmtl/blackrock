@@ -1,6 +1,12 @@
 {% extends "portal/base_portal.html" %} 
 
-{% block title %}{{module.label}}: {{section.label}}{% endblock %}
+{% block title %}
+{% ifequal module.label "Home" %}
+    {{module.label}}
+{% else %}
+    {{module.label}}: {{section.label}}
+{% endifequal %}
+{% endblock %}
 
 {% block mapassets %}
     {% ifnotequal module.slug "home" %}
