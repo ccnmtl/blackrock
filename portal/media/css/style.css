@@ -781,7 +781,14 @@ div#related-items {
 
 padding: 10px;
 background-color: #DCD3C2;
+font-size: .8em;
 
+}
+
+.related {
+
+	border: 1px solid #B49F93;
+	padding: 10px;
 }
 
 .gmnoprint {
