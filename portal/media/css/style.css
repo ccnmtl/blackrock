@@ -298,7 +298,6 @@ div#data {
 	width: 155px;
 	-moz-border-radius-bottomleft: 10px 10px;
 	border-bottom-left-radius: 10px 10px;
-	
 }
 
 div#webcam {
@@ -308,6 +307,13 @@ div#webcam {
 	padding: 5px 5px 0 5px;
 	width: 200px;
 	
+}
+
+div#data h6,
+div#webcam h6 {
+    margin: 1px;
+    padding: 0;
+    font-weight:normal;   
 }
 
 div#data p,

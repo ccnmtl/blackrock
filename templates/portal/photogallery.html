@@ -44,12 +44,14 @@
     
     <div id="data">
     <h2>Current Conditions</h2>
-     <p><img src="{% value_from_settings BLACK_ROCK_FEED %}/data/current/Widget.png" /></p>
-     <div class="action"><a href="/portal/experience/weather/">More >></a></div>
+    <h6>as of {% now "ga" %} on {% now "m/d/Y" %}</h6>
+    <p><img src="{% value_from_settings BLACK_ROCK_FEED %}/data/current/Widget.png" /></p>
+    <div class="action"><a href="/portal/experience/weather/">More >></a></div>
     </div>
    
    <div id="webcam">
     <h2>Forest View</h2>
+    <h6>&nbsp;</h6>
     <p><img src="{% value_from_settings BLACK_ROCK_FEED %}/webcam/current.jpg" /></p>
     <div class="action"><a href="/portal/experience/forest-view/">More >></a></div>
    </div>
