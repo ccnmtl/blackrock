@@ -322,7 +322,7 @@ div#data img {
     margin-left: -40px;
     clip: rect(50px 200px 223px 35px);
     height: 250px;*/
-    width: 145px;
+    width: auto;
     height: 135px;
     
 }
@@ -331,7 +331,7 @@ div#webcam img {
 
 	height: 135px;
 	width: auto;
-	margin-top: 5px;
+
 	
 }
 
@@ -939,7 +939,6 @@ div#webcam_page div#webcam_page #timelapse{
 div#webcam_page {
 
 	padding: 5px;
-	background-color: #ccc;
 	display: block;
 	width: auto;
 	margin: 10px 0;
@@ -954,6 +953,12 @@ div#webcam_page {
 		padding:1em 0;
 		margin:0;
 		width: 600px;
+
+}
+
+#webcam-focus-container {
+	display: none;
+
 }
 
 #image-viewer.a {

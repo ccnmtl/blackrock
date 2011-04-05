@@ -18,8 +18,8 @@
 		  jQuery("<img/>")
 		    .attr("src", webcamImageArray[i].src)
 		    .attr("longdesc", webcamImageArray[i].src)
-		    .attr("width", "75")
-		    .attr("height", "75")
+		    .attr("width", "300")
+		    .attr("height", "300")
 		    .attr("alt", webcamImageArray[i].text)
 		    )
 	
@@ -28,11 +28,11 @@
     // console.log("initializing imageflow");
     instanceOne.init({ ImageFlowID:'webcam-flow',
 		       preloadImages: false,
-		       aspectRatio: 2.333, 
-		       //imageFocusM: 1.618,
-		       // imageScaling: false,
-		       imageFocusMax: 1,
-		       xStep: 350,
+		       aspectRatio: 1, 
+		       imageFocusM: 1,
+		       //imageScaling: false,
+		       imageFocusMax: 4,
+		       xStep: 300,
 		       buttons: true,
 		       startID: 288,
                        reflections: false,  
@@ -47,7 +47,7 @@
 <div id="webcam_page"> 
 
 	<div id="image-viewer">
-	   <h3>Webcam Scrubber</h3>
+	 
 	   <div id="webcam-focus-container">
 	     <img id="webcam-focus" src="http://ccnmtl.columbia.edu/projects/blackrock/forestdata/webcam/current.jpg" width="550" />
 	   </div>
