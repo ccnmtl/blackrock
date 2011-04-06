@@ -1,7 +1,7 @@
 {% load portal %}
 {% load cache %}
-
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <title>
       The Virtual Forest Initiative: {% block title %}{% endblock %}
@@ -12,11 +12,12 @@
       @import "/site_media/css/style.css" ;
       @import "/site_media/css/tiny_mce.css" ;
       @import "/portal/media/css/style.css";
+      @import "/portal/media/js/jcarousel/skins/blackrock/skin.css";
       @import "/site_media/js/jquery-ui-1.8.11.custom/css/smoothness/jquery-ui-1.8.11.custom.css" ;
     </style>
+    
     {% block css %}{% endblock %}
-
-
+    
     <script  type="text/javascript" src="/site_media/js/jquery-ui-1.8.11.custom/js/jquery-1.4.4.min.js"></script>
     <script  type="text/javascript" src="/site_media/js/jquery-ui-1.8.11.custom/js/jquery-ui-1.8.11.custom.min.js"></script>
     <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script>
@@ -26,7 +27,7 @@
     <script type="text/javascript" src="/site_media/js/flowplayer-3.1.4.min.js"></script>
     <script type="text/javascript" src="/portal/media/js/jcarousel/lib/jquery.jcarousel.js"></script>
     <script type="text/javascript">
-      
+    <!--
       function clearDefaultText() {
          //Clear the Ghost Text if it is still set.
          var search_text = document.getElementById('id_q');
@@ -34,7 +35,7 @@
             search_text.value = '';
          }
       }
-
+    -->
     </script>
     {% block js %}{% endblock %}
     
@@ -100,8 +101,8 @@
        {% block searchtab %}
        <div id="search">
            <form method="get" action="/portal/search/">
-              <input name="q" id="id_q" type="text" value="Search" onfocus="clearDefaultText();">
-              <input type="submit" value="Search" onclick="clearDefaultText();"/>
+              <input name="q" id="id_q" type="text" value="Search" onfocus="clearDefaultText();" />
+              <input type="submit" value="Search" onclick="clearDefaultText();" />
            </form>
         </div>
         {% endblock %}

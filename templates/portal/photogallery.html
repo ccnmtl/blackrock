@@ -1,7 +1,6 @@
 {% load portal %}
 {% load smartif %}
  
-<link rel="stylesheet" type="text/css" href="/portal/media/js/jcarousel/skins/blackrock/skin.css" />
 <script type="text/javascript" src="/portal/media/js/photogallery.js"></script>
     
 <div id="home_banner">
@@ -23,7 +22,7 @@
                         </p>
                     </div>
                     <input type="hidden" value="jcarousel-selector-{{item.position}}"></input>
-                    <img src="{{item.image.file.url}}">
+                    <img src="{{item.image.file.url}}" alt="jCarousel image {{item.position}}" />
                 </li>
             {% endfor %}
         </ul>
@@ -45,14 +44,14 @@
     <div id="data">
     <h2>Current Conditions</h2>
     <h6>as of {% now "ga" %} on {% now "m/d/Y" %}</h6>
-    <p><img src="{% value_from_settings BLACK_ROCK_FEED %}/data/current/Widget.png" /></p>
+    <p><img src="{% value_from_settings BLACK_ROCK_FEED %}/data/current/Widget.png" alt="Current Conditions Widget" /></p>
     <div class="action"><a href="/portal/experience/weather/">More >></a></div>
     </div>
    
    <div id="webcam">
     <h2>Forest View</h2>
     <h6>&nbsp;</h6>
-    <p><img src="{% value_from_settings BLACK_ROCK_FEED %}/webcam/current.jpg" /></p>
+    <p><img src="{% value_from_settings BLACK_ROCK_FEED %}/webcam/current.jpg" alt="Current Forest View" /></p>
     <div class="action"><a href="/portal/experience/forest-view/">More >></a></div>
    </div>
    
