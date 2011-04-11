@@ -110,8 +110,26 @@ $(document).ready(function() {
          data: [
            {% for point in set.data %}{{point}}{% if not forloop.last %},{% endif %}{% endfor %}
          ]
-      }{% if not forloop.last %},{% endif %}
+      }{% if not forloop.last %},{% endif %}{% if forloop.last %}{% if lines %},{% endif %}{% endif %}
 {% endfor %}
+
+ {% for line in lines %} 
+   {
+         name: '{{line.label}}',
+         type: 'line',
+         data: [[Date.UTC({{start.year}}, {{start.month}}, {{start.day}}), {{line.value}}], [Date.UTC({{end.year}}, {{end.month}}, {{end.day}}), {{line.value}}]],
+         marker: {
+            enabled: false
+         },
+         states: {
+            hover: {
+               lineWidth: 0
+            }
+         },
+         enableMouseTracking: false
+      }{% if not forloop.last %},{% endif %}
+
+{% endfor %} 
       ],
 {% endifequal %}
 
@@ -226,9 +244,29 @@ $(document).ready(function() {
 </td>
 <td>
 Title: <input type="text" name="title" value="{{graph_title}}"/><br />
-<input type="submit" value="graph"/>
-</td></tr>
+
+</td>
+
+<td>
+<h4>Lines</h4>
+{% for line in lines %}
+Label: <input type="text" name="line_label_{{line.n}}"
+	      value="{{line.label}}" />
+Value: <input type="text" name="line_value_{{line.n}}"
+	      value="{{line.value}}" /><br />
+{% endfor %}
+{% with lines|length as n %}
+Label: <input type="text" name="line_label_{{n}}"
+	      value="" />
+Value: <input type="text" name="line_value_{{n}}"
+	      value="" /><br />
+{% endwith %}
+</td>
+
+</tr>
 </table>
+
+<input type="submit" value="graph"/>
 
 {% if lseriesp %}
 <p>R<sup>2</sup>: {{lseriesp.linear_regression.rr|floatformat}}</p>

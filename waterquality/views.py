@@ -61,6 +61,15 @@ def index(request):
             all_series.append(series)
         data['all_series'] = all_series
         data['show_graph'] = True
+
+        lines = []
+        for k in request.GET.keys():
+            if k.startswith("line_value_"):
+                v = request.GET.get(k)
+                n = k[len("line_value_"):]
+                l = request.GET.get("line_label_%s" % n)
+                lines.append(dict(label=l,value=v,n=int(n)))
+        data["lines"] = lines
     if graph_type == 'box-plot':
         series_ids = request.GET.getlist('series')
         datasets = []
