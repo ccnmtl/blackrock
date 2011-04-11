@@ -158,7 +158,26 @@ $(document).ready(function() {
             }
          },
          enableMouseTracking: false
-      }
+      }{% if lines %},{% endif %}
+
+ {% for line in lines %} 
+   {
+         name: '{{line.label}}',
+         type: 'line',
+         data: [[{{lseriesp.independent.min}}, {{line.value}}], [{{lseriesp.independent.max}}, {{line.value}}]],
+         marker: {
+            enabled: false
+         },
+         states: {
+            hover: {
+               lineWidth: 0
+            }
+         },
+         enableMouseTracking: false
+      }{% if not forloop.last %},{% endif %}
+
+{% endfor %} 
+
  ],
 
 {% endifequal %}
