@@ -45,10 +45,11 @@ def index(request):
         lines = []
         for k in request.GET.keys():
             if k.startswith("line_value_"):
-                v = request.GET.get(k)
-                n = k[len("line_value_"):]
-                l = request.GET.get("line_label_%s" % n)
-                lines.append(dict(label=l,value=v,n=int(n)))
+                v = request.GET.get(k,'')
+                if v:
+                    n = k[len("line_value_"):]
+                    l = request.GET.get("line_label_%s" % n)
+                    lines.append(dict(label=l,value=v,n=int(n)))
         data["lines"] = lines
 
     if graph_type == 'time-series':
