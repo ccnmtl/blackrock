@@ -106,7 +106,7 @@ $(document).ready(function() {
          type: 'area',
          name: '{{set.series.name}}',
          pointInterval: 3600 * 1000,
-         pointStart: Date.UTC({{start.year}}, {{start.month}}, {{start.day}}),
+         pointStart: Date.UTC({{start.year}}, {{start.month}} - 1, {{start.day}}),
          data: [
            {% for point in set.data %}{{point}}{% if not forloop.last %},{% endif %}{% endfor %}
          ]
@@ -117,7 +117,7 @@ $(document).ready(function() {
    {
          name: '{{line.label}}',
          type: 'line',
-         data: [[Date.UTC({{start.year}}, {{start.month}}, {{start.day}}), {{line.value}}], [Date.UTC({{end.year}}, {{end.month}}, {{end.day}}), {{line.value}}]],
+         data: [[Date.UTC({{start.year}}, {{start.month}} - 1, {{start.day}}), {{line.value}}], [Date.UTC({{end.year}}, {{end.month}} - 1, {{end.day}}), {{line.value}}]],
          marker: {
             enabled: false
          },
