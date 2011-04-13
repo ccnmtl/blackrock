@@ -27,14 +27,14 @@
     var instanceOne = new ImageFlow();
     // console.log("initializing imageflow");
     instanceOne.init({ ImageFlowID:'webcam-flow',
-		       preloadImages: true,
+		       preloadImages: false,
 		       //aspectRatio: 2.333, 
-		       aspectRatio: 2.2, 
+		       //aspectRatio: 1, 
 		       imageFocusMax: 1,
 		       imageFocusM: 1.5,
 		       xStep: 220,
 		       buttons: true,
-		       startID: 288,
+		       startID: 287,
                reflections: false,  
                reflectionP: 0.0,
                 onClick: function() { return false; }
@@ -56,34 +56,30 @@
 	     <!-- <img id="webcam-focus" src="http://ccnmtl.columbia.edu/projects/blackrock/forestdata/webcam/current.jpg" width="550" /> -->
 	   </div>
 	   <div id="webcam-flow" class="imageflow"></div>
-	   <div style="text-align: center;" >Drag the slider to scroll through the last 24 hours of forest view photos</div>
+	   <p style="text-align: center;" >Drag the slider to scroll through the last 24 hours of forest view photos</p>
 	</div>
 	
 	
 	<div id="timelapse">
-	<h3>Time Lapse Videos</h3>	
-
-<div class="floatleft">
-		<h4>Snow Melting 03/26/11</h4>		
-		<div class="video">
-		<script type="text/javascript" src="http://ccnmtl.columbia.edu/stream/jsembed?player=download_mp4_v3&file=projects/mp4/virtualforest_time_lapse03_snow.mp4&width=400&height=300&poster=http://ccnmtl.columbia.edu/broadcast/projects/mp4/virtualforest_time_lapse03_snow.jpg&protection=483a806abf931b2d1c662f2e1fcc691df2d5a329"></script>
-</div>
-		</div>
+	<h3>Featured Events</h3>	
 		
-<div class="floatleft">
-<h4>Sunrise 03/29/11</h4>
+		<h4>Sunrise</h4>
 		<div class="video">
-	<script type="text/javascript" src="http://ccnmtl.columbia.edu/stream/jsembed?player=download_mp4_v3&file=projects/mp4/virtualforest_time_lapse01_glare.mp4&width=400&height=300&poster=http://ccnmtl.columbia.edu/broadcast/projects/mp4/virtualforest_time_lapse01_glare.jpg&protection=5b9e4fe881b47f0a4ffcaa630dc4f0ca4d36d1e1"></script>
+	<script type="text/javascript" src="http://ccnmtl.columbia.edu/stream/jsembed?player=download_mp4_v3&file=projects/mp4/virtualforest_time_lapse01_glare.mp4&width=480&height=360&poster=http://ccnmtl.columbia.edu/broadcast/projects/mp4/virtualforest_time_lapse01_glare.jpg&protection=5b9e4fe881b47f0a4ffcaa630dc4f0ca4d36d1e1"></script>
 	</div>
 
-</div>
 
-	<div class="floatleft">	
-		<h4>April Showers 04/04/11</h4>
+		<h4>Snow Melting</h4>		
 		<div class="video">
-		<script type="text/javascript" src="http://ccnmtl.columbia.edu/stream/jsembed?player=download_mp4_v3&file=projects/mp4/virtualforest_time_lapse02_april_showers.mp4&width=400&height=300&poster=http://ccnmtl.columbia.edu/broadcast/projects/mp4/virtualforest_time_lapse02_april_showers.jpg&protection=3bf74c25d2c49a56a6d6c9612134a2d25fb3e1c1"></script>
-		</div>
+		<script type="text/javascript" src="http://ccnmtl.columbia.edu/stream/jsembed?player=download_mp4_v3&file=projects/mp4/virtualforest_time_lapse03_snow_long.mp4&width=480&height=360&poster=http://ccnmtl.columbia.edu/broadcast/projects/mp4/virtualforest_time_lapse03_snow_long.jpg&protection=c0a8e54641fecf4f2d2daf1ffe96fc5b83c28dca"></script>
+
 </div>
+		
+		<h4>April Showers</h4>
+		<div class="video">
+		<script type="text/javascript" src="http://ccnmtl.columbia.edu/stream/jsembed?player=download_mp4_v3&file=projects/mp4/virtualforest_time_lapse02_april_showers.mp4&width=480&height=360&poster=http://ccnmtl.columbia.edu/broadcast/projects/mp4/virtualforest_time_lapse02_april_showers.jpg&protection=3bf74c25d2c49a56a6d6c9612134a2d25fb3e1c1"></script>
+		</div>
+
 	</div>
 
 </div>
