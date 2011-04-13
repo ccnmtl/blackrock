@@ -288,7 +288,7 @@ Value: <input type="text" name="line_value_{{n}}"
 <input type="submit" value="graph"/>
 
 {% if lseriesp %}
-<p>R<sup>2</sup>: {{lseriesp.linear_regression.rr|floatformat}}</p>
+<p>R<sup>2</sup>: {{lseriesp.linear_regression.rr|floatformat:2}}</p>
 {% endif %}
 
 {% else %}
