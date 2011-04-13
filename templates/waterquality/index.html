@@ -204,9 +204,11 @@ $(document).ready(function() {
 {% if show_box_plot %}
 
 {% with lsg.box_data as box_data %}
+{% spaceless %}
+  <img src="https://chart.googleapis.com/chart?chs=600x200&cht=ls&chd=t0:-1,{% for bd in box_data.series %}{{bd.min}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.lq}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.uq}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.max}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.median}},{% endfor %}0&chm=F,0000FF,0,1:{{box_data.count}},20|H,0000FF,0,1:{{box_data.count}},1:20|H,0000FF,3,1:{{box_data.count}},1:20|H,0000FF,4,1:{{box_data.count}},1:20&chxt=y&chxr=0,{{box_data.min}},{{box_data.max}},0" 
 
-  <img src="https://chart.googleapis.com/chart?chs=400x200&cht=lc&chd=t0:0,{% for bd in box_data.series %}{{bd.min}},{% endfor %}0|0,{% for bd in box_data.series %}{{bd.lq}},{% endfor %}0|0,{% for bd in box_data.series %}{{bd.uq}},{% endfor %}0|0,{% for bd in box_data.series %}{{bd.max}},{% endfor %}0|0,{% for bd in box_data.series %}{{bd.median}},{% endfor %}0&chm=F,0000FF,0,1:{{box_data.count}},20|H,0000FF,0,1:{{box_data.count}},1:20|H,0000FF,3,1:{{box_data.count}},1:20|H,0000FF,4,1:{{box_data.count}},1:20&chxt=y&chxr=0,{{box_data.min}},{{box_data.max}},0" width="400" height="200" />
-
+width="600" height="200" />
+{% endspaceless %}
 {% endwith %}
 
 {% endif %}
@@ -265,7 +267,7 @@ $(document).ready(function() {
 Title: <input type="text" name="title" value="{{graph_title}}"/><br />
 
 </td>
-
+{% ifnotequal type "box-plot" %}
 <td>
 <h4>Lines</h4>
 {% for line in lines %}
@@ -281,7 +283,7 @@ Value: <input type="text" name="line_value_{{n}}"
 	      value="" /><br />
 {% endwith %}
 </td>
-
+{% endifnotequal %}
 </tr>
 </table>
 
