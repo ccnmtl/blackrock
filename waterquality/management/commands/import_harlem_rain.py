@@ -79,15 +79,8 @@ class Command(BaseCommand):
             print date,yearly_rainfall, daily_rainfall
             for hour in range(24):
                 datetime = date + " %02d:00:00" % hour
-                r = Row.objects.create(series=series,timestamp=datetime,value=str(daily_rainfall))
+                r = Row.objects.create(series=series,timestamp=datetime,value=str(daily_rainfall * 25.4))
 
         Row.objects.filter(timestamp__lt="2009-04-24 00:00:00").delete()
         Row.objects.filter(timestamp__gt="2009-09-06 00:00:00").delete()
 
-#                    try:
-#                        r = Row.objects.create(series=series,
-#                                               timestamp=datetime,
-#                                               value=datum)
-#                    except Exception, e:
-#                        print "error with %s" % datum
-#                        print str(e)
