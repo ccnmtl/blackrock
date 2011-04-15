@@ -1,318 +1,383 @@
 {% extends 'base.html' %}
+
+{% block title %}Water Quality{% endblock %}
+
 {% block js %}
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" type="text/javascript"></script>
-<script src="/site_media/js/highcharts.js" type="text/javascript"></script>
-<script src="/site_media/js/modules/exporting.js" type="text/javascript"></script>
-{% if show_graph %}
-<script type="text/javascript">
-var chart;
-$(document).ready(function() {
-   chart = new Highcharts.Chart({
-      chart: {
-         renderTo: 'chart-container',
-{% ifequal type "time-series" %}
-         zoomType: 'x',
-{% endifequal %}
-{% ifequal type "scatter-plot" %}
-         defaultSeriesType: 'scatter',
-         zoomType: 'xy',
-{% endifequal %}
-         spacingRight: 20
-      },
-       title: {
-         text: '{{graph_title}}'
-      },
-{% ifequal type "time-series" %}
-      xAxis: {
-         type: 'datetime',
-         title: {
-            text: null
-         }
-      },
-{% endifequal %}
-{% ifequal type "scatter-plot" %}
-      xAxis: {
-         title: {
-            enabled: true,
-            text: '{{independent.name}}'
-         },
-         startOnTick: true,
-         endOnTick: true,
-         showLastLabel: true
-      },
-      yAxis: {
-         title: {
-            text: '{{dependent.name}}'
-         }
-      },
-
-{% endifequal %}
-      tooltip: {
-         shared: true               
-      },
-      legend: {
-         enabled: true
-      },
-      plotOptions: {
-         area: {
-            fillColor: {
-               linearGradient: [0, 0, 0, 300],
-               stops: [
-                  [0, 'rgba(100,0,6,0)'],
-                  [1, 'rgba(2,0,100,0)']
-               ]
-            },
-            lineWidth: 1,
-            marker: {
-               enabled: false,
-               states: {
-                  hover: {
-                     enabled: true,
-                     radius: 5
-                  }
-               }
-            },
-            shadow: false,
-            states: {
-               hover: {
-                  lineWidth: 1                  
-               }
-            }
-         },
-         scatter: {
-            marker: {
-               radius: 5,
-               states: {
-                  hover: {
-                     enabled: true,
-                     lineColor: 'rgb(100,100,100)'
-                  }
-               }
-            },
-            states: {
-               hover: {
-                  marker: {
-                     enabled: false
-                  }
-               }
-            }
-         }
-
-      },
-{% ifequal type "time-series" %}
-      series: [
-{% for set in datasets %}
-       {
-         type: 'area',
-         name: '{{set.series.name}}',
-         pointInterval: 3600 * 1000,
-         pointStart: Date.UTC({{start.year}}, {{start.month}} - 1, {{start.day}}),
-         data: [
-           {% for point in set.data %}{{point}}{% if not forloop.last %},{% endif %}{% endfor %}
-         ]
-      }{% if not forloop.last %},{% endif %}{% if forloop.last %}{% if lines %},{% endif %}{% endif %}
-{% endfor %}
-
- {% for line in lines %} 
-   {
-         name: '{{line.label}}',
-         type: 'line',
-         data: [[Date.UTC({{start.year}}, {{start.month}} - 1, {{start.day}}), {{line.value}}], [Date.UTC({{end.year}}, {{end.month}} - 1, {{end.day}}), {{line.value}}]],
-         marker: {
-            enabled: false
-         },
-         states: {
-            hover: {
-               lineWidth: 0
-            }
-         },
-         enableMouseTracking: false
-      }{% if not forloop.last %},{% endif %}
-
-{% endfor %} 
-      ],
-{% endifequal %}
-
-{% ifequal type "scatter-plot" %}
-      series: [{
-         name: '{{dependent.name}} vs {{independent.name}}',
-         color: 'rgba(223, 83, 83, .5)',
-         data: [{% for point in data %}[{{point.0}},{{point.1}}]{% if not forloop.last %},{% endif %}
-{% endfor %}
-   ]
-   
-      },
-
-   {
-         type: 'line',
-         name: 'Regression Line',
-{% with lseriesp.regression_line_points as lrp %}
-         data: [[{{lrp.0.0}}, {{lrp.0.1}}], [{{lrp.1.0}}, {{lrp.1.1}}]],
-{% endwith %}
-         marker: {
-            enabled: false
-         },
-         states: {
-            hover: {
-               lineWidth: 0
-            }
-         },
-         enableMouseTracking: false
-      }{% if lines %},{% endif %}
-
- {% for line in lines %} 
-   {
-         name: '{{line.label}}',
-         type: 'line',
-         data: [[{{lseriesp.independent.min}}, {{line.value}}], [{{lseriesp.independent.max}}, {{line.value}}]],
-         marker: {
-            enabled: false
-         },
-         states: {
-            hover: {
-               lineWidth: 0
-            }
-         },
-         enableMouseTracking: false
-      }{% if not forloop.last %},{% endif %}
-
-{% endfor %} 
-
- ],
-
-{% endifequal %}
-      exporting: {
-         enabled: true
-      },
-
-   });
-   
-   
-});
-   
-
-</script>
-{% endif %}
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" type="text/javascript"></script>
+	<script src="/site_media/js/highcharts.js" type="text/javascript"></script>
+	<script src="/site_media/js/modules/exporting.js" type="text/javascript"></script>
+	{% if show_graph %}
+	<script type="text/javascript">
+	var chart;
+	$(document).ready(function() {
+	   chart = new Highcharts.Chart({
+		 chart: {
+		    renderTo: 'chart-container',
+	{% ifequal type "time-series" %}
+		    zoomType: 'x',
+	{% endifequal %}
+	{% ifequal type "scatter-plot" %}
+		    defaultSeriesType: 'scatter',
+		    zoomType: 'xy',
+	{% endifequal %}
+		    spacingRight: 20
+		 },
+		  title: {
+		    text: '{{graph_title}}'
+		 },
+	{% ifequal type "time-series" %}
+		 xAxis: {
+		    type: 'datetime',
+		    title: {
+			  text: null
+		    }
+		 },
+	{% endifequal %}
+	{% ifequal type "scatter-plot" %}
+		 xAxis: {
+		    title: {
+			  enabled: true,
+			  text: '{{independent.name}}'
+		    },
+		    startOnTick: true,
+		    endOnTick: true,
+		    showLastLabel: true
+		 },
+		 yAxis: {
+		    title: {
+			  text: '{{dependent.name}}'
+		    }
+		 },
+	
+	{% endifequal %}
+		 tooltip: {
+		    shared: true               
+		 },
+		 legend: {
+		    enabled: true
+		 },
+		 plotOptions: {
+		    area: {
+			  fillColor: {
+				linearGradient: [0, 0, 0, 300],
+				stops: [
+				   [0, 'rgba(100,0,6,0)'],
+				   [1, 'rgba(2,0,100,0)']
+				]
+			  },
+			  lineWidth: 1,
+			  marker: {
+				enabled: false,
+				states: {
+				   hover: {
+					 enabled: true,
+					 radius: 5
+				   }
+				}
+			  },
+			  shadow: false,
+			  states: {
+				hover: {
+				   lineWidth: 1                  
+				}
+			  }
+		    },
+		    scatter: {
+			  marker: {
+				radius: 5,
+				states: {
+				   hover: {
+					 enabled: true,
+					 lineColor: 'rgb(100,100,100)'
+				   }
+				}
+			  },
+			  states: {
+				hover: {
+				   marker: {
+					 enabled: false
+				   }
+				}
+			  }
+		    }
+	
+		 },
+	{% ifequal type "time-series" %}
+		 series: [
+	{% for set in datasets %}
+		  {
+		    type: 'area',
+		    name: '{{set.series.name}}',
+		    pointInterval: 3600 * 1000,
+		    pointStart: Date.UTC({{start.year}}, {{start.month}} - 1, {{start.day}}),
+		    data: [
+			 {% for point in set.data %}{{point}}{% if not forloop.last %},{% endif %}{% endfor %}
+		    ]
+		 }{% if not forloop.last %},{% endif %}{% if forloop.last %}{% if lines %},{% endif %}{% endif %}
+	{% endfor %}
+	
+	 {% for line in lines %} 
+	   {
+		    name: '{{line.label}}',
+		    type: 'line',
+		    data: [[Date.UTC({{start.year}}, {{start.month}} - 1, {{start.day}}), {{line.value}}], [Date.UTC({{end.year}}, {{end.month}} - 1, {{end.day}}), {{line.value}}]],
+		    marker: {
+			  enabled: false
+		    },
+		    states: {
+			  hover: {
+				lineWidth: 0
+			  }
+		    },
+		    enableMouseTracking: false
+		 }{% if not forloop.last %},{% endif %}
+	
+	{% endfor %} 
+		 ],
+	{% endifequal %}
+	
+	{% ifequal type "scatter-plot" %}
+		 series: [{
+		    name: '{{dependent.name}} vs {{independent.name}}',
+		    color: 'rgba(223, 83, 83, .5)',
+		    data: [{% for point in data %}[{{point.0}},{{point.1}}]{% if not forloop.last %},{% endif %}
+	{% endfor %}
+	   ]
+	   
+		 },
+	
+	   {
+		    type: 'line',
+		    name: 'Regression Line',
+	{% with lseriesp.regression_line_points as lrp %}
+		    data: [[{{lrp.0.0}}, {{lrp.0.1}}], [{{lrp.1.0}}, {{lrp.1.1}}]],
+	{% endwith %}
+		    marker: {
+			  enabled: false
+		    },
+		    states: {
+			  hover: {
+				lineWidth: 0
+			  }
+		    },
+		    enableMouseTracking: false
+		 }{% if lines %},{% endif %}
+	
+	 {% for line in lines %} 
+	   {
+		    name: '{{line.label}}',
+		    type: 'line',
+		    data: [[{{lseriesp.independent.min}}, {{line.value}}], [{{lseriesp.independent.max}}, {{line.value}}]],
+		    marker: {
+			  enabled: false
+		    },
+		    states: {
+			  hover: {
+				lineWidth: 0
+			  }
+		    },
+		    enableMouseTracking: false
+		 }{% if not forloop.last %},{% endif %}
+	
+	{% endfor %} 
+	
+	 ],
+	
+	{% endifequal %}
+		 exporting: {
+		    enabled: true
+		 },
+	
+	   });
+	   
+	   
+	});
+	   
+	
+	</script>
+	{% endif %}
 {% endblock %}
+
+{% block css %}
+<style>
+table.graphtable th, table.graphtable td {font-size: 10px; vertical-align: top;}
+</style>
+{% endblock %}
+
+
+{% block masthead %}
+	Water Quality
+{% endblock %}
+
+{% block breadcrumbs %}
+	<ul>
+	<li><a href="#">Introduction</a></li>
+	<li><a href="#">Required Reading</a></li>
+	<li><a href="#">Other Resources</a></li>
+	<li><a href="#" style="float: right;">Help</a></li>
+	</ul>
+{% endblock %}
+
 
 {% block content %}
 
-{% if show_graph %}
-<div id="chart-container"></div>
-{% endif %}
+	<div id="contentcontainer" style="padding: 20px;">
+	
+		<form action="." method="get">
+		
+		{% if type %}
+		
+		<input type="hidden" name="type" value="{{type}}" />
+		
+		<p>
+		<a href="javascript:history.go(-1)">Reset This Graph</a> | <a href="{% url waterquality-browse %}">Browse Data</a>
+		</p>
+		
+		<table class="graphtable">
+		
+		<tr>
+		
+		{% ifequal type "time-series" %}
+		<td>
+		<b>Series:</b><br />
+		<select size="4" name="series" multiple="multiple">
+		{% for series in all_series %}
+		<option value="{{series.id}}" {% if series.selected %}selected="selected"{% endif %}>{{series.location.site.name}}/{{series.location.name}}/{{series.name}}</option>
+		{% endfor %}
+		</select>
+		</td>
+		{% endifequal %}
+		
+		{% ifequal type "box-plot" %}
+		<td>
+		<b>Series:</b><br />
+		<select size="4" name="series" multiple="multiple">
+		{% for series in all_series %}
+		<option value="{{series.id}}" {% if series.selected %}selected="selected"{% endif %}>{{series.location.site.name}}/{{series.location.name}}/{{series.name}}</option>
+		{% endfor %}
+		</select>
+		</td>
+		{% endifequal %}
+		
+		{% ifequal type "scatter-plot" %}
+		<td>
+		<b>Independent:</b><br />
+		<select name="independent">
+		{% for series in all_series %}
+		<option value="{{series.id}}" {% if series.independent %}selected="selected"{% endif %}>{{series.location.site.name}}/{{series.location.name}}/{{series.name}}</option>
+		{% endfor %}
+		</select>
+		<br />
+		<b>Dependent:</b><br />
+		<select name="dependent">
+		{% for series in all_series %}
+		<option value="{{series.id}}" {% if series.dependent %}selected="selected"{% endif %}>{{series.location.site.name}}/{{series.location.name}}{{series.name}}</option>
+		{% endfor %}
+		</select>
+		</td>
+		{% endifequal %}
+		
+		<td>
+		<b>Start:</b><br />
+		<input type="text" name="start" size="10" value="{{start|date:"Y-m-d"}}" />
+		<br />
+		<b>End:</b><br />
+		<input type="text" name="end" size="10" value="{{end|date:"Y-m-d"}}" />
+		</td>
+		
+		<td>
+		<b>Title:</b><br />
+		<input type="text" name="title" value="{{graph_title}}"/>
+		</td>
+		
+		{% ifnotequal type "box-plot" %}
 
-{% if show_box_plot %}
+		{% for line in lines %}
+		<td>
+		<b>Line Label:</b><br />
+		<input type="text" name="line_label_{{line.n}}" value="{{line.label}}" />
+		<br />
+		<b>Line Value:</b><br />
+		<br />
+		<input type="text" name="line_value_{{line.n}}"value="{{line.value}}" />
+		</td>
+		{% endfor %}
+		
+		{% with lines|length as n %}
+		<td>
+		<b>Line Label:</b><br />
+		<input type="text" name="line_label_{{n}}" value="" />
+		<br />
+		<b>Line Value:</b><br />
+		<input type="text" name="line_value_{{n}}"value="" />
+		</td>
+		{% endwith %}
 
-{% with lsg.box_data as box_data %}
-{% spaceless %}
-  <img src="https://chart.googleapis.com/chart?chs=600x200&cht=ls&chd=t0:-1,{% for bd in box_data.series %}{{bd.min}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.lq}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.uq}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.max}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.median}},{% endfor %}0&chm=F,0000FF,0,1:{{box_data.count}},20|H,0000FF,0,1:{{box_data.count}},1:20|H,0000FF,3,1:{{box_data.count}},1:20|H,0000FF,4,1:{{box_data.count}},1:20&chxt=y&chxr=0,{{box_data.min}},{{box_data.max}},0" 
-
-width="600" height="200" />
-{% endspaceless %}
-{% endwith %}
-
-{% endif %}
-
-<form action="." method="get">
-{% if type %}
-<input type="hidden" name="type" value="{{type}}" />
-<table>
-<tr>
-<td>
-{% ifequal type "time-series" %}
-<p><b>Series:</b>
-<select name="series" multiple="multiple">
-{% for series in all_series %}
-<option value="{{series.id}}" {% if series.selected %}selected="selected"{% endif %}>{{series.location.site.name}}/{{series.location.name}}/{{series.name}}</option>
-{% endfor %}
-</select>
-{% endifequal %}
-
-{% ifequal type "box-plot" %}
-<p><b>Series:</b>
-<select name="series" multiple="multiple">
-{% for series in all_series %}
-<option value="{{series.id}}" {% if series.selected %}selected="selected"{% endif %}>{{series.location.site.name}}/{{series.location.name}}/{{series.name}}</option>
-{% endfor %}
-</select>
-{% endifequal %}
-
-{% ifequal type "scatter-plot" %}
-<p><b>Independent:</b>
-<select name="independent">
-{% for series in all_series %}
-<option value="{{series.id}}" {% if series.independent %}selected="selected"{% endif %}>{{series.location.site.name}}/{{series.location.name}}/{{series.name}}</option>
-{% endfor %}
-</select>
-
-<p><b>Dependent:</b>
-<select name="dependent">
-{% for series in all_series %}
-<option value="{{series.id}}" {% if series.dependent %}selected="selected"{% endif %}>{{series.location.site.name}}/{{series.location.name}}{{series.name}}</option>
-{% endfor %}
-</select>
-{% endifequal %}
-
-</td>
-
-<td>
-
-<p><b>Start:</b><br />
-<input type="text" name="start" size="10" value="{{start|date:"Y-m-d"}}" /></p>
-
-<p><b>End:</b><br />
-<input type="text" name="end" size="10" value="{{end|date:"Y-m-d"}}" /></p>
-</td>
-<td>
-Title: <input type="text" name="title" value="{{graph_title}}"/><br />
-
-</td>
-{% ifnotequal type "box-plot" %}
-<td>
-<h4>Lines</h4>
-{% for line in lines %}
-Label: <input type="text" name="line_label_{{line.n}}"
-	      value="{{line.label}}" />
-Value: <input type="text" name="line_value_{{line.n}}"
-	      value="{{line.value}}" /><br />
-{% endfor %}
-{% with lines|length as n %}
-Label: <input type="text" name="line_label_{{n}}"
-	      value="" />
-Value: <input type="text" name="line_value_{{n}}"
-	      value="" /><br />
-{% endwith %}
-</td>
-{% endifnotequal %}
-</tr>
-</table>
-
-<input type="submit" value="graph"/>
-
-{% if lseriesp %}
-<p>R<sup>2</sup>: {{lseriesp.linear_regression.rr|floatformat:2}}</p>
-{% endif %}
-
-{% else %}
-<h1>Make a graph</h1>
-<p><b>Title</b><br />
-<input type="text" name="title" value="{{graph_title}}"/></p>
-
-<table>
-<tr>
-  <td><input type="submit" name="type" value="time-series" /></td>
-  <td><input type="submit" name="type" value="scatter-plot" /></td>
-  <td><input type="submit" name="type" value="box-plot" /></td>
-</tr>
-</table>
-
-
-
-{% endif %}
-
-</form>
-
-
-<p><a href="{% url waterquality-browse %}">browse data</a></p>
-
+		{% endifnotequal %}
+		
+		<td>
+		<input type="submit" value="Graph It!"/>
+		</td>
+		
+		</tr>
+		
+		</table>
+		
+		
+		{% if lseriesp %}
+		<p>R<sup>2</sup>: {{lseriesp.linear_regression.rr|floatformat:2}}</p>
+		{% endif %}
+		
+		{% else %}
+		
+		<table class="graphtable">
+			<tr>
+				<th>Graph Title:</th>
+				<td colspan="3"><input type="text" name="title" value="{{graph_title}}"/></td>
+			</tr>
+			<tr>
+				<th>Graph Type:</th>
+				<td><input type="submit" name="type" value="time-series" /></td>
+				<td><input type="submit" name="type" value="scatter-plot" /></td>
+				<td><input type="submit" name="type" value="box-plot" /></td>
+			</tr>
+		</table>
+		
+		{% endif %}
+		
+		</form>
+		
+	
+		{% if show_graph %}
+		<div id="chart-container"></div>
+		{% endif %}
+		{% if show_box_plot %}
+		{% with lsg.box_data as box_data %}
+		{% spaceless %}
+		<img src="https://chart.googleapis.com/chart?chs=600x200&cht=ls&chd=t0:-1,{% for bd in box_data.series %}{{bd.min}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.lq}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.uq}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.max}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.median}},{% endfor %}0&chm=F,0000FF,0,1:{{box_data.count}},20|H,0000FF,0,1:{{box_data.count}},1:20|H,0000FF,3,1:{{box_data.count}},1:20|H,0000FF,4,1:{{box_data.count}},1:20&chxt=y&chxr=0,{{box_data.min}},{{box_data.max}},0" width="600" height="200" />
+		{% endspaceless %}
+		{% endwith %}
+		{% endif %}
+		
+		<div id="questions" style="border-top: 1px solid #ccc;">
+		<div id="questionscontainer" style="margin-right: 25%;">
+		
+		<h3>Activity Title</h3>
+		
+		<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae lectus lectus. Aliquam purus lacus, cursus in elementum vel, lobortis eget erat. In placerat fermentum tellus, sit amet commodo libero suscipit sit amet. Fusce feugiat, metus eget ornare eleifend, nibh metus dapibus urna, vitae posuere felis orci in purus. Sed orci erat, mattis vel commodo quis, consectetur eu justo. Pellentesque gravida aliquet ligula, eu lobortis felis semper id. Morbi hendrerit est vel nisl feugiat feugiat. Sed ac mauris orci, vel mollis enim. Curabitur euismod dui nibh. Duis eget sapien lacus. Phasellus nisi diam, eleifend et pharetra nec, molestie ac sapien. Nam suscipit hendrerit sollicitudin. Donec lacinia tempus posuere. Nullam porta metus ac sapien tincidunt tincidunt. Sed a metus eros, in adipiscing turpis. Proin et leo eu arcu ornare facilisis eget et odio.
+		</p>
+		
+		<p>
+		Curabitur fermentum dictum odio, et sollicitudin sapien viverra a. Curabitur non malesuada nunc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pretium condimentum dolor et commodo. Curabitur aliquet, urna eu dignissim dapibus, ligula quam sollicitudin libero, quis lacinia felis turpis sed ligula. Proin condimentum dolor vitae neque tempus lacinia. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut odio lacus, vehicula malesuada luctus quis, fermentum at ligula. Aenean dapibus, felis ut iaculis aliquet, augue tortor placerat neque, gravida porttitor augue massa quis quam. Sed odio neque, semper non imperdiet a, convallis sed nisi. Ut leo tortor, tempor non placerat a, varius eget justo. Mauris id libero dolor. Mauris sollicitudin egestas sapien, eu pretium felis molestie at. Mauris sed lorem vel augue dictum egestas. Donec magna tortor, tempus in luctus eu, gravida quis dui. Nam magna sapien, imperdiet eu rhoncus ut, consectetur eu mi. Duis posuere imperdiet metus vel pellentesque. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus ac venenatis risus.
+		</p>
+		
+		<p>
+		Aenean faucibus tincidunt tincidunt. Fusce vitae iaculis mi. Curabitur at justo odio, vitae lobortis eros. Phasellus tincidunt, turpis vel blandit porta, dolor nisl volutpat libero, ut viverra diam massa ut ante. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla id ante sit amet massa pharetra pretium. Donec cursus vehicula eros, nec tempor arcu ornare sed. In sit amet aliquam risus. Etiam erat tellus, convallis vitae egestas sed, venenatis non eros. Sed tincidunt, magna porttitor malesuada interdum, lectus eros mollis nulla, sit amet ultricies nulla lectus malesuada urna		
+		</p>
+		</div>
+		</div>
+		
+		
+	</div>
 {% endblock %}

@@ -67,14 +67,14 @@ h1#masthead
 	padding: 10px;
 }
 
-div#breadcrumbs ol
+div#breadcrumbs ol, div#breadcrumbs ul
 {
 	margin-left: -40px;
 	display: inline;
 	font-size: 12px;
 }
 
-div#breadcrumbs ol li
+div#breadcrumbs ol li, div#breadcrumbs ul li
 {
 	margin-left: 0;
 	margin-bottom: 0;
@@ -85,7 +85,8 @@ div#breadcrumbs ol li
 	color: #999;
 }
 
-div#breadcrumbs ol li.active { color: #996734; }
+div#breadcrumbs ol li.active, div#breadcrumbs ul li.active 
+{ color: #996734; }
 
 img.screenshot {
   border:1px black solid;
