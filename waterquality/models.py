@@ -188,6 +188,9 @@ class LimitedSeriesPair(object):
         sumyy = sum([y * y for y in ys])
         sumxy = sum([x * y for x,y in zip(xs,ys)])
         det = (sumxx * count) - (sumx * sumx)
+        if not det:
+            # divide by zero
+            return None
         a = (sumxy * count - sumy * sumx)/det
         b = (sumxx * sumy  - sumx * sumxy)/det
         

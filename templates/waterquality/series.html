@@ -4,8 +4,14 @@
 {% block js %}
 
 {% endblock %}
+{% block masthead %}
+	Water Quality
+{% endblock %}
+
 
 {% block content %}
+
+	<div id="contentcontainer" style="padding: 20px;">
 
 <h3>box plot</h3>
 {% with lseries.box_data as box_data %}
@@ -38,5 +44,7 @@
   <img src="{{ c.url }}" width="800" height="200" />
 
 <a href="{% url waterquality-series-all series.id %}">all</a>
+
+</div>
 
 {% endblock %}

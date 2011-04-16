@@ -1,17 +1,23 @@
 {% extends 'base.html' %}
+
 {% load charts %}
+{% block masthead %}
+	Water Quality
+{% endblock %}
 
 {% block content %}
+<div id="contentcontainer" style="padding: 20px;">
 
-<table>
+	<table>
+	
+	{% for row in series.row_set.all %}
+	<tr>
+	<td>{{row.timestamp}}</td>
+	<td>{{row.value}}</td>
+	</tr>
+	{% endfor %}
+	
+	</table>
 
-{% for row in series.row_set.all %}
-<tr>
-<td>{{row.timestamp}}</td>
-<td>{{row.value}}</td>
-</tr>
-{% endfor %}
-
-</table>
-
+</div>
 {% endblock %}
