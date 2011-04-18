@@ -20,6 +20,10 @@
 
 	<div id="contentcontainer">
 
+		<p>
+		<input type=button onClick="parent.location='javascript:history.go(-1)'" value='&laquo; Back to Data Table'>	
+		<input type=button onClick="parent.location='{% url waterquality-series-all series.id %}'" value='View All'>	
+		</p>
 <h3>box plot</h3>
 {% with lseries.box_data as box_data %}
 
@@ -50,7 +54,6 @@
   {% endchart %}
   <img src="{{ c.url }}" width="800" height="200" />
 
-<a href="{% url waterquality-series-all series.id %}">all</a>
 
 </div>
 

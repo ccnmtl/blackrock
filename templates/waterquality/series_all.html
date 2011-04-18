@@ -13,7 +13,10 @@
 
 {% block content %}
 	<div id="contentcontainer">
-
+		<p>
+		<input type=button onClick="parent.location='javascript:history.go(-1)'" value='&laquo; Back to Charts'>		
+		</p>
+			
 	<table>
 	
 	{% for row in series.row_set.all %}
