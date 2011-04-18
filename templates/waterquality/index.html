@@ -3,13 +3,27 @@
 {% block title %}Water Quality{% endblock %}
 
 {% block js %}
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" type="text/javascript"></script>
-	<script src="/site_media/js/highcharts.js" type="text/javascript"></script>
-	<script src="/site_media/js/modules/exporting.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/base/jquery-ui.css" type="text/css" media="all" /> 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js" type="text/javascript"></script>
+
+<script src="/site_media/js/highcharts.js" type="text/javascript"></script>
+<script src="/site_media/js/modules/exporting.js" type="text/javascript"></script>
+
+
 	{% if show_graph %}
 	<script type="text/javascript">
 	var chart;
 	$(document).ready(function() {
+	$("#start").datepicker({dateFormat: 'yy-mm-dd',
+                                minDate: Date.UTC(2009, 3, 24),
+	                        maxDate: Date.UTC(2009, 8, 06),
+	yearRange: '2009:2009'
+	});
+	$("#end").datepicker({dateFormat: 'yy-mm-dd',
+        minDate: Date.UTC(2009, 3, 24),
+	maxDate: Date.UTC(2009, 8, 06)});
 	   chart = new Highcharts.Chart({
 		 chart: {
 		    renderTo: 'chart-container',
@@ -279,10 +293,10 @@ table.graphtable th, table.graphtable td {font-size: 10px; vertical-align: top;}
 		
 		<td>
 		<b>Start:</b><br />
-		<input type="text" name="start" size="10" value="{{start|date:"Y-m-d"}}" />
+		<input type="text" id="start" name="start" size="10" value="{{start|date:"Y-m-d"}}" />
 		<br />
 		<b>End:</b><br />
-		<input type="text" name="end" size="10" value="{{end|date:"Y-m-d"}}" />
+		<input type="text" id="end" name="end" size="10" value="{{end|date:"Y-m-d"}}" />
 		</td>
 		
 		<td>
@@ -380,4 +394,5 @@ table.graphtable th, table.graphtable td {font-size: 10px; vertical-align: top;}
 		
 		
 	</div>
+
 {% endblock %}
