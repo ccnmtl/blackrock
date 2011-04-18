@@ -200,10 +200,10 @@
 
 {% block css %}
 <style>
-table.graphtable th, table.graphtable td {font-size: 10px; vertical-align: top;}
+table.graphtable th, table.graphtable td {font-size: 10px; padding: 4px;}
+#contentcontainer {padding: 20px;}
 </style>
 {% endblock %}
-
 
 {% block masthead %}
 	Water Quality
@@ -221,23 +221,52 @@ table.graphtable th, table.graphtable td {font-size: 10px; vertical-align: top;}
 
 {% block content %}
 
-	<div id="contentcontainer" style="padding: 20px;">
+	<div id="contentcontainer">
 	
+		
 		<form action="." method="get">
 		
 		{% if type %}
 		
 		<input type="hidden" name="type" value="{{type}}" />
 		
-		<p>
-		<a href="javascript:history.go(-1)">Reset This Graph</a> | <a href="{% url waterquality-browse %}">Browse Data</a>
+		<div id="parameters">
+		
+		
+		<table class="graphtable">
+			<tr>
+				<th style="color: #435142; width: 150px;text-align: left;">Step 1: Create Graph</th>
+				<th>Graph Title:</th>
+				<td><input type="text" name="title" value="{{graph_title}}"/></td>
+
+				<th>Graph Type:</th>
+				<td><input type="submit" name="type" value="time-series" /></td>
+				<td><input type="submit" name="type" value="scatter-plot" /></td>
+				<td><input type="submit" name="type" value="box-plot" /></td>
+			</tr>
+		</table>
+		
+		<p style="float: right;">
+		<input type=button onClick="parent.location='javascript:history.go(-1)'" value='Reset This Graph'>	
+		<input type=button onClick="parent.location='{% url waterquality-browse %}'" value='Browse Data'>		
 		</p>
 		
 		<table class="graphtable">
 		
 		<tr>
+		<th style="color: #435142; width: 150px;text-align: left;">Step 2: Set Graph Parameters</th>
+		<!--
+		<th>
+		Graph Title:
+		<input type="text" name="title" value="{{graph_title}}"/>
+		</th>
+		-->
 		
 		{% ifequal type "time-series" %}
+		<td>
+		<b>Graph Type:</b><br />
+		Time Series
+		</td>
 		<td>
 		<b>Series:</b><br />
 		<select size="4" name="series" multiple="multiple">
@@ -250,6 +279,10 @@ table.graphtable th, table.graphtable td {font-size: 10px; vertical-align: top;}
 		
 		{% ifequal type "box-plot" %}
 		<td>
+		<b>Graph Type:</b><br />
+		Box Plot
+		</td>
+		<td>
 		<b>Series:</b><br />
 		<select size="4" name="series" multiple="multiple">
 		{% for series in all_series %}
@@ -260,6 +293,10 @@ table.graphtable th, table.graphtable td {font-size: 10px; vertical-align: top;}
 		{% endifequal %}
 		
 		{% ifequal type "scatter-plot" %}
+		<td>
+		<b>Graph Type:</b><br />
+		Scatter Plot
+		</td>
 		<td>
 		<b>Independent:</b><br />
 		<select name="independent">
@@ -285,11 +322,7 @@ table.graphtable th, table.graphtable td {font-size: 10px; vertical-align: top;}
 		<input type="text" name="end" size="10" value="{{end|date:"Y-m-d"}}" />
 		</td>
 		
-		<td>
-		<b>Title:</b><br />
-		<input type="text" name="title" value="{{graph_title}}"/>
-		</td>
-		
+
 		{% ifnotequal type "box-plot" %}
 
 		{% for line in lines %}
@@ -315,8 +348,8 @@ table.graphtable th, table.graphtable td {font-size: 10px; vertical-align: top;}
 
 		{% endifnotequal %}
 		
-		<td>
-		<input type="submit" value="Graph It!"/>
+		<td style="vertical-align: middle;">
+		<input type="submit" value="Graph It!" style="background-color: green; color: white;" />
 		</td>
 		
 		</tr>
@@ -324,19 +357,23 @@ table.graphtable th, table.graphtable td {font-size: 10px; vertical-align: top;}
 		</table>
 		
 		
+		</div>
+		
 		{% if lseriesp %}
-		<p>R<sup>2</sup>: {{lseriesp.linear_regression.rr|floatformat:2}}</p>
+		<p>
+		R<sup>2</sup>: {{lseriesp.linear_regression.rr|floatformat:2}}
+		</p>
 		{% endif %}
 		
 		{% else %}
 		
 		<table class="graphtable">
 			<tr>
-				<th>Graph Title:</th>
-				<td colspan="3"><input type="text" name="title" value="{{graph_title}}"/></td>
-			</tr>
-			<tr>
-				<th>Graph Type:</th>
+				<th style="color: #435142;width: 150px;text-align: left;">Step 1: Create Graph</th>
+				<th>Enter Graph Title:</th>
+				<td><input type="text" name="title" value="{{graph_title}}"/></td>
+
+				<th>Choose Graph Type:</th>
 				<td><input type="submit" name="type" value="time-series" /></td>
 				<td><input type="submit" name="type" value="scatter-plot" /></td>
 				<td><input type="submit" name="type" value="box-plot" /></td>
@@ -345,9 +382,9 @@ table.graphtable th, table.graphtable td {font-size: 10px; vertical-align: top;}
 		
 		{% endif %}
 		
+		
 		</form>
 		
-	
 		{% if show_graph %}
 		<div id="chart-container"></div>
 		{% endif %}
@@ -359,25 +396,119 @@ table.graphtable th, table.graphtable td {font-size: 10px; vertical-align: top;}
 		{% endwith %}
 		{% endif %}
 		
-		<div id="questions" style="border-top: 1px solid #ccc;">
-		<div id="questionscontainer" style="margin-right: 25%;">
+		<div id="questions" style="border-top: 1px solid #ccc; position: relative;">
 		
-		<h3>Activity Title</h3>
-		
-		<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae lectus lectus. Aliquam purus lacus, cursus in elementum vel, lobortis eget erat. In placerat fermentum tellus, sit amet commodo libero suscipit sit amet. Fusce feugiat, metus eget ornare eleifend, nibh metus dapibus urna, vitae posuere felis orci in purus. Sed orci erat, mattis vel commodo quis, consectetur eu justo. Pellentesque gravida aliquet ligula, eu lobortis felis semper id. Morbi hendrerit est vel nisl feugiat feugiat. Sed ac mauris orci, vel mollis enim. Curabitur euismod dui nibh. Duis eget sapien lacus. Phasellus nisi diam, eleifend et pharetra nec, molestie ac sapien. Nam suscipit hendrerit sollicitudin. Donec lacinia tempus posuere. Nullam porta metus ac sapien tincidunt tincidunt. Sed a metus eros, in adipiscing turpis. Proin et leo eu arcu ornare facilisis eget et odio.
-		</p>
-		
-		<p>
-		Curabitur fermentum dictum odio, et sollicitudin sapien viverra a. Curabitur non malesuada nunc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pretium condimentum dolor et commodo. Curabitur aliquet, urna eu dignissim dapibus, ligula quam sollicitudin libero, quis lacinia felis turpis sed ligula. Proin condimentum dolor vitae neque tempus lacinia. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut odio lacus, vehicula malesuada luctus quis, fermentum at ligula. Aenean dapibus, felis ut iaculis aliquet, augue tortor placerat neque, gravida porttitor augue massa quis quam. Sed odio neque, semper non imperdiet a, convallis sed nisi. Ut leo tortor, tempor non placerat a, varius eget justo. Mauris id libero dolor. Mauris sollicitudin egestas sapien, eu pretium felis molestie at. Mauris sed lorem vel augue dictum egestas. Donec magna tortor, tempus in luctus eu, gravida quis dui. Nam magna sapien, imperdiet eu rhoncus ut, consectetur eu mi. Duis posuere imperdiet metus vel pellentesque. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus ac venenatis risus.
-		</p>
-		
-		<p>
-		Aenean faucibus tincidunt tincidunt. Fusce vitae iaculis mi. Curabitur at justo odio, vitae lobortis eros. Phasellus tincidunt, turpis vel blandit porta, dolor nisl volutpat libero, ut viverra diam massa ut ante. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla id ante sit amet massa pharetra pretium. Donec cursus vehicula eros, nec tempor arcu ornare sed. In sit amet aliquam risus. Etiam erat tellus, convallis vitae egestas sed, venenatis non eros. Sed tincidunt, magna porttitor malesuada interdum, lectus eros mollis nulla, sit amet ultricies nulla lectus malesuada urna		
-		</p>
+			<form style="position: absolute; top: 20px; right: 0px;">
+			<select style="width: 250px;">
+			<option label="foo" value="foo">Choose an Activity:</option>
+			<option label="foo" value="foo">Activity 1</option>
+			<option label="foo" value="foo">Activity 2</option>
+			<option label="foo" value="foo">Activity 3</option>
+			<option label="foo" value="foo">Activity 4</option>
+			<option label="foo" value="foo">Activity 5</option>
+			</select>
+			</form>
+			
+			<div id="activitiescontainer" style="margin-right: 25%;">
+			
+			<div id="activity001" class="activity">
+			
+			<h3>Activity 1: Title of Activity</h3>
+			
+			<form>
+			<label style="display: block;">
+			<input type="checkbox" checked="checked" />
+			Completed
+			</label>
+			<label style="display: block; color: #ccc;">
+			<input type="checkbox" />
+			Completed
+			</label>
+			</form>
+			
+			<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae lectus lectus. Aliquam purus lacus, cursus in elementum vel, lobortis eget erat. In placerat fermentum tellus, sit amet commodo libero suscipit sit amet. Fusce feugiat, metus eget ornare eleifend, nibh metus dapibus urna, vitae posuere felis orci in purus. Sed orci erat, mattis vel commodo quis, consectetur eu justo. Pellentesque gravida aliquet ligula, eu lobortis felis semper id. Morbi hendrerit est vel nisl feugiat feugiat. Sed ac mauris orci, vel mollis enim. Curabitur euismod dui nibh. Duis eget sapien lacus. Phasellus nisi diam, eleifend et pharetra nec, molestie ac sapien. Nam suscipit hendrerit sollicitudin. Donec lacinia tempus posuere. Nullam porta metus ac sapien tincidunt tincidunt. Sed a metus eros, in adipiscing turpis. Proin et leo eu arcu ornare facilisis eget et odio.
+			</p>
+			
+			<p>
+			Curabitur fermentum dictum odio, et sollicitudin sapien viverra a. Curabitur non malesuada nunc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pretium condimentum dolor et commodo. Curabitur aliquet, urna eu dignissim dapibus, ligula quam sollicitudin libero, quis lacinia felis turpis sed ligula. Proin condimentum dolor vitae neque tempus lacinia. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut odio lacus, vehicula malesuada luctus quis, fermentum at ligula. Aenean dapibus, felis ut iaculis aliquet, augue tortor placerat neque, gravida porttitor augue massa quis quam. Sed odio neque, semper non imperdiet a, convallis sed nisi. Ut leo tortor, tempor non placerat a, varius eget justo. Mauris id libero dolor. Mauris sollicitudin egestas sapien, eu pretium felis molestie at. Mauris sed lorem vel augue dictum egestas. Donec magna tortor, tempus in luctus eu, gravida quis dui. Nam magna sapien, imperdiet eu rhoncus ut, consectetur eu mi. Duis posuere imperdiet metus vel pellentesque. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus ac venenatis risus.
+			</p>
+			
+			<p>
+			Aenean faucibus tincidunt tincidunt. Fusce vitae iaculis mi. Curabitur at justo odio, vitae lobortis eros. Phasellus tincidunt, turpis vel blandit porta, dolor nisl volutpat libero, ut viverra diam massa ut ante. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla id ante sit amet massa pharetra pretium. Donec cursus vehicula eros, nec tempor arcu ornare sed. In sit amet aliquam risus. Etiam erat tellus, convallis vitae egestas sed, venenatis non eros. Sed tincidunt, magna porttitor malesuada interdum, lectus eros mollis nulla, sit amet ultricies nulla lectus malesuada urna		
+			</p>
+			
+			</div>
+			
+			<div id="activity002" class="question">
+			
+			<h3>Activity 2: Title of Activity</h3>
+			
+			<form>
+			<label style="display: block;">
+			<input type="checkbox" checked="checked" />
+			Completed
+			</label>
+			<label style="display: block; color: #ccc;">
+			<input type="checkbox" />
+			Completed
+			</label>
+			</form>
+			
+			<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae lectus lectus. Aliquam purus lacus, cursus in elementum vel, lobortis eget erat. In placerat fermentum tellus, sit amet commodo libero suscipit sit amet. Fusce feugiat, metus eget ornare eleifend, nibh metus dapibus urna, vitae posuere felis orci in purus. Sed orci erat, mattis vel commodo quis, consectetur eu justo. Pellentesque gravida aliquet ligula, eu lobortis felis semper id. Morbi hendrerit est vel nisl feugiat feugiat. Sed ac mauris orci, vel mollis enim. Curabitur euismod dui nibh. Duis eget sapien lacus. Phasellus nisi diam, eleifend et pharetra nec, molestie ac sapien. Nam suscipit hendrerit sollicitudin. Donec lacinia tempus posuere. Nullam porta metus ac sapien tincidunt tincidunt. Sed a metus eros, in adipiscing turpis. Proin et leo eu arcu ornare facilisis eget et odio.
+			</p>
+			
+			<p>
+			Curabitur fermentum dictum odio, et sollicitudin sapien viverra a. Curabitur non malesuada nunc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pretium condimentum dolor et commodo. Curabitur aliquet, urna eu dignissim dapibus, ligula quam sollicitudin libero, quis lacinia felis turpis sed ligula. Proin condimentum dolor vitae neque tempus lacinia. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut odio lacus, vehicula malesuada luctus quis, fermentum at ligula. Aenean dapibus, felis ut iaculis aliquet, augue tortor placerat neque, gravida porttitor augue massa quis quam. Sed odio neque, semper non imperdiet a, convallis sed nisi. Ut leo tortor, tempor non placerat a, varius eget justo. Mauris id libero dolor. Mauris sollicitudin egestas sapien, eu pretium felis molestie at. Mauris sed lorem vel augue dictum egestas. Donec magna tortor, tempus in luctus eu, gravida quis dui. Nam magna sapien, imperdiet eu rhoncus ut, consectetur eu mi. Duis posuere imperdiet metus vel pellentesque. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus ac venenatis risus.
+			</p>
+			
+			<p>
+			Aenean faucibus tincidunt tincidunt. Fusce vitae iaculis mi. Curabitur at justo odio, vitae lobortis eros. Phasellus tincidunt, turpis vel blandit porta, dolor nisl volutpat libero, ut viverra diam massa ut ante. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla id ante sit amet massa pharetra pretium. Donec cursus vehicula eros, nec tempor arcu ornare sed. In sit amet aliquam risus. Etiam erat tellus, convallis vitae egestas sed, venenatis non eros. Sed tincidunt, magna porttitor malesuada interdum, lectus eros mollis nulla, sit amet ultricies nulla lectus malesuada urna		
+			</p>
+			
+			</div>
+			<p style="text-align: right;">
+			<a href="#">&laquo; Previous Activity</a> | <a href="#">Next Activity &raquo;</a> 
+			</p>
+			
+			</div>
 		</div>
-		</div>
 		
+		<div id="popups">
+			<div id="introduction" class="popup">
+			
+				<h3>Introduction</h3>
+				
+				<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae lectus lectus. Aliquam purus lacus, cursus in elementum vel, lobortis eget erat. In placerat fermentum tellus, sit amet commodo libero suscipit sit amet. Fusce feugiat, metus eget ornare eleifend, nibh metus dapibus urna, vitae posuere felis orci in purus. Sed orci erat, mattis vel commodo quis, consectetur eu justo. Pellentesque gravida aliquet ligula, eu lobortis felis semper id. Morbi hendrerit est vel nisl feugiat feugiat. Sed ac mauris orci, vel mollis enim. Curabitur euismod dui nibh. Duis eget sapien lacus. Phasellus nisi diam, eleifend et pharetra nec, molestie ac sapien. Nam suscipit hendrerit sollicitudin. Donec lacinia tempus posuere. Nullam porta metus ac sapien tincidunt tincidunt. Sed a metus eros, in adipiscing turpis. Proin et leo eu arcu ornare facilisis eget et odio.
+				</p>
+			</div>	
+			<div id="requiredreading" class="popup">
+			
+				<h3>Required Reading</h3>
+				
+				<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae lectus lectus. Aliquam purus lacus, cursus in elementum vel, lobortis eget erat. In placerat fermentum tellus, sit amet commodo libero suscipit sit amet. Fusce feugiat, metus eget ornare eleifend, nibh metus dapibus urna, vitae posuere felis orci in purus. Sed orci erat, mattis vel commodo quis, consectetur eu justo. Pellentesque gravida aliquet ligula, eu lobortis felis semper id. Morbi hendrerit est vel nisl feugiat feugiat. Sed ac mauris orci, vel mollis enim. Curabitur euismod dui nibh. Duis eget sapien lacus. Phasellus nisi diam, eleifend et pharetra nec, molestie ac sapien. Nam suscipit hendrerit sollicitudin. Donec lacinia tempus posuere. Nullam porta metus ac sapien tincidunt tincidunt. Sed a metus eros, in adipiscing turpis. Proin et leo eu arcu ornare facilisis eget et odio.
+				</p>
+			</div>	
+			<div id="otherresources" class="popup">
+			
+				<h3>Other Resources</h3>
+				
+				<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae lectus lectus. Aliquam purus lacus, cursus in elementum vel, lobortis eget erat. In placerat fermentum tellus, sit amet commodo libero suscipit sit amet. Fusce feugiat, metus eget ornare eleifend, nibh metus dapibus urna, vitae posuere felis orci in purus. Sed orci erat, mattis vel commodo quis, consectetur eu justo. Pellentesque gravida aliquet ligula, eu lobortis felis semper id. Morbi hendrerit est vel nisl feugiat feugiat. Sed ac mauris orci, vel mollis enim. Curabitur euismod dui nibh. Duis eget sapien lacus. Phasellus nisi diam, eleifend et pharetra nec, molestie ac sapien. Nam suscipit hendrerit sollicitudin. Donec lacinia tempus posuere. Nullam porta metus ac sapien tincidunt tincidunt. Sed a metus eros, in adipiscing turpis. Proin et leo eu arcu ornare facilisis eget et odio.
+				</p>
+			</div>	
+			<div id="help" class="popup">
+			
+				<h3>Help</h3>
+				
+				<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae lectus lectus. Aliquam purus lacus, cursus in elementum vel, lobortis eget erat. In placerat fermentum tellus, sit amet commodo libero suscipit sit amet. Fusce feugiat, metus eget ornare eleifend, nibh metus dapibus urna, vitae posuere felis orci in purus. Sed orci erat, mattis vel commodo quis, consectetur eu justo. Pellentesque gravida aliquet ligula, eu lobortis felis semper id. Morbi hendrerit est vel nisl feugiat feugiat. Sed ac mauris orci, vel mollis enim. Curabitur euismod dui nibh. Duis eget sapien lacus. Phasellus nisi diam, eleifend et pharetra nec, molestie ac sapien. Nam suscipit hendrerit sollicitudin. Donec lacinia tempus posuere. Nullam porta metus ac sapien tincidunt tincidunt. Sed a metus eros, in adipiscing turpis. Proin et leo eu arcu ornare facilisis eget et odio.
+				</p>
+			</div>	
+		</div>
 		
 	</div>
 {% endblock %}

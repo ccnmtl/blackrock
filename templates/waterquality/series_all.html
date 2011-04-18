@@ -1,12 +1,18 @@
 {% extends 'base.html' %}
 
 {% load charts %}
+{% block css %}
+<style>
+#contentcontainer {padding: 0px 20px 0px 20px;}
+</style>
+{% endblock %}
+
 {% block masthead %}
 	Water Quality
 {% endblock %}
 
 {% block content %}
-<div id="contentcontainer" style="padding: 20px;">
+	<div id="contentcontainer">
 
 	<table>
 	

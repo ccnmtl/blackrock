@@ -4,6 +4,13 @@
 {% block js %}
 
 {% endblock %}
+
+{% block css %}
+<style>
+#contentcontainer {padding: 0px 20px 0px 20px;}
+</style>
+{% endblock %}
+
 {% block masthead %}
 	Water Quality
 {% endblock %}
@@ -11,7 +18,7 @@
 
 {% block content %}
 
-	<div id="contentcontainer" style="padding: 20px;">
+	<div id="contentcontainer">
 
 <h3>box plot</h3>
 {% with lseries.box_data as box_data %}

@@ -1,41 +1,52 @@
 {% extends 'base.html' %}
 
+{% block css %}
+<style>
+#contentcontainer {padding: 0px 20px 0px 20px;}
+#datatable {width: 100%; border: 1px solid #ccc; border-collapse: collapse;}
+#datatable th, #datatable td {padding: 5px; border: 1px solid #ccc; border-collapse: collapse;}
+#datatable th {text-align: left; background-color: #eee;}
+#datatable td.seriesname {font-weight: bold;}
+
+</style>
+{% endblock %}
+
 {% block masthead %}
 	Water Quality
 {% endblock %}
 
 {% block content %}
 
-	<div id="contentcontainer" style="padding: 20px;">
+	<div id="contentcontainer">
 
-	<p>
-	<a href="javascript:history.go(-1)">&laquo; Back to Graph</a>
-	</p>
-		
-	<table width="100%">
-	<tr>
-	  <th>series</th>
-	  <th>units</th>
-	  <th>count</th>
-	  <th colspan="2">range</th>
-	  <th>min</th>
-	  <th>max</th>
-	  <th>mean</th>
-	  <th>stddev</th>
-	</tr>
-	{% for series in series %}
-	<tr class="{% cycle 'even' 'odd' %}">
-	<th>{{series.location.site.name}}/{{series.location.name}}/<a href="{% url waterquality-series series.id %}">{{series.name}}</a></th>
-	<td>{{series.units}}</td>
-	<td>{{series.count}}</td>
-	<td>{{series.start.timestamp}}</td><td>{{series.end.timestamp}}</td>
-	<td>{{series.min|floatformat}}</td>
-	<td>{{series.max|floatformat}}</td>
-	<td>{{series.mean|floatformat}}</td>
-	<td>{{series.stddev|floatformat}}</td>
-	</tr>
-	{% endfor %}
-	</table>
+		<p>
+		<input type=button onClick="parent.location='javascript:history.go(-1)'" value='&laquo; Back to Graph'>		
+		</p>
+			
+		<table id="datatable">
+		<tr>
+		  <th>series</th>
+		  <th>units</th>
+		  <th>count</th>
+		  <th colspan="2">range</th>
+		  <th>min</th>
+		  <th>max</th>
+		  <th>mean</th>
+		  <th>stddev</th>
+		</tr>
+		{% for series in series %}
+		<tr class="{% cycle 'even' 'odd' %}">
+		<td class="seriesname">{{series.location.site.name}}/{{series.location.name}}/<a href="{% url waterquality-series series.id %}">{{series.name}}</a></td>
+		<td>{{series.units}}</td>
+		<td>{{series.count}}</td>
+		<td>{{series.start.timestamp}}</td><td>{{series.end.timestamp}}</td>
+		<td>{{series.min|floatformat}}</td>
+		<td>{{series.max|floatformat}}</td>
+		<td>{{series.mean|floatformat}}</td>
+		<td>{{series.stddev|floatformat}}</td>
+		</tr>
+		{% endfor %}
+		</table>
 	
 	</div>
 	
