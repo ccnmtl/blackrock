@@ -168,6 +168,7 @@ class LimitedSeriesGroup(object):
                              max=float(s.max() - gmin) * scale,
                              lq=float(s.lq() - gmin) * scale,
                              uq=float(s.uq() - gmin) * scale,
+                             series=s,
                              median=float(s.median() - gmin) * scale))
         return dict(max=gmax,min=gmin,series=data,
                     count=len(data))
