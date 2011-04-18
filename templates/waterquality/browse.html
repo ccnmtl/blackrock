@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 
+{% block title %}Water Quality{% endblock %}
+
 {% block css %}
 <style>
-#contentcontainer {padding: 0px 20px 0px 20px;}
+#contentcontainer {padding: 20px;}
 #datatable {width: 100%; border: 1px solid #ccc; border-collapse: collapse;}
 #datatable th, #datatable td {padding: 5px; border: 1px solid #ccc; border-collapse: collapse;}
 #datatable th {text-align: left; background-color: #eee;}
@@ -20,9 +22,10 @@
 	<div id="contentcontainer">
 
 		<p>
-		<input type=button onClick="parent.location='javascript:history.go(-1)'" value='&laquo; Back to Graph'>		
+		<input type=button onClick="parent.location='javascript:history.go(-1)'" value='&laquo; Back to Activity'>		
 		</p>
-	<h2>Data Table</h2>		
+		
+	<h2>Browse Data</h2>		
 		<table id="datatable">
 		<tr>
 		  <th>series</th>

@@ -214,7 +214,7 @@ table.graphtable th, table.graphtable td {font-size: 10px; padding: 4px;}
 	<li><a href="#">Introduction</a></li>
 	<li><a href="#">Required Reading</a></li>
 	<li><a href="#">Other Resources</a></li>
-	<li><a href="#" style="float: right;">Help</a></li>
+	<li><a href="{% url waterquality-browse %}" style="float: right;">Browse Data</a></li>
 	</ul>
 {% endblock %}
 
@@ -247,8 +247,7 @@ table.graphtable th, table.graphtable td {font-size: 10px; padding: 4px;}
 		</table>
 		
 		<p style="float: right;">
-		<input type=button onClick="parent.location='javascript:history.go(-1)'" value='Reset This Graph'>	
-		<input type=button onClick="parent.location='{% url waterquality-browse %}'" value='Browse Data'>		
+		<input type="submit" value="Graph This Information" style="background-color: green; color: white;" />
 		</p>
 		
 		<table class="graphtable">
@@ -331,7 +330,6 @@ table.graphtable th, table.graphtable td {font-size: 10px; padding: 4px;}
 		<input type="text" name="line_label_{{line.n}}" value="{{line.label}}" />
 		<br />
 		<b>Line Value:</b><br />
-		<br />
 		<input type="text" name="line_value_{{line.n}}"value="{{line.value}}" />
 		</td>
 		{% endfor %}
@@ -347,10 +345,6 @@ table.graphtable th, table.graphtable td {font-size: 10px; padding: 4px;}
 		{% endwith %}
 
 		{% endifnotequal %}
-		
-		<td style="vertical-align: middle;">
-		<input type="submit" value="Graph It!" style="background-color: green; color: white;" />
-		</td>
 		
 		</tr>
 		

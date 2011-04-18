@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% block title %}Water Quality{% endblock %}
+
 {% load charts %}
 
 {% block js %}
@@ -7,7 +9,10 @@
 
 {% block css %}
 <style>
-#contentcontainer {padding: 0px 20px 0px 20px;}
+<style>
+table.graphtable th, table.graphtable td {font-size: 10px; padding: 4px;}
+#contentcontainer {padding: 20px;}
+</style>
 </style>
 {% endblock %}
 
@@ -21,15 +26,17 @@
 	<div id="contentcontainer">
 
 		<p>
-		<input type=button onClick="parent.location='javascript:history.go(-1)'" value='&laquo; Back to Data Table'>	
-		<input type=button onClick="parent.location='{% url waterquality-series-all series.id %}'" value='View All'>	
+		<input type=button onClick="parent.location='javascript:history.go(-1)'" value='&laquo; Back to Browse Data'>	
+		<input type=button onClick="parent.location='{% url waterquality-series-all series.id %}'" value='View All for {{series.name}}'>	
 		</p>
-<h3>box plot</h3>
+<h2>{{series.name}}</h2>
+
+<h3>Box Plot</h3>
 {% with lseries.box_data as box_data %}
 
   <img src="https://chart.googleapis.com/chart?chs=400x200&cht=lc&chd=t0:0,{{box_data.min}},0|0,{{box_data.lq}},0|0,{{box_data.uq}},0|0,{{box_data.max}},0|0,{{box_data.median}},0&chm=F,0000FF,0,1,20|H,0000FF,0,1,1:20|H,0000FF,3,1,1:20|H,0000FF,4,1,1:20&chxt=y&chxr=0,{{lseries.min}},{{lseries.max}},0" width="400" height="200" />
 
-<table>
+<table class="graphtable">
 <tr><th>Min</th><td>{{lseries.min|floatformat}}</td></tr>
 <tr><th>Max</th><td>{{lseries.max|floatformat}}</td></tr>
 <tr><th>Median</th><td>{{lseries.median|floatformat}}</td></tr>
@@ -41,7 +48,7 @@
 
 {% endwith %}
 
-<h3>whole series sampled down</h3>
+<h3>Whole Series Sampled Down</h3>
 {% chart as c %}
     {% chart-data lseries.range_data %}
     {% chart-type "line" %}
