@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
 from datetime import datetime, timedelta
+import math
 
 class rendered_with(object):
     def __init__(self, template_name):
@@ -91,6 +92,23 @@ def index(request):
         data['all_series'] = all_series
         data['show_graph'] = False
         data['show_box_plot'] = len(datasets) > 0
+
+        if len(series_ids) == 2:
+            # we can do a t-test
+            s1 = get_object_or_404(Series,id=series_ids[0])
+            s2 = get_object_or_404(Series,id=series_ids[1])
+            ls1 = LimitedSeries(series=s1,start=start,end=end)
+            ls2 = LimitedSeries(series=s2,start=start,end=end)
+            m1 = ls1.mean()
+            m2 = ls2.mean()
+            sd1 = ls1.stddev()
+            sd2 = ls2.stddev()
+            n1 = ls1.count()
+            n2 = ls2.count()
+            numerator = (m1 - m2)
+            denominator = math.sqrt((sd1/float(n1)) + (sd2/float(n2)))
+            data['ttest'] = float(numerator) / float(denominator)
+            data['show_ttest'] = True
 
 
     if graph_type == 'scatter-plot':
