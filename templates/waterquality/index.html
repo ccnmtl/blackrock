@@ -27,12 +27,8 @@
 	   chart = new Highcharts.Chart({
 		 chart: {
 		    renderTo: 'chart-container',
-	{% ifequal type "time-series" %}
-		    zoomType: 'x',
-	{% endifequal %}
 	{% ifequal type "scatter-plot" %}
 		    defaultSeriesType: 'scatter',
-		    zoomType: 'xy',
 	{% endifequal %}
 		    spacingRight: 20
 		 },
@@ -65,7 +61,11 @@
 	
 	{% endifequal %}
 		 tooltip: {
+	{% ifequal type "time-series" %}
 		    shared: true               
+	{% else %}
+	            shared: false
+	{% endifequal %}
 		 },
 		 legend: {
 		    enabled: true
