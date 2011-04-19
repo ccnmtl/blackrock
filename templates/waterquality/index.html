@@ -340,20 +340,20 @@ table.graphtable th, table.graphtable td {font-size: 10px; padding: 4px;}
 
 		{% for line in lines %}
 		<td>
-		<b>Line Label:</b><br />
+		<b>Threshold Label:</b><br />
 		<input type="text" name="line_label_{{line.n}}" value="{{line.label}}" />
 		<br />
-		<b>Line Value:</b><br />
+		<b>Threshold Value:</b><br />
 		<input type="text" name="line_value_{{line.n}}"value="{{line.value}}" />
 		</td>
 		{% endfor %}
 		
 		{% with lines|length as n %}
 		<td>
-		<b>Line Label:</b><br />
+		<b>Threshold Label:</b><br />
 		<input type="text" name="line_label_{{n}}" value="" />
 		<br />
-		<b>Line Value:</b><br />
+		<b>Threshold Value:</b><br />
 		<input type="text" name="line_value_{{n}}"value="" />
 		</td>
 		{% endwith %}
