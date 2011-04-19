@@ -47,7 +47,7 @@
 		 xAxis: {
 		    title: {
 			  enabled: true,
-			  text: '{{independent.name}}'
+			  text: '{{independent.name}} ({{independent.units}})'
 		    },
 		    startOnTick: true,
 		    endOnTick: true,
@@ -55,7 +55,7 @@
 		 },
 		 yAxis: {
 		    title: {
-			  text: '{{dependent.name}}'
+			  text: '{{dependent.name}} ({{dependent.units}})'
 		    }
 		 },
 	
@@ -121,7 +121,7 @@
 	{% for set in datasets %}
 		  {
 		    type: 'area',
-		    name: '{{set.series.name}}',
+		    name: '{{set.series.name}} ({{set.series.units}})',
 		    pointInterval: 3600 * 1000,
 		    pointStart: Date.UTC({{start.year}}, {{start.month}} - 1, {{start.day}}),
 		    data: [
@@ -284,7 +284,7 @@ table.graphtable th, table.graphtable td {font-size: 10px; padding: 4px;}
 		<b>Series:</b><br />
 		<select size="4" name="series" multiple="multiple">
 		{% for series in all_series %}
-		<option value="{{series.id}}" {% if series.selected %}selected="selected"{% endif %}>{{series.name}}</option>
+		<option value="{{series.id}}" {% if series.selected %}selected="selected"{% endif %}>{{series.name}} ({{series.units}})</option>
 		{% endfor %}
 		</select>
 		</td>
@@ -299,7 +299,7 @@ table.graphtable th, table.graphtable td {font-size: 10px; padding: 4px;}
 		<b>Series:</b><br />
 		<select size="4" name="series" multiple="multiple">
 		{% for series in all_series %}
-		<option value="{{series.id}}" {% if series.selected %}selected="selected"{% endif %}>{{series.name}}</option>
+		<option value="{{series.id}}" {% if series.selected %}selected="selected"{% endif %}>{{series.name}} ({{series.units}})</option>
 		{% endfor %}
 		</select>
 		</td>
@@ -314,14 +314,14 @@ table.graphtable th, table.graphtable td {font-size: 10px; padding: 4px;}
 		<b>Independent:</b><br />
 		<select name="independent">
 		{% for series in all_series %}
-		<option value="{{series.id}}" {% if series.independent %}selected="selected"{% endif %}>{{series.name}}</option>
+		<option value="{{series.id}}" {% if series.independent %}selected="selected"{% endif %}>{{series.name}} ({{series.units}})</option>
 		{% endfor %}
 		</select>
 		<br />
 		<b>Dependent:</b><br />
 		<select name="dependent">
 		{% for series in all_series %}
-		<option value="{{series.id}}" {% if series.dependent %}selected="selected"{% endif %}>{{series.name}}</option>
+		<option value="{{series.id}}" {% if series.dependent %}selected="selected"{% endif %}>{{series.name}} ({{series.units}})</option>
 		{% endfor %}
 		</select>
 		</td>
