@@ -61,7 +61,11 @@
 	
 	{% endifequal %}
 		 tooltip: {
+	{% ifequal type "time-series" %}
 		    shared: true               
+	{% else %}
+	            shared: false
+	{% endifequal %}
 		 },
 		 legend: {
 		    enabled: true
