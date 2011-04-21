@@ -2,10 +2,18 @@ from django.db import models
 
 class Site(models.Model):
     name = models.CharField(max_length=256)
-    
+
+    def __unicode__(self):
+        return self.name
+
+
 class Location(models.Model):
     name = models.CharField(max_length=256)
     site = models.ForeignKey(Site)
+
+    def __unicode__(self):
+        return self.name
+
 
 class Series(models.Model):
     name = models.CharField(max_length=256)
@@ -14,6 +22,9 @@ class Series(models.Model):
 
     def get_absolute_url(self):
         return "/series/%d/" % self.id
+
+    def __unicode__(self):
+        return self.name
 
     def count(self):
         return self.row_set.all().count()
