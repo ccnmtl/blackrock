@@ -185,9 +185,10 @@ class LimitedSeriesGroup(object):
                     count=len(data))
 
 class LimitedSeriesPair(object):
-    def __init__(self,independent,dependent,start=None,end=None):
+    def __init__(self,independent,dependent,start=None,end=None,skip_zeroes=None):
         self.independent = LimitedSeries(independent,start,end)
         self.dependent   = LimitedSeries(dependent,start,end)
+        self.skip_zeroes = skip_zeroes
 
     def linear_regression(self):
         count = self.independent.row_set().count()
@@ -195,6 +196,22 @@ class LimitedSeriesPair(object):
         ys = [r.value for r in self.dependent.row_set()]
         sumx = self.independent.sum()
         sumy = self.dependent.sum()
+
+        if self.skip_zeroes:
+            # need to tweak things a bit
+            newxs = []
+            newys = []
+            for x,y in zip(xs,ys):
+                if x == 0 or y == 0:
+                    continue
+                newxs.append(x)
+                newys.append(y)
+            xs = newxs
+            ys = newys
+            count = len(xs)
+            sumx = sum(xs)
+            sumy = sum(ys)
+            
 
         sumxx = sum([x * x for x in xs])
         sumyy = sum([y * y for y in ys])
