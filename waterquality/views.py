@@ -134,7 +134,6 @@ def index(request):
                                                  skip_zeroes=skip_zeroes)
             data["data"] = zip(ind_data,dep_data)
             if skip_zeroes:
-                print "removing zero points"
                 newdata = []
                 for d in data["data"]:
                     if d[0] == 0 or d[1] == 0:
