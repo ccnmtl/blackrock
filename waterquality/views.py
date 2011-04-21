@@ -114,6 +114,7 @@ def index(request):
     if graph_type == 'scatter-plot':
         independent = request.GET.get('independent',None)
         dependent = request.GET.get('dependent',None)
+        skip_zeroes = request.GET.get('skip_zeroes',None)
 
         if independent and dependent:
             ind_series = get_object_or_404(Series,id=independent)
@@ -129,10 +130,19 @@ def index(request):
             data['lseriesp'] = LimitedSeriesPair(independent=ind_series,
                                                  dependent=dep_series,
                                                  start=start,
-                                                 end=end)
+                                                 end=end,
+                                                 skip_zeroes=skip_zeroes)
             data["data"] = zip(ind_data,dep_data)
+            if skip_zeroes:
+                newdata = []
+                for d in data["data"]:
+                    if d[0] == 0 or d[1] == 0:
+                        continue
+                    newdata.append(d)
+                data["data"] = newdata
             data["independent"] = ind_series
             data["dependent"] = dep_series
+            data["skip_zeroes"] = skip_zeroes
 
         all_series = []
         for series in Series.objects.all():

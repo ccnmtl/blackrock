@@ -324,7 +324,11 @@ table.graphtable th, table.graphtable td {font-size: 10px; padding: 4px;}
 		{% for series in all_series %}
 		<option value="{{series.id}}" {% if series.dependent %}selected="selected"{% endif %}>{{series.name}} ({{series.units}})</option>
 		{% endfor %}
-		</select>
+		</select><br />
+		<b>Skip Zeroes:</b> 
+		<input type="checkbox" name="skip_zeroes" 
+		       {% if skip_zeroes %}checked="checked"{% endif %}
+		       />
 		</td>
 		{% endifequal %}
 		
