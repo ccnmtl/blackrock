@@ -178,7 +178,7 @@ def process_pollen_types(results):
     
   for result in results:
     plant_name = _normalize_pollen_name(result['plant_name'])
-    plant_type = result['plant_type']
+    plant_type = result['plant_type_code']
     
     pt, created = _get_or_create_pollen_type(plant_name, plant_type)
     
@@ -225,6 +225,9 @@ def _process_samples(results, fieldname):
 
 def _get_or_create_pollen_type(name, type, display_name=""):
   pt, created = PollenType.objects.get_or_create(name__iexact=name)
+  
+  if created:
+      pt.name = name
   
   if len(type) == 1: # Organic Matter's type is gibberish
     pt.type = type
@@ -277,6 +280,7 @@ def _normalize_pollen_name(pollen_name):
     pollen_name = pollen_name.replace('(', '')
     pollen_name = pollen_name.replace(')', '')
     pollen_name = pollen_name.replace('/', '_')
+    pollen_name = unicode(pollen_name)
     pollen_name = unicodedata.normalize('NFKD', pollen_name).encode('ascii','ignore') # remove any special characters
     return pollen_name
   
