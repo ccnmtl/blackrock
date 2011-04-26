@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
 from datetime import datetime, timedelta
+from pagetree.helpers import get_hierarchy, get_section_from_path, get_module
 import math
 
 class rendered_with(object):
@@ -19,8 +20,20 @@ class rendered_with(object):
 
         return rendered_func
 
-@rendered_with('waterquality/index.html')
 def index(request):
+    return HttpResponseRedirect(get_hierarchy("waterquality").get_root().get_first_leaf().get_absolute_url())
+
+@rendered_with('waterquality/edit_page.html')
+def edit_page(request,path):
+    h = get_hierarchy("waterquality")
+    section = get_section_from_path(path,hierarchy="waterquality")
+    return dict(section=section,
+                module=get_module(section),
+                root=h.get_root())
+
+@rendered_with('waterquality/index.html')
+def page(request,path):
+    section = get_section_from_path(path,hierarchy="waterquality")
     data = dict()
     start = request.GET.get('start',None)
     end = request.GET.get('end',None)
@@ -159,6 +172,8 @@ def index(request):
     data['days'] = t.days
     data['type'] = graph_type
     data['graph_title'] = request.GET.get('title',"")
+    data['section'] = section
+    data['modules'] = get_hierarchy('waterquality').get_top_level()
     return data
 
 
