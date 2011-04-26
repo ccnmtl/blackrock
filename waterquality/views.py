@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
 from datetime import datetime, timedelta
 from pagetree.helpers import get_hierarchy, get_section_from_path, get_module
 import math
+from django.conf import settings
 
 class rendered_with(object):
     def __init__(self, template_name):
@@ -70,14 +71,19 @@ def page(request,path):
     if graph_type == 'time-series':
         series_ids = request.GET.getlist('series')
         datasets = []
+        data_count = 0
         for sid in series_ids:
             series = get_object_or_404(Series,id=sid)
-            datasets.append(
-                dict(series=series,
-                     lseries=LimitedSeries(series=series,start=start,end=end),
-                     data=series.range_data(start,end,max_points=50000))
-                )
-
+            d = series.range_data(start,end,max_points=50000)
+            data_count += len(d)
+            if data_count < settings.MAX_DATA_COUNT:
+                datasets.append(
+                    dict(series=series,
+                         lseries=LimitedSeries(series=series,start=start,end=end),
+                         data=d)
+                    )
+            else:
+                data['too_much_data'] = True
 
         data["datasets"] = datasets
         all_series = []

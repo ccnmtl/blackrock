@@ -413,6 +413,13 @@ table.graphtable th, table.graphtable td {font-size: 10px; padding: 4px;}
 		T-Test: {{ttest|floatformat:2}}
 		{% endif %}
 		{% endif %}
+
+		{% if too_much_data %}
+		<p class="warning">Too many data points were selected. It would break
+		  your browser, so one or more data series are not being
+		  displayed. Please select fewer data series or a
+		  smaller date range.</p>
+		{% endif %}
 		
 		<div id="questions" style="border-top: 1px solid #ccc; position: relative;">
 		
