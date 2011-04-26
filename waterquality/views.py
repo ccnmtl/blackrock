@@ -65,6 +65,7 @@ def page(request,path):
                     l = request.GET.get("line_label_%s" % n)
                     lines.append(dict(label=l,value=v,n=int(n)))
         data["lines"] = lines
+        data["allow_more_lines"] = len(lines) < 4
 
     if graph_type == 'time-series':
         series_ids = request.GET.getlist('series')

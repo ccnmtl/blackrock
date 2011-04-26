@@ -353,6 +353,7 @@ table.graphtable th, table.graphtable td {font-size: 10px; padding: 4px;}
 		</td>
 		{% endfor %}
 		
+		{% if allow_more_lines %}
 		{% with lines|length as n %}
 		<td>
 		<b>Line Label:</b><br />
@@ -362,6 +363,7 @@ table.graphtable th, table.graphtable td {font-size: 10px; padding: 4px;}
 		<input type="text" name="line_value_{{n}}"value="" />
 		</td>
 		{% endwith %}
+		{% endif %}
 
 		{% endifnotequal %}
 		
