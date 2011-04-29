@@ -6,7 +6,6 @@
 .home_module_container {
     min-width: 1000px;
     margin-top: 10px;
-
 }
 
 table#half-width {
@@ -26,11 +25,9 @@ table#half-width td {
     border-style: solid;
     border-width: 1px;
     vertical-align: top;
-    font-size: .65em;
     min-width: 450px;
     padding-bottom: 5px;
     width: 100% auto;
-
 }
 
 .home_module h4 {
@@ -41,7 +38,6 @@ table#half-width td {
     padding-left: 40px;
     line-height: 35px;
     margin: 0 0 5px;
-    font-size: 120%;
 }
 
 .home_module .image_block {
@@ -49,8 +45,7 @@ table#half-width td {
     margin: 0px 15px 10px 0px;
     max-height: 85px;
     overflow: hidden;
-        border: 1px solid #666;
-
+    border: 1px solid #666;
 }
 
 .home_module .text_block {
@@ -64,7 +59,6 @@ table#half-width td {
     text-decoration: none;
     margin: 5px 0;
     display: block;
-    font-size: 110%;
 }
 
 .home_module ul {
@@ -150,7 +144,6 @@ table#half-width td {
     height: 185px;
     background-color: white;
     margin: 5px 10px;
-
 }
 
 

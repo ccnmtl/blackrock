@@ -3,7 +3,9 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
 from datetime import datetime, timedelta
+from pagetree.helpers import get_hierarchy, get_section_from_path, get_module
 import math
+from django.conf import settings
 
 class rendered_with(object):
     def __init__(self, template_name):
@@ -19,8 +21,20 @@ class rendered_with(object):
 
         return rendered_func
 
-@rendered_with('waterquality/index.html')
 def index(request):
+    return HttpResponseRedirect(get_hierarchy("waterquality").get_root().get_first_leaf().get_absolute_url())
+
+@rendered_with('waterquality/edit_page.html')
+def edit_page(request,path):
+    h = get_hierarchy("waterquality")
+    section = get_section_from_path(path,hierarchy="waterquality")
+    return dict(section=section,
+                module=get_module(section),
+                root=h.get_root())
+
+@rendered_with('waterquality/index.html')
+def page(request,path):
+    section = get_section_from_path(path,hierarchy="waterquality")
     data = dict()
     start = request.GET.get('start',None)
     end = request.GET.get('end',None)
@@ -52,18 +66,24 @@ def index(request):
                     l = request.GET.get("line_label_%s" % n)
                     lines.append(dict(label=l,value=v,n=int(n)))
         data["lines"] = lines
+        data["allow_more_lines"] = len(lines) < 4
 
     if graph_type == 'time-series':
         series_ids = request.GET.getlist('series')
         datasets = []
+        data_count = 0
         for sid in series_ids:
             series = get_object_or_404(Series,id=sid)
-            datasets.append(
-                dict(series=series,
-                     lseries=LimitedSeries(series=series,start=start,end=end),
-                     data=series.range_data(start,end,max_points=50000))
-                )
-
+            d = series.range_data(start,end,max_points=50000)
+            data_count += len(d)
+            if data_count < settings.MAX_DATA_COUNT:
+                datasets.append(
+                    dict(series=series,
+                         lseries=LimitedSeries(series=series,start=start,end=end),
+                         data=d)
+                    )
+            else:
+                data['too_much_data'] = True
 
         data["datasets"] = datasets
         all_series = []
@@ -159,6 +179,8 @@ def index(request):
     data['days'] = t.days
     data['type'] = graph_type
     data['graph_title'] = request.GET.get('title',"")
+    data['section'] = section
+    data['modules'] = get_hierarchy('waterquality').get_top_level()
     return data
 
 

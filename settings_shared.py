@@ -137,6 +137,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_COOKIE_AGE = 900 
 
+MAX_DATA_COUNT = 12000
 
 #if you add a 'deploy_specific' directory
 #then you can put a settings.py file and templates/ overrides there
@@ -148,6 +149,7 @@ try:
         INSTALLED_APPS = EXTRA_INSTALLED_APPS + INSTALLED_APPS
 except ImportError:
     pass
+
 
 
 
