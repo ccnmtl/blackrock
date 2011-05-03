@@ -27,7 +27,7 @@ h1#masthead
 	background-repeat: no-repeat;
 	background-position: top left;
 	height: 88px;
-
+    display: block;
 }
 
 #ccnmtl

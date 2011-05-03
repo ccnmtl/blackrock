@@ -12,7 +12,7 @@
     <div style="overflow: hidden; position: relative;" class="jcarousel-clip jcarousel-clip-horizontal">
         <ul id="scrolling-photo-gallery" class="jcarousel-list jcarousel-list-horizontal">
             {% for item in block.item.all %}
-                <li jcarouselindex="{{item.position}}" class="jcarousel-item jcarousel-item-horizontal jcarousel-item-{{item.position}} jcarousel-item-{{item.position}}-horizontal">
+                <li class="jcarousel-item jcarousel-item-horizontal jcarousel-item-{{item.position}} jcarousel-item-{{item.position}}-horizontal">
                     <div class="jcarousel-caption">
                         <h4>{{item.title}}</h4>
                         <p></p>
