@@ -219,7 +219,7 @@
             {% endif %}
             {% if current_object.person.count %} 
                 <h4>Principal Investigator{% if current_object.person.count > 1 %}s{% endif %}:</h4>
-                {% for p in current_object.person.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{p|detail_url}}"/>{{ p.name }}</a>{% endfor %}<br />
+                {% for p in current_object.person.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{p|detail_url}}">{{ p.name }}</a>{% endfor %}<br />
             {% endif %}
             {% if current_object.description %}
                 <h4>Description:</h4> 
