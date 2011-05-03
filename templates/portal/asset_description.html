@@ -3,7 +3,6 @@
 
 <div id="{{current_object|klass}}-{{current_object.id}}">   
     {% if current_object|klass == "Location" %}
-       <div>
             {% spaceless %}
             <b>Description</b>: 
             {% if current_object.location_type.count %}
@@ -13,9 +12,7 @@
                  {% for t in current_object.location_subtype.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
             {% endif %}
             {% endspaceless %}
-        </div>
     {% else %}{% if current_object|klass == "Person" %}
-        <div>
             <b>Description</b>:
             {% spaceless %} 
             {% if current_object.professional_title %}
@@ -25,23 +22,17 @@
                  {% for i in current_object.institution.all %}{% if forloop.counter > 1 %}, {% endif %}{{ i.name|truncatewords:25 }}{% endfor %}
             {% endif %}
             {% endspaceless %}
-         </div>
     {% else %}{% if current_object|klass == "Publication" %}
-           <div>
               <b>Description</b>: 
               {% if current_object.publication_type.count %}
                  {% for t in current_object.publication_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
               {% endif %}
-          </div>
     {% else %}{% if current_object|klass == "Region" %}
-       <div>
            <b>Description</b>: 
            {% if current_object.region_type.count %}
               {% for t in current_object.region_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
            {% endif %}
-      </div>
     {% else %}{% if current_object|klass == "DigitalObject" %}
-       <div>
            <b>Description</b>: 
            {% if current_object.description %}
                {{ current_object.description|truncatewords:25 }}
@@ -50,8 +41,7 @@
            {% if current_object.digital_format %}
                 <b>Format:</b> {{ current_object.digital_format }}<br />
            {% endif %}
-      </div>
-    {% else %}    
+    {% else %}
          <b>Description</b>: 
          {% if current_object.description %}
             {{ current_object.description|truncatewords:25 }}<br />

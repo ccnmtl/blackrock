@@ -2,7 +2,7 @@
 {% load smartif %} 
 
 
-<div class="assetlist link_{{block.audience.name|lower}}" id="{{asset_klass}}-{{current_object.id}}">
+<div class="assetlist link_{{block.audience.name|lower}}">
 
 {% with block.asset as current_object %}
 {% with block.asset|klass as asset_klass %}
@@ -19,7 +19,6 @@
       <div class="featuredasset">
           
           {% if asset_klass == "DataSet" %}
-           <div>
               {% include "portal/related_media.html" %}
               
               <div class="asset-summary">
@@ -28,18 +27,14 @@
                     {{ current_object.description|truncatewords:50 }}
                  {% endif %}
              </div>
-           </div>
         {% else %}{% if asset_klass == "DigitalObject" %}
-           <div>
              <div class="asset-summary">
                  <h4>Description</h4>
                  {% if current_object.description %}
                     {{ current_object.description|truncatewords:50 }}
                  {% endif %}
              </div>
-           </div>
         {% else %}{% if asset_klass == "LearningActivity" %}
-           <div>
               {% include "portal/related_media.html" %}
               
               <div class="featured_details">
@@ -54,7 +49,6 @@
                      {{ current_object.description|truncatewords:50 }}
                   {% endif %}
               </div>
-           </div>
         {% else %}{% if asset_klass == "Location" %}
            {% include "portal/related_media.html" %}
            
@@ -93,10 +87,10 @@
                   {% if current_object.description %}
                      {{ current_object.description|truncatewords:50 }}
                   {% endif %}
-             
+             </div>
         {% else %}{% if asset_klass == "Publication" %}
               {% include "portal/related_media.html" %}
-               
+              <div class="featured_details"> 
                   <h4>Publication Type</h4> 
                   {% if current_object.publication_type.count %}
                      {% for t in current_object.publication_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}
@@ -182,21 +176,21 @@
              {% endif %}
           </div>       
        {% else %}{% if asset_klass == "ForestStory" %}
-           {% include "portal/related_media.html" %}
-           
-          <div class="asset-summary">
-             <h4>Description</h4> 
-             {% if current_object.description %}
+        {% include "portal/related_media.html" %}
+       
+        <div class="asset-summary">
+            <h4>Description</h4> 
+            {% if current_object.description %}
                 {{ current_object.description|truncatewords:50 }}
-             {% endif %}
-          </div>       
-        {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
+            {% endif %}
+        </div>       
+       {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
 
-        {% with block.audience.name|lower as audience %}
-            {% include "portal/asset_detaillink.html" %}
-        {% endwith %}<p class="clear"></p>
-        
-      </div>
+       {% with block.audience.name|lower as audience %}
+           {% include "portal/asset_detaillink.html" %}
+       {% endwith %}
+       <p class="clear"></p>
+      </div> <!-- featured asset -->
     {% else %}
         <!--  Featured, but not highlighted on the page. Default to regular asset_descriptions -->
         {% include "portal/asset_description.html" %}
@@ -205,6 +199,6 @@
             {% include "portal/asset_detaillink.html" %}
         {% endwith %}<p class="clear"></p>
     {% endif %}
-
-{% endwith %}{% endwith %}{% endwith %}{% endwith %}</div><p class="clear"><p />
+    </div> <!-- single record -->
+{% endwith %}{% endwith %}{% endwith %}{% endwith %}
 </div>
