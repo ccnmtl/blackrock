@@ -1,10 +1,3 @@
-{% extends "base.html" %}
-{% load markup %}
-{% load thumbnail %}
-
-{% block title %}{{ flatpage.title }}{% endblock %}
-{% block masthead %}{{ flatpage.title }}{% endblock %}
-{% block bodyclass %}{{ flatpage.title|lower }}{% endblock %}
 {% block content %}
-{{ flatpage.content|markdown}}
+{{ flatpage.content}}
 {% endblock %}
