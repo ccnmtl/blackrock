@@ -240,7 +240,6 @@
 		
 		a:hover {text-decoration: underline !important;}
 		
-		
 		#facebox .content
 		{
 			width: 800px !important;
@@ -255,6 +254,7 @@
 		{
 			right: 20px !important;
 			top: 10px !important;
+			border: 1px solid #ccc;
 		}		
 	</style>
 
@@ -275,250 +275,251 @@
 
 {% block content %}
 
-	<div id="contentcontainer">
+<div id="contentcontainer">
+
 	
-		<!--start graphing tool -->
-		<h1>Graphing Tool</h1>
-		<form action="." method="get">
-		
-		{% if type %}
-		
-		<input type="hidden" name="type" value="{{type}}" />
-		
-		<div id="parameters">
-		
-		
-		<table class="graphtable">
-			<tr>
-				<th style="color: #435142; width: 150px;text-align: left;">Step 1: Create Graph</th>
-				<th>Graph Title:</th>
-				<td><input type="text" name="title" value="{{graph_title}}"/></td>
+	<!--start graphing activities -->
+	<h1>Activities</h1>
+	<div class="content-nav" >
 
-				<th>Graph Type:</th>
-				<td><input type="submit" name="type" value="time-series" /></td>
-				<td><input type="submit" name="type" value="scatter-plot" /></td>
-				<td><input type="submit" name="type" value="box-plot" /></td>
-			</tr>
-		</table>
-		
-		<p style="float: right;">
-		<input type="submit" value="&larr; Graph This Information" style="background-color: green; color: white;" />
-		</p>
-		
-		<table class="graphtable">
-		
-		<tr>
-		<th style="color: #435142; width: 150px;text-align: left;">Step 2: Set Graph Parameters</th>
-		<!--
-		<th>
-		Graph Title:
-		<input type="text" name="title" value="{{graph_title}}"/>
-		</th>
-		-->
-		
-		{% ifequal type "time-series" %}
-		<td>
-		<b>Graph Type:</b><br />
-		Time Series
-		</td>
-		<td>
-		<b>Series:</b><br />
-		<select size="4" name="series" multiple="multiple">
-		{% for series in all_series %}
-		<option value="{{series.id}}" {% if series.selected %}selected="selected"{% endif %}>{{series.name}} ({{series.units}})</option>
+	{% if section.get_previous %}
+	<a href="{{section.get_previous.get_absolute_url}}" id="previous">&larr; {{section.get_previous.label}}</a>
+	{% endif %}
+	&nbsp;
+	{% if section.get_next %}
+	{% with section.get_next as next_section %}
+	<a style="float: right;" href="{{section.get_next.get_absolute_url}}" id="next">{{section.get_next.label}} &rarr;</a>
+	{% endwith %}
+	{% endif %}
+
+</div>
+	<div id="questions" style="position: relative;">
+
+	<form style="position: absolute; top: 50px; right: 0px;">
+		<select style="width: 200px;" onchange="window.location=this.value">
+		<option>Choose an Activity:</option>
+		{% for module in modules %}
+		<option value="{{module.get_absolute_url}}">{{module.label}}</option>
 		{% endfor %}
+
 		</select>
-		</td>
-		{% endifequal %}
-		
-		{% ifequal type "box-plot" %}
-		<td>
-		<b>Graph Type:</b><br />
-		Box Plot
-		</td>
-		<td>
-		<b>Series:</b><br />
-		<select size="4" name="series" multiple="multiple">
-		{% for series in all_series %}
-		<option value="{{series.id}}" {% if series.selected %}selected="selected"{% endif %}>{{series.name}} ({{series.units}})</option>
-		{% endfor %}
-		</select>
-		</td>
-		{% endifequal %}
-		
-		{% ifequal type "scatter-plot" %}
-		<td>
-		<b>Graph Type:</b><br />
-		Scatter Plot
-		</td>
-		<td>
-		<b>Independent:</b><br />
-		<select name="independent">
-		{% for series in all_series %}
-		<option value="{{series.id}}" {% if series.independent %}selected="selected"{% endif %}>{{series.name}} ({{series.units}})</option>
-		{% endfor %}
-		</select>
-		<br />
-		<b>Dependent:</b><br />
-		<select name="dependent">
-		{% for series in all_series %}
-		<option value="{{series.id}}" {% if series.dependent %}selected="selected"{% endif %}>{{series.name}} ({{series.units}})</option>
-		{% endfor %}
-		</select><br />
-		<b>Skip Zeroes:</b> 
-		<input type="checkbox" name="skip_zeroes" 
-		       {% if skip_zeroes %}checked="checked"{% endif %}
-		       />
-		</td>
-		{% endifequal %}
-		
-		<td>
-		<b>Start:</b><br />
-		<input type="text" id="start" name="start" size="10" value="{{start|date:"Y-m-d"}}" />
-		<br />
-		<b>End:</b><br />
-		<input type="text" id="end" name="end" size="10" value="{{end|date:"Y-m-d"}}" />
-		</td>
-		
-
-		{% ifnotequal type "box-plot" %}
-
-		{% for line in lines %}
-		<td>
-		<b>Threshold Label:</b><br />
-		<input type="text" name="line_label_{{line.n}}" value="{{line.label}}" />
-		<br />
-		<b>Threshold Value:</b><br />
-		<input type="text" name="line_value_{{line.n}}"value="{{line.value}}" />
-		</td>
-		{% endfor %}
-		
-		{% if allow_more_lines %}
-		{% with lines|length as n %}
-		<td>
-		<b>Threshold Label:</b><br />
-		<input type="text" name="line_label_{{n}}" value="" />
-		<br />
-		<b>Threshold Value:</b><br />
-		<input type="text" name="line_value_{{n}}"value="" />
-		</td>
-		{% endwith %}
-		{% endif %}
-
-		{% endifnotequal %}
-		
-		</tr>
-		
-		</table>
-		
-		
-		</div>
-		
-		{% if lseriesp %}
-		<p>
-		R<sup>2</sup>: {{lseriesp.linear_regression.rr|floatformat:2}}
-		</p>
-		{% endif %}
-		
-		{% else %}
-		
-		<table class="graphtable">
-			<tr>
-				<th style="color: #435142;width: 150px;text-align: left;">Step 1: Create Graph</th>
-				<th>Enter Graph Title:</th>
-				<td><input type="text" name="title" value="{{graph_title}}"/></td>
-
-				<th>Choose Graph Type:</th>
-				<td><input type="submit" name="type" value="time-series" /></td>
-				<td><input type="submit" name="type" value="scatter-plot" /></td>
-				<td><input type="submit" name="type" value="box-plot" /></td>
-			</tr>
-		</table>
-		
-		{% endif %}
-		
-		
 		</form>
-		{% if show_graph %}
-		<div id="chart-container"></div>
-		{% endif %}
-		{% if show_box_plot %}
-		{% with lsg.box_data as box_data %}
-		{% spaceless %}
-		<img src="https://chart.googleapis.com/chart?chs=600x200&cht=ls&chd=t0:-1,{% for bd in box_data.series %}{{bd.min}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.lq}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.uq}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.max}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.median}},{% endfor %}0&chm=F,0000FF,0,1:{{box_data.count}},20|H,0000FF,0,1:{{box_data.count}},1:20|H,0000FF,3,1:{{box_data.count}},1:20|H,0000FF,4,1:{{box_data.count}},1:20&chxt=y&chxr=0,{{box_data.min}},{{box_data.max}},0" width="600" height="200" />
-		{% endspaceless %}
-		{% endwith %}
-		{% if show_ttest %}<br />
-		T-Test: {{ttest|floatformat:2}}
-		{% endif %}
-		{% endif %}
-		{% if too_much_data %}
-		<p class="warning">Too many data points were selected. It would break
-		  your browser, so one or more data series are not being
-		  displayed. Please select fewer data series or a
-		  smaller date range.</p>
-		{% endif %}
-		<!--stop graphing tool -->
 		
-		<!--start graphing activities -->
-		<h1>Graphing Activities</h1>
-		<div class="content-nav" >
-	
-		{% if section.get_previous %}
-		<a href="{{section.get_previous.get_absolute_url}}" id="previous">&larr; {{section.get_previous.label}}</a>
-		{% endif %}
-		&nbsp;
-		{% if section.get_next %}
-		{% with section.get_next as next_section %}
-		<a style="float: right;" href="{{section.get_next.get_absolute_url}}" id="next">{{section.get_next.label}} &rarr;</a>
-		{% endwith %}
-		{% endif %}
-	
-	</div>
-		<div id="questions" style="position: relative;">
+	<div id="activitiescontainer" style="margin-right: 250px;">
+		
+		<div id="activity001" class="activity">
+		
+		<h3>{{section.label}}</h3>
+		
+		<form>
+		<label style="display: block;">
+		<input type="checkbox" checked="checked" />
+		Completed
+		</label>
+		<label style="display: block; color: #ccc;">
+		<input type="checkbox" />
+		Completed
+		</label>
+		</form>
 
-		<form style="position: absolute; top: 50px; right: 0px;">
-			<select style="width: 200px;" onchange="window.location=this.value">
-			<option>Choose an Activity:</option>
-			{% for module in modules %}
-			<option value="{{module.get_absolute_url}}">{{module.label}}</option>
+			<div style="overflow: auto; height: 300px; padding-right: 30px;">
+			{% for block in section.pageblock_set.all %}
+			{% if block.label %}<h3>{{block.label}}</h3>{% endif %}
+			{% render block %}
 			{% endfor %}
-
-			</select>
-			</form>
-			
-		<div id="activitiescontainer" style="margin-right: 250px;">
-			
-			<div id="activity001" class="activity">
-			
-			<h3>{{section.label}}</h3>
-			
-			<form>
-			<label style="display: block;">
-			<input type="checkbox" checked="checked" />
-			Completed
-			</label>
-			<label style="display: block; color: #ccc;">
-			<input type="checkbox" />
-			Completed
-			</label>
-			</form>
-
-				<div style="overflow: auto; height: 300px; padding-right: 30px;">
-				{% for block in section.pageblock_set.all %}
-				{% if block.label %}<h3>{{block.label}}</h3>{% endif %}
-				{% render block %}
-				{% endfor %}
-				</div>
-
 			</div>
-			
+
 		</div>
 		
-		
 	</div>
-		<!--stop graphing activities -->
-		
+	
+	
+</div>
+	<!--stop graphing activities -->
+	
+	<!--start graphing tool -->
+	<h1>Graphing Tool</h1>
+	<form action="." method="get">
+	
+	{% if type %}
+	
+	<input type="hidden" name="type" value="{{type}}" />
+	
+	<div id="parameters">
+	
+	
+	<table class="graphtable">
+		<tr>
+			<th style="color: #435142; width: 150px;text-align: left;">Step 1: Create Graph</th>
+			<th>Graph Title:</th>
+			<td><input type="text" name="title" value="{{graph_title}}"/></td>
+
+			<th>Graph Type:</th>
+			<td><input type="submit" name="type" value="time-series" /></td>
+			<td><input type="submit" name="type" value="scatter-plot" /></td>
+			<td><input type="submit" name="type" value="box-plot" /></td>
+		</tr>
+	</table>
+	
+	<p style="float: right;">
+	<input type="submit" value="&larr; Graph This Information" style="background-color: green; color: white;" />
+	</p>
+	
+	<table class="graphtable">
+	
+	<tr>
+	<th style="color: #435142; width: 150px;text-align: left;">Step 2: Set Graph Parameters</th>
+	<!--
+	<th>
+	Graph Title:
+	<input type="text" name="title" value="{{graph_title}}"/>
+	</th>
+	-->
+	
+	{% ifequal type "time-series" %}
+	<td>
+	<b>Graph Type:</b><br />
+	Time Series
+	</td>
+	<td>
+	<b>Series:</b><br />
+	<select size="4" name="series" multiple="multiple">
+	{% for series in all_series %}
+	<option value="{{series.id}}" {% if series.selected %}selected="selected"{% endif %}>{{series.name}} ({{series.units}})</option>
+	{% endfor %}
+	</select>
+	</td>
+	{% endifequal %}
+	
+	{% ifequal type "box-plot" %}
+	<td>
+	<b>Graph Type:</b><br />
+	Box Plot
+	</td>
+	<td>
+	<b>Series:</b><br />
+	<select size="4" name="series" multiple="multiple">
+	{% for series in all_series %}
+	<option value="{{series.id}}" {% if series.selected %}selected="selected"{% endif %}>{{series.name}} ({{series.units}})</option>
+	{% endfor %}
+	</select>
+	</td>
+	{% endifequal %}
+	
+	{% ifequal type "scatter-plot" %}
+	<td>
+	<b>Graph Type:</b><br />
+	Scatter Plot
+	</td>
+	<td>
+	<b>Independent:</b><br />
+	<select name="independent">
+	{% for series in all_series %}
+	<option value="{{series.id}}" {% if series.independent %}selected="selected"{% endif %}>{{series.name}} ({{series.units}})</option>
+	{% endfor %}
+	</select>
+	<br />
+	<b>Dependent:</b><br />
+	<select name="dependent">
+	{% for series in all_series %}
+	<option value="{{series.id}}" {% if series.dependent %}selected="selected"{% endif %}>{{series.name}} ({{series.units}})</option>
+	{% endfor %}
+	</select><br />
+	<b>Skip Zeroes:</b> 
+	<input type="checkbox" name="skip_zeroes" 
+		  {% if skip_zeroes %}checked="checked"{% endif %}
+		  />
+	</td>
+	{% endifequal %}
+	
+	<td>
+	<b>Start:</b><br />
+	<input type="text" id="start" name="start" size="10" value="{{start|date:"Y-m-d"}}" />
+	<br />
+	<b>End:</b><br />
+	<input type="text" id="end" name="end" size="10" value="{{end|date:"Y-m-d"}}" />
+	</td>
+	
+
+	{% ifnotequal type "box-plot" %}
+
+	{% for line in lines %}
+	<td>
+	<b>Threshold Label:</b><br />
+	<input type="text" name="line_label_{{line.n}}" value="{{line.label}}" />
+	<br />
+	<b>Threshold Value:</b><br />
+	<input type="text" name="line_value_{{line.n}}"value="{{line.value}}" />
+	</td>
+	{% endfor %}
+	
+	{% if allow_more_lines %}
+	{% with lines|length as n %}
+	<td>
+	<b>Threshold Label:</b><br />
+	<input type="text" name="line_label_{{n}}" value="" />
+	<br />
+	<b>Threshold Value:</b><br />
+	<input type="text" name="line_value_{{n}}"value="" />
+	</td>
+	{% endwith %}
+	{% endif %}
+
+	{% endifnotequal %}
+	
+	</tr>
+	
+	</table>
+	
+	
 	</div>
+	
+	{% if lseriesp %}
+	<p>
+	R<sup>2</sup>: {{lseriesp.linear_regression.rr|floatformat:2}}
+	</p>
+	{% endif %}
+	
+	{% else %}
+	
+	<table class="graphtable">
+		<tr>
+			<th style="color: #435142;width: 150px;text-align: left;">Step 1: Create Graph</th>
+			<th>Enter Graph Title:</th>
+			<td><input type="text" name="title" value="{{graph_title}}"/></td>
+
+			<th>Choose Graph Type:</th>
+			<td><input type="submit" name="type" value="time-series" /></td>
+			<td><input type="submit" name="type" value="scatter-plot" /></td>
+			<td><input type="submit" name="type" value="box-plot" /></td>
+		</tr>
+	</table>
+	
+	{% endif %}
+	
+	
+	</form>
+	{% if show_graph %}
+	<div id="chart-container"></div>
+	{% endif %}
+	{% if show_box_plot %}
+	{% with lsg.box_data as box_data %}
+	{% spaceless %}
+	<img src="https://chart.googleapis.com/chart?chs=600x200&cht=ls&chd=t0:-1,{% for bd in box_data.series %}{{bd.min}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.lq}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.uq}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.max}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.median}},{% endfor %}0&chm=F,0000FF,0,1:{{box_data.count}},20|H,0000FF,0,1:{{box_data.count}},1:20|H,0000FF,3,1:{{box_data.count}},1:20|H,0000FF,4,1:{{box_data.count}},1:20&chxt=y&chxr=0,{{box_data.min}},{{box_data.max}},0" width="600" height="200" />
+	{% endspaceless %}
+	{% endwith %}
+	{% if show_ttest %}<br />
+	T-Test: {{ttest|floatformat:2}}
+	{% endif %}
+	{% endif %}
+	{% if too_much_data %}
+	<p class="warning">Too many data points were selected. It would break
+	  your browser, so one or more data series are not being
+	  displayed. Please select fewer data series or a
+	  smaller date range.</p>
+	{% endif %}
+	<!--stop graphing tool -->
+	
+</div>
 
 {% endblock %}
