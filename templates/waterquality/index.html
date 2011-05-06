@@ -292,12 +292,12 @@
 	<div class="content-nav" >
 
 	{% if section.get_previous %}
-	<a href="{{section.get_previous.get_absolute_url}}" id="previous">&larr; {{section.get_previous.label}}</a>
+	<a href="{{section.get_previous.get_absolute_url}}" id="previous">&larr; Previous Activity: "{{section.get_previous.label}}"</a>
 	{% endif %}
 	&nbsp;
 	{% if section.get_next %}
 	{% with section.get_next as next_section %}
-	<a style="float: right;" href="{{section.get_next.get_absolute_url}}" id="next">{{section.get_next.label}} &rarr;</a>
+	<a style="float: right;" href="{{section.get_next.get_absolute_url}}" id="next">Next Activity: "{{section.get_next.label}}" &rarr;</a>
 	{% endwith %}
 	{% endif %}
 
