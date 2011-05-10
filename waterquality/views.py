@@ -178,7 +178,7 @@ def page(request,path):
     data['seconds'] = t.seconds
     data['days'] = t.days
     data['type'] = graph_type
-    data['graph_title'] = request.GET.get('title',"")
+    data['graph_title'] = request.GET.get('title',"")[:25]
     data['section'] = section
     data['modules'] = get_hierarchy('waterquality').get_top_level()
     return data
