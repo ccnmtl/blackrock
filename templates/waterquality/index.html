@@ -455,7 +455,7 @@
 	{% for line in lines %}
 	<td>
 	<b>Threshold Label:</b><br />
-	<input type="text" name="line_label_{{line.n}}" value="{{line.label}}" />
+	<input type="text" name="line_label_{{line.n}}" value="{{line.label}}" maxlength="15"/>
 	<br />
 	<b>Threshold Value:</b><br />
 	<input type="text" name="line_value_{{line.n}}"value="{{line.value}}" />
@@ -466,7 +466,7 @@
 	{% with lines|length as n %}
 	<td>
 	<b>Threshold Label:</b><br />
-	<input type="text" name="line_label_{{n}}" value="" />
+	<input type="text" name="line_label_{{n}}" value=""  maxlength="15"/>
 	<br />
 	<b>Threshold Value:</b><br />
 	<input type="text" name="line_value_{{n}}"value="" />
