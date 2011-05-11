@@ -18,6 +18,10 @@
 	<script type="text/javascript">
 	$(document).ready(function() {
 		$('a[rel*=facebox]').facebox();   
+	$(document).bind('reveal.facebox', function() {
+	        $('#facebox a[rel*=facebox]').facebox();
+	});
+
 	})
 	</script>
 	{% endif %}
