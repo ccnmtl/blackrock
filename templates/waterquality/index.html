@@ -325,12 +325,9 @@
 		<h3>{{section.label}}</h3>
 		
 		<form>
-		<label style="display: block;">
-		<input type="checkbox" checked="checked" />
-		Completed
-		</label>
-		<label style="display: block; color: #ccc;">
-		<input type="checkbox" />
+		<label id="completed-label" class="completed">
+		<input type="checkbox" checked="checked"
+		onclick="jQuery('#completed-label').toggleClass('completed')" />
 		Completed
 		</label>
 		</form>

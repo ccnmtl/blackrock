@@ -176,3 +176,9 @@ ul.tabbernav li.tabberactive a:hover
   background-color: #000;
   z-index: 99;
 }
+
+#completed-label {
+display: block;
+}
+
+.completed { color: #ccc; }
