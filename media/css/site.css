@@ -178,7 +178,19 @@ ul.tabbernav li.tabberactive a:hover
 }
 
 #completed-label {
-display: block;
+	display: block;
+	color: #ccc;
+}
+#completed-label:after
+{
+	content: "?";
 }
 
-.completed { color: #ccc; }
+.completed {
+	color: green !important; 
+}
+
+.completed:after
+{
+	content: " " !important;
+}
