@@ -224,6 +224,7 @@
 	   
 	
 	</script>
+	
 	{% endif %}
 	
 {% endblock %}
@@ -270,6 +271,14 @@
 		ul.anchorlinks {margin-bottom: 50px;}
 		
 	</style>
+	
+	<!--[if IE 8]>
+	<style>
+	#breadcrumbs ul {padding-left: 40px;}
+	#breadcrumbs ul li a#browselink {padding-right: 20px; margin-top: -28px;}
+    </style>
+	<![endif]-->	
+
 
 {% endblock %}
 
@@ -282,14 +291,13 @@
 	<li><a href="/waterquality/introduction/" rel="facebox">Introduction</a></li>
 	<li><a href="/waterquality/requiredreading/rr00/" rel="facebox">Required Reading</a></li>
 	<li><a href="/waterquality/otherresources/or00/" rel="facebox">Other Resources</a></li>
-	<li><a href="{% url waterquality-browse %}" style="float: right;">Browse Data</a></li>
+	<li><a id="browselink" href="{% url waterquality-browse %}" style="float: right;">Browse Data</a></li>
 	</ul>
 {% endblock %}
 
 {% block content %}
 
 <div id="contentcontainer">
-
 	
 	<!--start graphing activities -->
 	<h1>Activities</h1>
