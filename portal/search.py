@@ -21,7 +21,7 @@ class PortalSearchForm(SearchForm):
     choices.sort()
     return choices
 
-  asset_type = forms.MultipleChoiceField(required=False, label=_('Asset Type'), widget=forms.CheckboxSelectMultiple, choices=default_type_choices())
+  asset_type = forms.MultipleChoiceField(required=False, label=_('Record Type'), widget=forms.CheckboxSelectMultiple, choices=default_type_choices())
   study_type = forms.MultipleChoiceField(required=False, label=_('Study Type'), widget=forms.CheckboxSelectMultiple, choices=default_facet_choices("Study Type"))
   species = forms.MultipleChoiceField(required=False, label=_('Species'), widget=forms.CheckboxSelectMultiple, choices=default_facet_choices("Species"))
   discipline = forms.MultipleChoiceField(required=False, label=_('Discipline'), widget=forms.CheckboxSelectMultiple, choices=default_facet_choices("Discipline"))

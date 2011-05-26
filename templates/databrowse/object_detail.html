@@ -20,6 +20,8 @@
         {% if current_object.display_image %}
             <p><img alt="{{asset_klass}} Icon" src="{{current_object.display_image.file.url}}" class="object_detail_image"></img></p>
         {% endif %}
+        
+        <p><span class="object_detail_label">Record Type:</span> {{current_object|klass_display}}</p>
             
         {% if asset_klass == "DataSet" %}
             {% if current_object.description %}
@@ -244,7 +246,7 @@
             <p><span class="object_detail_label">Keyword:</span>
             {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ f.display_name }}{% endfor %}</p>
         {% endif %}
-        <p><span class="object_detail_label">Record Type:</span> {{current_object|klass_display}}</p>
+        
    </div>
 </td>
 <td id="center"> 

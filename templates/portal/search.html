@@ -45,19 +45,37 @@
             <div class="assetlist">
                 {% for result in page.object_list %}
                      <div class="single_result">
-                        <a class="display-name" href="{{result.object|detail_url}}">{{result.object|display_name}}</a>
-                        <br />
-                        <b>Type</b>: {{result.object|klass_display}}
-                        <br />
-                        {% with result.object as current_object %}
-                            {% include "portal/asset_description.html" %}
-                        {% endwith %}
-                        <b>Keywords</b>: 
-                        {% for k in result.object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}{{ k.name }}{% endfor %}
-                        <br />
-                        <b>Categories</b>: 
-                        {% for c in result.object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ c.display_name }}{% endfor %}
-                        <a href="{{result.object|detail_url}}" class="summary-link">Details</a> 
+                     {% with result.object as current_object %}
+                        <table>
+                            <tr>
+                            {% if current_object.display_image %}
+                                <td class="search_detail_image_column">
+                                    <img alt="{{asset_klass}} Icon" src="{{current_object.display_image.file.url}}" class="search_detail_image"></img>
+                                </td>
+                            {% else %}{% if current_object.digital_format %}
+                                {% if current_object.digital_format.is_image %}
+                                    {% if current_object.file.url %}
+                                        <td class="search_detail_image_column"><img src="{{current_object.file.url}}" class="search_detail_image"></img></td>
+                                    {% else %}{% if current_object.url %}
+                                        <td class="search_detail_image_column"><img src="{{current_object.url}}" class="search_detail_image"></img></td>
+                                    {% endif %}{% endif %}
+                                {% endif %} 
+                            {% endif %}{% endif %}
+                            <td>
+                                <a class="search-display-name" href="{{result.object|detail_url}}">{{result.object|display_name}}</a>
+                                <b>Record Type</b>: {{result.object|klass_display}}
+                                {% include "portal/asset_description.html" %}
+                                
+                                <b>Keywords</b>: 
+                                {% for k in result.object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}{{ k.name }}{% endfor %}
+                                <br />
+                                <!-- b>Categories</b>: 
+                                {% for c in result.object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ c.display_name }}{% endfor %}-->
+                                <a href="{{result.object|detail_url}}" class="summary-link">More >></a>    
+                            </td>
+                            </tr>
+                        </table>
+                      {% endwith %}                         
                     </div>
                 {% endfor %}
             </div>
