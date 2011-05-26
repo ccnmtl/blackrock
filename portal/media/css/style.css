@@ -1,1 +1,864 @@
-/* darkest brown background-color: #897467;  */ /* deeper brown background background-color: #e4dbcc; *//* light tan background-color: #DCD3C2; */ /*default links: #3d2800 *//*experience links: #436751 *//*education links: #730711 *//*research links: #0071bc *//*serach page #89a08c */body { 	font-family: "Lucida Grande", "Trebuchet MS", arial, helvetica, sans-serif !important; 	margin: 0;	padding: 0 auto;	background-color: #D8D8D0;	min-width: 805px;	max-width: 1600px;	font-size: .8em;}/* Main Nav (Tabs) */div#mainnav{    background-color: #1F2A1E;    height: 40px;    margin: 0;}div#mainnav ul {    list-style: none;    margin: 0;    padding: 0;        }div#mainnav ul li {    background-color: #897467;  	color: black;	z-index: 100;	float: left;	padding: 6px 10px;	margin: 10px 0px 0px 10px;	cursor: pointer;	font-weight: normal;	border: 1px solid #E4DBCC;	border-bottom: none;}div#mainnav ul li.home.selected {background-color: #3d2800; color: #fff; border-bottom: 1px solid #3d2800; margin-bottom:-1px;}div#mainnav ul li.experience.selected {background-color: #126a37; color: #fff; border-bottom: 1px solid #126a37; margin-bottom:-1px;}div#mainnav ul li.education.selected {background-color: #84232e; color: #fff; border-bottom: 1px solid #84232e; margin-bottom:-1px;}div#mainnav ul li.research.selected {background-color: #2a6ebb; color: #fff; border-bottom: 1px solid #2a6ebb; margin-bottom:-1px;}div#mainnav ul li a {    color: white;    text-decoration: none;    display: block;   	padding: 5px 10px;   	margin: -5px -10px;}div#mainnav ul li:hover {   background-color: #e4dbcc;      color: black;}div#mainnav ul li a:hover {   color: black;}div#mainnav ul li-selected a {    color: black;    text-decoration: none;}div#search {    float: right;    color: black;     font-weight: normal;    margin: 7px 7px -9px 0px;    padding: 0;    height: 24px;}div#search-tab {    color: black;    z-index: 100;    float: right;    padding: 6px 10px;    margin: 10px 10px -5px 0;    cursor: pointer;    font-weight: normal;    background-color: #89a08c;    border: 1px #dcd3c2 solid;}/* Sub Nav (Boxes) */div#subnav {    display: block;    margin: 0px;    padding-left: 5px;    height: 29px;     background-color: #897467;    color: #fff;    height: 4px;    clear: both;    margin-top: -1px;    border-top: 1px solid #e4dbcc;}div#subnav.home {height: 5px; background-color: #3d2800;}div#subnav.experience {height: 29px; background-color: #126a37;}div#subnav.foreststories {}div#subnav.education {height: 29px; background-color: #84232e;}div#subnav.research {height: 29px; background-color: #2a6ebb;}div#subnav.search {height: 5px; background-color: #dcd3c2;}div#subnav.home ul, div#subnav.home ul li {display: none;}div#subnav ul {    list-style: none;    color: black;    z-index: 100;    float: left;    padding: 0;    margin: 0;    cursor: pointer;    font-weight: normal;    font-size: .9em;}div#subnav ul li {    color: black;    z-index: 100;    float: left;    padding: 3px 5px;    margin: 5px 10px 0 0;    cursor: pointer;    font-weight: normal;}div#subnav ul li a {     color: #E4DBCC;    z-index: 100;    float: left;    padding: 3px 5px;    margin: -3px -5px;    cursor: pointer;    font-weight: normal;    text-decoration: none;}/*div#subnav.home ul li {background-color: #796456;}div#subnav.experience ul li {background-color: #d4e2d8;}div#subnav.education ul li {background-color: #a9676d; }div#subnav.research ul li {background-color: #5a9bcf;}*/div#subnav.home ul li.selected {background-color: #E4DBCC;}div#subnav.experience ul li.selected {background-color: #E4DBCC;}div#subnav.education ul li.selected {background-color: #E4DBCC;}div#subnav.research ul li.selected {background-color: #E4DBCC;}/*Page Body*/div#container {   background-color: #fff;   border-right: 1px solid #3D2800;}div#subcontainer {   background-color: #d8d8d0;   padding: 10px;   border: 1px solid blue;}div#container h2 {	margin: 0;	padding: 0;}div.bannerbutton a {	border: 1px solid #fff;	padding: 5px;	color: #fff;	text-decoration: none;}/*Home page*/div#home_banner {	height: 400px;	width: 100% auto;	max-width: 1600px;	background-color: #3D2800;	min-width: 800px;	}div#weather-widget {	background-color: #ccc;	position: relative;	padding: 5px;	margin-top: -400px;	right: 0px;	float: right;	min-height: 30px;	min-width: 30px;	-moz-border-radius-bottomleft: 10px 10px;	border-bottom-left-radius: 10px 10px;}div#weather-widget .weather-widget-title {    margin: 0 0 5px 0;    font-weight: bold;}div#weather-widget div.action{    border: 1px solid #ccc;    padding: 5px;    width: 100px;    background-color: #4B6952;    margin: 5px -5px 0 0;    float: right;}div#weather-widget div.action a{    color: #fff;    text-decoration: none;    font-size: .9em;}div#data {    float: left;	background-color: #fff;	margin-right: 5px;	padding: 5px 5px 0 5px;	width: 155px;	-moz-border-radius-bottomleft: 10px 10px;	border-bottom-left-radius: 10px 10px;}div#webcam {     float: left;	background-color: #fff;	padding: 5px 5px 0 5px;	width: 200px;	}div#data h6,div#webcam h6 {    margin: 1px;    padding: 0;    font-weight:normal;   }div#data p,div#webcam p{	margin: 0;}div#data img {  /*  position: absolute;    margin-top: -50px;    margin-left: -40px;    clip: rect(50px 200px 223px 35px);    height: 250px;*/    width: auto;    height: 135px;    }div#webcam img {	height: 135px;	width: auto;	}div#photoswitcher {	list-style: none;	padding: 0;	display: block;	/*float: left;*/	width: 100%;	max-width: 1600px;	height: 400px;}div#container table {	border: none;	border-collapse: collapse;}div#container table td#left {  width: 45%;  vertical-align: top;  border: none;  border-collapse: collapse;  min-width: 400px;  padding-right: 10px;}div#container table td#right {  width: 55%;  background-color: #e6ebdd;  margin: 0px;  padding: 0px;  vertical-align: top;  border: 2px solid white;}a.link_experience, span.link_experience {	color: #436751;	font-weight: bold;	margin: 10px 0 0; 	display: block;}a.link_education, span.link_education {	color: #730711;	font-weight: bold;	margin: 10px 0 0; 	display: block;}a.link_research, span.link_research {	color: #0071bc;	font-weight: bold;	margin: 10px 0 0; 	display: block;}#map_canvas {    height:300px;}.single-record {	padding: 10px;	background-color: #fff;	margin-bottom: 10px;}.assetlist a {    color: #3d2800;    margin: 0;    display: block;}.assetlist .single-record a.summary-link, a.summary-link {display:block;margin:15px 15px 0 auto;width:55% auto;text-decoration: none;font-weight: bold;}a.view-all {	font-weight: bold;	text-align: right;	margin: 10px;}#featured_filter, #infrastructure_filter {    vertical-align: top;    width: auto;    padding: 10px 20px;    white-space: nowrap;    line-height: 250%;}#featured_filter img, #infrastructure_filter img {	margin-right: 5px;	vertical-align: top;}#infrastructure_filter {    vertical-align: top;    padding: 10px 20px;    width: 100%;    white-space: nowrap;}.geocode {    display: none;}.featured_image {    width: 37%;    height: auto;    float: left;    border: 1px solid #ccc;    margin-right: 20px;}.featured_details {    width: 35%;    height: auto;    float: left;    background-color: #dedede;    padding: 0 10px 10px 10px;    margin-right: 20px;   }.featured_details h4, .asset_summary h4, .single-record h4 {	margin: 20px 0 10px 0;   }.object_detail_image {    max-width: 480px;    max-height: 296px;    border: 1px solid #ccc;    margin-bottom: 10px;}.object_detail_label {    font-weight: bold;    font-size: 1em;      }.highlightonmap {    float: right;    background-color: #fefeb3;    border: 1px solid #b49f93;    margin: -11px -11px 10px 10px;    }.highlightonmap a {	padding: 7px 10px 5px;	margin: -1px 0 0 0;	white-space: nowrap;	font-weight: bold;	text-decoration: none;	display: block;}a.display-name {	font-weight: bold;	text-decoration: none;	margin: 10px 0;	display: block;}#related-items a.display-name {	display: block;}a.callout-display-name {    font-weight: bold;    text-decoration: none;    margin: 10px 0;}div.callout-asset-types {    margin: 5px 0 5px 0;    display: block;}a.callout-summary-link {    display:block;    margin:15px 15px 0 auto;    width:55% auto;    text-decoration: none;    font-weight: bold;}            .pagetitle {	font-weight: bold;}.pagesubtitle {	font-weight: bold;}.asset-summary {	display: block;	width: auto;	margin: 15px 15px 15px auto;}.clear {	clear: both;	margin: 0;	padding: 0;	}/* Search Page Styles*/div#search-wrapper {	background-color: #89a08c;	padding: 10px;}table#search-table {width: 100%;}table#search-table tr td {vertical-align: top;}table#search-table tr td#facets_column { width: 380px; }table#search-table tr td#results_column {	border: none; 	background-color: none;	text-align: left;}div#facets {    width: 380px;    padding: 10px;    background-color: white;    list-style: none;     }div#facets th {    text-align: right;    width: 40%;    vertical-align:top;    padding: 10px;    white-space: nowrap;    width: 200px;}div#facets form table tbody tr td {    white-space: nowrap;}div#facets form table tbody tr td {    padding: 10px;}div#facets form table tbody tr td ul {    list-style: none;    margin-left: -45px;}div#search-results {	margin: 10px 10px 10px 20px;	}div.single_result {    background-color: white;    padding: 10px;    margin: 10px;}.search_detail_image_column {    width: 110px;    margin-right: 10px;}.search_detail_image {    max-width: 100px;    max-height: 100px;    border: 1px solid #ccc;}div#search-results a.search-display-name {    font-weight: bold;    text-decoration: none;    margin: 0 0 10px 0;    display: block;}/*Details Page*/div#details-wrapper {    background-color: white;}table#details-table {width: 100%;  border: none;}table#details-table tr td {vertical-align: top;}table#details-table tr td#center {	width: 40%; }div#asset-details {	background-color: #fff;	padding: 10px;}div#map-column {    margin:0;    padding:0;    vertical-align:top;}div#related-items {    padding: 10px;}.related {	border: 1px solid #B49F93;	padding: 10px;}/**.gmnoprint {	font-size: 65%;}**/div.asset-types {	margin: 5px 0 10px 0;	display: block;}/*Weather Page*/div#weather {	padding: 5px;	font-weight: bold;	min-width: 1003px;}div#weather h3 {	color: #297643;	margin-left: 5px;}div#weather h5 {    margin: 0;    padding: 0;    text-decoration: none;    margin-left: 5px;}div#weather div.header-row{	background-color: #297643;	border: 1px solid #a9a9a9;	-webkit-border-top-left-radius: 10px;    -webkit-border-top-right-radius: 10px;    -moz-border-radius-topleft: 10px;    -moz-border-radius-topright: 10px;    border-top-left-radius: 10px;    border-top-right-radius: 10px;    color: #fff;    padding: 5px;}form.weatherformrt {	display: inline;margin: 15px;float: right;}form.weatherform {	display: inline;margin: 15px;}form.weatherform input {	display: inline;margin-right: 10px;}div.station-id {    padding: 5px;}div#time-slider {    position: absolute;    left: 740px;    width: 280px;    display: block;    height: 30px;    margin-top: 20px;    padding: 5px;}div#time-slider .legend {    margin-bottom: 25px;}div#time-slider .label {    font-size: .9em;    float: left;    width: 91px;    text-decoration: none;}div#slider {    width: 200px;    margin-left: 10px;}div.weather-image {    padding: 0px;}div.station-id, div.weather-image {	background-color: #fff;	border: 1px solid #a9a9a9;	border-top: none;}div#weather ul {	list-style: none;	background: #D9D9D9; /* old browsers */    background: -moz-linear-gradient(top, #D9D9D9 0%, #fff 100%); /* firefox */    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#D9D9D9), color-stop(100%,#fff)); /* webkit */    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#D9D9D9', endColorstr='#fff',GradientType=0 ); /* ie */    margin: 0;    height: 45px;    padding: 0;    border-left: 1px solid #a9a9a9;	border-right: 1px solid #a9a9a9;	min-width: 1000px;}div#weather ul li {	display: block;	float: left;	border-right: 1px solid #a9a9a9;}div#weather ul li.aag {	background-color: #fff;	width: 269px;	color: #000;	padding: 13px 10px 7px;	height: 25px;}div#weather ul li a {    display: block; /* required for FF & Safari */    #display: inline; /* required for IE */	padding: 13px 30px 7px;	height: 25px;	text-decoration: none;	color: #000;	background: #D9D9D9; /* old browsers */    background: -moz-linear-gradient(top, #D9D9D9 0%, #959595 100%); /* firefox */    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#D9D9D9), color-stop(100%,#959595)); /* webkit */    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#D9D9D9', endColorstr='#959595',GradientType=0 ); /* ie */    cursor: pointer;    cursor: hand;}div#weather ul li a.selected {    background: none;}/*Webcam Page */div#webcam_page {	padding: 5px;	background-color: none;}div#webcam_page div#webcam_page #timelapse{	padding: 5px;	background-color: #fff;	display: block;	width: 100%;	margin: 10px 0;}div#webcam_page {	padding: 5px;	display: block;	width: auto;	margin: 10px 0;	}#image-viewer {	color:#000;	line-height:1.4em;	padding: 1em;	margin:0;	width: auto;	border: 1px solid #B3b3b3;}.flowlabel {	padding-top: 30px;}div#webcam_page #timelapse .video {	width: 400px;	display: block;}
+/* darkest brown background-color: #897467;  */ 
+/* deeper brown background background-color: #e4dbcc; */
+/* light tan background-color: #DCD3C2; */ 
+/*default links: #3d2800 */
+/*experience links: #436751 */
+/*education links: #730711 */
+/*research links: #0071bc */
+/*serach page #89a08c */
+
+body { 
+	font-family: "Lucida Grande", "Trebuchet MS", arial, helvetica, sans-serif !important; 
+	margin: 0;
+	padding: 0 auto;
+	background-color: #D8D8D0;
+	min-width: 805px;
+	max-width: 1600px;
+	font-size: .8em;
+}
+
+/* Main Nav (Tabs) */
+
+div#mainnav
+{
+    background-color: #1F2A1E;
+    height: 40px;
+    margin: 0;
+}
+
+
+div#mainnav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    
+    
+}
+
+div#mainnav ul li {
+    background-color: #897467;  
+	color: black;
+	z-index: 100;
+	float: left;
+	padding: 6px 10px;
+	margin: 10px 0px 0px 10px;
+	cursor: pointer;
+	font-weight: normal;
+	border: 1px solid #E4DBCC;
+	border-bottom: none;
+}
+
+
+div#mainnav ul li.home.selected {background-color: #3d2800; color: #fff; border-bottom: 1px solid #3d2800; margin-bottom:-1px;}
+div#mainnav ul li.experience.selected {background-color: #126a37; color: #fff; border-bottom: 1px solid #126a37; margin-bottom:-1px;}
+div#mainnav ul li.education.selected {background-color: #84232e; color: #fff; border-bottom: 1px solid #84232e; margin-bottom:-1px;}
+div#mainnav ul li.research.selected {background-color: #2a6ebb; color: #fff; border-bottom: 1px solid #2a6ebb; margin-bottom:-1px;}
+
+
+
+div#mainnav ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+   	padding: 5px 10px;
+   	margin: -5px -10px;
+}
+
+div#mainnav ul li:hover {
+   background-color: #e4dbcc;
+      color: black;
+
+}
+
+div#mainnav ul li a:hover {
+   color: black;
+
+}
+
+
+
+div#mainnav ul li-selected a {
+    color: black;
+    text-decoration: none;
+}
+
+div#search {
+    float: right;
+    color: black; 
+    font-weight: normal;
+    margin: 7px 7px -9px 0px;
+    padding: 0;
+    height: 24px;
+}
+
+div#search-tab {
+    color: black;
+    z-index: 100;
+    float: right;
+    padding: 6px 10px;
+    margin: 10px 10px -5px 0;
+    cursor: pointer;
+    font-weight: normal;
+    background-color: #89a08c;
+    border: 1px #dcd3c2 solid;
+}
+
+
+/* Sub Nav (Boxes) */
+
+div#subnav {
+    display: block;
+    margin: 0px;
+    padding-left: 5px;
+    height: 29px; 
+    background-color: #897467;
+    color: #fff;
+    height: 4px;
+    clear: both;
+    margin-top: -1px;
+    border-top: 1px solid #e4dbcc;
+
+}
+
+div#subnav.home {height: 5px; background-color: #3d2800;}
+div#subnav.experience {height: 29px; background-color: #126a37;}
+div#subnav.foreststories {}
+div#subnav.education {height: 29px; background-color: #84232e;}
+div#subnav.research {height: 29px; background-color: #2a6ebb;}
+div#subnav.search {height: 5px; background-color: #dcd3c2;}
+
+div#subnav.home ul, div#subnav.home ul li {display: none;}
+
+div#subnav ul {
+    list-style: none;
+    color: black;
+    z-index: 100;
+    float: left;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    font-weight: normal;
+    font-size: .9em;
+}
+
+div#subnav ul li {
+    color: black;
+    z-index: 100;
+    float: left;
+    padding: 3px 5px;
+    margin: 5px 10px 0 0;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+div#subnav ul li a {
+ 
+    color: #E4DBCC;
+    z-index: 100;
+    float: left;
+    padding: 3px 5px;
+    margin: -3px -5px;
+    cursor: pointer;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+/*div#subnav.home ul li {background-color: #796456;}
+div#subnav.experience ul li {background-color: #d4e2d8;}
+div#subnav.education ul li {background-color: #a9676d; }
+div#subnav.research ul li {background-color: #5a9bcf;}*/
+
+div#subnav.home ul li.selected {background-color: #E4DBCC;}
+div#subnav.experience ul li.selected {background-color: #E4DBCC;}
+div#subnav.education ul li.selected {background-color: #E4DBCC;}
+div#subnav.research ul li.selected {background-color: #E4DBCC;}
+
+/* style the sharing functionality, including the styles that jquery.sharing expects */
+div#sharing_container {
+    float: right;
+}
+div#sharing_container .sharing_text { font-weight: bold; font-size: 12px; }
+div#sharing_container .sharing_link { }
+div#sharing_container .sharing_image { width: 15px; height: 15px; margin-right: 5px; }
+div#sharing_container #sharing_actions { display: none; } 
+
+
+/*Page Body*/
+
+div#container {
+   background-color: #fff;
+   border-right: 1px solid #3D2800;
+}
+
+div#subcontainer {
+   background-color: #d8d8d0;
+   padding: 10px;
+   border: 1px solid blue;
+}
+
+div#container h2 {
+	margin: 0;
+	padding: 0;
+}
+
+
+div.bannerbutton a {
+
+	border: 1px solid #fff;
+	padding: 5px;
+	color: #fff;
+	text-decoration: none;
+}
+
+
+/*Home page*/
+
+div#home_banner {
+
+	height: 400px;
+	width: 100% auto;
+	max-width: 1600px;
+	background-color: #3D2800;
+	min-width: 800px;
+	
+
+
+}
+
+div#weather-widget 
+{
+	background-color: #ccc;
+	position: relative;
+	padding: 5px;
+	margin-top: -400px;
+	right: 0px;
+	float: right;
+	min-height: 30px;
+	min-width: 30px;
+	-moz-border-radius-bottomleft: 10px 10px;
+	border-bottom-left-radius: 10px 10px;
+}
+
+div#weather-widget .weather-widget-title 
+{
+    margin: 0 0 5px 0;
+    font-weight: bold;
+}
+
+div#weather-widget div.action
+{
+    border: 1px solid #ccc;
+    padding: 5px;
+    width: 100px;
+    background-color: #4B6952;
+    margin: 5px -5px 0 0;
+    float: right;
+}
+
+div#weather-widget div.action a
+{
+    color: #fff;
+    text-decoration: none;
+    font-size: .9em;
+}
+
+div#data {
+
+    float: left;
+	background-color: #fff;
+	margin-right: 5px;
+	padding: 5px 5px 0 5px;
+	width: 155px;
+	-moz-border-radius-bottomleft: 10px 10px;
+	border-bottom-left-radius: 10px 10px;
+}
+
+div#webcam {
+ 
+    float: left;
+	background-color: #fff;
+	padding: 5px 5px 0 5px;
+	width: 200px;
+	
+}
+
+div#data h6,
+div#webcam h6 {
+    margin: 1px;
+    padding: 0;
+    font-weight:normal;   
+}
+
+div#data p,
+div#webcam p{
+	margin: 0;
+}
+
+div#data img {
+  /*  position: absolute;
+    margin-top: -50px;
+    margin-left: -40px;
+    clip: rect(50px 200px 223px 35px);
+    height: 250px;*/
+    width: auto;
+    height: 135px;
+    
+}
+
+div#webcam img {
+
+	height: 135px;
+	width: auto;
+
+	
+}
+
+
+div#photoswitcher {
+
+	list-style: none;
+	padding: 0;
+	display: block;
+	/*float: left;*/
+	width: 100%;
+	max-width: 1600px;
+	height: 400px;
+}
+
+div#container table {
+	border: none;
+	border-collapse: collapse;
+}
+
+div#container table td#left {
+  width: 45%;
+  vertical-align: top;
+  border: none;
+  border-collapse: collapse;
+  min-width: 400px;
+  padding-right: 10px;
+}
+
+div#container table td#right {
+  width: 55%;
+  background-color: #e6ebdd;
+  margin: 0px;
+  padding: 0px;
+  vertical-align: top;
+  border: 2px solid white;
+}
+
+a.link_experience, span.link_experience {
+	color: #436751;
+	font-weight: bold;
+	margin: 10px 0 0; 
+	display: block;
+}
+
+a.link_education, span.link_education {
+	color: #730711;
+	font-weight: bold;
+	margin: 10px 0 0; 
+	display: block;
+}
+
+a.link_research, span.link_research {
+	color: #0071bc;
+	font-weight: bold;
+	margin: 10px 0 0; 
+	display: block;
+}
+
+#map_canvas {
+    height:300px;
+}
+
+.single-record {
+	padding: 10px;
+	background-color: #fff;
+	margin-bottom: 10px;
+}
+
+.assetlist a {
+    color: #3d2800;
+    margin: 0;
+    display: block;
+
+}
+
+.assetlist .single-record a.summary-link, a.summary-link {
+
+display:block;
+margin:15px 15px 0 auto;
+width:55% auto;
+text-decoration: none;
+font-weight: bold;
+
+}
+
+a.view-all {
+	font-weight: bold;
+	text-align: right;
+	margin: 10px;
+}
+
+#featured_filter, #infrastructure_filter {
+    vertical-align: top;
+    width: auto;
+    padding: 10px 20px;
+    white-space: nowrap;
+    line-height: 250%;
+}
+
+#featured_filter img, #infrastructure_filter img {
+	margin-right: 5px;
+	vertical-align: top;
+}
+
+#infrastructure_filter {
+    vertical-align: top;
+    padding: 10px 20px;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.geocode {
+    display: none;
+}
+
+.featured_image {
+    width: 37%;
+    height: auto;
+    float: left;
+    border: 1px solid #ccc;
+    margin-right: 20px;
+}
+
+.featured_details {
+    width: 35%;
+    height: auto;
+    float: left;
+    background-color: #dedede;
+    padding: 0 10px 10px 10px;
+    margin-right: 20px;
+   
+}
+
+.featured_details h4, .asset_summary h4, .single-record h4 {
+	margin: 20px 0 10px 0;
+   
+}
+
+.object_detail_image {
+    max-width: 480px;
+    max-height: 296px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.object_detail_label {
+    font-weight: bold;
+    font-size: 1em;      
+}
+
+.highlightonmap {
+    float: right;
+    background-color: #fefeb3;
+    border: 1px solid #b49f93;
+    margin: -11px -11px 10px 10px;
+    
+}
+
+.highlightonmap a {
+	padding: 7px 10px 5px;
+	margin: -1px 0 0 0;
+	white-space: nowrap;
+	font-weight: bold;
+	text-decoration: none;
+	display: block;
+}
+
+a.display-name {
+	font-weight: bold;
+	text-decoration: none;
+	margin: 10px 0;
+	display: block;
+}
+
+#related-items a.display-name {
+	display: block;
+}
+
+a.callout-display-name {
+    font-weight: bold;
+    text-decoration: none;
+    margin: 10px 0;
+}
+
+div.callout-asset-types {
+    margin: 5px 0 5px 0;
+    display: block;
+}
+
+a.callout-summary-link {
+    display:block;
+    margin:15px 15px 0 auto;
+    width:55% auto;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+    
+    
+    
+.pagetitle {
+
+	font-weight: bold;
+}
+
+.pagesubtitle {
+
+	font-weight: bold;
+}
+
+.asset-summary {
+	display: block;
+	width: auto;
+	margin: 15px 15px 15px auto;
+
+}
+
+
+
+.clear {
+
+	clear: both;
+	margin: 0;
+	padding: 0;
+	
+}
+
+
+/* Search Page Styles*/
+
+div#search-wrapper {
+
+	background-color: #89a08c;
+	padding: 10px;
+}
+
+table#search-table {width: 100%;}
+
+table#search-table tr td {vertical-align: top;}
+
+table#search-table tr td#facets_column { width: 380px; }
+
+table#search-table tr td#results_column {
+	border: none; 
+	background-color: none;
+	text-align: left;
+}
+
+div#facets {
+    width: 380px;
+    padding: 10px;
+    background-color: white;
+    list-style: none;
+     
+}
+
+div#facets th {
+    text-align: right;
+    width: 40%;
+    vertical-align:top;
+    padding: 10px;
+    white-space: nowrap;
+    width: 200px;
+}
+
+div#facets form table tbody tr td {
+    white-space: nowrap;
+}
+
+div#facets form table tbody tr td {
+    padding: 10px;
+}
+
+div#facets form table tbody tr td ul {
+    list-style: none;
+    margin-left: -45px;
+}
+
+div#search-results {
+	margin: 10px 10px 10px 20px;	
+}
+
+div.single_result {
+    background-color: white;
+    padding: 10px;
+    margin: 10px;
+}
+
+.search_detail_image_column {
+    width: 110px;
+    margin-right: 10px;
+}
+
+.search_detail_image {
+    max-width: 100px;
+    max-height: 100px;
+    border: 1px solid #ccc;
+}
+
+div#search-results a.search-display-name {
+    font-weight: bold;
+    text-decoration: none;
+    margin: 0 0 10px 0;
+    display: block;
+}
+
+
+
+
+
+
+
+
+
+/*Details Page*/
+
+div#details-wrapper {
+    background-color: white;
+}
+
+table#details-table {width: 100%;  border: none;}
+
+table#details-table tr td {vertical-align: top;}
+
+table#details-table tr td#center {
+	width: 40%; 
+}
+
+div#asset-details {
+	background-color: #fff;
+	padding: 10px;
+}
+
+div#map-column {
+    margin:0;
+    padding:0;
+    vertical-align:top;
+}
+
+div#related-items {
+    padding: 10px;
+}
+
+.related {
+	border: 1px solid #B49F93;
+	padding: 10px;
+}
+
+/**
+.gmnoprint {
+	font-size: 65%;
+}
+**/
+
+div.asset-types {
+
+	margin: 5px 0 10px 0;
+	display: block;
+}
+
+
+/*Weather Page*/
+
+div#weather {
+	padding: 5px;
+	font-weight: bold;
+	min-width: 1003px;
+}
+
+div#weather h3 {
+	color: #297643;
+	margin-left: 5px;
+}
+
+div#weather h5 {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+div#weather div.header-row{
+	background-color: #297643;
+	border: 1px solid #a9a9a9;
+	-webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-topright: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    color: #fff;
+    padding: 5px;
+}
+
+form.weatherformrt {
+	
+display: inline;
+margin: 15px;
+float: right;
+
+}
+
+form.weatherform {
+	
+display: inline;
+margin: 15px;
+
+}
+
+form.weatherform input {
+	
+display: inline;
+margin-right: 10px;
+
+}
+
+div.station-id {
+    padding: 5px;
+}
+
+div#time-slider {
+    position: absolute;
+    left: 740px;
+    width: 280px;
+    display: block;
+    height: 30px;
+    margin-top: 20px;
+    padding: 5px;
+}
+
+div#time-slider .legend {
+    margin-bottom: 25px;
+}
+
+div#time-slider .label {
+    font-size: .9em;
+    float: left;
+    width: 91px;
+    text-decoration: none;
+}
+
+div#slider {
+    width: 200px;
+    margin-left: 10px;
+}
+
+div.weather-image {
+    padding: 0px;
+}
+
+
+div.station-id, div.weather-image {
+	background-color: #fff;
+	border: 1px solid #a9a9a9;
+	border-top: none;
+}
+
+div#weather ul {
+	list-style: none;
+	background: #D9D9D9; /* old browsers */
+    background: -moz-linear-gradient(top, #D9D9D9 0%, #fff 100%); /* firefox */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#D9D9D9), color-stop(100%,#fff)); /* webkit */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#D9D9D9', endColorstr='#fff',GradientType=0 ); /* ie */
+    margin: 0;
+    height: 45px;
+    padding: 0;
+    border-left: 1px solid #a9a9a9;
+	border-right: 1px solid #a9a9a9;
+	min-width: 1000px;
+}
+
+div#weather ul li {
+	display: block;
+	float: left;
+	border-right: 1px solid #a9a9a9;
+}
+
+div#weather ul li.aag {
+	background-color: #fff;
+	width: 269px;
+	color: #000;
+	padding: 13px 10px 7px;
+	height: 25px;
+}
+
+div#weather ul li a {
+    display: block; /* required for FF & Safari */
+    #display: inline; /* required for IE */
+	padding: 13px 30px 7px;
+	height: 25px;
+	text-decoration: none;
+	color: #000;
+	background: #D9D9D9; /* old browsers */
+    background: -moz-linear-gradient(top, #D9D9D9 0%, #959595 100%); /* firefox */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#D9D9D9), color-stop(100%,#959595)); /* webkit */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#D9D9D9', endColorstr='#959595',GradientType=0 ); /* ie */
+    cursor: pointer;
+    cursor: hand;
+}
+
+div#weather ul li a.selected {
+    background: none;
+}
+
+/*Webcam Page */
+
+div#webcam_page {
+
+	padding: 5px;
+	background-color: none;
+}
+
+div#webcam_page div#webcam_page #timelapse{
+
+	padding: 5px;
+	background-color: #fff;
+	display: block;
+	width: 100%;
+	margin: 10px 0;
+}
+
+div#webcam_page {
+
+	padding: 5px;
+	display: block;
+	width: auto;
+	margin: 10px 0;
+	
+}
+
+#image-viewer {
+	color:#000;
+	line-height:1.4em;
+	padding: 1em;
+	margin:0;
+	width: auto;
+	border: 1px solid #B3b3b3;
+}
+
+
+.flowlabel {
+	padding-top: 30px;
+}
+
+div#webcam_page #timelapse .video {
+	width: 400px;
+	display: block;
+}
+
+
