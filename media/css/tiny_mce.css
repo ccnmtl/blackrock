@@ -1,152 +1,1 @@
-/** Light Brown Selected E4DBCC **/
-/* Research: Dark Blue: 2A6EBB, Light Blue: 5A9BCF*/
-/* Education: Dark Red: 84232E, Light Red: A9676D*/
-/* Experience: Dark Green: 126A37, Light Green: 529873 */
-
-.home_module_container {
-    min-width: 1000px;
-    margin-top: 10px;
-}
-
-table#half-width {
-	margin-top: 20px;
-}
-
-table#half-width td {
-	padding: 0;
-	width: 50%;
-	vertical-align: top;
-}
-
-.home_module {
-    float: left;
-    height: 265px;
-    background-color: white;
-    border-style: solid;
-    border-width: 1px;
-    vertical-align: top;
-    min-width: 450px;
-    padding-bottom: 5px;
-    width: 100% auto;
-}
-
-.home_module h4 {
-    font-weight: normal;
-    color: white;
-    background-repeat: no-repeat;
-    background-position: 5,3;
-    padding-left: 40px;
-    line-height: 35px;
-    margin: 0 0 5px;
-}
-
-.home_module .image_block {
-    float: left;
-    margin: 0px 15px 10px 0px;
-    max-height: 85px;
-    overflow: hidden;
-    border: 1px solid #666;
-}
-
-.home_module .text_block {
-    padding-right: 5px;
-    height: 105px;
-    margin: 10px;
-}
-
-.home_module a {
-    font-weight: bold;
-    text-decoration: none;
-    margin: 5px 0;
-    display: block;
-}
-
-.home_module ul {
-    list-style-image: url(../../portal/media/images/listbullet.png);
-    margin-right: 5px;
-}
-
-.home_module li a {
-    font-weight: bold;
-    margin: 10px 0 0; 
-    display: block;
-}
-
-.home_module img {
-    width: 130px;
-    height: auto;
-
-}
-
-.research_module {
-    border-color: #2A6EBB;
-    margin-right: 10px;
-}
-
-.home_module ul {
-    list-style-type: square;
-}
-
-.research_module h4 {
-    background-image: url(../../portal/media/images/nonmapicon_research.png);
-    background-color: #5A9BCF;
-}
-
-.research_module a {
-    color: #0071bc;
-}
-
-.education_module {
-    border-color: #84232E;
- 
-    
-}
-
-.education_module h4 {
-    background-image: url(../../portal/media/images/nonmapicon_education.png);
-    background-color: #A9676D;
-}
-
-.education_module a {
-    color: #730711;
-}
-
-.tools_module {
- 
-    border-color: #3D2800;
-    height: 240px;
-    vertical-align: top;
-}
-
-.tools_module .image_block {
-    height: 100%;
-    margin-bottom: 69px;
- 
-}
-
-.tools_module h4 {
-    background-image: url(../../portal/media/images/nonmapicon_forestfacilities.png);
-    background-color: #bb9e96;
-}
-
-.tools_module a {
-    color: #3D2800;
-}
-
-.home_module .tool{
-
-    margin: 10px;
-}
-
-.tools_module .tool {
-    float: left;
-    width: 31%;
-    height: 185px;
-    background-color: white;
-    margin: 5px 10px;
-}
-
-
-
-
-
+/** Light Brown Selected E4DBCC **//* Research: Dark Blue: 2A6EBB, Light Blue: 5A9BCF*//* Education: Dark Red: 84232E, Light Red: A9676D*//* Experience: Dark Green: 126A37, Light Green: 529873 */.home_module_container {    min-width: 1000px;	padding: 10px 10px 0;}table#half-width {	}table#half-width td {	padding: 0;	width: 50%;	vertical-align: top;}.home_module {    float: left;    height: 265px;    background-color: white;    border-style: solid;    border-width: 1px;    vertical-align: top;    min-width: 450px;    padding-bottom: 5px;    width: 100% auto;}.home_module h4 {    font-weight: normal;    color: white;    background-repeat: no-repeat;    background-position: 5,3;    padding-left: 40px;    line-height: 35px;    margin: 0 0 5px;}.home_module .image_block {    float: left;    margin: 0px 15px 10px 0px;    max-height: 85px;    overflow: hidden;    border: 1px solid #666;}.home_module .text_block {    padding-right: 5px;    height: 105px;    margin: 10px;}.home_module a {    font-weight: bold;    text-decoration: none;    margin: 5px 0;    display: block;}.home_module ul {    list-style-image: url(../../portal/media/images/listbullet.png);    margin-right: 5px;}.home_module li a {    font-weight: bold;    margin: 10px 0 0;     display: block;}.home_module img {    width: 130px;    height: auto;}.research_module {    border-color: #2A6EBB;    margin-right: 10px;}.home_module ul {    list-style-type: square;}.research_module h4 {    background-image: url(../../portal/media/images/nonmapicon_research.png);    background-color: #5A9BCF;}.research_module a {    color: #0071bc;}.education_module {    border-color: #84232E;     }.education_module h4 {    background-image: url(../../portal/media/images/nonmapicon_education.png);    background-color: #A9676D;}.education_module a {    color: #730711;}.tools_module {     border-color: #3D2800;    height: 240px;    vertical-align: top;}.tools_module .image_block {    height: 100%;    margin-bottom: 69px; }.tools_module h4 {    background-image: url(../../portal/media/images/nonmapicon_forestfacilities.png);    background-color: #bb9e96;}.tools_module a {    color: #3D2800;}.home_module .tool{    margin: 10px;}.tools_module .tool {    float: left;    width: 31%;    height: 185px;    background-color: white;    margin: 5px 10px;}
