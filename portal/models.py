@@ -39,7 +39,7 @@ class Facet(models.Model):
   display_name = models.CharField(max_length=100)
   facet = models.CharField(max_length=50)
   
-  asset_facets = ['audience', 'study_type', 'species', 'discipline', 'asset_type', 'infrastructure']
+  asset_facets = ['study_type', 'species', 'discipline', 'asset_type', 'infrastructure']
   
   class Meta:
     unique_together = (("name", "facet"),)
@@ -266,7 +266,7 @@ class Person(models.Model):
   professional_title = models.CharField(max_length=100, null=True, blank=True)
   address = models.TextField(null=True, blank=True)
   phone = models.CharField(max_length=10, null=True, blank=True)
-  email = models.EmailField()
+  email = models.EmailField(null=True, blank=True)
   url = models.URLField(null=True, blank=True)
   
   audience = models.ManyToManyField(Audience, null=True, blank=True)
@@ -315,10 +315,10 @@ class Publication(models.Model):
   citation = models.CharField(max_length=500)
   description = models.TextField(null=True, blank=True)
   publication_date = models.DateField(null=True, blank=True)
-  publication_type = models.ManyToManyField(PublicationType)
+  publication_type = models.ManyToManyField(PublicationType, null=True, blank=True)
   rights_type = models.ManyToManyField(RightsType)
   url = models.URLField(null=True, blank=True)
-  doi_citation = models.TextField()
+  doi_citation = models.TextField(null=True, blank=True)
   
   audience = models.ManyToManyField(Audience, null=True, blank=True)
   display_image = models.ForeignKey(DigitalObject, null=True, blank=True)

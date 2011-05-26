@@ -104,10 +104,6 @@
 
     <field name="person_type" type="text" indexed="true" stored="true" multiValued="true" />
 
-    <field name="audience" type="text" indexed="true" stored="true" multiValued="true" />
-
-    <field name="audience_exact" type="string" indexed="true" stored="true" multiValued="true" />
-
     <field name="species" type="text" indexed="true" stored="true" multiValued="true" />
 
     <field name="species_exact" type="string" indexed="true" stored="true" multiValued="true" />

@@ -38,10 +38,6 @@
         <a class="callout-display-name" href="{{current_object|detail_url}}">{{current_object|display_name}}</a>
         <div class="callout-asset-types">{{current_object|klass_display}}</div>
         <div>
-            <!--  Audience Icons -->
-            {% for a in current_object.audience.all %}
-                <img alt="{{a.name}} icon" src="/portal/media/images/nonmapicon_{{a.name|lower}}.png"></img>
-            {% endfor %}
             <!--  Infrastructure Icons -->
             {% for i in current_object|infrastructure %}
                 <img alt="{{i}} icon" src='/portal/media/images/nonmapicon_{{i|cut:" "|cut:"-"|lower}}.png'></img>

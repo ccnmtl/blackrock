@@ -16,17 +16,11 @@ class PortalSearchForm(SearchForm):
     choices.sort()
     return choices
   
-  def default_audience_choices():
-    choices = [(a.name, a.name) for a in Audience.objects.all()]
-    choices.sort()
-    return choices
-  
   def default_facet_choices(facet):
     choices = [ (f.name, f.display_name) for f in Facet.objects.filter(facet=facet)]
     choices.sort()
     return choices
 
-  audience = forms.MultipleChoiceField(required=False, label=_('Audience'), widget=forms.CheckboxSelectMultiple, choices=default_audience_choices())
   asset_type = forms.MultipleChoiceField(required=False, label=_('Asset Type'), widget=forms.CheckboxSelectMultiple, choices=default_type_choices())
   study_type = forms.MultipleChoiceField(required=False, label=_('Study Type'), widget=forms.CheckboxSelectMultiple, choices=default_facet_choices("Study Type"))
   species = forms.MultipleChoiceField(required=False, label=_('Species'), widget=forms.CheckboxSelectMultiple, choices=default_facet_choices("Species"))

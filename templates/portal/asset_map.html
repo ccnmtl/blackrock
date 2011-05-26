@@ -6,8 +6,6 @@
    <div id="map_filter">
       <table>
           <tr>
-              {% if hide_featured %}
-              {% else %}
               {% block featured %}
                   {% cache 1800 featured %}
                   {% with result|featured_counts as featured_counts %}
@@ -20,7 +18,6 @@
                   {% endwith %}
                   {% endcache %}     
               {% endblock %}
-              {% endif %}
               
               {% block infrastructure %}
                   {% with object|infrastructure_counts as infrastructure_counts %}

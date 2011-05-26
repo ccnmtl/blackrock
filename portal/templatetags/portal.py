@@ -16,6 +16,10 @@ def klass_display(obj):
 @register.filter('klass_display_plural')
 def klass_display_plural(obj):
     return capfirst(obj._meta.verbose_name_plural)  
+
+@register.filter('hidden_klasses')
+def hidden_klasses():
+    return ['Publication', 'Audience', 'Region']
   
 @register.filter('infrastructure')
 def infrastructure(obj):

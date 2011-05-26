@@ -41,7 +41,7 @@ jQuery(document).ready(function() {
     jQuery('#scrolling-photo-gallery').jcarousel({
         animation: 2000, // fade in/out speed
         fade: 1,
-        auto: 0,
+        auto: 10,
         scroll: 1,
         size: 5,
         wrap: "circular",

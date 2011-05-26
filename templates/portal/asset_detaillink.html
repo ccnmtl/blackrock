@@ -1,14 +1,5 @@
 {% load portal %}
 
-<!--  Customized Link based on audience name -->
 <a class="summary-link" href="{{current_object|detail_url}}/">
-  {% ifequal audience "education" %} 
-     <span class="link_education"> Learn More >></span>
-  {% else %}{% ifequal audience "experience" %}
-     <span class="link_experience">Let's Go >></span>
-  {% else %}{% ifequal audience "research" %}
-     <span class="link_research">Investigate >></span>
-  {% else %}
-    Details >>
-  {% endifequal %}{% endifequal %}{% endifequal %}
+    <span class="link_experience">More >></span>
 </a>
