@@ -10,6 +10,7 @@
   }
 
   jQuery(document).ready(function() {
+
     // add the webcam images to the dom
     var webcamImageArray = get_webcam_image_array();
     for (i = 0; i < webcamImageArray.length; i++) {
@@ -40,16 +41,37 @@
                 onClick: function() { return false; }
             });
                      
-  jQuery("#webcam-flow_previous").html("<span class='flowlabel'><br />Earlier Views</span>");
-  jQuery("#webcam-flow_next").html("<span class='flowlabel'><br />Current View</span>");
-                   
-                     
+    jQuery("#webcam-flow_previous").html("<span class='flowlabel'><br />Earlier Views</span>");
+    jQuery("#webcam-flow_next").html("<span class='flowlabel'><br />Current View</span>");
+
+    // set up the datepicker
+    jQuery( "#datepicker" ).datepicker({
+		    // trigger calendar selector from the icon
+		    showOn: "button",
+		    buttonImage: "/portal/media/images/calendar.gif",
+		    buttonImageOnly: true,
+		    // animate calendar
+		    showAnim: "slideDown",
+		    // we only have pics going back to 3/4/11
+		    minDate: new Date(2011, 3 - 1, 4),
+		    // limit selections to the past.
+		    maxDate: "+0",
+		    // onSelect - load the photos from that day
+		    onSelect: function(dateText, inst) {
+		           var pickedDate = new Date(Date.parse(jQuery(this).datepicker('getDate'))); 
+		           // var pickedDate = inst.('getDate');
+		           picked_date = pickedDate.getDate();
+		           picked_month = pickedDate.getMonth();
+		           picked_year = pickedDate.getFullYear();
+		           //console.log(picked_date, picked_month, picked_year);
+		    }
+	     });
   });
 </script>
  
 <h2>Forest View</h2>
 <div id="webcam_page"> 
-<h3>Today at the Forest</h3>
+<h3>Today at the Forest <div><input type="hidden" id="datepicker" /></div></h3>
 	<div id="image-viewer">
 	   
 	   <div id="webcam-focus-container">

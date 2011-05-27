@@ -14,7 +14,6 @@ jQuery(document).ready(function() {
       });
       
       jQuery('#sharing_button').click(function() {
-         console.log('enabling sharing button');
          jQuery('#sharing_actions').toggle('fast', function() {
          // Animation complete.
 	 });
