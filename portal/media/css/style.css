@@ -183,13 +183,14 @@ div#sharing_container {
 div#sharing_container .sharing_text { margin: 1px; font-size: 11px; color: #000; }
 div#sharing_container .sharing_link { }
 div#sharing_container .sharing_image { width: 15px; height: 15px; margin: 2px; float: right;}
-div#sharing_container #sharing_actions { display: none; background-color: #eaeaea; border: 1px solid #adadad; padding: 1px 1px 4px 3px; } 
+div#sharing_container #sharing_actions { display: none; width: 150px; background-color: #eaeaea; border: 1px solid #adadad; padding: 1px 1px 4px 3px; } 
 
 /*Page Body*/
 
 div#container {
    background-color: #fff;
    border-right: 1px solid #3D2800;
+   border-bottom: 1px solid #3D2800;
 }
 
 div#subcontainer {
@@ -338,7 +339,7 @@ div#container table td#left {
   border: none;
   border-collapse: collapse;
   min-width: 400px;
-  padding-right: 10px;
+  padding: 0 30px 10px 10px;
 }
 
 div#container table td#right {
@@ -640,6 +641,7 @@ table#details-table tr td {vertical-align: top;}
 
 table#details-table tr td#center {
 	width: 40%; 
+	
 }
 
 div#asset-details {
@@ -654,12 +656,15 @@ div#map-column {
 }
 
 div#related-items {
-    padding: 10px;
+	background-color: #B49F93;
+	padding: 5px 20px;
 }
 
 .related {
 	border: 1px solid #B49F93;
 	padding: 10px;
+	margin: 5px;
+	background-color: #fff;
 }
 
 /**
