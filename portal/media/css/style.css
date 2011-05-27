@@ -110,22 +110,22 @@ div#subnav {
     display: block;
     margin: 0px;
     padding-left: 5px;
-    height: 29px; 
+    height: 45px; 
     background-color: #897467;
     color: #fff;
-    height: 4px;
+    height: 45px;
     clear: both;
     margin-top: -1px;
     border-top: 1px solid #e4dbcc;
 
 }
 
-div#subnav.home {height: 5px; background-color: #3d2800;}
-div#subnav.experience {height: 29px; background-color: #126a37;}
+div#subnav.home {/*height: 5px;*/ background-color: #3d2800;}
+div#subnav.experience {/*height: 29px;*/ background-color: #126a37;}
 div#subnav.foreststories {}
-div#subnav.education {height: 29px; background-color: #84232e;}
-div#subnav.research {height: 29px; background-color: #2a6ebb;}
-div#subnav.search {height: 5px; background-color: #dcd3c2;}
+div#subnav.education {/*height: 29px;*/ background-color: #84232e;}
+div#subnav.research {/*height: 29px;*/ background-color: #2a6ebb;}
+div#subnav.search {/*height: 5px;*/ background-color: #dcd3c2;}
 
 div#subnav.home ul, div#subnav.home ul li {display: none;}
 
@@ -176,11 +176,14 @@ div#subnav.research ul li.selected {background-color: #E4DBCC;}
 /* style the sharing functionality, including the styles that jquery.sharing expects */
 div#sharing_container {
     float: right;
+    width: 218px;
+    margin: 3px;
+
 }
-div#sharing_container .sharing_text { font-weight: bold; font-size: 12px; }
+div#sharing_container .sharing_text { margin: 1px; font-size: 11px; color: #000; }
 div#sharing_container .sharing_link { }
-div#sharing_container .sharing_image { width: 15px; height: 15px; margin-right: 5px; }
-div#sharing_container #sharing_actions { display: none; } 
+div#sharing_container .sharing_image { width: 15px; height: 15px; margin: 2px; float: right;}
+div#sharing_container #sharing_actions { display: none; background-color: #eaeaea; border: 1px solid #adadad; padding: 1px 1px 4px 3px; } 
 
 /*Page Body*/
 
