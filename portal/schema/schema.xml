@@ -94,15 +94,9 @@
 
     <field name="text" type="text" indexed="true" stored="true" multiValued="false" />
 
-    <field name="featured" type="text" indexed="true" stored="true" multiValued="true" />
-
-    <field name="featured_exact" type="string" indexed="true" stored="true" multiValued="true" />
-
     <field name="asset_type" type="text" indexed="true" stored="true" multiValued="false" />
 
     <field name="asset_type_exact" type="string" indexed="true" stored="true" multiValued="false" />
-
-    <field name="person_type" type="text" indexed="true" stored="true" multiValued="true" />
 
     <field name="species" type="text" indexed="true" stored="true" multiValued="true" />
 

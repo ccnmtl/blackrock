@@ -7,6 +7,6 @@
 {% for person in object.person.all %}
     {{ person.name }}
 {% endfor %}
-{% for tag in object.tags.all %}
+{% for tag in object.tag.all %}
     {{ tag.name }}
 {% endfor %}

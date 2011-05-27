@@ -6,7 +6,7 @@
 {% for facet in object.facet.all %}
     {{ facet.name }}
 {% endfor %}
-{% for tag in object.tags.all %}
+{% for tag in object.tag.all %}
     {{ tag.name }}
 {% endfor %}
 

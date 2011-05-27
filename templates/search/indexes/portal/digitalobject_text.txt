@@ -10,6 +10,6 @@
 {% for type in object.digital_object_type.all %}
     {{ type.name }}
 {% endfor %}
-{% for tag in object.tags.all %}
+{% for tag in object.tag.all %}
     {{ tag.name }}
 {% endfor %}

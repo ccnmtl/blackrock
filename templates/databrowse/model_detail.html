@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% load smartif %}
+{% load portal %}
+{% load markup %}
 
 {% block title %}{{ model.verbose_name_plural|capfirst }}{% endblock %}
 
@@ -12,7 +15,19 @@
 
 <ul class="objectlist">
 {% for object in model.objects %}
-    <li class="{% cycle 'odd' 'even' %}"><a href="{{ object.url }}">{{ object|escape }}</a></li>
+    <li class="{% cycle 'odd' 'even' %}"><a href="{{ object.url }}">{{ object|escape }}</a></li></li>
+    
+    {% for related_object in object.related_objects %}
+        {% if related_object.object_list %}
+            {{ related_object.object_list|length }}
+            {% for object in related_object.object_list %}
+                   {{ object }}
+                
+            {% endfor %}
+            <br />
+        {% endif %}
+    {% endfor %}
+    
 {% endfor %}
 </ul>
 

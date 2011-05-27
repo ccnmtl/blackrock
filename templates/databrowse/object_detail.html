@@ -66,7 +66,7 @@
         {% else %}{% if asset_klass == "DigitalObject" %}
         
             {% if current_object.digital_format.is_image %}
-                {% if current_object.file.url %}
+                {% if current_object.file and current_object.file.url %}
                     <img src="{{current_object.file.url}}" class="object_detail_image"></img>
                 {% else %}{% if current_object.url %}
                     <img src="{{current_object.url}}" class="object_detail_image"></img>

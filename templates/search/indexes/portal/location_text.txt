@@ -2,6 +2,13 @@
 {% for facet in object.facet.all %}
     {{ facet.name }}
 {% endfor %}
-{% for tag in object.tags.all %}
+{% for tag in object.tag.all %}
     {{ tag.name }}
 {% endfor %}
+{% for t in object.location_type.all %} 
+    {{ t.name }} 
+{% endfor %}
+{% for t in object.location_subtype.all %} 
+    {{ t.name }} 
+{% endfor %}</p>
+

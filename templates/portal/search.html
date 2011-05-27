@@ -67,7 +67,7 @@
                                 {% include "portal/asset_description.html" %}
                                 
                                 <b>Keywords</b>: 
-                                {% for k in result.object.tag.all %}{% if forloop.counter > 1 %}, {% endif %}{{ k.name }}{% endfor %}
+                                {% for k in result.object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ k.name }}{% endfor %}
                                 <br />
                                 <!-- b>Categories</b>: 
                                 {% for c in result.object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ c.display_name }}{% endfor %}-->
