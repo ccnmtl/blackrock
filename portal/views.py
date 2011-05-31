@@ -45,7 +45,8 @@ def page(request,path):
     ancestors = section.get_ancestors()
     
     module = None
-    if not section.is_root():
+    
+    if not section.is_root() and len(ancestors) > 1:
         module = ancestors[1]
         
     # retrieve the list of featured assets associated with this section

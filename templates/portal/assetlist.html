@@ -5,7 +5,6 @@
     {% for result in block.list %}
         {% if forloop.counter <= block.list_count %}
             {% with result.object as current_object %}
-            {% with 1 as includehighlight %}
             {% with 1 as includegeocode %}
             {% with block.audience as audience %}
             
@@ -26,7 +25,7 @@
                  
                </div>
                 
-            {% endwith %}{% endwith %}{% endwith %}{% endwith %}
+            {% endwith %}{% endwith %}{% endwith %}
         {% endif %}
     {% endfor %}
         

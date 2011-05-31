@@ -2,6 +2,40 @@
 {% load smartif %}                
 {% load cache %}
             
+            
+{% block mapassets %}
+    {% comment %}
+    {% cache 1800 mapassets %}
+    
+    <!--  Geocoded information for all Infrastructure assets -->
+    <div id="infrastructure_assets" style="display:none">
+    {% for result in result|infrastructure_assets %}
+        {% with result.object as current_object %}
+        {% with 1 as show_infrastructure %}
+        {% with 1 as includegeocode %}
+        {% with "infra" as prefix %}
+            {% include "portal/asset_location.html" %}
+        {% endwith %}{% endwith %}{% endwith %}{% endwith %}
+    {% endfor %}
+    </div>
+    
+    <!--  Geocoded information for all Featured assets -->
+    <div id="featured_assets" style="display:none">
+    {% for result in result|featured_assets %}
+        {% with result.object as current_object %}
+        {% with 1 as show_featured %}
+        {% with 1 as includegeocode %}
+        {% with "featured" as prefix %}
+            {% include "portal/asset_location.html" %}
+        {% endwith %}{% endwith %}{% endwith %}{% endwith %}
+    {% endfor %}
+    </div>
+    
+    {% endcache %}
+    {% endcomment %}
+{% endblock %}
+            
+            
    <div id="map_canvas"></div>
    <div id="map_filter">
       <table>

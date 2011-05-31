@@ -52,57 +52,12 @@
 <a href="/"><span id="brf"></span></a>
 <a href="http://ccnmtl.columbia.edu/"><span id="ccnmtl"></span></a>
 
-{% block mapassets %}
-    {% cache 1800 mapassets %}
-    
-    <!--  Geocoded information for all Infrastructure assets -->
-    <div id="infrastructure_assets" style="display:none">
-    {% for result in result|infrastructure_assets %}
-        {% with result.object as current_object %}
-        {% with 1 as show_infrastructure %}
-        {% with 1 as includegeocode %}
-        {% with "infra" as prefix %}
-            {% include "portal/asset_location.html" %}
-        {% endwith %}{% endwith %}{% endwith %}{% endwith %}
-    {% endfor %}
-    </div>
-    
-    <!--  Geocoded information for all Featured assets -->
-    <div id="featured_assets" style="display:none">
-    {% for result in result|featured_assets %}
-        {% with result.object as current_object %}
-        {% with 1 as show_featured %}
-        {% with 1 as includegeocode %}
-        {% with "featured" as prefix %}
-            {% include "portal/asset_location.html" %}
-        {% endwith %}{% endwith %}{% endwith %}{% endwith %}
-    {% endfor %}
-    </div>
-    
-    {% endcache %}
-{% endblock %}
-
 <div id="wrapper">
     <div id="mainnav">
       
-            {% block mainnav %}
-                <ul>
-                <li class="home" id="tab_home">
-                    <a id="tab_home_link" href="/portal/">Home</a>
-                </li>
-                <li class="experience" id="tab_experience">
-                    <a id="tab_experience_link" href="/portal/experience/">The Forest Experience</a>
-                </li>
-                
-                <li class="education" id="tab_education">
-                    <a id="tab_education_link" href="/portal/education/">Educational Tools</a>
-                </li>
-        
-                <li class="research" id="tab_research">
-                    <a id="tab_research_link" href="/portal/research/">Research at Black Rock</a>
-                </li>
-		</ul>
-            {% endblock %}
+        {% block mainnav %}
+            {% include "portal/default_mainnav.html" %}
+        {% endblock %}
         
        {% block searchtab %}
        <div id="search">
@@ -118,6 +73,11 @@
         <div id="subnav" class="{{module.slug}}">
            {% block subnav %}
            {% endblock %}
+           
+           <div id="sharing_container">
+              <img id="sharing_button" src="/portal/media/images/share_button.png"  />
+              <div id="sharing_actions"></div>
+           </div>
         </div>
     {% endblock %}
 
@@ -133,9 +93,7 @@
                 </td>
               
                 <td id="right">
-                    {% block right %}
-    	               {% include "portal/asset_map.html" %}
-                    {% endblock %} 
+                    <div id="map_canvas"></div>
                 </td>
             </tr>
             </table>

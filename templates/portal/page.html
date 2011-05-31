@@ -8,34 +8,23 @@
 {% endifequal %}
 {% endblock %}
 
-{% block mapassets %}
-    {% ifnotequal module.slug "home" %}
-    {% ifnotequal section.slug "weather" %}
-    {% ifnotequal section.slug "webcams" %}
-        {{ block.super }}
-    {% endifnotequal %}{% endifnotequal %}{% endifnotequal %}
-{% endblock %}
-
 {% block mainnav %}
     {% with root as current %}
     {% with section.get_parent as selected %}
-    {% with "foreststories" as hidden %}
     {% with 1 as audience %}
         {% include "portal/menu.html" %}
-    {% endwith %}{% endwith %}{% endwith %}{% endwith %}
+    {% endwith %}{% endwith %}{% endwith %}
 {% endblock %}
 
 {% block subnav %}
-    {% ifnotequal module.slug "foreststories" %} 
-        {% with module as current %}
-        {% with section as selected %}
-                {% include "portal/menu.html" %}
-        {% endwith %}{% endwith %}
+    {% ifnotequal module.slug "foreststories"  %} 
+        {% if module.get_children_count > 1 %}
+            {% with module as current %}
+            {% with section as selected %}
+                    {% include "portal/menu.html" %}
+            {% endwith %}{% endwith %}
+        {% endif %}
     {% endifnotequal %}
-   <div id="sharing_container">
-      <img id="sharing_button" src="/portal/media/images/share_button.png"  />
-      <div id="sharing_actions"></div>
-   </div>
 {% endblock %}
 
 {% block container %} 
@@ -52,7 +41,7 @@
                     {% include "portal/pageblocks.html" %}
                 </td>
                 <td id="right">
-                    {% include "portal/asset_map.html" %}
+                    <div id="map_canvas"></div>
                 </td>
             </tr>
         </table>
