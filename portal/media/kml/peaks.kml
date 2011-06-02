@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+  <name><![CDATA[mpeaks]]></name>
+  <open>1</open>
+  <Snippet maxLines="0"><![CDATA[]]></Snippet>
+  <description><![CDATA[Exported from mpeaks on 5/19/2011]]></description>
+  <Style id="FEATURES">
+    <IconStyle>
+      <color>FFFF00C5</color>
+      <scale>1.08333333333333</scale>
+      <Icon>
+        <href>root://icons/palette-4.png</href>
+        <x>32</x>
+        <y>128</y>
+        <w>32</w>
+        <h>32</h>
+      </Icon>
+    </IconStyle>
+    <LabelStyle>
+      <color>00FFFFFF</color>
+    </LabelStyle>
+    <BalloonStyle>
+      <text>
+      </text>
+    </BalloonStyle>
+  </Style>
+  <Style id="FEATURES_LABELS">
+    <IconStyle>
+      <color>00000000</color>
+      <Icon>
+        <href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href>
+      </Icon>
+    </IconStyle>
+    <LabelStyle>
+      <color>FFFFFFFF</color>
+    </LabelStyle>
+  </Style>
+  <Folder>
+    <name>Features</name>
+    <open>0</open>
+       <Placemark>
+         <name><![CDATA[Black Rock]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#FEATURES</styleUrl>
+         <Point>
+           <extrude>0</extrude>
+           <altitudeMode>clampedToGround</altitudeMode>
+           <coordinates>
+             -74.0215297845355,41.4081493869751,0
+           </coordinates>
+         </Point>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Hill of Pines]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#FEATURES</styleUrl>
+         <Point>
+           <extrude>0</extrude>
+           <altitudeMode>clampedToGround</altitudeMode>
+           <coordinates>
+             -74.0087516748947,41.4025937306957,0
+           </coordinates>
+         </Point>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Honey Hill]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#FEATURES</styleUrl>
+         <Point>
+           <extrude>0</extrude>
+           <altitudeMode>clampedToGround</altitudeMode>
+           <coordinates>
+             -74.0130555216434,41.4102777637721,0
+           </coordinates>
+         </Point>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Mount Misery]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#FEATURES</styleUrl>
+         <Point>
+           <extrude>0</extrude>
+           <altitudeMode>clampedToGround</altitudeMode>
+           <coordinates>
+             -74.0104183049798,41.40787167096,0
+           </coordinates>
+         </Point>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Rattlesnake Hill]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#FEATURES</styleUrl>
+         <Point>
+           <extrude>0</extrude>
+           <altitudeMode>clampedToGround</altitudeMode>
+           <coordinates>
+             -74.0062515627702,41.394816012301,0
+           </coordinates>
+         </Point>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Spy Rock]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#FEATURES</styleUrl>
+         <Point>
+           <extrude>0</extrude>
+           <altitudeMode>clampedToGround</altitudeMode>
+           <coordinates>
+             -74.0212522355174,41.3909271531036,0
+           </coordinates>
+         </Point>
+       </Placemark>
+  </Folder>
+  <Folder>
+    <name>Feature Labels (<![CDATA[NAME]]>)</name>
+    <open>0</open>
+      <Placemark>
+        <name><![CDATA[Black Rock]]></name>
+        <styleUrl>#FEATURES_LABELS</styleUrl>
+        <Point>
+          <extrude>0</extrude>
+          <altitudeMode>clampedToGround</altitudeMode>
+          <coordinates>
+            -74.0215297845355,41.4081493869751,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name><![CDATA[Hill of Pines]]></name>
+        <styleUrl>#FEATURES_LABELS</styleUrl>
+        <Point>
+          <extrude>0</extrude>
+          <altitudeMode>clampedToGround</altitudeMode>
+          <coordinates>
+            -74.0087516748947,41.4025937306957,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name><![CDATA[Honey Hill]]></name>
+        <styleUrl>#FEATURES_LABELS</styleUrl>
+        <Point>
+          <extrude>0</extrude>
+          <altitudeMode>clampedToGround</altitudeMode>
+          <coordinates>
+            -74.0130555216434,41.4102777637721,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name><![CDATA[Mount Misery]]></name>
+        <styleUrl>#FEATURES_LABELS</styleUrl>
+        <Point>
+          <extrude>0</extrude>
+          <altitudeMode>clampedToGround</altitudeMode>
+          <coordinates>
+            -74.0104183049798,41.40787167096,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name><![CDATA[Rattlesnake Hill]]></name>
+        <styleUrl>#FEATURES_LABELS</styleUrl>
+        <Point>
+          <extrude>0</extrude>
+          <altitudeMode>clampedToGround</altitudeMode>
+          <coordinates>
+            -74.0062515627702,41.394816012301,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name><![CDATA[Spy Rock]]></name>
+        <styleUrl>#FEATURES_LABELS</styleUrl>
+        <Point>
+          <extrude>0</extrude>
+          <altitudeMode>clampedToGround</altitudeMode>
+          <coordinates>
+            -74.0212522355174,41.3909271531036,0
+          </coordinates>
+        </Point>
+      </Placemark>
+  </Folder>
+</Document>
+</kml>
