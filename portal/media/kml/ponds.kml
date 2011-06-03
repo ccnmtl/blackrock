@@ -15,11 +15,6 @@
       <fill>1</fill>
       <color>FFF2DB97</color>
     </PolyStyle>
-    <BalloonStyle>
-      <text>
-<![CDATA[]]>
-      </text>
-    </BalloonStyle>
   </Style>
   <Style id="FEATURES_LABELS">
     <IconStyle>
@@ -4667,7 +4662,7 @@
          </Polygon>
        </Placemark>
   </Folder>
-  <Folder>
+  <!--Folder>
     <name>Feature Labels (<![CDATA[Name]]>)</name>
     <open>0</open>
       <Placemark>
@@ -4824,6 +4819,6 @@
           </coordinates>
         </Point>
       </Placemark>
-  </Folder>
+  </Folder-->
 </Document>
 </kml>

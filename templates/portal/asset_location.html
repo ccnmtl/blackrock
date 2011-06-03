@@ -17,7 +17,7 @@ showfeatured -- Include the featured facets when listing out the asset's facets
 prefix -- Prefix for the identifier to prevent duplications
 
 {% endcomment %}
-               
+
 {% if current_object.location.count %}
     <!-- List out all asset's locations -->
     {% for l in current_object.location.all %}

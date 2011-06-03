@@ -89,6 +89,27 @@ if (!Portal.Base.Events) {
     }    
 }
 
+if (!Portal.Layer) {
+    Portal.Layer = function(identifier, fileName) {
+        var self = this;
+        Portal.Base.Observer.apply(this,arguments); //inherit events
+    
+        self.identifier = identifier;
+        
+        var myOptions = { preserveViewport: "true" };
+        self.instance = new google.maps.KmlLayer(fileName, myOptions);
+        
+        this.isVisible = function() {
+            return self.instance.map != null;
+        }
+        
+        this.shouldBeVisible = function() {
+            var element = document.getElementById(self.identifier);
+            return element.checked;
+        }
+    }
+}
+
 if (!Portal.MapMarker) {
     
     Portal.MapMarker = function() {
@@ -188,6 +209,7 @@ if (!Portal.Map) {
         self.mapInstance = null;
         self.locations = {};
         self.infoWindow = null;
+        self.layers = {}
         
         this.hideInfoWindow = function() {
             if (self.infowindow)
@@ -223,6 +245,20 @@ if (!Portal.Map) {
             }
         }
         
+        this.toggleLayer = function() {
+            for (var identifier in self.layers) {
+                var layer = self.layers[identifier];
+                var visible = layer.isVisible();
+                var shouldBeVisible = layer.shouldBeVisible();
+                
+                if (shouldBeVisible && !visible) {
+                    layer.instance.setMap(self.mapInstance);
+                } else if (!shouldBeVisible && visible) {
+                    layer.instance.setMap(null);
+                }
+            }
+        }
+        
         addLoadEvent(function() {
             if (!document.getElementById("map_canvas"))
                 return;
@@ -239,8 +275,47 @@ if (!Portal.Map) {
             
             self.events.connect(Portal, 'markerClicked', self, 'showInfoWindow');
             self.events.connect(Portal, 'toggleFacet', self, 'toggleFacet');
+            self.events.connect(Portal, 'toggleLayer', self, 'toggleLayer');
+            
+            var randomnumber=Math.floor(Math.random()*11)
+            
+            // add default layers
+            var kmlLayer = new Portal.Layer("boundary", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/brfboundary.kml");
+            self.layers.boundary = kmlLayer;
+            
+            var kmlLayer = new Portal.Layer("peaks", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/peaks.kml?" + randomnumber);
+            self.layers.peaks = kmlLayer;
+            
+            kmlLayer = new Portal.Layer("ponds", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/ponds.kml?" + randomnumber);
+            self.layers.ponds = kmlLayer;
+            
+            kmlLayer = new Portal.Layer("roads", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/roads.kml?" + randomnumber);
+            self.layers.roads = kmlLayer;
+            
+            kmlLayer = new Portal.Layer("streams", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/streams.kml?" + randomnumber);
+            self.layers.streams = kmlLayer;
+            
+            kmlLayer = new Portal.Layer("trails", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/trails.kml?" + randomnumber);
+            self.layers.trails = kmlLayer;
+            
+            var options = getElementsByTagAndClassName("input", "layer");
+            forEach(options,
+                    function(option) {
+                        connect(option, 'onclick', function(evt) {
+                            self.events.signal(Portal, 'toggleLayer');
+                         });
+                    });
+            
             
             var options = getElementsByTagAndClassName("input", "infrastructure_option");
+            forEach(options,
+                    function(option) {
+                        connect(option, 'onclick', function(evt) {
+                            self.events.signal(Portal, 'toggleFacet');
+                         });
+                    });
+            
+            var options = getElementsByTagAndClassName("input", "natural_features_option");
             forEach(options,
                     function(option) {
                         connect(option, 'onclick', function(evt) {
@@ -254,7 +329,8 @@ if (!Portal.Map) {
                         connect(option, 'onclick', function(evt) {
                             self.events.signal(Portal, 'toggleFacet');
                          });
-                    });            
+                    });      
+            
             
             // iterate over locations within the page, and add the requested markers
             // locations are identified as <div class="geocode"
@@ -292,41 +368,5 @@ if (!Portal.Map) {
     }
 }
 
-if (!Portal.Utils) {
-    Portal.Utils = function() {
-        var self = this;
-        
-        this.getAudience = function() {
-            var bits = location.pathname.split("/");
-            
-            if (bits.length < 2)
-                return null;
-            else
-                return bits[2]; 
-        }
-        
-        addLoadEvent(function() {
-            var audience = self.getAudience();
- 
-            if (audience && audience != "home") {
-                var element = document.getElementById("id_" + audience);
-                if (element) {
-                    element.checked = "checked";
-                    element.disabled = "disabled";
-                }
-            } else {
-                // check all infrastructure icons
-                var elements = getElementsByTagAndClassName(null, "infrastructure_option");
-                forEach(elements,
-                        function(elem)
-                        {
-                           elem.checked = "checked";
-                        });
-            }
-        });
-    }
-}
-
-var portalUtilInstance = new Portal.Utils();
 var portalMapInstance = new Portal.Map();
 

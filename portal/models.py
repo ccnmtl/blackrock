@@ -701,4 +701,39 @@ class Weather(models.Model):
         
 class WeatherForm(forms.ModelForm):
     class Meta:
-        model = Weather                  
+        model = Weather   
+        
+class InteractiveMap(models.Model):
+    pageblocks = generic.GenericRelation(PageBlock, related_name="interactive_map_pageblock")
+    template_file = "portal/interactive_map.html"
+    display_name = "Interactive Map"
+    
+    def pageblock(self):
+      return self.pageblocks.all()[0]
+    
+    def __unicode__(self):
+      return unicode(self.pageblock())
+    
+    def needs_submit(self):
+      return False
+    
+    @classmethod
+    def add_form(self):
+      return InteractiveMapForm()
+    
+    def edit_form(self):
+      return InteractiveMapForm(instance=self)
+    
+    @classmethod
+    def create(self,request):
+      form = InteractiveMapForm(request.POST)
+      return form.save()
+    
+    def edit(self, vals, files):
+      form = InteractiveMapForm(data=vals, files=files, instance=self)
+      if form.is_valid():
+        form.save()
+        
+class InteractiveMapForm(forms.ModelForm):
+    class Meta:
+        model = InteractiveMap                                         

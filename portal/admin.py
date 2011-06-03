@@ -9,9 +9,9 @@ admin.site.register(Audience, GenericAdmin)
 admin.site.register(DigitalFormat, GenericAdmin)
 
 class FacetAdmin(admin.ModelAdmin):
-  search_fields = ['name', 'display_name']
-  list_display = ('name', 'display_name')
-  ordering = ["name"]
+  search_fields = ['name', 'display_name', 'facet']
+  list_display = ('facet', 'name', 'display_name')
+  ordering = ["facet", "name"]
 admin.site.register(Facet, FacetAdmin)
 
 admin.site.register(Institution, GenericAdmin)

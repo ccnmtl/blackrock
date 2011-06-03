@@ -10,7 +10,11 @@
    <div class="single-record">
          
    <!-- Asset Locations (Hidden. Used by maps.js to plot GMaps) -->
+   {% with 1 as includegeocode %}
+   {% with 1 as includehighlight %}
    {% include "portal/asset_location.html" %}
+   {% endwith %}{% endwith %}
+   
   
    <a class="display-name" href="{{block.asset|detail_url}}">{{current_object|display_name}}</a>
 

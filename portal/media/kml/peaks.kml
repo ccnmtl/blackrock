@@ -5,31 +5,11 @@
   <open>1</open>
   <Snippet maxLines="0"><![CDATA[]]></Snippet>
   <description><![CDATA[Exported from mpeaks on 5/19/2011]]></description>
-  <Style id="FEATURES">
-    <IconStyle>
-      <color>FFFF00C5</color>
-      <scale>1.08333333333333</scale>
-      <Icon>
-        <href>root://icons/palette-4.png</href>
-        <x>32</x>
-        <y>128</y>
-        <w>32</w>
-        <h>32</h>
-      </Icon>
-    </IconStyle>
-    <LabelStyle>
-      <color>00FFFFFF</color>
-    </LabelStyle>
-    <BalloonStyle>
-      <text>
-      </text>
-    </BalloonStyle>
-  </Style>
   <Style id="FEATURES_LABELS">
     <IconStyle>
       <color>00000000</color>
       <Icon>
-        <href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href>
+        <href>http://blackrock.ccnmtl.columbia.edu/portal/media/images/mapicon_experience.png</href>
       </Icon>
     </IconStyle>
     <LabelStyle>
@@ -37,97 +17,21 @@
     </LabelStyle>
   </Style>
   <Folder>
-    <name>Features</name>
-    <open>0</open>
-       <Placemark>
-         <name><![CDATA[Black Rock]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-         <Point>
-           <extrude>0</extrude>
-           <altitudeMode>clampedToGround</altitudeMode>
-           <coordinates>
-             -74.0215297845355,41.4081493869751,0
-           </coordinates>
-         </Point>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Hill of Pines]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-         <Point>
-           <extrude>0</extrude>
-           <altitudeMode>clampedToGround</altitudeMode>
-           <coordinates>
-             -74.0087516748947,41.4025937306957,0
-           </coordinates>
-         </Point>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Honey Hill]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-         <Point>
-           <extrude>0</extrude>
-           <altitudeMode>clampedToGround</altitudeMode>
-           <coordinates>
-             -74.0130555216434,41.4102777637721,0
-           </coordinates>
-         </Point>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Mount Misery]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-         <Point>
-           <extrude>0</extrude>
-           <altitudeMode>clampedToGround</altitudeMode>
-           <coordinates>
-             -74.0104183049798,41.40787167096,0
-           </coordinates>
-         </Point>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Rattlesnake Hill]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-         <Point>
-           <extrude>0</extrude>
-           <altitudeMode>clampedToGround</altitudeMode>
-           <coordinates>
-             -74.0062515627702,41.394816012301,0
-           </coordinates>
-         </Point>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Spy Rock]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-         <Point>
-           <extrude>0</extrude>
-           <altitudeMode>clampedToGround</altitudeMode>
-           <coordinates>
-             -74.0212522355174,41.3909271531036,0
-           </coordinates>
-         </Point>
-       </Placemark>
-  </Folder>
-  <Folder>
     <name>Feature Labels (<![CDATA[NAME]]>)</name>
     <open>0</open>
       <Placemark>
         <name><![CDATA[Black Rock]]></name>
+        <description>1,391 feet (423.98 meters)</description>
         <styleUrl>#FEATURES_LABELS</styleUrl>
         <Point>
           <extrude>0</extrude>
           <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0215297845355,41.4081493869751,0
-          </coordinates>
+          <coordinates>-74.0215297845355,41.4081493869751,0</coordinates>
         </Point>
       </Placemark>
       <Placemark>
         <name><![CDATA[Hill of Pines]]></name>
+	<description>1,375 feet (419.10 meters)</description>
         <styleUrl>#FEATURES_LABELS</styleUrl>
         <Point>
           <extrude>0</extrude>
@@ -139,6 +43,7 @@
       </Placemark>
       <Placemark>
         <name><![CDATA[Honey Hill]]></name>
+        <description>1,132 feet (345 meters)</description>
         <styleUrl>#FEATURES_LABELS</styleUrl>
         <Point>
           <extrude>0</extrude>
@@ -150,6 +55,7 @@
       </Placemark>
       <Placemark>
         <name><![CDATA[Mount Misery]]></name>
+	<description>1,270 feet (387.10 meters)</description>
         <styleUrl>#FEATURES_LABELS</styleUrl>
         <Point>
           <extrude>0</extrude>
@@ -161,6 +67,7 @@
       </Placemark>
       <Placemark>
         <name><![CDATA[Rattlesnake Hill]]></name>
+        <description>1,407 feet (428.85 meters)</description>
         <styleUrl>#FEATURES_LABELS</styleUrl>
         <Point>
           <extrude>0</extrude>
@@ -172,6 +79,7 @@
       </Placemark>
       <Placemark>
         <name><![CDATA[Spy Rock]]></name>
+        <description>1,447 feet (441.05 meters)</description>
         <styleUrl>#FEATURES_LABELS</styleUrl>
         <Point>
           <extrude>0</extrude>

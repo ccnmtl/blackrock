@@ -12,6 +12,7 @@ class AssetIndex(SearchIndex):
   discipline = MultiValueField(faceted=True)
   asset_type = CharField(faceted=True)
   infrastructure = MultiValueField(faceted=True)
+  featured = MultiValueField(faceted=True)
   
   def prepare_study_type(self, obj):
     return [facet.name for facet in obj.facet.filter(facet='Study Type')]
@@ -27,6 +28,9 @@ class AssetIndex(SearchIndex):
   
   def prepare_asset_type(self, obj):
     return obj._meta.object_name
+
+  def prepare_featured(self, obj):
+    return [facet.name for facet in obj.facet.filter(facet='Featured')]
    
 site.register(Station, AssetIndex)
 site.register(Person, AssetIndex)
@@ -46,27 +50,7 @@ databrowse.site.register(ResearchProject)
 databrowse.site.register(LearningActivity)
 databrowse.site.register(ForestStory)
 
-#databrowse.site.register(DigitalFormat)
-#databrowse.site.register(Facet)
-#databrowse.site.register(Institution)
-#databrowse.site.register(LocationType)
-#databrowse.site.register(LocationSubtype)
-#databrowse.site.register(PersonType)
-#databrowse.site.register(PublicationType)
-#databrowse.site.register(RegionType)
-#databrowse.site.register(RightsType)
+databrowse.site.register(Facet)
 databrowse.site.register(Tag)
-#databrowse.site.register(Url)
-
-# Hidden Fields
-#site.register(Region, AssetIndex)
-#databrowse.site.register(Region)
-#databrowse.site.register(Audience)
-#site.register(Publication, AssetIndex)
-#databrowse.site.register(Publication)
-#site.register(Location, AssetIndex)
-#databrowse.site.register(Location)
-
-
 
 

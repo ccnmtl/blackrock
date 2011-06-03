@@ -20,6 +20,36 @@ def klass_display_plural(obj):
 @register.filter('hidden_klasses')
 def hidden_klasses():
     return ['Publication', 'Audience', 'Region']
+
+@register.filter("facet")
+def facet(obj, facetName):
+    return [facet.display_name for facet in obj.facet.filter(facet=facetName)]
+
+@register.filter('facet_assets')
+def facet_assets(obj, facetName):
+      # Get all assets with valid "infrastructure" facets
+    sqs = SearchQuerySet()
+    sqs = sqs.facet(facetName)
+    sqs = sqs.narrow(facetName + ":[* TO *]")
+    return sqs
+
+@register.filter('facet_counts')
+def facet_counts(obj, facetName):
+  
+  try:
+    counts = {}
+  
+    sqs = SearchQuerySet()
+    sqs = sqs.facet(facetName)
+    sqs = sqs.narrow(facetName + ":[* TO *]")
+  
+    for x in sqs.facet_counts()['fields'][facetName]:
+      key = x[0].replace(' ', '')
+      key = key.replace('-', '')
+      counts[key] = x[1]
+    return counts
+  except:
+    return None  
   
 @register.filter('infrastructure')
 def infrastructure(obj):

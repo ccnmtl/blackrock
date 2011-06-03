@@ -101,6 +101,10 @@
     <field name="species" type="text" indexed="true" stored="true" multiValued="true" />
 
     <field name="species_exact" type="string" indexed="true" stored="true" multiValued="true" />
+    
+    <field name="featured" type="text" indexed="true" stored="true" multiValued="true" />
+
+    <field name="featured_exact" type="string" indexed="true" stored="true" multiValued="true" />
 
   </fields>
 

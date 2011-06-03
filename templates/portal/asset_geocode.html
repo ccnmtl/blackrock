@@ -26,11 +26,11 @@
       {% if show_infrastructure %}
         <input type="hidden" 
              id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-infrastructure"
-             value="{% for i in current_object|infrastructure %}{% if forloop.counter > 1 %},{% endif %}{{i}}{% endfor %}" />
+             value='{% for i in current_object|facet:"Infrastructure" %}{% if forloop.counter > 1 %},{% endif %}{{i}}{% endfor %}' />
       {% else %}{% if show_featured %}
               <input type="hidden" 
              id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-featured"
-             value="{% for f in current_object|featured %}{% if forloop.counter > 1 %},{% endif %}{{f}}{% endfor %}" />  
+             value='{% for f in current_object|facet:"Featured" %}{% if forloop.counter > 1 %},{% endif %}{{f}}{% endfor %}' />  
       {% endif %}{% endif %}
       
       <!--  Map Callout Template -->
@@ -39,7 +39,7 @@
         <div class="callout-asset-types">{{current_object|klass_display}}</div>
         <div>
             <!--  Infrastructure Icons -->
-            {% for i in current_object|infrastructure %}
+            {% for i in current_object|facet:"Infrastructure" %}
                 <img alt="{{i}} icon" src='/portal/media/images/nonmapicon_{{i|cut:" "|cut:"-"|lower}}.png'></img>
             {% endfor %}
         </div>

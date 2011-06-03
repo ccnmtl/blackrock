@@ -376,6 +376,14 @@ a.link_research, span.link_research {
     height:300px;
 }
 
+#map_canvas.highlight {
+    height: 700px;
+}
+
+#map_canvas.full {
+    height: 500px;
+}
+
 .single-record {
 	padding: 10px;
 	background-color: #fff;
@@ -405,7 +413,7 @@ a.view-all {
 	margin: 10px;
 }
 
-#featured_filter, #infrastructure_filter {
+#featured_filter, #infrastructure_filter, #natural_features_filter {
     vertical-align: top;
     width: auto;
     padding: 10px 20px;
@@ -413,15 +421,14 @@ a.view-all {
     line-height: 250%;
 }
 
-#featured_filter img, #infrastructure_filter img {
+#featured_filter img, #infrastructure_filter img, #natural_features_filter img {
 	margin-right: 5px;
 	vertical-align: top;
 }
 
-#infrastructure_filter {
+#featured_filter, #infrastructure_filter, #natural_features_filter {
     vertical-align: top;
     padding: 10px 20px;
-    width: 100%;
     white-space: nowrap;
 }
 
