@@ -1,0 +1,82 @@
+{% load portal %}
+{% load smartif %}                
+{% load cache %}
+            
+<!--  Geocoded information for all Infrastructure assets -->
+<div id="infrastructure_assets" style="display:none">
+    {% for result in result|facet_assets:"infrastructure" %}
+        {% with result.object as current_object %}
+        {% with 1 as show_infrastructure %}
+        {% with 1 as includegeocode %}
+        {% with "infra" as prefix %}
+            {% include "portal/asset_location.html" %}
+        {% endwith %}{% endwith %}{% endwith %}{% endwith %}
+    {% endfor %}
+</div>
+
+<!--  Geocoded information for all Featured assets -->
+<div id="featured_assets" style="display:none">
+    {% for result in result|facet_assets:"featured" %}
+        {% with result.object as current_object %}
+        {% with 1 as show_featured %}
+        {% with 1 as includegeocode %}
+        {% with "featured" as prefix %}
+            {% include "portal/asset_location.html" %}
+        {% endwith %}{% endwith %}{% endwith %}{% endwith %}
+    {% endfor %}
+</div>
+
+
+<div id="map_canvas" class="full"></div>
+<div id="map_filter">
+  <table width="100%">
+      <tr>
+          
+          {% with object|facet_counts:"infrastructure" as infrastructure_counts %}
+          <td id="infrastructure_filter">
+              <h3>Cultural Features</h3>
+              <table>
+                <tr>
+                    <td width="50%">
+                        <div><input type="checkbox" class="layer" id="boundary" value="Forest Boundary" checked="checked" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Forest Boundary"/>Forest Boundary</div>
+                        <div><input type="checkbox" class="layer" id="roads" value="Roads" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Forest Roads"/>Roads/Parking Lots</div>
+                        <div><input type="checkbox" class="layer" id="trails" value="Trails" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Forest Trails"/>Trails</div>
+                        <div><input type="checkbox" class="infrastructure_option" id="buildings" value="Buildings" checked="checked" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Buildings"/>Buildings (not yet available) ({{infrastructure_counts.LongTermPlots}})</div>
+                    </td>
+                    <td>
+                        <div><input type="checkbox" class="infrastructure_option" id="idEnvironmentalMonitoring" value="Environmental Monitoring" checked="checked" /><img src="/portal/media/images/nonmapicon_environmentalmonitoring.png/" alt="Environmental Monitoring"/>Environmental Monitoring ({{infrastructure_counts.EnvironmentalMonitoringInfrastructure}})</div>
+                        <div><input type="checkbox" class="infrastructure_option" id="idLongtermPlots" value="Long-Term Plots" checked="checked" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Long-Term Plots"/>Long-Term Plots (not yet available) ({{infrastructure_counts.LongTermPlots}})</div>
+                        <div><input type="checkbox" class="infrastructure_option" id="idWebcams" value="Webcams" checked="checked" /><img src="/portal/media/images/nonmapicon_webcams.png/" alt="Webcams" />Webcams  ({{infrastructure_counts.Webcams}})</div>
+                        <div><input type="checkbox" class="layer" id="idCompartments" value="Compartments" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Compartments"/>Compartments (not yet available)</div>
+                    </td>
+                </tr>
+              </table>
+          </td>
+          {% endwith %}
+          
+          <td id="natural_features_filter">
+              <h3>Natural Features</h3>
+              <div><input type="checkbox" class="layer" id="ponds" value="Ponds" checked="checked" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Ponds"/>Ponds</div>
+              <div><input type="checkbox" class="layer" id="streams" value="Streams" checked="checked" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Streams"/>Streams</div>
+              <div><input type="checkbox" class="layer" id="peaks" value="Peaks" checked="checked" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Peaks"/>Peaks</div>
+              <div><input type="checkbox" class="natural_features_option" id="idViewpoints" value="Viewpoints" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Viewpoints"/>Viewpoints (not yet available)</div>
+          </td>
+          
+          
+          {% with result|facet_counts:"featured" as featured_counts %}
+          <td id="featured_filter">
+              <h3>Points of Interest</h3>
+              <div><input type="checkbox" class="featured_option" id="id_education" value="Education" /><img src="/portal/media/images/nonmapicon_education.png/" alt="Education" />Education ({{featured_counts.FeaturedEducation}})</div>
+              <div><input type="checkbox" class="featured_option" id="id_research" value="Research" /><img src="/portal/media/images/nonmapicon_research.png/" alt="Research" />Research ({{featured_counts.FeaturedResearch}})</div>
+          </td>
+          {% endwith %}
+          
+      </tr>
+  </table>
+</div>
+
+<script type="text/javascript">
+addLoadEvent(function() {
+    portalMapInstance.toggleLayer();
+});
+</script>
