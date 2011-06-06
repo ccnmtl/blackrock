@@ -260,7 +260,7 @@ div#weather-widget-tab {
 div#weather-widget-tab:hover {
     cursor: pointer;
     cursor: hand;
-    box-shadow: 0 20px rgba(255, 255, 255, 1);
+    /** Doesn't work well in IE box-shadow: 0 20px rgba(255, 255, 255, 1); **/
     -webkit-box-shadow: 0 0 20px rgba(255, 255, 255, 1); 
     -moz-box-shadow: 0 0 20px rgba(255, 255, 255, 1); 
 }
