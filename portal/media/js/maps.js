@@ -368,5 +368,5 @@ if (!Portal.Map) {
     }
 }
 
-var portalMapInstance = new Portal.Map();
 
+var portalMapInstance = new Portal.Map();

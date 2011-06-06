@@ -5,55 +5,52 @@
     
 <div id="home_banner">
 
-<div id="photoswitcher">
-    <div class=" jcarousel-skin-blackrock">
-    <div class="jcarousel-container-horizontal">
-    <div style="position: relative; display: block;" class="jcarousel-container jcarousel-container-horizontal">
-    <div style="overflow: hidden; position: relative;" class="jcarousel-clip jcarousel-clip-horizontal">
-        <ul id="scrolling-photo-gallery" class="jcarousel-list jcarousel-list-horizontal">
-            {% for item in block.item.all %}
-                <li class="jcarousel-item jcarousel-item-horizontal jcarousel-item-{{item.position}} jcarousel-item-{{item.position}}-horizontal">
-                    <div class="jcarousel-caption">
-                        <h4>{{item.title}}</h4>
-                        <p></p>
-                        <p>{{item.description}}</p>
-                        <p class="action">
-                            <a href="{{item.action}}">Learn More >></a>
-                        </p>
-                    </div>
-                    <input type="hidden" value="jcarousel-selector-{{item.position}}"></input>
-                    <img src="{{item.image.file.url}}" alt="jCarousel image {{item.position}}" />
-                </li>
-            {% endfor %}
-        </ul>
+    <div id="photoswitcher">
+        <div class=" jcarousel-skin-blackrock">
+        <div class="jcarousel-container-horizontal">
+        <div style="position: relative; display: block;" class="jcarousel-container jcarousel-container-horizontal">
+        <div style="overflow: hidden; position: relative;" class="jcarousel-clip jcarousel-clip-horizontal">
+            <ul id="scrolling-photo-gallery" class="jcarousel-list jcarousel-list-horizontal">
+                {% for item in block.item.all %}
+                    <li class="jcarousel-item jcarousel-item-horizontal jcarousel-item-{{item.position}} jcarousel-item-{{item.position}}-horizontal">
+                        <div class="jcarousel-caption">
+                            <h4>{{item.title}}</h4>
+                            <p></p>
+                            <p>{{item.description}}</p>
+                            <p class="action">
+                                <a href="{{item.action}}">Learn More >></a>
+                            </p>
+                        </div>
+                        <input type="hidden" value="jcarousel-selector-{{item.position}}"></input>
+                        <img src="{{item.image.file.url}}" alt="jCarousel image {{item.position}}" />
+                    </li>
+                {% endfor %}
+            </ul>
+                
+            <ul class="nav dl_navigation">
+                {% for item in block.item.all %}
+                    <li id="jcarousel-selector-{{item.position}}" class="jcarousel-selector"><a>{{item.position}}</a></li>
+                 {% endfor %}
+                <li><a id="toggle_play" class="jcarousel-pause"></a></li>
+            </ul>
+        </div></div></div></div>
+    </div>
             
-        <ul class="nav dl_navigation">
-            {% for item in block.item.all %}
-                <li id="jcarousel-selector-{{item.position}}" class="jcarousel-selector"><a>{{item.position}}</a></li>
-             {% endfor %}
-            <li><a id="toggle_play" class="jcarousel-pause"></a></li>
-        </ul>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-        
     <div id="weather-widget">
+        <div id="weather-widget-tab"><img src="/portal/media/images/weather-widget-tab.png" alt="Weather Widget Slider"/></div>
     
-    <div id="data">
-    <div class="weather-widget-title">Current Conditions</div>
-    <h6>as of {% now "g a" %} on {% now "m/d/y" %}</h6>
-    <p><img src="{% value_from_settings BLACK_ROCK_FEED %}/data/current/Widget.png" alt="Current Conditions Widget" /></p>
-    <div class="action"><a href="/portal/experience/weather/">More >></a></div>
-    </div>
-   
-   <div id="webcam">
-    <div class="weather-widget-title">Forest View</div>
-    <h6>&nbsp;</h6>
-    <p><img src="{% value_from_settings BLACK_ROCK_FEED %}/webcam/current.jpg" alt="Current Forest View" /></p>
-    <div class="action"><a href="/portal/experience/forest-view/">More >></a></div>
-   </div>
-   
+        <div id="data">
+            <div class="weather-widget-title">Current Conditions</div>
+            <h6>as of {% now "g a" %} on {% now "m/d/y" %}</h6>
+            <p><img src="{% value_from_settings BLACK_ROCK_FEED %}/data/current/Widget.png" alt="Current Conditions Widget" /></p>
+            <div class="action"><a href="/portal/experience/weather/">More >></a></div>
+        </div>
+    
+        <div id="webcam">
+            <div class="weather-widget-title">Forest View</div>
+            <h6>&nbsp;</h6>
+            <p><img src="{% value_from_settings BLACK_ROCK_FEED %}/webcam/current.jpg" alt="Current Forest View" /></p>
+            <div class="action"><a href="/portal/experience/forest-view/">More >></a></div>
+        </div>
    </div>
 </div>
