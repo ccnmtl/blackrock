@@ -10,36 +10,7 @@
   }
 
   jQuery(document).ready(function() {
-
-    // add the webcam images to the dom
-    var webcamImageArray = get_webcam_image_array();
-    for (i = 0; i < webcamImageArray.length; i++) {
-        // console.log(webcamImageArray[i].src);
-	jQuery("#webcam-flow").append(
-		  jQuery("<img/>")
-		    .attr("src", webcamImageArray[i].src)
-		    .attr("longdesc", webcamImageArray[i].src)
-		    .attr("width", "70")
-		    .attr("height", "48")
-		    .attr("alt", webcamImageArray[i].text)
-		    )
-	
-    }
-    var instanceOne = new ImageFlow();
-    // console.log("initializing imageflow");
-    instanceOne.init({ ImageFlowID:'webcam-flow',
-		       preloadImages: false,
-		       //aspectRatio: 2.333, 
-		       //aspectRatio: 1, 
-		       imageFocusMax: 1,
-		       imageFocusM: 1.5,
-		       xStep: 220,
-		       buttons: true,
-		       startID: 287,
-               reflections: false,  
-               reflectionP: 0.0,
-                onClick: function() { return false; }
-            });
+    draw_image_flow();
                      
     jQuery("#webcam-flow_previous").html("<span class='flowlabel'><br />Earlier Views</span>");
     jQuery("#webcam-flow_next").html("<span class='flowlabel'><br />Current View</span>");
@@ -63,6 +34,9 @@
 		           picked_date = pickedDate.getDate();
 		           picked_month = pickedDate.getMonth();
 		           picked_year = pickedDate.getFullYear();
+                           draw_image_flow(picked_date, picked_month, picked_year);
+                           // jQuery("#picked-date").html(picked_month + "/" + picked_date + "/" + picked_year); 
+                           jQuery("#picked-date").html(pickedDate.toDateString());
 		           //console.log(picked_date, picked_month, picked_year);
 		    }
 	     });
@@ -71,7 +45,7 @@
  
 <h2>Forest View</h2>
 <div id="webcam_page"> 
-<h3>Today at the Forest <div><input type="hidden" id="datepicker" /></div></h3>
+<h3><span id="picked-date">Today</span> at the Forest <div><input type="hidden" id="datepicker" /></div></h3>
 	<div id="image-viewer">
 	   
 	   <div id="webcam-focus-container">

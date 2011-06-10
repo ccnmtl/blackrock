@@ -1,3 +1,4 @@
+
 /*******************************************************************
 * 
 *  constructs an array of the blackrock static web cam images that we pull in every 5 minutes
@@ -15,7 +16,7 @@ function getParameterByName( name )
     else
 	return results[1];
 }
-	
+
 function get_webcam_image_array(start_date, start_month, start_year, start_hour, start_minute) {
     // ndays_ago =  ndays_ago || 0;
     
@@ -102,5 +103,41 @@ function get_webcam_image_array(start_date, start_month, start_year, start_hour,
 		            text:"This photo was taken on " + month + "/" + date + "/" + year + " (" + hour + ":" + min + ")"});
 	}
     return imageObjArray;
+}
+
+function draw_image_flow(start_date, start_month, start_year, start_hour, start_minute) {
+
+    jQuery('#webcam-flow').empty();
+
+    // add the webcam images to the dom
+    var webcamImageArray = get_webcam_image_array(start_date, start_month, start_year, start_hour, start_minute);
+    for (i = 0; i < webcamImageArray.length; i++) {
+        // console.log(webcamImageArray[i].src);
+	jQuery("#webcam-flow").append(
+		  jQuery("<img/>")
+		    .attr("src", webcamImageArray[i].src)
+		    .attr("longdesc", webcamImageArray[i].src)
+		    .attr("width", "70")
+		    .attr("height", "48")
+		    .attr("alt", webcamImageArray[i].text)
+		    )
+	
     }
+    var instanceOne = new ImageFlow();
+    // console.log("initializing imageflow");
+    instanceOne.init({ ImageFlowID:'webcam-flow',
+		       preloadImages: false,
+		       //aspectRatio: 2.333, 
+		       //aspectRatio: 1, 
+		       imageFocusMax: 1,
+		       imageFocusM: 1.5,
+		       xStep: 220,
+		       buttons: true,
+		       startID: 287,
+               reflections: false,  
+               reflectionP: 0.0,
+                onClick: function() { return false; }
+            });
+	
+}
 
