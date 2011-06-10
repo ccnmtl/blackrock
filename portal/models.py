@@ -122,6 +122,7 @@ class Tag(models.Model):
   
 class Url(models.Model):
   name = models.URLField()
+  display_name = models.CharField(max_length=100)
 
   class Meta:
     ordering = ['name']
@@ -181,7 +182,6 @@ class Location(models.Model):
   class Meta:
     ordering = ['name']
 
-  
 class Station(models.Model):
   name = models.CharField(max_length=500)
   description = models.TextField(null=True, blank=True)

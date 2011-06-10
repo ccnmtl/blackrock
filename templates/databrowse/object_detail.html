@@ -43,7 +43,7 @@
                 <p><span class="object_detail_label">Link{%if current_object.url.all.count > 0%}s{%endif%}:</span>
                 <ul>
                 {% for u in current_object.url.all %}
-                    <li><a href="{{ u.name }}">{{u.document}}</a></li>
+                    <li><a href="{{ u.name }}">{% if u.display_name %}{{u.display_name}}{% else %}{{u.document}}{% endif %}</a></li>
                 {% endfor %}
                 </ul>
             {% endif %}
