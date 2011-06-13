@@ -222,6 +222,7 @@ div#home_banner {
 	max-width: 1600px;
 	background-color: #3D2800;
 	min-width: 800px;
+	overflow: hidden;
 }
 
 div#weather-widget 
