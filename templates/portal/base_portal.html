@@ -29,17 +29,6 @@
     <script type="text/javascript" src="/portal/media/js/jcarousel/lib/jquery.jcarousel.js"></script>
     <script type="text/javascript" src="/portal/media/js/jquery.sharing/jquery.sharing.js"></script>
     <script type="text/javascript" src="/portal/media/js/sharing.js"></script>
-    <script type="text/javascript">
-    <!--
-      function clearDefaultText() {
-         //Clear the Ghost Text if it is still set.
-         var search_text = document.getElementById('id_q');
-         if (search_text != null && search_text.value == 'Search') {
-            search_text.value = '';
-         }
-      }
-    -->
-    </script>
     {% block js %}{% endblock %}
     
     {% block feeds %}{% endblock %}
@@ -57,28 +46,12 @@
         {% block mainnav %}
             {% include "portal/default_mainnav.html" %}
         {% endblock %}
-        
-       {% block searchtab %}
-       <div id="search">
-           <form method="get" action="/portal/search/">
-              <input name="q" id="id_q" type="text" value="Search" onfocus="clearDefaultText();" />
-              <input type="submit" value="Search" onclick="clearDefaultText();" />
-           </form>
-        </div>
-        {% endblock %}
+
+       <div id="sharing_container">
+          <img id="sharing_button" src="/portal/media/images/share_button.png"  />
+          <div id="sharing_actions"></div>
+       </div>
     </div>
-    
-    {% block subnav-wrapper %}
-        <div id="subnav" class="{{module.slug}}">
-           {% block subnav %}
-           {% endblock %}
-           
-           <div id="sharing_container">
-              <img id="sharing_button" src="/portal/media/images/share_button.png"  />
-              <div id="sharing_actions"></div>
-           </div>
-        </div>
-    {% endblock %}
 
     <div id="container">
         {% block container %}

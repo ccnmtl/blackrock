@@ -263,7 +263,7 @@
     
         {% if asset_klass == "LearningActivity" %}
             {% if current_object.dataset.count %}
-                <p><span class="object_detail_label">Related Data Sets:</span>
+                <h3 class="object_detail_label">Related Data Sets:</h3>
                 {% for x in current_object.dataset.all %}
                     {% with x as current_object %}
                         {% include "portal/asset_related.html" %}
@@ -271,7 +271,7 @@
                 {% endfor %}
             {% endif %}
             {% if current_object.digitalobject.count %}
-                <p><span class="object_detail_label">Related Digital Objects:</span>
+                <h3 class="object_detail_label">Related Digital Objects:</h3>
                 {% for x in current_object.digitalobject.all %}
                     {% with x as current_object %}
                         {% include "portal/asset_related.html" %}
@@ -279,7 +279,7 @@
                 {% endfor %}
             {% endif %}
             {% if current_object.person.count %}
-                <p><span class="object_detail_label">Related People:</span>
+                <h3 class="object_detail_label">Related People:</h3>
                 {% for x in current_object.person.all %}
                     {% with x as current_object %}
                          {% include "portal/asset_related.html" %}
@@ -288,7 +288,7 @@
             {% endif %}
         {% else %}{% if asset_klass == "ResearchProject" %}
             {% if current_object.dataset.count %}
-                <p><span class="object_detail_label">Related Data Sets:</span>
+                <h3 class="object_detail_label">Related Data Sets:</h3>
                 {% for x in current_object.dataset.all %}
                     {% with x as current_object %}
                         {% include "portal/asset_related.html" %}
@@ -297,9 +297,9 @@
             {% endif %}
         {% else %}{% if asset_klass == "Station" %}
             {% if current_object.research_projects|length %}
-                <p><span class="object_detail_label">Related Research Projects:</span>
+                <h3 class="object_detail_label">Related Research Projects:</h3>
                 {% if current_object.dataset.count %}
-                    <p><span class="object_detail_label">Related Research Projects:</span>
+                    <h3 class="object_detail_label">Related Research Projects:</h3>
                     {% for x in current_object.researchproject.all %}
                         {% with x as current_object %}
                             {% include "portal/asset_related.html" %}
@@ -308,7 +308,7 @@
                 {% endif %}
             {% endif %}
             {% if current_object.dataset.count %}
-                <p><span class="object_detail_label">Related Data Sets:</span>
+                <h3 class="object_detail_label">Related Data Sets:</h3>
                 {% for x in current_object.dataset.all %}
                     {% with x as current_object %}
                         {% include "portal/asset_related.html" %}
@@ -317,7 +317,7 @@
             {% endif %}  
         {% else %}{%if asset_klass == "Publication" %}
             {% if current_object.person.count %}
-                <p><span class="object_detail_label">Related People:</span>
+                <h3 class="object_detail_label">Related People:</h3>
                 {% for x in current_object.person.all %}
                     {% with x as current_object %}
                          {% include "portal/asset_related.html" %}
@@ -326,7 +326,7 @@
             {% endif %} 
         {% else %}{% if asset_klass == "Region" %}
             {% if current_object.location.count %}
-                <p><span class="object_detail_label">Related Locations:</span>
+                <h3 class="object_detail_label">Related Locations:</h3>
                 {% for x in current_object.location.all %}
                     {% with x as current_object %}
                          {% include "portal/asset_related.html" %}
@@ -340,7 +340,7 @@
             {% if related_object.object_list %}
                 {% for object in related_object.object_list %}
                         {% ifequal forloop.counter 1 %}
-                            <p><span class="object_detail_label">Related {{object.instance|klass_display_plural}}</span>
+                            <h3 class="object_detail_label">Related {{object.instance|klass_display_plural}}</h3>
                         {% endifequal %}
                     
                         {% with object.instance as current_object %}		   
@@ -348,16 +348,15 @@
                         {% endwith %}
                     
                 {% endfor %}
-                <br />
             {% endif %}
         {% endfor %}
    {% endwith %}    
    </div> </td><!-- end related section --></tr></table>
    
    
-   {% with 1 as includegeocode %}
-       {% include "portal/asset_location.html" %}
-   {% endwith %}
+{% with "geocode" as geocode_class %}
+   {% include "portal/asset_location.html" %}
+{% endwith %}
    
 <p class="clear"></p>
 </div> <!-- end detail-page -->
