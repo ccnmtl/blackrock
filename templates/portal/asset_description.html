@@ -42,8 +42,8 @@
                 <b>Format:</b> {{ current_object.digital_format }}<br />
            {% endif %}
     {% else %}
-         <b>Description</b>: 
          {% if current_object.description %}
+            <b>Description</b>: 
             {{ current_object.description|truncatewords:25 }}<br />
          {% endif %}
     {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}

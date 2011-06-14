@@ -17,17 +17,6 @@
     {% endwith %}{% endwith %}{% endwith %}
 {% endblock %}
 
-{% block subnav %}
-    {% ifnotequal module.slug "foreststories"  %} 
-        {% if module.get_children_count > 1 %}
-            {% with module as current %}
-            {% with section as selected %}
-                    {% include "portal/menu.html" %}
-            {% endwith %}{% endwith %}
-        {% endif %}
-    {% endifnotequal %}
-{% endblock %}
-
 {% block container %} 
     {% if module and module.slug == "home" %}
         {% include "portal/pageblocks.html" %}
