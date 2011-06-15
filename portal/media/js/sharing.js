@@ -18,4 +18,19 @@ jQuery(document).ready(function() {
          // Animation complete.
 	 });
       });
+
+    // bind a call to google analytics to track share events 
+    jQuery('.sharing_link').click(function() {
+	var tracker = _gat._getTracker('UA-311226-26');
+	var url = this.href;
+	var action = url.split('?')[0];
+	var now = new Date();
+
+	//console.log("Share: " + document.location +  ' ' + action + ' '  +  parseInt(now.getTime()));
+
+	tracker._trackEvent("Share: " + document.location,
+			    action,
+                            String(document.location),
+                            parseInt(now.getTime));
+    });
 });
