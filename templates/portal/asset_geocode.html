@@ -2,13 +2,12 @@
 {% load smartif %}
 
 {% comment %}
-   Used by asset_location.html. Do not include directly. 
+   Used by asset_location.html. Do not include directly.
+   Includes all the information to plot this location on a map. And, filter by various facets
+   Geocode divs are hidden and used only for scripting purposes.
 {% endcomment %}
-
-   <!-- Includes all the information to plot this location on a map. And, filter by various facets -->
-   <!-- Geocode divs are hidden and used only for scripting purposes. -->
-
-   <div class="geocode" style="display:none">
+   <div class="{{geocode_class}}" style="display:none">
+      <input class="prefix" type="hidden" value="{{prefix}}"></input>
       <input class="asset_identifier" type="hidden" value="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}"></input>
       
       <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-name" value="{{current_object.name}}"></input>
@@ -16,11 +15,13 @@
       <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-latitude" value="{{current_location.latitude}}"></input>
       <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-longitude" value="{{current_location.longitude}}"></input>
       
-      {% if iconname %}
+      {% if icon_display_order %}
+        <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-iconname" value="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld={{icon_display_order}}|4A3404|FFFFFF"></input>
+      {% else %}{% if iconname %}
         <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-iconname" value="{{iconname}}"></input>
       {% else %}{% if audience %}
         <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-iconname" value="mapicon_{{audience}}list.png"></input>
-      {% endif %}{% endif %}
+      {% endif %}{% endif %}{% endif %}
       
       <!-- Facets -->
       {% if show_infrastructure %}
@@ -35,16 +36,18 @@
       
       <!--  Map Callout Template -->
       <div id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-description">
-        <a class="callout-display-name" href="{{current_object|detail_url}}">{{current_object|display_name}}</a>
-        <div class="callout-asset-types">{{current_object|klass_display}}</div>
-        <div>
-            <!--  Infrastructure Icons -->
-            {% for i in current_object|facet:"Infrastructure" %}
-                <img alt="{{i}} icon" src='/portal/media/images/nonmapicon_{{i|cut:" "|cut:"-"|lower}}.png'></img>
-            {% endfor %}
+        <div class="callout">
+            <a class="callout-display-name" href="{{current_object|detail_url}}">{{current_object|display_name }}</a>
+            <div class="callout-asset-types">{{current_object|klass_display}}</div>
+            <div>
+                <!--  Infrastructure Icons -->
+                {% for i in current_object|facet:"Infrastructure" %}
+                    <img alt="{{i}} icon" src='/portal/media/images/nonmapicon_{{i|cut:" "|cut:"-"|lower}}.png'></img>
+                {% endfor %}
+            </div>
+            
+            <a class="callout-summary-link" onclick='portalMapInstance.search({{current_location.latitude}}, {{current_location.longitude}}, "{{current_object|display_name}}")'>Search nearby</a>
         </div>
-        
-        <a class="callout-summary-link" href="{{current_object|detail_url}}">More >></a>
      </div>
       
    </div>

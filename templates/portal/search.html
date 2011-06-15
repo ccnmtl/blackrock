@@ -61,10 +61,6 @@
                                 
                                 <b>Keywords</b>: 
                                 {% for k in result.object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ k.name }}{% endfor %}
-                                <br />
-                                <!-- b>Categories</b>: 
-                                {% for c in result.object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ c.display_name }}{% endfor %}-->
-                                <a href="{{result.object|detail_url}}" class="summary-link">More >></a>    
                             </td>
                             </tr>
                         </table>

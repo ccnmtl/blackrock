@@ -20,7 +20,7 @@
     <name>Feature Labels (<![CDATA[NAME]]>)</name>
     <open>0</open>
       <Placemark>
-        <name><![CDATA[Black Rock]]></name>
+        <name><![CDATA[Black Rock Summit]]></name>
         <description>1,391 feet (423.98 meters)</description>
         <styleUrl>#FEATURES_LABELS</styleUrl>
         <Point>
@@ -54,7 +54,7 @@
         </Point>
       </Placemark>
       <Placemark>
-        <name><![CDATA[Mount Misery]]></name>
+        <name><![CDATA[Mount Misery Summit]]></name>
 	<description>1,270 feet (387.10 meters)</description>
         <styleUrl>#FEATURES_LABELS</styleUrl>
         <Point>

@@ -7,6 +7,9 @@ from haystack.query import SearchQuerySet
 from django.conf import settings
 import re
 
+from django.contrib.gis.db import models
+
+
 MAX_DISPLAY_LENGTH = 50
 
 # Static Lookup Tables
@@ -167,6 +170,8 @@ class Location(models.Model):
   location_subtype = models.ManyToManyField(LocationSubtype, null=True, blank=True)
   latitude = models.DecimalField(max_digits=18, decimal_places=10)
   longitude = models.DecimalField(max_digits=18, decimal_places=10)
+  latlong = models.PointField();
+  objects = models.GeoManager();
   
   audience = models.ManyToManyField(Audience, null=True, blank=True)
   display_image = models.ForeignKey(DigitalObject, null=True, blank=True)
@@ -181,7 +186,7 @@ class Location(models.Model):
   
   class Meta:
     ordering = ['name']
-
+  
 class Station(models.Model):
   name = models.CharField(max_length=500)
   description = models.TextField(null=True, blank=True)
@@ -558,6 +563,9 @@ class FeaturedAsset(models.Model):
     self.asset().facet.remove(facet)
     self.asset().save()
     super(FeaturedAsset, self).delete() # Call the "real" save() method.
+    
+  def display_order(self):
+      self.pageblocks[0].ordinality
     
     
 class AssetListForm(forms.ModelForm):

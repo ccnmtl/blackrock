@@ -10,7 +10,7 @@ object_detail.html
 Variables to this template:
 
 current_object -- instance of an indexed asset in the portal data model
-includegeocode -- include the hidden geocode div
+geocode_class -- include the hidden geocode div
 includehighlight -- include a Highlight on Map link when processing
 showinfrastructure -- Include the infrastructure facets when listing out the asset's facets
 showfeatured -- Include the featured facets when listing out the asset's facets
@@ -19,18 +19,17 @@ prefix -- Prefix for the identifier to prevent duplications
 {% endcomment %}
 
 {% if current_object.location.count %}
-    <!-- List out all asset's locations -->
     {% for l in current_object.location.all %}
         {% with l as current_location %}
             {% if includehighlight %}
                 {% ifequal forloop.counter 1 %}
                     {% if l.latitude %} 
                         <!--  Highlight this asset's first location -->
-                        <div class="highlightonmap"><a href="#" onmouseover="portalMapInstance.showInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{l.id}}'); return false;">Highlight On Map</a></div>
+                        <a onclick="portalMapInstance.showMarkerInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{l.id}}'); return false;"><img style="float: left; margin-right: 10px;" src="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld={{icon_display_order}}|4A3404|FFFFFF" alt="{{icon_display_order}} map marker" /></a>
                      {% endif %}
                 {% endifequal %}
             {% endif %}
-            {% if includegeocode %}
+            {% if geocode_class %}
                 {% include "portal/asset_geocode.html" %}
             {% endif %}
         {% endwith %}
@@ -38,9 +37,9 @@ prefix -- Prefix for the identifier to prevent duplications
 {% else %}{% if current_object.location %}
     {% with current_object.location as current_location %}
         {% if includehighlight %}
-            <div class="highlightonmap"><a href="#" onmouseover="portalMapInstance.showInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}'); return false;">Highlight On Map</a></div>
+            <a onclick="portalMapInstance.showMarkerInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}'); return false;"><img style="float: left; margin-right: 10px;" src="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld={{icon_display_order}}|4A3404|FFFFFF" alt="{{icon_display_order}} map marker" /></a>
         {% endif %}
-        {% if includegeocode %}
+        {% if geocode_class %}
             {% include "portal/asset_geocode.html" %}
         {% endif %}
     {% endwith %}
@@ -48,9 +47,9 @@ prefix -- Prefix for the identifier to prevent duplications
 
 {% if current_object.latitude %}
     {% if includehighlight %}
-        <div class="highlightonmap"><a href="#" onmouseover="portalMapInstance.showInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_object.id}}'); return false;">Highlight On Map</a></div>
+        <a onclick="portalMapInstance.showMarkerInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_object.id}}'); return false;"><img style="float: left; margin-right: 10px;" src="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld={{icon_display_order}}|4A3404|FFFFFF" alt="{{icon_display_order}} map marker" /></a>
     {% endif %}
-    {% if includegeocode %}
+    {% if geocode_class %}
         {% with current_object as current_location %}
             {% include "portal/asset_geocode.html" %} 
         {% endwith %}

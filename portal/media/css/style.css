@@ -413,11 +413,11 @@ a.link_research, span.link_research {
 
 #nearby_results {
     float: left;
-    min-width: 400px;
-    width: 45%;
+    width: 350px;
     height: 500px;
     overflow: auto;
     border: 1px  #DCD3C2 solid;
+    background-color: #89a08c;
 }
 
 .single-record {
@@ -559,9 +559,14 @@ div.callout-asset-types {
     font-size: .9em;
 }
 
+.callout-display-name {
+    font-weight: bold;
+    margin: 10px 0;
+}
+
 a.callout-display-name {
     font-weight: bold;
-    text-decoration: none;
+    text-decoration: underline;
     margin: 10px 0;
 }
 
@@ -682,6 +687,10 @@ div#search-results a.search-display-name {
     text-decoration: none;
     margin: 0 0 10px 0;
     display: block;
+}
+
+div#search-results a.search-display-name:hover {
+    text-decoration: underline;
 }
 
 

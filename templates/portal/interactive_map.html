@@ -7,7 +7,7 @@
     {% for result in result|facet_assets:"infrastructure" %}
         {% with result.object as current_object %}
         {% with 1 as show_infrastructure %}
-        {% with 1 as includegeocode %}
+        {% with "geocode" as geocode_class %}
         {% with "infra" as prefix %}
             {% include "portal/asset_location.html" %}
         {% endwith %}{% endwith %}{% endwith %}{% endwith %}
@@ -19,19 +19,23 @@
     {% for result in result|facet_assets:"featured" %}
         {% with result.object as current_object %}
         {% with 1 as show_featured %}
-        {% with 1 as includegeocode %}
+        {% with "geocode" as geocode_class %}
         {% with "featured" as prefix %}
             {% include "portal/asset_location.html" %}
         {% endwith %}{% endwith %}{% endwith %}{% endwith %}
     {% endfor %}
 </div>
 
+<div>
+    <div id="nearby_results" style="display:none"></div>
+    <div id="map_canvas" class="full"></div>
+</div>
 
-<div id="map_canvas" class="full"></div>
+<div style="clear: both" />
+
 <div id="map_filter">
   <table width="100%">
       <tr>
-          
           {% with object|facet_counts:"infrastructure" as infrastructure_counts %}
           <td id="infrastructure_filter">
               <h3>Cultural Features</h3>
@@ -61,7 +65,6 @@
               <div><input type="checkbox" class="layer" id="peaks" value="Peaks" checked="checked" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Peaks"/>Peaks</div>
               <div><input type="checkbox" class="natural_features_option" id="idViewpoints" value="Viewpoints" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Viewpoints"/>Viewpoints (not yet available)</div>
           </td>
-          
           
           {% with result|facet_counts:"featured" as featured_counts %}
           <td id="featured_filter">

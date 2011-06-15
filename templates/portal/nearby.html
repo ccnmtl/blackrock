@@ -1,0 +1,32 @@
+{% load smartif %}
+{% load portal %}
+
+        <div id="search-results"> 
+            <h2>Found {{count}} assets near <span id="nearby_asset"></span></h2>
+            <a href="#" onclick='portalMapInstance.closeSearch();'>Close</a>
+            <br />
+            <div class="assetlist">
+                {% for current_object in results %}
+                    {% with "nearby" as prefix %}
+                    {% with "nearby" as geocode_class %}
+                    {% with forloop.counter as icon_display_order %}
+                    {% with 1 as includehighlight %}
+                        {% include "portal/asset_location.html" %}
+                    {% endwith %}{% endwith %}{% endwith %}{% endwith %}
+                     <div class="single_result">
+                        <table>
+                            <tr>
+                            <td>
+                                <a class="search-display-name" href="{{current_object|detail_url}}">{{current_object|display_name}}</a>
+                                <b>Record Type</b>: {{current_object|klass_display}}
+                                {% include "portal/asset_description.html" %}
+                                
+                                <b>Keywords</b>: 
+                                {% for k in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ k.name }}{% endfor %}
+                            </td>
+                            </tr>
+                        </table>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>

@@ -21,6 +21,8 @@ from django.core.cache import cache
 from blackrock_main.models import LastImportDate
 from django.utils import simplejson
 from django.utils.tzinfo import FixedOffset
+from django.contrib.gis.geos import  * 
+from django.contrib.gis.measure import D # D is a shortcut for Distance 
 
 
 class rendered_with(object):
@@ -53,6 +55,24 @@ def page(request,path):
     return dict(section=section,
                 module=module,
                 root=ancestors[0])
+    
+@rendered_with('portal/nearby.html')
+def nearby(request, latitude, longitude):
+    #loc = Location.objects.get(name="Tamarack Pond") latitude = 41.3947630000 / longitude = -74.0251920000
+    point = 'POINT(%s %s)' % (latitude, longitude)
+    pnt = fromstr(point, srid=4326) 
+      
+    qs = Location.objects.filter(latlong__distance_lte=(pnt,D(mi=.15))).distance(pnt).order_by('distance') 
+    #qs = Location.objects.filter(latlong__distance_lte=(pnt,D(mi=.2))).distance(pnt).order_by('distance') 
+     
+    a = []  
+    for loc in qs:
+      all_related = loc._meta.get_all_related_objects()
+      for obj in all_related:
+          for instance in getattr(loc, obj.get_accessor_name()).all():
+            a.append(instance)
+              
+    return dict(latitude=latitude, longitude=longitude, results=a, count=len(a))
     
 def process_datasets(xmldoc):
   datasets = []

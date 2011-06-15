@@ -111,6 +111,8 @@ class PortalSearchView(SearchView):
     if hasattr(self, "results"):
       extra["count"] = len(self.results)
       
+    # @todo -- add latitude/longitude into the context. self.request.
+    
     # Send down our current parameters minus page number
     query = ''
     for param, value in self.request.GET.items():

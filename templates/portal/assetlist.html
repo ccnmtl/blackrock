@@ -1,24 +1,22 @@
 {% load portal %}
 {% load smartif %}
      
-<div class="assetlist {{block.audience}}">
+<div class="assetlist">
     {% for result in block.list %}
         {% if forloop.counter <= block.list_count %}
             {% with result.object as current_object %}
-            {% with 1 as includegeocode %}{% with 1 as includehighlight %}
-            {% with block.audience as audience %}
+            {% with "geocode" as geocode_class %}
+            {% with forloop.counter as icon_display_order %}
+            {% with 1 as includehighlight %}
             
              <div class="single-record">
                 <!-- Asset Locations (Hidden. Used by maps.js to plot GMaps) -->
                 {% include "portal/asset_location.html" %}
-
-                <!-- Name -->                 
-                <a class="display-name" href="{{current_object|detail_url}}">{{current_object|display_name}}</a><br />
                 
-                <!-- Asset Descriptions (tailored to asset type) -->
+                <a class="display-name" href="{{current_object|detail_url}}">{{current_object|display_name}}</a>
+                
                 {% include "portal/asset_description.html" %}
                 
-                <!-- Customized Link -->
                 {% with block.audience as audience %}
                     {% include "portal/asset_detaillink.html" %}
                 {% endwith %}
