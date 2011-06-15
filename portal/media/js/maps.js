@@ -396,19 +396,19 @@ if (!Portal.Map) {
             var kmlLayer = new Portal.Layer("boundary", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/brfboundary.kml", false /* clickable */);
             self.layers.boundary = kmlLayer;
             
-            var kmlLayer = new Portal.Layer("peaks", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/peaks.kml?foo=" + randomnumber, true);
+            var kmlLayer = new Portal.Layer("peaks", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/peaks.kml?bar=" + randomnumber, true);
             self.layers.peaks = kmlLayer;
             
-            kmlLayer = new Portal.Layer("ponds", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/ponds.kml?foo=" + randomnumber, true);
+            kmlLayer = new Portal.Layer("ponds", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/ponds.kml?bar=" + randomnumber, true);
             self.layers.ponds = kmlLayer;
             
-            kmlLayer = new Portal.Layer("roads", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/roads.kml?foo=" + randomnumber, true);
+            kmlLayer = new Portal.Layer("roads", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/roads.kml?bar=" + randomnumber, false);
             self.layers.roads = kmlLayer;
             
-            kmlLayer = new Portal.Layer("streams", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/streams.kml?foo=" + randomnumber, true);
+            kmlLayer = new Portal.Layer("streams", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/streams.kml?bar=" + randomnumber, true);
             self.layers.streams = kmlLayer;
             
-            kmlLayer = new Portal.Layer("trails", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/trails.kml?foo=" + randomnumber, true);
+            kmlLayer = new Portal.Layer("trails", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/trails.kml?bar=" + randomnumber, true);
             self.layers.trails = kmlLayer;
             
             var options = getElementsByTagAndClassName("input", "layer");

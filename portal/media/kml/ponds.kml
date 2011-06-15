@@ -8,12 +8,12 @@
   <Style id="FEATURES">
     <LineStyle>
       <color>FFEB6540</color>
-      <width>0.4</width>
+      <width>0.6</width>
     </LineStyle>
     <PolyStyle>
       <outline>1</outline>
       <fill>1</fill>
-      <color>FFF2DB97</color>
+      <color>33F2DB97</color>
     </PolyStyle>
   </Style>
   <Style id="FEATURES_LABELS">

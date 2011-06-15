@@ -7,14 +7,9 @@
   <description><![CDATA[Exported from brfroad on 5/19/2011]]></description>
   <Style id="FEATURES">
     <LineStyle>
-      <color>FF000000</color>
+      <color>66000000</color>
       <width>1</width>
     </LineStyle>
-    <BalloonStyle>
-      <text>
-<![CDATA[]]>
-      </text>
-    </BalloonStyle>
   </Style>
   <Folder>
     <name>Features</name>
