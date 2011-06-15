@@ -7,13 +7,13 @@
   <description><![CDATA[Exported from ponds on 5/19/2011]]></description>
   <Style id="FEATURES">
     <LineStyle>
-      <color>FFEB6540</color>
-      <width>0.6</width>
+      <color>B3EB6540</color>
+      <width>2</width>
     </LineStyle>
     <PolyStyle>
       <outline>1</outline>
       <fill>1</fill>
-      <color>33F2DB97</color>
+      <color>00F2DB97</color>
     </PolyStyle>
   </Style>
   <Style id="FEATURES_LABELS">

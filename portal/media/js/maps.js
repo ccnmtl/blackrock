@@ -399,7 +399,7 @@ if (!Portal.Map) {
             var kmlLayer = new Portal.Layer("peaks", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/peaks.kml?bar=" + randomnumber, true);
             self.layers.peaks = kmlLayer;
             
-            kmlLayer = new Portal.Layer("ponds", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/ponds.kml?bar=" + randomnumber, true);
+            kmlLayer = new Portal.Layer("ponds", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/ponds.kml?llll=" + randomnumber, true);
             self.layers.ponds = kmlLayer;
             
             kmlLayer = new Portal.Layer("roads", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/roads.kml?bar=" + randomnumber, false);
