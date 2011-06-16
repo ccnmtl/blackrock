@@ -23,14 +23,22 @@ jQuery(document).ready(function() {
     jQuery('.sharing_link').click(function() {
 	var tracker = _gat._getTracker('UA-311226-26');
 	var url = this.href;
-	var action = url.split('?')[0];
+
+	var category = "Share: " + document.location;
+	// var action = url.split('?')[0];
+	// pluck out the hostname of the service we are using
+	var action = url.split('/')[2];
+	// pluck out the section of the portal we are in
+	var label = document.location.pathname.split('/')[2];
+
 	var now = new Date();
+	var value = parseInt(now.getTime());
 
-	//console.log("Share: " + document.location +  ' ' + action + ' '  +  parseInt(now.getTime()));
+	// if (window.console) { console.log(category +  ' ' + action + ' '  +  label + ' ' + value) };
 
-	tracker._trackEvent("Share: " + document.location,
+	tracker._trackEvent(category,
 			    action,
-                            String(document.location),
-                            parseInt(now.getTime));
+                            label,
+                            value);
     });
 });
