@@ -520,6 +520,9 @@ class FeaturedAsset(models.Model):
   template_file = "portal/featuredasset.html"
   display_name = "Featured Asset"
 
+  def pageblock(self):
+    return self.pageblocks.all()[0]
+
   def __unicode__(self):
     return self.asset().name
 
@@ -565,7 +568,8 @@ class FeaturedAsset(models.Model):
     super(FeaturedAsset, self).delete() # Call the "real" save() method.
     
   def display_order(self):
-      self.pageblocks[0].ordinality
+      pageblock = self.pageblock
+      self.pageblock.ordinality
     
     
 class AssetListForm(forms.ModelForm):

@@ -59,8 +59,10 @@
                                 <b>Record Type</b>: {{result.object|klass_display}}
                                 {% include "portal/asset_description.html" %}
                                 
-                                <b>Keywords</b>: 
-                                {% for k in result.object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ k.name }}{% endfor %}
+                                {% if result.object.facet.count %}
+                                    <b>Keywords</b>: 
+                                    {% for k in result.object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ k.name }}{% endfor %}
+                                {% endif %}
                             </td>
                             </tr>
                         </table>

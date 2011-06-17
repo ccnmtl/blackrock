@@ -229,17 +229,21 @@ if (!Portal.Map) {
         this.showLayerInfoWindow = function(kmlEvent) {
             if (self.infowindow)
                 self.infowindow.close()
-                
+            
+            var description;
+            
             if (kmlEvent.featureData.name) {
-                var description = '<div class="callout"><span class="callout-display-name">' + kmlEvent.featureData.name + '</span>';
+                description =  '<div class="callout"><span class="callout-display-name">' + kmlEvent.featureData.name + '</span>';
                 if (kmlEvent.featureData.description)
                     description += '<div class="callout-asset-types">' + kmlEvent.featureData.description + '</div>';
                 description += '<a class="callout-summary-link" onclick="portalMapInstance.search(' + 
                                kmlEvent.latLng.lat() + ', ' + kmlEvent.latLng.lng() + ', \'' + escape(kmlEvent.featureData.name) + '\')">Search nearby</a></div>';
-                
-                self.infowindow = new google.maps.InfoWindow({content: description, position: kmlEvent.latLng, maxWidth: 400 });
-                self.infowindow.open(self.mapInstance);
+            } else {
+                description = kmlEvent.latLng.lat() + ', ' + kmlEvent.latLng.lng();
             }
+            
+            self.infowindow = new google.maps.InfoWindow({content: description, position: kmlEvent.latLng, maxWidth: 400 });
+            self.infowindow.open(self.mapInstance);
         }
         
         this.showMarkerInfoWindow = function(asset_identifier) {
@@ -405,10 +409,10 @@ if (!Portal.Map) {
             kmlLayer = new Portal.Layer("roads", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/roads.kml?bar=" + randomnumber, false);
             self.layers.roads = kmlLayer;
             
-            kmlLayer = new Portal.Layer("streams", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/streams.kml?bar=" + randomnumber, true);
+            kmlLayer = new Portal.Layer("streams", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/streams.kml?bar=" + randomnumber, false);
             self.layers.streams = kmlLayer;
             
-            kmlLayer = new Portal.Layer("trails", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/trails.kml?bar=" + randomnumber, true);
+            kmlLayer = new Portal.Layer("trails", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/trails.kml?eee=" + randomnumber, true);
             self.layers.trails = kmlLayer;
             
             var options = getElementsByTagAndClassName("input", "layer");

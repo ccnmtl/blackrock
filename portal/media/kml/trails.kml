@@ -10,11 +10,6 @@
       <color>FF6689CD</color>
       <width>2</width>
     </LineStyle>
-    <BalloonStyle>
-      <text>
-<![CDATA[]]>
-      </text>
-    </BalloonStyle>
   </Style>
   <Style id="FEATURES_LABELS">
     <IconStyle>
@@ -31,7 +26,7 @@
     <name>Features</name>
     <open>0</open>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 1]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -68,7 +63,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 2]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -91,7 +86,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Compartment Trail 3]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -111,7 +106,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Sackett Trail 4]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -131,7 +126,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Mine Hill Trail]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -153,7 +148,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Sackett Trail 6]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -178,7 +173,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Sackett Trail 7]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -206,7 +201,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Stillman Trail/Trail 8]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -241,7 +236,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Stillman Trail 9]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -260,7 +255,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Stillman Trail 10]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -276,7 +271,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Sackett Trail 11]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -299,7 +294,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Stillman Trail 12]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -324,7 +319,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Stillman Trail 13]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -345,7 +340,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Stillman Trail 14]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -364,7 +359,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Short-Cut Trail]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -382,7 +377,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[White Oak Trail 16]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -417,7 +412,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 17]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -454,7 +449,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 18]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -485,7 +480,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 19]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -517,7 +512,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 20]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -555,7 +550,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 21]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -580,7 +575,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 22]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -606,7 +601,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 23]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -621,7 +616,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 24]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -639,7 +634,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 25]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -667,7 +662,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 26]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -696,7 +691,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 27]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -714,7 +709,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 28]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -744,7 +739,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 28]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -800,7 +795,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 29]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -826,7 +821,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 30]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -856,7 +851,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[White Oak Trail 31]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -874,7 +869,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[White Oak Trail 32]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -898,7 +893,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 33]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -916,7 +911,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 34]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -935,7 +930,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[White Oak Trail 35]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -964,7 +959,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 36]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1014,7 +1009,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 37]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1033,7 +1028,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 38]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1062,7 +1057,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 39]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1078,7 +1073,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 40]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1114,7 +1109,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Stillman Trail 41]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1157,7 +1152,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 42]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1188,7 +1183,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 43]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1218,7 +1213,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Stillman Trail 44]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1242,7 +1237,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Stillman Trail 45]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1265,7 +1260,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 46]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1285,7 +1280,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 47]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1325,7 +1320,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 48]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1361,7 +1356,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 49]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1390,7 +1385,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 50]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1432,7 +1427,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 51]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1459,7 +1454,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 52]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1479,7 +1474,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 53]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1520,7 +1515,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 54]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1539,7 +1534,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 55]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1559,7 +1554,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 55]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1582,7 +1577,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 56]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1603,7 +1598,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 57]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1621,7 +1616,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 58]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1649,7 +1644,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 59]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1688,7 +1683,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 60]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1708,7 +1703,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 61]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1736,7 +1731,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 61]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1770,7 +1765,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 62]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1792,7 +1787,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 63]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1816,7 +1811,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Stillman Trail 64]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1835,7 +1830,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 65]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1851,7 +1846,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 66]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1878,7 +1873,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 67]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1900,7 +1895,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 68]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1919,7 +1914,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 69]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1942,7 +1937,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 70]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1961,7 +1956,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 71]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1979,7 +1974,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 72]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -1999,7 +1994,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 73]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -2021,7 +2016,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 74]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -2043,7 +2038,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 75]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -2081,7 +2076,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Stillman Trail]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -2100,7 +2095,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 77]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -2115,7 +2110,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 78]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -2131,7 +2126,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 79]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -2146,7 +2141,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 80]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -2168,7 +2163,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 81]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -2184,7 +2179,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 82]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -2207,7 +2202,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[<Null>]]></name>
+         <name><![CDATA[Trail 83]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -2547,1099 +2542,6 @@
              </coordinates>
            </LineString>
        </Placemark>
-  </Folder>
-  <Folder>
-    <name>Feature Labels (<![CDATA[NAME]]>)</name>
-    <open>0</open>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0564496047082,41.3812058131715,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0429884284594,41.3864670421044,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0339202310921,41.4038263557813,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0357089129466,41.4050282413468,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0458697320767,41.4035355952746,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0439061467675,41.4049841033482,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0394728699554,41.4056595001947,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0436870602956,41.3988297088821,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0440216506321,41.3943134719573,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0428666819541,41.397804420221,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0300134368056,41.4049920968063,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0313993961146,41.4004021777617,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0383849030192,41.3942585276455,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0376297293809,41.3961085055636,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0419754038662,41.3948140449355,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.027671025577,41.3988542951641,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0225966572376,41.388645482336,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0271487037833,41.3916820052815,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.029547722032,41.3929809553385,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0360440311371,41.3867498808987,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0377234339923,41.3897681751399,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0319930890118,41.3874772882308,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0291725847642,41.3868796711219,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0262495379302,41.3869840631081,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0306237675792,41.388766723686,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0245294244907,41.3905909184363,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0209383450779,41.3904543712222,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0430959114692,41.383356791232,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0189270170692,41.3984904151241,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0152158185833,41.395666819725,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0197037126813,41.4020649503935,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0210951647769,41.4014505385728,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0214321410625,41.4010226944164,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0215116797142,41.4008195542045,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0215857035587,41.400717734283,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.016903350185,41.4028868708825,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0154316183901,41.4065610502733,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0153687768294,41.4064216134824,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0181411840927,41.4058360181122,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0177447256254,41.4057151581769,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0162021498215,41.4071288795014,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0214831244827,41.4080619989011,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0196909054725,41.4071300774183,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0209978315896,41.4078420250833,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0258706901965,41.4047021779092,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0257749709773,41.4058065725642,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0173188609486,41.406050742586,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0091682622045,41.407618755531,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0092969023606,41.4061850539786,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.011512556605,41.4058919579275,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0087370001819,41.4022727621119,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0083669645516,41.3959361313392,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0075170866306,41.3990506322547,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0038793953319,41.4033680008545,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0050784482065,41.4052599248783,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0018711619875,41.4053114226793,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0035497648584,41.4066163268338,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0041912877186,41.4046872836897,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0036458917238,41.4052591844201,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -73.9981020427985,41.4058652956947,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -73.9943796488618,41.4037825607724,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -73.9942666886434,41.4058185211207,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -73.9924127517948,41.4021380785631,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -73.9916424591756,41.400223144658,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -73.9931880105872,41.4006563981934,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0029082959336,41.3981775340263,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0234784749871,41.4063947588656,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0165884947417,41.4065728731826,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0100564896856,41.410949038848,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0094948778476,41.4096264348913,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0145675926869,41.4141905961565,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0194974115915,41.415018964416,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0179745757977,41.4119712496923,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0165452310917,41.4094366245332,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0151921776664,41.4075876172036,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0164604139028,41.41596531434,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0168585909527,41.4157036482489,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0134580866909,41.4171054495776,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0470794111136,41.3916355668273,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0415596243253,41.3834004859513,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0423644665679,41.3830335122844,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0427438467329,41.383125213389,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0199584267389,41.3871273280133,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0261049763299,41.4039865423262,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0246772254792,41.4026509872075,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0063782148161,41.4062933602932,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[Black Rock Hollow Trail]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0157889144438,41.4148568084225,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[Black Rock Hollow Trail]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0178165860112,41.4163380920668,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[Black Rock Hollow Trail]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0172405915466,41.4084087756048,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[Black Rock Hollow Trail]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0175008609209,41.4102662702564,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[Black Rock Hollow Trail]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0188236758215,41.41270103284,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[Black Rock Hollow Trail]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0183955226303,41.4152730596969,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[Carpenter Trail]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -73.9940904167332,41.4000882055708,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[Compartment trail]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0367709376129,41.3992737532738,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[Go-Down Road]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0024898099348,41.3984856063604,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[Reservoir Trail]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0100263938226,41.4117048340096,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[Reservoir trail]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0144512397624,41.4136846560341,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[Stillman Trail]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0076383528676,41.4125615975329,0
-          </coordinates>
-        </Point>
-      </Placemark>
-      <Placemark>
-        <name><![CDATA[Swamp Trail]]></name>
-        <styleUrl>#FEATURES_LABELS</styleUrl>
-        <Point>
-          <extrude>0</extrude>
-          <altitudeMode>clampedToGround</altitudeMode>
-          <coordinates>
-            -74.0046594125108,41.4073553362857,0
-          </coordinates>
-        </Point>
-      </Placemark>
   </Folder>
 </Document>
 </kml>

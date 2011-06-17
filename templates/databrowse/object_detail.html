@@ -47,17 +47,6 @@
                 {% endfor %}
                 </ul>
             {% endif %}
-       
-            {% if current_object.location %}
-                {% if current_object.location.station_set.count %}
-                    <p><span class="object_detail_label">Station:</span>
-                    <a href="{{current_object.location.station_set.all.0|detail_url}}">{{ current_object.location.station_set.all.0.name }}</a>
-                {% else %}
-                    <p><span class="object_detail_label">Location:</span>
-                    <a href="{{current_object.location|detail_url}}">{{ current_object.location.name }}</a>
-                {% endif %}
-                </p>
-            {% endif %}
         
             {% if current_object.person.all.count %}
                 <p><span class="object_detail_label">People:</span>
@@ -117,23 +106,6 @@
                 <p><span class="object_detail_label">Format:</span> 
                 {% for f in current_object.digital_format.all %}{% if forloop.counter > 1 %}, {% endif %}{{ f.name }}{% endfor %}</p>
             {% endif %}
-      
-            {% if current_object.location %}
-                <p><span class="object_detail_label">Location:</span>
-                <a href="{{current_object.location|detail_url}}">{{ current_object.location.name }}</a></p>
-            {% endif %}
-        {% else %}{% if asset_klass == "Location" %}
-            {% if current_object.location_type.count %}
-                <p><span class="object_detail_label">Location Type:</span>
-                {% for t in current_object.location_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}</p>
-            {% endif %}
-            {% if current_object.location_subtype.count %}
-                <p><span class="object_detail_label">Location Subtype:</span>
-                {% for t in current_object.location_subtype.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}</p>
-            {% endif %}
-            
-            {% if current_object.latitude %}<p><span class="object_detail_label">Latitude:</span> {{current_object.latitude}}</p>{% endif %}
-            {% if current_object.longitude %}<p><span class="object_detail_label">Longitude:</span> {{current_object.longitude}}</p>{% endif %}
         {% else %}{% if asset_klass == "Person" %}
             {% if current_object.professional_title %}
                 <p><span class="object_detail_label">Title:</span> 
@@ -155,44 +127,6 @@
                 <p><span class="object_detail_label">Roles:</span>
                 {% for t in current_object.person_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}</p>
             {% endif %}
-        {% else %}{% if asset_klass == "Publication" %}
-            {% if current_object.publication_type.count %}
-                <p><span class="object_detail_label">Publication Type:</span> 
-                {% for t in current_object.publication_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}</p>
-            {% endif %}
-            {% if current_object.publication_date %}
-                <p><span class="object_detail_label">Publication Date:</span>
-                {{ current_object.publication_date|date }}</p>
-            {% endif %}
-            {% if current_object.citation %}
-                <p><span class="object_detail_label">Citation:</span>
-                {{ current_object.citation }}</p>
-            {% endif %}
-            {% if current_object.description %}
-                <p><span class="object_detail_label">Description:</span>
-                {{ current_object.description }}</p>
-            {% endif %}
-            {% if current_object.url.all.count %}
-                <p><span class="object_detail_label">Link{%if current_object.url.all.count > 0%}s{%endif%}:</span>{%if current_object.url.all.count > 1%}<br />{%endif%}
-                {% for u in current_object.url.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{ u.name }}">{{u.name}}</a>{% endfor %}</p>
-            {% endif %}
-            {% if current_object.doi_citation %}
-                <p><span class="object_detail_label">DOI:</span>
-                {{ current_object.doi_citation }}</p>
-            {% endif %}
-            {% if current_object.rights.all.count %}
-                <p><span class="object_detail_label">Rights:</span>
-                {% for r in current_object.rights.all %}{% if forloop.counter > 1 %}, {% endif %}{{ r.name }}{% endfor %}<br />
-            {% endif %}
-        {% else %}{% if asset_klass == "Region" %}
-            {% if current_object.region_type.count %}
-                <p><span class="object_detail_label">Type:</span> 
-                {% for t in current_object.region_type.all %}{% if forloop.counter > 1 %}, {% endif %}{{ t.name }}{% endfor %}<br />
-            {% endif %}
-            {% if current_object.description %}
-                <p><span class="object_detail_label">Description:</span> 
-                {{ current_object.description }}<br />
-            {% endif %}
         {% else %}{% if asset_klass == "ResearchProject" %}
             {% if current_object.start_date %}
                 <p><span class="object_detail_label">Project Start Date:</span>
@@ -210,24 +144,10 @@
                 <p><span class="object_detail_label">Description:</span> 
                 {{ current_object.description }}</p>
             {% endif %}
-            {% if current_object.location %}
-                {% if current_object.location.station_set.count %}
-                    <p><span class="object_detail_label">Station:</span>
-                    <a href="{{current_object.location.station_set.all.0|detail_url}}">{{ current_object.location.station_set.all.0.name }}</a></p>
-                {% else %}
-                    <p><span class="object_detail_label">Location:</span>
-                    <a href="{{current_object.location|detail_url}}">{{ current_object.location.name }}</a></p>
-                {% endif %}
-            {% endif %}
        {% else %}{% if asset_klass == "Station" %}
             {% if current_object.activation_date %}
                 <p><span class="object_detail_label">Activation Date:</span>
                 {{ current_object.activation_date|date }}</p>
-            {% endif %}
-            
-            {% if current_object.location %}
-                <p><span class="object_detail_label">Location:</span>
-                <a href="{{current_object.location|detail_url}}">{{ current_object.location.name }}</a></p>
             {% endif %}
              
             {% if current_object.description %}
@@ -235,12 +155,11 @@
                 {{ current_object.description }}</p>
             {% endif %}
         {% else %}{% if asset_klass == "ForestStory" %}
-             
             {% if current_object.description %}
                 <p><span class="object_detail_label">Description:</span>
                 {{ current_object.description }}<br />
             {% endif %}
-        {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
+        {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
        
         {% if current_object.facet.all.count %}
             <p><span class="object_detail_label">Keyword:</span>
@@ -250,7 +169,7 @@
    </div>
 </td>
 <td id="center"> 
-    {% if current_object.location or current_object.latitude %}
+    {% if current_object.location.latitude or current_object.latitude %}
        <div id="map-column">
           <div id="map_canvas"></div>
        </div>
@@ -259,7 +178,6 @@
     <!--  Hand-Picked "Related" Records -->
     <div id="related-items">
     {% with "mapicon_related.png" as iconname %}
-    
     
         {% if asset_klass == "LearningActivity" %}
             {% if current_object.dataset.count %}
@@ -315,25 +233,7 @@
                     {% endwith %}
                 {% endfor %}
             {% endif %}  
-        {% else %}{%if asset_klass == "Publication" %}
-            {% if current_object.person.count %}
-                <h3 class="object_detail_label">Related People:</h3>
-                {% for x in current_object.person.all %}
-                    {% with x as current_object %}
-                         {% include "portal/asset_related.html" %}
-                      {% endwith %}
-                {% endfor %}
-            {% endif %} 
-        {% else %}{% if asset_klass == "Region" %}
-            {% if current_object.location.count %}
-                <h3 class="object_detail_label">Related Locations:</h3>
-                {% for x in current_object.location.all %}
-                    {% with x as current_object %}
-                         {% include "portal/asset_related.html" %}
-                    {% endwith %}
-                {% endfor %}
-            {% endif %} 
-        {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
+        {% endif %}{% endif %}{% endif %}
         
         <!--  Related Database Records -->
         {% for related_object in object.related_objects %}

@@ -16,12 +16,8 @@
                 <a class="display-name" href="{{current_object|detail_url}}">{{current_object|display_name}}</a>
                 
                 {% include "portal/asset_description.html" %}
-                
-                {% with block.audience as audience %}
-                    {% include "portal/asset_detaillink.html" %}
-                {% endwith %}
-                 
-               </div>
+
+             </div>
                 
             {% endwith %}{% endwith %}{% endwith %}{% endwith %}
         {% endif %}

@@ -44,7 +44,6 @@ from django.contrib import databrowse
 
 databrowse.site.register(DigitalObject)
 databrowse.site.register(Station)
-databrowse.site.register(Location)
 databrowse.site.register(Person)
 databrowse.site.register(DataSet)
 databrowse.site.register(ResearchProject)
