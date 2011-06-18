@@ -102,7 +102,6 @@ if (!Portal.Layer) {
         google.maps.event.addListener(self.instance, 'click', function (kmlEvent) {
             self.events.signal(Portal, 'kmlClicked', kmlEvent);
         });
-
         
         this.isVisible = function() {
             return self.instance.map != null;
@@ -126,6 +125,7 @@ if (!Portal.MapMarker) {
         self.featured = [];
         self.infrastructure = [];
         self.marker = null;
+        self.latlng = null;
         
         this.create = function(mapInstance, assetIdentifier, name, description, lat, lng, featured, infrastructure, iconName, zIndex) {
             self.assetIdentifier = assetIdentifier;;
@@ -152,13 +152,13 @@ if (!Portal.MapMarker) {
                 else
                     iconUrl = 'http://' + location.hostname + ':' + location.port + "/portal/media/images/" + iconName;
             } else {
-                iconUrl = 'http://' + location.hostname + ':' + location.port + "/portal/media/images/mapicon_main.png";
+                iconUrl = 'http://' + location.hostname + ':' + location.port + "/portal/media/images/mapicon_selected.png";
             }
 
-            var latlng = new google.maps.LatLng(lat, lng);
+            self.latlng = new google.maps.LatLng(lat, lng);
             var shouldBeVisible = self.shouldBeVisible();
             self.marker = new google.maps.Marker({
-                position: latlng, 
+                position: self.latlng, 
                 title: name,
                 icon: iconUrl,
                 map: shouldBeVisible ? mapInstance : null,
@@ -169,7 +169,7 @@ if (!Portal.MapMarker) {
                self.events.signal(Portal, 'markerClicked', self.assetIdentifier);
             });
             
-            return latlng;
+            return self.latlng;
         }
         
         this.isVisible = function() {
@@ -233,6 +233,7 @@ if (!Portal.Map) {
             var description;
             
             if (kmlEvent.featureData.name) {
+                // @todo -- can do this with a generic callout div within the code?
                 description =  '<div class="callout"><span class="callout-display-name">' + kmlEvent.featureData.name + '</span>';
                 if (kmlEvent.featureData.description)
                     description += '<div class="callout-asset-types">' + kmlEvent.featureData.description + '</div>';
@@ -250,15 +251,17 @@ if (!Portal.Map) {
             var location = self.locations[asset_identifier];
             if (!location)
                 location = self.search_results[asset_identifier]
+            if (!location)
+                location = self.selected[asset_identifier];
             
             if (location) {
 
                 if (self.infowindow)
                     self.infowindow.close()
                 
-                var offset = new google.maps.Size(0,-20);
+                var offset = new google.maps.Size(-5, 10);
     
-                self.infowindow = new google.maps.InfoWindow({content: location.description, maxWidth: 400 });
+                self.infowindow = new google.maps.InfoWindow({content: location.description, maxWidth: 400, pixelOffset: offset });
                 self.infowindow.open(self.mapInstance, location.marker);
             }
         }
@@ -336,8 +339,6 @@ if (!Portal.Map) {
         }
         
         this.search = function(lat, long, title) {
-            self.hideInfoWindow();
-            
             for (var result in self.search_results) {
                 var location = self.search_results[result];
                 location.marker.setMap(null);
@@ -345,7 +346,6 @@ if (!Portal.Map) {
             self.search_results = {};
             
             var nearby_results = document.getElementById("nearby_results");
-            var center = new google.maps.LatLng(lat, long);
             
             jQuery(nearby_results).show('fast', function() {
                 var url = '/portal/nearby/' + lat + '/' + long + '/';
@@ -353,8 +353,13 @@ if (!Portal.Map) {
                 request.addCallback(function(response) {
                     nearby_results.innerHTML = response.responseText;
                     document.getElementById("nearby_asset").innerHTML = unescape(title);
-                    self.search_results = self.initMarkers("nearby", 1000);
-                    self.mapInstance.setCenter(center);
+                    self.search_results = self.initMarkers("nearby", 0);
+                    
+                    var listener = google.maps.event.addListenerOnce(self.mapInstance, "idle", function() { 
+                        var center = new google.maps.LatLng(lat, long);
+                        self.mapInstance.setCenter(center);
+                    });
+                    
                 });
             });
         }
@@ -373,6 +378,12 @@ if (!Portal.Map) {
             var latlng = new google.maps.LatLng(41.40744, -74.01457);
             self.mapInstance.setCenter(latlng);
             self.mapInstance.setZoom(13);
+        }
+        
+        this.markerCount = function(myobj) {
+            var count = 0;
+            for (k in myobj) if (myobj.hasOwnProperty(k)) count++;
+            return count;
         }
         
         addLoadEvent(function() {
@@ -448,7 +459,18 @@ if (!Portal.Map) {
                          });
                     });      
 
-            self.locations = self.initMarkers("geocode", 0);          
+            self.locations = self.initMarkers("geocode", 0); 
+            
+            self.selected = self.initMarkers("geoselected", 0);
+            if (self.markerCount(self.selected)) {
+                var listener = google.maps.event.addListenerOnce(self.mapInstance, "idle", function() { 
+                    self.mapInstance.setZoom(14);
+                    
+                    for (var s in self.selected) {
+                        self.showMarkerInfoWindow(s);
+                    }
+                });
+            }
          });
     }
 }

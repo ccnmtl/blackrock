@@ -1,16 +1,27 @@
 {% load portal %}
 {% load smartif %}                
 {% load cache %}
+
+{% with 1 as search_nearby %}
+
+{% if selected %}
+    {% with "geoselected" as geocode_class %}
+    {% with "selected" as prefix %}
+    {% with selected as current_object %}
+        {% include "portal/asset_location.html" %}
+    {% endwith %}{% endwith %}{% endwith %}
+{% endif %}
+
+{% with "geocode" as geocode_class %}
             
 <!--  Geocoded information for all Infrastructure assets -->
 <div id="infrastructure_assets" style="display:none">
     {% for result in result|facet_assets:"infrastructure" %}
         {% with result.object as current_object %}
         {% with 1 as show_infrastructure %}
-        {% with "geocode" as geocode_class %}
         {% with "infra" as prefix %}
             {% include "portal/asset_location.html" %}
-        {% endwith %}{% endwith %}{% endwith %}{% endwith %}
+        {% endwith %}{% endwith %}{% endwith %}
     {% endfor %}
 </div>
 
@@ -19,12 +30,13 @@
     {% for result in result|facet_assets:"featured" %}
         {% with result.object as current_object %}
         {% with 1 as show_featured %}
-        {% with "geocode" as geocode_class %}
         {% with "featured" as prefix %}
             {% include "portal/asset_location.html" %}
-        {% endwith %}{% endwith %}{% endwith %}{% endwith %}
+        {% endwith %}{% endwith %}{% endwith %}
     {% endfor %}
 </div>
+
+{% endwith %}{% endwith %}
 
 <div>
     <div id="nearby_results" style="display:none"></div>

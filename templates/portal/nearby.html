@@ -2,7 +2,7 @@
 {% load portal %}
 
         <div id="search-results"> 
-            <h2>Found {{count}} assets near <span id="nearby_asset"></span></h2>
+            <h2>Near <span id="nearby_asset"></span></h2>
             <a href="#" onclick='portalMapInstance.closeSearch();'>Close</a>
             <br />
             <div class="assetlist">
@@ -11,8 +11,9 @@
                     {% with "nearby" as geocode_class %}
                     {% with forloop.counter as icon_display_order %}
                     {% with 1 as includehighlight %}
+                    {% with 1 as search_nearby %}
                         {% include "portal/asset_location.html" %}
-                    {% endwith %}{% endwith %}{% endwith %}{% endwith %}
+                    {% endwith %}{% endwith %}{% endwith %}{% endwith %}{% endwith %}
                      <div class="single_result">
                         <table>
                             <tr>

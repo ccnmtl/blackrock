@@ -9,6 +9,8 @@ import re
 
 from django.contrib.gis.db import models
 
+from django.template import Context
+from django.template.loader import get_template
 
 MAX_DISPLAY_LENGTH = 50
 
@@ -744,8 +746,8 @@ class InteractiveMap(models.Model):
     def edit(self, vals, files):
       form = InteractiveMapForm(data=vals, files=files, instance=self)
       if form.is_valid():
-        form.save()
-        
+          form.save()
+
 class InteractiveMapForm(forms.ModelForm):
     class Meta:
         model = InteractiveMap                                         

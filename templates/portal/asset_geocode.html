@@ -6,6 +6,7 @@
    Includes all the information to plot this location on a map. And, filter by various facets
    Geocode divs are hidden and used only for scripting purposes.
 {% endcomment %}
+
    <div class="{{geocode_class}}" style="display:none">
       <input class="prefix" type="hidden" value="{{prefix}}"></input>
       <input class="asset_identifier" type="hidden" value="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}"></input>
@@ -16,7 +17,9 @@
       <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-longitude" value="{{current_location.longitude}}"></input>
       
       {% if icon_display_order %}
-        <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-iconname" value="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld={{icon_display_order}}|4A3404|FFFFFF"></input>
+        {% if icon_display_order <= 10 %}
+            <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-iconname" value="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld={{icon_display_order}}|4A3404|FFFFFF"></input>
+        {% endif %}
       {% else %}{% if iconname %}
         <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-iconname" value="{{iconname}}"></input>
       {% else %}{% if audience %}
@@ -35,7 +38,7 @@
       {% endif %}{% endif %}
       
       <!--  Map Callout Template -->
-      <div id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-description">
+     <div id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-description">
         <div class="callout">
             <a class="callout-display-name" href="{{current_object|detail_url}}">{{current_object|display_name }}</a>
             <div class="callout-asset-types">{{current_object|klass_display}}</div>
@@ -45,10 +48,13 @@
                     <img alt="{{i}} icon" src='/portal/media/images/nonmapicon_{{i|cut:" "|cut:"-"|lower}}.png'></img>
                 {% endfor %}
             </div>
-            
-            <a class="callout-summary-link" onclick='portalMapInstance.search({{current_location.latitude}}, {{current_location.longitude}}, "{{current_object|display_name}}")'>Search nearby</a>
+           
+            {% if search_nearby %} 
+                <a class="callout-summary-link" onclick='portalMapInstance.search({{current_location.latitude}}, {{current_location.longitude}}, "{{current_object|display_name}}")'>Search nearby</a>
+            {% else %}
+                <a class="callout-summary-link" href='{{current_object|map_url}}'>Show on Interactive Map</a>
+            {% endif %}
         </div>
      </div>
-      
-   </div>
-       
+   </div> 
+    

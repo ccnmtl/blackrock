@@ -47,14 +47,20 @@ def page(request,path):
     ancestors = section.get_ancestors()
     
     module = None
-    
     if not section.is_root() and len(ancestors) > 1:
         module = ancestors[1]
+    
+    asset = None    
+    asset_type = request.GET.get('type', None)
+    asset_id = request.GET.get('id', None)
+    if asset_type and asset_id:
+        model = get_model("portal", asset_type)
+        asset = model.objects.get(id=asset_id)
         
-    # retrieve the list of featured assets associated with this section
-    return dict(section=section,
-                module=module,
-                root=ancestors[0])
+    return dict(section=section, 
+                module=module, 
+                root=ancestors[0],
+                selected=asset)
     
 @rendered_with('portal/nearby.html')
 def nearby(request, latitude, longitude):
@@ -63,14 +69,16 @@ def nearby(request, latitude, longitude):
     pnt = fromstr(point, srid=4326) 
       
     qs = Location.objects.filter(latlong__distance_lte=(pnt,D(mi=.15))).distance(pnt).order_by('distance') 
-    #qs = Location.objects.filter(latlong__distance_lte=(pnt,D(mi=.2))).distance(pnt).order_by('distance') 
      
-    a = []  
+    a = []
     for loc in qs:
       all_related = loc._meta.get_all_related_objects()
       for obj in all_related:
           for instance in getattr(loc, obj.get_accessor_name()).all():
-            a.append(instance)
+            if len(a) < 10:
+                a.append(instance)
+            
+            
               
     return dict(latitude=latitude, longitude=longitude, results=a, count=len(a))
     

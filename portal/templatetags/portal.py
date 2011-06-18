@@ -119,6 +119,10 @@ def detail_url(obj):
       
     return url
 
+@register.filter('map_url')
+def map_url(obj):
+    return "/portal/interactive-map/?type=%s&id=%s" % (obj._meta.object_name.lower(), obj.id)
+
 @register.filter('display_name')
 def display_name(obj):
   if hasattr(obj, "display_name") and len(obj.display_name) > 0:
@@ -141,4 +145,5 @@ class ValueFromSettings(template.Node):
     def render(self, context):        
         return settings.__getattr__(str(self.arg))
 
+    
     
