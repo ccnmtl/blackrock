@@ -6,7 +6,7 @@ jQuery(document).ready(function() {
       jQuery.fn.Sharing.websites.twitter = { name: 'Twitter', image: 'twitter.gif', link: 'http://twitter.com/share?url=WEBSITE&amp;via=ccnmtl&amp;text=TITLE' };
 
       jQuery('#sharing_actions').Sharing({ 
-         text: 'Share via:',
+         text: '',
          links: 'facebook,twitter,delicious,googlebookmarks,digg', 
          image_dir: '/portal/media/js/jquery.sharing/sharing/',
          image: 'http://upload.wikimedia.org/wikipedia/en/1/10/Black_Rock_Forest_logo.png', 
