@@ -51,7 +51,7 @@ div#mainnav ul li {
 
 div#mainnav ul li.home,
 div#mainnav ul li.research,
-div#mainnav ul li.foreststories,
+div#mainnav ul li.galleries,
 div#mainnav ul li.search
 
 {margin-right:10px;
@@ -188,6 +188,7 @@ div#subnav.home ul li.selected {background-color: #E4DBCC;}
 div#subnav.experience ul li.selected {background-color: #E4DBCC;}
 div#subnav.education ul li.selected {background-color: #E4DBCC;}
 div#subnav.research ul li.selected {background-color: #E4DBCC;}
+div#subnav.search ul li.selected {background-color: #89A08C;}
 
 /* style the sharing functionality, including the styles that jquery.sharing expects */
 div#sharing_container {
@@ -735,6 +736,7 @@ table#details-table tr td {vertical-align: top;}
 
 table#details-table tr td#center {
 	width: 40%; 
+	background-color: #B49F93;
 	
 }
 
@@ -755,7 +757,7 @@ div#related-items {
 
 .related {
 	border: 1px solid #B49F93;
-	padding: 10px;
+	padding: 5px;
 	margin: 5px;
 	background-color: #fff;
 }
