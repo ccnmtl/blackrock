@@ -12,7 +12,7 @@ body {
 	margin: 0;
 	padding: 0 auto;
 	background-color: #D8D8D0;
-	min-width: 1050px;
+	min-width: 950px;
 	max-width: 1600px;
 	font-size: .8em;
 }
@@ -40,7 +40,7 @@ div#mainnav ul li {
 	color: black;
 	z-index: 100;
 	float: left;
-	padding: 6px 10px;
+	padding: 6px;
 	margin: 10px 0px 0px 0px;
 	cursor: pointer;
 	font-weight: normal;
@@ -738,7 +738,7 @@ table#details-table tr td {vertical-align: top;}
 
 table#details-table tr td#center {
 	width: 40%; 
-	background-color: #B49F93;
+	background-color: #89A08C;
 	
 }
 
@@ -754,13 +754,13 @@ div#map-column {
 }
 
 div#related-items {
-	background-color: #B49F93;
+
 }
 
 .related {
-	border: 1px solid #B49F93;
+	
 	padding: 5px;
-	margin: 5px;
+	margin: 5px 5px 20px 5px;
 	background-color: #fff;
 }
 
