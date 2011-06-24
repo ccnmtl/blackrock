@@ -199,10 +199,12 @@ div#sharing_container {
      border: 1px solid #adadad;
      background-color #f9f9f9;
      max-height: 19px;
+    
 
 
 }
 
+div#sharing_container #sharing_button {float: left;}
 div#sharing_container .sharing_text { margin: 1px; font-size: 11px; color: #000;  }
 div#sharing_container .sharing_link { }
 div#sharing_container .sharing_image { width: 15px; height: 15px; margin: 2px; float: right;}
