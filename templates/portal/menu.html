@@ -5,9 +5,11 @@
     {% else %}
        {% ifequal s.id selected.id %}
           <li class="selected {% if audience %}{{s.slug}}{% endif %}">{{s.label}}</li>
+       {% else %}{% ifequal s.id section.id %}
+          <li class="selected {% if audience %}{{s.slug}}{% endif %}">{{s.label}}</li>
        {% else %}   
           <li class="{% if audience %}{{s.slug}}{% endif %}"><a href="{{menu_base}}/portal{{s.get_absolute_url}}">{{s.label}}</a></li>
-       {% endifequal %}
+       {% endifequal %}{% endifequal %}
     {% endifequal %}
   {% endifnotequal %}
 {% endfor %}
