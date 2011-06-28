@@ -8,9 +8,12 @@
     {{ block.super }}
 {% endblock %}
 
-{% block searchtab %}
-    <div id="search-tab">Search</div>
+{% block mainnav %}
+    {% with "search" as selected %}
+        {% include "portal/default_mainnav.html" %}
+    {% endwith %}
 {% endblock %}
+
 
 {% block container %}
  <div id="search-wrapper">
