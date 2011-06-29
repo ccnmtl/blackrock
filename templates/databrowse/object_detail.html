@@ -29,7 +29,7 @@
         {% if asset_klass == "DataSet" %}
             {% if current_object.description %}
                 <p><p><span class="object_detail_label">Description:</span>
-                {{ current_object.description }}</p>
+                {{ current_object.description|safe }}</p>
             {% endif %}
        
             {% if current_object.collection_start_date %}
@@ -64,7 +64,7 @@
       
             {% if current_object.description %}
                 <p><span class="object_detail_label">Description:</span>
-                {{ current_object.description }}</p>
+                {{ current_object.description|safe }}</p>
             {% endif %}
      
             {% if current_object.url.all.count %}
@@ -87,7 +87,7 @@
             {% endif %}
             {% if current_object.description %}
                 <p><span class="object_detail_label">Biography:</span>
-                {{ current_object.description }}</p>
+                {{ current_object.description|safe }}</p>
             {% endif %}
             {% if current_object.url.all.count %}
                 <p><span class="object_detail_label">Link{%if current_object.url.all.count > 0%}s{%endif%}:</span>{%if current_object.url.all.count > 1%}<br />{%endif%}
@@ -112,7 +112,7 @@
             {% endif %}
             {% if current_object.description %}
                 <p><span class="object_detail_label">Description:</span> 
-                {{ current_object.description }}</p>
+                {{ current_object.description|safe }}</p>
             {% endif %}
        {% else %}{% if asset_klass == "Station" %}
             {% if current_object.activation_date %}
@@ -122,12 +122,12 @@
              
             {% if current_object.description %}
                 <p><span class="object_detail_label">Description:</span>
-                {{ current_object.description }}</p>
+                {{ current_object.description|safe }}</p>
             {% endif %}
         {% else %}{% if asset_klass == "ForestStory" %}
             {% if current_object.description %}
                 <p><span class="object_detail_label">Description:</span>
-                {{ current_object.description }}<br />
+                {{ current_object.description|safe }}<br />
             {% endif %}
         {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
        
