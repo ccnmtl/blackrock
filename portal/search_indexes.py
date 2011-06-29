@@ -35,14 +35,12 @@ class AssetIndex(SearchIndex):
 site.register(Station, AssetIndex)
 site.register(Person, AssetIndex)
 site.register(DataSet, AssetIndex)
-site.register(DigitalObject, AssetIndex)
 site.register(ResearchProject, AssetIndex)
 site.register(LearningActivity, AssetIndex)
 site.register(ForestStory, AssetIndex)
 
 from django.contrib import databrowse
 
-databrowse.site.register(DigitalObject)
 databrowse.site.register(Station)
 databrowse.site.register(Person)
 databrowse.site.register(DataSet)

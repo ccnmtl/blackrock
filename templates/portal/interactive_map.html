@@ -54,16 +54,18 @@
               <table>
                 <tr>
                     <td width="50%">
-                        <div><input type="checkbox" class="layer" id="boundary" value="Forest Boundary" checked="checked" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Forest Boundary"/>Forest Boundary</div>
+                        <div style="display: none"><input type="checkbox" class="layer" id="boundary" value="Forest Boundary" checked="checked" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Forest Boundary"/>Forest Boundary</div>
+                        <div><input type="checkbox" class="natural_features_option" id="idViewpoints" value="Viewpoints" disabled="disabled"/><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Viewpoints"/>Viewpoints</div>
                         <div><input type="checkbox" class="layer" id="roads" value="Roads" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Forest Roads"/>Roads/Parking Lots</div>
                         <div><input type="checkbox" class="layer" id="trails" value="Trails" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Forest Trails"/>Trails</div>
-                        <div><input type="checkbox" class="infrastructure_option" id="buildings" value="Buildings" checked="checked" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Buildings"/>Buildings (not yet available) ({{infrastructure_counts.LongTermPlots}})</div>
+                        <!-- checked="checked"  --> <div><input type="checkbox" class="infrastructure_option" id="buildings" value="Buildings" disabled="disabled" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Buildings"/>Buildings</div>
                     </td>
                     <td>
-                        <div><input type="checkbox" class="infrastructure_option" id="idEnvironmentalMonitoring" value="Environmental Monitoring" checked="checked" /><img src="/portal/media/images/nonmapicon_environmentalmonitoring.png/" alt="Environmental Monitoring"/>Environmental Monitoring ({{infrastructure_counts.EnvironmentalMonitoringInfrastructure}})</div>
-                        <div><input type="checkbox" class="infrastructure_option" id="idLongtermPlots" value="Long-Term Plots" checked="checked" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Long-Term Plots"/>Long-Term Plots (not yet available) ({{infrastructure_counts.LongTermPlots}})</div>
-                        <div><input type="checkbox" class="infrastructure_option" id="idWebcams" value="Webcams"  checked="checked"/><img src="/portal/media/images/nonmapicon_webcams.png/" alt="Webcams" />Webcams  ({{infrastructure_counts.Webcams}})</div>
-                        <div><input type="checkbox" class="layer" id="idCompartments" value="Compartments" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Compartments"/>Compartments (not yet available)</div>
+                        <div><input type="checkbox" class="infrastructure_option" id="idEnvironmentalMonitoring" value="Environmental Monitoring" /><img src="/portal/media/images/nonmapicon_environmentalmonitoring.png/" alt="Environmental Monitoring"/>Environmental Monitoring Stations ({{infrastructure_counts.EnvironmentalMonitoringInfrastructure}})</div>
+                        <!-- checked="checked"  --> <div><input type="checkbox" class="infrastructure_option" id="idLongtermPlots" value="Long-Term Plots" disabled="disabled" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Long-Term Plots"/>Long-Term Plots ({{infrastructure_counts.LongTermPlots}})</div>
+                        <div><input type="checkbox" class="infrastructure_option" id="idWebcams" value="Webcams" /><img src="/portal/media/images/nonmapicon_webcams.png/" alt="Webcams" />Webcams  ({{infrastructure_counts.Webcams}})</div>
+                        <div>&nbsp;</div>
+                        
                     </td>
                 </tr>
               </table>
@@ -74,8 +76,8 @@
               <h3>Natural Features</h3>
               <div><input type="checkbox" class="layer" id="ponds" value="Ponds" checked="checked" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Ponds"/>Ponds</div>
               <div><input type="checkbox" class="layer" id="streams" value="Streams" checked="checked" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Streams"/>Streams</div>
-              <div><input type="checkbox" class="layer" id="peaks" value="Peaks" checked="checked" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Peaks"/>Peaks</div>
-              <div><input type="checkbox" class="natural_features_option" id="idViewpoints" value="Viewpoints" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Viewpoints"/>Viewpoints (not yet available)</div>
+              <div><input type="checkbox" class="layer" id="peaks" value="Peaks" checked="checked" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Peaks"/>Peaks (6)</div>
+              
           </td>
           
           {% with result|facet_counts:"featured" as featured_counts %}

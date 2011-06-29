@@ -46,7 +46,8 @@ class DataSetAdmin(admin.ModelAdmin):
 admin.site.register(DataSet, DataSetAdmin)
 
 class DigitalObjectAdmin(admin.ModelAdmin):
-  search_fields = ['name']
+  search_fields = ['name', 'digital_format']
+  list_display = ('name', 'digital_format')
   ordering = ["name"]
 admin.site.register(DigitalObject, DigitalObjectAdmin)
 

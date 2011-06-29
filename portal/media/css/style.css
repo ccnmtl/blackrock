@@ -51,7 +51,6 @@ div#mainnav ul li {
 
 div#mainnav ul li.home,
 div#mainnav ul li.research,
-div#mainnav ul li.galleries,
 div#mainnav ul li.search
 
 {margin-right:10px;
@@ -64,7 +63,8 @@ div#mainnav ul li.home.selected,
 div#mainnav ul li.interactive-map.selected,
 div#mainnav ul li.weather.selected,
 div#mainnav ul li.forest-view.selected,
-div#mainnav ul li.foreststories.selected
+div#mainnav ul li.foreststories.selected,
+div#mainnav ul li.search.selected
 {background-color: #3d2800; color: #fff;}
 div#mainnav ul li.experience.selected {background-color: #126a37; color: #fff;}
 div#mainnav ul li.education.selected {background-color: #84232e; color: #fff;}
@@ -957,6 +957,11 @@ div#webcam_page {
 div#webcam_page #timelapse .video {
 	width: 400px;
 	display: block;
+}
+
+div.caption {
+    font-style: italic;
+    font-size: .9em;
 }
 
 
