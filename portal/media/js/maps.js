@@ -139,7 +139,7 @@ if (!Portal.MapMarker) {
             var iconUrl = '';
             if (infrastructure && infrastructure.length) {
                 var iconName = infrastructure[0];
-                iconName = iconName.replace(" ", "");
+                iconName = iconName.replace(/ /g, "");
                 iconName = iconName.replace("-", "");
                 iconUrl = 'http://' + location.hostname + ':' + location.port + "/portal/media/images/mapicon_" + iconName.toLowerCase() + '.png';
             } else if (featured && featured.length) {
