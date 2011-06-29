@@ -52,39 +52,6 @@
                 <p><span class="object_detail_label">People:</span>
                 {% for p in current_object.person.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{p|detail_url}}">{{p.name}}</a>{% endfor %}</p>
             {% endif %}
-        {% else %}{% if asset_klass == "DigitalObject" %}
-        
-            {% if current_object.digital_format.is_image %}
-                {% if current_object.file and current_object.file.url %}
-                    <img src="{{current_object.file.url}}" class="object_detail_image"></img>
-                {% else %}{% if current_object.url %}
-                    <img src="{{current_object.url}}" class="object_detail_image"></img>
-                {% endif %}{% endif %} 
-                <br />
-            {% endif %}
-            
-            {% if current_object.markup %}
-                {{ current_object.markup|markdown }}<br />
-            {% endif %}
-            
-            {% if current_object.description %}
-                <p><span class="object_detail_label">Description:</span>
-                {{ current_object.description }}</p>
-            {% endif %}
-
-            {% if current_object.digital_format %}
-                <p><span class="object_detail_label">Format:</span>
-                {{ current_object.digital_format }}</p>
-             {% endif %}
-
-            {% if current_object.url %}
-                <p><span class="object_detail_label">Download link:</span>
-                <a href="{{current_object.url}}">{{current_object.url}}</a></p>
-            {% endif %}
-
-            {% if current_object.source %}
-                <p><span class="object_detail_label">Source:</span> {{ current_object.source }} </p>
-            {% endif %}
         {% else %}{% if asset_klass == "LearningActivity" %}
              
             {% if current_object.author.all.count %}
@@ -159,7 +126,7 @@
                 <p><span class="object_detail_label">Description:</span>
                 {{ current_object.description }}<br />
             {% endif %}
-        {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
+        {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
        
         {% if current_object.facet.all.count %}
             <p><span class="object_detail_label">Keyword:</span>
@@ -183,14 +150,6 @@
             {% if current_object.dataset.count %}
                 <h3 class="object_detail_label">Related Data Sets:</h3>
                 {% for x in current_object.dataset.all %}
-                    {% with x as current_object %}
-                        {% include "portal/asset_related.html" %}
-                    {% endwith %}
-                {% endfor %}
-            {% endif %}
-            {% if current_object.digitalobject.count %}
-                <h3 class="object_detail_label">Related Digital Objects:</h3>
-                {% for x in current_object.digitalobject.all %}
                     {% with x as current_object %}
                         {% include "portal/asset_related.html" %}
                     {% endwith %}
