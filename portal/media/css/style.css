@@ -957,4 +957,9 @@ div#webcam_page #timelapse .video {
 	display: block;
 }
 
+div.caption {
+    font-style: italic;
+    font-size: .9em;
+}
+
 

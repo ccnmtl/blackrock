@@ -18,7 +18,10 @@
         <h3>{{ current_object|display_name }}</h3>
         
         {% if current_object.display_image %}
-            <p><img alt="{{asset_klass}} Icon" src="{{current_object.display_image.file.url}}" class="object_detail_image"></img></p>
+            <img alt="{{asset_klass}} Icon" src="{{current_object.display_image.file.url}}" class="object_detail_image"></img>
+            {% if current_object.display_image.description %}
+                <div class="caption">{{current_object.display_image.description}}</div>
+            {% endif %}
         {% endif %}
         
         <p><span class="object_detail_label">Record Type:</span> {{current_object|klass_display}}</p>
