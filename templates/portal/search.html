@@ -59,7 +59,7 @@
                                 {% endif %} 
                             {% endif %}{% endif %}
                             <td>
-                                <a class="search-display-name" href="{{result.object|detail_url}}">{{result.object|display_name}}</a>
+                                <a class="search-display-name" href="{{result.object|detail_url}}">{{result.object|search_name}}</a>
                                 <b>Record Type</b>: {{result.object|klass_display}}
                                 {% include "portal/asset_description.html" %}
                                 

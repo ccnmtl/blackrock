@@ -3,7 +3,7 @@ from django.utils.text import capfirst
 from haystack.query import SearchQuerySet
 register = template.Library()
 from django.conf import settings
-
+import types
 
 @register.filter('klass')
 def klass(obj):
@@ -125,10 +125,27 @@ def map_url(obj):
 
 @register.filter('display_name')
 def display_name(obj):
-  if hasattr(obj, "display_name") and len(obj.display_name) > 0:
+  display_name = getattr(obj, "display_name", None)
+  if display_name and type(display_name) == types.StringType and len(obj.display_name) > 0:
+    return obj.display_name
+  elif display_name and type(display_name) == types.MethodType:
+    return obj.display_name()  
+  else:
+      if type(obj.name) == types.MethodType:
+        return obj.name()
+      else:
+        return obj.name
+
+@register.filter('search_name')
+def search_name(obj):
+  display_name = getattr(obj, "display_name", None)
+  if display_name and type(display_name) == types.StringType and len(obj.display_name) > 0:
     return obj.display_name
   else:
-    return obj.name
+      if type(obj.name) == types.MethodType:
+        return obj.name()
+      else:
+        return obj.name
 
 @register.tag
 def value_from_settings(parser, token):
