@@ -7,7 +7,7 @@ class Command(BaseCommand):
       people = Person.objects.all()
       
       for person in people:
-          parts = person.name.rpartition(' ')
+          parts = person.full_name.rpartition(' ')
           person.first_name = parts[0]
           person.last_name = parts[2]
           person.save()

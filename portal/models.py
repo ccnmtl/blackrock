@@ -290,7 +290,10 @@ class Person(models.Model):
     return "%s, %s" % (self.last_name, self.first_name)
 
   def name(self):
-    return  "%s, %s" % (self.last_name, self.first_name)
+    if len(self.first_name) > 0:
+        return  "%s, %s" % (self.last_name, self.first_name)
+    else:
+        return self.last_name
 
   def display_name(self):
     return "%s %s" % (self.first_name, self.last_name)
