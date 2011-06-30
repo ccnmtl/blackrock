@@ -2,14 +2,14 @@
 {% for s in current.get_children %}
   {% ifnotequal s.slug hidden %}
     {% ifequal s.id current.id %}
-    {% else %}
+    {% else %}{% ifnotequal s.slug "foreststories" %}
        {% ifequal s.id selected.id %}
           <li class="selected {% if audience %}{{s.slug}}{% endif %}">{{s.label}}</li>
        {% else %}{% ifequal s.id section.id %}
           <li class="selected {% if audience %}{{s.slug}}{% endif %}">{{s.label}}</li>
        {% else %}   
           <li class="{% if audience %}{{s.slug}}{% endif %}"><a href="{{menu_base}}/portal{{s.get_absolute_url}}">{{s.label}}</a></li>
-       {% endifequal %}{% endifequal %}
+       {% endifequal %}{% endifequal %}{% endifnotequal %}
     {% endifequal %}
   {% endifnotequal %}
 {% endfor %}
