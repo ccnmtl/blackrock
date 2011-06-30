@@ -36,8 +36,9 @@ class StationAdmin(admin.ModelAdmin):
 admin.site.register(Station, StationAdmin)
 
 class PersonAdmin(admin.ModelAdmin):
-  search_fields = ['name']
-  ordering = ["name"]
+  search_fields = ['last_name']
+  ordering = ["last_name", "first_name"]
+  list_display = ('last_name', 'first_name', 'full_name')
 admin.site.register(Person, PersonAdmin)
 
 class DataSetAdmin(admin.ModelAdmin):

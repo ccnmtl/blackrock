@@ -16,22 +16,23 @@
 
 
 {% block container %}
+<form method="get" action=".">
+
  <div id="search-wrapper">
  <table id="search-table">
     <tr>
     <td id="facets_column">
         <div id="facets" class="">
-            <form method="get" action=".">
-                <table>
-                    <tbody>
-                        {{ form.as_table }}
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td><input type="submit" value="Search"></input>&nbsp;<input type="reset" value="Reset" onclick="parent.location='/portal/search/'"></input></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </form>
+             {% for field in form %}
+                <div class="fieldWrapper">
+                    {{ field.errors }}
+                    <span class="header">{{field.label_tag}}:</span> {{ field }}
+                    
+                    {% ifequal field.label "Search" %}
+                        <input type="submit" value="Search"></input>&nbsp;<input type="reset" value="Reset" onclick="parent.location='/portal/search/'"></input>
+                    {% endifequal %}
+                </div>
+            {% endfor %}
         </div>
     </td>
     <td id="results_column">
@@ -58,7 +59,7 @@
                                 {% endif %} 
                             {% endif %}{% endif %}
                             <td>
-                                <a class="search-display-name" href="{{result.object|detail_url}}">{{result.object|display_name}}</a>
+                                <a class="search-display-name" href="{{result.object|detail_url}}">{{result.object|search_name}}</a>
                                 <b>Record Type</b>: {{result.object|klass_display}}
                                 {% include "portal/asset_description.html" %}
                                 
@@ -84,6 +85,7 @@
    </td>
    </tr>
 </table>
+</form>
 </div>
 {% endblock %}
 

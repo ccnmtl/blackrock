@@ -29,7 +29,7 @@
         {% if asset_klass == "DataSet" %}
             {% if current_object.description %}
                 <p><p><span class="object_detail_label">Description:</span>
-                {{ current_object.description }}</p>
+                {{ current_object.description|safe }}</p>
             {% endif %}
        
             {% if current_object.collection_start_date %}
@@ -53,18 +53,18 @@
         
             {% if current_object.person.all.count %}
                 <p><span class="object_detail_label">People:</span>
-                {% for p in current_object.person.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{p|detail_url}}">{{p.name}}</a>{% endfor %}</p>
+                {% for p in current_object.person.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{p|detail_url}}">{{p|display_name}}</a>{% endfor %}</p>
             {% endif %}
         {% else %}{% if asset_klass == "LearningActivity" %}
              
             {% if current_object.author.all.count %}
                 <p><span class="object_detail_label">Authors:</span>
-                {% for x in current_object.author.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{x|detail_url}}">{{x.name}}</a>{% endfor %}</p>
+                {% for x in current_object.author.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{x|detail_url}}">{{x|display_name}}</a>{% endfor %}</p>
             {% endif %}
       
             {% if current_object.description %}
                 <p><span class="object_detail_label">Description:</span>
-                {{ current_object.description }}</p>
+                {{ current_object.description|safe }}</p>
             {% endif %}
      
             {% if current_object.url.all.count %}
@@ -87,7 +87,7 @@
             {% endif %}
             {% if current_object.description %}
                 <p><span class="object_detail_label">Biography:</span>
-                {{ current_object.description }}</p>
+                {{ current_object.description|safe }}</p>
             {% endif %}
             {% if current_object.url.all.count %}
                 <p><span class="object_detail_label">Link{%if current_object.url.all.count > 0%}s{%endif%}:</span>{%if current_object.url.all.count > 1%}<br />{%endif%}
@@ -108,11 +108,11 @@
             {% endif %}
             {% if current_object.person.count %} 
                 <p><span class="object_detail_label">Principal Investigator{% if current_object.person.count > 1 %}s{% endif %}:</span>
-                {% for p in current_object.person.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{p|detail_url}}">{{ p.name }}</a>{% endfor %}</p>
+                {% for p in current_object.person.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{p|detail_url}}">{{ p|display_name }}</a>{% endfor %}</p>
             {% endif %}
             {% if current_object.description %}
                 <p><span class="object_detail_label">Description:</span> 
-                {{ current_object.description }}</p>
+                {{ current_object.description|safe }}</p>
             {% endif %}
        {% else %}{% if asset_klass == "Station" %}
             {% if current_object.activation_date %}
@@ -122,12 +122,12 @@
              
             {% if current_object.description %}
                 <p><span class="object_detail_label">Description:</span>
-                {{ current_object.description }}</p>
+                {{ current_object.description|safe }}</p>
             {% endif %}
         {% else %}{% if asset_klass == "ForestStory" %}
             {% if current_object.description %}
                 <p><span class="object_detail_label">Description:</span>
-                {{ current_object.description }}<br />
+                {{ current_object.description|safe }}<br />
             {% endif %}
         {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
        

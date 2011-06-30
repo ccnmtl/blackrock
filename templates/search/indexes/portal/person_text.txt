@@ -1,4 +1,5 @@
-{{ object.name }}
+{{ object.last_name }}
+{{ object.first_name }}
 {% for facet in object.facet.all %}
     {{ facet.name }}
 {% endfor %}

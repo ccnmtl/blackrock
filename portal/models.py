@@ -266,7 +266,9 @@ class Region(models.Model):
     return self.name
   
 class Person(models.Model):
-  name = models.CharField(max_length=500)
+  full_name = models.CharField(max_length=500)
+  first_name = models.CharField(max_length=250)
+  last_name = models.CharField(max_length=250)
   description = models.TextField(null=True, blank=True)
   person_type = models.ManyToManyField(PersonType)
   institution = models.ManyToManyField(Institution)
@@ -285,11 +287,17 @@ class Person(models.Model):
   modified_date = models.DateTimeField('modified_date', default=datetime.now)
   
   def __unicode__(self):
-    return self.name
+    return "%s, %s" % (self.last_name, self.first_name)
+
+  def name(self):
+    return  "%s, %s" % (self.last_name, self.first_name)
+
+  def display_name(self):
+    return "%s %s" % (self.first_name, self.last_name)
   
   class Meta:
-    ordering = ['name']
-  
+    ordering = ['last_name', 'first_name']
+ 
 class DataSet(models.Model):
   name = models.CharField(max_length=500)
   description = models.TextField(null=True, blank=True)

@@ -9,7 +9,7 @@
     <IconStyle>
       <color>00000000</color>
       <Icon>
-        <href>http://blackrock.ccnmtl.columbia.edu/portal/media/images/mapicon_experience.png</href>
+        <href>http://blackrock.ccnmtl.columbia.edu/portal/media/images/mapicon_peaks.png</href>
       </Icon>
     </IconStyle>
     <LabelStyle>
@@ -21,7 +21,7 @@
     <open>0</open>
       <Placemark>
         <name><![CDATA[Black Rock Summit]]></name>
-        <description>1,391 feet (423.98 meters)</description>
+        <description><![CDATA[1,391 feet (423.98 meters)]]></description>
         <styleUrl>#FEATURES_LABELS</styleUrl>
         <Point>
           <extrude>0</extrude>
@@ -31,7 +31,7 @@
       </Placemark>
       <Placemark>
         <name><![CDATA[Hill of Pines]]></name>
-	<description>1,375 feet (419.10 meters)</description>
+	   <description><![CDATA[1,375 feet (419.10 meters)]]></description>
         <styleUrl>#FEATURES_LABELS</styleUrl>
         <Point>
           <extrude>0</extrude>
@@ -55,7 +55,7 @@
       </Placemark>
       <Placemark>
         <name><![CDATA[Mount Misery Summit]]></name>
-	<description>1,270 feet (387.10 meters)</description>
+	   <description>1,270 feet (387.10 meters)</description>
         <styleUrl>#FEATURES_LABELS</styleUrl>
         <Point>
           <extrude>0</extrude>
@@ -79,7 +79,7 @@
       </Placemark>
       <Placemark>
         <name><![CDATA[Spy Rock]]></name>
-        <description>1,447 feet (441.05 meters)</description>
+        <description><![CDATA[1,447 feet (441.05 meters)]]></description>
         <styleUrl>#FEATURES_LABELS</styleUrl>
         <Point>
           <extrude>0</extrude>

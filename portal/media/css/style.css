@@ -664,26 +664,23 @@ div#facets {
      
 }
 
-div#facets th {
+div#facets .header {
     text-align: right;
     width: 40%;
     vertical-align:top;
     padding: 10px;
     white-space: nowrap;
     width: 200px;
+    font-weight: bold;
 }
 
-div#facets form table tbody tr td {
+div#facets div.fieldWrapper {
+    padding: 10px;
     white-space: nowrap;
 }
 
-div#facets form table tbody tr td {
-    padding: 10px;
-}
-
-div#facets form table tbody tr td ul {
+div#facets div.fieldWrapper ul {
     list-style: none;
-    margin-left: -45px;
 }
 
 div#search-results {

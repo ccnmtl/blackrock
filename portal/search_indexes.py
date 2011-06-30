@@ -6,7 +6,7 @@ from portal.models import *
 
 class AssetIndex(SearchIndex):
   text = CharField(document=True, use_template=True)
-  name = CharField(model_attr='name')
+  name = CharField()
   study_type = MultiValueField(faceted=True)
   species = MultiValueField(faceted=True)
   discipline = MultiValueField(faceted=True)
@@ -31,13 +31,21 @@ class AssetIndex(SearchIndex):
 
   def prepare_featured(self, obj):
     return [facet.name for facet in obj.facet.filter(facet='Featured')]
+
+  def prepare_name(self, obj):
+      return obj.name
    
 site.register(Station, AssetIndex)
-site.register(Person, AssetIndex)
 site.register(DataSet, AssetIndex)
 site.register(ResearchProject, AssetIndex)
 site.register(LearningActivity, AssetIndex)
 site.register(ForestStory, AssetIndex)
+
+class PersonIndex(AssetIndex):
+    def prepare_name(self, obj):
+        return "%s, %s" % (obj.last_name, obj.first_name) 
+
+site.register(Person, PersonIndex)
 
 from django.contrib import databrowse
 
