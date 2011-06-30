@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+  <name>black rock buildings and viewpoints</name>
+  <description><![CDATA[]]></description>
+    <Style id="FEATURES_LABELS">
+    <IconStyle>
+      <color>00000000</color>
+      <Icon>
+        <href>http://blackrock.ccnmtl.columbia.edu/portal/media/images/mapicon_forestfacilities.png</href>
+      </Icon>
+    </IconStyle>
+    <LabelStyle>
+      <color>FFFFFFFF</color>
+    </LabelStyle>
+  </Style>
+  <Style id="FEATURES_LABELS">
+    <IconStyle>
+      <color>00000000</color>
+      <Icon>
+        <href>http://blackrock.ccnmtl.columbia.edu/portal/media/images/mapicon_viewpoints.png</href>
+      </Icon>
+    </IconStyle>
+    <LabelStyle>
+      <color>FFFFFFFF</color>
+    </LabelStyle>
+  </Style>
+  <Placemark>
+    <name>Eagle Cliff 1443&#39;</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>FEATURES_LABELS</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -74.030731,41.386253,0.000000
+            -74.029449,41.386253,0.000000
+            -74.029488,41.386833,0.000000
+            -74.030693,41.386738,0.000000
+            -74.030731,41.386253,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+  <Placemark>
+    <name>Jupiter&#39;s Boulder</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>FEATURES_LABELS</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -74.049019,41.384644,0.000000
+            -74.046913,41.384804,0.000000
+            -74.046875,41.384094,0.000000
+            -74.048935,41.384029,0.000000
+            -74.049019,41.384644,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+  <Placemark>
+    <name>Mt. Rascal</name>
+    <description><![CDATA[1,391 feet (423.98 m)]]></description>
+    <styleUrl>FEATURES_LABELS</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -74.051247,41.381390,0.000000
+            -74.049744,41.381454,0.000000
+            -74.049789,41.380459,0.000000
+            -74.051247,41.380424,0.000000
+            -74.051247,41.381390,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+  <Placemark>
+    <name>Split Rock 1400&#39;</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>FEATURES_LABELS</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -74.038025,41.394913,0.000000
+            -74.037231,41.394913,0.000000
+            -74.037254,41.395210,0.000000
+            -74.037971,41.395187,0.000000
+            -74.038025,41.394913,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+  <Placemark>
+    <name>Rattlesnake Hill</name>
+    <description>1,407 feet (428.85 meters)</description>
+    <styleUrl>FEATURES_LABELS</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -74.008514,41.395462,0.000000
+            -74.008026,41.395100,0.000000
+            -74.007446,41.395462,0.000000
+            -74.007988,41.395824,0.000000
+            -74.008514,41.395462,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+  <Placemark>
+    <name>Hill of Pines</name>
+    <description><![CDATA[1,375 feet (419.10 meters)]]></description>
+    <styleUrl>FEATURES_LABELS</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -74.009636,41.402973,0.000000
+            -74.008698,41.402988,0.000000
+            -74.008713,41.402489,0.000000
+            -74.009529,41.402523,0.000000
+            -74.009636,41.402973,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+  <Placemark>
+    <name>Mt. Misery Summit</name>
+    <description><![CDATA[1,270 feet (387.10 meters)]]></description>
+    <styleUrl>FEATURES_LABELS</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -74.010895,41.408161,0.000000
+            -74.010895,41.407761,0.000000
+            -74.010162,41.407768,0.000000
+            -74.010155,41.408169,0.000000
+            -74.010895,41.408161,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+  <Placemark>
+    <name>Black Rock Summit</name>
+    <description><![CDATA[1,391 feet (423.98 meters)]]></description>
+    <styleUrl>FEATURES_LABELS</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -74.021896,41.408474,0.000000
+            -74.020966,41.408436,0.000000
+            -74.021072,41.407944,0.000000
+            -74.021889,41.408001,0.000000
+            -74.021896,41.408474,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+  <Placemark>
+    <name>Viewpoint (unnamed) </name>
+    <description><![CDATA[]]></description>
+    <styleUrl>FEATURES_LABELS</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -74.045547,41.403057,0.000000
+            -74.046059,41.402939,0.000000
+            -74.045868,41.402641,0.000000
+            -74.045341,41.402752,0.000000
+            -74.045547,41.403057,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+  <Placemark>
+    <name>Viewpoint (unnamed)</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>FEATURES_LABELS</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -74.046478,41.400661,0.000000
+            -74.045761,41.400639,0.000000
+            -74.045792,41.400356,0.000000
+            -74.046494,41.400379,0.000000
+            -74.046478,41.400661,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+  <Placemark>
+    <name>Viewpoint (unnamed)</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>FEATURES_LABELS</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -74.041847,41.407009,0.000000
+            -74.041054,41.406994,0.000000
+            -74.041077,41.406639,0.000000
+            -74.041931,41.406696,0.000000
+            -74.041847,41.407009,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+  <Placemark>
+    <name>Spy Rock</name>
+    <description><![CDATA[1,447 feet (441.05 meters)]]></description>
+    <styleUrl>FEATURES_LABELS</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -74.021095,41.391399,0.000000
+            -74.021141,41.390884,0.000000
+            -74.020134,41.390900,0.000000
+            -74.020088,41.391544,0.000000
+            -74.021095,41.391399,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+</Document>
+</kml>

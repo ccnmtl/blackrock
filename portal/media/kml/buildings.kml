@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+  <name>black rock buildings and viewpoints</name>
+  <description><![CDATA[]]></description>
+  <Style id="FEATURES_LABELS">
+    <IconStyle>
+      <color>00000000</color>
+      <Icon>
+        <href>http://blackrock.ccnmtl.columbia.edu/portal/media/images/mapicon_forestfacilities.png</href>
+      </Icon>
+    </IconStyle>
+    <LabelStyle>
+      <color>FFFFFFFF</color>
+    </LabelStyle>
+  </Style>
+  <Placemark>
+    <name>Science &amp; Education Center</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>FEATURES_LABELS</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -74.011803,41.413834,0.000000
+            -74.011475,41.413872,0.000000
+            -74.011520,41.414082,0.000000
+            -74.011833,41.414059,0.000000
+            -74.011803,41.413834,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+  <Placemark>
+    <name>Forest Lodge</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>FEATURES_LABELS</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -74.011215,41.413792,0.000000
+            -74.010841,41.413414,0.000000
+            -74.010651,41.413548,0.000000
+            -74.011070,41.413967,0.000000
+            -74.011215,41.413792,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+  <Placemark>
+    <name>Filter Plant</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>FEATURES_LABELS</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -74.018768,41.416534,0.000000
+            -74.018433,41.416367,0.000000
+            -74.018143,41.416649,0.000000
+            -74.018478,41.416805,0.000000
+            -74.018768,41.416534,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+  <Placemark>
+    <name>Stone House</name>
+    <description><![CDATA[]]></description>
+    <styleUrl>FEATURES_LABELS</styleUrl>
+    <Polygon>
+      <outerBoundaryIs>
+        <LinearRing>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -74.022324,41.397358,0.000000
+            -74.022202,41.397285,0.000000
+            -74.022041,41.397423,0.000000
+            -74.022156,41.397484,0.000000
+            -74.022324,41.397358,0.000000
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+    </Polygon>
+  </Placemark>
+</Document>
+</kml>
