@@ -15,7 +15,7 @@
     {% else %}
          {% if current_object.description %}
             <b>Description</b>: 
-            {{ current_object.description|truncatewords:25 }}<br />
+            {{ current_object.description|safe|truncatewords:25 }}<br />
          {% endif %}
     {% endif %}
 
