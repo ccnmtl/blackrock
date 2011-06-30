@@ -31,6 +31,7 @@ div#mainnav ul {
     list-style: none;
     margin: 0 0 0 13px;
     padding: 0;
+
     
     
 }
@@ -49,9 +50,23 @@ div#mainnav ul li {
 	border-right: none;
 }
 
-div#mainnav ul li.home,
-div#mainnav ul li.research,
+
+
+
+
 div#mainnav ul li.search
+
+{background-image: url("../images/searchicon.png");
+background-repeat: no-repeat;
+padding-left: 23px;
+
+}
+
+
+
+div#mainnav ul li.forest-view,
+div#mainnav ul li.search,
+div#mainnav ul li.research
 
 {margin-right:10px;
 border-right: 1px solid #E4DBCC;
@@ -85,6 +100,12 @@ div#mainnav ul li:hover {
       color: black;
 
 }
+
+div#mainnav ul li.search:hover
+
+{background-image: url("../images/searchicon_hover.png");
+}
+
 
 div#mainnav ul li a:hover {
    color: black;
@@ -433,7 +454,7 @@ a.link_research, span.link_research {
 }
 
 #map_canvas.full {
-    height: 500px;
+    height: 450px;
 }
 
 #nearby_results {
@@ -479,7 +500,7 @@ a.view-all {
 #featured_filter, #infrastructure_filter, #natural_features_filter {
     vertical-align: top;
     width: auto;
-    padding: 10px 20px;
+    padding: 0 0 10px 10px;
     white-space: nowrap;
     line-height: 250%;
 }
@@ -491,7 +512,7 @@ a.view-all {
 
 #featured_filter, #infrastructure_filter, #natural_features_filter {
     vertical-align: top;
-    padding: 10px 20px;
+    padding: 0 0 10px 10px;
     white-space: nowrap;
 }
 
