@@ -714,6 +714,10 @@ div.single_result {
     margin: 10px;
 }
 
+div.single_result a {
+    display: inline;
+}
+
 .search_detail_image_column {
     width: 110px;
     margin-right: 10px;

@@ -65,7 +65,7 @@
                                 
                                 {% if result.object.facet.count %}
                                     <b>Keywords</b>: 
-                                    {% for k in result.object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ k.name }}{% endfor %}
+                                    {% for k in result.object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="/portal/search/?q=&{{k.facet|lower}}={{k.name}}">{{k.display_name}}</a>{% endfor %}
                                 {% endif %}
                             </td>
                             </tr>
