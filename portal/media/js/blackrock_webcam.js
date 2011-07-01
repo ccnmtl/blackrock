@@ -134,6 +134,7 @@ function draw_image_flow(start_date, start_month, start_year, start_hour, start_
 		       xStep: 220,
 		       buttons: true,
 		       startID: 287,
+		       glideToStartID: false,
                reflections: false,  
                reflectionP: 0.0,
                 onClick: function() { return false; }
