@@ -231,14 +231,20 @@ if (!Portal.Map) {
                 self.infowindow.close()
             
             var description;
-            
+
+            // @todo -- client-side templates?
             if (kmlEvent.featureData.name) {
-                // @todo -- can do this with a generic callout div within the code?
                 description =  '<div class="callout"><span class="callout-display-name">' + kmlEvent.featureData.name + '</span>';
                 if (kmlEvent.featureData.description)
                     description += '<div class="callout-asset-types">' + kmlEvent.featureData.description + '</div>';
                 description += '<a class="callout-summary-link" onclick="portalMapInstance.search(' + 
                                kmlEvent.latLng.lat() + ', ' + kmlEvent.latLng.lng() + ', \'' + escape(kmlEvent.featureData.name) + '\')">Search nearby</a></div>';
+            } else if (kmlEvent.featureData.description) {
+                var title = kmlEvent.featureData.description.replace("_blank", "_self");
+                description =  '<div class="callout"><div>' + title + '</div><br />';
+                title = title.replace(/(<([^>]+)>)/ig,"");
+                description += '<a class="callout-summary-link" onclick="portalMapInstance.search(' + 
+                               kmlEvent.latLng.lat() + ', ' + kmlEvent.latLng.lng() + ', \'' + escape(title) + '\')">Search nearby</a></div>';                
             } else {
                 description = kmlEvent.latLng.lat() + ', ' + kmlEvent.latLng.lng();
             }
@@ -431,7 +437,10 @@ if (!Portal.Map) {
             
             kmlLayer = new Portal.Layer("trails", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/trails.kml?eee=" + randomnumber, true);
             self.layers.trails = kmlLayer;
-            
+
+            kmlLayer = new Portal.Layer("webcams", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/webcams.kml?hhh=" + randomnumber, true);
+            self.layers.webcam = kmlLayer;
+
             var options = getElementsByTagAndClassName("input", "layer");
             forEach(options,
                     function(option) {

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.nt/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+  <name><![CDATA[mpeaks]]></name>
+  <open>1</open>
+  <Snippet maxLines="0"><![CDATA[]]></Snippet>
+  <description><![CDATA[Exported from mpeaks on 5/19/2011]]></description>
+  <Style id="FEATURES_LABELS">
+    <IconStyle>
+      <color>00000000</color>
+      <Icon>
+        <href>http://blackrock.ccnmtl.columbia.edu/portal/media/images/mapicon_webcams.png</href>
+      </Icon>
+    </IconStyle>
+    <LabelStyle>
+      <color>FFFFFFFF</color>
+    </LabelStyle>
+  </Style>
+  <Folder>
+    <name>Feature Labels (<![CDATA[NAME]]>)</name>
+    <open>0</open>
+      <Placemark>
+        <name></name>
+        <description><![CDATA[<a target="_self" class="callout-display-names" href="http://blackrock.ccnmtl.columbia.edu/portal/forest-view/">ForestCam at the Science Center</a>]]></description>
+        <styleUrl>#FEATURES_LABELS</styleUrl>
+        <Point>
+          <extrude>0</extrude>
+          <altitudeMode>clampedToGround</altitudeMode>
+          <coordinates>-74.0102580000,41.4120050000,0</coordinates>
+        </Point>
+      </Placemark>
+  </Folder>
+</Document>
+</kml>
