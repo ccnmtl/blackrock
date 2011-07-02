@@ -417,7 +417,7 @@ if (!Portal.Map) {
             var kmlLayer = new Portal.Layer("boundary", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/brfboundary.kml", false /* clickable */);
             self.layers.boundary = kmlLayer;
             
-            kmlLayer = new Portal.Layer("viewpoints", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/viewpoints.kml?foo=" + randomnumber, true /* clickable */);
+            kmlLayer = new Portal.Layer("viewpoints", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/viewpoints.kml?zcp=" + randomnumber, true /* clickable */);
             self.layers.viewpoints = kmlLayer;
             
             kmlLayer = new Portal.Layer("buildings", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/buildings.kml?foo=" + randomnumber, true /* clickable */);

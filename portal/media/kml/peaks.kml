@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
 <Document>
-  <name><![CDATA[mpeaks]]></name>
+  <name><![CDATA[Black Rock Forest Peaks]]></name>
   <open>1</open>
   <Snippet maxLines="0"><![CDATA[]]></Snippet>
   <description><![CDATA[Exported from mpeaks on 5/19/2011]]></description>
@@ -21,7 +21,7 @@
     <open>0</open>
       <Placemark>
         <name><![CDATA[Black Rock Summit]]></name>
-        <description><![CDATA[1,391 feet (423.98 meters)]]></description>
+        <description><![CDATA[1,410 feet (429.76 meters)<br />Black Rock Mountain is the namesake for the Forest, featuring granite gneiss outcrops that contain dark-colored mineral deposits such as iron and hornblende. The summit provides outstanding views to the north, west, and south of features such as the Catskill and Shawangunk Mountains, the Hudson River and the Great Valley including the city of Newburgh and Stewart Airport.<br /><i>Source: Black Rock Forest Consortium</i>]]></description>
         <styleUrl>#FEATURES_LABELS</styleUrl>
         <Point>
           <extrude>0</extrude>
@@ -31,7 +31,7 @@
       </Placemark>
       <Placemark>
         <name><![CDATA[Hill of Pines]]></name>
-	   <description><![CDATA[1,375 feet (419.10 meters)]]></description>
+	    <description><![CDATA[1,400 feet (426.72 meters)<br />Hill of Pines is the name for the long east-west oriented ridge that divides the Upper Reservoir watershed to the north from the Cascade Brook watershed to the south.<br /><i>Source: Black Rock Forest Consortium</i>]]></description>
         <styleUrl>#FEATURES_LABELS</styleUrl>
         <Point>
           <extrude>0</extrude>
@@ -55,7 +55,7 @@
       </Placemark>
       <Placemark>
         <name><![CDATA[Mount Misery Summit]]></name>
-	   <description>1,270 feet (387.10 meters)</description>
+	    <description><![CDATA[1,270 feet (387.10 meters)<br />Mount Misery is the closest mountain peak to the Forest entrance and Science Center area. Rock outcrops on the summit provide dramatic views to the west of Aleck Meadow Reservoir and Black Rock Mountain.<br /><i>Source: Black Rock Forest Consortium</i>]]></description>
         <styleUrl>#FEATURES_LABELS</styleUrl>
         <Point>
           <extrude>0</extrude>
@@ -79,7 +79,7 @@
       </Placemark>
       <Placemark>
         <name><![CDATA[Spy Rock]]></name>
-        <description><![CDATA[1,447 feet (441.05 meters)]]></description>
+        <description><![CDATA[1,461 feet (445.31 meters)<br />Spy Rock is the highest elevation in the Highlands west of the Hudson River. During the Revolutionary War, Spy Rock was used by Washington's Continental Army to oversee movements of the British Army. Forest regrowth since that time has obscured much of the view from this spot.<br /><i>Source: Black Rock Forest Consortium</i>]]></description>
         <styleUrl>#FEATURES_LABELS</styleUrl>
         <Point>
           <extrude>0</extrude>
