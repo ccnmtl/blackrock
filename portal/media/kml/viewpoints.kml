@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.nt/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
 <Document>
-  <name><![CDATA[webcams]]></name>
+  <name><![CDATA[Black Rock Forest Viewpoints]]></name>
   <open>1</open>
   <Snippet maxLines="0"><![CDATA[]]></Snippet>
-  <description><![CDATA[Black Rock Forest Webcams]]></description>
+  <description><![CDATA[Black Rock Forest Viewpoints]]></description>
   <Style id="FEATURES_LABELS">
     <IconStyle>
       <color>00000000</color>
