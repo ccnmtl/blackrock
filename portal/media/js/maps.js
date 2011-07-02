@@ -417,7 +417,7 @@ if (!Portal.Map) {
             var kmlLayer = new Portal.Layer("boundary", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/brfboundary.kml", false /* clickable */);
             self.layers.boundary = kmlLayer;
             
-            kmlLayer = new Portal.Layer("viewpoints", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/viewpoints.kml?zcp=" + randomnumber, true /* clickable */);
+            kmlLayer = new Portal.Layer("viewpoints", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/viewpoints.kml" + randomnumber, true /* clickable */);
             self.layers.viewpoints = kmlLayer;
             
             kmlLayer = new Portal.Layer("buildings", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/buildings.kml?foo=" + randomnumber, true /* clickable */);
@@ -429,13 +429,13 @@ if (!Portal.Map) {
             kmlLayer = new Portal.Layer("ponds", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/ponds.kml?llll=" + randomnumber, true);
             self.layers.ponds = kmlLayer;
             
-            kmlLayer = new Portal.Layer("roads", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/roads.kml?bar=" + randomnumber, false);
+            kmlLayer = new Portal.Layer("roads", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/roads.kml?xxx=" + randomnumber, true);
             self.layers.roads = kmlLayer;
             
             kmlLayer = new Portal.Layer("streams", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/streams.kml?bar=" + randomnumber, false);
             self.layers.streams = kmlLayer;
             
-            kmlLayer = new Portal.Layer("trails", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/trails.kml?eee=" + randomnumber, true);
+            kmlLayer = new Portal.Layer("trails", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/trails.kml?jjjj=" + randomnumber, true);
             self.layers.trails = kmlLayer;
 
             kmlLayer = new Portal.Layer("webcams", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/webcams.kml?hhh=" + randomnumber, true);

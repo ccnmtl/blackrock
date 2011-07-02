@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.nt/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
 <Document>
-  <name><![CDATA[Black Rock Forest Viewpoints]]></name>
+  <name><![CDATA[webcams]]></name>
   <open>1</open>
   <Snippet maxLines="0"><![CDATA[]]></Snippet>
-  <description><![CDATA[viewpoints]]></description>
+  <description><![CDATA[Black Rock Forest Webcams]]></description>
   <Style id="FEATURES_LABELS">
     <IconStyle>
       <color>00000000</color>
@@ -29,6 +29,7 @@
           <coordinates>-74.029976,41.386486,0.000000</coordinates>
         </Point>
       </Placemark>
+      
       <Placemark>
         <name><![CDATA[Jupiter's Boulder]]></name>
         <description><![CDATA[]]></description>
@@ -39,6 +40,7 @@
           <coordinates>-74.048111,41.384342,0.000000</coordinates>
         </Point>
       </Placemark>
+      
       <Placemark>
         <name><![CDATA[Mount Rascal]]></name>
         <description><![CDATA[1,416 feet (431.59 m)]]></description>
@@ -49,6 +51,7 @@
           <coordinates>-74.050468,41.380882,0.000000</coordinates>
         </Point>
       </Placemark>
+      
       <Placemark>
         <name><![CDATA[Split Rock]]></name>
         <description><![CDATA[Split Rock is a long granite gneiss rock outcrop at the high point of the northeast-southwest trending ridge that separates the Canterbury Brook watershed to the west from the Sutherland Pond and Sphagnum Pond areas to the east. The "split" in the rock is a long crack that represents an ancient rock fault.<br /><i>Source: Black Rock Forest Consortium</i>]]></description>
@@ -59,6 +62,7 @@
           <coordinates>-74.037521,41.394974,0.000000</coordinates>
         </Point>
       </Placemark>
+      
       <Placemark>
         <name>Rattlesnake Hill</name>
         <description>1,407 feet (428.85 meters)</description>
@@ -71,6 +75,7 @@
           </coordinates>
         </Point>
       </Placemark>
+      
       <Placemark>
         <name><![CDATA[Hill of Pines]]></name>
         <description><![CDATA[1,400 feet (426.72 meters)<br />Hill of Pines is the name for the long east-west oriented ridge that divides the Upper Reservoir watershed to the north from the Cascade Brook watershed to the south.<br /><i>Source: Black Rock Forest Consortium</i>]]></description>
@@ -83,6 +88,7 @@
           </coordinates>
         </Point>
       </Placemark>
+      
       <Placemark>
         <name><![CDATA[Mount Misery Summit]]></name>
         <description><![CDATA[1,270 feet (387.10 meters)<br />Mount Misery is the closest mountain peak to the Forest entrance and Science Center area. Rock outcrops on the summit provide dramatic views to the west of Aleck Meadow Reservoir and Black Rock Mountain.<br /><i>Source: Black Rock Forest Consortium</i>]]></description>
@@ -149,6 +155,7 @@
               </coordinates>
             </Point>
           </Placemark>
+          
     </Folder>
 </Document>
 </kml>
