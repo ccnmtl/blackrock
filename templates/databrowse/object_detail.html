@@ -24,7 +24,7 @@
             {% endif %}
         {% endif %}
         
-        <p><span class="object_detail_label">Record Type:</span> {{current_object|klass_display}}</p>
+        <p><span class="object_detail_label">Record Type: </span><a href="/portal/search/?q=&asset_type={{current_object|klass}}">{{current_object|klass_display}}</a></p>
             
         {% if asset_klass == "DataSet" %}
             {% if current_object.description %}
@@ -54,6 +54,12 @@
             {% if current_object.person.all.count %}
                 <p><span class="object_detail_label">People:</span>
                 {% for p in current_object.person.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{p|detail_url}}">{{p|display_name}}</a>{% endfor %}</p>
+            {% endif %}
+            
+            {% if current_object.station %}
+                <p><span class="object_detail_label">Station:</span>
+                <a href="{{current_object.station|detail_url}}">{{ current_object.station|display_name }}</a>
+                </p>
             {% endif %}
         {% else %}{% if asset_klass == "LearningActivity" %}
              
@@ -119,11 +125,17 @@
                 <p><span class="object_detail_label">Activation Date:</span>
                 {{ current_object.activation_date|date }}</p>
             {% endif %}
+            
+            {% if current_object.datasets %}
+                <p><span class="object_detail_label">Archived Data:</span>
+                {% for d in current_object.datasets %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{d|detail_url}}">{{ d|display_name }}</a>{% endfor %}</p>
+            {% endif %}
              
             {% if current_object.description %}
                 <p><span class="object_detail_label">Description:</span>
                 {{ current_object.description|safe }}</p>
             {% endif %}
+            
         {% else %}{% if asset_klass == "ForestStory" %}
             {% if current_object.description %}
                 <p><span class="object_detail_label">Description:</span>
@@ -176,16 +188,13 @@
                 {% endfor %}
             {% endif %}
         {% else %}{% if asset_klass == "Station" %}
-            {% if current_object.research_projects|length %}
+            {% if current_object.research_projects %}
                 <h3 class="object_detail_label">Related Research Projects:</h3>
-                {% if current_object.dataset.count %}
-                    <h3 class="object_detail_label">Related Research Projects:</h3>
-                    {% for x in current_object.researchproject.all %}
-                        {% with x as current_object %}
-                            {% include "portal/asset_related.html" %}
-                        {% endwith %}
-                    {% endfor %}
-                {% endif %}
+                {% for x in current_object.research_projects %}
+                    {% with x as current_object %}
+                        {% include "portal/asset_related.html" %}
+                    {% endwith %}
+                {% endfor %}
             {% endif %}
             {% if current_object.dataset.count %}
                 <h3 class="object_detail_label">Related Data Sets:</h3>
