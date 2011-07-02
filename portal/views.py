@@ -53,14 +53,19 @@ def page(request,path):
     asset = None    
     asset_type = request.GET.get('type', None)
     asset_id = request.GET.get('id', None)
+    
+    context = dict(section=section, 
+                   module=module, 
+                   root=ancestors[0])
+    
     if asset_type and asset_id:
-        model = get_model("portal", asset_type)
-        asset = model.objects.get(id=asset_id)
+        try:
+            model = get_model("portal", asset_type)
+            context['selected'] = model.objects.get(id=asset_id)
+        except:
+            context['error'] = "We were unable to locate a <b>%s</b> at the specified address." % (asset_type)
         
-    return dict(section=section, 
-                module=module, 
-                root=ancestors[0],
-                selected=asset)
+    return context
     
 @rendered_with('portal/nearby.html')
 def nearby(request, latitude, longitude):

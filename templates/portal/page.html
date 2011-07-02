@@ -10,16 +10,21 @@
 {% endblock %}
 
 {% block mainnav %}
-    {% with root as current %}
-    {% with section.get_parent as selected %}
-    {% with 1 as audience %}
-        {% include "portal/menu.html" %}
-    {% endwith %}{% endwith %}{% endwith %}
+    {% if not error %}
+        {% with root as current %}
+        {% with section.get_parent as selected %}
+        {% with 1 as audience %}
+            {% include "portal/menu.html" %}
+        {% endwith %}{% endwith %}{% endwith %}
+    {% else %}
+        {% include "portal/default_mainnav.html" %}
+    {% endif %}
 {% endblock %}
 
 {% block container %}
-
-    {% if module and module.slug == "home" %}
+    {% if error %}
+        {% include "portal/error.html" %}
+    {% else %}{% if module and module.slug == "home" %}
         {% include "portal/pageblocks.html" %}
     {% else %}{% if section.get_parent and section.get_parent.slug == "weather" %}
         {% include "portal/pageblocks.html" %}
@@ -38,6 +43,6 @@
                 </td>
             </tr>
         </table>
-    {% endif %}{% endif %}{% endif %}{% endif %}
+    {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
 {% endblock %}
 

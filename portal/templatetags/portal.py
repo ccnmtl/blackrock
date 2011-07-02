@@ -126,7 +126,7 @@ def map_url(obj):
 @register.filter('display_name')
 def display_name(obj):
   display_name = getattr(obj, "display_name", None)
-  if display_name and type(display_name) == types.StringType and len(obj.display_name) > 0:
+  if display_name and type(display_name) == types.UnicodeType and len(obj.display_name) > 0:
     return obj.display_name
   elif display_name and type(display_name) == types.MethodType:
     return obj.display_name()  
@@ -139,7 +139,7 @@ def display_name(obj):
 @register.filter('search_name')
 def search_name(obj):
   display_name = getattr(obj, "display_name", None)
-  if display_name and type(display_name) == types.StringType and len(obj.display_name) > 0:
+  if display_name and type(display_name) == types.UnicodeType and len(obj.display_name) > 0:
     return obj.display_name
   else:
       if type(obj.name) == types.MethodType:
