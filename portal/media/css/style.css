@@ -11,10 +11,13 @@ body {
 	font-family: "Lucida Grande", "Trebuchet MS", arial, helvetica, sans-serif !important; 
 	margin: 0;
 	padding: 0 auto;
-	background-color: #D8D8D0;
+	background-color: #e4dbcc;
 	min-width: 950px;
 	max-width: 1600px;
 	font-size: .8em;
+	  -moz-box-shadow: 5px 5px 5px #4e4342;
+  -webkit-box-shadow: 5px 5px 5px #4e4342;
+   box-shadow: 5px 5px 5px #4e4342;
 }
 
 /* Main Nav (Tabs) */
@@ -234,10 +237,10 @@ div#sharing_container #sharing_actions { display: none; float: right; background
 /*Page Body*/
 
 div#container {
-   background-color: #fff;
+
    border-right: 1px solid #3D2800;
    border-bottom: 1px solid #3D2800;
-}
+   background-color: #fff;}
 
 div#subcontainer {
    background-color: #d8d8d0;
