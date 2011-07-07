@@ -43,6 +43,10 @@
                 {% for result in page.object_list %}
                      <div class="single_result">
                      {% with result.object as current_object %}
+                                                        <table style="margin-bottom: 8px"><tr>
+                                <td><img src="/portal/media/images/nonmapicon_{{result.object|klass|lower}}.png" alt="record type icon" style="width: 25px; height: auto" /></td><td style="vertical-align: middle"> <a class="search-display-name" href="{{result.object|detail_url}}">{{result.object|search_name}}</a></td>
+                                </tr></table>
+                        
                         <table>
                             <tr>
                             {% if current_object.display_image %}
@@ -59,7 +63,6 @@
                                 {% endif %} 
                             {% endif %}{% endif %}
                             <td>
-                                <a class="search-display-name" href="{{result.object|detail_url}}">{{result.object|search_name}}</a>
                                 <b>Record Type</b>: {{result.object|klass_display}}
                                 {% include "portal/asset_description.html" %}
                                 

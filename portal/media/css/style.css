@@ -389,16 +389,13 @@ div#webcam img {
 	
 }
 
-
 div#photoswitcher {
-
-	list-style: none;
-	padding: 0;
-	display: block;
-	/*float: left;*/
-	width: 100%;
-	max-width: 1600px;
-	height: 400px;
+    list-style: none;
+    padding: 0;
+    display: block;
+    width: 100%;
+    max-width: 1600px;
+    height: 400px;
 }
 
 div#container table {
@@ -543,19 +540,28 @@ a.view-all {
    
 }
 
+
+div#photodetail {
+    list-style: none;
+    padding: 0;
+    display: block;
+    width: 45%;
+    height: 400px;
+    background-color: black;
+    text-align: center;
+}
+
 .object_detail_image {
     max-width: 480px;
     max-height: 296px;
-    border: 1px solid #ccc;
     margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .object_detail_label {
     font-weight: bold;
     font-size: 1em;
 }
-
-
 
 .highlightonmap {
     float: right;
@@ -732,20 +738,13 @@ div.single_result a {
 div#search-results a.search-display-name {
     font-weight: bold;
     text-decoration: none;
-    margin: 0 0 10px 0;
+    margin: 0 0 0 5px;
     display: block;
 }
 
 div#search-results a.search-display-name:hover {
     text-decoration: underline;
 }
-
-
-
-
-
-
-
 
 
 /*Details Page*/
@@ -767,6 +766,10 @@ table#details-table tr td#center {
 div#asset-details {
 	background-color: #fff;
 	padding: 10px;
+}
+
+div#asset-details h3 {
+    margin: 5px 0 0 0;
 }
 
 div#map-column {

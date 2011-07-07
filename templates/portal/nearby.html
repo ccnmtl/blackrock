@@ -21,9 +21,6 @@
                                 <a class="search-display-name" href="{{current_object|detail_url}}">{{current_object|display_name}}</a>
                                 <b>Record Type</b>: {{current_object|klass_display}}
                                 {% include "portal/asset_description.html" %}
-                                
-                                <b>Keywords</b>: 
-                                {% for k in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ k.name }}{% endfor %}
                             </td>
                             </tr>
                         </table>

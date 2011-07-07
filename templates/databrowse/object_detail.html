@@ -5,26 +5,66 @@
 
 {% block title %}{{ object.model.verbose_name|capfirst }}: {{ object }}{% endblock %}
 
+{% block css %}
+<link href="/portal/media/js/jcarousel/skins/blackrock-detail/skin.css" media="screen" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="/portal/media/js/detail_photogallery.js"></script>
+{% endblock %}
+
 {% block container %}
+
 {% with object.instance as current_object %}
 {% with object.instance|klass as asset_klass %}
-
 
 <div id="details-wrapper">
 <table id="details-table">
 <tr>
 <td id="left">
     <div id="asset-details" class="blocktext">
-        <h3>{{ current_object|display_name }}</h3>
+        <table style="margin-bottom: 8px"><tr>
+        <td><img src="/portal/media/images/nonmapicon_{{asset_klass|lower}}.png" alt="record type icon" /></td><td style="vertical-align: middle"><h3>{{current_object|display_name}}</h3></td>
+        </tr></table>
         
-        {% if current_object.display_image %}
-            <img alt="{{asset_klass}} Icon" src="{{current_object.display_image.file.url}}" class="object_detail_image"></img>
-            {% if current_object.display_image.description %}
-                <div class="caption">{{current_object.display_image.description}}</div>
+        {% with current_object|gallery as images %}
+        {% if images %}
+            <center style="background-color: #DCDCDC;">
+            <div class="jcarousel-skin-blackrock-detail">
+            <div class="jcarousel-container jcarousel-container-horizontal">
+            <div class="jcarousel-clip jcarousel-clip-horizontal">
+                <ul id="scrolling-photo-gallery" class="jcarousel-list jcarousel-list-horizontal">
+                    {% for image in images %}
+                        <li class="jcarousel-item jcarousel-item-horizontal">
+                            <input type="hidden" id="selector" value="jcarousel-selector-{{forloop.counter}}"></input>
+                            <input type="hidden" id="caption" value="jcarousel-caption-{{forloop.counter}}"></input>
+                            <center>
+                            <img class="object_detail_image" src="{{image.file.url}}" alt="jCarousel image {{forloop.counter}}" />
+                            </center>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div></div></div>
+            
+            {% if images.1 %}
+            <div class="xy_navigation">
+                {% for image in current_object|gallery %}
+                    <a id="jcarousel-selector-{{forloop.counter}}" class="jcarousel-selector"><input type="hidden" id="idx" value="{{forloop.counter}}"/>&#8226;</a>
+                {% endfor %}
+            </div>
             {% endif %}
-        {% endif %}
+            
+            {% for image in images %}
+                <div id="jcarousel-caption-{{forloop.counter}}" class="jcarousel-caption">
+                    <h4>{{image.name}}</h4>
+                    <p>{{image.description}}</p>
+                </div>
+            {% endfor %}
+            </center>
+        {% endif %}{% endwith %}
         
-        <p><span class="object_detail_label">Record Type: </span><a href="/portal/search/?q=&asset_type={{current_object|klass}}">{{current_object|klass_display}}</a></p>
+                
+        <p><span class="object_detail_label">Record Type: </span><a href="/portal/search/?q=&asset_type={{current_object|klass}}">{{current_object|klass_display}}</a></p>        
             
         {% if asset_klass == "DataSet" %}
             {% if current_object.description %}
@@ -160,7 +200,6 @@
     <!--  Hand-Picked "Related" Records -->
     <div id="related-items">
     {% with "mapicon_related.png" as iconname %}
-    
         {% if asset_klass == "LearningActivity" %}
             {% if current_object.dataset.count %}
                 <h3 class="object_detail_label">Related Data Sets:</h3>

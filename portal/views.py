@@ -82,8 +82,6 @@ def nearby(request, latitude, longitude):
           for instance in getattr(loc, obj.get_accessor_name()).all():
             if len(a) < 10:
                 a.append(instance)
-            
-            
               
     return dict(latitude=latitude, longitude=longitude, results=a, count=len(a))
     
