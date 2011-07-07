@@ -51,6 +51,9 @@ div#mainnav ul li {
 	border: 1px solid #E4DBCC;
 	border-bottom: none;
 	border-right: none;
+	display: block;
+	min-width: 20px;
+	height: 16px;
 }
 
 
@@ -59,9 +62,18 @@ div#mainnav ul li {
 
 div#mainnav ul li.search
 
-{background-image: url("../images/searchicon.png");
+{background-image: url("../images/searchicon.png") ;
+background-position: 4px 0px;
 background-repeat: no-repeat;
-padding-left: 23px;
+
+
+}
+
+div#mainnav ul li.home
+
+{background-image: url("../images/homeicon.png");
+background-repeat: no-repeat;
+background-position: 4px 0px;
 
 }
 
@@ -77,16 +89,17 @@ border-right: 1px solid #E4DBCC;
 
 
 
-div#mainnav ul li.home.selected,
+
 div#mainnav ul li.interactive-map.selected,
 div#mainnav ul li.weather.selected,
 div#mainnav ul li.forest-view.selected,
 div#mainnav ul li.foreststories.selected,
 div#mainnav ul li.search.selected
-{background-color: #3d2800; color: #fff;}
+{background-color: #3D2800; color: #fff;}
 div#mainnav ul li.experience.selected {background-color: #126a37; color: #fff;}
 div#mainnav ul li.education.selected {background-color: #84232e; color: #fff;}
 div#mainnav ul li.research.selected {background-color: #2a6ebb; color: #fff;}
+div#mainnav ul li.home.selected, div#mainnav ul li.search.selected {background-color: #89a08c; color: #fff;}
 
 
 
@@ -108,6 +121,17 @@ div#mainnav ul li.search:hover
 
 {background-image: url("../images/searchicon_hover.png");
 }
+
+div#mainnav ul li.search.selected:hover
+{background-image: url("../images/searchicon.png");}
+
+div#mainnav ul li.home:hover
+
+{background-image: url("../images/homeicon_hover.png");
+}
+
+div#mainnav ul li.home.selected:hover
+{background-image: url("../images/homeicon.png");}
 
 
 div#mainnav ul li a:hover {
