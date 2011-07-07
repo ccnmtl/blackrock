@@ -25,7 +25,7 @@
             {% endif %} 
         {% endif %}{% endif %}
         <td>
-            <b>Record Type</b>: {{current_object|klass_display}}
+            <b>Record Type</b>: <a href="/portal/search/?q=&asset_type={{current_object|klass}}">{{current_object|klass_display}}</a></p>
             {% include "portal/asset_description.html" %}
             
             {% if current_object.facet.count %}
