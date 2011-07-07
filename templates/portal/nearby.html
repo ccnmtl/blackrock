@@ -1,33 +1,32 @@
 {% load smartif %}
 {% load portal %}
 
-        <div id="search-results"> 
-            <h2>Near <span id="nearby_asset"></span></h2>
-            <a href="#" onclick='portalMapInstance.closeSearch();'>Close</a>
-            <br />
-            <div class="assetlist">
-                {% for current_object in results %}
-                    {% with "nearby" as prefix %}
-                    {% with "nearby" as geocode_class %}
-                    {% with forloop.counter as icon_display_order %}
-                    {% with 1 as includehighlight %}
-                    {% with 1 as search_nearby %}
-                        {% include "portal/asset_location.html" %}
-                    {% endwith %}{% endwith %}{% endwith %}{% endwith %}{% endwith %}
-                     <div class="single_result">
-                        <table>
-                            <tr>
-                            <td>
-                                <a class="search-display-name" href="{{current_object|detail_url}}">{{current_object|display_name}}</a>
-                                <b>Record Type</b>: {{current_object|klass_display}}
-                                {% include "portal/asset_description.html" %}
-                                
-                                <b>Keywords</b>: 
-                                {% for k in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}{{ k.name }}{% endfor %}
-                            </td>
-                            </tr>
-                        </table>
-                    </div>
-                {% endfor %}
+<div id="search-results"> 
+    <h3>Near <span id="nearby_asset"></span></h3>
+    <a href="#" onclick='portalMapInstance.closeSearch();'>Close</a>
+    <br />
+    <div class="assetlist">
+        {% for current_object in results %}
+            {% with "nearby" as prefix %}
+            {% with "nearby" as geocode_class %}
+            {% with forloop.counter as icon_display_order %}
+            {% with 1 as includehighlight %}
+            {% with 1 as search_nearby %}
+                {% include "portal/asset_location.html" %}
+            {% endwith %}{% endwith %}{% endwith %}{% endwith %}{% endwith %}
+             <div class="single_result">
+                <table>
+                    <tr>
+                    <td>
+                        <div style="font-size: .9em;">
+                        <a class="search-display-name" href="{{current_object|detail_url}}">{{current_object|display_name}}</a><br />
+                        <b>Record Type</b>: {{current_object|klass_display}}
+                        {% include "portal/asset_description.html" %}
+                        </div>
+                    </td>
+                    </tr>
+                </table>
             </div>
-        </div>
+        {% endfor %}
+    </div>
+</div>

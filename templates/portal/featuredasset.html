@@ -19,27 +19,21 @@
    <a class="display-name" href="{{block.asset|detail_url}}">{{current_object|display_name}}</a>
 
      {% if block.detailed_display %}
-      <div class="featuredasset">
-          
-          {% if asset_klass == "DataSet" %}
-              {% include "portal/related_media.html" %}
-              
-              <div class="asset-summary">
-                 {% if current_object.description %}
-                    <h4>Description</h4> 
-                    {{ current_object.description|truncatewords:50 }}
-                 {% endif %}
-             </div>
-        {% else %}{% if asset_klass == "DigitalObject" %}
+        {% if current_object.display_image %}
+            {% if current_object.display_image.digital_format.is_image %}
+                <img alt="{{asset_klass}} Image" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
+            {% endif %}
+        {% endif %}
+        
+        <div class="featuredasset">
+          {% if asset_klass == "DigitalObject" %}
              <div class="asset-summary">
                  <h4>Description</h4>
                  {% if current_object.description %}
                     {{ current_object.description|truncatewords:50 }}
                  {% endif %}
              </div>
-        {% else %}{% if asset_klass == "LearningActivity" %}
-              {% include "portal/related_media.html" %}
-              
+          {% else %}{% if asset_klass == "LearningActivity" %}
               <div class="featured_details">
                 {% if current_object.digital_format.count %}
                     <h4>Format</h4> 
@@ -52,9 +46,7 @@
                      {{ current_object.description|truncatewords:50 }}
                   {% endif %}
               </div>
-        {% else %}{% if asset_klass == "Person" %}
-           {% include "portal/related_media.html" %}
-        
+          {% else %}{% if asset_klass == "Person" %}
             <div class="featured_details">
                 {% if current_object.professional_title %}
                     <h4>Title</h4> 
@@ -73,8 +65,6 @@
                   {% endif %}
              </div>
         {% else %}{% if asset_klass == "ResearchProject" %}
-           {% include "portal/related_media.html" %}
-           
             <div class="featured_details">
                {% if current_object.person.count %}
                   <h4>Principal Investigator{% if current_object.person.count > 1 %}s{% endif %}</h4>
@@ -97,8 +87,6 @@
              {% endif %}
           </div>
        {% else %}{% if asset_klass == "Station" %}
-           {% include "portal/related_media.html" %}
-           
            <div class="featured_details">
               {% if current_object.activation_date %}
                  <h4>Activation Date</h4>
@@ -111,16 +99,14 @@
                 {{ current_object.description|truncatewords:50 }}
              {% endif %}
           </div>       
-       {% else %}{% if asset_klass == "ForestStory" %}
-        {% include "portal/related_media.html" %}
-       
-        <div class="asset-summary">
-            {% if current_object.description %}
-                <h4>Description</h4> 
-                {{ current_object.description|truncatewords:50 }}
-            {% endif %}
-        </div>       
-       {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
+       {% else %}
+            <div class="asset-summary">
+                {% if current_object.description %}
+                    <h4>Description</h4> 
+                    {{ current_object.description|truncatewords:50 }}
+                {% endif %}
+            </div>       
+       {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
 
        <p class="clear"></p>
       </div> <!-- featured asset -->

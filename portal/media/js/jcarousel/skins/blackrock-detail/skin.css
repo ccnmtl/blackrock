@@ -1,0 +1,50 @@
+/* Photo Switcher ---------------------------------------------------------*/
+
+.jcarousel-skin-blackrock-detail,
+.jcarousel-container-horizontal, 
+.jcarousel-clip-horizontal,  
+.jcarousel-item-horizontal
+{ min-width: 400px; width: 600px; text-align: center; }
+
+.jcarousel-clip  {position: absolute;}
+
+.jcarousel-clip .dl_navigation li.prev, .jcarousel-clip .dl_navigation li.next {
+    display: none !important;
+}
+
+.jcarousel-clip ol, .jcarousel-clip ul {
+    list-style: none outside none;
+    padding: 0;
+}
+
+.xy_navigation {
+    text-align: center;
+    width: 600px;
+    font-size: 1.3em;
+}
+
+.xy_navigation a.jcarousel-selector:hover, .xy_navigation a.jcarousel-selected {
+    color: yellow;
+}
+
+div.jcarousel-caption {
+    display: none;
+    letter-spacing: 0.03em;
+    line-height: normal;
+    text-align: center;
+    width: 600px;
+    padding-bottom: 5px;
+}
+
+div.jcarousel-caption h4 {
+    color: black;
+    margin-top: 2px;
+    margin-bottom: 0px;
+}
+
+div.jcarousel-caption p {
+    color: black;
+    font-size: .9em;
+    line-height: 1.5em;
+    margin-top: 2px;
+}

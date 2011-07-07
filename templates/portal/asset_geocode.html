@@ -42,14 +42,8 @@
         <div class="callout">
             <a class="callout-display-name" href="{{current_object|detail_url}}">{{current_object|display_name }}</a>
             <div class="callout-asset-types">{{current_object|klass_display}}</div>
-            <div>
-                <!--  Infrastructure Icons -->
-                {% for i in current_object|facet:"Infrastructure" %}
-                    <img alt="{{i}} icon" src='/portal/media/images/nonmapicon_{{i|cut:" "|cut:"-"|lower}}.png'></img>
-                {% endfor %}
-            </div>
            
-            {% if search_nearby %} 
+            {% if search_nearby %}  
                 <a class="callout-summary-link" onclick='portalMapInstance.search({{current_location.latitude}}, {{current_location.longitude}}, "{{current_object|display_name}}")'>Search nearby</a>
             {% else %}
                 <a class="callout-summary-link" href='{{current_object|map_url}}'>Show on Interactive Map</a>

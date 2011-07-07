@@ -152,7 +152,7 @@ if (!Portal.MapMarker) {
                 else
                     iconUrl = 'http://' + location.hostname + ':' + location.port + "/portal/media/images/" + iconName;
             } else {
-                iconUrl = 'http://' + location.hostname + ':' + location.port + "/portal/media/images/mapicon_selected.png";
+                iconUrl = 'http://' + location.hostname + ':' + location.port + "/portal/media/images/mapicon_main.png";
             }
 
             self.latlng = new google.maps.LatLng(lat, lng);
@@ -417,7 +417,7 @@ if (!Portal.Map) {
             var kmlLayer = new Portal.Layer("boundary", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/brfboundary.kml", false /* clickable */);
             self.layers.boundary = kmlLayer;
             
-            kmlLayer = new Portal.Layer("viewpoints", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/viewpoints.kml" + randomnumber, true /* clickable */);
+            kmlLayer = new Portal.Layer("viewpoints", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/viewpoints.kml?sam=" + randomnumber, true /* clickable */);
             self.layers.viewpoints = kmlLayer;
             
             kmlLayer = new Portal.Layer("buildings", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/buildings.kml?foo=" + randomnumber, true /* clickable */);
