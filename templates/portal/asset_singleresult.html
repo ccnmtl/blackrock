@@ -30,7 +30,7 @@
             
             {% if current_object.facet.count %}
                 <b>Keywords</b>: 
-                {% for k in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="/portal/search/?q=&{{k.facet|lower}}={{k.name}}">{{k.display_name}}</a>{% endfor %}
+                {% for k in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="/portal/search/?q=&{{k.solr_name}}={{k.name}}">{{k.display_name}}</a>{% endfor %}
             {% endif %}
         </td>
         </tr>

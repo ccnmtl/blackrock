@@ -53,6 +53,9 @@ class Facet(models.Model):
     def __unicode__(self):
         return self.display_name
     
+    def solr_name(self):
+        return self.facet.replace(' ', '_').lower()
+    
 class Institution(models.Model):
     name = models.CharField(max_length=100, unique=True)
     
