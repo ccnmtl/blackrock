@@ -20,6 +20,7 @@ jQuery(document).ready(function() {
       });
 
     // bind a call to google analytics to track share events 
+    // track both custom event tracking as well as social interaction tracking, for now
     jQuery('.sharing_link').click(function() {
 	var tracker = _gat._getTracker('UA-311226-26');
 	var url = this.href;
@@ -40,5 +41,11 @@ jQuery(document).ready(function() {
 			    action,
                             label,
                             value);
+
+	// http://code.google.com/apis/analytics/docs/tracking/gaTrackingSocial.html
+	var network = action;
+	var socialAction = 'share';
+	var target = document.location;
+	_gaq.push(['_trackSocial', network, socialAction, target]);
     });
 });
