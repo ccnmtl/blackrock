@@ -151,12 +151,13 @@ def search_name(obj):
 def gallery(obj):
     images = []
     display_image = obj.display_image
-    if display_image and display_image.digital_format.is_image and display_image.file:
+    if display_image and display_image.digital_format.is_image() and display_image.file:
         images.append(display_image)
-        if hasattr(obj, 'extra_media'):
-            for d in obj.extra_media.all():
-                if d.digital_format.is_image() and d.file:
-                    images.append(d)
+        
+    if hasattr(obj, 'digital_object'):
+        for d in obj.digital_object.all():
+            if (d.digital_format.is_image() and d.file) or (d.digital_format.is_video()):
+                images.append(d)
     return images
     
 @register.tag

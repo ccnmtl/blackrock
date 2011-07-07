@@ -1,0 +1,38 @@
+{% load portal %}
+
+ <div class="single_result">
+     <!-- Asset Locations (Hidden. Used by maps.js to plot GMaps) -->
+     {% include "portal/asset_location.html" %}
+
+     <!-- Name -->                 
+     <table style="margin-bottom: 8px"><tr>
+     <td style="vertical-align: middle"><img src="/portal/media/images/nonmapicon_{{current_object|klass|lower}}.png" alt="record type icon" style="width: 25px; height: auto; margin-right: 5px;" /></td><td> <a class="display-name" href="{{current_object|detail_url}}">{{current_object|display_name}}</a></td>
+     </tr></table>
+     
+     <table>
+        <tr>
+        {% if current_object.display_image %}
+            <td class="search_detail_image_column">
+                <img alt="{{asset_klass}} Icon" src="{{current_object.display_image.file.url}}" class="search_detail_image"></img>
+            </td>
+        {% else %}{% if current_object.digital_format %}
+            {% if current_object.digital_format.is_image %}
+                {% if current_object.file.url %}
+                    <td class="search_detail_image_column"><img src="{{current_object.file.url}}" class="search_detail_image"></img></td>
+                {% else %}{% if current_object.url %}
+                    <td class="search_detail_image_column"><img src="{{current_object.url}}" class="search_detail_image"></img></td>
+                {% endif %}{% endif %}
+            {% endif %} 
+        {% endif %}{% endif %}
+        <td>
+            <b>Record Type</b>: {{current_object|klass_display}}
+            {% include "portal/asset_description.html" %}
+            
+            {% if current_object.facet.count %}
+                <b>Keywords</b>: 
+                {% for k in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="/portal/search/?q=&{{k.facet|lower}}={{k.name}}">{{k.display_name}}</a>{% endfor %}
+            {% endif %}
+        </td>
+        </tr>
+    </table>
+ </div>                 

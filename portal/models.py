@@ -198,7 +198,7 @@ class Station(models.Model):
     
     audience = models.ManyToManyField(Audience, null=True, blank=True)
     display_image = models.ForeignKey(DigitalObject, null=True, blank=True)
-    extra_media = models.ManyToManyField(DigitalObject, null=True, blank=True, related_name="station_extra_media") # for extra images & resources
+    digital_object = models.ManyToManyField(DigitalObject, null=True, blank=True, related_name="station_digital_object") # for extra images & resources
     facet = models.ManyToManyField(Facet)
     tag = models.ManyToManyField(Tag, null=True, blank=True)
     

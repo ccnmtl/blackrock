@@ -738,7 +738,7 @@ div.single_result a {
 div#search-results a.search-display-name {
     font-weight: bold;
     text-decoration: none;
-    margin: 0 0 0 5px;
+    margin: 0px;
     display: block;
 }
 

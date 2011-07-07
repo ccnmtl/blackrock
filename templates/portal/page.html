@@ -11,11 +11,22 @@
 
 {% block mainnav %}
     {% if not error %}
-        {% with root as current %}
-        {% with section.get_parent as selected %}
-        {% with 1 as audience %}
-            {% include "portal/menu.html" %}
-        {% endwith %}{% endwith %}{% endwith %}
+        <ul>
+        {% for s in root.get_children %}
+          {% ifnotequal s.slug hidden %}
+            {% ifequal s.id current.id %}
+            {% else %}{% ifnotequal s.slug "foreststories" %}
+               {% ifequal s.id section.get_parent.id %}
+                  <li class="selected {{s.slug}}">{{s.label}}</li>
+               {% else %}{% ifequal s.id section.id %}
+                  <li class="selected {{s.slug}}">{{s.label}}</li>
+               {% else %}   
+                  <li class="{{s.slug}}"><a href="{{menu_base}}/portal{{s.get_absolute_url}}">{{s.label}}</a></li>
+               {% endifequal %}{% endifequal %}{% endifnotequal %}
+            {% endifequal %}
+          {% endifnotequal %}
+        {% endfor %}
+        </ul>
     {% else %}
         {% include "portal/default_mainnav.html" %}
     {% endif %}

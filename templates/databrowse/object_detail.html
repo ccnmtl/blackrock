@@ -24,7 +24,7 @@
 <td id="left">
     <div id="asset-details" class="blocktext">
         <table style="margin-bottom: 8px"><tr>
-        <td><img src="/portal/media/images/nonmapicon_{{asset_klass|lower}}.png" alt="record type icon" /></td><td style="vertical-align: middle"><h3>{{current_object|display_name}}</h3></td>
+        <td><img src="/portal/media/images/nonmapicon_{{asset_klass|lower}}.png" alt="record type icon" style="margin-right: 5px;" /></td><td style="vertical-align: middle"><h3>{{current_object|display_name}}</h3></td>
         </tr></table>
         
         {% with current_object|gallery as images %}
@@ -39,7 +39,36 @@
                             <input type="hidden" id="selector" value="jcarousel-selector-{{forloop.counter}}"></input>
                             <input type="hidden" id="caption" value="jcarousel-caption-{{forloop.counter}}"></input>
                             <center>
-                            <img class="object_detail_image" src="{{image.file.url}}" alt="jCarousel image {{forloop.counter}}" />
+                            {% if image.digital_format.is_image %}
+                                <img class="object_detail_image" src="{{image.file.url}}" alt="jCarousel image {{forloop.counter}}" />
+                            {% else %}{% if image.digital_format.is_video %}
+                                {% if image.markup %}
+                                    {{ image.markup|safe }}
+                                {% else %}
+                                    <a
+                                        href="{{image.url}}"
+                                        style="display:block;width:480px;height:272px;"
+                                        id="player">
+                                    </a>
+                                    
+                                    <script>
+                                        // install Flowplayer inside the previous anchor tag
+                                        flowplayer("player", "http://releases.flowplayer.org/swf/flowplayer-3.2.4.swf", {
+                                            playlist: [
+                                                       {% if image.file %}
+                                                          {url: '{{image.file.url}}', scaling: 'orig'},
+                                                       {% endif %}
+                            
+                                                       // our MP3 does not start automatically
+                                                       {url: '{{image.url}}', autoPlay: false, autoBuffering: true}
+                            
+                                                   ]
+                                        });
+                                    </script>
+                                {% endif %}
+                            {% endif %}{% endif %}
+                            
+                            
                             </center>
                         </li>
                     {% endfor %}
@@ -199,47 +228,42 @@
 
     <!--  Hand-Picked "Related" Records -->
     <div id="related-items">
-    {% with "mapicon_related.png" as iconname %}
+    
         {% if asset_klass == "LearningActivity" %}
             {% if current_object.dataset.count %}
-                <h3 class="object_detail_label">Related Data Sets:</h3>
                 {% for x in current_object.dataset.all %}
                     {% with x as current_object %}
-                        {% include "portal/asset_related.html" %}
+                        {% include "portal/asset_singleresult.html" %}
                     {% endwith %}
                 {% endfor %}
             {% endif %}
             {% if current_object.person.count %}
-                <h3 class="object_detail_label">Related People:</h3>
                 {% for x in current_object.person.all %}
                     {% with x as current_object %}
-                         {% include "portal/asset_related.html" %}
+                         {% include "portal/asset_singleresult.html" %}
                       {% endwith %}
                 {% endfor %}
             {% endif %}
         {% else %}{% if asset_klass == "ResearchProject" %}
             {% if current_object.dataset.count %}
-                <h3 class="object_detail_label">Related Data Sets:</h3>
                 {% for x in current_object.dataset.all %}
                     {% with x as current_object %}
-                        {% include "portal/asset_related.html" %}
+                        {% include "portal/asset_singleresult.html" %}
                     {% endwith %}
                 {% endfor %}
             {% endif %}
         {% else %}{% if asset_klass == "Station" %}
             {% if current_object.research_projects %}
-                <h3 class="object_detail_label">Related Research Projects:</h3>
                 {% for x in current_object.research_projects %}
                     {% with x as current_object %}
-                        {% include "portal/asset_related.html" %}
+                        {% include "portal/asset_singleresult.html" %}
                     {% endwith %}
                 {% endfor %}
             {% endif %}
             {% if current_object.dataset.count %}
-                <h3 class="object_detail_label">Related Data Sets:</h3>
                 {% for x in current_object.dataset.all %}
                     {% with x as current_object %}
-                        {% include "portal/asset_related.html" %}
+                        {% include "portal/asset_singleresult.html" %}
                     {% endwith %}
                 {% endfor %}
             {% endif %}  
@@ -249,18 +273,13 @@
         {% for related_object in object.related_objects %}
             {% if related_object.object_list %}
                 {% for object in related_object.object_list %}
-                        {% ifequal forloop.counter 1 %}
-                            <h3 class="object_detail_label">Related {{object.instance|klass_display_plural}}</h3>
-                        {% endifequal %}
-                    
                         {% with object.instance as current_object %}		   
-    	                   {% include "portal/asset_related.html" %}
+    	                   {% include "portal/asset_singleresult.html" %}
                         {% endwith %}
                     
                 {% endfor %}
             {% endif %}
         {% endfor %}
-   {% endwith %}    
    </div></td><!-- end related section --></tr></table>
 
 {% with "geocode" as geocode_class %}
