@@ -8,13 +8,6 @@
     {{ block.super }}
 {% endblock %}
 
-{% block mainnav %}
-    {% with "search" as selected %}
-        {% include "portal/default_mainnav.html" %}
-    {% endwith %}
-{% endblock %}
-
-
 {% block container %}
 <form method="get" action=".">
 

@@ -1,35 +1,15 @@
 {% extends "portal/base_portal.html" %} 
 {% load portal %}
 
-{% block title %}
-{% ifequal module.label "Home" %}
-    {{module.label}}
-{% else %}
-    {{module.label}}: {{section.label}}
-{% endifequal %}
+{% block js %}
 {% endblock %}
 
-{% block mainnav %}
-    {% if not error %}
-        <ul>
-        {% for s in root.get_children %}
-          {% ifnotequal s.slug hidden %}
-            {% ifequal s.id current.id %}
-            {% else %}{% ifnotequal s.slug "foreststories" %}
-               {% ifequal s.id section.get_parent.id %}
-                  <li class="selected {{s.slug}}">{{s.label}}</li>
-               {% else %}{% ifequal s.id section.id %}
-                  <li class="selected {{s.slug}}">{{s.label}}</li>
-               {% else %}   
-                  <li class="{{s.slug}}"><a href="{{menu_base}}/portal{{s.get_absolute_url}}">{{s.label}}</a></li>
-               {% endifequal %}{% endifequal %}{% endifnotequal %}
-            {% endifequal %}
-          {% endifnotequal %}
-        {% endfor %}
-        </ul>
+{% block title %}
+    {% ifequal module.label "Home" %}
+        {{module.label}}
     {% else %}
-        {% include "portal/default_mainnav.html" %}
-    {% endif %}
+        {{module.label}}: {{section.label}}
+    {% endifequal %}
 {% endblock %}
 
 {% block container %}
