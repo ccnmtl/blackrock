@@ -22,6 +22,7 @@
   </script>
 
   <script type="text/javascript">
+  <!--
     makeExportLink = function(a) {
       var id = a.id;
       id = id.split('-')[0];
@@ -31,6 +32,7 @@
       var station = document.getElementById(id+'-fieldstation').value;
       a.href = "/respiration/getcsv?year="+year+"&start="+start+"&end="+end+"&station="+station;
     };
+    //-->
   </script>
 {% endblock %}
 
@@ -41,16 +43,16 @@
 {% endblock %}
 
 {% block leftlegend %}
-<div id="forestgraph">
-  <input id="graph_button" type="button" value="Graph &gt;&gt;" onclick="javascript:forestGraph();" />
-</div>
-  Set Scenario Variables
+    <div id="forestgraph">
+      <input id="graph_button" type="button" value="Graph &gt;&gt;" onclick="javascript:forestGraph();" />
+    </div>
+    <h3>Set Scenario Variables</h3>
 {% endblock %}
 
 {% block left %}
 <div id="error">Some errors occurred while graphing.  You might want to double-check the boxes highlighted in red.</div>
 
-<form id="leaf-form" name="leaf-form" action="leaf" method="POST">
+<form id="leaf-form" name="leaf-form" action="leaf" method="post">
   <input type="hidden" name="leaf-base-temp" id="leaf-base-temp" class="leafdata" value='{{ scenario_options|hash:"basetemp" }}' />
   <input type="hidden" name="leaf-numspecies" id="leaf-numspecies" class="leafdata" value="{{ numspecies }}" />
   {% for species in specieslist %}
@@ -65,17 +67,17 @@
 
 <div id="scenariocontainer">
   <div id="scenarioheader">
-    <span class="button addbutton" onClick="addScenario();">
+    <span class="button addbutton" onclick="addScenario();">
       + Add Scenario 
     </span>
     Scenario List 
   </div>
   <div id="scenariobox">
-    <form id="scenario1-form" name="scenario1-form" action="leaf" method="POST">
+    <form id="scenario1-form" name="scenario1-form" action="leaf" method="post">
       <input type="hidden" name="scenario1-species" id="scenario1-species" value="" />
       <div class="scenario" id="scenario1">
 	<div class="scenariotitle">
-	  <span class="button deletebutton" onClick="delScenario('scenario1');">
+	  <span class="button deletebutton" onclick="delScenario('scenario1');">
 	    - Delete Scenario 
 	  </span>
 	  <div class="colorswatch" id="scenario1-swatch">
@@ -108,7 +110,7 @@
 	</div><!-- end div scenariotemp -->
 	<div class="speciesbox togglecontainer">
 	  <div class="speciesheader">
-	    <span class="button addbutton" onClick="addSpecies(this);">
+	    <span class="button addbutton" onclick="addSpecies(this);">
 	      + Add Species 
 	    </span>
 	    <div class="toggler toggle-open"></div>
@@ -118,7 +120,7 @@
 	    
 	    <div class="species" id="species1">
 	      
-	      <span class="button deletebutton" onClick="delSpecies('species1');">
+	      <span class="button deletebutton" onclick="delSpecies('species1');">
 		- Delete Species 
 	      </span>
 	      

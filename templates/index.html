@@ -35,14 +35,14 @@
     {% if user.is_staff %}
         <div class='screenshot'>
         <a href="{{ app.path }}">
-          <img class='screenshot' src="site_media/images/screenshot%20-%20{{app.name|urlencode}}.png"></img><br/>
+          <img class='screenshot' src="site_media/images/screenshot%20-%20{{app.name|urlencode}}.png" alt="{{app.name}}-screenshot"></img><br/>
           {{ app.name }}</a>
         </div>
     {% endif %}
   {% else %}
         <div class='screenshot'>
         <a href="{{ app.path }}">
-          <img class='screenshot' src="site_media/images/screenshot%20-%20{{app.name|urlencode}}.png"></img><br/>
+          <img class='screenshot' src="site_media/images/screenshot%20-%20{{app.name|urlencode}}.png" alt="{{app.name}}-screenshot"></img><br/>
           {{ app.name }}</a>
         </div>
   {% endif %}

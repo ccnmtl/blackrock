@@ -31,7 +31,7 @@
 {% block left %}
 
 <div id="yardstick"><span class="toplevel">0cm</span><span class="bottomlevel">1070cm</span></div>
-<div id="core-unzoomed"><div id="windowdrag"><img src="../../paleoecology/media/images/coresample/windowdrag.png" alt="" width="65" height="25"></div></div>  
+<div id="core-unzoomed"><div id="windowdrag"><img src="../../paleoecology/media/images/coresample/windowdrag.png" alt="" width="65" height="25" /></div></div>  
 <div id="core-zoomed">
     <!--div class="core-slice core-slice-clay"></div-->
     <!--div class="core-slice core-slice-mixed"></div-->
@@ -63,8 +63,8 @@
      <div class="datapop">
     {% for sample in samples %}
     <div id="sample-info-{{sample|floatformat}}" class="sample-info unloaded">
-      <div class="sample-info-title">Sample Depth: {{sample|floatformat}}cm<div id="closebutton">X</div></div>
-      <div id="sample-inf-container">
+      <div class="sample-info-title">Sample Depth: {{sample|floatformat}}cm</div>
+      <div>
       <div class="sample-info-left-container">
         <h4>Most common specimens in this sample</h4>
         <div class="sample-info-left">
@@ -77,7 +77,7 @@
       <h4>Species breakdown</h4>
       <div class="sample-info-right">
 
-        <img id="sample-chart-{{sample|floatformat}}"></img>
+        <img id="sample-chart-{{sample|floatformat}}" src="" alt="sample chart"></img>
        
         <div id="sample-percents-{{sample|floatformat}}">
           Loading, please wait...

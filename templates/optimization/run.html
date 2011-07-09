@@ -75,12 +75,12 @@
 </div>
 			<div class="sampling_history">
 				<!-- FORM -->
-				<form method="POST" action="json2csv">
+				<form method="post" action="json2csv">
                                   <input type="hidden" name="filename" value="results" />
                                   <input type="hidden" name="results" value="" />
                                   <h2>Sampling history <span class="heading-addendum">(stored in your web browser)</span><span class="csvsummary"><span class="heading-addendum">CSV download:</span> <input type="button" value="Summary" onclick="SampleHistory.csv.summary(this);this.form.submit();" /> <input type="button" value="Detail" onclick="SampleHistory.csv.details(this);this.form.submit();" /></span></h2>
                                   </form>
-                                <form id="trees_csv_form" method="POST" action="trees_csv">
+                                <form id="trees_csv_form" method="post" action="trees_csv">
                                   <input type="hidden" name="results" value="" />
                                   <input type="hidden" name="type" value="trees" />
                                   <input type="hidden" name="sample_num" value="0" />
@@ -101,7 +101,7 @@
 							<th>Tree Data</th>
 						</tr>
 					</thead>
-					<tbody id="sample-list">
+					<tbody id="sample-list"><tr><td></td></tr>
 					</tbody>
                                   </table>
 				</div>
@@ -148,12 +148,12 @@
 <div id="results" class="container">
 <h3>
 <div id="csv">
-  <form id="csvform" action="csv" method="POST">
+  <form id="csvform" action="csv" method="post">
     CSV download:
     <input type="hidden" name="results" id="form-results" />
     <input type="hidden" name="sample_num" id="0" />
     <select name="type">
-      <option value="summary">summary</>
+      <option value="summary">summary</option>
       <option value="details">details</option>
       <option value="trees">tree data</option>
     </select>
@@ -307,7 +307,7 @@ Sampling Results
                 </tr>
               </tbody>
             </table>
-            </div><!-- end div subdetails --->
+            </div><!-- end div subdetails -->
           </div><!-- end div toggle-nest -->
 
         </div><!-- end div plot-info -->

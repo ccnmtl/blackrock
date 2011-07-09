@@ -40,7 +40,7 @@ Use the red vertical indicator bar on the graph to view the calculated respirati
 {% endblock %} 
 
 {% block leftlegend %} 
-Set Respiration Rate Variables
+<h3>Set Respiration Rate Variables</h3>
 {% endblock %} 
 
 {% block left %} 
@@ -55,7 +55,7 @@ Set Respiration Rate Variables
   {% endfor %}
 
 
-  <form id="leaf-form" name="leaf-form" action="forest" method="POST">
+  <form id="leaf-form" name="leaf-form" action="forest" method="post">
     <input type="hidden" id="specieslist" name="specieslist" value="" />
     
     <input type="hidden" id="scenario1-name" name="scenario1-name" value='{{scenario_options|hash:"name"}}' />
@@ -97,15 +97,14 @@ Set Respiration Rate Variables
 		</td>
 	      </tr>
 	    </table>
+        <input style="display: none;" id="plotGraph" class="needsupdate" type="button" value="Plot &gt;&gt;" onclick="javascript:leafGraph();" />
 	  </td>
-	  <input style="display: none;" id="plotGraph" class="needsupdate" type="button"
-		 value="Plot &gt;&gt;" onclick="javascript:leafGraph();" />
 	</tr>
       </table>
     </div>
     <div class="speciesbox">
       <div class="speciesheader">
-	<span class="button addbutton" onClick="addSpecies();">
+	<span class="button addbutton" onclick="addSpecies();">
 	  + Add Species
 	</span>
 	Species List 
@@ -113,7 +112,7 @@ Set Respiration Rate Variables
       <div class="leafspeciescontainer">
 	<div class="species" id="species1">
 	  <input type="hidden" name="species1-percent" id="species1-percent" value="" />
-	  <span class="button deletebutton" onClick="delSpecies('species1');">
+	  <span class="button deletebutton" onclick="delSpecies('species1');">
 	    - Delete Species
 	  </span>
 	  <div class="colorswatch" id="species1-swatch">
@@ -167,20 +166,21 @@ Set Respiration Rate Variables
     <div id="y-grid-leaf"></div>
     <div id="temperature_adjustment">
       <div id="temp_label">
-	Adjust Ambient Temperature (T<sub>a</sub>) Range: 
-	<div id="temp_manual_controls">
-	  <input id="temp_low" class="t-a arr-field" name="temp_low" type="text" value="0" size="3" maxlength="3">
-	  &deg;C to 
-	  <input id="temp_high" class="t-a arr-field" name="temp_high" type="text" value="30" size="3" maxlength="3" />
-	  &deg;C &nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight: bold;">T<sub>a</sub>=</span> 
-	  <input id="temp_mouse" disabled="disabled" class="t-a arr-field" name="temp_mouse" type="text" value="" size="3" maxlength="3" />
-	  &deg;C 
-	</div>
+	       Adjust Ambient Temperature (T<sub>a</sub>) Range: 
+    	<div id="temp_manual_controls">
+    	  <input id="temp_low" class="t-a arr-field" name="temp_low" type="text" value="0" size="3" maxlength="3"/>
+    	  &deg;C to 
+    	  <input id="temp_high" class="t-a arr-field" name="temp_high" type="text" value="30" size="3" maxlength="3" />
+    	  &deg;C &nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight: bold;">T<sub>a</sub>=</span> 
+    	  <input id="temp_mouse" disabled="disabled" class="t-a arr-field" name="temp_mouse" type="text" value="" size="3" maxlength="3" />
+    	  &deg;C 
+    	</div>
       </div>
-      <div id="temp-slider">
-	<img id="leftslider" class="slider" src="media/images/l-thumb-round.gif" />
-	<img id="rightslider" class="slider" src="media/images/r-thumb-round.gif" />
-	<span class="slider range"></span>
-      </div>
+    
+    <div id="temp-slider">
+	   <img id="leftslider" class="slider" src="media/images/l-thumb-round.gif" alt="leftslider" />
+	   <img id="rightslider" class="slider" src="media/images/r-thumb-round.gif" alt="rightslider" />
+	   <span class="slider range"></span>
+    </div>
     </div>
 {% endblock %}
