@@ -414,7 +414,7 @@ if (!Portal.Map) {
             var options = getElementsByTagAndClassName("input", "layer");
             forEach(options,
                     function(option) {
-                        var kmllayer = new Portal.Layer(option.id, "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/" + option.id + ".kml?cb=" + randomnumber, true);
+                        var kmllayer = new Portal.Layer(option.id, "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/" + option.id + ".kml?zzzz=" + randomnumber, true);
                         self.layers[option.id] = kmllayer;
                         
                         connect(option, 'onclick', function(evt) {

@@ -15,80 +15,44 @@
     </LabelStyle>
   </Style>
   <Placemark>
-    <name>Science &amp; Education Center</name>
-    <description><![CDATA[]]></description>
-    <styleUrl>FEATURES_LABELS</styleUrl>
-    <Polygon>
-      <outerBoundaryIs>
-        <LinearRing>
-          <tessellate>1</tessellate>
-          <coordinates>
-            -74.011803,41.413834,0.000000
-            -74.011475,41.413872,0.000000
-            -74.011520,41.414082,0.000000
-            -74.011833,41.414059,0.000000
-            -74.011803,41.413834,0.000000
-          </coordinates>
-        </LinearRing>
-      </outerBoundaryIs>
-    </Polygon>
+    <name>Old Forest Headquarters</name>
+    <description><![CDATA[The Old Headquarters (Old HQ or Old Forest Headquarters) area is a 4-acre land parcel located on the opposite side of Route 9W from the main portion of the Black Rock Forest.The facility currently provides lodging and houses the Open Lowland environmental monitoring station, snow station, long-term precipitation collection site, mercury cycling station, experimental garden, tree nursery, sawmill, wood shop, equipment storage facilities, DirectorÕs House, and the Jack Karnig black walnut grove.<br /><i>Source: Black Rock Forest Consortium</i> ]]></description>
+    <styleUrl>#FEATURES_LABELS</styleUrl>
+    <Point>
+      <coordinates>-74.018959,41.418079,0.000000</coordinates>
+    </Point>
   </Placemark>
   <Placemark>
-    <name>Forest Lodge</name>
+    <name>The Filter Plant</name>
     <description><![CDATA[]]></description>
-    <styleUrl>FEATURES_LABELS</styleUrl>
-    <Polygon>
-      <outerBoundaryIs>
-        <LinearRing>
-          <tessellate>1</tessellate>
-          <coordinates>
-            -74.011215,41.413792,0.000000
-            -74.010841,41.413414,0.000000
-            -74.010651,41.413548,0.000000
-            -74.011070,41.413967,0.000000
-            -74.011215,41.413792,0.000000
-          </coordinates>
-        </LinearRing>
-      </outerBoundaryIs>
-    </Polygon>
+    <styleUrl>#FEATURES_LABELS</styleUrl>
+    <Point>
+      <coordinates>-74.018456,41.416576,0.000000</coordinates>
+    </Point>
   </Placemark>
   <Placemark>
-    <name>Filter Plant</name>
-    <description><![CDATA[]]></description>
-    <styleUrl>FEATURES_LABELS</styleUrl>
-    <Polygon>
-      <outerBoundaryIs>
-        <LinearRing>
-          <tessellate>1</tessellate>
-          <coordinates>
-            -74.018768,41.416534,0.000000
-            -74.018433,41.416367,0.000000
-            -74.018143,41.416649,0.000000
-            -74.018478,41.416805,0.000000
-            -74.018768,41.416534,0.000000
-          </coordinates>
-        </LinearRing>
-      </outerBoundaryIs>
-    </Polygon>
+    <name>The Science &amp; Education Center</name>
+    <description><![CDATA[The Science Center and Forest Lodge area on the southwestern shoulder of Whitehorse Mountain represents the "main campus" area of the Black Rock Forest Consortium. Staff offices, classrooms, laboratories, and the base station for the ForestÕs environmental monitoring network are located in the Center for Science and Education. Lodging facilities for up to 60 guests, meeting facilities for up to 140 visitors, and an aquatic laboratory for fish breeding and study are located in the Forest Lodge.<br /><i>Source: Black Rock Forest Consortium</i>]]></description>
+    <styleUrl>#FEATURES_LABELS</styleUrl>
+    <Point>
+      <coordinates>-74.01166319847107, 41.41394384124573,0.000000</coordinates>
+    </Point>
   </Placemark>
   <Placemark>
-    <name>Stone House</name>
-    <description><![CDATA[]]></description>
-    <styleUrl>FEATURES_LABELS</styleUrl>
-    <Polygon>
-      <outerBoundaryIs>
-        <LinearRing>
-          <tessellate>1</tessellate>
-          <coordinates>
-            -74.022324,41.397358,0.000000
-            -74.022202,41.397285,0.000000
-            -74.022041,41.397423,0.000000
-            -74.022156,41.397484,0.000000
-            -74.022324,41.397358,0.000000
-          </coordinates>
-        </LinearRing>
-      </outerBoundaryIs>
-    </Polygon>
+    <name>The Forest Lodge</name>
+    <description><![CDATA[The Science Center and Forest Lodge area on the southwestern shoulder of Whitehorse Mountain represents the Òmain campusÓ area of the Black Rock Forest Consortium. Staff offices, classrooms, laboratories, and the base station for the ForestÕs environmental monitoring network are located in the Center for Science and Education. Lodging facilities for up to 60 guests, meeting facilities for up to 140 visitors, and an aquatic laboratory for fish breeding and study are located in the Forest Lodge.<br /><i>Source: Black Rock Forest Consortium</i>]]></description>
+    <styleUrl>#FEATURES_LABELS</styleUrl>
+    <Point>
+      <coordinates>-74.0109121799469,41.413621996778545,0.000000</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>The Stone House</name>
+    <description><![CDATA[The Stone House, located in the center of the Black Rock Forest, was originally built in 1834 and remains as the sole surviving structure from this period. The Chatfield and Babcock families, who made their livings from the Forest, lived here at different times in the past. The stones used to build the Stone House, including its ÒbeehiveÓ baking oven, were quarried locally from the granite gneiss bedrock. The 3000-square-foot structure is 2 miles from the Science and Education Center and has become a focal point for educational visits and occasional overnight use.<br /><i>Source: Black Rock Forest Consortium</i>]]></description>
+    <styleUrl>#FEATURES_LABELS</styleUrl>
+    <Point>
+      <coordinates>-74.02184754610062,41.397459331212836,0.000000</coordinates>
+    </Point>
   </Placemark>
 </Document>
 </kml>
