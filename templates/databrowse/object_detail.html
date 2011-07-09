@@ -216,7 +216,6 @@
             <p><span class="object_detail_label">Keyword:</span>
             {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="/portal/search/?q=&{{f.solr_name}}={{f.name}}">{{ f.display_name }}</a>{% endfor %}</p>
         {% endif %}
-        
    </div>
 </td>
 <td id="center"> 
@@ -224,62 +223,18 @@
        <div id="map-column">
           <div id="map_canvas"></div>
        </div>
-    {% endif %}
+    {% else %}{% ifequal asset_klass "ForestStory" %}
+       <div id="map-column">
+          <div id="map_canvas"></div>
+       </div>
+    {% endifequal%}{% endif %}
 
-    <!--  Hand-Picked "Related" Records -->
     <div id="related-items">
-    
-        {% if asset_klass == "LearningActivity" %}
-            {% if current_object.dataset.count %}
-                {% for x in current_object.dataset.all %}
-                    {% with x as current_object %}
-                        {% include "portal/asset_singleresult.html" %}
-                    {% endwith %}
-                {% endfor %}
-            {% endif %}
-            {% if current_object.person.count %}
-                {% for x in current_object.person.all %}
-                    {% with x as current_object %}
-                         {% include "portal/asset_singleresult.html" %}
-                      {% endwith %}
-                {% endfor %}
-            {% endif %}
-        {% else %}{% if asset_klass == "ResearchProject" %}
-            {% if current_object.dataset.count %}
-                {% for x in current_object.dataset.all %}
-                    {% with x as current_object %}
-                        {% include "portal/asset_singleresult.html" %}
-                    {% endwith %}
-                {% endfor %}
-            {% endif %}
-        {% else %}{% if asset_klass == "Station" %}
-            {% if current_object.research_projects %}
-                {% for x in current_object.research_projects %}
-                    {% with x as current_object %}
-                        {% include "portal/asset_singleresult.html" %}
-                    {% endwith %}
-                {% endfor %}
-            {% endif %}
-            {% if current_object.dataset.count %}
-                {% for x in current_object.dataset.all %}
-                    {% with x as current_object %}
-                        {% include "portal/asset_singleresult.html" %}
-                    {% endwith %}
-                {% endfor %}
-            {% endif %}  
-        {% endif %}{% endif %}{% endif %}
-        
-        <!--  Related Database Records -->
-        {% for related_object in object.related_objects %}
-            {% if related_object.object_list %}
-                {% for object in related_object.object_list %}
-                        {% with object.instance as current_object %}		   
-    	                   {% include "portal/asset_singleresult.html" %}
-                        {% endwith %}
-                    
-                {% endfor %}
-            {% endif %}
-        {% endfor %}
+    {% for x in object|related %}
+        {% with x as current_object %}		   
+           {% include "portal/asset_singleresult.html" %}
+        {% endwith %}
+    {% endfor %}
    </div></td><!-- end related section --></tr></table>
 
 {% with "geocode" as geocode_class %}

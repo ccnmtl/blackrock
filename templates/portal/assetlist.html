@@ -8,6 +8,9 @@
             {% with "geocode" as geocode_class %}
             {% with forloop.counter as icon_display_order %}
             {% with 1 as includehighlight %}
+                <!-- Asset Locations (Hidden. Used by maps.js to plot GMaps) -->
+                {% include "portal/asset_location.html" %}
+     
                 {% include "portal/asset_singleresult.html" %}                
             {% endwith %}{% endwith %}{% endwith %}{% endwith %}
         {% endif %}

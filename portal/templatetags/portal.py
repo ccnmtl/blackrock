@@ -112,12 +112,7 @@ def featured_counts(obj):
     
 @register.filter('detail_url')
 def detail_url(obj):
-    if obj._meta.object_name == 'ForestStory':
-      url = "/portal/foreststories/%s" % (obj.name) 
-    else:
-      url = "/portal/browse/portal/%s/objects/%s" % (obj._meta.object_name.lower(), obj.id)
-      
-    return url
+    return "/portal/browse/portal/%s/objects/%s" % (obj._meta.object_name.lower(), obj.id)
 
 @register.filter('map_url')
 def map_url(obj):
@@ -159,7 +154,21 @@ def gallery(obj):
             if (d.digital_format.is_image() and d.file) or (d.digital_format.is_video()):
                 images.append(d)
     return images
-    
+
+@register.filter('related')
+def related(object):
+    related = []
+    for related_object in object.related_objects():
+        for wrapper in related_object['object_list']:
+            related.append(wrapper.instance)
+            
+    if hasattr(object.instance, 'related_ex'):
+        related.extend(object.instance.related_ex())
+        
+    related.sort(cmp=lambda x,y: cmp(display_name(x), display_name(y)))    
+
+    return related
+
 @register.tag
 def value_from_settings(parser, token):
     try:

@@ -208,6 +208,12 @@ class Station(models.Model):
     created_date = models.DateTimeField('created_date', default=datetime.now)
     modified_date = models.DateTimeField('modified_date', default=datetime.now)
     
+    def related_ex(self):
+        extra = []
+        extra.extend(self.datasets())
+        extra.extend(self.research_projects())
+        return extra
+    
     def research_projects(self):
         assets = []
         for d in self.datasets():
@@ -397,6 +403,11 @@ class ResearchProject(models.Model):
         verbose_name = "Research Project"
         ordering = ['name']
         
+    def related_ex(self):
+        extra = []
+        extra.extend(self.dataset.all())
+        return extra
+        
 class LearningActivity(models.Model):
     name = models.CharField(max_length=500)
     description = models.TextField(null=True, blank=True)
@@ -424,6 +435,12 @@ class LearningActivity(models.Model):
     def __unicode__(self):
         return self.name
     
+    def related_ex(self):
+        extra = []
+        extra.extend(self.dataset.all())
+        extra.extend(self.person.all())
+        return extra
+    
 class ForestStory(models.Model):
     name = models.CharField(max_length=500)
     display_name = models.CharField(max_length=500)
@@ -441,6 +458,7 @@ class ForestStory(models.Model):
     person = models.ManyToManyField(Person, null=True, blank=True)
     publication = models.ManyToManyField(Publication, null=True, blank=True)
     research_project = models.ManyToManyField(ResearchProject, null=True, blank=True)
+    station = models.ManyToManyField(Station, null=True, blank=True, related_name="foreststory_related_station")
     tag = models.ManyToManyField(Tag, null=True, blank=True)
     
     created_date = models.DateTimeField('created_date', default=datetime.now)
@@ -452,7 +470,12 @@ class ForestStory(models.Model):
         ordering = ['display_name']
     
     def __unicode__(self):
-        return self.name        
+        return self.name   
+    
+    def related_ex(self):
+        extra = []
+        extra.extend(self.station.all())
+        return extra
 
 class AssetList(models.Model):
     pageblocks = generic.GenericRelation(PageBlock, related_name="assetlist_pageblock")
