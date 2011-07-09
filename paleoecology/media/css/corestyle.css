@@ -62,8 +62,8 @@ div#right {
   background-color: #ddd;
   border: 1px solid #ccc;
   text-align: center;
-  margin: 10px;
-    padding: 5px;
+  margin: 5px;
+  padding: 2px;
 }
 
 #pollen-image-container2 {
@@ -72,18 +72,17 @@ div#right {
   background-color: #ddd;
   border: 1px solid #ccc;
   text-align: center;
-  margin: 10px;
-  padding: 5px;
+  margin: 5px;
+  padding: 2px;
 }
 
-
 .pollen-zoo-image.core {
-    width: 205px;
+    width: 200px;
 }
 
 #pollen-image img {
-  max-width: 90px;
-  max-height: 90px;
+  max-width: 85px;
+  max-height: 85px;
 }
 
 .pollen-zoo-image img {
@@ -345,7 +344,7 @@ div.sample-info-left {
     float: left;
     overflow: auto;
     height: 405px;
-    width: 445px;
+    width: 440px;
 }
 
 div#yardstick {

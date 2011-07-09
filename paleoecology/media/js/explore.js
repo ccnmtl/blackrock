@@ -19,8 +19,12 @@ var colors = ["A6CEE3","1F78B4","B2DF8A","33A02C","FB9A99","E31A1C","FDBF6F","FF
               "A0522D", "336633", "696969", "A9A9A9", "EBEBEB"];
 
 function getImage(name) {
-  var idx = images[0].indexOf(name);
-  return images[1][idx];
+  for (var idx=0; idx < images[0].length; idx++) {
+      if (images[0][idx] == name) {
+          return images[1][idx];
+      }
+  }
+  return null;
 }
 
 function showResults(http_request) {
