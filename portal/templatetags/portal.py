@@ -112,11 +112,11 @@ def featured_counts(obj):
     
 @register.filter('detail_url')
 def detail_url(obj):
-    return "/portal/browse/portal/%s/objects/%s" % (obj._meta.object_name.lower(), obj.id)
+    return "/portal/browse/portal/%s/objects/%s/" % (obj._meta.object_name.lower(), obj.id)
 
 @register.filter('map_url')
 def map_url(obj):
-    return "/portal/interactive-map/?type=%s&id=%s" % (obj._meta.object_name.lower(), obj.id)
+    return "/portal/interactive-map/?type=%s&id=%s/" % (obj._meta.object_name.lower(), obj.id)
 
 @register.filter('display_name')
 def display_name(obj):

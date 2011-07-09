@@ -114,8 +114,7 @@ if (!Portal.Layer) {
     }
 }
 
-if (!Portal.MapMarker) {
-    
+if (!Portal.MapMarker) {    
     Portal.MapMarker = function() {
         var self = this;
         
@@ -412,68 +411,27 @@ if (!Portal.Map) {
             self.events.connect(Portal, 'toggleLayer', self, 'toggleLayer');
             
             var randomnumber=Math.floor(Math.random()*11)
-            
-            // add default layers
-            var kmlLayer = new Portal.Layer("boundary", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/brfboundary.kml", false /* clickable */);
-            self.layers.boundary = kmlLayer;
-            
-            kmlLayer = new Portal.Layer("viewpoints", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/viewpoints.kml?sam=" + randomnumber, true /* clickable */);
-            self.layers.viewpoints = kmlLayer;
-            
-            kmlLayer = new Portal.Layer("buildings", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/buildings.kml?foo=" + randomnumber, true /* clickable */);
-            self.layers.buildings = kmlLayer;
-            
-            var kmlLayer = new Portal.Layer("peaks", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/peaks.kml?bar=" + randomnumber, true);
-            self.layers.peaks = kmlLayer;
-            
-            kmlLayer = new Portal.Layer("ponds", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/ponds.kml?llll=" + randomnumber, true);
-            self.layers.ponds = kmlLayer;
-            
-            kmlLayer = new Portal.Layer("roads", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/roads.kml?xxx=" + randomnumber, true);
-            self.layers.roads = kmlLayer;
-            
-            kmlLayer = new Portal.Layer("streams", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/streams.kml?bar=" + randomnumber, false);
-            self.layers.streams = kmlLayer;
-            
-            kmlLayer = new Portal.Layer("trails", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/trails.kml?jjjj=" + randomnumber, true);
-            self.layers.trails = kmlLayer;
-
-            kmlLayer = new Portal.Layer("webcams", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/webcams.kml?hhh=" + randomnumber, true);
-            self.layers.webcam = kmlLayer;
-
             var options = getElementsByTagAndClassName("input", "layer");
             forEach(options,
                     function(option) {
+                        var kmllayer = new Portal.Layer(option.id, "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/" + option.id + ".kml?cb=" + randomnumber, true);
+                        self.layers[option.id] = kmllayer;
+                        
                         connect(option, 'onclick', function(evt) {
                             self.events.signal(Portal, 'toggleLayer');
                          });
                     });
             
             
-            var options = getElementsByTagAndClassName("input", "infrastructure_option");
+            
+            options = getElementsByTagAndClassName("input", "facet");
             forEach(options,
                     function(option) {
                         connect(option, 'onclick', function(evt) {
                             self.events.signal(Portal, 'toggleFacet');
                          });
                     });
-            
-            var options = getElementsByTagAndClassName("input", "natural_features_option");
-            forEach(options,
-                    function(option) {
-                        connect(option, 'onclick', function(evt) {
-                            self.events.signal(Portal, 'toggleFacet');
-                         });
-                    });
-            
-            options = getElementsByTagAndClassName("input", "featured_option");
-            forEach(options,
-                    function(option) {
-                        connect(option, 'onclick', function(evt) {
-                            self.events.signal(Portal, 'toggleFacet');
-                         });
-                    });      
-
+                
             self.locations = self.initMarkers("geocode", 0); 
             
             self.selected = self.initMarkers("geoselected", 0);

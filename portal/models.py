@@ -475,6 +475,9 @@ class ForestStory(models.Model):
     def related_ex(self):
         extra = []
         extra.extend(self.station.all())
+        extra.extend(self.learning_activity.all())
+        extra.extend(self.research_project.all())
+        extra.extend(self.dataset.all())
         return extra
 
 class AssetList(models.Model):

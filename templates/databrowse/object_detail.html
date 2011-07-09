@@ -17,6 +17,7 @@
 
 {% with object.instance as current_object %}
 {% with object.instance|klass as asset_klass %}
+{% with "geocode" as geocode_class %}
 
 <div id="details-wrapper">
 <table id="details-table">
@@ -206,6 +207,11 @@
             {% endif %}
             
         {% else %}{% if asset_klass == "ForestStory" %}
+            {% if current_object.person.count %} 
+                <p><span class="object_detail_label">People{% if current_object.person.count > 1 %}s{% endif %}:</span>
+                {% for p in current_object.person.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{p|detail_url}}">{{ p|display_name }}</a>{% endfor %}</p>
+            {% endif %}
+            
             {% if current_object.description %}
                 <p><span class="object_detail_label">Description:</span>
                 {{ current_object.description|safe }}<br />
@@ -231,18 +237,21 @@
 
     <div id="related-items">
     {% for x in object|related %}
-        {% with x as current_object %}		   
+        {% with x as current_object %}	
+        {% with forloop.counter as icon_display_order %}
+        {% with 1 as includehighlight %}
+           {% include "portal/asset_location.html" %}
+        	   
            {% include "portal/asset_singleresult.html" %}
-        {% endwith %}
+        {% endwith %}{% endwith %}{% endwith %}
     {% endfor %}
-   </div></td><!-- end related section --></tr></table>
+   </div>
+</td><!-- end related section --></tr></table>
 
-{% with "geocode" as geocode_class %}
-   {% include "portal/asset_location.html" %}
-{% endwith %}
+{% include "portal/asset_location.html" %}
    
 <p class="clear"></p>
 </div> <!-- end detail-page -->
     
-{% endwith %}{% endwith %}
+{% endwith %}{% endwith %}{% endwith %}
 {% endblock %}

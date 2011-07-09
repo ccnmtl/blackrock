@@ -54,15 +54,15 @@
               <table>
                 <tr>
                     <td width="50%">
-                        <div style="display: none"><input type="checkbox" class="layer" id="boundary" value="Forest Boundary" checked="checked" /></div>
+                        <div style="display: none"><input type="checkbox" class="layer" id="brfboundary" value="Forest Boundary" checked="checked" /></div>
                         <div><input type="checkbox" class="layer" id="viewpoints" value="Viewpoints" /><img src="/portal/media/images/nonmapicon_viewpoints.png/" alt="Viewpoints"/>Viewpoints</div>
                         <div><input type="checkbox" class="layer" id="roads" value="Roads" /><img src="/portal/media/images/nonmapicon_roads.png/" alt="Forest Roads" />Roads/Parking Lots</div>
                         <div><input type="checkbox" class="layer" id="trails" value="Trails" /><img src="/portal/media/images/nonmapicon_trails.png/" alt="Forest Trails"/>Trails</div>
                         <div><input type="checkbox" class="layer" id="buildings" value="Buildings" checked="checked" /><img src="/portal/media/images/nonmapicon_forestfacilities.png/" alt="Buildings"/>Buildings</div>
                     </td>
                     <td>
-                        <div><input type="checkbox" class="infrastructure_option" id="idEnvironmentalMonitoring" value="Environmental Monitoring Stations" /><img src="/portal/media/images/nonmapicon_environmentalmonitoringstations.png/" alt="Environmental Monitoring"/>Environmental Monitoring Stations ({{infrastructure_counts.EnvironmentalMonitoringStations}})</div>
-                        <!-- checked="checked"  --> <div><input type="checkbox" class="infrastructure_option" id="idLongtermPlots" value="Long-Term Plots" disabled="disabled" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Long-Term Plots"/>Long-Term Plots ({{infrastructure_counts.LongTermPlots}})</div>
+                        <div><input type="checkbox" class="facet infrastructure_option" id="idEnvironmentalMonitoring" value="Environmental Monitoring Stations" /><img src="/portal/media/images/nonmapicon_environmentalmonitoringstations.png/" alt="Environmental Monitoring"/>Environmental Monitoring Stations ({{infrastructure_counts.EnvironmentalMonitoringStations}})</div>
+                        <!-- checked="checked"  --> <div><input type="checkbox" class="facet" id="idLongtermPlots" value="Long-Term Plots" disabled="disabled" /><img src="/portal/media/images/nonmapicon_longtermplots.png/" alt="Long-Term Plots"/>Long-Term Plots ({{infrastructure_counts.LongTermPlots}})</div>
                         <div><input type="checkbox" class="layer" id="webcams" value="Webcams" /><img src="/portal/media/images/nonmapicon_webcams.png/" alt="Webcams" />Webcams  (1)</div>
                         <div>&nbsp;</div>
                         
@@ -84,8 +84,8 @@
           {% with result|facet_counts:"featured" as featured_counts %}
           <td id="featured_filter">
               <h3>Points of Interest</h3>
-              <div><input type="checkbox" class="featured_option" id="id_education" value="Education" /><img src="/portal/media/images/nonmapicon_education.png/" alt="Education" />Education ({{featured_counts.FeaturedEducation}})</div>
-              <div><input type="checkbox" class="featured_option" id="id_research" value="Research" /><img src="/portal/media/images/nonmapicon_research.png/" alt="Research" />Research ({{featured_counts.FeaturedResearch}})</div>
+              <div><input type="checkbox" class="facet featured_option" id="id_education" value="Education" /><img src="/portal/media/images/nonmapicon_education.png/" alt="Education" />Education ({{featured_counts.FeaturedEducation}})</div>
+              <div><input type="checkbox" class="facet featured_option" id="id_research" value="Research" /><img src="/portal/media/images/nonmapicon_research.png/" alt="Research" />Research ({{featured_counts.FeaturedResearch}})</div>
           </td>
           {% endwith %}
           
