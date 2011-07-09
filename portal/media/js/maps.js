@@ -248,7 +248,8 @@ if (!Portal.Map) {
                 description = kmlEvent.latLng.lat() + ', ' + kmlEvent.latLng.lng();
             }
             
-            self.infowindow = new google.maps.InfoWindow({content: description, position: kmlEvent.latLng, maxWidth: 400 });
+            var offset = new google.maps.Size(-5, -20);
+            self.infowindow = new google.maps.InfoWindow({content: description, position: kmlEvent.latLng, maxWidth: 400, pixelOffset: offset });
             self.infowindow.open(self.mapInstance);
         }
         
@@ -264,7 +265,7 @@ if (!Portal.Map) {
                 if (self.infowindow)
                     self.infowindow.close()
                 
-                var offset = new google.maps.Size(-5, 10);
+                var offset = new google.maps.Size(-5, 15);
     
                 self.infowindow = new google.maps.InfoWindow({content: location.description, maxWidth: 400, pixelOffset: offset });
                 self.infowindow.open(self.mapInstance, location.marker);
