@@ -26,12 +26,12 @@
             {% endif %} 
         {% endif %}{% endif %}
         <td>
-            <b>Record Type</b>: <a href="/portal/search/?q=&asset_type={{current_object|klass}}/">{{current_object|klass_display}}</a></p>
+            <b>Record Type</b>: <a href="/portal/search/?q=&amp;asset_type={{current_object|klass}}/">{{current_object|klass_display}}</a>
             {% include "portal/asset_description.html" %}
             
             {% if current_object.facet.count %}
                 <b>Keywords</b>: 
-                {% for k in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="/portal/search/?q=&{{k.solr_name}}={{k.name}}/">{{k.display_name}}</a>{% endfor %}
+                {% for k in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="/portal/search/?q=&amp;{{k.solr_name}}={{k.name}}/">{{k.display_name}}</a>{% endfor %}
             {% endif %}
         </td>
         </tr>

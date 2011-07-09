@@ -6,7 +6,7 @@
 {% block title %}{{ object.model.verbose_name|capfirst }}: {{ object }}{% endblock %}
 
 {% block css %}
-<link href="/portal/media/js/jcarousel/skins/blackrock-detail/skin.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="/portal/media/js/jcarousel/skins/blackrock-detail/skin.css" media="screen" rel="stylesheet" type="text/css"/>
 {% endblock %}
 
 {% block js %}
@@ -94,7 +94,7 @@
         {% endif %}{% endwith %}
         
                 
-        <p><span class="object_detail_label">Record Type: </span><a href="/portal/search/?q=&asset_type={{current_object|klass}}">{{current_object|klass_display}}</a></p>        
+        <p><span class="object_detail_label">Record Type: </span><a href="/portal/search/?q=&amp;asset_type={{current_object|klass}}">{{current_object|klass_display}}</a></p>        
             
         {% if asset_klass == "DataSet" %}
             {% if current_object.description %}
@@ -220,7 +220,7 @@
        
         {% if current_object.facet.all.count %}
             <p><span class="object_detail_label">Keyword:</span>
-            {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="/portal/search/?q=&{{f.solr_name}}={{f.name}}">{{ f.display_name }}</a>{% endfor %}</p>
+            {% for f in current_object.facet.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="/portal/search/?q=&amp;{{f.solr_name}}={{f.name}}">{{ f.display_name }}</a>{% endfor %}</p>
         {% endif %}
    </div>
 </td>
@@ -242,10 +242,11 @@
                 {% with forloop.counter as icon_display_order %}
                 {% with 1 as includehighlight %}
                    {% include "portal/asset_location.html" %}
+                   {% include "portal/asset_singleresult.html" %}
             	{% endwith %}{% endwith %}
+            {% else %}
+                {% include "portal/asset_singleresult.html" %}
             {% endif %}
-            
-            {% include "portal/asset_singleresult.html" %}
         {% endwith %}
     {% endfor %}
    </div>

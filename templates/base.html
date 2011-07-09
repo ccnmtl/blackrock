@@ -1,6 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head><title>{% block title %}MY PAGE TITLE{% endblock %}</title>
+<head>
+
+<title>{% block title %}MY PAGE TITLE{% endblock %}</title>
 
 <style media="screen" type="text/css">
 @import "/site_media/css/site.css" ;
@@ -8,7 +10,13 @@
 </style>
 
 {% block css %}{% endblock %}
+
+<!--[if lt IE 7]>
+<script src="http://ccnmtl.columbia.edu/remote/alerts/browser/ienosupport.js" type="text/javascript" language="javascript"></script>
+<link rel="stylesheet" href="http://ccnmtl.columbia.edu/remote/alerts/browser/ienosupport.css" type="text/css" media="all" />
+<![endif]-->
 {% block js %}{% endblock %}
+
 {% block feeds %}{% endblock %}
 
 {% include "google_analytics.html" %}
@@ -24,6 +32,7 @@
 <div id="breadcrumbs">{% block breadcrumbs %}{% endblock %}</div>
 <div id="nav">{% block nav %}{% endblock %}</div>
 
+<!--[if lt IE 7]><div id="browserwarning"></div><![endif]-->
 {% block content %}{% endblock %}
 </div>
 {% block footer %}{% endblock %}
