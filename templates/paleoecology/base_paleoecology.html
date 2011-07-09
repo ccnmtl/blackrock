@@ -12,7 +12,7 @@ Paleoecology: {% block pagetitle %}{% endblock %}
 <style type='text/css'>
   @import "media/css/print.css" print;
 </style> 
-<!--[if IE]>
+<!--[if IE 7]>
 <style type='text/css'>
   @import "media/css/style_ie7.css";
 </style> 
@@ -20,15 +20,12 @@ Paleoecology: {% block pagetitle %}{% endblock %}
 {% endblock %} 
 
 {% block js %} 
-<script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script>
-<script type="text/javascript" src="/site_media/js/mochikit/MochiKit/Signal.js"></script> 
-<!--script type="text/javascript" src="media/js/graph.js"></script--> 
-
-	<script type="text/javascript">
-	  function setActiveTab() { addElementClass("{% block tabname %}tab-identification{% endblock %}", "tab-selected"); }
-	  addLoadEvent(setActiveTab);
-	</script> 
-	
+    <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script>
+    <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/Signal.js"></script> 
+    <script type="text/javascript">
+      function setActiveTab() { addElementClass("{% block tabname %}tab-identification{% endblock %}", "tab-selected"); }
+      addLoadEvent(setActiveTab);
+    </script> 
 {% endblock %} 
 
 {% block masthead %} 

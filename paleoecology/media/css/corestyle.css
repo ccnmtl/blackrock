@@ -8,6 +8,10 @@ div.unanswered div#left {
   min-width: 418px;
 }
 
+div#container {
+    margin: 0px 0px 0px 0px;
+}
+
 div#instructions {
 	margin-bottom: 1em;
 }
@@ -15,13 +19,13 @@ div#instructions {
 .instructions {
 	margin-bottom: 1em;
 	float: none;
+	padding: 10px;
 }
 
 div#right {
 	float: left;
-	width: auto;
-	margin-left: 1em;
-	min-width: 600px;
+	margin-left: 8px;
+	min-width: 735px;
 }
 
 #identify-box {
@@ -72,16 +76,21 @@ div#right {
   padding: 5px;
 }
 
+
+.pollen-zoo-image.core {
+    width: 205px;
+}
+
 #pollen-image img {
-  max-width: 100px;
-  max-height: 100px;
+  max-width: 90px;
+  max-height: 90px;
 }
 
 .pollen-zoo-image img {
   cursor: pointer;
   max-width: 50px;
   max-height: 50px;
-  margin: 5px 10px 5px 5px;
+  margin: 0px 10px 0px 0px;
   float: left;
 }
 
@@ -89,7 +98,7 @@ div#right {
   float: left;
   background-color: #ddd;
   border: 1px solid #ccc;
-  margin: 0 0 5px 12px;
+  margin: 0 0 8px 8px;
 }
 
 .pollen-zoo-image.unanswered {
@@ -98,10 +107,6 @@ div#right {
 
 .pollen-zoo-image.answered {
 	width: 356px;
-}
-
-.pollen-zoo-image.core {
-	width: 220px;
 }
 
 .pollen-zoo-image img {
@@ -320,23 +325,19 @@ div.sample-info-container {
 }
 
 div.sample-info-right-container {
- 
   float: left;
-  margin: 10px;
-
+  margin: 8px 0px 8px 0px;
 }
 
 div.sample-info-right {
   border: 1px solid #A18F83;
-  padding: 5px;
+    padding-bottom: 5px;
 }
 
 div.sample-info-left-container {
-   margin: 10px;
-  float: left;
-      height: 430px;
-    width: 495px;
-
+   margin: 8px;
+   float: left;
+   height: 440px;
 }
 
 div.sample-info-left {
@@ -344,8 +345,7 @@ div.sample-info-left {
     float: left;
     overflow: auto;
     height: 405px;
-    width: 495px;
-
+    width: 445px;
 }
 
 div#yardstick {
@@ -390,10 +390,10 @@ div#core-unzoomed {
 div#core-zoomed {
   border: 1px gray solid;
   height: 600px;
-  width: 125px;
+  width: 115px;
   overflow: auto;
-    float: left;
-    margin-left: 1em;
+  float: left;
+  
 }
 
 div.core-slice {
@@ -453,8 +453,9 @@ width:auto;
 div#right-inner {
    background-color: lightgray;
    height: 580px;
-   padding: 10px;
+   padding: 0px;
    float: left;
+   width: 100%;
 }
 
 div.bottom {
