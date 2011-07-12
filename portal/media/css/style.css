@@ -476,7 +476,6 @@ a.link_research, span.link_research {
 
 #map_canvas {
     min-height: 300px;
-    max-height: 450px;
     height: 100%;
 }
 

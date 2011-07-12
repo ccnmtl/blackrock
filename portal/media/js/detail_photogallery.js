@@ -28,16 +28,41 @@ jQuery(document).ready(function() {
         itemVisibleOutCallback: detailcarousel_visibleOutCallback,
         itemVisibleInCallback: { onBeforeAnimation: detailcarousel_visibleInCallback, onAfterAnimation: null }
      });
+        
+    var viewportwidth;
+    var viewportheight;
+    
+    // the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
+    if (typeof window.innerWidth != 'undefined')
+    {
+         viewportwidth = window.innerWidth,
+         viewportheight = window.innerHeight
+    }
+    else if (typeof document.documentElement != 'undefined'
+        && typeof document.documentElement.clientWidth !=
+        'undefined' && document.documentElement.clientWidth != 0)
+    {
+        // IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
+        viewportwidth = document.documentElement.clientWidth,
+        viewportheight = document.documentElement.clientHeight
+    }
+    else
+    {
+        // older versions of IE
+        viewportwidth = document.getElementsByTagName('body')[0].clientWidth,
+        viewportheight = document.getElementsByTagName('body')[0].clientHeight
+    }
+    
+    var visible = viewportheight - (document.getElementById("mainnav").clientHeight + document.getElementById("brf").clientHeight); 
     
     if (!document.getElementById("related-items")) {
-        var map = jQuery("#map_canvas");
-        var maxHeight = map.css("max-height")
-        var leftHeight = jQuery("#left").innerHeight();
-
-        if (leftHeight > maxHeight) {
-            jQuery(map).css("height", maxHeight);
-        } else {
-            jQuery(map).css("height", leftHeight);
-        }
+        // make map the same size as the viewport
+        jQuery("#map_canvas").css("height", (visible - 20));
+    } else {
+        var mapHeight = document.getElementById("map_canvas").clientHeight;
+        var relatedHeight = document.getElementById("related-items").clientHeight;
+        var diff = visible - (mapHeight + relatedHeight + 40 /* padding */); // adding a little breathing room
+        if (diff > 0)
+            jQuery("#map_canvas").css("height", mapHeight + diff);
     }
 });
