@@ -475,7 +475,9 @@ a.link_research, span.link_research {
 }
 
 #map_canvas {
-    height:300px;
+    min-height: 300px;
+    max-height: 450px;
+    height: 100%;
 }
 
 #map_canvas.highlight {

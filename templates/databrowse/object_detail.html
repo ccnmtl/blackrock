@@ -98,7 +98,7 @@
             
         {% if asset_klass == "DataSet" %}
             {% if current_object.description %}
-                <p><p><span class="object_detail_label">Description:</span>
+                <p><span class="object_detail_label">Description:</span>
                 {{ current_object.description|safe }}</p>
             {% endif %}
        
@@ -113,7 +113,7 @@
             {% endif %}
         
             {% if current_object.url.all.count %}
-                <p><span class="object_detail_label">Link{%if current_object.url.all.count > 0%}s{%endif%}:</span>
+                <p><span class="object_detail_label">Link{%if current_object.url.all.count > 0%}s{%endif%}:</span></p>
                 <ul>
                 {% for u in current_object.url.all %}
                     <li><a href="{{ u.name }}">{% if u.display_name %}{{u.display_name}}{% else %}{{u.document}}{% endif %}</a></li>
@@ -229,30 +229,30 @@
 </td>
 <td id="center"> 
     {% if current_object.location.latitude or current_object.latitude %}
-       <div id="map-column">
-          <div id="map_canvas"></div>
-       </div>
+       <div id="map_canvas"></div>
     {% else %}{% ifequal asset_klass "ForestStory" %}
-       <div id="map-column">
-          <div id="map_canvas"></div>
-       </div>
+       <div id="map_canvas"></div>
     {% endifequal%}{% endif %}
-
-    <div id="related-items">
-    {% for x in object|related %}
-        {% with x as current_object %}	
-            {% if asset_klass == "ForestStory" %}
-                {% with forloop.counter as icon_display_order %}
-                {% with 1 as includehighlight %}
-                   {% include "portal/asset_location.html" %}
-                   {% include "portal/asset_singleresult.html" %}
-            	{% endwith %}{% endwith %}
-            {% else %}
-                {% include "portal/asset_singleresult.html" %}
-            {% endif %}
-        {% endwith %}
-    {% endfor %}
-   </div>
+    
+    {% with object|related as all_related %}
+    {% if all_related %}
+        <div id="related-items">
+        {% for x in all_related %}
+            {% with x as current_object %}	
+                {% if asset_klass == "ForestStory" %}
+                    {% with forloop.counter as icon_display_order %}
+                    {% with 1 as includehighlight %}
+                       {% include "portal/asset_location.html" %}
+                       {% include "portal/asset_singleresult.html" %}
+                	{% endwith %}{% endwith %}
+                {% else %}
+                    {% include "portal/asset_singleresult.html" %}
+                {% endif %}
+            {% endwith %}
+        {% endfor %}
+       </div>
+    {% endif %}
+    {% endwith %}
 </td><!-- end related section --></tr></table>
 
 {% include "portal/asset_location.html" %}

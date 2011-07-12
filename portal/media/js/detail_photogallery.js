@@ -28,4 +28,16 @@ jQuery(document).ready(function() {
         itemVisibleOutCallback: detailcarousel_visibleOutCallback,
         itemVisibleInCallback: { onBeforeAnimation: detailcarousel_visibleInCallback, onAfterAnimation: null }
      });
+    
+    if (!document.getElementById("related-items")) {
+        var map = jQuery("#map_canvas");
+        var maxHeight = map.css("max-height")
+        var leftHeight = jQuery("#left").innerHeight();
+
+        if (leftHeight > maxHeight) {
+            jQuery(map).css("height", maxHeight);
+        } else {
+            jQuery(map).css("height", leftHeight);
+        }
+    }
 });
