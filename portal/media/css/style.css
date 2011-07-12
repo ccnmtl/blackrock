@@ -833,7 +833,6 @@ div.asset-types {
 div#weather {
 	padding: 5px;
 	font-weight: bold;
-	min-width: 1003px;
 }
 
 div#weather h3 {
@@ -889,7 +888,7 @@ div.station-id {
 
 div#time-slider {
     position: absolute;
-    left: 740px;
+    left: 710px;
     width: 280px;
     display: block;
     height: 30px;
@@ -924,6 +923,10 @@ div.station-id, div.weather-image {
 	border-top: none;
 }
 
+div.weather-image img {
+    width: 990px;
+}
+
 div#weather ul {
 	list-style: none;
 	background: #D9D9D9; /* old browsers */
@@ -935,7 +938,6 @@ div#weather ul {
     padding: 0;
     border-left: 1px solid #a9a9a9;
 	border-right: 1px solid #a9a9a9;
-	min-width: 1000px;
 }
 
 div#weather ul li {
