@@ -12,6 +12,8 @@ from django.contrib.gis.db import models
 from django.template import Context
 from django.template.loader import get_template
 
+from django.db.models.signals import pre_save
+
 MAX_DISPLAY_LENGTH = 50
 
 # Static Lookup Tables
@@ -175,7 +177,7 @@ class Location(models.Model):
     location_subtype = models.ManyToManyField(LocationSubtype, null=True, blank=True)
     latitude = models.DecimalField(max_digits=18, decimal_places=10)
     longitude = models.DecimalField(max_digits=18, decimal_places=10)
-    latlong = models.PointField();
+    latlong = models.PointField(null=True, blank=True);
     objects = models.GeoManager();
     
     audience = models.ManyToManyField(Audience, null=True, blank=True)
@@ -191,6 +193,12 @@ class Location(models.Model):
     
     class Meta:
         ordering = ['name']
+        
+def update_location_geometry(sender, **kwargs):
+    obj = kwargs['instance']
+    obj.latlong = "POINT(%s %s)" % (obj.latitude, obj.longitude)
+
+pre_save.connect(update_location_geometry, sender=Location)        
     
 class Station(models.Model):
     name = models.CharField(max_length=500)

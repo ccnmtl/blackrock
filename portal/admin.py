@@ -28,6 +28,8 @@ class LocationAdmin(admin.ModelAdmin):
   search_fields = ['name']
   list_display = ('name', 'latitude', 'longitude')
   ordering = ["name"]
+  readonly_fields = ['latlong'];
+    
 admin.site.register(Location, LocationAdmin)
 
 class StationAdmin(admin.ModelAdmin):
