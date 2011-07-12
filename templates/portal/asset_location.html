@@ -25,7 +25,7 @@ prefix -- Prefix for the identifier to prevent duplications
                 {% ifequal forloop.counter 1 %}
                     {% if l.latitude %} 
                         <!--  Highlight this asset's first location -->
-                        <a onclick="portalMapInstance.showMarkerInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{l.id}}'); return false;"><img style="float: left; margin-right: 10px;" src="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld={{icon_display_order}}|4A3404|FFFFFF" alt="{{icon_display_order}} map marker" /></a>
+                        <a onclick="portalMapInstance.showMarkerInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{l.id}}'); return false;"><img style="float: left; margin-right: 10px;" src="http://chart.apis.google.com/chart?chst=d_map_pin_letter&amp;chld={{icon_display_order}}|4A3404|FFFFFF" alt="{{icon_display_order}} map marker" /></a>
                      {% endif %}
                 {% endifequal %}
             {% endif %}
@@ -37,7 +37,7 @@ prefix -- Prefix for the identifier to prevent duplications
 {% else %}{% if current_object.location %}
     {% with current_object.location as current_location %}
         {% if includehighlight %}
-            <a onclick="portalMapInstance.showMarkerInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}'); return false;"><img style="float: left; margin-right: 10px;" src="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld={{icon_display_order}}|4A3404|FFFFFF" alt="{{icon_display_order}} map marker" /></a>
+            <a onclick="portalMapInstance.showMarkerInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}'); return false;"><img style="float: left; margin-right: 10px;" src="http://chart.apis.google.com/chart?chst=d_map_pin_letter&amp;chld={{icon_display_order}}|4A3404|FFFFFF" alt="{{icon_display_order}} map marker" /></a>
         {% endif %}
         {% if geocode_class %}
             {% include "portal/asset_geocode.html" %}
@@ -47,7 +47,7 @@ prefix -- Prefix for the identifier to prevent duplications
 
 {% if current_object.latitude %}
     {% if includehighlight %}
-        <a onclick="portalMapInstance.showMarkerInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_object.id}}'); return false;"><img style="float: left; margin-right: 10px;" src="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld={{icon_display_order}}|4A3404|FFFFFF" alt="{{icon_display_order}} map marker" /></a>
+        <a onclick="portalMapInstance.showMarkerInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_object.id}}'); return false;"><img style="float: left; margin-right: 10px;" src="http://chart.apis.google.com/chart?chst=d_map_pin_letter&amp;chld={{icon_display_order}}|4A3404|FFFFFF" alt="{{icon_display_order}} map marker" /></a>
     {% endif %}
     {% if geocode_class %}
         {% with current_object as current_location %}

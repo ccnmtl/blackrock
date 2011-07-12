@@ -18,7 +18,7 @@
       
       {% if icon_display_order %}
         {% if icon_display_order <= 10 %}
-            <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-iconname" value="http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld={{icon_display_order}}|4A3404|FFFFFF"></input>
+            <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-iconname" value="http://chart.apis.google.com/chart?chst=d_map_pin_letter&amp;chld={{icon_display_order}}|4A3404|FFFFFF"></input>
         {% endif %}
       {% else %}{% if iconname %}
         <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-iconname" value="{{iconname}}"></input>
