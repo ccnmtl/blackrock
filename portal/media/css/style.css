@@ -484,8 +484,8 @@ a.link_research, span.link_research {
 }
 
 div#interactive_map table td#left {
-  width: 310px;
-  min-width: 310px;
+  width: 330px;
+  min-width: 330px;
   background-color:white;
   margin: 0px;
   padding: 0px;
@@ -515,7 +515,6 @@ div#nearby_results div#search-results div#header {
 
 div#map_filters {
     vertical-align: top;
-    width: 310px;
     padding: 5px 10px 10px 10px;
     white-space: nowrap;
     line-height: 225%;
