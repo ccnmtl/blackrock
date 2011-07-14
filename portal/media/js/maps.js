@@ -300,7 +300,7 @@ if (!Portal.Map) {
             }
         }
         
-        this.initMarkers = function(className, zIndexBoost) {
+        this.initMarkers = function(className, zIndexBoost, fitBounds) {
             // iterate over locations within the page, and add the requested markers
             var bounds = new google.maps.LatLngBounds();
             var a = {};
@@ -338,7 +338,7 @@ if (!Portal.Map) {
                         zIndex--;
                     });      
             
-            if (!bounds.isEmpty())
+            if (!bounds.isEmpty() && fitBounds)
                 self.mapInstance.fitBounds(bounds);
             
             return a;
@@ -351,6 +351,8 @@ if (!Portal.Map) {
             }
             self.search_results = {};
             
+            document.getElementById("map_filters").style.display = "none";
+            
             var nearby_results = document.getElementById("nearby_results");
             
             jQuery(nearby_results).show('fast', function() {
@@ -359,7 +361,7 @@ if (!Portal.Map) {
                 request.addCallback(function(response) {
                     nearby_results.innerHTML = response.responseText;
                     document.getElementById("nearby_asset").innerHTML = unescape(title);
-                    self.search_results = self.initMarkers("nearby", 0);
+                    self.search_results = self.initMarkers("nearby", 0, true);
                     
                     var listener = google.maps.event.addListenerOnce(self.mapInstance, "idle", function() { 
                         var center = new google.maps.LatLng(lat, long);
@@ -371,6 +373,7 @@ if (!Portal.Map) {
         }
         
         this.closeSearch = function() {
+            document.getElementById("map_filters").style.display = "block";
             var nearby_results = document.getElementById("nearby_results");
             nearby_results.innerHTML = "";
             nearby_results.style.display = "none";
@@ -380,8 +383,11 @@ if (!Portal.Map) {
                 location.marker.setMap(null);
             }
             self.search_results = {};
-            
-            var latlng = new google.maps.LatLng(41.40744, -74.01457);
+            self.center();
+        }
+        
+        this.center = function() {
+            var latlng = new google.maps.LatLng(41.397459,-74.021848);
             self.mapInstance.setCenter(latlng);
             self.mapInstance.setZoom(13);
         }
@@ -392,12 +398,12 @@ if (!Portal.Map) {
             return count;
         }
         
-        addLoadEvent(function() {
+        this.init = function() {
             if (!document.getElementById("map_canvas"))
                 return;
 
             // Center on center of Black Rock Forest
-            var latlng = new google.maps.LatLng(41.40744, -74.01457);
+            var latlng = new google.maps.LatLng(41.397459,-74.021848);
             var myOptions = {
                 zoom: 13,
                 center: latlng,
@@ -415,15 +421,16 @@ if (!Portal.Map) {
             var options = getElementsByTagAndClassName("input", "layer");
             forEach(options,
                     function(option) {
-                        var kmllayer = new Portal.Layer(option.id, "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/" + option.id + ".kml?zzzz=" + randomnumber, true);
+                        var clickable = option.style.display != "none";
+                        var kmllayer = new Portal.Layer(option.id, "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/" + option.id + ".kml?yyyy=" + randomnumber, clickable);
                         self.layers[option.id] = kmllayer;
                         
-                        connect(option, 'onclick', function(evt) {
-                            self.events.signal(Portal, 'toggleLayer');
-                         });
+                        if (clickable) {
+                            connect(option, 'onclick', function(evt) {
+                                self.events.signal(Portal, 'toggleLayer');
+                             });
+                        }
                     });
-            
-            
             
             options = getElementsByTagAndClassName("input", "facet");
             forEach(options,
@@ -433,9 +440,9 @@ if (!Portal.Map) {
                          });
                     });
                 
-            self.locations = self.initMarkers("geocode", 0); 
+            self.locations = self.initMarkers("geocode", 0, false); 
             
-            self.selected = self.initMarkers("geoselected", 0);
+            self.selected = self.initMarkers("geoselected", 0, true);
             if (self.markerCount(self.selected)) {
                 var listener = google.maps.event.addListenerOnce(self.mapInstance, "idle", function() { 
                     self.mapInstance.setZoom(14);
@@ -445,9 +452,13 @@ if (!Portal.Map) {
                     }
                 });
             }
-         });
+        }
     }
 }
 
-
-var portalMapInstance = new Portal.Map();
+var portalMapInstance = null;
+addLoadEvent(function() {
+    portalMapInstance = new Portal.Map();
+    portalMapInstance.init();
+    portalMapInstance.toggleLayer();
+});

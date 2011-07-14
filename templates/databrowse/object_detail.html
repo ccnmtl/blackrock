@@ -3,14 +3,14 @@
 {% load portal %}
 {% load markup %}
 
-{% block title %}{{ object.model.verbose_name|capfirst }}: {{ object }}{% endblock %}
+{% block title %}{{ object }}{% endblock %}
 
 {% block css %}
     <link href="/portal/media/js/jcarousel/skins/blackrock-detail/skin.css" media="screen" rel="stylesheet" type="text/css"/>
 {% endblock %}
 
 {% block js %}
-    <script type="text/javascript" src="/portal/media/js/detail_photogallery.js"></script>
+    <script type="text/javascript" src="/portal/media/js/object_detail.js"></script>
 {% endblock %}
 
 {% block container %}
