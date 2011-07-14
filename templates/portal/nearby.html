@@ -20,9 +20,9 @@
                     <tr>
                     <td>
                         <div style="font-size: .9em;">
-                        <a class="search-display-name" href="{{current_object|detail_url}}">{{current_object|display_name}}</a><br />
-                        <b>Record Type</b>: {{current_object|klass_display}}
-                        {% include "portal/asset_description.html" %}
+                            <div style="margin-bottom: 3px;"><a class="search-display-name" href="{{current_object|detail_url}}">{{current_object|display_name}}</a></div>
+                            <b>Record Type</b>: {{current_object|klass_display}}
+                            {% include "portal/asset_description.html" %}
                         </div>
                     </td>
                     </tr>
