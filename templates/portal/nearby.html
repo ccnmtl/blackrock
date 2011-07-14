@@ -1,10 +1,11 @@
 {% load smartif %}
 {% load portal %}
 
-<div id="search-results"> 
-    <h3>Near <span id="nearby_asset"></span></h3>
-    <a href="#" onclick='portalMapInstance.closeSearch();'>Close</a>
-    <br />
+<div id="search-results">
+    <div id="header">
+        <h3 style="display: inline">Near <span id="nearby_asset"></span></h3>
+        <button style="float: right; font-size: .75em; font-weight: bold;" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick='portalMapInstance.closeSearch();'><span class="ui-button-text">X</span></button>
+    </div>
     <div class="assetlist">
         {% for current_object in results %}
             {% with "nearby" as prefix %}

@@ -504,6 +504,15 @@ div#interactive_map table td#right {
     background-color: #89a08c;
 }
 
+div#nearby_results div#search-results {
+    margin: 5px;
+}
+
+div#nearby_results div#search-results div#header {
+    margin: 10px;
+}
+
+
 div#map_filters {
     vertical-align: top;
     width: 310px;
