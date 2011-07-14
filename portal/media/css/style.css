@@ -640,7 +640,14 @@ a.display-name:hover {
     text-decoration: underline;
 }
 
-#related-items a.display-name {
+div#related-items h3 {
+    font-weight: bold;
+    text-decoration: none;
+    margin: 10px;
+}
+
+
+div#related-items a.display-name {
 	display: block;
 }
 

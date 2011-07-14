@@ -37,8 +37,9 @@ jQuery(document).ready(function() {
     } else if (document.getElementById("map_canvas")) {
         var mapHeight = document.getElementById("map_canvas").clientHeight;
         var relatedHeight = document.getElementById("related-items").clientHeight;
-        var diff = visible - (mapHeight + relatedHeight + 40 /* padding */); // adding a little breathing room
-        if (diff > 0)
+        var diff = visible - (mapHeight + relatedHeight + 30 /* padding */); // adding a little breathing room
+        if (diff > 0) {
             jQuery("#map_canvas").css("height", mapHeight + diff);
+        }
     }
 });

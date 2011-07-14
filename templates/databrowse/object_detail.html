@@ -17,13 +17,12 @@
 
 {% with object.instance as current_object %}
 {% with object.instance|klass as asset_klass %}
-{% with "geocode" as geocode_class %}
 
 <div id="details-wrapper">
 <table id="details-table">
 <tr>
 <td id="left">
-    <div id="asset-details" class="blocktext">
+    <div id="asset-details">
         <table style="margin-bottom: 8px"><tr>
         <td><img src="/portal/media/images/nonmapicon_{{asset_klass|lower}}.png" alt="record type icon" style="margin-right: 5px;" /></td><td style="vertical-align: middle"><h3>{{current_object|display_name}}</h3></td>
         </tr></table>
@@ -237,14 +236,17 @@
     {% with object|related as all_related %}
     {% if all_related %}
         <div id="related-items">
+        <h3>Related Records</h3>
         {% for x in all_related %}
             {% with x as current_object %}	
                 {% if asset_klass == "ForestStory" %}
                     {% with forloop.counter as icon_display_order %}
                     {% with 1 as includehighlight %}
+                    {% with "geocode" as geocode_class %}
                        {% include "portal/asset_location.html" %}
                        {% include "portal/asset_singleresult.html" %}
-                	{% endwith %}{% endwith %}
+                       
+                	{% endwith %}{% endwith %}{% endwith %}
                 {% else %}
                     {% include "portal/asset_singleresult.html" %}
                 {% endif %}
@@ -255,10 +257,11 @@
     {% endwith %}
 </td><!-- end related section --></tr></table>
 
+{% with "geoselected" as geocode_class %}
 {% include "portal/asset_location.html" %}
-   
+{% endwith %}
 <p class="clear"></p>
 </div> <!-- end detail-page -->
     
-{% endwith %}{% endwith %}{% endwith %}
+{% endwith %}{% endwith %}
 {% endblock %}

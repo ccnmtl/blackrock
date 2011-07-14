@@ -41,6 +41,9 @@
       <coordinates>-74.011429,41.413322,0.000000</coordinates>
     </Point>
   </Placemark>
+  <Folder>
+    <name>Features</name>
+    <open>0</open>
        <Placemark>
          <name><![CDATA[1]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
@@ -6324,7 +6327,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[78]]></name>
+         <name><![CDATA[Mine Hill Road]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -9835,7 +9838,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[127]]></name>
+         <name><![CDATA[Reservoir Road]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -15459,7 +15462,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[185]]></name>
+         <name><![CDATA[Continental Road]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -15694,7 +15697,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[188]]></name>
+         <name><![CDATA[Bog Meadow Road]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -20729,7 +20732,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[247]]></name>
+         <name><![CDATA[Peck's Road]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -21787,7 +21790,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[Continental]]></name>
+         <name><![CDATA[Continental Road]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -23797,7 +23800,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[276]]></name>
+         <name><![CDATA[Jim's Pond Road]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -28429,7 +28432,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[326]]></name>
+         <name><![CDATA[White Oak Road]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -32594,7 +32597,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[Hall Road 11]]></name>
+         <name><![CDATA[Hall Road]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -33367,7 +33370,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[Chattifield Road]]></name>
+         <name><![CDATA[Chatfield Road]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
@@ -38139,7 +38142,7 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[500]]></name>
+         <name><![CDATA[Old West Point Road]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
          <styleUrl>#FEATURES</styleUrl>
            <LineString>
