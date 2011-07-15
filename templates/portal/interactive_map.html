@@ -81,7 +81,6 @@
         <div id="map_canvas"></div>
     </td>  
 </tr></table>
-<input type="checkbox" class="layer" id="brfboundary" value="Forest Boundary" checked="checked" style="display: none"/>
            
 </div>
 <script type="text/javascript">
@@ -90,10 +89,10 @@ jQuery(document).ready(function() {
     document.getElementById("map_canvas").style.height = visible + "px";
     document.getElementById("nearby_results").style.height = visible + "px";
 
-
     jQuery(".ui-accordion-header").click(function() {
         jQuery(this).next().toggle();
         return false;
     });
 });
+
 </script>

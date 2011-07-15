@@ -436,11 +436,11 @@ div#container table {
 }
 
 div#container table td#left {
-  width: 45%;
+  width: 40%;
   vertical-align: top;
   border: none;
   border-collapse: collapse;
-  min-width: 400px;
+  min-width: 300px;
   padding: 0 30px 10px 10px;
 }
 

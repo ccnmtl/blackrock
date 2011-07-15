@@ -421,15 +421,12 @@ if (!Portal.Map) {
             var options = getElementsByTagAndClassName("input", "layer");
             forEach(options,
                     function(option) {
-                        var clickable = option.style.display != "none";
-                        var kmllayer = new Portal.Layer(option.id, "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/" + option.id + ".kml?yyyy=" + randomnumber, clickable);
+                        var kmllayer = new Portal.Layer(option.id, "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/" + option.id + ".kml?yyyy=" + randomnumber, false);
                         self.layers[option.id] = kmllayer;
                         
-                        if (clickable) {
-                            connect(option, 'onclick', function(evt) {
-                                self.events.signal(Portal, 'toggleLayer');
-                             });
-                        }
+                        connect(option, 'onclick', function(evt) {
+                            self.events.signal(Portal, 'toggleLayer');
+                         });
                     });
             
             options = getElementsByTagAndClassName("input", "facet");
@@ -440,7 +437,8 @@ if (!Portal.Map) {
                          });
                     });
                 
-            self.locations = self.initMarkers("geocode", 0, false); 
+            self.locations = self.initMarkers("geocode", 0, false);
+            self.locations = self.initMarkers("geocode_detail", 0, true);
             
             self.selected = self.initMarkers("geoselected", 0, true);
             if (self.markerCount(self.selected)) {
@@ -452,6 +450,11 @@ if (!Portal.Map) {
                     }
                 });
             }
+            
+            var boundary = new Portal.Layer("brfboundary", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/brfboundary.kml", true);
+            boundary.instance.setMap(self.mapInstance);
+            
+            self.toggleLayer();
         }
     }
 }
@@ -460,5 +463,4 @@ var portalMapInstance = null;
 addLoadEvent(function() {
     portalMapInstance = new Portal.Map();
     portalMapInstance.init();
-    portalMapInstance.toggleLayer();
 });
