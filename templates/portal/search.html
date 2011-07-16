@@ -17,14 +17,26 @@
     <td id="facets_column">
         <div id="facets" class="">
              {% for field in form %}
-                <div class="fieldWrapper">
-                    {{ field.errors }}
-                    <span class="header">{{field.label_tag}}:</span> {{ field }}
+                {{ field.errors }}
+                {% ifequal field.label "Search" %}
+                    <div style="padding: 10px" class="ui-widget">
+                        <h3 style="display: inline">{{field.label}}</h3>: {{ field }}
+                        <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="submit"><span class="ui-button-text">Submit</span></button>
+                        <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="reset" onclick="parent.location='/portal/search/'"><span class="ui-button-text">Reset</span></button>
+                    </div>
+                {% else %}
                     
-                    {% ifequal field.label "Search" %}
-                        <input type="submit" value="Search"></input>&nbsp;<input type="reset" value="Reset" onclick="parent.location='/portal/search/'"></input>
-                    {% endifequal %}
-                </div>
+                    <div class="fieldWrapper ui-accordion ui-widget ui-helper-reset ui-accordion-icons">
+                        {% if field.field.choices %}
+                            <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-top ui-state-focus"><span class="ui-icon ui-icon-triangle-1-s"></span><a tabindex="-1" href="#">Filter by {{field.label_tag}}</a></h3>
+                            <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active">
+                            {{ field }}
+                            </div>
+                        {% else %}
+                        <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-state-disabled ui-corner-top ui-state-focus"><span class="ui-icon ui-icon-triangle-1-s"></span><a tabindex="-1" href="#">Filter by {{field.label_tag}}</a></h3>
+                        {% endif %}
+                    </div>
+                {% endifequal %}
             {% endfor %}
         </div>
     </td>
@@ -52,5 +64,21 @@
 </table>
 </div>
 </form>
+
+<script type="text/javascript">
+jQuery(document).ready(function() {
+    jQuery(".ui-accordion-header").click(function() {
+        jQuery(this).next().toggle();
+        var child = jQuery(this).children("span.ui-icon");
+        child.toggleClass("ui-icon-triangle-1-s");
+        child.toggleClass("ui-icon-triangle-1-e");
+        return false;
+    });
+
+    var visible = getVisibleContentHeight();
+    jQuery("#facets").css("min-height", visible + "px");
+});
+</script>
+
 {% endblock %}
 

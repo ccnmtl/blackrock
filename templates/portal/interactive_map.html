@@ -42,10 +42,9 @@
 
 <table width="100%"><tr>
     <td id="left">
-        <div id="nearby_results"></div>
         <div id="map_filters">
             <div class="ui-accordion ui-widget ui-helper-reset ui-accordion-icons">
-                  <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-state-active ui-corner-top ui-state-focus"><span class="ui-icon ui-icon-triangle-1-s"></span><a tabindex="-1" href="#">Cultural Features</a></h3>
+                  <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-top ui-state-focus"><span class="ui-icon ui-icon-triangle-1-s"></span><a tabindex="-1" href="#">Cultural Features</a></h3>
                   <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active">
                   {% with object|facet_counts:"infrastructure" as infrastructure_counts %}
                     <div><input type="checkbox" class="layer" id="viewpoints" value="Viewpoints" /><img src="/portal/media/images/nonmapicon_viewpoints.png/" alt="Viewpoints"/>Viewpoints</div>
@@ -59,7 +58,7 @@
                   </div>
             </div>
             <div class="ui-accordion ui-widget ui-helper-reset ui-accordion-icons">
-                  <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-state-active ui-corner-top ui-state-focus"><span class="ui-icon ui-icon-triangle-1-s"></span><a tabindex="-1" href="#">Natural Features</a></h3>
+                  <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-top ui-state-focus"><span class="ui-icon ui-icon-triangle-1-s"></span><a tabindex="-1" href="#">Natural Features</a></h3>
                   <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active">
                   <div><input type="checkbox" class="layer" id="ponds" value="Ponds" checked="checked" /><img src="/portal/media/images/nonmapicon_ponds.png/" alt="Ponds"/>Ponds</div>
                   <div><input type="checkbox" class="layer" id="streams" value="Streams" checked="checked" /><img src="/portal/media/images/nonmapicon_streams.png/" alt="Streams"/>Streams</div>
@@ -67,7 +66,7 @@
                   </div>
             </div>
             <div class="ui-accordion ui-widget ui-helper-reset ui-accordion-icons">
-                  <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-state-active ui-corner-top ui-state-focus"><span class="ui-icon ui-icon-triangle-1-s"></span><a tabindex="-1" href="#">Points of Interest</a></h3>
+                  <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-top ui-state-focus"><span class="ui-icon ui-icon-triangle-1-s"></span><a tabindex="-1" href="#">Points of Interest</a></h3>
                   <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active">
                   {% with result|facet_counts:"featured" as featured_counts %}
                       <div><input type="checkbox" class="facet featured_option" id="id_education" value="Education" /><img src="/portal/media/images/nonmapicon_education.png/" alt="Education" />Education ({{featured_counts.FeaturedEducation}})</div>
@@ -76,6 +75,7 @@
                   </div>
             </div>
         </div>
+        <div id="nearby_results"></div>
     </td>
     <td id="right">
         <div id="map_canvas"></div>
@@ -83,6 +83,7 @@
 </tr></table>
            
 </div>
+
 <script type="text/javascript">
 jQuery(document).ready(function() {
     var visible = getVisibleContentHeight();
@@ -91,8 +92,10 @@ jQuery(document).ready(function() {
 
     jQuery(".ui-accordion-header").click(function() {
         jQuery(this).next().toggle();
+        var child = jQuery(this).children("span.ui-icon");
+        child.toggleClass("ui-icon-triangle-1-s");
+        child.toggleClass("ui-icon-triangle-1-e");
         return false;
     });
 });
-
 </script>
