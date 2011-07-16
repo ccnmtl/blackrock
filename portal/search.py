@@ -44,21 +44,8 @@ class PortalSearchForm(SearchForm):
   def search(self):
     sqs = []
     self.hidden = []
-    
-    """Filter by full text search string or empty string if does not exist"""
-    if not hasattr(self, "cleaned_data"):
-      sqs = self.searchqueryset.auto_query("").order_by("name")
 
-      if self.load_all:
-        sqs = sqs.load_all()
-      
-      for facet in Facet.asset_facets:
-        sqs = sqs.facet(facet)
-        if facet in self.fields:
-          if len(self.fields[facet].choices) > 0:
-            self.fields[facet].choices = []
-      
-    elif self.is_valid():
+    if self.is_valid():
       q = self.cleaned_data['q'].lower()
       sqs = self.searchqueryset.auto_query(q).order_by("name")
 

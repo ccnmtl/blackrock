@@ -241,6 +241,8 @@ class Station(models.Model):
     
     class Meta:
         ordering = ['name']
+        verbose_name = "Station"
+        verbose_name_plural = "Stations"
 
 class Region(models.Model):
     name = models.CharField(max_length=500)
@@ -318,6 +320,8 @@ class Person(models.Model):
     
     class Meta:
         ordering = ['last_name', 'first_name']
+        verbose_name = "Person"
+        verbose_name_plural = "People"
  
 class DataSet(models.Model):
     name = models.CharField(max_length=500)

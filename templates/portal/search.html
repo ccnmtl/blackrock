@@ -48,8 +48,10 @@
                     {% if page.has_previous and page.has_next %}|{% endif %}
                     {% if page.has_next %}<a href="?{{ query }}page={{ page.next_page_number }}">Next &raquo;</a>{% endif %}
                 </div>
-            {% endif %}            
-            <h3 style="margin-top: 5px;">Showing {{page.start_index}}-{{page.end_index}} of {{count}} Results</h3>
+            {% endif %} 
+            {% if count %}           
+                <h3 style="margin-top: 5px;">Showing {{page.start_index}}-{{page.end_index}} of {{count}} Results</h3>
+            {% endif %}
         </div>
         
         <div id="search-results">
@@ -78,9 +80,11 @@
 jQuery(document).ready(function() {
     jQuery(".ui-accordion-header").click(function() {
         jQuery(this).next().toggle();
-        jQuery(this).toggleClass("ui-corner-all ui-corner-top");
-        var child = jQuery(this).children("span.ui-icon");
-        child.toggleClass("ui-icon-triangle-1-s ui-icon-triangle-1-e");
+        if (!jQuery(this).hasClass("ui-state-disabled")) {
+            jQuery(this).toggleClass("ui-corner-all ui-corner-top");
+            var child = jQuery(this).children("span.ui-icon");
+            child.toggleClass("ui-icon-triangle-1-s ui-icon-triangle-1-e");
+        }
         return false;
     });
 
