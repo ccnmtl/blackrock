@@ -33,7 +33,7 @@
                             {{ field }}
                             </div>
                         {% else %}
-                        <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-state-disabled ui-corner-top ui-state-focus"><span class="ui-icon ui-icon-triangle-1-s"></span><a tabindex="-1" href="#">Filter by {{field.label_tag}}</a></h3>
+                        <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-state-disabled ui-corner-all ui-state-focus"><span class="ui-icon ui-icon-triangle-1-s"></span><a tabindex="-1" href="#">Filter by {{field.label_tag}}</a></h3>
                         {% endif %}
                     </div>
                 {% endifequal %}
@@ -41,9 +41,18 @@
         </div>
     </td>
     <td id="results_column">
-        <div id="search-results"> 
-            <h2>Search Results ({{count}})</h2>
-            <br />
+        <div class="ui-widget" style="margin-left: 20px; margin-right: 10px;">
+            {% if page.has_previous or page.has_next %}
+                <div style="float: right">
+                    {% if page.has_previous %}<a href="?{{ query }}page={{ page.previous_page_number }}">&laquo; Previous</a>{% endif %}
+                    {% if page.has_previous and page.has_next %}|{% endif %}
+                    {% if page.has_next %}<a href="?{{ query }}page={{ page.next_page_number }}">Next &raquo;</a>{% endif %}
+                </div>
+            {% endif %}            
+            <h3 style="margin-top: 5px;">Showing {{page.start_index}}-{{page.end_index}} of {{count}} Results</h3>
+        </div>
+        
+        <div id="search-results">
             <div class="assetlist">
                 {% for result in page.object_list %}
                     {% with result.object as current_object %}
@@ -52,10 +61,10 @@
                 {% endfor %}
             </div>
             {% if page.has_previous or page.has_next %}
-                <div>
-                    {% if page.has_previous %}<a href="?{{ query }}page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
-                    |
-                    {% if page.has_next %}<a href="?{{ query }}page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+                <div style="float: right;" class="ui-widget">
+                    {% if page.has_previous %}<a href="?{{ query }}page={{ page.previous_page_number }}">&laquo; Previous</a>{% endif %}
+                    {% if page.has_previous and page.has_next %}|{% endif %}
+                    {% if page.has_next %}<a href="?{{ query }}page={{ page.next_page_number }}">Next &raquo;</a>{% endif %}
                 </div>
             {% endif %}
         </div>
@@ -69,9 +78,9 @@
 jQuery(document).ready(function() {
     jQuery(".ui-accordion-header").click(function() {
         jQuery(this).next().toggle();
+        jQuery(this).toggleClass("ui-corner-all ui-corner-top");
         var child = jQuery(this).children("span.ui-icon");
-        child.toggleClass("ui-icon-triangle-1-s");
-        child.toggleClass("ui-icon-triangle-1-e");
+        child.toggleClass("ui-icon-triangle-1-s ui-icon-triangle-1-e");
         return false;
     });
 
