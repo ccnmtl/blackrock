@@ -9,9 +9,9 @@
 {% endblock %}
 
 {% block container %}
+<div id="search-wrapper">
 <form method="get" action=".">
 
-<div id="search-wrapper">
  <table id="search-table">
     <tr>
     <td id="facets_column">
@@ -28,12 +28,12 @@
                     
                     <div class="fieldWrapper ui-accordion ui-widget ui-helper-reset ui-accordion-icons">
                         {% if field.field.choices %}
-                            <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-top ui-state-focus"><span class="ui-icon ui-icon-triangle-1-s"></span><a tabindex="-1" href="#">Filter by {{field.label_tag}}</a></h3>
+                            <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-top ui-state-focus"><span class="ui-icon ui-icon-triangle-1-s"></span><a tabindex="-1" href="#">Search By {{field.label_tag}}</a></h3>
                             <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active">
                             {{ field }}
                             </div>
                         {% else %}
-                        <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-state-disabled ui-corner-all ui-state-focus"><span class="ui-icon ui-icon-triangle-1-s"></span><a tabindex="-1" href="#">Filter by {{field.label_tag}}</a></h3>
+                        <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-state-disabled ui-corner-all ui-state-focus"><span class="ui-icon ui-icon-triangle-1-s"></span><a tabindex="-1" href="#">Search By {{field.label_tag}}</a></h3>
                         {% endif %}
                     </div>
                 {% endifequal %}
@@ -73,8 +73,9 @@
    </td>
    </tr>
 </table>
-</div>
 </form>
+</div>
+
 
 <script type="text/javascript">
 jQuery(document).ready(function() {

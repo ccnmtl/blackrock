@@ -248,8 +248,10 @@ if (!Portal.Map) {
                 description = kmlEvent.latLng.lat() + ', ' + kmlEvent.latLng.lng();
             }
             
-            var offset = new google.maps.Size(-5, -20);
-            self.infowindow = new google.maps.InfoWindow({content: description, position: kmlEvent.latLng, maxWidth: 400, pixelOffset: offset });
+            var params = {content: description, position: kmlEvent.latLng, maxWidth: 400 }
+            if (kmlEvent.pixelOffset.height < 0)
+                params['pixelOffset'] = new google.maps.Size(-5, -20);
+            self.infowindow = new google.maps.InfoWindow(params);
             self.infowindow.open(self.mapInstance);
         }
         

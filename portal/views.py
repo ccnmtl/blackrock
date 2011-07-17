@@ -1,5 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
-from django.template import RequestContext, Context
+from django.template import RequestContext, Context, TemplateDoesNotExist
 from django.shortcuts import render_to_response
 from django.db import connection 
 from django.db.models import get_model, DateField
@@ -23,7 +23,7 @@ from django.utils import simplejson
 from django.utils.tzinfo import FixedOffset
 from django.contrib.gis.geos import  * 
 from django.contrib.gis.measure import D # D is a shortcut for Distance 
-
+from django.template.loader import get_template
 
 class rendered_with(object):
     def __init__(self, template_name):
@@ -38,6 +38,24 @@ class rendered_with(object):
                 return items
 
         return rendered_func
+    
+def mobile(request,path):
+    h = Hierarchy.get_hierarchy('mobile')
+    current_root = h.get_section_from_path(path)
+    section = h.get_first_leaf(current_root)
+    ancestors = section.get_ancestors()
+    
+    module = None
+    if not section.is_root() and len(ancestors) > 1:
+        module = ancestors[1]
+    
+    context = Context({'section': section, 'module': module, 'root': ancestors[0] })
+    try:
+        t = get_template('portal/mobile/mobile_%s.html' % section.slug)
+        return HttpResponse(t.render(context))
+    except:
+        t = get_template('portal/mobile/mobile_page.html')
+        return HttpResponse(t.render(context))
 
 @rendered_with('portal/page.html')
 def page(request,path):

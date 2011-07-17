@@ -8,6 +8,7 @@ media_root = os.path.join(os.path.dirname(__file__),"media")
 urlpatterns = patterns('',
 				(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': media_root}),
 				(r'^browse/(.*)', databrowse.site.root),
+				(r'^mobile/(.*)$', 'blackrock.portal.views.mobile'),
                 url(r'^search/', PortalSearchView(template="portal/search.html", form_class=PortalSearchForm), name='search'),
                 url(r'^nearby/(?P<latitude>-?\d+\.\d+)/(?P<longitude>-?\d+\.\d+)/$', 'blackrock.portal.views.nearby'),
                 (r'^(?P<path>.*)$','blackrock.portal.views.page')							 

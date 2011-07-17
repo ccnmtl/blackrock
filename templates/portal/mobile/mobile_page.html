@@ -1,0 +1,18 @@
+{% extends "portal/mobile/mobile_base.html" %}
+
+{% block title %}
+    {{module.label}} {{section.label}}
+{% endblock %}
+
+{% block header %}
+    {{module.label}} {{section.label}}
+{% endblock %}
+
+{% block pageid %}{{section.slug}}{% endblock %}
+
+{% block content %}
+    {% for block in section.pageblock_set.all %}
+        {% if block.label %}<h4>{{block.label}}</h4>{% endif %}
+        {{ block.render }}
+    {% endfor %}
+{% endblock %}

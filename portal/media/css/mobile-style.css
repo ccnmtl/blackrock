@@ -1,0 +1,49 @@
+/** To use custom icons, specify a data-icon value that has a unique name like myapp-email 
+    and the button plugin will generate a class by prefixing ui-icon- to the data-icon value and 
+    apply it to the button. You can then write a CSS rule that targets the ui-icon-myapp-email class to 
+    specify the icon background source. To maintain visual consistency, create a white icon 18x18 pixels saved as a 
+    PNG-8 with alpha transparency.
+**/    
+
+html, body {
+  height: 100% !important;
+  width: 100% !important;
+  margin: 0;
+  padding: 0;
+}
+
+.portal_footer .ui-btn .ui-btn-inner { padding-top: 40px !important; }
+.portal_footer .ui-btn .ui-icon { width: 30px!important; height: 40px!important; margin-left: -15px !important; box-shadow: none!important; -moz-box-shadow: none!important; -webkit-box-shadow: none!important; -webkit-border-radius: none !important; border-radius: none !important; }
+#footer_locate_me .ui-icon { background:  url(/portal/media/images/glyphish-icons/71-compass.png/) 50% 50% no-repeat; }
+#footer_trails .ui-icon { background:  url(/portal/media/images/glyphish-icons/102-walk.png/) 50% 50% no-repeat; background-size: 14px 27px; }
+#footer_weather .ui-icon { background:  url(/portal/media/images/glyphish-icons/25-weather.png/) 50% 50% no-repeat; }
+#footer_options .ui-icon { background:  url(/portal/media/images/glyphish-icons/103-map.png/) 50% 50% no-repeat; }
+#footer_settings .ui-icon { background:  url(/portal/media/images/glyphish-icons/19-gear.png/) 50% 50% no-repeat; }
+
+#map_canvas { height: 100%; }
+
+div#data {
+    background-color: #fff;
+    margin-right: 1px;
+    padding: 5px 5px 0 5px;
+    width: 155px;
+    -moz-border-radius-bottomleft: 10px 10px;
+    border-bottom-left-radius: 10px 10px;
+}
+
+div#data h6 {
+    margin: 1px;
+    padding: 0;
+    font-weight:normal;   
+}
+
+div#data p {
+    margin: 0;
+}
+
+div#data img {
+    width: auto;
+    height: 50%;
+    
+}
+

@@ -414,11 +414,8 @@ div#data img {
 }
 
 div#webcam img {
-
 	height: 135px;
 	width: auto;
-
-	
 }
 
 div#photoswitcher {
@@ -495,6 +492,7 @@ div#interactive_map table td#left {
 
 div#interactive_map table td#right {
     width: auto;
+    *width: 100%;
     border: none;
 }
 
