@@ -490,6 +490,27 @@ div#interactive_map table td#left {
   border: none;
 }
 
+div#map_actions {
+	text-align: center;
+	width: 320px;
+	padding: 5px 5px 0 5px;
+	display: block;
+}
+
+div#map_actions a {
+	background: url("images/ui-bg_glass_75_dadada_1x400.png") repeat-x scroll 50% 50% #DADADA;
+    border: 1px solid #999999;
+    color: #212121;
+	display: block;
+	padding: 2px;
+	margin: 3px;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	text-decoration: none;
+	
+
+}
+
 div#interactive_map table td#right {
     width: auto;
     *width: 100%;
