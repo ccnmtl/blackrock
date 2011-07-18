@@ -146,8 +146,8 @@ div#mainnav ul li a:hover {
 
 
 
-div#mainnav ul li-selected a {
-    color: black;
+div#mainnav ul li.selected a {
+    color: #ffffff;
     text-decoration: none;
 }
 
@@ -959,10 +959,6 @@ div.weather-image img {
 
 div#weather ul {
 	list-style: none;
-	background: #D9D9D9; /* old browsers */
-    background: -moz-linear-gradient(top, #D9D9D9 0%, #fff 100%); /* firefox */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#D9D9D9), color-stop(100%,#fff)); /* webkit */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#D9D9D9', endColorstr='#fff',GradientType=0 ); /* ie */
     margin: 0;
     height: 45px;
     padding: 0;
@@ -987,7 +983,7 @@ div#weather ul li.aag {
 div#weather ul li a {
     display: block; /* required for FF & Safari */
     #display: inline; /* required for IE */
-	padding: 13px 30px 7px;
+	padding: 13px 26px 7px;
 	height: 25px;
 	text-decoration: none;
 	color: #000;
@@ -1000,7 +996,26 @@ div#weather ul li a {
 }
 
 div#weather ul li a.selected {
-    background: none;
+   	background: #D9D9D9; /* old browsers */
+    background: -moz-linear-gradient(top, #D9D9D9 0%, #fff 100%); /* firefox */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#D9D9D9), color-stop(100%,#fff)); /* webkit */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#D9D9D9', endColorstr='#ffffff',GradientType=0 ); /* ie */
+}
+
+a#rawdata, a#historicdata {
+	background: url("images/ui-bg_glass_75_dadada_1x400.png") repeat-x scroll 50% 50% #DADADA;
+    border: 1px solid #999999;
+    color: #212121;
+	display: block;
+	padding: 2px 6px;
+	margin: 3px;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	text-decoration: none;
+	float: right;
+	font-weight: normal;
+	
+
 }
 
 /*Webcam Page */
