@@ -447,7 +447,6 @@ div#container table td#right {
   margin: 0px;
   padding: 0px;
   vertical-align: top;
-  border: 2px solid white;
 }
 
 a.link_experience, span.link_experience {
@@ -565,6 +564,7 @@ div#map_filters img {
 
 .assetlist a img {
     border: none;
+    cursor: hand;
 }
 
 .assetlist .single-record a.summary-link, a.summary-link {
@@ -586,28 +586,23 @@ a.view-all {
 }
 
 .featured_image {
-    width: 37%;
+    width: 200px;
     height: auto;
-    float: left;
     border: 1px solid #ccc;
     margin-right: 20px;
 }
 
 .featured_details {
-    width: 35%;
-    height: auto;
-    float: left;
     background-color: #dedede;
-    padding: 0 10px 10px 10px;
-    margin-right: 20px;
-   
+    padding: 10px;
+    margin: 10px 0px;
 }
 
 .featured_details h4, .asset_summary h4, .single-record h4 {
 	margin: 20px 0 10px 0;
+	display: inline;
    
 }
-
 
 div#photodetail {
     list-style: none;

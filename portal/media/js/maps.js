@@ -259,7 +259,7 @@ if (!Portal.Map) {
             var location = self.locations[asset_identifier];
             if (!location)
                 location = self.search_results[asset_identifier]
-            if (!location)
+            if (!location && self.selected)
                 location = self.selected[asset_identifier];
             
             if (location) {
@@ -440,7 +440,9 @@ if (!Portal.Map) {
                     });
                 
             self.locations = self.initMarkers("geocode", 0, false);
-            self.locations = self.initMarkers("geocode_detail", 0, true);
+            var detail_locations = self.initMarkers("geocode_detail", 0, true);
+            for (var key in detail_locations)
+                self.locations[key] = detail_locations[key];
             
             self.selected = self.initMarkers("geoselected", 0, true);
             if (self.markerCount(self.selected)) {

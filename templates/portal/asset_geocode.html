@@ -16,14 +16,18 @@
       <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-latitude" value="{{current_location.latitude}}"></input>
       <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-longitude" value="{{current_location.longitude}}"></input>
       
-      {% if icon_display_order %}
-        {% if icon_display_order <= 10 %}
-            <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-iconname" value="http://chart.apis.google.com/chart?chst=d_map_pin_letter&amp;chld={{icon_display_order}}|4A3404|FFFFFF"></input>
+      {% if audience %}
+        {% if icon_display_order %}
+           <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-iconname" value="mapicon_{{audience|lower}}_{{icon_display_order}}.png"></input>
+        {% else %}
+            <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-iconname" value="mapicon_{{audience}}list.png"></input>
         {% endif %}
+      {% else %}{% if icon_display_order %}
+          {% if icon_display_order <= 10 %}
+              <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-iconname" value="http://chart.apis.google.com/chart?chst=d_map_pin_letter&amp;chld={{icon_display_order}}|4A3404|FFFFFF"></input>
+          {% endif %}
       {% else %}{% if iconname %}
         <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-iconname" value="{{iconname}}"></input>
-      {% else %}{% if audience %}
-        <input type="hidden" id="{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}-iconname" value="mapicon_{{audience}}list.png"></input>
       {% endif %}{% endif %}{% endif %}
       
       <!-- Facets -->

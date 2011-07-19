@@ -12,13 +12,13 @@ html, body {
   padding: 0;
 }
 
-.portal_footer .ui-btn .ui-btn-inner { padding-top: 40px !important; }
-.portal_footer .ui-btn .ui-icon { width: 30px!important; height: 40px!important; margin-left: -15px !important; box-shadow: none!important; -moz-box-shadow: none!important; -webkit-box-shadow: none!important; -webkit-border-radius: none !important; border-radius: none !important; }
-#footer_locate_me .ui-icon { background:  url(/portal/media/images/glyphish-icons/71-compass.png/) 50% 50% no-repeat; }
-#footer_trails .ui-icon { background:  url(/portal/media/images/glyphish-icons/102-walk.png/) 50% 50% no-repeat; background-size: 14px 27px; }
-#footer_weather .ui-icon { background:  url(/portal/media/images/glyphish-icons/25-weather.png/) 50% 50% no-repeat; }
-#footer_options .ui-icon { background:  url(/portal/media/images/glyphish-icons/103-map.png/) 50% 50% no-repeat; }
-#footer_settings .ui-icon { background:  url(/portal/media/images/glyphish-icons/19-gear.png/) 50% 50% no-repeat; }
+.portal_navbar .ui-btn .ui-btn-inner { padding-top: 40px !important; }
+.portal_navbar .ui-btn .ui-icon { width: 30px!important; height: 40px!important; margin-left: -15px !important; box-shadow: none!important; -moz-box-shadow: none!important; -webkit-box-shadow: none!important; -webkit-border-radius: none !important; border-radius: none !important; }
+#navbar_locate_me .ui-icon { background:  url(/portal/media/images/glyphish-icons/71-compass.png/) 50% 50% no-repeat; }
+#navbar_trails .ui-icon { background:  url(/portal/media/images/glyphish-icons/102-walk.png/) 50% 50% no-repeat; background-size: 14px 27px; }
+#navbar_weather .ui-icon { background:  url(/portal/media/images/glyphish-icons/25-weather.png/) 50% 50% no-repeat; }
+#navbar_options .ui-icon { background:  url(/portal/media/images/glyphish-icons/103-map.png/) 50% 50% no-repeat; }
+#navbar_settings .ui-icon { background:  url(/portal/media/images/glyphish-icons/19-gear.png/) 50% 50% no-repeat; }
 
 #map_canvas { height: 100%; }
 

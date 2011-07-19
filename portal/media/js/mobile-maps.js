@@ -127,6 +127,7 @@ if (!Portal.Map) {
         self.layers = {}
         self.forestCenter = null;
         self.currentPosition = null;
+        self.timer = null;
         
         this.hideInfoWindow = function() {
             if (self.infowindow)
@@ -307,40 +308,43 @@ if (!Portal.Map) {
             return count;
         }
         
-        this.geolocate = function() {
-            var browserSupportFlag = false;
-            if (navigator.geolocation) {
-                // Try W3C Geolocation (Preferred)
-                browserSupportFlag = true;
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var currentLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-                    self.mapInstance.setCenter(currentLocation);
-                    
-                    self.currentPosition = new google.maps.Marker({
-                        map: self.mapInstance,
-                        draggable:true,
-                        animation: google.maps.Animation.DROP,
-                        position: currentLocation,
-                        icon: "http://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=|FF0000|000000"
-                    });
-                    
-                }, function() {
-                    handleNoGeolocation(browserSupportFlag);
-                });
-            } else {
-                // Browser doesn't support Geolocation
-                browserSupportFlag = false;
-                handleNoGeolocation(browserSupportFlag);
+        this.canLocate = function() {
+            return navigator.geolocation;
+        }
+        
+        this.stoplocate = function() {
+            if (self.timer) {
+                clearInterval(self.timer);
+                self.timer = null;
             }
+        }
+        
+        this.startLocate = function(autoupdate, interval) {
+            if (!autoupdate && self.timer)
+                self.stopLocate();
             
-            function handleNoGeolocation(errorFlag) {
-                if (browserSupportFlag) {
-                    alert("Geolocation service failed. Map recentering on Black Rock Forest");
-                } else {
-                    alert("Your browser doesn't support geolocation. Map recentering on Black Rock Forest");
-                }
-                self.mapInstance.setCenter(self.forestCenter);
+            if (!autoupdate) {
+                self._geolocate();
+            } else {
+                self._geolocate();
+                self.timer = setInterval("self._geolocate()", interval * 60 * 1000);
             }
+        }
+        
+        this._geolocate = function() {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var currentLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+                self.mapInstance.setCenter(currentLocation);
+                
+                self.currentPosition = new google.maps.Marker({
+                    map: self.mapInstance,
+                    draggable:true,
+                    position: currentLocation,
+                    icon: "http://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=|FF0000|000000"
+                });
+            }, function() {
+                alert("Geolocation service failed.");
+            });
         }
         
         this.initialize = function() {

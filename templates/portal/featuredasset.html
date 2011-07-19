@@ -1,53 +1,51 @@
 {% load portal %}
 {% load smartif %} 
 
-
 <div class="assetlist link_{{block.audience.name|lower}}">
-
-{% with block.asset as current_object %}
-{% with block.asset|klass as asset_klass %}
-{% with "featured" as prefix %}
-   <div class="single-record">
+    {% with block.asset as current_object %}
+    {% with block.asset|klass as asset_klass %}
+    {% with "featured" as prefix %}
+    {% with block.audience.name as audience %}
    
-   <!-- Asset Locations (Hidden. Used by maps.js to plot GMaps) -->
-   {% with "geocode" as geocode_class %}
-   {% with 1 as includehighlight %}
-   {% with block.pageblock.ordinality as icon_display_order %}
-      {% include "portal/asset_location.html" %}
-   {% endwith %}{% endwith %}{% endwith %}
-  
-   <a class="display-name" href="{{block.asset|detail_url}}">{{current_object|display_name}}</a>
-
-     {% if block.detailed_display %}
-        {% if current_object.display_image %}
-            {% if current_object.display_image.digital_format.is_image %}
-                <img alt="{{asset_klass}} Image" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
-            {% endif %}
-        {% endif %}
-        
-        <div class="featuredasset">
-          {% if asset_klass == "DigitalObject" %}
-             <div class="asset-summary">
-                 <h4>Description</h4>
-                 {% if current_object.description %}
-                    {{ current_object.description|truncatewords:50 }}
-                 {% endif %}
-             </div>
-          {% else %}{% if asset_klass == "LearningActivity" %}
-              <div class="featured_details">
-                {% if current_object.digital_format.count %}
-                    <h4>Format</h4> 
-                    {% for f in current_object.digital_format.all %}{% if forloop.counter > 1 %}, {% endif %}{{ f.name }}{% endfor %}
+    
+    <div {% if block.detailed_display %}class="featured_details" {% else %} class="single-record" {% endif %}>
+    
+    <table><tr>
+    <td style="vertical-align: top">   
+       <!-- Asset Locations (Hidden. Used by maps.js to plot GMaps) -->
+       {% with "geocode" as geocode_class %}
+       {% with 1 as includehighlight %}
+       {% with block.pageblock.ordinality as icon_display_order %}
+          {% include "portal/asset_location.html" %}
+       {% endwith %}{% endwith %}{% endwith %}
+    </td>
+    <td style="text-align: left">
+       <a class="display-name" href="{{block.asset|detail_url}}">{{current_object|display_name}}</a>
+   </td></tr></table>
+   
+   {% if block.detailed_display %}
+   <table>
+       <tr>
+       <td style="vertical-align: top">
+            {% if current_object.display_image %}
+                {% if current_object.display_image.digital_format.is_image %}
+                    <img alt="{{asset_klass}} Image" src="{{current_object.display_image.file.url}}" class="featured_image"></img>
                 {% endif %}
-              </div>
-              <div class="asset-summary">
-                  {% if current_object.description %}
-                     <h4>Description</h4>
-                     {{ current_object.description|truncatewords:50 }}
-                  {% endif %}
-              </div>
+         {% endif %}
+       </td>
+       <td style="vertical-align: top">
+          {% if asset_klass == "LearningActivity" %}
+                {% if current_object.author.all.count %}
+                    <h4>Authors:</h4>
+                    {% for x in current_object.author.all %}<a href="{{x|detail_url}}">{{x|display_name}}</a>{% endfor %}
+                    <br />
+                {% endif %}
+                
+                {% if current_object.description %}
+                    <h4>Description</h4>: 
+                    {{ current_object.description|striptags|truncatewords:50 }}
+                {% endif %}
           {% else %}{% if asset_klass == "Person" %}
-            <div class="featured_details">
                 {% if current_object.professional_title %}
                     <h4>Title</h4> 
                     {{ current_object.professional_title }}
@@ -57,65 +55,53 @@
                      <h4>Institution</h4>
                      {% for i in current_object.institution.all %}{% if forloop.counter > 1 %}, {% endif %}{{ i.name }}{% endfor %}
                 {% endif %}
-             </div>
-             <div class="asset-summary">
                   {% if current_object.description %}
                      <h4>Description</h4>
-                     {{ current_object.description|truncatewords:50 }}
+                     {{ current_object.description|striptags|truncatewords:50 }}
                   {% endif %}
-             </div>
-        {% else %}{% if asset_klass == "ResearchProject" %}
-            <div class="featured_details">
+          {% else %}{% if asset_klass == "ResearchProject" %}
                {% if current_object.person.count %}
-                  <h4>Principal Investigator{% if current_object.person.count > 1 %}s{% endif %}</h4>
-                  {% for p in current_object.person.all %}{% if forloop.counter > 1 %}, {% endif %}{{ p.name }}{% endfor %}
+                  <h4>Principal Investigator{% if current_object.person.count > 1 %}s{% endif %}</h4>:
+                  {% for p in current_object.person.all %}{% if forloop.counter > 1 %}, {% endif %}<a style="display: inline" href="{{p|detail_url}}">{{ p|display_name }}</a>{% endfor %}
                {% endif %}
           
                {% if current_object.dataset.count %}
-                  <h4>DataSet</h4>
+                  <h4>DataSet</h4>:
                   {% for d in current_object.dataset.all %}
                     <a href="/portal/browse/portal/dataset/objects/{{d.id}}">
                     {{ d.name }}
                     </a>
                   {% endfor %}
                {% endif %}
-           </div>
-          <div class="asset-summary">
-             {% if current_object.description %}
-                <h4>Description</h4> 
-                {{ current_object.description|truncatewords:50 }}
-             {% endif %}
-          </div>
-       {% else %}{% if asset_klass == "Station" %}
-           <div class="featured_details">
+               
+               {% if current_object.description %}
+                  <h4>Description</h4>:
+                  {{ current_object.description|striptags|truncatewords:50 }}
+               {% endif %}
+               
+          {% else %}{% if asset_klass == "Station" %}
               {% if current_object.activation_date %}
                  <h4>Activation Date</h4>
                  {{ current_object.activation_date|date }}
               {% endif %}
-           </div>
-          <div class="asset-summary">
              {% if current_object.description %}
                 <h4>Description</h4> 
-                {{ current_object.description|truncatewords:50 }}
+                {{ current_object.description|striptags|truncatewords:50 }}
              {% endif %}
-          </div>       
-       {% else %}
-            <div class="asset-summary">
+          {% else %}
                 {% if current_object.description %}
                     <h4>Description</h4> 
-                    {{ current_object.description|truncatewords:50 }}
+                    {{ current_object.description|striptags|truncatewords:50 }}
                 {% endif %}
-            </div>       
-       {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
-
-       <p class="clear"></p>
-      </div> <!-- featured asset -->
+          {% endif %}{% endif %}{% endif %}{% endif %}
+       </td></tr></table>
     {% else %}
         <!--  Featured, but not highlighted on the page. Default to regular asset_descriptions -->
         {% include "portal/asset_description.html" %}
-        
-        <p class="clear"></p>
     {% endif %}
-    </div> <!-- single record -->
-{% endwith %}{% endwith %}{% endwith %}
+
+</div> <!-- single record / featured  -->
+
+{% endwith %}{% endwith %}{% endwith %}{% endwith %}
+
 </div>
