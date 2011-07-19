@@ -108,7 +108,7 @@ $('#my_div img').ImageZoom();
         		try {
 	        		website = $.fn.Sharing.websites[links[i]];
 	        		if(properties.url == '') {
-	        			url = window.location;
+	        			url = window.location.href;
 	        		}
 	        		else {
 	        			url = properties.url;
