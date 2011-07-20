@@ -481,7 +481,6 @@ a.link_research, span.link_research {
 
 div#interactive_map table td#left {
   width: 330px;
-  min-width: 330px;
   background-color:white;
   margin: 0px;
   padding: 0px;
@@ -520,6 +519,7 @@ div#interactive_map table td#right {
     display: none;
     overflow: auto;
     background-color: #89a08c;
+    width: 330px;
 }
 
 div#nearby_results div#search-results {
@@ -529,7 +529,6 @@ div#nearby_results div#search-results {
 div#nearby_results div#search-results div#header {
     margin: 10px;
 }
-
 
 div#map_filters {
     vertical-align: top;
