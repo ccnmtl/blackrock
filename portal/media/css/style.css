@@ -1062,4 +1062,32 @@ div.caption {
     font-size: .9em;
 }
 
+#footer {
+ background-color: #1F2A1E;
+ color: #ffffff;
+ text-align: center;
+ font-size: .9em;
+
+}
+
+ul#standard-elements  {
+	list-style: none;
+	margin: 0;
+	padding: 3px 0;
+
+}
+
+ul#standard-elements li {
+    display: inline;
+    padding: 0 5px;
+
+}
+
+ul#standard-elements li a {
+
+	color: #ffffff;
+    display: inline;
+    text-decoration: none;
+
+}
 
