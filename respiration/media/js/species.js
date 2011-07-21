@@ -280,7 +280,8 @@
         // throwing the whole graph off. Sadly, it's not easy to get this width
         // so, I'm trying a bit of a hack here.
         var margin = 0;
-        forEach(getElementsByTagAndClassName(null, "y-axis-label", parent=$('rightfield')),
+        var parent = getElement("rightfield");
+        forEach(getElementsByTagAndClassName(null, "y-axis-label",parent),
                 function(elem) {
                     var coords = getElementPosition(elem);
                     var dims = getElementDimensions(elem)

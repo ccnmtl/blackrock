@@ -5,42 +5,42 @@
 <script  type="text/javascript" src="/portal/media/js/blackrock_webcam.js"></script>
 
 <script type="text/javascript">
-  function swap_webcam_image(url) {
+    jQuery(document).ready(function() {
+        draw_image_flow(15, 5 - 1, 2011);
+                         
+        jQuery("#webcam-flow_previous").html("<span class='flowlabel'><br />Earlier Views</span>");
+        jQuery("#webcam-flow_next").html("<span class='flowlabel'><br />Current View</span>");
+    
+        // set up the datepicker
+        jQuery( "#datepicker" ).datepicker({
+    		    // trigger calendar selector from the icon
+    		    showOn: "button",
+    		    buttonImage: "/portal/media/images/calendar.gif",
+    		    buttonImageOnly: true,
+    		    // animate calendar
+    		    showAnim: "slideDown",
+    		    // we only have pics going back to 3/4/11
+    		    minDate: new Date(2011, 3 - 1, 4),
+    		    // limit selections to the past.
+    		    maxDate: new Date(2011, 5 - 1, 15), // "+0",
+    		    // onSelect - load the photos from that day
+    		    onSelect: function(dateText, inst) {
+    		           var pickedDate = new Date(Date.parse(jQuery(this).datepicker('getDate'))); 
+    		           //var pickedDate = inst.('getDate');
+                       picked_date = pickedDate.getDate();
+    		           picked_month = pickedDate.getMonth();
+    		           picked_year = pickedDate.getFullYear();
+                               draw_image_flow(picked_date, picked_month, picked_year);
+                               // jQuery("#picked-date").html(picked_month + "/" + picked_date + "/" + picked_year); 
+                               jQuery("#picked-date").html(pickedDate.toDateString());
+    		           //console.log(picked_date, picked_month, picked_year);
+    		    }
+    	     });
 
-  }
-
-  jQuery(document).ready(function() {
-    draw_image_flow();
-                     
-    jQuery("#webcam-flow_previous").html("<span class='flowlabel'><br />Earlier Views</span>");
-    jQuery("#webcam-flow_next").html("<span class='flowlabel'><br />Current View</span>");
-
-    // set up the datepicker
-    jQuery( "#datepicker" ).datepicker({
-		    // trigger calendar selector from the icon
-		    showOn: "button",
-		    buttonImage: "/portal/media/images/calendar.gif",
-		    buttonImageOnly: true,
-		    // animate calendar
-		    showAnim: "slideDown",
-		    // we only have pics going back to 3/4/11
-		    minDate: new Date(2011, 3 - 1, 4),
-		    // limit selections to the past.
-		    maxDate: "+0",
-		    // onSelect - load the photos from that day
-		    onSelect: function(dateText, inst) {
-		           var pickedDate = new Date(Date.parse(jQuery(this).datepicker('getDate'))); 
-		           // var pickedDate = inst.('getDate');
-		           picked_date = pickedDate.getDate();
-		           picked_month = pickedDate.getMonth();
-		           picked_year = pickedDate.getFullYear();
-                           draw_image_flow(picked_date, picked_month, picked_year);
-                           // jQuery("#picked-date").html(picked_month + "/" + picked_date + "/" + picked_year); 
-                           jQuery("#picked-date").html(pickedDate.toDateString());
-		           //console.log(picked_date, picked_month, picked_year);
-		    }
-	     });
-  });
+        jQuery("#datepicker").datepicker("setDate", new Date(2011, 5 - 1, 15));
+        
+    });
+  
 </script>
  
 <h2>Forest View</h2>

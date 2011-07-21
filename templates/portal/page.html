@@ -18,6 +18,8 @@
         {% include "portal/pageblocks.html" %}
     {% else %}{% if section.get_parent and section.get_parent.slug == "forest-view" %}
         {% include "portal/pageblocks.html" %}
+    {% else %}{% if section.slug == "about" or section.slug == "help" %}
+        {% include "portal/pageblocks.html" %}
     {% else %}{% if section.slug == "interactive-map" %}
         {% include "portal/interactive_map.html" %}
     {% else %}     
@@ -31,6 +33,6 @@
                 </td>
             </tr>
         </table>
-    {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
+    {% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}
 {% endblock %}
 

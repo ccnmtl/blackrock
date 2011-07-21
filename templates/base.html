@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<title>{% block title %}MY PAGE TITLE{% endblock %}</title>
+<title>Virtual Forest Initiative: {% block title %}MY PAGE TITLE{% endblock %}</title>
 
 <style media="screen" type="text/css">
 @import "/site_media/css/site.css" ;
@@ -11,10 +11,13 @@
 
 {% block css %}{% endblock %}
 
+{% block browsersupport %}
 <!--[if lt IE 7]>
 <script src="http://ccnmtl.columbia.edu/remote/alerts/browser/ienosupport.js" type="text/javascript" language="javascript"></script>
 <link rel="stylesheet" href="http://ccnmtl.columbia.edu/remote/alerts/browser/ienosupport.css" type="text/css" media="all" />
 <![endif]-->
+{% endblock %}
+
 {% block js %}{% endblock %}
 
 {% block feeds %}{% endblock %}
@@ -23,16 +26,19 @@
 
 </head>
 <body class="{% block bodyclass %}{% endblock %}">
+{% block browserwarning %}
+<!--[if lt IE 7]><div id="browserwarning"></div><![endif]-->
+{% endblock %}
 
 <a href="/"><span id="brf"></span></a>
 <a href="http://ccnmtl.columbia.edu/"><span id="ccnmtl"></span></a>
 
 <div id="wrapper">
+
 <h1 id="masthead"><span>{% block masthead %}{% endblock %}</span></h1>
 <div id="breadcrumbs">{% block breadcrumbs %}{% endblock %}</div>
 <div id="nav">{% block nav %}{% endblock %}</div>
 
-<!--[if lt IE 7]><div id="browserwarning"></div><![endif]-->
 {% block content %}{% endblock %}
 </div>
 {% block footer %}{% endblock %}

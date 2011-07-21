@@ -9,7 +9,7 @@ body
 	margin: 0;
 	padding: 20px;
 	padding: 30px;
-	height: 130px;
+	height: 150px;
 }
 
 #breadcrumbs { height: 20px; }
@@ -159,6 +159,7 @@ div#right
 canvas
 {
 	border: 1px gray solid;
+	height: 500px;
 	/*we CANNOT set the width here
      it is set in respiration/media/js/graph.js
      with Bluff.Line command

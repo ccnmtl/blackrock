@@ -1,8 +1,6 @@
 {% extends "base.html" %} 
 
-{% block title %}
-Tree Respiration 
-{% endblock %} 
+{% block title %}Tree Respiration{% endblock %}
 
 {% block css %} 
 <style type='text/css'>
@@ -10,7 +8,7 @@ Tree Respiration
 </style> 
 <!--[if IE]>
 <style type='text/css'>
-  @import "media/css/style_ie7.css";
+  @import "media/css/style_ie.css";
 </style> 
 <![endif]-->
 {% endblock %} 
@@ -21,21 +19,30 @@ Tree Respiration
 <script type="text/javascript" src="/site_media/js/bluff/js-class.js"></script> 
 <script type="text/javascript" src="/site_media/js/bluff/excanvas.js"></script> 
 <script type="text/javascript" src="/site_media/js/bluff/bluff-src.js"></script> 
-<script type="text/javascript" src="media/js/graph.js"></script> 
+<script type="text/javascript" src="/respiration/media/js/graph.js"></script> 
 
-	<script type="text/javascript">
-	  function setActiveTab() { addElementClass("{% block tabname %}tab-leaf{% endblock %}", "tab-selected"); }
-	  addLoadEvent(setActiveTab);
-	</script> 
-	
-
+<script type="text/javascript">
+  function setActiveTab() { addElementClass("{% block tabname %}tab-leaf{% endblock %}", "tab-selected"); }
+  addLoadEvent(setActiveTab);
+</script>
 {% endblock %} 
+
+{% block browsersupport %}
+<!--[if lt IE 8]>
+<script src="http://ccnmtl.columbia.edu/remote/alerts/browser/ienosupport.js" type="text/javascript" language="javascript"></script>
+<link rel="stylesheet" href="http://ccnmtl.columbia.edu/remote/alerts/browser/ienosupport.css" type="text/css" media="all" />
+<![endif]-->
+{% endblock %}
 
 {% block masthead %} 
-Tree Respiration 
+Tree Respiration
 {% endblock %} 
 
-{% block content %} 
+{% block browserwarning %}
+<!--[if lt IE 8]><div id="browserwarning"></div><![endif]-->
+{% endblock %}
+
+{% block content %}
 <div id="respiration_content">
 
 	<div id="tab-bar">
@@ -147,16 +154,16 @@ Tree Respiration
 	<div id="right">
 	  <div id="rightfield">
         <h3>
-        {% block rightlegend %}
-	    Respiration Rate Graph
-	    {% endblock %}
+            {% block rightlegend %}
+    	    Respiration Rate Graph
+    	    {% endblock %}
         </h3>
 	    {% block graph %} 
-		<div id="graph-cursor"><div id="unfreeze"></div></div>
-		<canvas id="graph"></canvas>
+		  <div id="graph-cursor"><div id="unfreeze"></div></div>
+		  <canvas id="graph"></canvas>
 	    {% endblock %} 
 	    {% block right %} 
-		RIGHT PANE SIR YES SIR 
+		    RIGHT PANE SIR YES SIR 
 	    {% endblock %} 
 	  </div>
 	</div>
