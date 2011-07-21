@@ -114,6 +114,7 @@ div#equation-left
 {
 	float: right;
 	color: red;
+	font-style: normal;
 }
 
 div#equation-inner
