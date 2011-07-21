@@ -159,7 +159,6 @@ div#right
 canvas
 {
 	border: 1px gray solid;
-	height: 500px;
 	/*we CANNOT set the width here
      it is set in respiration/media/js/graph.js
      with Bluff.Line command
