@@ -175,6 +175,8 @@ Bluff.Base = new JS.Class({
   // The font size of the labels around the graph
   marker_font_size: null,
   
+  no_data_font_size: null,
+  
   // The color of the auxiliary lines
   marker_color: null,
   
@@ -193,6 +195,9 @@ Bluff.Base = new JS.Class({
   // If you use this, you must set it after you have given all your data to
   // the graph object.
   maximum_value: null,
+  
+  // The precision of the y-axis markers
+  precision: 2,
   
   // Set to false if you don't want the data to be sorted with largest avg
   // values at the back.
@@ -266,6 +271,7 @@ Bluff.Base = new JS.Class({
     this.marker_font_size = 21.0;
     this.legend_font_size = 20.0;
     this.title_font_size = 36.0;
+    this.no_data_font_size = 21;
     
     this.top_margin = this.bottom_margin =
     this.left_margin = this.right_margin = this.klass.DEFAULT_MARGIN;
@@ -762,9 +768,11 @@ Bluff.Base = new JS.Class({
         this._d.gravity = 'east';
         
         // Vertically center with 1.0 for the height
-        this._d.annotate_scaled(this._graph_left - this.klass.LABEL_MARGIN,
+        var text = this._d.annotate_scaled(this._graph_left - this.klass.LABEL_MARGIN,
                                 1.0, 0.0, y,
                                 this._label(marker_label), this._scale);
+        
+        text.className += ' y-axis-label'; // class to identify the y-axis-label divs
       }
     }
   },
@@ -923,7 +931,7 @@ Bluff.Base = new JS.Class({
     if (this.font) this._d.font = this.font;
     this._d.stroke = 'transparent';
     this._d.font_weight = 'normal';
-    this._d.pointsize = this._scale_fontsize(80);
+    this._d.pointsize = this.no_data_font_size;
     this._d.gravity = 'center';
     this._d.annotate_scaled(this._raw_columns, this._raw_rows/2,
                             0, 10,
@@ -1071,14 +1079,13 @@ Bluff.Base = new JS.Class({
   // Return a formatted string representing a number value that should be
   // printed as a label.
   _label: function(value) {
-    var sep   = this.klass.THOUSAND_SEPARATOR,
-        label = (this._spread % this.marker_count == 0 || this.y_axis_increment !== null)
-        ? String(Math.round(value))
-        : String(Math.floor(value * this._significant_digits)/this._significant_digits);
-    
-    var parts = label.split('.');
-    parts[0] = parts[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + sep);
-    return parts.join('.');
+      if (this._spread % this.marker_count == 0 || this.y_axis_increment !== null) {
+          label = String(Math.round(value));
+        } else {
+          label = value * this._significant_digits/this._significant_digits;
+        }
+        
+     return String(label.toFixed(this.precision));
   },
   
   // Returns the height of the capital letter 'X' for the current font and
@@ -2506,6 +2513,8 @@ Bluff.Renderer = new JS.Class({
     text.style.textAlign = 'center';
     text.style.left = (this._sx * x + this._left_adjustment(text, scaled_width)) + 'px';
     text.style.top = (this._sy * y + this._top_adjustment(text, scaled_height)) + 'px';
+    
+    return text;
   },
   
   tooltip: function(left, top, width, height, name, color, data) {

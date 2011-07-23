@@ -11,14 +11,17 @@
   <script type="text/javascript" src="media/js/forestgraph.js"></script> 
 
   <script type="text/javascript">
-    {% if not stations %}
-      if( console ) { 
-        console.warn("No stations exist -- probably someone hasn't populated the Django database with respiration/Temperatures yet. This is why 'yrs is undefined'.")
-      };
-    {% endif %}
-    {% for station in stations %}
-      addYears("{{station}}", {{years|hash:station}});
-    {% endfor %}
+    addLoadEvent(function() {
+        {% for station in stations %}
+            addYears("{{station}}", {{years|hash:station}});
+        {% endfor %}
+        initNav(); // foresthelpers.js
+        initYearHelper(); // foresthelpers.js
+        initSpeciesModule(); // species.js
+        initScenarioModule(); // scenario.js
+        setup(); // graph.js
+        
+      });
   </script>
 
   <script type="text/javascript">
@@ -62,8 +65,6 @@
     <input type="hidden" name="leaf-species{{forloop.counter}}-percent" id="leaf-species{{forloop.counter}}-percent" value='{{species|hash:"percent"}}' />
   {% endfor %}
 </form>
-
-
 
 <div id="scenariocontainer">
   <div id="scenarioheader">

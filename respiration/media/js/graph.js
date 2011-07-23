@@ -107,7 +107,7 @@ function arrhenius(R0, E0, Rg, T0, Ta) {
 }
 
 function initGraph() {
-  var g = new Bluff.Line('graph', 460);
+  var g = new Bluff.Line('graph', "460x345");
   g.set_theme({
     marker_color: '#aea9a9',
     font_color: 'black',
@@ -135,4 +135,3 @@ function setup() {
   g.draw();
 }
 
-addLoadEvent(setup);

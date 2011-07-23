@@ -171,7 +171,8 @@ ForestGraphData.prototype.updateSpecies = function(species_id) {
 // overrides function in graph.js
 function initGraph() {
   clearError();
-  var g = new Bluff.Bar('graph', 460);
+  var g = new Bluff.Bar('graph', "460x345");
+  
   g.set_theme({
       ///note: not used since we do this in leafGraph() now.
     marker_color: '#aea9a9',
@@ -271,38 +272,8 @@ function forestGraph() {
     });
 }
 
-//function addMouseover(graph) {
-//    var spacing_factor = (graph._column_count<3) ? 0.3: 0.9;
-//    if (graph.spacing_factor) {
-//      var spacing_factor = graph.spacing_factor;
-//    }
-
-//    var graph_width = $('graph').width;
-//    var bar_width = graph_width / (graph._column_count * graph._data.length);
-//    var padding = (bar_width * (1 - spacing_factor)) / 2;
-
-//    log(padding);
-
-//    connect("graph", "onmouseover", function(e) {
-//      var x = e.mouse().page.x;
-//      var realX = x - getElementPosition("graph").x;
-//      log(realX);
-//    });
-//}
 
 // overrides function in graph.js
 LeafGraphData.prototype.updateFields = function() {
     return;
-    //this.t0 = Number($('kelvin').innerHTML);
-    //this.t_a_min = ($('temp_low')) ? Math.round($('temp_low').value) : 0;
-    //this.t_a_max = ($('temp_high')) ? Math.round($('temp_high').value) : 30;
 }
-
-//EquationHighlighter.prototype.needsUpdate = function() {
-	//addElementClass('plotGraph','needsupdate');
-//	return;
-	//leafGraph();
-	//global.TemperatureSliders.updateCursorVals();
-//}
-
-addLoadEvent(updateColors);

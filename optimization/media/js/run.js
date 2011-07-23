@@ -391,13 +391,20 @@ function deleteSample(run_num) {
 function addSampleSummaryRow(run_num, summary_ary) {
     var tr = document.createElement('tr');
     tr.id = 'samplerun-'+run_num;
-    var html = '<td>'+run_num+' <a href="#top" title="Delete this run"'
-        +'onclick="deleteSample('+run_num+');return false;">x</a></td>';
+    
+    var td = tr.insertCell(-1);
+    td.innerHTML = run_num+' <a href="#top" title="Delete this run"'
+        +'onclick="deleteSample('+run_num+');return false;">x</a>';
     for (var i=0;i<9;i++) {
-        html += '<td>'+summary_ary[i]+'</td>';
+        td = tr.insertCell(-1);
+        td.innerHTML = summary_ary[i];
     }
+    
     dom_prepend($('sample-list'),tr);
-    tr.innerHTML = html + '<td><input type="button" onclick="SampleHistory.csv.trees(this,'+run_num+');" value="Download" /></td>';
+    
+    td = tr.insertCell(-1);
+    td.innerHTML = '<input type="button" onclick="SampleHistory.csv.trees(this,'+run_num+');" value="Download" />';
+    
     connect(tr, 'onclick', function(evt) {
         showResultsInfo(SampleStorage.getSample(run_num-1), tr, run_num);
     });

@@ -6,6 +6,13 @@ function addYears(stationName, yearlist) {
   years.push(yearlist);
 }
 
+function getStationIndex(stationName) {
+    for(var idx = 0; idx < stations.length; idx++)
+        if (stations[idx] == stationName)
+            return idx;
+    return -1;
+}
+
 function updateYears(e) {
   var baseID = e.src().id.split('-')[0];
   var sel = $(baseID + "-year");
@@ -13,9 +20,8 @@ function updateYears(e) {
 
   var selectedYear = sel.value;
   replaceChildNodes(sel, null);
-  var yrs = years[stations.indexOf(stationName)];
+  var yrs = years[getStationIndex(stationName)];
   for(var i=0; i<yrs.length; i++) {
-  //forEach (year in years[stations.indexOf(stationName)]) {
     var year = yrs[i];
     var options = {'value':year};
     if(year == selectedYear) {
@@ -76,5 +82,4 @@ function initNav() {
   });
 }
 
-addLoadEvent(initNav);
-addLoadEvent(initYearHelper);
+

@@ -68,7 +68,7 @@ def forest(request):
     year_options[station] = str(years)
 
   # get passed-in defaults
-  scenario_options = {'basetemp':0, 'name':'Scenario 1', 'leafarea':1, 'startdate':'1/1', 'enddate':'12/31', 'deltat':'',
+  scenario_options = {'basetemp':0, 'name':'Scenario 1', 'leafarea':1, 'startdate':'1/1', 'enddate':'12/31', 'deltat':'0',
                       'fieldstation':'', 'year':''}
   try:
     scenario_options['basetemp'] = request.POST['base-temp']

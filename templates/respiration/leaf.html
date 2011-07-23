@@ -7,7 +7,8 @@
   {{ block.super }} 
 
   <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/DragAndDrop.js"></script> 
-
+  <script type="text/javascript" src="media/js/species.js"></script> 
+  
   <script type="text/javascript">
     function calculateKelvin() {
       var result = parseFloat($('base-temp').value) + 273.15;
@@ -27,9 +28,16 @@
       connect("tab-canopy", "onclick", formSubmit);
     }
     addLoadEvent(initNav);
+
+    addLoadEvent(function() {
+        initNav();
+        initSpeciesModule();
+        setup(); // graph.js
+      });
   </script>
 
-  <script type="text/javascript" src="media/js/species.js"></script> 
+  
+  
 {% endblock %} 
 
 {% block instructions %} 

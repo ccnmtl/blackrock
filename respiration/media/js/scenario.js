@@ -46,7 +46,11 @@
       // adjust percentages
    }
    
-   addLoadEvent(initScenarioCloner);
+   function initScenarioModule() {
+       initScenarioCloner();
+   }
+   
    global.addScenario = addScenario;
    global.delScenario = delScenario;
+   global.initScenarioModule = initScenarioModule;
 })();

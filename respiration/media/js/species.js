@@ -281,7 +281,7 @@
         // so, I'm trying a bit of a hack here.
         var margin = 0;
         var parent = getElement("rightfield");
-        forEach(getElementsByTagAndClassName(null, "y-axis-label",parent),
+        forEach(getElementsByTagAndClassName(null, "y-axis-label", parent),
                 function(elem) {
                     var coords = getElementPosition(elem);
                     var dims = getElementDimensions(elem)
@@ -355,8 +355,11 @@
       speciesList = list;
     }
     
-    addLoadEvent(initSpeciesCloner);
-    addLoadEvent(initSpecies);
+    function initSpeciesModule() {
+        initSpeciesCloner();
+        initSpecies();
+    }
+
     global.addSpecies = addSpecies;
     global.delSpecies = delSpecies;
     global.getNumSpecies = getNumSpecies;
@@ -365,5 +368,6 @@
     global.setSpeciesList = setSpeciesList;
     global.EquationHighlighter = new EquationHighlighter();
     global.TemperatureSliders = new TemperatureSliders();
+    global.initSpeciesModule = initSpeciesModule;
 
 })();

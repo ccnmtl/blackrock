@@ -18,18 +18,27 @@ Forest Sampling Optimization Tool
 {% block js %} 
 <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script> 
 <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/Signal.js"></script> 
-
-	<!--script type="text/javascript">
-	  function setActiveTab() { addElementClass("{% block tabname %}tab-run{% endblock %}", "tab-selected"); }
-	  addLoadEvent(setActiveTab);
-	</script--> 
-	
-
+<!--script type="text/javascript">
+  function setActiveTab() { addElementClass("{% block tabname %}tab-run{% endblock %}", "tab-selected"); }
+  addLoadEvent(setActiveTab);
+</script--> 
 {% endblock %} 
 
 {% block masthead %} 
 Forest Sampling Optimization Tool
 {% endblock %} 
+
+{% block browsersupport %}
+<!--[if lt IE 8]>
+<script src="http://ccnmtl.columbia.edu/remote/alerts/browser/ienosupport.js" type="text/javascript" language="javascript"></script>
+<link rel="stylesheet" href="http://ccnmtl.columbia.edu/remote/alerts/browser/ienosupport.css" type="text/css" media="all" />
+<![endif]-->
+{% endblock %}
+
+{% block browserwarning %}
+<!--[if lt IE 8]><div id="browserwarning"></div><![endif]-->
+{% endblock %}
+
 
 {% block content %} 
 <div id="content">
