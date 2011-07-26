@@ -261,16 +261,7 @@ function ImageFlow ()
 			my.ImageFlowDiv.appendChild(loadingDiv) &&
 			my.ImageFlowDiv.appendChild(navigationDiv))
 		{
-			/* Remove image nodes outside the images div */
-			max = my.ImageFlowDiv.childNodes.length;
-			for(index = 0; index < max; index++)
-			{
-				node = my.ImageFlowDiv.childNodes[index];
-				if (node && node.nodeType == 1 && node.nodeName == 'IMG')
-				{
-					my.ImageFlowDiv.removeChild(node);
-				}
-			}
+		    jQuery(my.ImageFlowDiv).children("img").remove();
 			success = true;
 		}
 		return success;
@@ -536,15 +527,15 @@ function ImageFlow ()
 	/* Main animation function */
 	this.moveTo = function(x)
 	{
-		this.current = x;
+	    this.current = x;
 		this.zIndex = my.max;
-
+        
 		/* Main loop */
 		for (var index = 0; index < my.max; index++)
 		{
 			var image = my.imagesDiv.childNodes[my.indexArray[index]];
 			var currentImage = index * -my.xStep;
-
+			
 			/* Enabled image scaling */
 			if(my.imageScaling)
 			{
@@ -605,7 +596,7 @@ function ImageFlow ()
 					switch ( image.i == my.imageID )
 					{
 						case false:
-							image.onclick = function() { my.glideTo(this.i);};
+							image.onclick = function() { my.glideTo(this.i); };
 							break;
 
 						default:
@@ -751,6 +742,10 @@ function ImageFlow ()
 				}
 			}
 		}
+		
+	    jQuery(".imageflow img").removeClass("selected");
+	    jQuery(my.imagesDiv.childNodes[my.indexArray[my.imageID]]).addClass("selected");
+
 
 		/* Move the images to the jump target */
 		if(jumpTarget)
@@ -763,6 +758,10 @@ function ImageFlow ()
 		{
 			my.busy = true;
 			my.animate();
+		}
+		
+		if (my.onClick) {
+		    my.onClick(my.imagesDiv.childNodes[my.indexArray[my.imageID]]);
 		}
 	};
 
