@@ -18,6 +18,9 @@ class Command(BaseCommand):
         (site,created) = Site.objects.get_or_create(name='Harlem')
         (location,created) = Location.objects.get_or_create(name='River',site=site)
 
+        print "clearing out old harlem river data"
+        Series.objects.filter(location=location).delete()
+
         reader = csv.reader(open("waterquality/xls/HarlemRiver2009.csv"))
         all_columns = ["Date","Time","","ODO","","","","","","",
                        "Temp","Depth","ODOsat","","Battery",
@@ -28,8 +31,8 @@ class Command(BaseCommand):
                      "ppt","","","",""]
 
 
-        columns = [3,10]
-        units = ["mg/L","Celcius"]
+        columns = [3,10,18]
+        units = ["mg/L","Celcius","mg/L"]
 
         # prep the series
         series_objects = dict()
