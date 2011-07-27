@@ -9,8 +9,10 @@ function getDisplayHour() {
     return hour + "" + ap;
 }
 
-function getDisplayDate() {
-    var now = new Date();
+function getDisplayDate(mydate) {
+    var now = mydate;
+    if (now == undefined)
+        now = new Date();
     var d = now.getDate();
     var day = (d < 10) ? '0' + d : d;
     var m = now.getMonth() + 1;

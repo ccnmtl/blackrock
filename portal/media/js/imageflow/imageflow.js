@@ -743,10 +743,6 @@ function ImageFlow ()
 			}
 		}
 		
-	    jQuery(".imageflow img").removeClass("selected");
-	    jQuery(my.imagesDiv.childNodes[my.indexArray[my.imageID]]).addClass("selected");
-
-
 		/* Move the images to the jump target */
 		if(jumpTarget)
 		{
