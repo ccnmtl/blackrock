@@ -24,14 +24,17 @@ class Command(BaseCommand):
         (site,created) = Site.objects.get_or_create(name='BRF')
         (location,created) = Location.objects.get_or_create(name='Stream',site=site)
 
+        print "clearing out old stream data"
+        Series.objects.filter(location=location).delete()
+
         reader = csv.reader(open("waterquality/xls/BRF_Stream_2009.csv"))
         all_columns = ["Array ID","Year","Jul_Day","Hour",
                        "MinBatt_Volt","Depth _m","Cond_uScm",
                        "Temp_C","DO_mV","DO_ppm","pH",
                        "Liters_s","Depth_Ft","Flow Ft^3/s"]
 
-        columns = [7,9]
-        units = ["Celcius","ppm"]
+        columns = [5,7,9,10]
+        units = ["ohms","Celcius","ppm","ph"]
 
         # prep the series
         series_objects = dict()
