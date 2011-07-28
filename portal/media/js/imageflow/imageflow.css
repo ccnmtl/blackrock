@@ -61,10 +61,11 @@
 	.imageflow .slider {
 		background:url(slider_dark.png) no-repeat;
 		height:14px;
-		margin:-7px 0 0 0px;
+		margin:-6px 7px 0 0px;
 		position:absolute;
 		width:14px;
 		z-index:10003;
+		right: 0px;
 	}
 	.imageflow .slideshow {
 		cursor:pointer;
@@ -98,6 +99,6 @@
 	.imageflow .next {
 		background: url(button_right.png) top left no-repeat #666;
 		float:right;	
-		margin:-7px -20px 0 30px;
+		margin:-7px -10px 0 30px;
 	}
 }
