@@ -948,10 +948,19 @@ div#forestcam div#right
 
 {
     float: left;
+    font-weight: normal;
+}
+
+div.box-content
+
+{
+   
     border: 1px solid #a9a9a9;
 	border-top: none;
     vertical-align: top;
     font-weight: normal;
+    padding: 10px;
+    font-size: 100%;
 }
 
 
@@ -961,19 +970,38 @@ div#forestcam div#right h2
 {
 	color: #ffffff;
 	background-color: #BB9E96;
-	margin: -10px -10px 10px;
-	padding: 10px;
 	font-size: 1.2em;
 }
 
 div#forestcam div#left {
 
-    width: 44%;
+    width: 40%;
 
+
+}
+
+div.big-still {
+width: 98%; 
+border: 1px solid #ddd;
+padding: 5px;
+font-size: 90%;
+
+}
+
+div.big-still img {
+width: 100%; 
+height: auto;
 }
 
 div#forestcam div#left #datepicker {
     font-size: .9em;
+}
+
+div#flow-container {
+	background-color: #dedede;
+	padding: 5px;
+	margin-top: 5px;
+	width: 98%;
 }
 
 div#webcam-flow_previous span.flowlabel, div#webcam-flow_next span.flowlabel {
@@ -982,22 +1010,19 @@ div#webcam-flow_previous span.flowlabel, div#webcam-flow_next span.flowlabel {
 }
 
 .ui-datepicker-div {
-    z-index: 1000 !importan;
+    z-index: 1000 !important;
 }
 
 div#forestcam div#right {
 
-    background-color: #E6EBDD;
-    margin: 0px 20px 0px 10px;
-  
-    width: 49%;
+    margin: 0px 20px;
+    width: 55%;
 }
 
 div#forestcam h4 {
     color: black;
     font-weight: normal;
-    font-size: 1.2em;
-    margin: 0px 0px 10px 0px;
+    margin: 5px 10px 20px;
 }
 
 
@@ -1024,7 +1049,7 @@ div#forestcam div#right .video {
 div#forestcam #image-viewer {
 	color:#000;
 	border: 1px solid #B3b3b3;
-	height: 500px;
+
 }
 
 div#forestcam .caption {

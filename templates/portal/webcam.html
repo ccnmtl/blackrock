@@ -11,27 +11,30 @@
     
     <div id="left">
     <div class="header-row"><h5 id="header-copy">Still Views By Date</h5></div>
-           <h4 style="text-align: left">Select a date:<input id="datepicker" type="text" value="05/15/2011" style="width: 100px"><span id="current_image_text" class="caption"></span></h4>
+        <div class="box-content">
+        <h4 style="text-align: left">Select a date:<input id="datepicker" type="text" value="05/15/2011" style="width: 100px"></h4>
         <center>
-            <div style="min-width: 440px; min-height: 300px; margin-bottom: 5px;">
-                <img src="" style="width: 90%; height: auto;" id="current_image"></img>
-            </div>
-        </center>
+            <div class="big-still">
+                <img src="" id="current_image"></img>
+            <span id="current_image_text" class="caption"></span></div>
+           <div id="flow-container">
+           <p>Drag the slider to scroll through the last 24 hours</p>
+       
         <div id="webcam-flow" class="imageflow"></div>
+        <div style="float: left; margin-left: 20px;">Earlier<br />Views</div>
         <div id="webcam-flow_key" style="display: none">
-            <div style="float: left; margin-left: 20px; margin-top: -25px;">Earlier<br />Views</div>
-            <div style="float: right; margin-right: 15px; margin-top: -25px;">Later<br />Views</div>
+        <div style="float: right; margin-right: 15px;">Later<br />Views</div>
         </div>
-        <p>Drag the slider to scroll through the last 24 hours of forest view photos</p>
-        
+        </div>
+      </center>
         <br class="clear" />
         <br />
         
     </div>
-    
+    </div>
     <div id="right">
         <div class="header-row"><h5 id="header-copy">Timelapse Videos</h5></div>
-        <h4 style="text-align: left">Select a Video</h4>
+       <div class="box-content"><h4 style="text-align: left">Select a Video</h4>
             <div>
                 <div style="float: left; margin: 0px 5px; width: 31%;">
                     <a class="select_video current_video" onclick="return switchvideo(this, 'sunrise');">
@@ -73,7 +76,7 @@
             
             </center>
      </div>
-     
+     </div>
      <div style="clear: both">
 </div>
  
