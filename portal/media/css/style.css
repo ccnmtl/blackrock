@@ -776,18 +776,21 @@ div#weather {
 	font-weight: bold;
 }
 
-div#weather h3 {
+div#weather h3,
+div#forestcam h3 {
 	color: #297643;
 }
 
-div#weather h5 {
+div#weather h5,
+div#forestcam h5{
     margin: 0;
     padding: 0;
     text-decoration: none;
     margin-left: 5px;
 }
 
-div#weather div.header-row{
+div#weather div.header-row,
+div#forestcam div.header-row {
 	background-color: #297643;
 	border: 1px solid #a9a9a9;
 	-webkit-border-top-left-radius: 10px;
@@ -939,14 +942,34 @@ div#forestcam {
     color: black;
 }
 
-div#forestcam div#left {
+
+div#forestcam div#left,
+div#forestcam div#right
+
+{
     float: left;
-    background-color: #E6EBDD;
-    padding: 10px;
+    border: 1px solid #a9a9a9;
+	border-top: none;
     vertical-align: top;
-    width: 44%;
-    text-align: center;
     font-weight: normal;
+}
+
+
+div#forestcam div#left h2,
+div#forestcam div#right h2
+
+{
+	color: #ffffff;
+	background-color: #BB9E96;
+	margin: -10px -10px 10px;
+	padding: 10px;
+	font-size: 1.2em;
+}
+
+div#forestcam div#left {
+
+    width: 44%;
+
 }
 
 div#forestcam div#left #datepicker {
@@ -963,10 +986,10 @@ div#webcam-flow_previous span.flowlabel, div#webcam-flow_next span.flowlabel {
 }
 
 div#forestcam div#right {
-    float: left;
+
     background-color: #E6EBDD;
     margin: 0px 20px 0px 10px;
-    padding: 10px;
+  
     width: 49%;
 }
 
@@ -977,12 +1000,6 @@ div#forestcam h4 {
     margin: 0px 0px 10px 0px;
 }
 
-div#forestcam h5 {
-    color: black;
-    font-weight: normal;
-    margin: 0px 0px 3px 0px;
-    text-decoration: underline;
-}
 
 div#forestcam div#right a:hover
     /** Doesn't work well in IE box-shadow: 0 20px rgba(255, 255, 255, 1); **/
