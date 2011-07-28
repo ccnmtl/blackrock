@@ -1005,7 +1005,7 @@ div#flow-container {
 }
 
 div#webcam-flow_previous span.flowlabel, div#webcam-flow_next span.flowlabel {
-    padding-top: 30px;
+    padding-top: 0px;
     vertical-align: bottom;
 }
 

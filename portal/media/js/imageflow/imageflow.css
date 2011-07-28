@@ -10,6 +10,7 @@
 		visibility:hidden;
 		width:100%;
 		z-index: 0;
+		padding: 0 0 20px 0;
 	}
 	.imageflow img {
 		border: none;
@@ -17,6 +18,7 @@
 		top:0px;
 		visibility:hidden;
 		-ms-interpolation-mode:bicubic; /* Enables bicubic image resampling for the IE7 */
+
 	}
 	.imageflow p {
 		margin:0 auto;
@@ -40,6 +42,7 @@
 	}
 	.imageflow .navigation {
 		z-index:10000;
+	
 	}
 	.imageflow .caption {
 		font-weight:bold;
@@ -88,12 +91,12 @@
 		width:17px;
 	}
 	.imageflow .previous {
-		background: url(button_left.png) top left no-repeat;
+		background: url(button_left.png) top left no-repeat #666;
 		float:left;
 		margin: -7px 0 0 -20px;
 	}
 	.imageflow .next {
-		background: url(button_right.png) top left no-repeat;
+		background: url(button_right.png) top left no-repeat #666;
 		float:right;	
 		margin:-7px -20px 0 30px;
 	}
