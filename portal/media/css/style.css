@@ -1017,7 +1017,16 @@ div#forestcam div#right {
 
     margin: 0px 20px;
     width: 55%;
+
 }
+
+div#forestcam div#right div.box-content {
+
+	padding-bottom: 35px;
+
+}
+
+
 
 div#forestcam h4 {
     color: black;
