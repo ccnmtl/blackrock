@@ -86,6 +86,7 @@ class PortalSearchForm(SearchForm):
           
     return sqs
     
+from types import *    
 class PortalSearchView(SearchView):
   def __name__(self):
       return "PortalSearchView"
@@ -96,7 +97,10 @@ class PortalSearchView(SearchView):
   def extra_context(self):
     extra = super(PortalSearchView, self).extra_context()
     if hasattr(self, "results"):
-      extra["count"] = len(self.results)
+        if type(self.results) is ListType and len(self.results) < 1:
+            extra["count"] = -1
+        else:
+            extra["count"] = len(self.results)
       
     # @todo -- add latitude/longitude into the context. self.request.
     
