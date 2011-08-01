@@ -23,9 +23,9 @@
 <tr>
 <td id="left">
     <div id="asset-details">
-        <table style="margin-bottom: 8px"><tr>
-        <td><img src="/portal/media/images/nonmapicon_{{asset_klass|lower}}.png" alt="record type icon" style="margin-right: 5px;" /></td><td style="vertical-align: middle"><h3>{{current_object|display_name}}</h3></td>
-        </tr></table>
+        <div class="pagetitle">
+            <img src="/portal/media/images/nonmapicon_{{asset_klass|lower}}.png" alt="record type icon" /><h3>{{current_object|display_name}}</h3>
+        </div>
         
         {% with current_object|gallery as images %}
         {% if images %}

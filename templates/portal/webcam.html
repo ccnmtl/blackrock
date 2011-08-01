@@ -1,83 +1,116 @@
 {% load smartif %}
 <link rel="stylesheet" type="text/css" href="/portal/media/js/imageflow/imageflow.css" />
 
-<script  type="text/javascript" src="/portal/media/js/imageflow/imageflow.js"></script>
-<script  type="text/javascript" src="/portal/media/js/blackrock_webcam.js"></script>
+<script type="text/javascript" src="/portal/media/js/imageflow/imageflow.js"></script>
+<script type="text/javascript" src="/portal/media/js/blackrock_webcam.js"></script>
 
+<div id="forestcam">
+    <div class="pagetitle">
+        <img src="/portal/media/images/nonmapicon_webcams.png" alt="record type icon" /><h3><a href="/portal/browse/portal/station/objects/3/">Science Center ForestCam</a></h3>
+    </div>
+    
+    <div id="left">
+    <div class="header-row"><h5 id="header-copy">Still Views By Date</h5></div>
+        <div class="box-content">
+        <h4 style="text-align: left">Select a date: <input id="datepicker" type="text" value="05/15/2011" style="width: 100px"></h4>
+        <center>
+            <div class="big-still">
+                <img src="" id="current_image"></img>
+            <span id="current_image_text" class="caption"></span></div>
+           <div id="flow-container">
+           <p>Drag the slider to scroll through the last 24 hours</p>
+       
+        <div id="webcam-flow" class="imageflow"></div>
+        <div style="float: left; margin-left: 25px; margin-top: -25px; font-size: 90%;">Earlier</div>
+        <div id="webcam-flow_key" style="display: none">
+        <div style="float: right; margin-right: 25px; margin-top: -25px; font-size: 90%;">Later</div>
+        </div>
+        </div>
+      </center>
+        <br class="clear" />
+       
+        
+    </div>
+    </div>
+    <div id="right">
+        <div class="header-row"><h5 id="header-copy">Timelapse Videos</h5></div>
+       <div class="box-content"><h4 style="text-align: left">Select a Video</h4>
+            <div>
+                <div style="float: left; margin: 0px 5px; width: 31%;">
+                    <a class="select_video current_video" onclick="return switchvideo(this, 'sunrise');">
+                    <h5>Sunrise</h5>
+                    <img src="/portal/media/images/forestcam/poster_sunrise.png" style="width: 100%; height: auto;"></img>
+                    </a>
+                </div>
+                
+                <div style="float: left; margin: 0px 5px; width: 31%;">
+                    <a class="select_video" onclick="return switchvideo(this, 'snow');">
+                    <h5>Snow Melting</h5>
+                    <img src="/portal/media/images/forestcam/poster_snow.png" style="width: 100%; height: auto;"></img>
+                    </a>
+                </div>
+                
+                <div style="float: left; margin: 0px 0px 0px 5px; width: 31%;">
+                    <a class="select_video" onclick="return switchvideo(this, 'showers');">
+                    <h5>April Showers</h5>
+                    <img src="/portal/media/images/forestcam/poster_showers.png" style="width: 100%; height: auto;"></img>
+                    </a>
+                </div>
+            </div>
+            <br class="clear" />
+
+            <center>
+                <!-- Sunrise -->
+                <div id="sunrise" style="display: none;" class="video">
+                    <script  type="text/javascript" src="http://ccnmtl.columbia.edu/stream/jsembed?player=download_mp4_v3&file=projects/mp4/virtualforest_time_lapse01_glare.mp4&width=480&height=360&poster=http://ccnmtl.columbia.edu/broadcast/projects/mp4/virtualforest_time_lapse01_glare.jpg&protection=5b9e4fe881b47f0a4ffcaa630dc4f0ca4d36d1e1"></script>
+                </div>    
+                
+                <!-- Snow Melting -->
+                <div id="snow" style="display: none" class="video">
+                    <script type="text/javascript" src="http://ccnmtl.columbia.edu/stream/jsembed?player=download_mp4_v3&file=projects/mp4/virtualforest_time_lapse03_snow_long.mp4&width=480&height=360&poster=http://ccnmtl.columbia.edu/broadcast/projects/mp4/virtualforest_time_lapse03_snow_long.jpg&protection=c0a8e54641fecf4f2d2daf1ffe96fc5b83c28dca"></script>
+                </div>
+                <!-- April Showers -->
+                <div id="showers" style="display: none" class="video">
+                    <script type="text/javascript" src="http://ccnmtl.columbia.edu/stream/jsembed?player=download_mp4_v3&file=projects/mp4/virtualforest_time_lapse02_april_showers.mp4&width=480&height=360&poster=http://ccnmtl.columbia.edu/broadcast/projects/mp4/virtualforest_time_lapse02_april_showers.jpg&protection=3bf74c25d2c49a56a6d6c9612134a2d25fb3e1c1"></script>
+                </div>
+            
+            </center>
+            
+             <br class="clear" />
+     </div>
+     </div>
+     <div style="clear: both">
+</div>
+ 
 <script type="text/javascript">
     jQuery(document).ready(function() {
-        draw_image_flow(15, 5 - 1, 2011);
-                         
-        jQuery("#webcam-flow_previous").html("<span class='flowlabel'><br />Earlier Views</span>");
-        jQuery("#webcam-flow_next").html("<span class='flowlabel'><br />Current View</span>");
-    
-        // set up the datepicker
-        jQuery( "#datepicker" ).datepicker({
-    		    // trigger calendar selector from the icon
-    		    showOn: "button",
-    		    buttonImage: "/portal/media/images/calendar.gif",
-    		    buttonImageOnly: true,
-    		    // animate calendar
-    		    showAnim: "slideDown",
-    		    // we only have pics going back to 3/4/11
-    		    minDate: new Date(2011, 3 - 1, 4),
-    		    // limit selections to the past.
-    		    maxDate: new Date(2011, 5 - 1, 15), // "+0",
-    		    // onSelect - load the photos from that day
-    		    onSelect: function(dateText, inst) {
-    		           var pickedDate = new Date(Date.parse(jQuery(this).datepicker('getDate'))); 
-    		           //var pickedDate = inst.('getDate');
-                       picked_date = pickedDate.getDate();
-    		           picked_month = pickedDate.getMonth();
-    		           picked_year = pickedDate.getFullYear();
-                               draw_image_flow(picked_date, picked_month, picked_year);
-                               // jQuery("#picked-date").html(picked_month + "/" + picked_date + "/" + picked_year); 
-                               jQuery("#picked-date").html(pickedDate.toDateString());
-    		           //console.log(picked_date, picked_month, picked_year);
-    		    }
-    	     });
 
-        jQuery("#datepicker").datepicker("setDate", new Date(2011, 5 - 1, 15));
-        
+        jQuery("#datepicker").datepicker({
+            // we only have pics going back to 3/4/11
+            minDate: new Date(2011, 3 - 1, 4),
+            // the camera broke on 5/15 -- cap selection to this date
+            maxDate: new Date(2011, 5 - 1, 15), // "+0" for "now"
+
+            // onSelect - load the photos from that day
+            onSelect: function(dateText, inst) {
+                var pickedDate = jQuery(this).datepicker('getDate');
+                draw_image_flow(pickedDate.getDate(), pickedDate.getMonth(), pickedDate.getFullYear());
+                jQuery("#picked-date").html(getDisplayDate(pickedDate));
+            }
+        });
+
+        draw_image_flow(15, 5 - 1, 2011);
+
+        var height = jQuery("div#forestcam div#left").innerHeight();
+        jQuery("div#forestcam div#right").css("height", height + "px");
     });
+
+    function switchvideo(a, id) {
+        jQuery(".video").hide();
+        jQuery("#" + id).show();
+        return true;
+    }
   
 </script>
- 
-<h2>Forest View</h2>
-<div id="webcam_page"> 
-<h3><span id="picked-date">Today</span> at the Forest <div><input type="hidden" id="datepicker" /></div></h3>
-	<div id="image-viewer">
-	   
-	   <div id="webcam-focus-container">
-	     <!-- <img id="webcam-focus" src="http://ccnmtl.columbia.edu/projects/blackrock/forestdata/webcam/current.jpg" width="550" /> -->
-	   </div>
-	   <div id="webcam-flow" class="imageflow"></div>
-	   <p style="text-align: center;" >Drag the slider to scroll through the last 24 hours of forest view photos</p>
-	</div>
-	
-	
-	<div id="timelapse">
-	<h3>Featured Events</h3>	
-		
-		<h4>Sunrise</h4>
-		<div class="video">
-	<script type="text/javascript" src="http://ccnmtl.columbia.edu/stream/jsembed?player=download_mp4_v3&file=projects/mp4/virtualforest_time_lapse01_glare.mp4&width=480&height=360&poster=http://ccnmtl.columbia.edu/broadcast/projects/mp4/virtualforest_time_lapse01_glare.jpg&protection=5b9e4fe881b47f0a4ffcaa630dc4f0ca4d36d1e1"></script>
-	</div>
-
-
-		<h4>Snow Melting</h4>		
-		<div class="video">
-		<script type="text/javascript" src="http://ccnmtl.columbia.edu/stream/jsembed?player=download_mp4_v3&file=projects/mp4/virtualforest_time_lapse03_snow_long.mp4&width=480&height=360&poster=http://ccnmtl.columbia.edu/broadcast/projects/mp4/virtualforest_time_lapse03_snow_long.jpg&protection=c0a8e54641fecf4f2d2daf1ffe96fc5b83c28dca"></script>
-
-</div>
-		
-		<h4>April Showers</h4>
-		<div class="video">
-		<script type="text/javascript" src="http://ccnmtl.columbia.edu/stream/jsembed?player=download_mp4_v3&file=projects/mp4/virtualforest_time_lapse02_april_showers.mp4&width=480&height=360&poster=http://ccnmtl.columbia.edu/broadcast/projects/mp4/virtualforest_time_lapse02_april_showers.jpg&protection=3bf74c25d2c49a56a6d6c9612134a2d25fb3e1c1"></script>
-		</div>
-
-	</div>
-
-</div>
-
-<br class="clear" />
+<br />
+  <br class="clear" />

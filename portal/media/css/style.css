@@ -118,8 +118,7 @@ div#mainnav ul li a {
 
 div#mainnav ul li:hover {
    background-color: #e4dbcc;
-      color: black;
-
+   color: black;
 }
 
 div#mainnav ul li.search:hover
@@ -143,8 +142,6 @@ div#mainnav ul li a:hover {
    color: black;
 
 }
-
-
 
 div#mainnav ul li.selected a {
     color: #ffffff;
@@ -172,89 +169,14 @@ div#search-tab {
     border: 1px #dcd3c2 solid;
 }
 
-
-/* Sub Nav (Boxes) */
-
-div#subnav {
-    display: block;
-    margin: 0px;
-    padding-left: 5px;
-    height: 45px; 
-    background-color: #897467;
-    color: #fff;
-    height: 45px;
-    clear: both;
-    margin-top: -1px;
-    border-top: 1px solid #e4dbcc;
-
-}
-
-div#subnav.home {/*height: 5px;*/ background-color: #3d2800;}
-div#subnav.experience {/*height: 29px;*/ background-color: #126a37;}
-div#subnav.foreststories {}
-div#subnav.education {/*height: 29px;*/ background-color: #84232e;}
-div#subnav.research {/*height: 29px;*/ background-color: #2a6ebb;}
-div#subnav.search {/*height: 5px;*/ background-color: #dcd3c2;}
-
-div#subnav.home ul, div#subnav.home ul li {display: none;}
-
-div#subnav ul {
-    list-style: none;
-    color: black;
-    z-index: 100;
-    float: left;
-    padding: 0;
-    margin: 0;
-    cursor: pointer;
-    font-weight: normal;
-    font-size: .9em;
-}
-
-div#subnav ul li {
-    color: black;
-    z-index: 100;
-    float: left;
-    padding: 3px 5px;
-    margin: 5px 10px 0 0;
-    cursor: pointer;
-    font-weight: normal;
-}
-
-div#subnav ul li a {
- 
-    color: #E4DBCC;
-    z-index: 100;
-    float: left;
-    padding: 3px 5px;
-    margin: -3px -5px;
-    cursor: pointer;
-    font-weight: normal;
-    text-decoration: none;
-}
-
-/*div#subnav.home ul li {background-color: #796456;}
-div#subnav.experience ul li {background-color: #d4e2d8;}
-div#subnav.education ul li {background-color: #a9676d; }
-div#subnav.research ul li {background-color: #5a9bcf;}*/
-
-div#subnav.home ul li.selected {background-color: #E4DBCC;}
-div#subnav.experience ul li.selected {background-color: #E4DBCC;}
-div#subnav.education ul li.selected {background-color: #E4DBCC;}
-div#subnav.research ul li.selected {background-color: #E4DBCC;}
-div#subnav.search ul li.selected {background-color: #89A08C;}
-
 /* style the sharing functionality, including the styles that jquery.sharing expects */
 div#sharing_container {
-  
     float: right;
     margin-top: 11px;
     margin-right: 6px;
      border: 1px solid #adadad;
      background-color #f9f9f9;
      max-height: 19px;
-    
-
-
 }
 
 div#sharing_container #sharing_button {float: left;}
@@ -824,10 +746,6 @@ div#asset-details {
 	padding: 10px;
 }
 
-div#asset-details h3 {
-    margin: 5px 0 0 0;
-}
-
 div#map-column {
     margin:0;
     padding:0;
@@ -851,27 +769,28 @@ div.asset-types {
 	display: block;
 }
 
-
 /*Weather Page*/
 
 div#weather {
-	padding: 5px;
+	padding: 10px;
 	font-weight: bold;
 }
 
-div#weather h3 {
+div#weather h3,
+div#forestcam h3 {
 	color: #297643;
-	margin-left: 5px;
 }
 
-div#weather h5 {
+div#weather h5,
+div#forestcam h5{
     margin: 0;
     padding: 0;
     text-decoration: none;
     margin-left: 5px;
 }
 
-div#weather div.header-row{
+div#weather div.header-row,
+div#forestcam div.header-row {
 	background-color: #297643;
 	border: 1px solid #a9a9a9;
 	-webkit-border-top-left-radius: 10px;
@@ -1012,16 +931,117 @@ a#rawdata, a#historicdata {
 
 }
 
-/*Webcam Page */
 
-div#webcam_page {
+/* Forestcam Page */
 
-	padding: 5px;
-	background-color: none;
+div#forestcam {
+    padding: 10px;
+    font-weight: bold;
+    background-color: white;
+    min-width: 1000px;
+    color: black;
 }
 
-div#webcam_page div#webcam_page #timelapse{
 
+div#forestcam div#left,
+div#forestcam div#right
+
+{
+    float: left;
+    font-weight: normal;
+}
+
+div.box-content
+
+{
+   
+    border: 1px solid #a9a9a9;
+	border-top: none;
+    vertical-align: top;
+    font-weight: normal;
+    padding: 10px;
+    font-size: 100%;
+}
+
+
+div#forestcam div#left h2,
+div#forestcam div#right h2
+
+{
+	color: #ffffff;
+	background-color: #BB9E96;
+	font-size: 1.2em;
+}
+
+div#forestcam div#left {
+
+    width: 40%;
+
+
+}
+
+div.big-still {
+width: 98%; 
+border: 1px solid #ddd;
+padding: 5px;
+font-size: 90%;
+
+}
+
+div.big-still img {
+width: 100%; 
+height: auto;
+}
+
+div#forestcam div#left #datepicker {
+    font-size: .9em;
+}
+
+div#flow-container {
+	background-color: #dedede;
+	padding: 5px;
+	margin-top: 5px;
+	width: 98%;
+}
+
+div#webcam-flow_previous span.flowlabel, div#webcam-flow_next span.flowlabel {
+    padding-top: 0px;
+    vertical-align: bottom;
+}
+
+.ui-datepicker-div {
+    z-index: 1000 !important;
+}
+
+div#forestcam div#right {
+
+    margin: 0px 20px;
+    width: 55%;
+
+}
+
+div#forestcam div#right div.box-content {
+
+	padding-bottom: 35px;
+
+}
+
+
+
+div#forestcam h4 {
+    color: black;
+    font-weight: normal;
+    margin: 5px 10px 20px;
+}
+
+
+div#forestcam div#right a:hover
+    /** Doesn't work well in IE box-shadow: 0 20px rgba(255, 255, 255, 1); **/
+    -webkit-box-shadow: 0 0 20px rgba(255, 255, 255, 1); 
+    -moz-box-shadow: 0 0 20px rgba(255, 255, 255, 1); 
+}
+
+div#forestcam #timelapse {
 	padding: 5px;
 	background-color: #fff;
 	display: block;
@@ -1029,32 +1049,38 @@ div#webcam_page div#webcam_page #timelapse{
 	margin: 10px 0;
 }
 
-div#webcam_page {
-
-	padding: 5px;
-	display: block;
-	width: auto;
-	margin: 10px 0;
-	
+div#forestcam div#right .video {
+    margin-top: 20px;
+    width: 480px; 
+    height: 360px;
 }
 
-#image-viewer {
+div#forestcam #image-viewer {
 	color:#000;
-	line-height:1.4em;
-	padding: 1em;
-	margin:0;
-	width: auto;
 	border: 1px solid #B3b3b3;
+
 }
 
-
-.flowlabel {
-	padding-top: 30px;
+div#forestcam .caption {
+    margin-top: 5px;
 }
 
-div#webcam_page #timelapse .video {
-	width: 400px;
-	display: block;
+/* Page Title Elements: All Pages */
+.pagetitle {
+    margin: 5px 0px;
+}
+
+.pagetitle img {
+    vertical-align: middle;
+} 
+
+.pagetitle span.tools {
+    float: right
+}
+
+.pagetitle h3 {
+    margin: 10px;
+    display: inline;
 }
 
 div.caption {
@@ -1062,6 +1088,7 @@ div.caption {
     font-size: .9em;
 }
 
+/* Page Footer Elements: All Pages */
 #footer {
  background-color: #1F2A1E;
  color: #ffffff;

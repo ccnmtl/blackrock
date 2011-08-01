@@ -22,7 +22,7 @@
                     <div style="padding: 10px" class="ui-widget">
                         <h3 style="display: inline">{{field.label}}</h3>: {{ field }}
                         <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="submit"><span class="ui-button-text">Submit</span></button>
-                        <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="reset" onclick="parent.location='/portal/search/'"><span class="ui-button-text">Reset</span></button>
+                        <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="reset" onclick="jQuery('#result_count').html(''); parent.location='/portal/search/'"><span class="ui-button-text">Reset</span></button>
                     </div>
                 {% else %}
                     
@@ -48,10 +48,16 @@
                     {% if page.has_previous and page.has_next %}|{% endif %}
                     {% if page.has_next %}<a href="?{{ query }}page={{ page.next_page_number }}">Next &raquo;</a>{% endif %}
                 </div>
-            {% endif %} 
-            {% if count %}           
-                <h3 style="margin-top: 5px;">Showing {{page.start_index}}-{{page.end_index}} of {{count}} Results</h3>
             {% endif %}
+            <h3 style="margin-top: 5px;">
+            <div id="result_count">                
+                {% if count > 0 %}
+                    Showing {{page.start_index}}-{{page.end_index}} of {{count}} Results
+                {% else %}{% if count == 0 %}
+                    Your search did not match any records. Please try again.
+                {% endif %}{% endif %}
+            </div>
+            </h3>
         </div>
         
         <div id="search-results">

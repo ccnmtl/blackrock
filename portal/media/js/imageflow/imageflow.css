@@ -9,13 +9,16 @@
 		text-align:left;
 		visibility:hidden;
 		width:100%;
+		z-index: 0;
+		padding: 0 0 20px 0;
 	}
 	.imageflow img {
-		border:none;
+		border: none;
 		position:absolute;
 		top:0px;
 		visibility:hidden;
 		-ms-interpolation-mode:bicubic; /* Enables bicubic image resampling for the IE7 */
+
 	}
 	.imageflow p {
 		margin:0 auto;
@@ -37,8 +40,9 @@
 		visibility:visible;
 		width:1%;
 	}
-	.imageflow .navigation{
+	.imageflow .navigation {
 		z-index:10000;
+	
 	}
 	.imageflow .caption {
 		font-weight:bold;
@@ -52,14 +56,16 @@
 		visibility:hidden;
 		z-index:10002;
 		height:1px;
+		margin-top: 8px;
 	}
 	.imageflow .slider {
 		background:url(slider_dark.png) no-repeat;
 		height:14px;
-		margin:-6px 0 0 -7px;
+		margin:-6px 7px 0 0px;
 		position:absolute;
 		width:14px;
 		z-index:10003;
+		right: 0px;
 	}
 	.imageflow .slideshow {
 		cursor:pointer;
@@ -86,13 +92,13 @@
 		width:17px;
 	}
 	.imageflow .previous {
-		background: url(button_left.png) top left no-repeat;
+		background: url(button_left.png) top left no-repeat #666;
 		float:left;
-		margin: -7px 0 0 -30px;
+		margin: -7px 0 0 -20px;
 	}
 	.imageflow .next {
-		background: url(button_right.png) top left no-repeat;
+		background: url(button_right.png) top left no-repeat #666;
 		float:right;	
-		margin:-7px -30px 0 30px;
+		margin:-7px -10px 0 30px;
 	}
 }
