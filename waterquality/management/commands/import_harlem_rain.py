@@ -63,7 +63,7 @@ class Command(BaseCommand):
         columns = [16]
         units = "mm"
 
-        (series,created) = Series.objects.get_or_create(name="Daily Rainfall",location=location,units=units)
+        (series,created) = Series.objects.get_or_create(name="Harlem Daily Rainfall",location=location,units=units)
 
         if not created:
             # it already exists, so let's clear out all the data in that column
@@ -84,6 +84,5 @@ class Command(BaseCommand):
                 datetime = date + " %02d:00:00" % hour
                 r = Row.objects.create(series=series,timestamp=datetime,value=str(daily_rainfall * 25.4))
 
-        Row.objects.filter(timestamp__lt="2009-04-24 00:00:00").delete()
-        Row.objects.filter(timestamp__gt="2009-09-06 00:00:00").delete()
+
 

@@ -33,7 +33,9 @@ class Command(BaseCommand):
                        "Temp_C","DO_mV","DO_ppm","pH",
                        "Liters_s","Depth_Ft","Flow Ft^3/s"]
 
-        columns = [5,7,9,10]
+        columns = [6,7,9,10]
+        names = ["Blackrock Forest Stream Conductivity","Blackrock Forest Stream Temp",
+                 "Blackrock Forest Stream Dissolved Oxygen","Blackrock Forest Stream pH"]
         units = ["ohms","Celcius","ppm","ph"]
 
         # prep the series
