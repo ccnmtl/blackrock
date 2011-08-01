@@ -24,9 +24,6 @@ class Command(BaseCommand):
         (site,created) = Site.objects.get_or_create(name='BRF')
         (location,created) = Location.objects.get_or_create(name='Lowlands',site=site)
 
-        print "clearing out old lowlands data"
-        Series.objects.filter(location=location).delete()
-
         reader = csv.reader(open("waterquality/xls/BRF_Open_Lowlands_2009.csv"))
         all_columns = ["Array ID","Year","Jul_Day","Hour","TEMP_C_AVG",
                        "TEMP_C_MAX","TEMP_C_MIN","RH___AVG",
@@ -46,6 +43,10 @@ class Command(BaseCommand):
         series_objects = dict()
         for (column,unit,name) in zip(columns,units,names):
             (series,created) = Series.objects.get_or_create(name=name,location=location,units=unit)
+            if not created:
+                print "clearing out %s" % name
+                series.row_set.all().delete()                
+
             series_objects[column] = series
         
         for row in reader:

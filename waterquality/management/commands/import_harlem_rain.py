@@ -18,9 +18,6 @@ class Command(BaseCommand):
         (site,created) = Site.objects.get_or_create(name='Harlem')
         (location,created) = Location.objects.get_or_create(name='River',site=site)
 
-        print "clearing out old harlem river rain data"
-        Series.objects.filter(location=location).delete()
-
         reader = csv.reader(open("waterquality/xls/HarlemRiver_rain_ambtemp.csv"))
 
         all_columns = ["Station_ID",       # 0
