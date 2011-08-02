@@ -109,6 +109,10 @@ function draw_image_flow(start_date, start_month, start_year, start_hour, start_
 
     // add the webcam images to the dom
     var webcamImageArray = get_webcam_image_array(start_date, start_month, start_year, start_hour, start_minute);
+    var idx = webcamImageArray.length - 1;
+    jQuery("#current_image").attr("src", webcamImageArray[idx].src);
+    jQuery("#current_image_text").html(webcamImageArray[idx].alt);
+
     for (i = 0; i < webcamImageArray.length; i++) {
         jQuery("<img />", {
             "src": webcamImageArray[i].thumb,
@@ -118,11 +122,8 @@ function draw_image_flow(start_date, start_month, start_year, start_hour, start_
             "alt": webcamImageArray[i].text
         }).appendTo("#webcam-flow");
     }
-    var startIdx = jQuery("div#webcam-flow img").length;
     
-    var idx = webcamImageArray.length - 1;
-    jQuery("#current_image").attr("src", webcamImageArray[idx].src);
-    jQuery("#current_image_text").html(webcamImageArray[idx].alt);
+    var startIdx = jQuery("div#webcam-flow img").length;
 
     var imageFlowInstance = new ImageFlow();
     imageFlowInstance.init({ ImageFlowID:'webcam-flow',

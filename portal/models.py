@@ -702,6 +702,14 @@ class PhotoGallery(models.Model):
         form = PhotoGalleryForm(data=vals, files=files, instance=self)
         if form.is_valid():
             form.save()
+            
+    def current_time(self):
+        from datetime import datetime
+        
+        today = datetime.today()
+        minute = today.minute / 10 * 10 
+
+        return "%02d_%02d" % (today.hour, minute) 
         
 class PhotoGalleryForm(forms.ModelForm):
     class Meta:
