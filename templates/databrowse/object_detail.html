@@ -144,11 +144,8 @@
      
             {% if current_object.url.all.count %}
                 <p><span class="object_detail_label">Link{%if current_object.url.all.count > 0%}s{%endif%}:</span>{%if current_object.url.all.count > 1%}<br />{%endif%}
-                {% for u in current_object.url.all %}
-                   <li><a href="{{ u.name }}">{% if u.display_name %}{{u.display_name}}{% else %}{{u.document}}{% endif %}</a></li>
-                {% endfor %}
+                {% for u in current_object.url.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{u.name}}">{{ u|display_name}}</a>{% endfor %}</p>
             {% endif %}
-      
             {% if current_object.digital_format.all.count %}
                 <p><span class="object_detail_label">Format:</span> 
                 {% for f in current_object.digital_format.all %}{% if forloop.counter > 1 %}, {% endif %}{{ f.name }}{% endfor %}</p>
@@ -168,7 +165,7 @@
             {% endif %}
             {% if current_object.url.all.count %}
                 <p><span class="object_detail_label">Link{%if current_object.url.all.count > 0%}s{%endif%}:</span>{%if current_object.url.all.count > 1%}<br />{%endif%}
-                {% for u in current_object.url.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{ u.name }}">{{u.name}}</a>{% endfor %}</p>
+                {% for u in current_object.url.all %}{% if forloop.counter > 1 %}, {% endif %}<a href="{{u.name}}">{{ u|display_name}}</a>{% endfor %}</p>
             {% endif %}
             {% if current_object.person_type.all.count %}
                 <p><span class="object_detail_label">Roles:</span>
