@@ -7,8 +7,8 @@
   <description><![CDATA[Exported from boundary on 5/19/2011]]></description>
   <Style id="FEATURES">
     <LineStyle>
-      <color>FF0000FF</color>
-      <width>2</width>
+       <color>CC006633</color>
+       <width>4</width>
     </LineStyle>
     <PolyStyle>
       <outline>1</outline>
