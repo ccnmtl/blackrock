@@ -674,6 +674,12 @@ table#search-table tr td#results_column {
 	text-align: left;
 }
 
+table#search-table tr td#results_column a {
+    font-weight: bold;
+    color: black;
+}
+
+
 div#facets {
     width: 400px;
     background-color: white;
