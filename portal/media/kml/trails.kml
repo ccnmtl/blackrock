@@ -5,195 +5,164 @@
   <open>1</open>
   <Snippet maxLines="0"><![CDATA[]]></Snippet>
   <description><![CDATA[Exported from trails on 5/19/2011]]></description>
-  <Style id="FEATURES">
+  <Style id="STILLMAN">
     <LineStyle>
-      <color>FF143C50</color>
-      <width>1</width>
+      <color>FF14F0FF</color>
+      <width>2</width>
+    </LineStyle>
+  </Style>
+  <Style id="SACKETT">
+    <LineStyle>
+      <color>FF14F0FF</color>
+      <width>2</width>
+    </LineStyle>
+  </Style>
+  <Style id="SCENIC">
+    <LineStyle>
+      <color>FFFFFFFF</color>
+      <width>2</width>
+    </LineStyle>
+  </Style>
+  <Style id="RESERVOIR">
+    <LineStyle>
+      <color>FF660000</color>
+      <width>2</width>
+    </LineStyle>
+  </Style>
+  <Style id="BLACKROCKHOLLOW">
+    <LineStyle>
+      <color>FF14F0FF</color>
+      <width>2</width>
+    </LineStyle>
+  </Style>
+  <Style id="SWAMP">
+    <LineStyle>
+      <color>FF660000</color>
+      <width>2</width>
+    </LineStyle>
+  </Style>
+  <Style id="HILLOFPINES">
+    <LineStyle>
+      <color>FFFFFFFF</color>
+      <width>2</width>
+    </LineStyle>
+  </Style>
+  <Style id="WHITEOAK">
+    <LineStyle>
+      <color>FFFFFFFF</color>
+      <width>2</width>
+    </LineStyle>
+  </Style>
+  <Style id="TOWERVUE">
+    <LineStyle>
+      <color>FF14F0FF</color>
+      <width>2</width>
+    </LineStyle>
+  </Style>
+  <Style id="COMPARTMENT">
+    <LineStyle>
+      <color>FF660000</color>
+      <width>2</width>
+    </LineStyle>
+  </Style>
+  <Style id="ARTHUR">
+    <LineStyle>
+      <color>FF14F0FF</color>
+      <width>2</width>
+    </LineStyle>
+  </Style>
+  <Style id="SPLITROCK">
+    <LineStyle>
+      <color>FFFFFFFF</color>
+      <width>2</width>
+    </LineStyle>
+  </Style>
+  <Style id="RYERSON">
+    <LineStyle>
+      <color>FF14F0FF</color>
+      <width>2</width>
+    </LineStyle>
+  </Style>
+  <Style id="CHATFIELD">
+    <LineStyle>
+      <color>FF660000</color>
+      <width>2</width>
+    </LineStyle>
+  </Style>
+  <Style id="SECOR">
+    <LineStyle>
+      <color>FF14F0FF</color>
+      <width>2</width>
+    </LineStyle>
+  </Style>    
+  <Style id="LEDGE">
+    <LineStyle>
+      <color>FF14F0FF</color>
+      <width>2</width>
+    </LineStyle>
+  </Style>
+  <Style id="STROPEL">
+    <LineStyle>
+      <color>FF14F0FF</color>
+      <width>2</width>
+    </LineStyle>
+  </Style>
+  <Style id="RUT">
+    <LineStyle>
+      <color>FF660000</color>
+      <width>2</width>
+    </LineStyle>
+  </Style>
+  <Style id="MINEHILL">
+    <LineStyle>
+      <color>FF14F0FF</color>
+      <width>2</width>
+    </LineStyle>
+  </Style>
+  <Style id="SHORTCUT">
+    <LineStyle>
+      <color>FF14F0FF</color>
+      <width>2</width>
+    </LineStyle>
+  </Style>
+  <Style id="DUGGAN">
+    <LineStyle>
+      <color>FF000099</color>
+      <width>2</width>
+    </LineStyle>
+  </Style>
+  <Style id="YELLOW_DASHES">
+    <LineStyle>
+      <color>FF14F0FF</color>
+      <width>2</width>
+    </LineStyle>
+  </Style>
+  <Style id="BLUE_ARROWS">
+    <LineStyle>
+      <color>FF660000</color>
+      <width>2</width>
+    </LineStyle>
+  </Style>
+  <Style id="WHITE_DOTS">
+    <LineStyle>
+      <color>FFFFFFFF</color>
+      <width>2</width>
+    </LineStyle>
+  </Style>
+  <Style id="RED_DOTS_DASHES">
+    <LineStyle>
+      <color>FF000099</color>
+      <width>2</width>
     </LineStyle>
   </Style>
   <Folder>
     <name>Features</name>
     <open>0</open>
-       <Placemark>
-         <name><![CDATA[Scenic Trail 1]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0648186355663,41.3843485321147,0
-               -74.0650196834113,41.38374171298,0
-               -74.0649646819765,41.3835529353416,0
-               -74.0644888398341,41.3832013801044,0
-               -74.0643591931241,41.3828526384883,0
-               -74.0638060130317,41.3825294254664,0
-               -74.0636006877409,41.3820931453246,0
-               -74.0631616380755,41.3813886324464,0
-               -74.0627109015883,41.3811007860958,0
-               -74.0620975453645,41.3810484408533,0
-               -74.0616207013976,41.3806717779794,0
-               -74.0596482075109,41.3808390083565,0
-               -74.058828123668,41.3810217451326,0
-               -74.0578533139812,41.3810742800464,0
-               -74.0567548767532,41.3812516584297,0
-               -74.0556830829483,41.3810906981826,0
-               -74.0538556347734,41.3813598486237,0
-               -74.0529118425433,41.3813994446299,0
-               -74.0520252338923,41.3818245178574,0
-               -74.0513897979344,41.3822867544626,0
-               -74.0503119738597,41.3828935488212,0
-               -74.0492905273301,41.3829228845024,0
-               -74.0476356673987,41.3829671472735,0
-               -74.0467799073353,41.3836119746562,0
-               -74.0465252239093,41.3839285777642,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Scenic Trail 2]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0465833461527,41.3839000854486,0
-               -74.0461769127731,41.3840705606054,0
-               -74.0451503558395,41.3845546031131,0
-               -74.044270862489,41.3855034407845,0
-               -74.0431244073289,41.3862906951829,0
-               -74.0425361332373,41.3870536102256,0
-               -74.0424149038199,41.3876297957126,0
-               -74.0419742890811,41.3887443914613,0
-               -74.041682101261,41.3893809659053,0
-               -74.0414283875604,41.3898048575447,0
-               -74.0406836650777,41.3899584027033,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Compartment Trail 3]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0347629976079,41.4030085235984,0
-               -74.034581477723,41.4033265035763,0
-               -74.0344015325925,41.4035379954794,0
-               -74.034045975952,41.403668137105,0
-               -74.03379373317,41.4039855219993,0
-               -74.0337540359236,41.404278066288,0
-               -74.0339280701493,41.4044659044364,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Sackett Trail 4]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0339280701493,41.4044659044364,0
-               -74.0343130775834,41.4047353890222,0
-               -74.0343134717719,41.4047087670902,0
-               -74.034911426001,41.4049267863479,0
-               -74.0355113527978,41.405011692834,0
-               -74.0358645526278,41.4050412784156,0
-               -74.0360456777463,41.4047499184365,0
-               -74.0360142534824,41.4044834027204,0
-               -74.0363010596692,41.4042195529645,0
-               -74.036515966142,41.4040349761303,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Mine Hill Trail]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0470440085367,41.4023121412169,0
-               -74.0466900395361,41.4023358341267,0
-               -74.0464363061884,41.4027597356745,0
-               -74.0461126312928,41.4031298062554,0
-               -74.0458588910297,41.4035537063986,0
-               -74.045576411397,41.4035247381857,0
-               -74.0455468965451,41.4031251144716,0
-               -74.0455884879701,41.4026994553357,0
-               -74.0454501721404,41.4024853057858,0
-               -74.0450262651265,41.4024551627844,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Sackett Trail 6]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0450620129459,41.402428834232,0
-               -74.0445918294909,41.4031438127999,0
-               -74.0442995999253,41.4037803918974,0
-               -74.044364076247,41.4042069315189,0
-               -74.0440392117137,41.4046568619998,0
-               -74.0438557805521,41.4051079669854,0
-               -74.043497110022,41.4054511139127,0
-               -74.0429616365124,41.4057927891308,0
-               -74.0425330191631,41.4060821006469,0
-               -74.0423511371612,41.4064267150187,0
-               -74.0422776800801,41.4066124802495,0
-               -74.0423086236762,41.406866899595,0
-               -74.0422102036039,41.4071157911123,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Sackett Trail 7]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.036515966142,41.4040349761303,0
-               -74.0368302639913,41.4043038601678,0
-               -74.0371795305264,41.4045996612256,0
-               -74.0373877559877,41.4048676560097,0
-               -74.0377024542352,41.4051099157525,0
-               -74.0381597708929,41.405273491285,0
-               -74.0386186596343,41.4053305771691,0
-               -74.0394625836237,41.4056571288291,0
-               -74.040061739785,41.4057952556521,0
-               -74.0403065161516,41.4059836743711,0
-               -74.0409017619746,41.406388016607,0
-               -74.0410369390323,41.4068151472131,0
-               -74.0413155170557,41.4071103464504,0
-               -74.041703700555,41.4071668308639,0
-               -74.0420211635445,41.407222725135,0
-               -74.0422702516744,41.4071182979509,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
+        <!-- Stillman Trail, Yellow Dashes -->
+        <Placemark>
          <name><![CDATA[Stillman Trail 8]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#STILLMAN</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -212,37 +181,9 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[Sackett Trail 8]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0450620129459,41.402428834232,0
-               -74.0450301629491,41.4021889425166,0
-               -74.0449645146068,41.4018422691812,0
-               -74.0449311059649,41.401708865538,0
-               -74.0446886713171,41.4013607243794,0
-               -74.0446929602698,41.401067882057,0
-               -74.0447314366468,41.4008551993793,0
-               -74.0447357253314,41.4005623570275,0
-               -74.0449537142671,41.4001647876502,0
-               -74.0446417415669,41.3997361932563,0
-               -74.0440838390951,41.3991990539,0
-               -74.0436999937495,41.3988497355761,0
-               -74.0435271168124,41.3985820457904,0
-               -74.0436013414938,41.398343035302,0
-               -74.0436445031072,41.397810888476,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-
-       <Placemark>
          <name><![CDATA[Stillman Trail 9]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#STILLMAN</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -261,7 +202,7 @@
        <Placemark>
          <name><![CDATA[Stillman Trail 10]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#STILLMAN</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -275,96 +216,9 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[Sackett Trail 11]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0332495402365,41.4049128340509,0
-               -74.0325042314005,41.4050929457044,0
-               -74.0312674453836,41.4050292882397,0
-               -74.0307366602673,41.4050514430828,0
-               -74.0302777809878,41.4049943258527,0
-               -74.0293937993478,41.4049868717976,0
-               -74.0283365914936,41.4047383210098,0
-               -74.0280922515309,41.4045232553261,0
-               -74.0276349661193,41.4043596400855,0
-               -74.0271407357863,41.4043022115787,0
-               -74.0268936209611,41.4042734965324,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Sackett Trail 12]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0332261284549,41.4050017333071,0
-               -74.0332336243308,41.4049883752077,0
-               -74.0332424267015,41.4049756586067,0
-               -74.0332536255157,41.4049626919183,0
-               -74.0332664910242,41.4049502796797,0
-               -74.0332805447382,41.4049384178699,0
-               -74.0332954264565,41.4049271935362,0
-               -74.0333058388512,41.4049199467235,0
-               -74.0333108996049,41.404916424542,0
-               -74.0333266053176,41.4049061078716,0
-               -74.0333494087685,41.404893148601,0
-               -74.0333738655597,41.4048816444071,0
-               -74.0333993842565,41.4048711399478,0
-               -74.0334253734242,41.4048611798818,0
-               -74.0334514822058,41.4048512208148,0
-               -74.0334771178309,41.4048408974693,0
-               -74.0334813798916,41.4048390854722,0
-               -74.0335005949159,41.4048309162829,0
-               -74.0335240719937,41.4048209350916,0
-               -74.0335475490644,41.4048109538954,0
-               -74.0335711430806,41.4048011538256,0
-               -74.0335948567116,41.4047913547556,0
-               -74.0336026075986,41.4047882556429,0
-               -74.0336186859537,41.4047818268749,0
-               -74.033643712741,41.4047722189734,0
-               -74.0336692100012,41.4047631554644,0
-               -74.0336947072544,41.4047540919496,0
-               -74.0337200862132,41.4047449373613,0
-               -74.0337451129717,41.4047353294373,0
-               -74.0337609019238,41.4047286535368,0
-               -74.033769552289,41.4047249959792,0
-               -74.0337874986722,41.4047168598486,0
-               -74.0338054463853,41.404708633652,0
-               -74.0338231588533,41.4047001352537,0
-               -74.0338406374103,41.4046912745909,0
-               -74.033857404904,41.4046819575822,0
-               -74.0338735822899,41.4046720951692,0
-               -74.0338874801906,41.404662663985,0
-               -74.0339011455149,41.404652780474,0
-               -74.0339143363512,41.4046426227539,0
-               -74.0339183953608,41.4046392361376,0
-               -74.0339270553678,41.4046320106984,0
-               -74.0339390606535,41.4046211224253,0
-               -74.0339503535427,41.4046098678716,0
-               -74.0339621555965,41.4045965458805,0
-               -74.0339730086783,41.4045826754736,0
-               -74.0339830310757,41.404568347719,0
-               -74.0339923397424,41.4045537437476,0
-               -74.0340010529662,41.4045389546271,0
-               -74.0340038656793,41.4045339744678,0
-               -74.0340094073221,41.4045241624929,0
-               -74.0340170399445,41.4045096345216,0
-             </coordinates>
-	  </LineString>
-       </Placemark>
-       <Placemark>
          <name><![CDATA[Stillman Trail 12]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#STILLMAN</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -387,30 +241,9 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[Compartment Trail 13]]></name>
+         <name><![CDATA[Stillman Trail 14]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0355355760096,41.3961989347042,0
-               -74.0364654108705,41.3954878426495,0
-               -74.0374282225819,41.3949367705615,0
-               -74.0379997731934,41.3945421713941,0
-               -74.0386074549593,41.3940946206657,0
-               -74.03953722638,41.3933835028421,0
-               -74.0403939228785,41.3928315197406,0
-               -74.040787891509,41.3924886759018,0
-               -74.0412148612172,41.3923058575089,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Stillman/Compartment Trail 14]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#STILLMAN</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -427,660 +260,9 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[Short-Cut Trail]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0401096365289,41.395331926073,0
-               -74.0408516821467,41.3953647396362,0
-               -74.0417064388684,41.3949458572728,0
-               -74.0423474992518,41.3946316912357,0
-               -74.0430926620412,41.3944515139135,0
-               -74.0439057970857,41.3944582736736,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[White Oak Trail 16]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0316395642748,41.4000131728112,0
-               -74.0310928738451,41.3995539121113,0
-               -74.0304947527367,41.3991699918009,0
-               -74.0300945071914,41.3990150657271,0
-               -74.0298949485273,41.3988997187392,0
-               -74.0297457025986,41.3987847956989,0
-               -74.0291973444594,41.3984391764525,0
-               -74.0287965425198,41.3983221293551,0
-               -74.0282414213536,41.3984311067104,0
-               -74.0278841583236,41.3987690823782,0
-               -74.0273273372629,41.3989917054832,0
-               -74.0267682515968,41.3993658594334,0
-               -74.0264612884955,41.3997042560651,0
-               -74.0258592335634,41.3995854956721,0
-               -74.0255573580618,41.3995829393754,0
-               -74.0252063022727,41.3995041892719,0
-               -74.0250056184626,41.3994646006464,0
-               -74.0245528061789,41.3994607625544,0
-               -74.0242514980476,41.3994203194684,0
-               -74.02409716015,41.3996463395094,0
-               -74.0238444632938,41.3997199721862,0
-               -74.0235425873511,41.3997174105971,0
-               -74.0234922746977,41.3997169835885,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Rut Trail 17]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-                -74.0267953302869,41.3874313003146,0
-               -74.0272514475651,41.3872078277858,0
-               -74.0282592013888,41.3871026783331,0
-               -74.029017692124,41.3868438637803,0
-               -74.0296750084046,41.386622079295,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Scenic Trail 17]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0164615499811,41.3921173478103,0
-               -74.016416382984,41.3917759678098,0
-               -74.0165470341971,41.3913049696857,0
-               -74.0168508943399,41.3910134153887,0
-               -74.0171846743491,41.3908732158325,0
-               -74.0179614574417,41.3907581634759,0
-               -74.0185531897471,41.3903710108919,0
-               -74.0192876751879,41.3900144871871,0
-               -74.0194873704696,41.3897220379199,0
-               -74.0197625226717,41.3896067218889,0
-               -74.0201805806305,41.3895122323129,0
-               -74.0205773378733,41.3894245044504,0
-               -74.0215879757204,41.3891299969628,0
-               -74.0221441633242,41.3889452839633,0
-               -74.02265231319,41.3886086072651,0
-               -74.0233611061543,41.3883115197761,0
-               -74.0241184967838,41.3881285048179,0
-               -74.0244174873912,41.3883204815348,0
-               -74.0253743929071,41.3882528145286,0
-               -74.0259339554488,41.3878407822198,0
-               -74.0267953302869,41.3874313003146,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-
-       <Placemark>
-         <name><![CDATA[Chatfield 1]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0257699968026,41.3930106756453,0
-               -74.0259711480072,41.3929256583657,0
-               -74.0261630369104,41.3928343412499,0
-               -74.0263137668024,41.3927315793498,0
-               -74.0264380176055,41.3925753421921,0
-               -74.0264194689554,41.3923914798184,0
-               -74.0264324134381,41.3922241377744,0
-               -74.0264737327096,41.3921267214012,0
-               -74.0268172832219,41.3918680702346,0
-               -74.0271345000277,41.3916776516201,0
-               -74.0276017368494,41.3918208666222,0
-               -74.0276944359116,41.3917728283812,0
-               -74.027772915109,41.391786167876,0
-               -74.0283802209998,41.3918314593415,0
-               -74.0285768058627,41.3918813129753,0
-               -74.0287789435797,41.3918303545812,0
-               -74.0289483337018,41.3918219792508,0
-               -74.0290925615131,41.3917545611031,0
-               -74.0291708642134,41.3917417457741,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Secor Trail 19]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0291641629332,41.3952116380212,0
-               -74.0294378058475,41.3950424514348,0
-               -74.0296145834432,41.394823448639,0
-               -74.0297367776468,41.3946284845993,0
-               -74.029766041146,41.3944565312143,0
-               -74.0297205550999,41.3942608579957,0
-               -74.0296136987125,41.3941537931046,0
-               -74.0295084216588,41.3939405777074,0
-               -74.0295109723082,41.3937691039657,0
-               -74.0294261683077,41.3936377255762,0
-               -74.029635107863,41.3934434933096,0
-               -74.0294271327994,41.3932494675569,0
-               -74.0294493277365,41.3931061295676,0
-               -74.029632361263,41.3928732798838,0
-               -74.0300410160319,41.392459955144,0
-               -74.0300460845675,41.3921190038186,0
-               -74.0293118387475,41.3918936817967,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Chatfield Trail 3]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0293118387475,41.3918936817967,0
-               -74.0291079499015,41.3916689243043,0
-               -74.0288781003547,41.3912919142914,0
-               -74.0288365600543,41.3910685153063,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-
-       <Placemark>
-         <name><![CDATA[Scenic Trail 20]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.040593670318,41.3899341421131,0
-               -74.0400934031754,41.3897405283553,0
-               -74.0395936966044,41.3895090288425,0
-               -74.0393952649559,41.3893179310666,0
-               -74.0390470360693,41.3890498054552,0
-               -74.0389000278431,41.3887833597533,0
-               -74.0383986581283,41.3886655059388,0
-               -74.0378989658704,41.3884339991763,0
-               -74.0374009536389,41.3880888395021,0
-               -74.0372058862736,41.3876704364716,0
-               -74.0368582342907,41.3873644207609,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Scenic/Arthur Trail]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0370018767997,41.3878581705424,0
-               -74.0369571637667,41.3874789136333,0
-               -74.0368084901093,41.3873261160879,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Arthur Trail 1]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0368582342907,41.3873644207609,0
-               -74.0364094200168,41.3870954451159,0
-               -74.0361612615527,41.3868660370012,0
-               -74.0358141784499,41.386522134608,0
-               -74.0358192157698,41.3861811823486,0
-               -74.0358739954826,41.3858785351581,0
-               -74.0359801957807,41.3855005421908,0
-               -74.0363882043608,41.3851250770439,0
-               -74.0364944003801,41.3847470835075,0
-               -74.036703433754,41.3842183976818,0
-               -74.0372109136151,41.3839195388108,0
-               -74.0374182622856,41.383504502381,0
-               -74.0374735907923,41.3831639705617,0
-               -74.037028714999,41.382629812057,0
-               -74.036781130078,41.3823625216407,0
-               -74.0366861223067,41.3819828432492,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Arthur Trail 2]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0401756244952,41.3909915266817,0
-               -74.0400274927204,41.3908008496182,0
-               -74.0396300627301,41.3904565387994,0
-               -74.039128678837,41.3903386880472,0
-               -74.0384763801295,41.3902195740581,0
-               -74.0381756636486,41.3901412841556,0
-               -74.0374797690415,41.3895671410224,0
-               -74.0370320552901,41.3892224005549,0
-               -74.036988459439,41.388767376572,0
-               -74.0369957272524,41.3882748899909,0
-               -74.0370018767997,41.3878581705424,0
-               -74.0369571637667,41.3874789136333,0
-               -74.0368084901093,41.3873261160879,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Scenic Trail 22]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0369007102775,41.3878952120559,0
-               -74.0352921112868,41.3878059597749,0
-               -74.0345381172014,41.3877617473196,0
-               -74.0339327916067,41.3878703313098,0
-               -74.0337310159736,41.3879065252602,0
-               -74.033123442573,41.3881666391436,0
-               -74.0326254580111,41.3878214590789,0
-               -74.0321766583935,41.3875524670989,0
-               -74.0313265616585,41.3872043191143,0
-               -74.0303724911573,41.3870826182819,0
-               -74.029667122485,41.3871524484643,0
-               -74.0288600186687,41.3872971922144,0
-               -74.0281049072305,41.3873287046984,0
-               -74.0268970665502,41.3873563842608,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Rut Trail 23]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0295241004616,41.3866208065748,0
-               -74.0290663040426,41.3869579387812,0
-               -74.0288617099405,41.3871835417124,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Stropel Trail 24]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0263098203303,41.3862526567786,0
-               -74.026507638967,41.3864816601828,0
-               -74.0264516850466,41.386860069355,0
-               -74.0261470417285,41.387046932611,0
-               -74.0258910032902,41.3873478713127,0
-               -74.0260362587408,41.3877279834851,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Chatfield Trail 2]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.028853943472,41.3910859655742,0
-               -74.0286069249288,41.3907807744962,0
-               -74.0286148204701,41.390250405829,0
-               -74.0290217737208,41.3899507348631,0
-               -74.0292761176048,41.3897634397499,0
-               -74.0296316332353,41.3895391091042,0
-               -74.0298373587061,41.3892377379503,0
-               -74.0302951674213,41.3889006029389,0
-               -74.0307507206582,41.3887150000853,0
-               -74.0313051925209,41.3886438930146,0
-               -74.0318596632249,41.3885727832577,0
-               -74.0322129162235,41.3884999785376,0
-               -74.0328171274002,41.3884671707767,0
-               -74.0332726706051,41.3882815578128,0
-               -74.0336784683753,41.3880576370036,0
-               -74.0339316699533,41.387946098416,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Ledge Trail 1]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0271534402112,41.3916741498567,0
-               -74.0271036313116,41.3915388447381,0
-               -74.0270278068405,41.3914412097034,0
-               -74.0268234878937,41.3913230891025,0
-               -74.0265170108661,41.3911459075315,0
-               -74.0261309496276,41.3911232417569,0
-               -74.0258853211941,41.3910987591558,0
-               -74.0252844782947,41.3909042295814,0
-               -74.0247333785313,41.3907480067452,0
-               -74.0243354641363,41.3904415274069,0
-               -74.0241856806691,41.3903644807342,0
-               -74.0236854603161,41.3901707961428,0
-               -74.0233881644892,41.3898651672513,0
-               -74.0233435295343,41.3894859060338,0
-               -74.0231982861201,41.3891057907057,0
-               -74.0231016471397,41.3888397525732,0
-               -74.02265231319,41.3886086072651,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Trail 27]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0205779064818,41.3893866210575,0
-               -74.020661080275,41.3899904831606,0
-               -74.0209139859039,41.3903030158782,0
-               -74.0209621551294,41.3906023146016,0
-               -74.0206740277677,41.3908441393354,0
-               -74.0203465439749,41.3913927274052,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Ryerson Trail 1]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0443610591849,41.3855733082065,0
-               -74.044184286835,41.385423578605,0
-               -74.044110868406,41.3849377498716,0
-               -74.0440440473607,41.3845069482673,0
-               -74.0438124300434,41.3839311366684,0
-               -74.0430552421382,41.3833241915961,0
-               -74.0428640408018,41.3826406117684,0
-               -74.0426164317043,41.3823733336518,0
-               -74.041915574375,41.3821401702129,0
-               -74.0413622812967,41.3821355618698,0
-               -74.0408520506051,41.3826238578258,0
-               -74.0408459267682,41.3830405781254,0
-               -74.0406386013083,41.3834556210164,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Tower Vue Trail 1]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0213548841081,41.4008107748298,0
-               -74.0211398116526,41.4008586060053,0
-               -74.0210126108675,41.4008216487948,0
-               -74.0209602661908,41.4007093276037,0
-               -74.0208677857,41.4005712385166,0
-               -74.0207734736347,41.4005551800777,0
-               -74.0206809937545,41.4004170908435,0
-               -74.0205390298073,41.4004260529157,0
-               -74.0204891040462,41.4002695540095,0
-               -74.0203594486585,41.4001194678011,0
-               -74.0202974178509,41.3998582205482,0
-               -74.0201336720029,41.3997823349551,0
-               -74.0199494031329,41.399663327673,0
-               -74.0196734538054,41.3995999536108,0
-               -74.0196471302396,41.3995539619449,0
-               -74.0195393143134,41.3995377874321,0
-               -74.0194588918872,41.399496419961,0
-               -74.0194329506813,41.3994250051858,0
-               -74.0193187644264,41.3993833498561,0
-               -74.0192993953209,41.3993406949979,0
-               -74.0192166061578,41.3989909137371,0
-               -74.0190655743391,41.3987048513811,0
-               -74.0189867590241,41.3985567067283,0
-               -74.0189329666688,41.3985409922651,0
-               -74.0189269786543,41.3984900885617,0
-               -74.0188671219311,41.3984285549769,0
-               -74.0188747158547,41.3983726818243,0
-               -74.0188399631759,41.3980952584109,0
-               -74.0186601109379,41.3979944029666,0
-               -74.0184984567402,41.3977948377829,0
-               -74.018318388526,41.3976935230809,0
-               -74.0180075854354,41.3975294732492,0
-               -74.0178810413493,41.3975353059184,0
-               -74.0176624162745,41.3972537499413,0
-               -74.0174359683624,41.3970433204501,0
-               -74.0174171618722,41.3969729868414,0
-               -74.0175255128956,41.3969271240086,0
-               -74.0174727177741,41.396845308926,0
-               -74.0173752946043,41.3968164086533,0
-               -74.0172790387452,41.3967012673964,0
-               -74.0172814293954,41.3964803965849,0
-               -74.0170545587783,41.3962177394165,0
-               -74.016809707857,41.3960542497529,0
-               -74.016696367556,41.3959167139667,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Tower Vue Trail 29]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0167291513722,41.3959294093417,0
-               -74.0164509572172,41.3957904643579,0
-               -74.0160414428417,41.3956131501302,0
-               -74.015712109915,41.3955855028218,0
-               -74.0154968635007,41.3956457372339,0
-               -74.0151997518752,41.3956680249637,0
-               -74.0148867170079,41.3956529299911,0
-               -74.014690767272,41.3955271001024,0
-               -74.0144948182939,41.3954012698855,0
-               -74.0144303772766,41.3953013962994,0
-               -74.014318356165,41.3950769630598,0
-               -74.0142874488085,41.3949401310593,0
-               -74.0142895119021,41.3948035815149,0
-               -74.0142256344681,41.3946664670283,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[White Oak Trail 30]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0208780059944,41.4016900832483,0
-               -74.0208026537982,41.4017606356356,0
-               -74.0206127284101,41.4018149569476,0
-               -74.0204092965776,41.401869162949,0
-               -74.0203070077472,41.401934400399,0
-               -74.0201245220089,41.4019430168952,0
-               -74.0198938478577,41.4020122457493,0
-               -74.0197718339317,41.4020417178557,0
-               -74.0196700027334,41.4020764470651,0
-               -74.0195476828634,41.4021262573717,0
-               -74.0194187625958,41.4021658407709,0
-               -74.0193236076697,41.4022057118337,0
-               -74.0192898421741,41.4022054240236,0
-               -74.0191674453161,41.4022603185284,0
-               -74.0190117415482,41.4022844173531,0
-               -74.0189028505365,41.4023394267297,0
-               -74.0187057863242,41.4024191103095,0
-               -74.0185357341466,41.402499023979,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[White Oak Trail 31]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0208712529455,41.4016900257788,0
-               -74.020994868406,41.4015537756243,0
-               -74.0210977664293,41.4014478606402,0
-               -74.0212206179605,41.4013624563597,0
-               -74.021316075684,41.4013022452418,0
-               -74.0213770053456,41.4012925929864,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[White Oak Trail 32]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0213837583544,41.4012926504257,0
-               -74.0214180573845,41.4012573453205,0
-               -74.0214053905043,41.4012012996949,0
-               -74.0213997054927,41.4011300576644,0
-               -74.0214134403276,41.4011149186982,0
-               -74.0214544922334,41.4010796710168,0
-               -74.0214284719556,41.401013341294,0
-               -74.0213815062393,41.4009926007757,0
-               -74.0213144342087,41.4009615186841,0
-               -74.0212879563618,41.4009256966133,0
-               -74.0213160363133,41.4008547417932,0
-               -74.0213438110497,41.4008041254208,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Trail 33]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0216819165528,41.4007764892834,0
-               -74.0216341120028,41.4008116796276,0
-               -74.0215191591447,41.400820872593,0
-               -74.0214585350619,41.400810186473,0
-               -74.0213707465963,41.4008094397952,0
-               -74.0213302288442,41.4008090951521,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Trail 34]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0217980893547,41.4006859423183,0
-               -74.0217173590291,41.4006649148618,0
-               -74.0216704697297,41.4006390898472,0
-               -74.0216426190535,41.4006947909181,0
-               -74.021506721081,41.4007495731314,0
-               -74.02141839872,41.4007844187903,0
-               -74.0213436584732,41.4008142946487,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[White Oak Trail 35]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0185290575308,41.402493881763,0
-               -74.0184200127262,41.4025590598884,0
-               -74.0181081438638,41.4026377629228,0
-               -74.0179320262795,41.4026718565844,0
-               -74.0177480067636,41.4027821614222,0
-               -74.0175506334729,41.402882181413,0
-               -74.0171458266761,41.4028532977189,0
-               -74.0168344914469,41.4028964050261,0
-               -74.0167523803361,41.4029668969741,0
-               -74.0165088827748,41.4029902420796,0
-               -74.0163334536086,41.4029785718315,0
-               -74.0160700798715,41.4029763197711,0
-               -74.0158869770309,41.4030256063365,0
-               -74.0156374931865,41.4029980457928,0
-               -74.0154688173534,41.4029864320058,0
-               -74.0153405070854,41.4029853339591,0
-               -74.0152256263964,41.4029894359778,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
          <name><![CDATA[Stillman Trail 36]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#STILLMAN</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -1109,7 +291,7 @@
        <Placemark>
          <name><![CDATA[Stillman Trail 38]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#STILLMAN</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -1132,7 +314,7 @@
        <Placemark>
          <name><![CDATA[Stillman Trail 39]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#STILLMAN</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -1146,45 +328,44 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[Black Rock Hollow Trail 40]]></name>
+         <name><![CDATA[Stillman Trail 64]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#STILLMAN</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
              <altitudeMode>clampedToGround</altitudeMode>
              <coordinates>
-               -74.0158407894264,41.4065340395623,0
-               -74.015907711011,41.4065752940508,0
-               -74.0159470814127,41.4066519096518,0
-               -74.0159463141658,41.4067027556574,0
-               -74.0159723310012,41.4067690865187,0
-               -74.0160257457703,41.4068102254139,0
-               -74.0161265123336,41.4068466839714,0
-               -74.0161528362446,41.4068926763903,0
-               -74.0161520691516,41.4069435223969,0
-               -74.0161242877026,41.4069941373892,0
-               -74.0161099366842,41.4070499524855,0
-               -74.0161561379124,41.407121541169,0
-               -74.0162572118356,41.407137661214,0
-               -74.0163176874808,41.4071585193202,0
-               -74.0163504584812,41.4072249078399,0
-               -74.0164242880899,41.4072560505741,0
-               -74.0164442421887,41.4072765621863,0
-               -74.0164568291865,41.4073376928664,0
-               -74.0165034144121,41.4073838584097,0
-               -74.0165700305726,41.4074454509244,0
-               -74.016609938989,41.4074864740958,0
-               -74.0166087888593,41.4075627431081,0
-               -74.0165805474226,41.4076438658104,0
-               -74.0166305443581,41.4076954006133,0
+               -74.0216944242792,41.4072734977603,0
+               -74.0226948795817,41.4069702060284,0
+               -74.0234466481805,41.406394488808,0
+               -74.0240756208017,41.4063998257819,0
+               -74.0248644920844,41.4062289140573,0
+               -74.0251807175556,41.4062433594631,0
+               -74.0254774608876,41.4061809161509,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Stillman Trail 65]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#STILLMAN</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0171894153746,41.4063971218889,0
+               -74.0169174980402,41.4065756851002,0
+               -74.0164457682966,41.4065716533316,0
+               -74.0159436711457,41.4066697462136,0
              </coordinates>
            </LineString>
        </Placemark>
        <Placemark>
          <name><![CDATA[Stillman Trail 41]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#STILLMAN</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -1227,7 +408,7 @@
        <Placemark>
          <name><![CDATA[Stillman Trail 42]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#STILLMAN</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -1258,7 +439,7 @@
        <Placemark>
          <name><![CDATA[Stillman Trail 43]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#STILLMAN</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -1288,7 +469,7 @@
        <Placemark>
          <name><![CDATA[Stillman Trail 44]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#STILLMAN</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -1312,7 +493,7 @@
        <Placemark>
          <name><![CDATA[Stillman Trail 45]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#STILLMAN</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -1335,7 +516,7 @@
        <Placemark>
          <name><![CDATA[Stillman Trail 46]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#STILLMAN</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -1355,7 +536,7 @@
        <Placemark>
          <name><![CDATA[Stillman Trail 47]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#STILLMAN</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -1386,65 +567,9 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[Scenic Trail 47]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.008979675115,41.4063829619234,0
-               -74.0089588602026,41.4063120985964,0
-               -74.0090148064194,41.4060215998222,0
-               -74.0090180485,41.4058082419093,0
-               -74.0091761589605,41.4055768191039,0
-               -74.009205457333,41.4053442868471,0
-               -74.0093875603787,41.4052294626349,0
-               -74.0094150901767,41.4051133073752,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Swamp Trail 48]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0126830619811,41.4053935811731,0
-               -74.0121678173063,41.4053891584498,0
-               -74.0115755800406,41.4053646732755,0
-               -74.0109300539155,41.4054561192493,0
-               -74.0106179644227,41.4056474230243,0
-               -74.0101249475453,41.4058759668573,0
-               -74.0097100983106,41.406046985266,0
-               -74.0093473612713,41.4061796534695,0
-               -74.0090118590431,41.4062155615541,0
-               -74.0087281763771,41.4062325164319,0
-               -74.0083926735707,41.4062684227036,0
-               -74.0081208704911,41.4065537747141,0
-               -74.0079276199132,41.4066364279709,0
-               -74.0077911087893,41.4067280751165,0
-               -74.0076234868069,41.4068217250265,0
-               -74.0074698438766,41.4068704499952,0
-               -74.0071970876376,41.406883111736,0
-               -74.0068163022697,41.4070049510201,0
-               -74.0065419443954,41.4071227030506,0
-               -74.0065114127672,41.4071783067866,0
-               -74.0064141433461,41.4072617862602,0
-               -74.006317424245,41.4073091334934,0
-               -74.0062359683749,41.4074047950287,0
-               -74.0061078045264,41.4074157335633,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
          <name><![CDATA[Stillman Trail 49]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#STILLMAN</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -1471,308 +596,9 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[Scenic Trail 50]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0093713535304,41.4051090510559,0
-               -74.009395969941,41.4048454404708,0
-               -74.0093987981901,41.4046592371421,0
-               -74.0094222358908,41.4044732112528,0
-               -74.0094250640279,41.4042870079106,0
-               -74.0093239025395,41.4041619850909,0
-               -74.00926301726,41.4040993849133,0
-               -74.0092424079011,41.4040992074406,0
-               -74.0092239200489,41.4039593774574,0
-               -74.0090831911771,41.4037253808498,0
-               -74.0090853129526,41.4035857283398,0
-               -74.0090883777131,41.4033840080415,0
-               -74.0090937999053,41.4030271182651,0
-               -74.0091624630753,41.4025776592428,0
-               -74.0090634264095,41.4023129836505,0
-               -74.0087547661692,41.4022792868339,0
-               -74.0083653225756,41.4021362600971,0
-               -74.0082241287245,41.4019332963364,0
-               -74.0080403026246,41.4018230787241,0
-               -74.0077546144332,41.401634387481,0
-               -74.0076534601905,41.4015093632169,0
-               -74.0079469357407,41.4011859954819,0
-               -74.0080108849192,41.4010468760283,0
-               -74.0080115928781,41.4010003251854,0
-               -74.0079736800573,41.4007827325403,0
-               -74.0079561397142,41.4005808345204,0
-               -74.0077938701789,41.4004087264325,0
-               -74.007673289873,41.4002059397155,0
-               -74.0075735544433,41.3999878136861,0
-               -74.007575679172,41.3998481611489,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Scenic Trail 51]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.006568289229,41.3942681492293,0
-               -74.0069773437028,41.3944734273655,0
-               -74.0074276135101,41.3946790596098,0
-               -74.0078966049139,41.3950090035095,0
-               -74.0083243878948,41.3953385903219,0
-               -74.0083821981762,41.3956029115256,0
-               -74.0083774810767,41.3959132507978,0
-               -74.0082495944931,41.3961914904455,0
-               -74.0080388071486,41.3965000532214,0
-               -74.0079509521761,41.396856232597,0
-               -74.0076373614712,41.3971483891511,0
-               -74.0075291321769,41.3974888734348,0
-               -74.0075237024802,41.3978457633868,0
-               -74.0074571585144,41.3981555691528,0
-               -74.0074131103123,41.3983414170263,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Trail 52]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0075339909813,41.3998788395221,0
-               -74.0076211444194,41.3995692115699,0
-               -74.0074195514235,41.3992726118594,0
-               -74.0075689998622,41.3989324833424,0
-               -74.0076547354736,41.3987159570114,0
-               -74.0074931795512,41.3984972976477,0
-               -74.0074341900433,41.3983105609021,0
-               -74.0074356066462,41.3982174591878,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Hill Of Pines Trail 53]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0037726461417,41.4016960707808,0
-               -74.0036759828908,41.4018064737833,0
-               -74.0035896281966,41.4019328574113,0
-               -74.003619948065,41.4020205228695,0
-               -74.0037338317742,41.4021645319556,0
-               -74.0037956856217,41.4022604161347,0
-               -74.0038893160594,41.4023486296844,0
-               -74.0038667566508,41.4024437829565,0
-               -74.0040657833479,41.4025408545523,0
-               -74.003905202205,41.4026904329965,0
-               -74.0038820360144,41.4028253095889,0
-               -74.0039865831188,41.4028897804227,0
-               -74.0038788812738,41.4030318708682,0
-               -74.0038349752745,41.4031427307324,0
-               -74.0038330337862,41.4032698453579,0
-               -74.0038634759093,41.4033495660784,0
-               -74.0039464347763,41.4034456328879,0
-               -74.0037322421312,41.4036503669127,0
-               -74.0035515246391,41.4037362047478,0
-               -74.0032976716445,41.4037737344622,0
-               -74.0031600109775,41.4038043246768,0
-               -74.0029796566693,41.4038663276143,0
-               -74.0028837175719,41.4039290618938,0
-               -74.002976134602,41.4040967227818,0
-               -74.0030690378629,41.4042326049528,0
-               -74.0031207049221,41.4043045640555,0
-               -74.0032039067212,41.4043847420644,0
-               -74.0032546026956,41.4045202583951,0
-               -74.0033693396876,41.4046086551938,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Hill Of Pines Trail 54]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0053206431731,41.4060637156085,0
-               -74.0054946894895,41.405723554599,0
-               -74.0053297310946,41.4054678657975,0
-               -74.0050483366238,41.4052350070249,0
-               -74.004743657592,41.4051449689638,0
-               -74.0044268506596,41.4051581194117,0
-               -74.0040888179987,41.4051790309667,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Hill Of Pines Trail]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.005342717138,41.4060003407563,0
-               -74.0048660458389,41.4061154044561,0
-               -74.0043033774408,41.4063330161946,0
-               -74.0038784929102,41.4065120896381,0
-               -74.0033906559482,41.4066667790739,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Swamp/Hill Of Pines Trail]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0033906559482,41.4066667790739,0
-               -74.0030088266622,41.4067906022665,0
-               -74.0026383989032,41.4068589030585,0
-               -74.0023316495785,41.4069039177348,0
-               -74.0020678390093,41.4069016297882,0
-               -74.0018769226404,41.4069635393258,0
-               -74.0017483476532,41.4070895551454,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Hill Of Pines Trail 56]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0033382905684,41.4045686576651,0
-               -74.0035379298095,41.4046260068965,0
-               -74.0037060345669,41.4046751370003,0
-               -74.0040224752784,41.4046858224992,0
-               -74.0042651729,41.4046879232179,0
-               -74.0044650558964,41.404729381526,0
-               -74.0043248466323,41.4049268110393,0
-               -74.0042063473226,41.4050846997171,0
-               -74.0040888179987,41.4051790309667,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Stillman Trail 64]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0216944242792,41.4072734977603,0
-               -74.0226948795817,41.4069702060284,0
-               -74.0234466481805,41.406394488808,0
-               -74.0240756208017,41.4063998257819,0
-               -74.0248644920844,41.4062289140573,0
-               -74.0251807175556,41.4062433594631,0
-               -74.0254774608876,41.4061809161509,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Stillman Trail 65]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0171894153746,41.4063971218889,0
-               -74.0169174980402,41.4065756851002,0
-               -74.0164457682966,41.4065716533316,0
-               -74.0159436711457,41.4066697462136,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Reservoir Trail 73]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0176817576778,41.4161742261448,0
-               -74.0172667334864,41.4162462209961,0
-               -74.0170033514576,41.4162439708738,0
-               -74.0167291362425,41.4161283186787,0
-               -74.0164680337045,41.4159750083023,0
-               -74.0162588096405,41.4157088320578,0
-               -74.0161735809507,41.415538139918,0
-               -74.0160896350814,41.4152824770102,0
-               -74.0159033605784,41.4151581324896,0
-               -74.0156546630695,41.4150143687746,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Duggan Trail 75]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0103071524113,41.41858493168,0
-               -74.0104843228396,41.4184825892667,0
-               -74.0108128609677,41.4183248937638,0
-               -74.0109776307854,41.4182130015569,0
-               -74.0111677711368,41.4180824423729,0
-               -74.0113576243572,41.4179707652064,0
-               -74.0114589650452,41.4179055392158,0
-               -74.0117125027401,41.4176897350494,0
-               -74.0119150671886,41.4176073005297,0
-               -74.012177905745,41.4175471747007,0
-               -74.0124475649949,41.4174736842159,0
-               -74.0127304961157,41.4174104143975,0
-               -74.0130137327184,41.4173269316866,0
-               -74.0132908677243,41.4172029663129,0
-               -74.0134872959965,41.417088415648,0
-               -74.0136636618775,41.4169686389384,0
-               -74.0139272922964,41.4168496099403,0
-               -74.0142049584355,41.4166902709654,0
-               -74.0145030667957,41.4165108916049,0
-               -74.014801937154,41.4162809809377,0
-               -74.015169229352,41.4159657422192,0
-               -74.0156187475891,41.4155400243594,0
-               -74.0158487295999,41.4154257566991,0
-               -74.0159477400728,41.4155377851562,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
          <name><![CDATA[Stillman Trail]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#STILLMAN</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -1789,225 +615,9 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[Black Rock Hollow Trail]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0159724821202,41.4147338153394,0
-               -74.0158177605882,41.4148089396179,0
-               -74.0157420159222,41.4149346342887,0
-               -74.0157533812272,41.4150711815911,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Black Rock Hollow Trail]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0181268705068,41.4166029341655,0
-               -74.0179036733306,41.4164310657338,0
-               -74.0177431873626,41.4162597323061,0
-               -74.0175839827003,41.4160034279266,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Black Rock Hollow Trail]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0166429423448,41.4077049490018,0
-               -74.0168034047722,41.4078762839523,0
-               -74.0169755545297,41.4081043730558,0
-               -74.0171102263465,41.4083226993041,0
-               -74.0172840856916,41.4084374935072,0
-               -74.0172186796983,41.4086163407825,0
-               -74.017116932379,41.4087098957835,0
-               -74.0170898589486,41.4088418583536,0
-               -74.0170365656545,41.4090491362478,0
-               -74.0169584753573,41.4092373173987,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Black Rock Hollow Trail]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0169586176877,41.4092278761968,0
-               -74.0170053645167,41.4094548936433,0
-               -74.0171027015472,41.4096540160255,0
-               -74.0171240829815,41.4098997015381,0
-               -74.0172221324969,41.4100516178096,0
-               -74.0176312854375,41.4103667119021,0
-               -74.0178671445469,41.4105292466601,0
-               -74.0179660498748,41.4106245150969,0
-               -74.0180139386115,41.4107760025108,0
-               -74.0180112370769,41.4109553853527,0
-               -74.0180455898527,41.4111728541182,0
-               -74.0180568512505,41.4112579319721,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Black Rock Hollow Trail]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0180574199762,41.4112201671653,0
-               -74.0182163308781,41.4114953533957,0
-               -74.0183872157031,41.4118084112187,0
-               -74.0185824740228,41.4121688887648,0
-               -74.0187523677095,41.4125480344576,0
-               -74.0188495724643,41.4127565965668,0
-               -74.0188719557833,41.4129361932992,0
-               -74.0188951916325,41.4130591428168,0
-               -74.0188674094465,41.4132383117303,0
-               -74.0187146387541,41.4133880873922,0
-               -74.0185105643946,41.413612964472,0
-               -74.0183964115965,41.4136969722661,0
-               -74.0182191243346,41.4138087684269,0
-               -74.0181296273713,41.4139213135869,0
-               -74.0180780392199,41.4140152974073,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Black Rock Hollow Trail]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.018065639838,41.4140057491682,0
-               -74.0178595701348,41.4143628017727,0
-               -74.0178806711758,41.4146273693856,0
-               -74.0180517044975,41.4149309864158,0
-               -74.0183733832833,41.4152264462349,0
-               -74.0184949636527,41.415482428579,0
-               -74.0184291270752,41.4156895998713,0
-               -74.0183631479069,41.4159062123089,0
-               -74.0184227302653,41.4161144536501,0
-               -74.0185587021943,41.4162478073858,0
-               -74.0187438480572,41.4164476772348,0
-               -74.0188550213724,41.4165619342867,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Compartment Trail 1]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0396040972855,41.396046590137,0
-               -74.0391409596783,41.3962823508938,0
-               -74.0388168843822,41.3966790232672,0
-               -74.038420525357,41.3971815917222,0
-               -74.0377385682092,41.3978681474644,0
-               -74.0371638430238,41.3984757206474,0
-               -74.0369112427996,41.3988197350219,0
-               -74.0369077053586,41.3990593328347,0
-               -74.036654315156,41.3994565905232,0
-               -74.0362535956742,41.4002519925805,0
-               -74.035857194831,41.4007545514474,0
-               -74.0354576384366,41.4014700844917,0
-               -74.0352710074837,41.4021341511133,0
-               -74.0349453035031,41.4026372994046,0
-               -74.0347633915889,41.4029819016549,0
-               -74.0346557408065,41.4030874994674,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Reservoir Trail]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0090287509157,41.4110860988027,0
-               -74.0092520497915,41.4112485429718,0
-               -74.0094887513598,41.4113544476253,0
-               -74.0096490601861,41.4115352335155,0
-               -74.0099228132678,41.4116792258585,0
-               -74.0101602341399,41.4117379232614,0
-               -74.0103845411472,41.41183427702,0
-               -74.0104965516223,41.4118918949166,0
-               -74.0105689330743,41.4120813656549,0
-               -74.0108052101233,41.4122155911796,0
-               -74.0109280442129,41.4123866106477,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
-         <name><![CDATA[Reservoir trail]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0109281874323,41.4123771694681,0
-               -74.0110510221433,41.4125481888071,0
-               -74.0111355176354,41.4127660905357,0
-               -74.0114114264617,41.4127684617017,0
-               -74.0117632986991,41.4127242726858,0
-               -74.0120898017812,41.4126987495733,0
-               -74.0124403862053,41.4127395291231,0
-               -74.0127261200782,41.4129213872765,0
-               -74.0131493820453,41.41313275171,0
-               -74.0135113681253,41.4132491650832,0
-               -74.0137107453285,41.4133358561801,0
-               -74.0140222822026,41.4134707202622,0
-               -74.0143205652218,41.4136526819986,0
-               -74.014720466236,41.4137505315811,0
-               -74.0150331482764,41.4138098634534,0
-               -74.0153817445291,41.413982810768,0
-               -74.0155301048303,41.4141257165389,0
-               -74.0157134129668,41.4141611724581,0
-               -74.0160356097973,41.4141639285526,0
-               -74.0164932750065,41.4140869825869,0
-               -74.0168835101823,41.4140296734362,0
-               -74.0170442274064,41.4140563152367,0
-               -74.016710136331,41.4143971123973,0
-               -74.0159935058751,41.4147295836075,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
          <name><![CDATA[Stillman Trail]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#STILLMAN</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -2038,25 +648,9 @@
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[Swamp Trail]]></name>
-         <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
-           <LineString>
-             <extrude>0</extrude>
-             <tessellate>1</tessellate>
-             <altitudeMode>clampedToGround</altitudeMode>
-             <coordinates>
-               -74.0062194202134,41.4074407889995,0
-               -74.0046527643284,41.4073549721174,0
-               -74.0038118875551,41.4068899601442,0
-               -74.0032328509778,41.4067539403192,0
-             </coordinates>
-           </LineString>
-       </Placemark>
-       <Placemark>
          <name><![CDATA[Stillman Trail 111]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#STILLMAN</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -2167,7 +761,7 @@
        <Placemark>
          <name><![CDATA[Stillman Trail 112]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#STILLMAN</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -2278,7 +872,7 @@
        <Placemark>
          <name><![CDATA[Stillman Trail 113]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#STILLMAN</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -2386,234 +980,1012 @@
              </coordinates>
            </LineString>
        </Placemark>
+       
+       <!-- Sackett Trail. Yellow Dashes. West of Sutherland Pond, Circles -->
        <Placemark>
-         <name><![CDATA[Short-Cut Trail 114]]></name>
+         <name><![CDATA[Sackett Trail 4]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#SACKETT</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
              <altitudeMode>clampedToGround</altitudeMode>
              <coordinates>
-               -74.0396909181292,41.3960985967483,0
-               -74.0396908343178,41.3960961640356,0
-               -74.0396907505065,41.3960937313229,0
-               -74.0396906666952,41.3960912986102,0
-               -74.0396905828838,41.3960888658975,0
-               -74.0396904990725,41.3960864331848,0
-               -74.0396902969809,41.3960839094104,0
-               -74.0396902158211,41.3960812965707,0
-               -74.0396901346612,41.396078683731,0
-               -74.0396900535014,41.3960760708913,0
-               -74.0396899710158,41.3960735481151,0
-               -74.039689889856,41.3960709352754,0
-               -74.0396895877542,41.3960589528372,0
-               -74.0396895248644,41.3960469723956,0
-               -74.0396898221181,41.3960349048852,0
-               -74.0396905964697,41.3960229314314,0
-               -74.0396919675247,41.3960110530324,0
-               -74.0396940562144,41.395999180623,0
-               -74.0396946926897,41.3959965737729,0
-               -74.039695329165,41.3959939669228,0
-               -74.0396959656402,41.3959913600727,0
-               -74.0396967217212,41.3959887542209,0
-               -74.0396973581963,41.3959861473708,0
-               -74.0396982325573,41.3959836325807,0
-               -74.0396991095697,41.3959809376636,0
-               -74.039699986582,41.3959782427465,0
-               -74.0397009818744,41.3959756388912,0
-               -74.0397019784924,41.3959729449723,0
-               -74.0397030933904,41.3959703421152,0
-               -74.0397040900082,41.3959676481963,0
-               -74.0397096565423,41.3959551742915,0
-               -74.0397160576634,41.3959428875011,0
-               -74.0397230541594,41.3959307858285,0
-               -74.0397302885385,41.3959187762154,0
-               -74.0397376425207,41.3959067676001,0
-               -74.039739120595,41.395904313884,0
-               -74.0397448768945,41.395894757986,0
-               -74.039750397017,41.3958854363014,0
-               -74.0397560367436,41.3958761156148,0
-               -74.0397616764686,41.3958667949279,0
-               -74.0397674357975,41.3958574752388,0
-               -74.0397730741936,41.3958482446148,0
-               -74.0397787139137,41.3958389239269,0
-               -74.0397855815019,41.3958274516964,0
-               -74.0397923308078,41.3958158884038,0
-               -74.0397990801112,41.3958043251107,0
-               -74.0398059476921,41.3957928528789,0
-               -74.0398131740871,41.395781383641,0
-               -74.0398206357138,41.3957701865893,0
-               -74.0398225904928,41.3957674105908,0
-               -74.039824664877,41.3957646355904,0
-               -74.0398266196557,41.3957618595918,0
-               -74.0398286940396,41.3957590845913,0
-               -74.0398306474924,41.3957563986562,0
-               -74.0398326022705,41.3957536226575,0
-               -74.0398422565532,41.3957397416654,0
-               -74.0398516716211,41.3957258586761,0
-               -74.039860968405,41.3957118846244,0
-               -74.0398699090198,41.3956977274507,0
-               -74.03987861042,41.39568356828,0
-               -74.0398870739313,41.3956693170489,0
-               -74.0398886725394,41.395666357928,0
-               -74.0398902711474,41.395663398807,0
-               -74.0398919880351,41.3956605307475,0
-               -74.0398935866427,41.3956575716265,0
-               -74.0398951839248,41.395654702569,0
-               -74.0398962562142,41.3956528564856,0
-               -74.0398969021374,41.3956517444459,0
-               -74.0399076805529,41.3956346301439,0
-               -74.0399192922228,41.3956177930175,0
-               -74.0399317358212,41.3956013231299,0
-               -74.0399446551831,41.39558503736,0
-               -74.0399581699134,41.3955689367054,0
-               -74.0399719198711,41.3955531082356,0
-               -74.0399742308016,41.3955505153552,0
-               -74.0399765417319,41.3955479224748,0
-               -74.039978852662,41.3955453295943,0
-               -74.0399811622666,41.3955428267773,0
-               -74.0399834731964,41.3955402338967,0
-               -74.0399856645209,41.3955376400181,0
-               -74.0399882212868,41.3955345988158,0
-               -74.0399906584475,41.3955315566154,0
-               -74.0399929760029,41.3955285134171,0
-               -74.0399952948834,41.3955253801552,0
-               -74.0399976124383,41.3955223369567,0
-               -74.0399999313184,41.3955192036947,0
-               -74.0400106845045,41.3955038005888,0
-               -74.0400207253567,41.3954880312403,0
-               -74.0400300525501,41.3954719857128,0
-               -74.0400386660852,41.3954556640065,0
-               -74.0400468025216,41.3954392482443,0
-               -74.0400543422549,41.3954227374285,0
-               -74.0400548165818,41.395421665652,0
-               -74.0400575593213,41.3954154682287,0
-               -74.0400606581074,41.3954081079673,0
-               -74.0400636372879,41.3954007467079,0
-               -74.0400664968629,41.3953933844506,0
-               -74.0400692381577,41.3953859311318,0
-               -74.0400718585219,41.3953785668786,0
-               -74.040076364393,41.3953650032105,0
+               -74.0339280701493,41.4044659044364,0
+               -74.0343130775834,41.4047353890222,0
+               -74.0343134717719,41.4047087670902,0
+               -74.034911426001,41.4049267863479,0
+               -74.0355113527978,41.405011692834,0
+               -74.0358645526278,41.4050412784156,0
+               -74.0360456777463,41.4047499184365,0
+               -74.0360142534824,41.4044834027204,0
+               -74.0363010596692,41.4042195529645,0
+               -74.036515966142,41.4040349761303,0
              </coordinates>
            </LineString>
        </Placemark>
        <Placemark>
-         <name><![CDATA[Compartment Trail 115]]></name>
+         <name><![CDATA[Sackett Trail 6]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#SACKETT</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
              <altitudeMode>clampedToGround</altitudeMode>
              <coordinates>
-               -74.0412278834607,41.3923245884979,0
-               -74.0412251578245,41.3923228543676,0
-               -74.0412224308649,41.3923212103008,0
-               -74.0412161490161,41.3923172847456,0
-               -74.0412097449219,41.3923135383207,0
-               -74.0412033408284,41.3923097918954,0
-               -74.0411969354123,41.3923061355333,0
-               -74.0411905326438,41.3923022990437,0
-               -74.0411842481517,41.392298553614,0
-               -74.0411708538874,41.3922902452046,0
-               -74.0411575818726,41.3922817576631,0
-               -74.0411444294604,41.3922732711168,0
-               -74.0411315202206,41.3922645163717,0
-               -74.0411188528294,41.3922555834914,0
-               -74.0411065468861,41.3922464734727,0
-               -74.0411038278744,41.3922442890216,0
-               -74.0411011088628,41.3922421045705,0
-               -74.0410983898515,41.3922399201193,0
-               -74.0410956708402,41.392237735668,0
-               -74.0410929518292,41.3922355512167,0
-               -74.0410901132194,41.3922333657685,0
-               -74.0410753221779,41.3922224335429,0
-               -74.0410727887429,41.3922206928999,0
-               -74.0410599278517,41.392211856586,0
-               -74.041044169439,41.392201636891,0
-               -74.0410279260169,41.3921918635247,0
-               -74.041011318508,41.3921824474199,0
-               -74.0409943469122,41.3921733885767,0
-               -74.0409916159935,41.3921720146953,0
-               -74.0409890046738,41.3921706418107,0
-               -74.0409862737553,41.3921692679292,0
-               -74.0409835415132,41.3921679841113,0
-               -74.0409808105949,41.3921666102297,0
-               -74.040978078353,41.3921653264116,0
-               -74.040975109561,41.3921638604725,0
-               -74.0409722590442,41.3921624855939,0
-               -74.0409697064623,41.3921613031365,0
-               -74.0409692889286,41.3921611097183,0
-               -74.0409663188132,41.3921597338426,0
-               -74.0409633486978,41.3921583579668,0
-               -74.0409603785827,41.392156982091,0
-               -74.0409487307019,41.3921519308986,0
-               -74.0409367174072,41.3921473270323,0
-               -74.0409247027903,41.3921428132283,0
-               -74.040912807774,41.3921383004201,0
-               -74.040900916731,41.3921335174198,0
-               -74.0408893897818,41.3921283771549,0
-               -74.0408871332908,41.3921272774497,0
-               -74.0408848781238,41.3921260876808,0
-               -74.040882621633,41.3921249879755,0
-               -74.0408802468673,41.3921237972096,0
-               -74.0408779903767,41.3921226975042,0
-               -74.0408757338861,41.3921215977988,0
-               -74.0408586188955,41.3921141590834,0
-               -74.0408406548018,41.3921075239588,0
-               -74.0408354723399,41.3921056740568,0
-               -74.040822568465,41.3921010679616,0
-               -74.0408049658229,41.3920942556954,0
-               -74.0407884567857,41.3920862815734,0
-               -74.0407738851651,41.3920767022577,0
-               -74.0407721110449,41.3920753363478,0
-               -74.0407704565235,41.3920739714349,0
-               -74.0407686837276,41.3920725154613,0
-               -74.0407670305304,41.3920710604848,0
-               -74.0407653760093,41.3920696955719,0
-               -74.0407637228123,41.3920682405953,0
-               -74.0407540481254,41.3920591524753,0
-               -74.0407449780551,41.3920496190221,0
-               -74.0407362694316,41.3920399084324,0
-               -74.0407276804093,41.3920301988391,0
-               -74.0407188508681,41.3920205773145,0
-               -74.0407095389628,41.3920112219914,0
-               -74.0407075335934,41.3920093137047,0
-               -74.0407055268999,41.3920074954816,0
-               -74.0407035202066,41.3920056772584,0
-               -74.0407015148375,41.3920037689716,0
-               -74.0406995081444,41.3920019507484,0
-               -74.0406975014514,41.3920001325251,0
-               -74.040686784825,41.3919886937719,0
-               -74.0406772747811,41.3919765444808,0
-               -74.0406681261847,41.3919642180532,0
-               -74.0406587357464,41.3919520697578,0
-               -74.0406484988526,41.3919405449262,0
-               -74.0406368095661,41.3919301789539,0
-               -74.0406211761834,41.3919195999449,0
-               -74.040604094382,41.3919099096026,0
-               -74.0405988006057,41.3919073463332,0
-               -74.0405859229571,41.3919011109183,0
-               -74.0405669024296,41.3918931158225,0
-               -74.0405473915941,41.3918859273067,0
-               -74.0405277492452,41.3918795483625,0
-               -74.0405154835902,41.391875843094,0
-               -74.0405028564927,41.3918723149594,0
-               -74.0404902254233,41.3918690570142,0
-               -74.0404773485363,41.3918662473907,0
-               -74.0404644623792,41.391864068211,0
-               -74.0404514460288,41.391862608541,0
-               -74.0404386582796,41.3918618713731,0
-               -74.0404331554322,41.3918619155554,0
-               -74.0403701390383,41.3918605793244,0
+               -74.0450620129459,41.402428834232,0
+               -74.0445918294909,41.4031438127999,0
+               -74.0442995999253,41.4037803918974,0
+               -74.044364076247,41.4042069315189,0
+               -74.0440392117137,41.4046568619998,0
+               -74.0438557805521,41.4051079669854,0
+               -74.043497110022,41.4054511139127,0
+               -74.0429616365124,41.4057927891308,0
+               -74.0425330191631,41.4060821006469,0
+               -74.0423511371612,41.4064267150187,0
+               -74.0422776800801,41.4066124802495,0
+               -74.0423086236762,41.406866899595,0
+               -74.0422102036039,41.4071157911123,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Sackett Trail 7]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#SACKETT</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.036515966142,41.4040349761303,0
+               -74.0368302639913,41.4043038601678,0
+               -74.0371795305264,41.4045996612256,0
+               -74.0373877559877,41.4048676560097,0
+               -74.0377024542352,41.4051099157525,0
+               -74.0381597708929,41.405273491285,0
+               -74.0386186596343,41.4053305771691,0
+               -74.0394625836237,41.4056571288291,0
+               -74.040061739785,41.4057952556521,0
+               -74.0403065161516,41.4059836743711,0
+               -74.0409017619746,41.406388016607,0
+               -74.0410369390323,41.4068151472131,0
+               -74.0413155170557,41.4071103464504,0
+               -74.041703700555,41.4071668308639,0
+               -74.0420211635445,41.407222725135,0
+               -74.0422702516744,41.4071182979509,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Sackett Trail 8]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#SACKETT</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0450620129459,41.402428834232,0
+               -74.0450301629491,41.4021889425166,0
+               -74.0449645146068,41.4018422691812,0
+               -74.0449311059649,41.401708865538,0
+               -74.0446886713171,41.4013607243794,0
+               -74.0446929602698,41.401067882057,0
+               -74.0447314366468,41.4008551993793,0
+               -74.0447357253314,41.4005623570275,0
+               -74.0449537142671,41.4001647876502,0
+               -74.0446417415669,41.3997361932563,0
+               -74.0440838390951,41.3991990539,0
+               -74.0436999937495,41.3988497355761,0
+               -74.0435271168124,41.3985820457904,0
+               -74.0436013414938,41.398343035302,0
+               -74.0436445031072,41.397810888476,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Sackett Trail 11]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#SACKETT</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0332495402365,41.4049128340509,0
+               -74.0325042314005,41.4050929457044,0
+               -74.0312674453836,41.4050292882397,0
+               -74.0307366602673,41.4050514430828,0
+               -74.0302777809878,41.4049943258527,0
+               -74.0293937993478,41.4049868717976,0
+               -74.0283365914936,41.4047383210098,0
+               -74.0280922515309,41.4045232553261,0
+               -74.0276349661193,41.4043596400855,0
+               -74.0271407357863,41.4043022115787,0
+               -74.0268936209611,41.4042734965324,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Sackett Trail 12]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#SACKETT</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0332261284549,41.4050017333071,0
+               -74.0332336243308,41.4049883752077,0
+               -74.0332424267015,41.4049756586067,0
+               -74.0332536255157,41.4049626919183,0
+               -74.0332664910242,41.4049502796797,0
+               -74.0332805447382,41.4049384178699,0
+               -74.0332954264565,41.4049271935362,0
+               -74.0333058388512,41.4049199467235,0
+               -74.0333108996049,41.404916424542,0
+               -74.0333266053176,41.4049061078716,0
+               -74.0333494087685,41.404893148601,0
+               -74.0333738655597,41.4048816444071,0
+               -74.0333993842565,41.4048711399478,0
+               -74.0334253734242,41.4048611798818,0
+               -74.0334514822058,41.4048512208148,0
+               -74.0334771178309,41.4048408974693,0
+               -74.0334813798916,41.4048390854722,0
+               -74.0335005949159,41.4048309162829,0
+               -74.0335240719937,41.4048209350916,0
+               -74.0335475490644,41.4048109538954,0
+               -74.0335711430806,41.4048011538256,0
+               -74.0335948567116,41.4047913547556,0
+               -74.0336026075986,41.4047882556429,0
+               -74.0336186859537,41.4047818268749,0
+               -74.033643712741,41.4047722189734,0
+               -74.0336692100012,41.4047631554644,0
+               -74.0336947072544,41.4047540919496,0
+               -74.0337200862132,41.4047449373613,0
+               -74.0337451129717,41.4047353294373,0
+               -74.0337609019238,41.4047286535368,0
+               -74.033769552289,41.4047249959792,0
+               -74.0337874986722,41.4047168598486,0
+               -74.0338054463853,41.404708633652,0
+               -74.0338231588533,41.4047001352537,0
+               -74.0338406374103,41.4046912745909,0
+               -74.033857404904,41.4046819575822,0
+               -74.0338735822899,41.4046720951692,0
+               -74.0338874801906,41.404662663985,0
+               -74.0339011455149,41.404652780474,0
+               -74.0339143363512,41.4046426227539,0
+               -74.0339183953608,41.4046392361376,0
+               -74.0339270553678,41.4046320106984,0
+               -74.0339390606535,41.4046211224253,0
+               -74.0339503535427,41.4046098678716,0
+               -74.0339621555965,41.4045965458805,0
+               -74.0339730086783,41.4045826754736,0
+               -74.0339830310757,41.404568347719,0
+               -74.0339923397424,41.4045537437476,0
+               -74.0340010529662,41.4045389546271,0
+               -74.0340038656793,41.4045339744678,0
+               -74.0340094073221,41.4045241624929,0
+               -74.0340170399445,41.4045096345216,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       
+       
+       
+       <!-- Scenic Trail #3 White Dots-->
+       <Placemark>
+         <name><![CDATA[Scenic Trail 50]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#SCENIC</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0093713535304,41.4051090510559,0
+               -74.009395969941,41.4048454404708,0
+               -74.0093987981901,41.4046592371421,0
+               -74.0094222358908,41.4044732112528,0
+               -74.0094250640279,41.4042870079106,0
+               -74.0093239025395,41.4041619850909,0
+               -74.00926301726,41.4040993849133,0
+               -74.0092424079011,41.4040992074406,0
+               -74.0092239200489,41.4039593774574,0
+               -74.0090831911771,41.4037253808498,0
+               -74.0090853129526,41.4035857283398,0
+               -74.0090883777131,41.4033840080415,0
+               -74.0090937999053,41.4030271182651,0
+               -74.0091624630753,41.4025776592428,0
+               -74.0090634264095,41.4023129836505,0
+               -74.0087547661692,41.4022792868339,0
+               -74.0083653225756,41.4021362600971,0
+               -74.0082241287245,41.4019332963364,0
+               -74.0080403026246,41.4018230787241,0
+               -74.0077546144332,41.401634387481,0
+               -74.0076534601905,41.4015093632169,0
+               -74.0079469357407,41.4011859954819,0
+               -74.0080108849192,41.4010468760283,0
+               -74.0080115928781,41.4010003251854,0
+               -74.0079736800573,41.4007827325403,0
+               -74.0079561397142,41.4005808345204,0
+               -74.0077938701789,41.4004087264325,0
+               -74.007673289873,41.4002059397155,0
+               -74.0075735544433,41.3999878136861,0
+               -74.007575679172,41.3998481611489,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Scenic Trail 1]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#SCENIC</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0648186355663,41.3843485321147,0
+               -74.0650196834113,41.38374171298,0
+               -74.0649646819765,41.3835529353416,0
+               -74.0644888398341,41.3832013801044,0
+               -74.0643591931241,41.3828526384883,0
+               -74.0638060130317,41.3825294254664,0
+               -74.0636006877409,41.3820931453246,0
+               -74.0631616380755,41.3813886324464,0
+               -74.0627109015883,41.3811007860958,0
+               -74.0620975453645,41.3810484408533,0
+               -74.0616207013976,41.3806717779794,0
+               -74.0596482075109,41.3808390083565,0
+               -74.058828123668,41.3810217451326,0
+               -74.0578533139812,41.3810742800464,0
+               -74.0567548767532,41.3812516584297,0
+               -74.0556830829483,41.3810906981826,0
+               -74.0538556347734,41.3813598486237,0
+               -74.0529118425433,41.3813994446299,0
+               -74.0520252338923,41.3818245178574,0
+               -74.0513897979344,41.3822867544626,0
+               -74.0503119738597,41.3828935488212,0
+               -74.0492905273301,41.3829228845024,0
+               -74.0476356673987,41.3829671472735,0
+               -74.0467799073353,41.3836119746562,0
+               -74.0465252239093,41.3839285777642,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Scenic Trail 2]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#SCENIC</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0465833461527,41.3839000854486,0
+               -74.0461769127731,41.3840705606054,0
+               -74.0451503558395,41.3845546031131,0
+               -74.044270862489,41.3855034407845,0
+               -74.0431244073289,41.3862906951829,0
+               -74.0425361332373,41.3870536102256,0
+               -74.0424149038199,41.3876297957126,0
+               -74.0419742890811,41.3887443914613,0
+               -74.041682101261,41.3893809659053,0
+               -74.0414283875604,41.3898048575447,0
+               -74.0406836650777,41.3899584027033,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Scenic Trail 17]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#SCENIC</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0164615499811,41.3921173478103,0
+               -74.016416382984,41.3917759678098,0
+               -74.0165470341971,41.3913049696857,0
+               -74.0168508943399,41.3910134153887,0
+               -74.0171846743491,41.3908732158325,0
+               -74.0179614574417,41.3907581634759,0
+               -74.0185531897471,41.3903710108919,0
+               -74.0192876751879,41.3900144871871,0
+               -74.0194873704696,41.3897220379199,0
+               -74.0197625226717,41.3896067218889,0
+               -74.0201805806305,41.3895122323129,0
+               -74.0205773378733,41.3894245044504,0
+               -74.0215879757204,41.3891299969628,0
+               -74.0221441633242,41.3889452839633,0
+               -74.02265231319,41.3886086072651,0
+               -74.0233611061543,41.3883115197761,0
+               -74.0241184967838,41.3881285048179,0
+               -74.0244174873912,41.3883204815348,0
+               -74.0253743929071,41.3882528145286,0
+               -74.0259339554488,41.3878407822198,0
+               -74.0267953302869,41.3874313003146,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Scenic Trail 20]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#SCENIC</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.040593670318,41.3899341421131,0
+               -74.0400934031754,41.3897405283553,0
+               -74.0395936966044,41.3895090288425,0
+               -74.0393952649559,41.3893179310666,0
+               -74.0390470360693,41.3890498054552,0
+               -74.0389000278431,41.3887833597533,0
+               -74.0383986581283,41.3886655059388,0
+               -74.0378989658704,41.3884339991763,0
+               -74.0374009536389,41.3880888395021,0
+               -74.0372058862736,41.3876704364716,0
+               -74.0368582342907,41.3873644207609,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Scenic/Arthur Trail]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#SCENIC</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0370018767997,41.3878581705424,0
+               -74.0369571637667,41.3874789136333,0
+               -74.0368084901093,41.3873261160879,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Scenic Trail 22]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#SCENIC</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0369007102775,41.3878952120559,0
+               -74.0352921112868,41.3878059597749,0
+               -74.0345381172014,41.3877617473196,0
+               -74.0339327916067,41.3878703313098,0
+               -74.0337310159736,41.3879065252602,0
+               -74.033123442573,41.3881666391436,0
+               -74.0326254580111,41.3878214590789,0
+               -74.0321766583935,41.3875524670989,0
+               -74.0313265616585,41.3872043191143,0
+               -74.0303724911573,41.3870826182819,0
+               -74.029667122485,41.3871524484643,0
+               -74.0288600186687,41.3872971922144,0
+               -74.0281049072305,41.3873287046984,0
+               -74.0268970665502,41.3873563842608,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Scenic Trail 47]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#SCENIC</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.008979675115,41.4063829619234,0
+               -74.0089588602026,41.4063120985964,0
+               -74.0090148064194,41.4060215998222,0
+               -74.0090180485,41.4058082419093,0
+               -74.0091761589605,41.4055768191039,0
+               -74.009205457333,41.4053442868471,0
+               -74.0093875603787,41.4052294626349,0
+               -74.0094150901767,41.4051133073752,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Scenic Trail 51]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#SCENIC</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.006568289229,41.3942681492293,0
+               -74.0069773437028,41.3944734273655,0
+               -74.0074276135101,41.3946790596098,0
+               -74.0078966049139,41.3950090035095,0
+               -74.0083243878948,41.3953385903219,0
+               -74.0083821981762,41.3956029115256,0
+               -74.0083774810767,41.3959132507978,0
+               -74.0082495944931,41.3961914904455,0
+               -74.0080388071486,41.3965000532214,0
+               -74.0079509521761,41.396856232597,0
+               -74.0076373614712,41.3971483891511,0
+               -74.0075291321769,41.3974888734348,0
+               -74.0075237024802,41.3978457633868,0
+               -74.0074571585144,41.3981555691528,0
+               -74.0074131103123,41.3983414170263,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       
+       <!-- Reservoir Trail #4 Blue Arrows -->
+       <Placemark>
+         <name><![CDATA[Reservoir Trail 73]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#RESERVOIR</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0176817576778,41.4161742261448,0
+               -74.0172667334864,41.4162462209961,0
+               -74.0170033514576,41.4162439708738,0
+               -74.0167291362425,41.4161283186787,0
+               -74.0164680337045,41.4159750083023,0
+               -74.0162588096405,41.4157088320578,0
+               -74.0161735809507,41.415538139918,0
+               -74.0160896350814,41.4152824770102,0
+               -74.0159033605784,41.4151581324896,0
+               -74.0156546630695,41.4150143687746,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Reservoir Trail]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#RESERVOIR</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0090287509157,41.4110860988027,0
+               -74.0092520497915,41.4112485429718,0
+               -74.0094887513598,41.4113544476253,0
+               -74.0096490601861,41.4115352335155,0
+               -74.0099228132678,41.4116792258585,0
+               -74.0101602341399,41.4117379232614,0
+               -74.0103845411472,41.41183427702,0
+               -74.0104965516223,41.4118918949166,0
+               -74.0105689330743,41.4120813656549,0
+               -74.0108052101233,41.4122155911796,0
+               -74.0109280442129,41.4123866106477,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Reservoir Trail]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#RESERVOIR</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0109281874323,41.4123771694681,0
+               -74.0110510221433,41.4125481888071,0
+               -74.0111355176354,41.4127660905357,0
+               -74.0114114264617,41.4127684617017,0
+               -74.0117632986991,41.4127242726858,0
+               -74.0120898017812,41.4126987495733,0
+               -74.0124403862053,41.4127395291231,0
+               -74.0127261200782,41.4129213872765,0
+               -74.0131493820453,41.41313275171,0
+               -74.0135113681253,41.4132491650832,0
+               -74.0137107453285,41.4133358561801,0
+               -74.0140222822026,41.4134707202622,0
+               -74.0143205652218,41.4136526819986,0
+               -74.014720466236,41.4137505315811,0
+               -74.0150331482764,41.4138098634534,0
+               -74.0153817445291,41.413982810768,0
+               -74.0155301048303,41.4141257165389,0
+               -74.0157134129668,41.4141611724581,0
+               -74.0160356097973,41.4141639285526,0
+               -74.0164932750065,41.4140869825869,0
+               -74.0168835101823,41.4140296734362,0
+               -74.0170442274064,41.4140563152367,0
+               -74.016710136331,41.4143971123973,0
+               -74.0159935058751,41.4147295836075,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+
+       <!-- Black Rock Hollow #5 Yellow Dashes -->
+       <Placemark>
+         <name><![CDATA[Black Rock Hollow Trail 40]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#BLACKROCKHOLLOW</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0158407894264,41.4065340395623,0
+               -74.015907711011,41.4065752940508,0
+               -74.0159470814127,41.4066519096518,0
+               -74.0159463141658,41.4067027556574,0
+               -74.0159723310012,41.4067690865187,0
+               -74.0160257457703,41.4068102254139,0
+               -74.0161265123336,41.4068466839714,0
+               -74.0161528362446,41.4068926763903,0
+               -74.0161520691516,41.4069435223969,0
+               -74.0161242877026,41.4069941373892,0
+               -74.0161099366842,41.4070499524855,0
+               -74.0161561379124,41.407121541169,0
+               -74.0162572118356,41.407137661214,0
+               -74.0163176874808,41.4071585193202,0
+               -74.0163504584812,41.4072249078399,0
+               -74.0164242880899,41.4072560505741,0
+               -74.0164442421887,41.4072765621863,0
+               -74.0164568291865,41.4073376928664,0
+               -74.0165034144121,41.4073838584097,0
+               -74.0165700305726,41.4074454509244,0
+               -74.016609938989,41.4074864740958,0
+               -74.0166087888593,41.4075627431081,0
+               -74.0165805474226,41.4076438658104,0
+               -74.0166305443581,41.4076954006133,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Reservoir Trail a]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#RESERVOIR</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0159724821202,41.4147338153394,0
+               -74.0158177605882,41.4148089396179,0
+               -74.0157420159222,41.4149346342887,0
+               -74.0157533812272,41.4150711815911,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Reservoir Trail b]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#RESERVOIR</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0181268705068,41.4166029341655,0
+               -74.0179036733306,41.4164310657338,0
+               -74.0177431873626,41.4162597323061,0
+               -74.0175839827003,41.4160034279266,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Black Rock Hollow Trail c]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#BLACKROCKHOLLOW</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0166429423448,41.4077049490018,0
+               -74.0168034047722,41.4078762839523,0
+               -74.0169755545297,41.4081043730558,0
+               -74.0171102263465,41.4083226993041,0
+               -74.0172840856916,41.4084374935072,0
+               -74.0172186796983,41.4086163407825,0
+               -74.017116932379,41.4087098957835,0
+               -74.0170898589486,41.4088418583536,0
+               -74.0170365656545,41.4090491362478,0
+               -74.0169584753573,41.4092373173987,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Black Rock Hollow Trail d]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#BLACKROCKHOLLOW</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0169586176877,41.4092278761968,0
+               -74.0170053645167,41.4094548936433,0
+               -74.0171027015472,41.4096540160255,0
+               -74.0171240829815,41.4098997015381,0
+               -74.0172221324969,41.4100516178096,0
+               -74.0176312854375,41.4103667119021,0
+               -74.0178671445469,41.4105292466601,0
+               -74.0179660498748,41.4106245150969,0
+               -74.0180139386115,41.4107760025108,0
+               -74.0180112370769,41.4109553853527,0
+               -74.0180455898527,41.4111728541182,0
+               -74.0180568512505,41.4112579319721,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Black Rock Hollow Trail e]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#BLACKROCKHOLLOW</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0180574199762,41.4112201671653,0
+               -74.0182163308781,41.4114953533957,0
+               -74.0183872157031,41.4118084112187,0
+               -74.0185824740228,41.4121688887648,0
+               -74.0187523677095,41.4125480344576,0
+               -74.0188495724643,41.4127565965668,0
+               -74.0188719557833,41.4129361932992,0
+               -74.0188951916325,41.4130591428168,0
+               -74.0188674094465,41.4132383117303,0
+               -74.0187146387541,41.4133880873922,0
+               -74.0185105643946,41.413612964472,0
+               -74.0183964115965,41.4136969722661,0
+               -74.0182191243346,41.4138087684269,0
+               -74.0181296273713,41.4139213135869,0
+               -74.0180780392199,41.4140152974073,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Black Rock Hollow Trail f]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#BLACKROCKHOLLOW</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.018065639838,41.4140057491682,0
+               -74.0178595701348,41.4143628017727,0
+               -74.0178806711758,41.4146273693856,0
+               -74.0180517044975,41.4149309864158,0
+               -74.0183733832833,41.4152264462349,0
+               -74.0184949636527,41.415482428579,0
+               -74.0184291270752,41.4156895998713,0
+               -74.0183631479069,41.4159062123089,0
+               -74.0184227302653,41.4161144536501,0
+               -74.0185587021943,41.4162478073858,0
+               -74.0187438480572,41.4164476772348,0
+               -74.0188550213724,41.4165619342867,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       
+       <!-- Swamp Trail #6, Blue Arrows -->
+       <Placemark>
+         <name><![CDATA[Swamp Trail 48]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#SWAMP</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0126830619811,41.4053935811731,0
+               -74.0121678173063,41.4053891584498,0
+               -74.0115755800406,41.4053646732755,0
+               -74.0109300539155,41.4054561192493,0
+               -74.0106179644227,41.4056474230243,0
+               -74.0101249475453,41.4058759668573,0
+               -74.0097100983106,41.406046985266,0
+               -74.0093473612713,41.4061796534695,0
+               -74.0090118590431,41.4062155615541,0
+               -74.0087281763771,41.4062325164319,0
+               -74.0083926735707,41.4062684227036,0
+               -74.0081208704911,41.4065537747141,0
+               -74.0079276199132,41.4066364279709,0
+               -74.0077911087893,41.4067280751165,0
+               -74.0076234868069,41.4068217250265,0
+               -74.0074698438766,41.4068704499952,0
+               -74.0071970876376,41.406883111736,0
+               -74.0068163022697,41.4070049510201,0
+               -74.0065419443954,41.4071227030506,0
+               -74.0065114127672,41.4071783067866,0
+               -74.0064141433461,41.4072617862602,0
+               -74.006317424245,41.4073091334934,0
+               -74.0062359683749,41.4074047950287,0
+               -74.0061078045264,41.4074157335633,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Swamp/Hill Of Pines Trail]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#SWAMP</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0033906559482,41.4066667790739,0
+               -74.0030088266622,41.4067906022665,0
+               -74.0026383989032,41.4068589030585,0
+               -74.0023316495785,41.4069039177348,0
+               -74.0020678390093,41.4069016297882,0
+               -74.0018769226404,41.4069635393258,0
+               -74.0017483476532,41.4070895551454,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Swamp Trail]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#SWAMP</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0062194202134,41.4074407889995,0
+               -74.0046527643284,41.4073549721174,0
+               -74.0038118875551,41.4068899601442,0
+               -74.0032328509778,41.4067539403192,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       
+       <!-- Hill Of Pines #7 White Dots -->
+       <Placemark>
+         <name><![CDATA[Hill Of Pines Trail 53]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#HILLOFPINES</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0037726461417,41.4016960707808,0
+               -74.0036759828908,41.4018064737833,0
+               -74.0035896281966,41.4019328574113,0
+               -74.003619948065,41.4020205228695,0
+               -74.0037338317742,41.4021645319556,0
+               -74.0037956856217,41.4022604161347,0
+               -74.0038893160594,41.4023486296844,0
+               -74.0038667566508,41.4024437829565,0
+               -74.0040657833479,41.4025408545523,0
+               -74.003905202205,41.4026904329965,0
+               -74.0038820360144,41.4028253095889,0
+               -74.0039865831188,41.4028897804227,0
+               -74.0038788812738,41.4030318708682,0
+               -74.0038349752745,41.4031427307324,0
+               -74.0038330337862,41.4032698453579,0
+               -74.0038634759093,41.4033495660784,0
+               -74.0039464347763,41.4034456328879,0
+               -74.0037322421312,41.4036503669127,0
+               -74.0035515246391,41.4037362047478,0
+               -74.0032976716445,41.4037737344622,0
+               -74.0031600109775,41.4038043246768,0
+               -74.0029796566693,41.4038663276143,0
+               -74.0028837175719,41.4039290618938,0
+               -74.002976134602,41.4040967227818,0
+               -74.0030690378629,41.4042326049528,0
+               -74.0031207049221,41.4043045640555,0
+               -74.0032039067212,41.4043847420644,0
+               -74.0032546026956,41.4045202583951,0
+               -74.0033693396876,41.4046086551938,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Hill Of Pines Trail 54]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#HILLOFPINES</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0053206431731,41.4060637156085,0
+               -74.0054946894895,41.405723554599,0
+               -74.0053297310946,41.4054678657975,0
+               -74.0050483366238,41.4052350070249,0
+               -74.004743657592,41.4051449689638,0
+               -74.0044268506596,41.4051581194117,0
+               -74.0040888179987,41.4051790309667,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Hill Of Pines Trail]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#HILLOFPINES</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.005342717138,41.4060003407563,0
+               -74.0048660458389,41.4061154044561,0
+               -74.0043033774408,41.4063330161946,0
+               -74.0038784929102,41.4065120896381,0
+               -74.0033906559482,41.4066667790739,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Hill Of Pines Trail 56]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#HILLOFPINES</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0033382905684,41.4045686576651,0
+               -74.0035379298095,41.4046260068965,0
+               -74.0037060345669,41.4046751370003,0
+               -74.0040224752784,41.4046858224992,0
+               -74.0042651729,41.4046879232179,0
+               -74.0044650558964,41.404729381526,0
+               -74.0043248466323,41.4049268110393,0
+               -74.0042063473226,41.4050846997171,0
+               -74.0040888179987,41.4051790309667,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       
+       <!-- White Oak #8 White Dots-->
+       <Placemark>
+         <name><![CDATA[White Oak Trail 16]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#WHITEOAK</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0316395642748,41.4000131728112,0
+               -74.0310928738451,41.3995539121113,0
+               -74.0304947527367,41.3991699918009,0
+               -74.0300945071914,41.3990150657271,0
+               -74.0298949485273,41.3988997187392,0
+               -74.0297457025986,41.3987847956989,0
+               -74.0291973444594,41.3984391764525,0
+               -74.0287965425198,41.3983221293551,0
+               -74.0282414213536,41.3984311067104,0
+               -74.0278841583236,41.3987690823782,0
+               -74.0273273372629,41.3989917054832,0
+               -74.0267682515968,41.3993658594334,0
+               -74.0264612884955,41.3997042560651,0
+               -74.0258592335634,41.3995854956721,0
+               -74.0255573580618,41.3995829393754,0
+               -74.0252063022727,41.3995041892719,0
+               -74.0250056184626,41.3994646006464,0
+               -74.0245528061789,41.3994607625544,0
+               -74.0242514980476,41.3994203194684,0
+               -74.02409716015,41.3996463395094,0
+               -74.0238444632938,41.3997199721862,0
+               -74.0235425873511,41.3997174105971,0
+               -74.0234922746977,41.3997169835885,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[White Oak Trail 30]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#WHITEOAK</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0208780059944,41.4016900832483,0
+               -74.0208026537982,41.4017606356356,0
+               -74.0206127284101,41.4018149569476,0
+               -74.0204092965776,41.401869162949,0
+               -74.0203070077472,41.401934400399,0
+               -74.0201245220089,41.4019430168952,0
+               -74.0198938478577,41.4020122457493,0
+               -74.0197718339317,41.4020417178557,0
+               -74.0196700027334,41.4020764470651,0
+               -74.0195476828634,41.4021262573717,0
+               -74.0194187625958,41.4021658407709,0
+               -74.0193236076697,41.4022057118337,0
+               -74.0192898421741,41.4022054240236,0
+               -74.0191674453161,41.4022603185284,0
+               -74.0190117415482,41.4022844173531,0
+               -74.0189028505365,41.4023394267297,0
+               -74.0187057863242,41.4024191103095,0
+               -74.0185357341466,41.402499023979,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[White Oak Trail 31]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#WHITEOAK</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0208712529455,41.4016900257788,0
+               -74.020994868406,41.4015537756243,0
+               -74.0210977664293,41.4014478606402,0
+               -74.0212206179605,41.4013624563597,0
+               -74.021316075684,41.4013022452418,0
+               -74.0213770053456,41.4012925929864,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[White Oak Trail 32]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#WHITEOAK</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0213837583544,41.4012926504257,0
+               -74.0214180573845,41.4012573453205,0
+               -74.0214053905043,41.4012012996949,0
+               -74.0213997054927,41.4011300576644,0
+               -74.0214134403276,41.4011149186982,0
+               -74.0214544922334,41.4010796710168,0
+               -74.0214284719556,41.401013341294,0
+               -74.0213815062393,41.4009926007757,0
+               -74.0213144342087,41.4009615186841,0
+               -74.0212879563618,41.4009256966133,0
+               -74.0213160363133,41.4008547417932,0
+               -74.0213438110497,41.4008041254208,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[White Oak Trail 35]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#WHITEOAK</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0185290575308,41.402493881763,0
+               -74.0184200127262,41.4025590598884,0
+               -74.0181081438638,41.4026377629228,0
+               -74.0179320262795,41.4026718565844,0
+               -74.0177480067636,41.4027821614222,0
+               -74.0175506334729,41.402882181413,0
+               -74.0171458266761,41.4028532977189,0
+               -74.0168344914469,41.4028964050261,0
+               -74.0167523803361,41.4029668969741,0
+               -74.0165088827748,41.4029902420796,0
+               -74.0163334536086,41.4029785718315,0
+               -74.0160700798715,41.4029763197711,0
+               -74.0158869770309,41.4030256063365,0
+               -74.0156374931865,41.4029980457928,0
+               -74.0154688173534,41.4029864320058,0
+               -74.0153405070854,41.4029853339591,0
+               -74.0152256263964,41.4029894359778,0
              </coordinates>
            </LineString>
        </Placemark>
        <Placemark>
          <name><![CDATA[White Oak Trail 352]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#WHITEOAK</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -2725,7 +2097,7 @@
        <Placemark>
          <name><![CDATA[White Oak Trail 468]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#WHITEOAK</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -2743,7 +2115,7 @@
        <Placemark>
          <name><![CDATA[White Oak Trail 402]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#WHITEOAK</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -2855,7 +2227,7 @@
        <Placemark>
          <name><![CDATA[White Oak Trail 2]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#WHITEOAK</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -2966,7 +2338,7 @@
        <Placemark>
          <name><![CDATA[White Oak Trail 364]]></name>
          <Snippet maxLines="0"><![CDATA[]]></Snippet>
-         <styleUrl>#FEATURES</styleUrl>
+         <styleUrl>#WHITEOAK</styleUrl>
            <LineString>
              <extrude>0</extrude>
              <tessellate>1</tessellate>
@@ -3074,6 +2446,840 @@
                -74.0235188754084,41.3998012763197,0
                -74.0235477422551,41.3998307955079,0
                -74.0235783561284,41.3998634821209,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       
+       <!-- Tower Vue #9 Yellow Dashes -->
+       <Placemark>
+         <name><![CDATA[Tower Vue Trail 1]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#TOWERVUE</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0213548841081,41.4008107748298,0
+               -74.0211398116526,41.4008586060053,0
+               -74.0210126108675,41.4008216487948,0
+               -74.0209602661908,41.4007093276037,0
+               -74.0208677857,41.4005712385166,0
+               -74.0207734736347,41.4005551800777,0
+               -74.0206809937545,41.4004170908435,0
+               -74.0205390298073,41.4004260529157,0
+               -74.0204891040462,41.4002695540095,0
+               -74.0203594486585,41.4001194678011,0
+               -74.0202974178509,41.3998582205482,0
+               -74.0201336720029,41.3997823349551,0
+               -74.0199494031329,41.399663327673,0
+               -74.0196734538054,41.3995999536108,0
+               -74.0196471302396,41.3995539619449,0
+               -74.0195393143134,41.3995377874321,0
+               -74.0194588918872,41.399496419961,0
+               -74.0194329506813,41.3994250051858,0
+               -74.0193187644264,41.3993833498561,0
+               -74.0192993953209,41.3993406949979,0
+               -74.0192166061578,41.3989909137371,0
+               -74.0190655743391,41.3987048513811,0
+               -74.0189867590241,41.3985567067283,0
+               -74.0189329666688,41.3985409922651,0
+               -74.0189269786543,41.3984900885617,0
+               -74.0188671219311,41.3984285549769,0
+               -74.0188747158547,41.3983726818243,0
+               -74.0188399631759,41.3980952584109,0
+               -74.0186601109379,41.3979944029666,0
+               -74.0184984567402,41.3977948377829,0
+               -74.018318388526,41.3976935230809,0
+               -74.0180075854354,41.3975294732492,0
+               -74.0178810413493,41.3975353059184,0
+               -74.0176624162745,41.3972537499413,0
+               -74.0174359683624,41.3970433204501,0
+               -74.0174171618722,41.3969729868414,0
+               -74.0175255128956,41.3969271240086,0
+               -74.0174727177741,41.396845308926,0
+               -74.0173752946043,41.3968164086533,0
+               -74.0172790387452,41.3967012673964,0
+               -74.0172814293954,41.3964803965849,0
+               -74.0170545587783,41.3962177394165,0
+               -74.016809707857,41.3960542497529,0
+               -74.016696367556,41.3959167139667,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Tower Vue Trail 29]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#TOWERVUE</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0167291513722,41.3959294093417,0
+               -74.0164509572172,41.3957904643579,0
+               -74.0160414428417,41.3956131501302,0
+               -74.015712109915,41.3955855028218,0
+               -74.0154968635007,41.3956457372339,0
+               -74.0151997518752,41.3956680249637,0
+               -74.0148867170079,41.3956529299911,0
+               -74.014690767272,41.3955271001024,0
+               -74.0144948182939,41.3954012698855,0
+               -74.0144303772766,41.3953013962994,0
+               -74.014318356165,41.3950769630598,0
+               -74.0142874488085,41.3949401310593,0
+               -74.0142895119021,41.3948035815149,0
+               -74.0142256344681,41.3946664670283,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       
+       <!-- Compartment #10 Blue Arrows-->
+       <Placemark>
+         <name><![CDATA[Compartment Trail 14]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#COMPARTMENT</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0389987567917,41.3963344138134,0
+               -74.038398904702,41.3962495261986,0
+               -74.0379039401125,41.3962453884136,0
+               -74.0373072331527,41.3959475191479,0
+               -74.0372765929905,41.3956277593684,0
+               -74.0374576849037,41.3953363963443,0
+               -74.0373062358279,41.394985086899,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Compartment Trail 3]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#COMPARTMENT</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0347629976079,41.4030085235984,0
+               -74.034581477723,41.4033265035763,0
+               -74.0344015325925,41.4035379954794,0
+               -74.034045975952,41.403668137105,0
+               -74.03379373317,41.4039855219993,0
+               -74.0337540359236,41.404278066288,0
+               -74.0339280701493,41.4044659044364,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Compartment Trail 13]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#COMPARTMENT</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0355355760096,41.3961989347042,0
+               -74.0364654108705,41.3954878426495,0
+               -74.0374282225819,41.3949367705615,0
+               -74.0379997731934,41.3945421713941,0
+               -74.0386074549593,41.3940946206657,0
+               -74.03953722638,41.3933835028421,0
+               -74.0403939228785,41.3928315197406,0
+               -74.040787891509,41.3924886759018,0
+               -74.0412148612172,41.3923058575089,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Compartment Trail 1]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#COMPARTMENT</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0396040972855,41.396046590137,0
+               -74.0391409596783,41.3962823508938,0
+               -74.0388168843822,41.3966790232672,0
+               -74.038420525357,41.3971815917222,0
+               -74.0377385682092,41.3978681474644,0
+               -74.0371638430238,41.3984757206474,0
+               -74.0369112427996,41.3988197350219,0
+               -74.0369077053586,41.3990593328347,0
+               -74.036654315156,41.3994565905232,0
+               -74.0362535956742,41.4002519925805,0
+               -74.035857194831,41.4007545514474,0
+               -74.0354576384366,41.4014700844917,0
+               -74.0352710074837,41.4021341511133,0
+               -74.0349453035031,41.4026372994046,0
+               -74.0347633915889,41.4029819016549,0
+               -74.0346557408065,41.4030874994674,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Compartment Trail 115]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#COMPARTMENT</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0412278834607,41.3923245884979,0
+               -74.0412251578245,41.3923228543676,0
+               -74.0412224308649,41.3923212103008,0
+               -74.0412161490161,41.3923172847456,0
+               -74.0412097449219,41.3923135383207,0
+               -74.0412033408284,41.3923097918954,0
+               -74.0411969354123,41.3923061355333,0
+               -74.0411905326438,41.3923022990437,0
+               -74.0411842481517,41.392298553614,0
+               -74.0411708538874,41.3922902452046,0
+               -74.0411575818726,41.3922817576631,0
+               -74.0411444294604,41.3922732711168,0
+               -74.0411315202206,41.3922645163717,0
+               -74.0411188528294,41.3922555834914,0
+               -74.0411065468861,41.3922464734727,0
+               -74.0411038278744,41.3922442890216,0
+               -74.0411011088628,41.3922421045705,0
+               -74.0410983898515,41.3922399201193,0
+               -74.0410956708402,41.392237735668,0
+               -74.0410929518292,41.3922355512167,0
+               -74.0410901132194,41.3922333657685,0
+               -74.0410753221779,41.3922224335429,0
+               -74.0410727887429,41.3922206928999,0
+               -74.0410599278517,41.392211856586,0
+               -74.041044169439,41.392201636891,0
+               -74.0410279260169,41.3921918635247,0
+               -74.041011318508,41.3921824474199,0
+               -74.0409943469122,41.3921733885767,0
+               -74.0409916159935,41.3921720146953,0
+               -74.0409890046738,41.3921706418107,0
+               -74.0409862737553,41.3921692679292,0
+               -74.0409835415132,41.3921679841113,0
+               -74.0409808105949,41.3921666102297,0
+               -74.040978078353,41.3921653264116,0
+               -74.040975109561,41.3921638604725,0
+               -74.0409722590442,41.3921624855939,0
+               -74.0409697064623,41.3921613031365,0
+               -74.0409692889286,41.3921611097183,0
+               -74.0409663188132,41.3921597338426,0
+               -74.0409633486978,41.3921583579668,0
+               -74.0409603785827,41.392156982091,0
+               -74.0409487307019,41.3921519308986,0
+               -74.0409367174072,41.3921473270323,0
+               -74.0409247027903,41.3921428132283,0
+               -74.040912807774,41.3921383004201,0
+               -74.040900916731,41.3921335174198,0
+               -74.0408893897818,41.3921283771549,0
+               -74.0408871332908,41.3921272774497,0
+               -74.0408848781238,41.3921260876808,0
+               -74.040882621633,41.3921249879755,0
+               -74.0408802468673,41.3921237972096,0
+               -74.0408779903767,41.3921226975042,0
+               -74.0408757338861,41.3921215977988,0
+               -74.0408586188955,41.3921141590834,0
+               -74.0408406548018,41.3921075239588,0
+               -74.0408354723399,41.3921056740568,0
+               -74.040822568465,41.3921010679616,0
+               -74.0408049658229,41.3920942556954,0
+               -74.0407884567857,41.3920862815734,0
+               -74.0407738851651,41.3920767022577,0
+               -74.0407721110449,41.3920753363478,0
+               -74.0407704565235,41.3920739714349,0
+               -74.0407686837276,41.3920725154613,0
+               -74.0407670305304,41.3920710604848,0
+               -74.0407653760093,41.3920696955719,0
+               -74.0407637228123,41.3920682405953,0
+               -74.0407540481254,41.3920591524753,0
+               -74.0407449780551,41.3920496190221,0
+               -74.0407362694316,41.3920399084324,0
+               -74.0407276804093,41.3920301988391,0
+               -74.0407188508681,41.3920205773145,0
+               -74.0407095389628,41.3920112219914,0
+               -74.0407075335934,41.3920093137047,0
+               -74.0407055268999,41.3920074954816,0
+               -74.0407035202066,41.3920056772584,0
+               -74.0407015148375,41.3920037689716,0
+               -74.0406995081444,41.3920019507484,0
+               -74.0406975014514,41.3920001325251,0
+               -74.040686784825,41.3919886937719,0
+               -74.0406772747811,41.3919765444808,0
+               -74.0406681261847,41.3919642180532,0
+               -74.0406587357464,41.3919520697578,0
+               -74.0406484988526,41.3919405449262,0
+               -74.0406368095661,41.3919301789539,0
+               -74.0406211761834,41.3919195999449,0
+               -74.040604094382,41.3919099096026,0
+               -74.0405988006057,41.3919073463332,0
+               -74.0405859229571,41.3919011109183,0
+               -74.0405669024296,41.3918931158225,0
+               -74.0405473915941,41.3918859273067,0
+               -74.0405277492452,41.3918795483625,0
+               -74.0405154835902,41.391875843094,0
+               -74.0405028564927,41.3918723149594,0
+               -74.0404902254233,41.3918690570142,0
+               -74.0404773485363,41.3918662473907,0
+               -74.0404644623792,41.391864068211,0
+               -74.0404514460288,41.391862608541,0
+               -74.0404386582796,41.3918618713731,0
+               -74.0404331554322,41.3918619155554,0
+               -74.0403701390383,41.3918605793244,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       
+       <!-- Arthur #11 Yellow Dashes -->
+       <Placemark>
+         <name><![CDATA[Arthur Trail 1]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#ARTHUR</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0368582342907,41.3873644207609,0
+               -74.0364094200168,41.3870954451159,0
+               -74.0361612615527,41.3868660370012,0
+               -74.0358141784499,41.386522134608,0
+               -74.0358192157698,41.3861811823486,0
+               -74.0358739954826,41.3858785351581,0
+               -74.0359801957807,41.3855005421908,0
+               -74.0363882043608,41.3851250770439,0
+               -74.0364944003801,41.3847470835075,0
+               -74.036703433754,41.3842183976818,0
+               -74.0372109136151,41.3839195388108,0
+               -74.0374182622856,41.383504502381,0
+               -74.0374735907923,41.3831639705617,0
+               -74.037028714999,41.382629812057,0
+               -74.036781130078,41.3823625216407,0
+               -74.0366861223067,41.3819828432492,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Arthur Trail 2]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#ARTHUR</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0401756244952,41.3909915266817,0
+               -74.0400274927204,41.3908008496182,0
+               -74.0396300627301,41.3904565387994,0
+               -74.039128678837,41.3903386880472,0
+               -74.0384763801295,41.3902195740581,0
+               -74.0381756636486,41.3901412841556,0
+               -74.0374797690415,41.3895671410224,0
+               -74.0370320552901,41.3892224005549,0
+               -74.036988459439,41.388767376572,0
+               -74.0369957272524,41.3882748899909,0
+               -74.0370018767997,41.3878581705424,0
+               -74.0369571637667,41.3874789136333,0
+               -74.0368084901093,41.3873261160879,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       
+       <!-- Split Rock #12 White Dots MISSING-->
+       
+       <!-- Ryerson #13 Yellow Dashes -->
+       <Placemark>
+         <name><![CDATA[Ryerson Trail 1]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#RYERSON</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0443610591849,41.3855733082065,0
+               -74.044184286835,41.385423578605,0
+               -74.044110868406,41.3849377498716,0
+               -74.0440440473607,41.3845069482673,0
+               -74.0438124300434,41.3839311366684,0
+               -74.0430552421382,41.3833241915961,0
+               -74.0428640408018,41.3826406117684,0
+               -74.0426164317043,41.3823733336518,0
+               -74.041915574375,41.3821401702129,0
+               -74.0413622812967,41.3821355618698,0
+               -74.0408520506051,41.3826238578258,0
+               -74.0408459267682,41.3830405781254,0
+               -74.0406386013083,41.3834556210164,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       
+       <!-- Chatfield #14 Blue Arrows -->
+       <Placemark>
+         <name><![CDATA[Chatfield 1]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#CHATFIELD</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0257699968026,41.3930106756453,0
+               -74.0259711480072,41.3929256583657,0
+               -74.0261630369104,41.3928343412499,0
+               -74.0263137668024,41.3927315793498,0
+               -74.0264380176055,41.3925753421921,0
+               -74.0264194689554,41.3923914798184,0
+               -74.0264324134381,41.3922241377744,0
+               -74.0264737327096,41.3921267214012,0
+               -74.0268172832219,41.3918680702346,0
+               -74.0271345000277,41.3916776516201,0
+               -74.0276017368494,41.3918208666222,0
+               -74.0276944359116,41.3917728283812,0
+               -74.027772915109,41.391786167876,0
+               -74.0283802209998,41.3918314593415,0
+               -74.0285768058627,41.3918813129753,0
+               -74.0287789435797,41.3918303545812,0
+               -74.0289483337018,41.3918219792508,0
+               -74.0290925615131,41.3917545611031,0
+               -74.0291708642134,41.3917417457741,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Chatfield Trail 3]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#CHATFIELD</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0293118387475,41.3918936817967,0
+               -74.0291079499015,41.3916689243043,0
+               -74.0288781003547,41.3912919142914,0
+               -74.0288365600543,41.3910685153063,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Chatfield Trail 2]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#CHATFIELD</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.028853943472,41.3910859655742,0
+               -74.0286069249288,41.3907807744962,0
+               -74.0286148204701,41.390250405829,0
+               -74.0290217737208,41.3899507348631,0
+               -74.0292761176048,41.3897634397499,0
+               -74.0296316332353,41.3895391091042,0
+               -74.0298373587061,41.3892377379503,0
+               -74.0302951674213,41.3889006029389,0
+               -74.0307507206582,41.3887150000853,0
+               -74.0313051925209,41.3886438930146,0
+               -74.0318596632249,41.3885727832577,0
+               -74.0322129162235,41.3884999785376,0
+               -74.0328171274002,41.3884671707767,0
+               -74.0332726706051,41.3882815578128,0
+               -74.0336784683753,41.3880576370036,0
+               -74.0339316699533,41.387946098416,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       
+       <!-- Secor #15 Yellow Dashes-->
+       <Placemark>
+         <name><![CDATA[Secor Trail 19]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#SECOR</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0291641629332,41.3952116380212,0
+               -74.0294378058475,41.3950424514348,0
+               -74.0296145834432,41.394823448639,0
+               -74.0297367776468,41.3946284845993,0
+               -74.029766041146,41.3944565312143,0
+               -74.0297205550999,41.3942608579957,0
+               -74.0296136987125,41.3941537931046,0
+               -74.0295084216588,41.3939405777074,0
+               -74.0295109723082,41.3937691039657,0
+               -74.0294261683077,41.3936377255762,0
+               -74.029635107863,41.3934434933096,0
+               -74.0294271327994,41.3932494675569,0
+               -74.0294493277365,41.3931061295676,0
+               -74.029632361263,41.3928732798838,0
+               -74.0300410160319,41.392459955144,0
+               -74.0300460845675,41.3921190038186,0
+               -74.0293118387475,41.3918936817967,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       
+       <!-- Ledge #16 Yellow Dashes -->
+       <Placemark>
+         <name><![CDATA[Ledge Trail 1]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#LEDGE</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0271534402112,41.3916741498567,0
+               -74.0271036313116,41.3915388447381,0
+               -74.0270278068405,41.3914412097034,0
+               -74.0268234878937,41.3913230891025,0
+               -74.0265170108661,41.3911459075315,0
+               -74.0261309496276,41.3911232417569,0
+               -74.0258853211941,41.3910987591558,0
+               -74.0252844782947,41.3909042295814,0
+               -74.0247333785313,41.3907480067452,0
+               -74.0243354641363,41.3904415274069,0
+               -74.0241856806691,41.3903644807342,0
+               -74.0236854603161,41.3901707961428,0
+               -74.0233881644892,41.3898651672513,0
+               -74.0233435295343,41.3894859060338,0
+               -74.0231982861201,41.3891057907057,0
+               -74.0231016471397,41.3888397525732,0
+               -74.02265231319,41.3886086072651,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       
+       <!-- Stropel #17 Yellow Dashes -->
+       <Placemark>
+         <name><![CDATA[Stropel Trail 24]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#STROPEL</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0263098203303,41.3862526567786,0
+               -74.026507638967,41.3864816601828,0
+               -74.0264516850466,41.386860069355,0
+               -74.0261470417285,41.387046932611,0
+               -74.0258910032902,41.3873478713127,0
+               -74.0260362587408,41.3877279834851,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       
+       <!-- Rut #18 Blue Arrows -->
+       <Placemark>
+         <name><![CDATA[Rut Trail 17]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#RUT</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+                -74.0267953302869,41.3874313003146,0
+               -74.0272514475651,41.3872078277858,0
+               -74.0282592013888,41.3871026783331,0
+               -74.029017692124,41.3868438637803,0
+               -74.0296750084046,41.386622079295,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Rut Trail 23]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#RUT</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0295241004616,41.3866208065748,0
+               -74.0290663040426,41.3869579387812,0
+               -74.0288617099405,41.3871835417124,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       
+       
+       <!-- Mine Hill Trail #19 Yellow Dashes --> 
+       <Placemark>
+         <name><![CDATA[Mine Hill Trail]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#MINEHILL</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0470440085367,41.4023121412169,0
+               -74.0466900395361,41.4023358341267,0
+               -74.0464363061884,41.4027597356745,0
+               -74.0461126312928,41.4031298062554,0
+               -74.0458588910297,41.4035537063986,0
+               -74.045576411397,41.4035247381857,0
+               -74.0455468965451,41.4031251144716,0
+               -74.0455884879701,41.4026994553357,0
+               -74.0454501721404,41.4024853057858,0
+               -74.0450262651265,41.4024551627844,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       
+       <!-- Short-Cut #20 Yellow Dashes -->
+       <Placemark>
+         <name><![CDATA[Short-Cut Trail]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#SHORTCUT</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0401096365289,41.395331926073,0
+               -74.0408516821467,41.3953647396362,0
+               -74.0417064388684,41.3949458572728,0
+               -74.0423474992518,41.3946316912357,0
+               -74.0430926620412,41.3944515139135,0
+               -74.0439057970857,41.3944582736736,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Short-Cut Trail 114]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#SHORTCUT</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0396909181292,41.3960985967483,0
+               -74.0396908343178,41.3960961640356,0
+               -74.0396907505065,41.3960937313229,0
+               -74.0396906666952,41.3960912986102,0
+               -74.0396905828838,41.3960888658975,0
+               -74.0396904990725,41.3960864331848,0
+               -74.0396902969809,41.3960839094104,0
+               -74.0396902158211,41.3960812965707,0
+               -74.0396901346612,41.396078683731,0
+               -74.0396900535014,41.3960760708913,0
+               -74.0396899710158,41.3960735481151,0
+               -74.039689889856,41.3960709352754,0
+               -74.0396895877542,41.3960589528372,0
+               -74.0396895248644,41.3960469723956,0
+               -74.0396898221181,41.3960349048852,0
+               -74.0396905964697,41.3960229314314,0
+               -74.0396919675247,41.3960110530324,0
+               -74.0396940562144,41.395999180623,0
+               -74.0396946926897,41.3959965737729,0
+               -74.039695329165,41.3959939669228,0
+               -74.0396959656402,41.3959913600727,0
+               -74.0396967217212,41.3959887542209,0
+               -74.0396973581963,41.3959861473708,0
+               -74.0396982325573,41.3959836325807,0
+               -74.0396991095697,41.3959809376636,0
+               -74.039699986582,41.3959782427465,0
+               -74.0397009818744,41.3959756388912,0
+               -74.0397019784924,41.3959729449723,0
+               -74.0397030933904,41.3959703421152,0
+               -74.0397040900082,41.3959676481963,0
+               -74.0397096565423,41.3959551742915,0
+               -74.0397160576634,41.3959428875011,0
+               -74.0397230541594,41.3959307858285,0
+               -74.0397302885385,41.3959187762154,0
+               -74.0397376425207,41.3959067676001,0
+               -74.039739120595,41.395904313884,0
+               -74.0397448768945,41.395894757986,0
+               -74.039750397017,41.3958854363014,0
+               -74.0397560367436,41.3958761156148,0
+               -74.0397616764686,41.3958667949279,0
+               -74.0397674357975,41.3958574752388,0
+               -74.0397730741936,41.3958482446148,0
+               -74.0397787139137,41.3958389239269,0
+               -74.0397855815019,41.3958274516964,0
+               -74.0397923308078,41.3958158884038,0
+               -74.0397990801112,41.3958043251107,0
+               -74.0398059476921,41.3957928528789,0
+               -74.0398131740871,41.395781383641,0
+               -74.0398206357138,41.3957701865893,0
+               -74.0398225904928,41.3957674105908,0
+               -74.039824664877,41.3957646355904,0
+               -74.0398266196557,41.3957618595918,0
+               -74.0398286940396,41.3957590845913,0
+               -74.0398306474924,41.3957563986562,0
+               -74.0398326022705,41.3957536226575,0
+               -74.0398422565532,41.3957397416654,0
+               -74.0398516716211,41.3957258586761,0
+               -74.039860968405,41.3957118846244,0
+               -74.0398699090198,41.3956977274507,0
+               -74.03987861042,41.39568356828,0
+               -74.0398870739313,41.3956693170489,0
+               -74.0398886725394,41.395666357928,0
+               -74.0398902711474,41.395663398807,0
+               -74.0398919880351,41.3956605307475,0
+               -74.0398935866427,41.3956575716265,0
+               -74.0398951839248,41.395654702569,0
+               -74.0398962562142,41.3956528564856,0
+               -74.0398969021374,41.3956517444459,0
+               -74.0399076805529,41.3956346301439,0
+               -74.0399192922228,41.3956177930175,0
+               -74.0399317358212,41.3956013231299,0
+               -74.0399446551831,41.39558503736,0
+               -74.0399581699134,41.3955689367054,0
+               -74.0399719198711,41.3955531082356,0
+               -74.0399742308016,41.3955505153552,0
+               -74.0399765417319,41.3955479224748,0
+               -74.039978852662,41.3955453295943,0
+               -74.0399811622666,41.3955428267773,0
+               -74.0399834731964,41.3955402338967,0
+               -74.0399856645209,41.3955376400181,0
+               -74.0399882212868,41.3955345988158,0
+               -74.0399906584475,41.3955315566154,0
+               -74.0399929760029,41.3955285134171,0
+               -74.0399952948834,41.3955253801552,0
+               -74.0399976124383,41.3955223369567,0
+               -74.0399999313184,41.3955192036947,0
+               -74.0400106845045,41.3955038005888,0
+               -74.0400207253567,41.3954880312403,0
+               -74.0400300525501,41.3954719857128,0
+               -74.0400386660852,41.3954556640065,0
+               -74.0400468025216,41.3954392482443,0
+               -74.0400543422549,41.3954227374285,0
+               -74.0400548165818,41.395421665652,0
+               -74.0400575593213,41.3954154682287,0
+               -74.0400606581074,41.3954081079673,0
+               -74.0400636372879,41.3954007467079,0
+               -74.0400664968629,41.3953933844506,0
+               -74.0400692381577,41.3953859311318,0
+               -74.0400718585219,41.3953785668786,0
+               -74.040076364393,41.3953650032105,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       
+       <!-- Duggan #21 Red Dashes & Dot -->
+       <Placemark>
+         <name><![CDATA[Duggan Trail 75]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#DUGGAN</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0103071524113,41.41858493168,0
+               -74.0104843228396,41.4184825892667,0
+               -74.0108128609677,41.4183248937638,0
+               -74.0109776307854,41.4182130015569,0
+               -74.0111677711368,41.4180824423729,0
+               -74.0113576243572,41.4179707652064,0
+               -74.0114589650452,41.4179055392158,0
+               -74.0117125027401,41.4176897350494,0
+               -74.0119150671886,41.4176073005297,0
+               -74.012177905745,41.4175471747007,0
+               -74.0124475649949,41.4174736842159,0
+               -74.0127304961157,41.4174104143975,0
+               -74.0130137327184,41.4173269316866,0
+               -74.0132908677243,41.4172029663129,0
+               -74.0134872959965,41.417088415648,0
+               -74.0136636618775,41.4169686389384,0
+               -74.0139272922964,41.4168496099403,0
+               -74.0142049584355,41.4166902709654,0
+               -74.0145030667957,41.4165108916049,0
+               -74.014801937154,41.4162809809377,0
+               -74.015169229352,41.4159657422192,0
+               -74.0156187475891,41.4155400243594,0
+               -74.0158487295999,41.4154257566991,0
+               -74.0159477400728,41.4155377851562,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+
+       <!-- Unknown -->       
+       <Placemark>
+         <name><![CDATA[Spy Rock Trail]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#BLUE_ARROWS</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0205779064818,41.3893866210575,0
+               -74.020661080275,41.3899904831606,0
+               -74.0209139859039,41.3903030158782,0
+               -74.0209621551294,41.3906023146016,0
+               -74.0206740277677,41.3908441393354,0
+               -74.0203465439749,41.3913927274052,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[White Oak Trail 33]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#WHITEOAK</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0216819165528,41.4007764892834,0
+               -74.0216341120028,41.4008116796276,0
+               -74.0215191591447,41.400820872593,0
+               -74.0214585350619,41.400810186473,0
+               -74.0213707465963,41.4008094397952,0
+               -74.0213302288442,41.4008090951521,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[White Oak Trail 34]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#WHITEOAK</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0217980893547,41.4006859423183,0
+               -74.0217173590291,41.4006649148618,0
+               -74.0216704697297,41.4006390898472,0
+               -74.0216426190535,41.4006947909181,0
+               -74.021506721081,41.4007495731314,0
+               -74.02141839872,41.4007844187903,0
+               -74.0213436584732,41.4008142946487,0
+             </coordinates>
+           </LineString>
+       </Placemark>
+       <Placemark>
+         <name><![CDATA[Scenic Trail 52]]></name>
+         <Snippet maxLines="0"><![CDATA[]]></Snippet>
+         <styleUrl>#SCENIC</styleUrl>
+           <LineString>
+             <extrude>0</extrude>
+             <tessellate>1</tessellate>
+             <altitudeMode>clampedToGround</altitudeMode>
+             <coordinates>
+               -74.0075339909813,41.3998788395221,0
+               -74.0076211444194,41.3995692115699,0
+               -74.0074195514235,41.3992726118594,0
+               -74.0075689998622,41.3989324833424,0
+               -74.0076547354736,41.3987159570114,0
+               -74.0074931795512,41.3984972976477,0
+               -74.0074341900433,41.3983105609021,0
+               -74.0074356066462,41.3982174591878,0
              </coordinates>
            </LineString>
        </Placemark>
