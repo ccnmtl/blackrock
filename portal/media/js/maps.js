@@ -419,11 +419,11 @@ if (!Portal.Map) {
             self.events.connect(Portal, 'toggleFacet', self, 'toggleFacet');
             self.events.connect(Portal, 'toggleLayer', self, 'toggleLayer');
             
-            var randomnumber=Math.floor(Math.random()*11)
+            var randomnumber=Math.floor(Math.random()*100000);
             var options = getElementsByTagAndClassName("input", "layer");
             forEach(options,
                     function(option) {
-                        var kmllayer = new Portal.Layer(option.id, "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/" + option.id + ".kml?newcachebuster=" + randomnumber, true);
+                        var kmllayer = new Portal.Layer(option.id, "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/" + option.id + ".kml?grrrr=" + randomnumber, true);
                         self.layers[option.id] = kmllayer;
                         
                         connect(option, 'onclick', function(evt) {
