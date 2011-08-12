@@ -44,4 +44,3 @@ function getVisibleContentHeight() {
     
     return viewportheight - (10 + document.getElementById("mainnav").clientHeight + document.getElementById("brf").clientHeight); 
 }
-
