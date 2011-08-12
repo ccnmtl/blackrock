@@ -79,7 +79,8 @@ div#mainnav ul li.home
 {background-image: url("../images/homeicon.png");
 background-repeat: no-repeat;
 background-position: 4px 0px;
-
+margin-right:10px;
+border-right: 1px solid #E4DBCC;
 }
 
 
