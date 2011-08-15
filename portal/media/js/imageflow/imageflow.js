@@ -65,7 +65,7 @@ function ImageFlow ()
 		reflectPath:        '',             /* Path to the reflect_.php script */
 		scrollbarP:         0.6,            /* Width of the scrollbar in percent */
 		slider:             true,           /* Toggle slider */
-		sliderCursor:       'e-resize',     /* Slider cursor type - default is 'default' */
+		sliderCursor:       'move',     /* Slider cursor type - default is 'default' */
 		sliderWidth:        14,             /* Width of the slider in px */
 		slideshow:          false,          /* Toggle slideshow */
 		slideshowSpeed:     1500,           /* Time between slides in ms */
