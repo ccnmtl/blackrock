@@ -195,7 +195,6 @@ div#sharing_container #sharing_actions { display: none; float: right; background
 
 div#container {
 
-   border-right: 1px solid #3D2800;
    border-bottom: 1px solid #3D2800;
    background-color: #fff;}
 
@@ -235,7 +234,6 @@ div#weather-widget
 {
     background: none;
     position: relative;
-	padding-top: 5px;
 	margin-top: -400px;
 	right: -385px;
 	float: right;
@@ -249,7 +247,7 @@ div#weather-widget-tab {
     float: left;
     background-color: #fff;
     padding: 5px 0px 0px 0px;
-    width: 50px;
+    width: 129px;
     
     margin-right: 1px;
     
@@ -258,8 +256,6 @@ div#weather-widget-tab {
     -webkit-transition: all 0.25s ease-in-out;
     -moz-transition: all 0.25s ease-in-out;
 
-    -moz-border-radius-topleft: 10px 10px;
-    border-top-left-radius: 10px 10px;
     -moz-border-radius-bottomleft: 10px 10px;
     border-bottom-left-radius: 10px 10px;
 }
