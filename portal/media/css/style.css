@@ -153,9 +153,13 @@ div#search {
     float: right;
     color: black; 
     font-weight: normal;
-    margin: 7px 7px -9px 0px;
+    margin: 15px;
     padding: 0;
     height: 24px;
+}
+
+div#search input {
+	margin: 0 1px 0 5px;
 }
 
 div#search-tab {
@@ -172,15 +176,16 @@ div#search-tab {
 
 /* style the sharing functionality, including the styles that jquery.sharing expects */
 div#sharing_container {
-    float: right;
-    margin-top: 11px;
-    margin-right: 6px;
-     border: 1px solid #adadad;
-     background-color #f9f9f9;
+   
      max-height: 19px;
+     float: right;
+     margin: 10px 14px;
+     min-width: 96px;
+
+
 }
 
-div#sharing_container #sharing_button {float: left;}
+div#sharing_container #sharing_button {cursor: pointer; float: left; border: 1px solid #89a08c;}
 div#sharing_container .sharing_text { margin: 1px; font-size: 11px; color: #000;  }
 div#sharing_container .sharing_link { }
 div#sharing_container .sharing_image { width: 15px; height: 15px; margin: 2px; float: right;}
