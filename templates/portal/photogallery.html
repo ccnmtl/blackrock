@@ -37,11 +37,13 @@
         </div></div></div></div>
     </div>
             
+
     <div id="weather-widget">
-        <div id="weather-widget-tab"><img src="/portal/media/images/weather-widget-tab.png" alt="Weather Widget Slider"/></div>
+            <div id="weather-widget-tab">Current Conditions</div>
+            
     
         <div id="data">
-            <div class="weather-widget-title">Current Conditions</div>
+            <!--<div class="weather-widget-title">Current Conditions</div>-->
             <h6>as of {% now "g a" %} on {% now "m/d/y" %}</h6>
             <p><img src="{% value_from_settings BLACK_ROCK_FEED %}data/current/Widget.png" alt="Current Conditions Widget" /></p>
             <div class="action"><a href="/portal/weather/">More >></a></div>
