@@ -247,7 +247,7 @@ div#weather-widget-tab {
     background-color: #3D2800;
     padding: 5px 0px 0px 33px;
     height: 23px;
-    width: 205px;
+    width: 203px;
     outline:none;
     top: 80px;
     transition: all 0.25s ease-in-out;
@@ -257,6 +257,8 @@ div#weather-widget-tab {
     background-image: url("../images/weather-widget-tab.png");
     background-repeat: no-repeat;
     float: right;
+    border: 1px solid #BB9E96;
+    border-bottom: none;
 
 
 }
