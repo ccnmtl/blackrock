@@ -49,9 +49,4 @@ jQuery(document).ready(function() {
         itemVisibleOutCallback: carousel_visibleOutCallback,
         itemVisibleInCallback: { onBeforeAnimation: carousel_visibleInCallback, onAfterAnimation: null }
      });
-    
-    jQuery('#weather-widget-tab').click(function(event){
-        jQuery('#weather-widget-content').toggle('blind', { direction: 'vertical' }, 1000);
-    });
-
 });
