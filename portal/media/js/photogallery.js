@@ -51,15 +51,7 @@ jQuery(document).ready(function() {
      });
     
     jQuery('#weather-widget-tab').click(function(event){
-        var widget = jQuery("#weather-widget");
-        var tab = jQuery('#weather-widget-tab');
-        
-        if (widget.hasClass('open')) {
-            widget.animate({right: "-" + (widget.outerWidth() - tab.outerWidth()) }, 300).removeClass('open');
-        } else {
-            widget.animate({right:'0'}, 300).addClass('open');
-        }
-        event.preventDefault();
+        jQuery('#weather-widget-content').toggle('blind', { direction: 'vertical' }, 1000);
     });
 
 });

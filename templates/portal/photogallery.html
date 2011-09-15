@@ -39,21 +39,22 @@
             
 
     <div id="weather-widget">
-            <div id="weather-widget-tab">Current Conditions</div>
-            
-    
-        <div id="data">
-            <!--<div class="weather-widget-title">Current Conditions</div>-->
-            <h6>as of {% now "g a" %} on {% now "m/d/y" %}</h6>
-            <p><img src="{% value_from_settings BLACK_ROCK_FEED %}data/current/Widget.png" alt="Current Conditions Widget" /></p>
-            <div class="action"><a href="/portal/weather/">More >></a></div>
-        </div>
-    
-        <div id="webcam">
-            <div class="weather-widget-title">Forest View</div>
-            <h6>&nbsp;</h6>
-            <p><img src="{% value_from_settings BLACK_ROCK_FEED %}webcam/2011/05/15/Black_Rock_{{block.current_time}}.jpg" alt="Current Forest View" /></p>
-            <div class="action"><a href="/portal/forest-view/">More >></a></div>
+        <div id="weather-widget-tab"><img src="/portal/media/images/weather-widget-tab.png" alt="Weather Widget Slider"/></div>
+
+        <div id="weather-widget-content">        
+            <div id="data">
+                <div class="weather-widget-title">Current Conditions</div>
+                <h6>as of {% now "g a" %} on {% now "m/d/y" %}</h6>
+                <p><img src="{% value_from_settings BLACK_ROCK_FEED %}data/current/Widget.png" alt="Current Conditions Widget" /></p>
+                <div class="action"><a href="/portal/weather/">More >></a></div>
+            </div>
+        
+            <div id="webcam">
+                <div class="weather-widget-title">Forest View</div>
+                <h6>&nbsp;</h6>
+                <p><img src="{% value_from_settings BLACK_ROCK_FEED %}webcam/2011/05/15/Black_Rock_{{block.current_time}}.jpg" alt="Current Forest View" /></p>
+                <div class="action"><a href="/portal/forest-view/">More >></a></div>
+            </div>
         </div>
    </div>
 </div>
@@ -135,17 +136,7 @@
                          <a href="http://www.blackrockforest.org/docs/about-the-forest/GreenBuildings/index.html">Buildings at Black Rock</a>As the Consortium is committed to sustainability, many Black Rock Forest facilities incorporate "Green Building" and "Smart Features." These include a Science and Education Center with a library and laboratories, a Forest Lodge for overnight visitors and a Solar Pavilion.
                          </td>
                          </tr>
-                         </table>
-      <!--  <table class="alltools">
-            <tbody>
-                <tr>
-               <td>
-                </td>
-                </tr>
-            </tbody>
-        </table>-->
-  
-    
+                         </table>    
      			</td>
             </tr>
         </tbody>
