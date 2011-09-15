@@ -185,7 +185,7 @@ div#sharing_container {
 
 }
 
-div#sharing_container #sharing_button {cursor: pointer; float: left; border: 1px solid #89a08c;}
+div#sharing_container #sharing_button {cursor: pointer; float: left; border: 1px solid #89a08c; margin: 0 0 0 13px;}
 div#sharing_container .sharing_text { margin: 1px; font-size: 11px; color: #000;  }
 div#sharing_container .sharing_link { }
 div#sharing_container .sharing_image { width: 15px; height: 15px; margin: 2px; float: right;}
@@ -234,29 +234,40 @@ div#weather-widget
 {
     background: none;
     position: relative;
-	margin-top: -400px;
 	right: 0px;
-	float: right;
+	float: left;
 	min-height: 30px;
 	min-width: 30px;
 	-moz-border-radius-bottomleft: 10px 10px;
 	border-bottom-left-radius: 10px 10px;
+	z-index: 100;
 }
 
 div#weather-widget-tab {
-    background-color: #fff;
-    padding: 5px 0px 0px 0px;
-    width: 376px;
+    background-color: #3D2800;
+    padding: 5px 0px 0px 33px;
+    height: 23px;
+    width: 205px;
     outline:none;
     top: 80px;
     transition: all 0.25s ease-in-out;
     -webkit-transition: all 0.25s ease-in-out;
     -moz-transition: all 0.25s ease-in-out;
+    color: #fff;
+    background-image: url("../images/weather-widget-tab.png");
+    background-repeat: no-repeat;
+    float: right;
+
+
 }
+
 
 div#weather-widget-content {
     height: 205px;
     display: none;
+    position: absolute;
+    min-width: 400px;
+    top: 30px;
 }
 
 div#weather-widget-tab:hover {
@@ -310,7 +321,7 @@ div#webcam {
     float: left;
 	background-color: #fff;
 	padding: 5px 5px 0 5px;
-	width: 200px;
+	width: 196px;
 }
 
 div#data h6,
@@ -332,12 +343,12 @@ div#data img {
     clip: rect(50px 200px 223px 35px);
     height: 250px;*/
     width: auto;
-    height: 135px;
+    height: 133px;
     
 }
 
 div#webcam img {
-	height: 135px;
+	height: 133px;
 	width: auto;
 }
 
