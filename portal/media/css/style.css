@@ -269,7 +269,7 @@ div#weather-widget-content {
     display: none;
     position: absolute;
     min-width: 400px;
-    top: 30px;
+    top: 29px;
 }
 
 div#weather-widget-tab:hover {
@@ -359,7 +359,7 @@ div#photoswitcher {
     padding: 0;
     display: block;
     width: 100%;
-    max-width: 1600px;
+    max-width: 1200px;
     height: 400px;
 }
 
