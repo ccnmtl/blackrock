@@ -244,23 +244,15 @@ div#weather-widget
 }
 
 div#weather-widget-tab {
-    background-color: #3D2800;
-    padding: 5px 0px 0px 33px;
+    padding: 5px 0px 0px 8px;
     height: 23px;
-    width: 203px;
+    width: 228px;
     outline:none;
     top: 80px;
-    transition: all 0.25s ease-in-out;
-    -webkit-transition: all 0.25s ease-in-out;
-    -moz-transition: all 0.25s ease-in-out;
-    color: #fff;
-    background-image: url("../images/weather-widget-tab.png");
-    background-repeat: no-repeat;
+    color: #ddd;
     float: right;
-    border: 1px solid #BB9E96;
+    border: 1px solid #89A08C;
     border-bottom: none;
-
-
 }
 
 
@@ -270,14 +262,6 @@ div#weather-widget-content {
     position: absolute;
     min-width: 400px;
     top: 29px;
-}
-
-div#weather-widget-tab:hover {
-    cursor: pointer;
-    cursor: hand;
-    /** Doesn't work well in IE box-shadow: 0 20px rgba(255, 255, 255, 1); **/
-    -webkit-box-shadow: 0 0 20px rgba(255, 255, 255, 1); 
-    -moz-box-shadow: 0 0 20px rgba(255, 255, 255, 1); 
 }
 
 div#weather-widget-tab img:hover {
@@ -311,7 +295,6 @@ div#weather-widget div.action a
 div#data {
     float: left;
 	background-color: #fff;
-	margin-right: 1px;
 	padding: 5px 5px 0 5px;
 	width: 155px;
 	-moz-border-radius-bottomleft: 10px 10px;
