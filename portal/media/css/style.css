@@ -242,7 +242,7 @@ div#weather-widget
 	right: 0px;
 	float: right;
 	min-height: 30px;
-	min-width: 30px;
+	min-width: 237px;
 	-moz-border-radius-bottomleft: 10px 10px;
 	border-bottom-left-radius: 10px 10px;
 	z-index: 100;
