@@ -1,9 +1,10 @@
 /* Photo Switcher ---------------------------------------------------------*/
 
+
 .jcarousel-container-horizontal, 
 .jcarousel-clip-horizontal,  
 .jcarousel-item-horizontal
-{height: 400px; width: 1600px;  }
+{height: 400px; width: 1600px; *width: auto;}
 
 .jcarousel-clip  {position: absolute;}
 
