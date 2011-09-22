@@ -178,7 +178,6 @@ div#search-tab {
 div#sharing_container {
    
      float: right;
-    background-color: yellow;
     margin: 8px 14px 0 0;
 
 }
@@ -257,7 +256,7 @@ div#weather-widget-tab {
     float: right;
     border: 1px solid #89A08C;
     border-bottom: none;
-    * width: 200px;
+    * width: 160px;
 }
 
 
@@ -267,7 +266,7 @@ div#weather-widget-content {
     position: absolute;
     width: 400px;
     top: 31px;
-
+    * right: -130px;
 }
 
 div#weather-widget-tab img:hover {
