@@ -1,1 +1,174 @@
-{% load portal %}{% load cache %}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.6"/>    <title>      The Virtual Forest Initiative: {% block title %}{% endblock %}    </title>        <style media="screen" type="text/css">      @import "/site_media/css/site.css" ;      @import "/site_media/css/style.css" ;      @import "/site_media/css/tiny_mce.css" ;      @import "/portal/media/css/style.css";      @import "/site_media/js/jquery-ui-1.8.11.custom/css/smoothness/jquery-ui-1.8.11.custom.css" ;    </style>        {% block css %}{% endblock %}        <script  type="text/javascript" src="/site_media/js/jquery-ui-1.8.11.custom/js/jquery-1.4.4.min.js"></script>    <script  type="text/javascript" src="/site_media/js/jquery-ui-1.8.11.custom/js/jquery-ui-1.8.11.custom.min.js"></script>    <script type="text/javascript" src="/portal/media/js/jcarousel/lib/jquery.jcarousel.js"></script>    <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script>    <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/Signal.js"></script>    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>    <script type="text/javascript" src="/portal/media/js/maps.js"></script>    <script type="text/javascript" src="/site_media/js/flowplayer-3.1.4.min.js"></script>    <script type="text/javascript" src="/portal/media/js/jquery.sharing/jquery.sharing.js"></script>    <script type="text/javascript" src="/portal/media/js/sharing.js"></script>    <script type="text/javascript" src="/portal/media/js/portal.js"></script>        <!--[if lt IE 7]>    <script src="http://ccnmtl.columbia.edu/remote/alerts/browser/ienosupport.js" type="text/javascript" language="javascript"></script>    <link rel="stylesheet" href="http://ccnmtl.columbia.edu/remote/alerts/browser/ienosupport.css" type="text/css" media="all" />    <![endif]-->            {% block js %}    {% endblock %}        {% block feeds %}{% endblock %}    {% include "google_analytics.html" %}</head><body><!--[if lt IE 7]><div id="browserwarning"></div><![endif]--><div id="masthead_top"><a href="http://ccnmtl.columbia.edu/"><span id="ccnmtl"></span></a>{% block search_tab %}        <div id="search">            <form id="search_form" method="get" action="/portal/search/">                <input name="q" id="id_q" type="text" value="Search" onfocus="clearDefaultText();">                <input type="submit" value="Search"/>            </form>        </div>        {% endblock %}<a href="/"><span id="brf"></span></a> </div>        <div id="wrapper">    <div id="mainnav">        {% if not error %}            <ul>              <li class="home"><a href="/portal/" style="width: 15px">&nbsp;</a></li>              <li class="interactive-map"><a href="/portal/interactive-map/">Map</a></li>              <li class="weather"><a href="/portal/weather/">Sensor Data</a></li>              <li class="forest-view"><a href="/portal/forest-view/">ForestCam</a></li>                    <li class="research"><a href="/portal/research/">Research</a></li>              <li class="education"><a href="/portal/education/">Education</a></li>            </ul>        {% endif %}                    <div id="sharing_container">            <div id="weather-widget">            <div id="weather-widget-tab"><img src="/portal/media/images/down_arrow.png" alt="Open Weather Widget" style="float: right;"/>Current Conditions </div>            <div id="weather-widget-content">                        <div id="data">                    <div class="weather-widget-title">Open Lowland Station</div>                    <h6>as of {% now "g a" %} on {% now "m/d/y" %}</h6>                    <p><img src="{% value_from_settings BLACK_ROCK_FEED %}data/current/Widget.png" alt="Current Conditions Widget" /></p>                    <div class="action"><a href="/portal/weather/">More >></a></div>                </div>                            <div id="webcam">                    <div class="weather-widget-title">ForestCam</div>                    <h6>&nbsp;</h6>                    <p><img src="{% value_from_settings BLACK_ROCK_FEED %}webcam/2011/05/15/Black_Rock_{{ now|weather_time }}.jpg" alt="Current Forest View" /></p>                    <div class="action"><a href="/portal/forest-view/">More >></a></div>                </div>            </div>            </div>                   <img id="sharing_button" src="/portal/media/images/share_button.png" alt="share button" />            <div id="sharing_actions"></div>        </div>           </div>    <div id="container">        {% block container %}            {% comment %}            <table width="100%">            <tr>                <td id="left">                    {% block left %}                     LEFT PANE REPORTING FOR DUTY                     {% endblock %}                 </td>                              <td id="right">                    <div id="map_canvas"></div>                </td>            </tr>            </table>            {% endcomment %}        {% endblock %}    </div></div>{% block footer %}<div id="footer"><ul id="standard-elements"><li><a href="/portal/about/">About</a></li><li><a href="/portal/help/">Help</a></li><li><a href="mailto:">Contact</a></li></ul></div>{% endblock %}</body></html><script type="text/javascript">//<!--    function clearDefaultText() {        // Clear the Ghost Text if it is still set.        var search_text = document.getElementById('id_q');          if (search_text != null && search_text.value == 'Search') {            search_text.value = '';        }        return search_text.value;    }    jQuery(document).ready(function() {        var bits = window.location.pathname.split('/')        if (bits.length > 2) {            if (bits[2] == "") {                jQuery("li.home").addClass("selected");            } else {                jQuery("li." + bits[2]).addClass("selected");            }        }        jQuery('#search_form').submit(function() {            var search_text = clearDefaultText();            if (search_text == '') {                window.location = jQuery('#search_form').attr('action');                return false;            } else {                return true;            }         });        jQuery('#weather-widget-tab').click(function(event){            jQuery('#weather-widget-content').toggle('blind', { direction: 'vertical' }, 1000);        });    });  //--></script>
+{% load portal %}
+{% load cache %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.6"/>
+    <title>
+      The Virtual Forest Initiative: {% block title %}{% endblock %}
+    </title>
+    
+    <style media="screen" type="text/css">
+      @import "/site_media/css/site.css" ;
+      @import "/site_media/css/style.css" ;
+      @import "/site_media/css/tiny_mce.css" ;
+      @import "/portal/media/css/style.css";
+      @import "/site_media/js/jquery-ui-1.8.11.custom/css/smoothness/jquery-ui-1.8.11.custom.css" ;
+      @import "/site_media/css/shield.css";
+    </style>
+    
+    {% block css %}{% endblock %}
+    
+    <script  type="text/javascript" src="/site_media/js/jquery-ui-1.8.11.custom/js/jquery-1.4.4.min.js"></script>
+    <script  type="text/javascript" src="/site_media/js/jquery-ui-1.8.11.custom/js/jquery-ui-1.8.11.custom.min.js"></script>
+    <script type="text/javascript" src="/portal/media/js/jcarousel/lib/jquery.jcarousel.js"></script>
+    <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script>
+    <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/Signal.js"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="/portal/media/js/maps.js"></script>
+    <script type="text/javascript" src="/site_media/js/flowplayer-3.1.4.min.js"></script>
+    <script type="text/javascript" src="/portal/media/js/jquery.sharing/jquery.sharing.js"></script>
+    <script type="text/javascript" src="/portal/media/js/sharing.js"></script>
+    <script type="text/javascript" src="/portal/media/js/portal.js"></script>
+    <script src="/site_media/js/browserdetect.js" type="text/javascript" language="javascript"></script>
+    <script src="/site_media/js/shield.js" type="text/javascript" language="javascript"></script>
+    
+    {% block js %}{% endblock %}
+    
+    {% block feeds %}{% endblock %}
+
+    {% include "google_analytics.html" %}
+</head>
+<body>
+<div id="shieldbox"></div>
+
+<div id="masthead_top">
+<a href="http://ccnmtl.columbia.edu/"><span id="ccnmtl"></span></a>
+{% block search_tab %}
+        <div id="search">
+            <form id="search_form" method="get" action="/portal/search/">
+                <input name="q" id="id_q" type="text" value="Search" onfocus="clearDefaultText();">
+                <input type="submit" value="Search"/>
+            </form>
+        </div>
+        {% endblock %}
+<a href="/"><span id="brf"></span></a>
+
+
+
+
+ </div>
+
+
+        
+
+
+
+
+<div id="wrapper">
+    <div id="mainnav">
+        {% if not error %}
+            <ul>
+              <li class="home"><a href="/portal/" style="width: 15px">&nbsp;</a></li>
+              <li class="interactive-map"><a href="/portal/interactive-map/">Map</a></li>
+              <li class="weather"><a href="/portal/weather/">Sensor Data</a></li>
+              <li class="forest-view"><a href="/portal/forest-view/">ForestCam</a></li>      
+              <li class="research"><a href="/portal/research/">Research</a></li>
+              <li class="education"><a href="/portal/education/">Education</a></li>
+            </ul>
+        {% endif %}
+            
+        <div id="sharing_container">
+            <div id="weather-widget">
+            <div id="weather-widget-tab"><img src="/portal/media/images/down_arrow.png" alt="Open Weather Widget" style="float: right;"/>Current Conditions </div>
+            <div id="weather-widget-content">        
+                <div id="data">
+                    <div class="weather-widget-title">Open Lowland Station</div>
+                    <h6>as of {% now "g a" %} on {% now "m/d/y" %}</h6>
+                    <p><img src="{% value_from_settings BLACK_ROCK_FEED %}data/current/Widget.png" alt="Current Conditions Widget" /></p>
+                    <div class="action"><a href="/portal/weather/">More >></a></div>
+                </div>
+            
+                <div id="webcam">
+                    <div class="weather-widget-title">ForestCam</div>
+                    <h6>&nbsp;</h6>
+                    <p><img src="{% value_from_settings BLACK_ROCK_FEED %}webcam/2011/05/15/Black_Rock_{{ now|weather_time }}.jpg" alt="Current Forest View" /></p>
+                    <div class="action"><a href="/portal/forest-view/">More >></a></div>
+                </div>
+            </div>
+            </div>
+       
+            <img id="sharing_button" src="/portal/media/images/share_button.png" alt="share button" />
+            <div id="sharing_actions"></div>
+        </div>
+       
+    </div>
+    <div id="container">
+        {% block container %}
+            {% comment %}
+            <table width="100%">
+            <tr>
+                <td id="left">
+                    {% block left %} 
+                    LEFT PANE REPORTING FOR DUTY 
+                    {% endblock %} 
+                </td>
+              
+                <td id="right">
+                    <div id="map_canvas"></div>
+                </td>
+            </tr>
+            </table>
+            {% endcomment %}
+        {% endblock %}
+    </div>
+</div>
+{% block footer %}<div id="footer"><ul id="standard-elements"><li><a href="/portal/about/">About</a></li><li><a href="/portal/help/">Help</a></li><li><a href="mailto:">Contact</a></li></ul></div>{% endblock %}
+</body></html>
+
+<script type="text/javascript">
+//<!--
+
+    function clearDefaultText() {
+        // Clear the Ghost Text if it is still set.
+        var search_text = document.getElementById('id_q');
+  
+        if (search_text != null && search_text.value == 'Search') {
+            search_text.value = '';
+        }
+
+        return search_text.value;
+    }
+
+    jQuery(document).ready(function() {
+        var bits = window.location.pathname.split('/')
+        if (bits.length > 2) {
+            if (bits[2] == "") {
+                jQuery("li.home").addClass("selected");
+            } else {
+                jQuery("li." + bits[2]).addClass("selected");
+            }
+        }
+
+        jQuery('#search_form').submit(function() {
+            var search_text = clearDefaultText();
+
+            if (search_text == '') {
+                window.location = jQuery('#search_form').attr('action');
+                return false;
+            } else {
+                return true;
+            } 
+        });
+
+        jQuery('#weather-widget-tab').click(function(event){
+            jQuery('#weather-widget-content').toggle('blind', { direction: 'vertical' }, 1000);
+        });
+
+        /* Select from list: Chrome, Firefox, Safari, MSIE */
+        shieldbrowser({"Chrome": 1, "Firefox": 3.6, "Safari": 4, "MSIE": 7 });
+    });
+  
+//-->
+</script>

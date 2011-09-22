@@ -28,31 +28,25 @@ Forest Sampling Optimization Tool
 Forest Sampling Optimization Tool
 {% endblock %} 
 
-{% block browsersupport %}
-<!--[if lt IE 8]>
-<script src="http://ccnmtl.columbia.edu/remote/alerts/browser/ienosupport.js" type="text/javascript" language="javascript"></script>
-<link rel="stylesheet" href="http://ccnmtl.columbia.edu/remote/alerts/browser/ienosupport.css" type="text/css" media="all" />
-<![endif]-->
-{% endblock %}
-
-{% block browserwarning %}
-<!--[if lt IE 8]><div id="browserwarning"></div><![endif]-->
-{% endblock %}
-
-
 {% block content %} 
-<div id="content">
+    <div id="content">
+    
+    	<div id="tab-bar">
+    	<div class="tab" id="tab-run">
+    		Run Details
+    	</div>
+    	
+    	<div class="tab" id="tab-log">
+    		Run Log
+    	</div>
+    	
+    	</div>
+    </div>
+{% endblock %}
 
-	<div id="tab-bar">
-	<div class="tab" id="tab-run">
-		Run Details
-	</div>
-	
-	<div class="tab" id="tab-log">
-		Run Log
-	</div>
-	
-	</div>
-	
-</div>
+{% block script_footer %}    
+    <script type="text/javascript">
+        /* Select from list: Chrome, Firefox, Safari, MSIE */
+        shieldbrowser({"Chrome": 1, "Firefox": 3.6, "Safari": 4, "MSIE": 8 });
+    </script>
 {% endblock %}
