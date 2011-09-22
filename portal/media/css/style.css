@@ -18,7 +18,6 @@ body {
 	  -moz-box-shadow: 5px 5px 5px #4e4342;
   -webkit-box-shadow: 5px 5px 5px #4e4342;
    box-shadow: 5px 5px 5px #4e4342;
-
 }
 
 a:focus { 
@@ -178,19 +177,25 @@ div#search-tab {
 /* style the sharing functionality, including the styles that jquery.sharing expects */
 div#sharing_container {
    
-     max-height: 19px;
      float: right;
-     margin: 10px 14px;
-     min-width: 96px;
+     width: 460px;
+    background-color: yellow;
+    margin: 8px 14px 0 0;
+
+}
+
+div#sharing_container #sharing_button {
+cursor: pointer; 
+float: right; 
+border: 1px solid #89a08c; 
 
 
 }
 
-div#sharing_container #sharing_button {cursor: pointer; float: left; border: 1px solid #89a08c; margin: 0 0 0 13px;}
 div#sharing_container .sharing_text { margin: 1px; font-size: 11px; color: #000;  }
-div#sharing_container .sharing_link { }
+div#sharing_container a.sharing_link img { border: none;}
 div#sharing_container .sharing_image { width: 15px; height: 15px; margin: 2px; float: right;}
-div#sharing_container #sharing_actions { display: none; float: right; background-color: #eaeaea; border-left: 1px solid #adadad; max-height: 19px;} 
+div#sharing_container #sharing_actions { display: none; float: right; background-color: #eaeaea; border-left: 1px solid #adadad; height: 21px; width: 102px;} 
 
 /*Page Body*/
 
@@ -236,20 +241,19 @@ div#weather-widget
     background: none;
     position: relative;
 	right: 0px;
-	float: left;
+	float: right;
 	min-height: 30px;
 	min-width: 30px;
 	-moz-border-radius-bottomleft: 10px 10px;
 	border-bottom-left-radius: 10px 10px;
 	z-index: 100;
+	margin: 0 13px 0 0;
 }
 
 div#weather-widget-tab {
     padding: 5px 0px 0px 8px;
-    height: 23px;
-    width: 228px;
+    height: 25px;
     outline:none;
-    top: 80px;
     color: #ddd;
     float: right;
     border: 1px solid #89A08C;
@@ -261,8 +265,9 @@ div#weather-widget-content {
     height: 205px;
     display: none;
     position: absolute;
-    min-width: 400px;
-    top: 29px;
+    width: 400px;
+    top: 30px;
+    right: 0px;
 }
 
 div#weather-widget-tab img:hover {
@@ -345,7 +350,6 @@ div#photoswitcher {
     width: 100%;
     max-width: 1200px;
     height: 400px;
-
 }
 
 div#container table {
