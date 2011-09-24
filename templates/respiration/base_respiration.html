@@ -22,7 +22,12 @@
 <script type="text/javascript" src="/respiration/media/js/graph.js"></script> 
 
 <script type="text/javascript">
-  function setActiveTab() { addElementClass("{% block tabname %}tab-leaf{% endblock %}", "tab-selected"); }
+  function setActiveTab() {
+      var tabname = "{% block tabname %}tab-leaf{% endblock %}";
+      if (document.getElementById(tabname) != null) { 
+          addElementClass(tabname, "tab-selected"); 
+      }
+  }
   addLoadEvent(setActiveTab);
 </script>
 {% endblock %} 
