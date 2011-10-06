@@ -18,9 +18,19 @@ h1#masthead
 	border-top: 3px #435142 solid;
 }
 
+#masthead_top 
+
+{
+
+	background-color: #1F2A1E;
+
+}
+
+
+
 #brf
 {
-	background-color: #1F2A1E;
+
 	margin: 0;
 	padding: 0;
 	background-image: url(../images/logo_brd.gif);
@@ -32,16 +42,14 @@ h1#masthead
 
 #ccnmtl
 {
-	margin: 0 0 -68px 0;
+	margin: 15px;
 	padding: 0;
 	background-image: url(../images/logo_ccnmtl.gif);
 	background-repeat: no-repeat;
 	width: 105px;
 	height: 41px;
-	top: -68px;
-	right: 20px;
-	position: relative;
 	float: right;
+	background-color: #1F2A1E;
 }
 
 #wrapper

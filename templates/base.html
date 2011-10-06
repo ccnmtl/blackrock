@@ -2,36 +2,33 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 
-<title>Virtual Forest Initiative: {% block title %}MY PAGE TITLE{% endblock %}</title>
+    <title>Virtual Forest Initiative: {% block title %}MY PAGE TITLE{% endblock %}</title>
+    
+    <style media="screen" type="text/css">
+        @import "/site_media/css/site.css" ;
+        @import "/site_media/css/style.css" ;
+        @import "/site_media/css/shield.css";
+    </style>
 
-<style media="screen" type="text/css">
-@import "/site_media/css/site.css" ;
-@import "/site_media/css/style.css" ;
-</style>
+    <script src="/site_media/js/browserdetect.js" type="text/javascript" language="javascript"></script>
+    <script src="/site_media/js/shield.js" type="text/javascript" language="javascript"></script>
 
-{% block css %}{% endblock %}
-
-{% block browsersupport %}
-<!--[if lt IE 7]>
-<script src="http://ccnmtl.columbia.edu/remote/alerts/browser/ienosupport.js" type="text/javascript" language="javascript"></script>
-<link rel="stylesheet" href="http://ccnmtl.columbia.edu/remote/alerts/browser/ienosupport.css" type="text/css" media="all" />
-<![endif]-->
-{% endblock %}
-
-{% block js %}{% endblock %}
-
-{% block feeds %}{% endblock %}
-
-{% include "google_analytics.html" %}
+    {% block css %}{% endblock %}
+    
+    {% block js %}{% endblock %}
+    
+    {% block feeds %}{% endblock %}
+    
+    {% include "google_analytics.html" %}
 
 </head>
 <body class="{% block bodyclass %}{% endblock %}">
-{% block browserwarning %}
-<!--[if lt IE 7]><div id="browserwarning"></div><![endif]-->
-{% endblock %}
+    <div id="shieldbox"></div>
 
-<a href="/"><span id="brf"></span></a>
+<div id="masthead_top">
 <a href="http://ccnmtl.columbia.edu/"><span id="ccnmtl"></span></a>
+<a href="/"><span id="brf"></span></a>
+</div>
 
 <div id="wrapper">
 
@@ -42,4 +39,5 @@
 {% block content %}{% endblock %}
 </div>
 {% block footer %}{% endblock %}
+{% block script_footer %}{% endblock %}
 </body></html>

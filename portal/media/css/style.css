@@ -79,7 +79,8 @@ div#mainnav ul li.home
 {background-image: url("../images/homeicon.png");
 background-repeat: no-repeat;
 background-position: 4px 0px;
-
+margin-right:10px;
+border-right: 1px solid #E4DBCC;
 }
 
 
@@ -152,9 +153,13 @@ div#search {
     float: right;
     color: black; 
     font-weight: normal;
-    margin: 7px 7px -9px 0px;
+    margin: 15px;
     padding: 0;
     height: 24px;
+}
+
+div#search input {
+	margin: 0 1px 0 5px;
 }
 
 div#search-tab {
@@ -171,25 +176,29 @@ div#search-tab {
 
 /* style the sharing functionality, including the styles that jquery.sharing expects */
 div#sharing_container {
-    float: right;
-    margin-top: 11px;
-    margin-right: 6px;
-     border: 1px solid #adadad;
-     background-color #f9f9f9;
-     max-height: 19px;
+   
+     float: right;
+    margin: 8px 14px 0 0;
+
 }
 
-div#sharing_container #sharing_button {float: left;}
+div#sharing_container #sharing_button {
+cursor: pointer; 
+float: right; 
+border: 1px solid #89a08c; 
+
+
+}
+
 div#sharing_container .sharing_text { margin: 1px; font-size: 11px; color: #000;  }
-div#sharing_container .sharing_link { }
+div#sharing_container a.sharing_link img { border: none;}
 div#sharing_container .sharing_image { width: 15px; height: 15px; margin: 2px; float: right;}
-div#sharing_container #sharing_actions { display: none; float: right; background-color: #eaeaea; border-left: 1px solid #adadad; max-height: 19px;} 
+div#sharing_container #sharing_actions { display: none; float: right; background-color: #eaeaea; border-left: 1px solid #adadad; height: 21px; width: 102px;} 
 
 /*Page Body*/
 
 div#container {
 
-   border-right: 1px solid #3D2800;
    border-bottom: 1px solid #3D2800;
    background-color: #fff;}
 
@@ -229,41 +238,35 @@ div#weather-widget
 {
     background: none;
     position: relative;
-	padding-top: 5px;
-	margin-top: -400px;
-	right: -385px;
+	right: 0px;
 	float: right;
 	min-height: 30px;
-	min-width: 30px;
+	min-width: 237px;
 	-moz-border-radius-bottomleft: 10px 10px;
 	border-bottom-left-radius: 10px 10px;
+	z-index: 100;
+	margin: 0 13px 0 0;
 }
 
 div#weather-widget-tab {
-    float: left;
-    background-color: #fff;
-    padding: 5px 0px 0px 0px;
-    width: 50px;
-    
-    margin-right: 1px;
-    
+    padding: 5px 0px 0px 8px;
+    height: 25px;
     outline:none;
-    transition: all 0.25s ease-in-out;
-    -webkit-transition: all 0.25s ease-in-out;
-    -moz-transition: all 0.25s ease-in-out;
-
-    -moz-border-radius-topleft: 10px 10px;
-    border-top-left-radius: 10px 10px;
-    -moz-border-radius-bottomleft: 10px 10px;
-    border-bottom-left-radius: 10px 10px;
+    color: #ddd;
+    float: right;
+    border: 1px solid #89A08C;
+    border-bottom: none;
+    * width: 160px;
 }
 
-div#weather-widget-tab:hover {
-    cursor: pointer;
-    cursor: hand;
-    /** Doesn't work well in IE box-shadow: 0 20px rgba(255, 255, 255, 1); **/
-    -webkit-box-shadow: 0 0 20px rgba(255, 255, 255, 1); 
-    -moz-box-shadow: 0 0 20px rgba(255, 255, 255, 1); 
+
+div#weather-widget-content {
+    height: 205px;
+    display: none;
+    position: absolute;
+    width: 400px;
+    top: 31px;
+    * right: -130px;
 }
 
 div#weather-widget-tab img:hover {
@@ -297,7 +300,6 @@ div#weather-widget div.action a
 div#data {
     float: left;
 	background-color: #fff;
-	margin-right: 1px;
 	padding: 5px 5px 0 5px;
 	width: 155px;
 	-moz-border-radius-bottomleft: 10px 10px;
@@ -309,7 +311,7 @@ div#webcam {
     float: left;
 	background-color: #fff;
 	padding: 5px 5px 0 5px;
-	width: 200px;
+	width: 196px;
 }
 
 div#data h6,
@@ -331,12 +333,12 @@ div#data img {
     clip: rect(50px 200px 223px 35px);
     height: 250px;*/
     width: auto;
-    height: 135px;
+    height: 133px;
     
 }
 
 div#webcam img {
-	height: 135px;
+	height: 133px;
 	width: auto;
 }
 
@@ -345,7 +347,7 @@ div#photoswitcher {
     padding: 0;
     display: block;
     width: 100%;
-    max-width: 1600px;
+    max-width: 1200px;
     height: 400px;
 }
 
@@ -673,6 +675,12 @@ table#search-table tr td#results_column {
 	background-color: none;
 	text-align: left;
 }
+
+table#search-table tr td#results_column a {
+    font-weight: bold;
+    color: black;
+}
+
 
 div#facets {
     width: 400px;

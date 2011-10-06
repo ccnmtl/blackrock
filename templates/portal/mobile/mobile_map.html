@@ -78,7 +78,7 @@
     
     <script type="text/javascript">
         $('#page-map').live("pagecreate", function() {
-            alert(".page-map pagecreate");
+            //alert(".page-map pagecreate");
             portalMapInstance.initialize();
 
             if (!portalMapInstance.canLocate()) {
@@ -87,7 +87,7 @@
         });
 
         $('#page-locate').live("pagebeforeshow", function() {
-            alert("page-locate pagebeforeshow");
+            //alert("page-locate pagebeforeshow");
             if (portalMapInstance.currentPosition) {
                 jQuery("#current_position").html(portalMapInstance.currentPosition.getPosition().toString());
             }

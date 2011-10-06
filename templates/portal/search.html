@@ -8,6 +8,8 @@
     {{ block.super }}
 {% endblock %}
 
+{% block search_tab %}{% endblock %}
+
 {% block container %}
 <div id="search-wrapper">
 <form method="get" action=".">
@@ -44,9 +46,9 @@
         <div class="ui-widget" style="margin-left: 20px; margin-right: 10px;">
             {% if page.has_previous or page.has_next %}
                 <div style="float: right">
-                    {% if page.has_previous %}<a href="?{{ query }}page={{ page.previous_page_number }}">&laquo; Previous</a>{% endif %}
+                    {% if page.has_previous %}&laquo; <a href="?{{ query }}page={{ page.previous_page_number }}">Previous</a>{% endif %}
                     {% if page.has_previous and page.has_next %}|{% endif %}
-                    {% if page.has_next %}<a href="?{{ query }}page={{ page.next_page_number }}">Next &raquo;</a>{% endif %}
+                    {% if page.has_next %}<a href="?{{ query }}page={{ page.next_page_number }}">Next</a> &raquo;{% endif %}
                 </div>
             {% endif %}
             <h3 style="margin-top: 5px;">
@@ -70,9 +72,9 @@
             </div>
             {% if page.has_previous or page.has_next %}
                 <div style="float: right;" class="ui-widget">
-                    {% if page.has_previous %}<a href="?{{ query }}page={{ page.previous_page_number }}">&laquo; Previous</a>{% endif %}
+                    {% if page.has_previous %}&laquo; <a href="?{{ query }}page={{ page.previous_page_number }}">Previous</a>{% endif %}
                     {% if page.has_previous and page.has_next %}|{% endif %}
-                    {% if page.has_next %}<a href="?{{ query }}page={{ page.next_page_number }}">Next &raquo;</a>{% endif %}
+                    {% if page.has_next %}<a href="?{{ query }}page={{ page.next_page_number }}">Next</a> &raquo;{% endif %}
                 </div>
             {% endif %}
         </div>

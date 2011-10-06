@@ -111,7 +111,7 @@ function initGraph() {
   g.set_theme({
     marker_color: '#aea9a9',
     font_color: 'black',
-    background_colors: ['white', 'white'],
+    background_colors: ['white', 'white']
   });
   g.hide_dots = true;
   g.hide_title = true;

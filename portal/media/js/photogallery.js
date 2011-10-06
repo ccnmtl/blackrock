@@ -49,17 +49,4 @@ jQuery(document).ready(function() {
         itemVisibleOutCallback: carousel_visibleOutCallback,
         itemVisibleInCallback: { onBeforeAnimation: carousel_visibleInCallback, onAfterAnimation: null }
      });
-    
-    jQuery('#weather-widget-tab').click(function(event){
-        var widget = jQuery("#weather-widget");
-        var tab = jQuery('#weather-widget-tab');
-        
-        if (widget.hasClass('open')) {
-            widget.animate({right: "-" + (widget.outerWidth() - tab.outerWidth()) }, 300).removeClass('open');
-        } else {
-            widget.animate({right:'0'}, 300).addClass('open');
-        }
-        event.preventDefault();
-    });
-
 });

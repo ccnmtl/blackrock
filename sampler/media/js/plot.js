@@ -17,7 +17,10 @@ function updateScale(new_scale) {
   }
 
   $('scale-legend').innerHTML = Math.round(scale*100) / 100;
-  setStyle('scale-bar', {'width':scale});
+  
+  if (scale != undefined) {
+      setStyle('scale-bar', {'width':scale});
+  }
 }
 
 function zoom(factor) {

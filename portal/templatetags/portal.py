@@ -155,6 +155,15 @@ def gallery(obj):
                 images.append(d)
     return images
 
+@register.filter('weather_time')
+def weather_time(obj):
+    from datetime import datetime
+    
+    today = datetime.today()
+    minute = today.minute / 10 * 10 
+
+    return "%02d_%02d" % (today.hour, minute) 
+
 @register.filter('related')
 def related(object):
     related = []

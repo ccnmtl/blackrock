@@ -12,19 +12,19 @@
     <div id="left">
     <div class="header-row"><h5 id="header-copy">Still Views By Date</h5></div>
         <div class="box-content">
-        <h4 style="text-align: left">Select a date: <input id="datepicker" type="text" value="05/15/2011" style="width: 100px"></h4>
+        <h4 style="text-align: left">Select a date: <input id="datepicker" type="text" value="05/15/2011" style="width: 100px">&nbsp;<img id="calendar_icon" style="vertical-align:middle;" src="/portal/media/images/calendar.gif" alt="calendar icon"/></h4>
         <center>
             <div class="big-still">
                 <img src="" id="current_image"></img>
             <span id="current_image_text" class="caption"></span></div>
-           <div id="flow-container">
-           <p>Drag the slider to scroll through the last 24 hours</p>
-       
-        <div id="webcam-flow" class="imageflow"></div>
-        <div style="float: left; margin-left: 25px; margin-top: -25px; font-size: 90%;">Earlier</div>
-        <div id="webcam-flow_key" style="display: none">
-        <div style="float: right; margin-right: 25px; margin-top: -25px; font-size: 90%;">Later</div>
-        </div>
+            <div id="flow-container">
+                <p>Drag slider to scroll back 24 hours</p>
+           
+                <div id="webcam-flow" class="imageflow"></div>
+                <div style="float: left; margin-left: 25px; margin-top: -25px; font-size: 90%;">Earlier</div>
+                <div id="webcam-flow_key" style="display: none">
+                <div style="float: right; margin-right: 25px; margin-top: -25px; font-size: 90%;">Later</div>
+            </div>
         </div>
       </center>
         <br class="clear" />
@@ -86,8 +86,9 @@
     jQuery(document).ready(function() {
 
         jQuery("#datepicker").datepicker({
-            // we only have pics going back to 3/4/11
-            minDate: new Date(2011, 3 - 1, 4),
+            // we only have pics AND thumbs going back to 3/29/11
+            minDate: new Date(2011, 3 - 1, 29),
+            
             // the camera broke on 5/15 -- cap selection to this date
             maxDate: new Date(2011, 5 - 1, 15), // "+0" for "now"
 
@@ -103,6 +104,10 @@
 
         var height = jQuery("div#forestcam div#left").innerHeight();
         jQuery("div#forestcam div#right").css("height", height + "px");
+
+        
+        
+        jQuery("#calendar_icon").click(function() { jQuery("#datepicker").datepicker("show"); });
     });
 
     function switchvideo(a, id) {

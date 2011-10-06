@@ -22,25 +22,19 @@
 <script type="text/javascript" src="/respiration/media/js/graph.js"></script> 
 
 <script type="text/javascript">
-  function setActiveTab() { addElementClass("{% block tabname %}tab-leaf{% endblock %}", "tab-selected"); }
+  function setActiveTab() {
+      var tabname = "{% block tabname %}tab-leaf{% endblock %}";
+      if (document.getElementById(tabname) != null) { 
+          addElementClass(tabname, "tab-selected"); 
+      }
+  }
   addLoadEvent(setActiveTab);
 </script>
 {% endblock %} 
 
-{% block browsersupport %}
-<!--[if lt IE 8]>
-<script src="http://ccnmtl.columbia.edu/remote/alerts/browser/ienosupport.js" type="text/javascript" language="javascript"></script>
-<link rel="stylesheet" href="http://ccnmtl.columbia.edu/remote/alerts/browser/ienosupport.css" type="text/css" media="all" />
-<![endif]-->
-{% endblock %}
-
 {% block masthead %} 
-Tree Respiration
+    Tree Respiration
 {% endblock %} 
-
-{% block browserwarning %}
-<!--[if lt IE 8]><div id="browserwarning"></div><![endif]-->
-{% endblock %}
 
 {% block content %}
 <div id="respiration_content">
@@ -168,5 +162,11 @@ Tree Respiration
 	  </div>
 	</div>
 </div> <!-- end div "container" -->
+{% endblock %}
 
+{% block script_footer %}    
+    <script type="text/javascript">
+        /* Select from list: Chrome, Firefox, Safari, MSIE */
+        shieldbrowser({"Chrome": 1, "Firefox": 3.6, "Safari": 4, "MSIE": 8 });
+    </script>
 {% endblock %} 

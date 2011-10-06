@@ -63,6 +63,7 @@
                {% if current_object.person.count %}
                   <h4>Principal Investigator{% if current_object.person.count > 1 %}s{% endif %}</h4>:
                   {% for p in current_object.person.all %}{% if forloop.counter > 1 %}, {% endif %}<a style="display: inline" href="{{p|detail_url}}">{{ p|display_name }}</a>{% endfor %}
+                  <br />
                {% endif %}
           
                {% if current_object.dataset.count %}
@@ -72,6 +73,7 @@
                     {{ d.name }}
                     </a>
                   {% endfor %}
+                  <br />
                {% endif %}
                
                {% if current_object.description %}
