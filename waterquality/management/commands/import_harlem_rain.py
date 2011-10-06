@@ -76,7 +76,6 @@ class Command(BaseCommand):
 
             daily_rainfall = float(yearly_rainfall) - previous_days_rainfall
             previous_days_rainfall = float(yearly_rainfall)
-            print date,yearly_rainfall, daily_rainfall
             for hour in range(24):
                 datetime = date + " %02d:00:00" % hour
                 r = Row.objects.create(series=series,timestamp=datetime,value=str(daily_rainfall * 25.4))

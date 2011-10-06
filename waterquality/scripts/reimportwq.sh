@@ -8,3 +8,4 @@ SETTINGS=$1
 ./manage.py import_brf_lowlands --settings=$SETTINGS
 ./manage.py trim_data --settings=$SETTINGS
 ./manage.py avg_harlem --settings=$SETTINGS
+./manage.py fix_nulls --settings=$SETTINGS

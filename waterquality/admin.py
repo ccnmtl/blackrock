@@ -3,3 +3,4 @@ from django.contrib import admin
 
 admin.site.register(Location)
 admin.site.register(Series)
+admin.site.register(Row)
