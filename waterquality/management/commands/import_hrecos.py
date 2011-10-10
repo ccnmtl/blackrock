@@ -5,14 +5,22 @@ import csv
 months = dict(Jan=1,Feb=2,Mar=3,Apr=4,May=5,Jun=6,Jul=7,Aug=8,Sep=9,Oct=10,
               Nov=11,Dec=12)
 
-def fixdatetime(date,time):
-    (m,d,y) = date.split("/")
-    return "%d-%02d-%02d %s" % (int(y),int(m),int(d),time)
-
 def get_datetime(row):
     date = row[0]
     hour = int(row[1].split(":")[0])
     return "%s %02d:00:00" % (date,hour)
+
+BLACKOUT_DATES = [
+    (9, [10, 11, 15, 16, 18,21]),
+    (10, [20, 23, 24, 25, 30]),
+    (11, [24]),
+    (12, [2, 12, 23, 26])]
+
+blackout_dates_strings = dict()
+for (m,days) in BLACKOUT_DATES:
+    for d in days:
+        s = "2009-%02d-%02d" % (m,d)
+        blackout_dates_strings[s] = 1
 
 class Command(BaseCommand):
     args = ''
@@ -33,8 +41,8 @@ class Command(BaseCommand):
         all_units = ["YYYY-MM-DD","h:mm","ppm","mm","pH"]
 
         columns = [2,3,4]
-        units = ["ohms","ppm","Celcius"]
-        names = ["HRECOS Conductivity","HRECOS dO","HRECOS Temperature"]
+        units = ["psu","mg/L","Celcius"]
+        names = ["GW Bridge Salinity", "GW Bridge DO", "GW Bridge Temp"]
 
         # prep the series
         series_objects = dict()
@@ -51,6 +59,8 @@ class Command(BaseCommand):
             for c in columns:
                 series = series_objects[c]
                 datum = row[c] or "0.0"
+                if datetime[:10] in blackout_dates_strings:
+                    datum = "0.0"
                 try:
                     r = Row.objects.create(series=series,
                                            timestamp=datetime,
