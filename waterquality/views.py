@@ -211,5 +211,5 @@ def get_default_start():
     return Series.objects.all()[0].row_set.all()[0].timestamp
 
 def get_default_end():
-    return Series.objects.all()[0].row_set.all().order_by("-timestamp")[0].timestamp
+    return datetime(year=2009,month=12,day=31)
 
