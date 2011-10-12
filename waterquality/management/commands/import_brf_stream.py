@@ -33,7 +33,7 @@ class Command(BaseCommand):
         columns = [6,7,9,10]
         names = ["Blackrock Forest Stream Conductivity","Blackrock Forest Stream Temp",
                  "Blackrock Forest Stream Dissolved Oxygen","Blackrock Forest Stream pH"]
-        units = ["ohms","Celcius","ppm","ph"]
+        units = ["ohms","Celcius","mg/L","ph"]
 
         # prep the series
         series_objects = dict()
