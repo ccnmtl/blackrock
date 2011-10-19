@@ -29,7 +29,7 @@ class Command(BaseCommand):
 
 
         columns = [3,10,18]
-        units = ["mg/L","Celcius","psu"]
+        units = ["mg/L","Celsius","psu"]
         names = ["Harlem Dissolved Oxygen","Harlem Temp","Harlem Salinity"]
 
         # prep the series

@@ -37,7 +37,7 @@ class Command(BaseCommand):
 
         columns = [4,18]
         names = ["Blackrock Forest Lowlands Temp","Blackrock Forest Lowlands Rainfall"]
-        units = ["Celcius","mm"]
+        units = ["Celsius","mm"]
 
         # prep the series
         series_objects = dict()

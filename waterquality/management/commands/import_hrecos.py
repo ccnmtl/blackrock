@@ -41,7 +41,7 @@ class Command(BaseCommand):
         all_units = ["YYYY-MM-DD","h:mm","ppm","mm","pH"]
 
         columns = [2,3,4]
-        units = ["psu","mg/L","Celcius"]
+        units = ["psu","mg/L","Celsius"]
         names = ["GW Bridge Salinity", "GW Bridge DO", "GW Bridge Temp"]
 
         # prep the series
