@@ -10,6 +10,7 @@
 	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript"></script>
+	
 	<script src="/site_media/js/facebox.js" type="text/javascript"></script>
 	<script src="/site_media/js/highcharts.js" type="text/javascript"></script>
 	<script src="/site_media/js/modules/exporting.js" type="text/javascript"></script>
@@ -270,6 +271,32 @@
 		
 		ul.anchorlinks {margin-bottom: 50px;}
 		
+		#graphingtool {
+		border: 1px solid #ccc;
+		background-color: #eee; 
+		margin: 20px;
+		-webkit-border-radius: 10px;
+		-moz-border-radius: 10px;
+		border-radius: 10px;		
+		}
+		
+		#graphingtool-inner {
+		padding: 0px 20px 20px 20px;
+}
+		
+		#activitiescontainer {
+		border: 1px solid #ccc;
+		margin: 20px;
+		-webkit-border-radius: 10px;
+		-moz-border-radius: 10px;
+		border-radius: 10px;		
+		}
+		
+		#graphingtool-inner {
+		padding: 0px 20px 20px 20px;
+		
+}
+		.content-nav, .content-nav a  {font-size: 12px;}
 	</style>
 	
 	<!--[if IE 8]>
@@ -288,9 +315,10 @@
 
 {% block breadcrumbs %}
 	<ul>
-	<li><a href="/waterquality/introduction/" rel="facebox">Introduction</a></li>
-	<li><a href="/waterquality/requiredreading/rr00/" rel="facebox">Required Reading</a></li>
-	<li><a href="/waterquality/otherresources/or00/" rel="facebox">Other Resources</a></li>
+	<li><a href="/waterquality/introduction/">Introduction</a></li>
+	<li><a href="/waterquality/">Activities</a></li>
+	<li><a href="/waterquality/requiredreading/rr00/">Required Reading</a></li>
+	<li><a href="/waterquality/otherresources/or00/">Other Resources</a></li>
 	<li><a id="browselink" href="{% url waterquality-browse %}" style="float: right;">Browse Data</a></li>
 	</ul>
 {% endblock %}
@@ -300,39 +328,39 @@
 <div id="contentcontainer">
 	
 	<!--start graphing activities -->
-	<h1>Activities</h1>
-	<div class="content-nav" >
+	
+	
+	<!--<h1>Activities</h1>-->
+	
+	
+	<div class="content-nav" style="text-align: center;">
 
 	{% if section.get_previous %}
-	<a href="{{section.get_previous.get_absolute_url}}" id="previous">&larr; Previous: "{{section.get_previous.label}}"</a>
+	<a href="{{section.get_previous.get_absolute_url}}" id="previous">&larr; Previous Activity</a> |
 	{% endif %}
-	&nbsp;
+	
+	{% for module in modules %}
+	<a href="{{module.get_absolute_url}}" title="{{module.label}}">{{module.id}}</a>
+	{% endfor %}
+	
 	{% if section.get_next %}
 	{% with section.get_next as next_section %}
-	<a style="float: right;" href="{{section.get_next.get_absolute_url}}" id="next">Next: "{{section.get_next.label}}" &rarr;</a>
+	| <a href="{{section.get_next.get_absolute_url}}" id="next">Next Activity &rarr; </a>
 	{% endwith %}
 	{% endif %}
 
-</div>
-	<div id="questions" style="position: relative;">
-
-	<form style="position: absolute; top: 50px; right: 0px;">
-		<select style="width: 200px;" onchange="window.location=this.value">
-		<option>Choose an Activity:</option>
-		<option>----------------------</option>
-		{% for module in modules %}
-		<option value="{{module.get_absolute_url}}">{{module.label}}</option>
-		{% endfor %}
-
-		</select>
-		</form>
+	</div>
+	
 		
-	<div id="activitiescontainer" style="margin-right: 250px;">
+		
+		
+	<div id="activitiescontainer">
 		
 		<div id="activity001" class="activity">
 		
 		<h3>{{section.label}}</h3>
 		
+		<!--
 		<form>
 		<label id="completed-label" class="completed">
 		<input type="checkbox" checked="checked"
@@ -340,8 +368,10 @@
 		Completed
 		</label>
 		</form>
-
-			<div style="overflow: auto; height: 300px; padding-right: 30px;">
+		-->
+		
+		
+			<div style="overflow: auto; height: 400px; padding-right: 30px;">
 			{% for block in section.pageblock_set.all %}
 			{% if block.label %}<h3>{{block.label}}</h3>{% endif %}
 			{% render block %}
@@ -353,11 +383,13 @@
 	</div>
 	
 	
-</div>
 	<!--stop graphing activities -->
 	
 	<!--start graphing tool -->
-	<h1>Graphing Tool</h1>
+	<div id="graphingtool">
+	<div id="graphingtool-inner">
+	
+	<h3>Graphing Tool</h3>
 	<form action="." method="get">
 	
 	{% if type %}
@@ -537,6 +569,10 @@
 	  not being displayed. Please try again by selecting fewer data series or
 	  a smaller date range.</p>
 	{% endif %}
+	
+	
+	</div>
+	</div>
 	<!--stop graphing tool -->
 	
 </div>
