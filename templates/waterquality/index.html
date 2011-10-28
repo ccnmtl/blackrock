@@ -315,11 +315,16 @@
 
 {% block breadcrumbs %}
 	<ul>
+	<!--
 	<li><a href="/waterquality/introduction/">Introduction</a></li>
-	<li><a href="/waterquality/">Activities</a></li>
+	<li><a href="/waterquality/">Graphing Tool</a></li>
 	<li><a href="/waterquality/requiredreading/rr00/">Required Reading</a></li>
 	<li><a href="/waterquality/otherresources/or00/">Other Resources</a></li>
 	<li><a id="browselink" href="{% url waterquality-browse %}" style="float: right;">Browse Data</a></li>
+	-->
+	<li><a href="/waterquality/">Graphing Tool</a></li>
+	<li><a href="/waterquality/">Teaching Resources</a></li>
+	<li><a id="browselink" href="{% url waterquality-browse %}">Browse Data</a></li>
 	</ul>
 {% endblock %}
 
@@ -327,10 +332,11 @@
 
 <div id="contentcontainer">
 	
-	<!--start graphing activities -->
+	<!-- 
+	<!~~start graphing activities ~~>
 	
 	
-	<!--<h1>Activities</h1>-->
+	<!~~<h1>Activities</h1>~~>
 	
 	
 	<div class="content-nav" style="text-align: center;">
@@ -350,17 +356,14 @@
 	{% endif %}
 
 	</div>
-	
-		
-		
-		
+
 	<div id="activitiescontainer">
 		
 		<div id="activity001" class="activity">
 		
 		<h3>{{section.label}}</h3>
 		
-		<!--
+		<!~~
 		<form>
 		<label id="completed-label" class="completed">
 		<input type="checkbox" checked="checked"
@@ -368,7 +371,7 @@
 		Completed
 		</label>
 		</form>
-		-->
+		~~>
 		
 		
 			<div style="overflow: auto; height: 400px; padding-right: 30px;">
@@ -383,7 +386,16 @@
 	</div>
 	
 	
-	<!--stop graphing activities -->
+	<!~~stop graphing activities ~~>
+	 -->
+	
+	
+	<h3>Using the Graphing Tool</h3>
+	
+	<p>
+	Instructions go here.
+	</p>
+	
 	
 	<!--start graphing tool -->
 	<div id="graphingtool">
