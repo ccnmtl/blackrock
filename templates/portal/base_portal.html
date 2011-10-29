@@ -70,29 +70,26 @@
         {% endif %}
             
         <div id="sharing_container">
-
-       
             <div id="sharing_actions"></div>
             <img id="sharing_button" src="/portal/media/images/share_button.png" alt="share button" />
             <div id="weather-widget">
-            <div id="weather-widget-tab"><img src="/portal/media/images/down_arrow.png" alt="Open Weather Widget" style="float: right;"/>Current Conditions &nbsp; &nbsp; </div>
-            <div id="weather-widget-content">        
-                <div id="data">
-                    <div class="weather-widget-title">Open Lowland Station</div>
-                    <h6>as of {% now "g a" %} on {% now "m/d/y" %}</h6>
-                    <p><img src="{% value_from_settings BLACK_ROCK_FEED %}data/current/Widget.png" alt="Current Conditions Widget" /></p>
-                    <div class="action"><a href="/portal/weather/">More >></a></div>
-                </div>
-            
-                <div id="webcam">
-                    <div class="weather-widget-title">ForestCam</div>
-                    <h6>&nbsp;</h6>
-                    <p><img src="{% value_from_settings BLACK_ROCK_FEED %}webcam/2011/05/15/Black_Rock_{{ now|weather_time }}.jpg" alt="Current Forest View" /></p>
-                    <div class="action"><a href="/portal/forest-view/">More >></a></div>
+                <div id="weather-widget-tab"><img src="/portal/media/images/down_arrow.png" alt="Open Weather Widget" style="float: right;"/>Current Conditions &nbsp; &nbsp; </div>                
+                <div id="weather-widget-content">        
+                    <div id="data">
+                        <div class="weather-widget-title">Open Lowland Station</div>
+                        <h6>as of {% now "g a" %} on {% now "m/d/y" %}</h6>
+                        <p><img src="{% value_from_settings BLACK_ROCK_FEED %}data/current/Widget.png" alt="Current Conditions Widget" /></p>
+                        <div class="action"><a href="/portal/weather/">More >></a></div>
+                    </div>
+                
+                    <div id="webcam">
+                        <div class="weather-widget-title">ForestCam</div>
+                        <h6>&nbsp;</h6>
+                        <p><img src="{% value_from_settings BLACK_ROCK_FEED %}webcam/2011/05/15/Black_Rock_{{ now|weather_time }}.jpg" alt="Current Forest View" /></p>
+                        <div class="action"><a href="/portal/forest-view/">More >></a></div>
+                    </div>
                 </div>
             </div>
-            </div>
-
         </div>
        
     </div>

@@ -14,9 +14,7 @@ jQuery(document).ready(function() {
       });
       
       jQuery('#sharing_button').click(function() {
-         jQuery('#sharing_actions').toggle('fast', function() {
-         // Animation complete.
-	 });
+         jQuery('#sharing_actions').toggle();
       });
 
     // bind a call to google analytics to track share events 
