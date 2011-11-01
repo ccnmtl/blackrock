@@ -32,6 +32,7 @@ div#mainnav
     background-color: #1F2A1E;
     height: 39px;
     margin: 0;
+    border-bottom: 2px solid #fff;
 }
 
 
@@ -363,6 +364,14 @@ div#container table td#left {
   border-collapse: collapse;
   min-width: 300px;
   padding: 0 30px 10px 10px;
+}
+
+div#container table td#left div.learning_activities {
+
+    background-color: #eee1e2;
+    border: 1px solid #7a1e15;
+    padding: 0px 15px 5px;
+    margin: 25px 0;
 }
 
 div#container table td#right {
@@ -776,6 +785,8 @@ div.asset-types {
 	margin: 5px 0 10px 0;
 	display: block;
 }
+
+
 
 /*Weather Page*/
 
