@@ -315,13 +315,6 @@
 
 {% block breadcrumbs %}
 	<ul>
-	<!--
-	<li><a href="/waterquality/introduction/">Introduction</a></li>
-	<li><a href="/waterquality/">Graphing Tool</a></li>
-	<li><a href="/waterquality/requiredreading/rr00/">Required Reading</a></li>
-	<li><a href="/waterquality/otherresources/or00/">Other Resources</a></li>
-	<li><a id="browselink" href="{% url waterquality-browse %}" style="float: right;">Browse Data</a></li>
-	-->
 	<li><a href="/waterquality/">Graphing Tool</a></li>
 	<li><a href="/waterquality/">Teaching Resources</a></li>
 	<li><a id="browselink" href="{% url waterquality-browse %}">Browse Data</a></li>
@@ -331,64 +324,6 @@
 {% block content %}
 
 <div id="contentcontainer">
-	
-	<!-- 
-	<!~~start graphing activities ~~>
-	
-	
-	<!~~<h1>Activities</h1>~~>
-	
-	
-	<div class="content-nav" style="text-align: center;">
-
-	{% if section.get_previous %}
-	<a href="{{section.get_previous.get_absolute_url}}" id="previous">&larr; Previous Activity</a> |
-	{% endif %}
-	
-	{% for module in modules %}
-	<a href="{{module.get_absolute_url}}" title="{{module.label}}">{{module.id}}</a>
-	{% endfor %}
-	
-	{% if section.get_next %}
-	{% with section.get_next as next_section %}
-	| <a href="{{section.get_next.get_absolute_url}}" id="next">Next Activity &rarr; </a>
-	{% endwith %}
-	{% endif %}
-
-	</div>
-
-	<div id="activitiescontainer">
-		
-		<div id="activity001" class="activity">
-		
-		<h3>{{section.label}}</h3>
-		
-		<!~~
-		<form>
-		<label id="completed-label" class="completed">
-		<input type="checkbox" checked="checked"
-		onclick="jQuery('#completed-label').toggleClass('completed')" />
-		Completed
-		</label>
-		</form>
-		~~>
-		
-		
-			<div style="overflow: auto; height: 400px; padding-right: 30px;">
-			{% for block in section.pageblock_set.all %}
-			{% if block.label %}<h3>{{block.label}}</h3>{% endif %}
-			{% render block %}
-			{% endfor %}
-			</div>
-
-		</div>
-		
-	</div>
-	
-	
-	<!~~stop graphing activities ~~>
-	 -->
-	
 	
 	<h3>Using the Graphing Tool</h3>
 	
@@ -432,12 +367,6 @@
 	
 	<tr>
 	<th style="color: #435142; width: 150px;text-align: left;">Step 2: Set Graph Parameters</th>
-	<!--
-	<th>
-	Graph Title:
-	<input type="text" name="title" value="{{graph_title}}"/>
-	</th>
-	-->
 	
 	{% ifequal type "time-series" %}
 	<td>
