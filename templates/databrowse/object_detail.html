@@ -75,6 +75,13 @@
                 </ul>
             </div></div></div>
             
+                        {% for image in images %}
+                <div id="jcarousel-caption-{{forloop.counter}}" class="jcarousel-caption">
+                    <h4>{{image.name}}</h4>
+                    <p>{{image.description}}</p>
+                </div>
+            {% endfor %}
+            
             {% if images.1 %}
             <div class="xy_navigation">
                 {% for image in current_object|gallery %}
@@ -83,12 +90,7 @@
             </div>
             {% endif %}
             
-            {% for image in images %}
-                <div id="jcarousel-caption-{{forloop.counter}}" class="jcarousel-caption">
-                    <h4>{{image.name}}</h4>
-                    <p>{{image.description}}</p>
-                </div>
-            {% endfor %}
+
             </center>
         {% endif %}{% endwith %}
         
