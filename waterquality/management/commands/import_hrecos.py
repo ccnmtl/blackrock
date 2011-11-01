@@ -28,7 +28,7 @@ class Command(BaseCommand):
     
     def handle(self, *args, **options):
         print "importing HRECOS data"
-        (site,created) = Site.objects.get_or_create(name='Harlem')
+        (site,created) = Site.objects.get_or_create(name='Hudson')
         (location,created) = Location.objects.get_or_create(name='HRECOS',site=site)
 
         reader = csv.reader(open("waterquality/xls/hrecos_data.csv"))
