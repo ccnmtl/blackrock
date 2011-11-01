@@ -40,7 +40,7 @@ div.jcarousel-caption {
     line-height: normal;
     text-align: center;
     width: 600px;
-    padding-bottom: 5px;
+    padding: 0 5px 5px;
     font-size: 85%;
 }
 
