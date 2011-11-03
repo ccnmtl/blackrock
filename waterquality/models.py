@@ -19,6 +19,10 @@ class Series(models.Model):
     name = models.CharField(max_length=256)
     location = models.ForeignKey(Location)
     units = models.CharField(max_length=256,blank=True,default=u"")
+    ordinality = models.IntegerField(default=0)
+
+    class Meta:
+        ordering = ['ordinality']
 
     def get_absolute_url(self):
         return "/series/%d/" % self.id

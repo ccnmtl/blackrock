@@ -207,6 +207,26 @@ def series_all(request,id):
     series = get_object_or_404(Series,id=id)
     return dict(series=series)
 
+@rendered_with('waterquality/series_verify.html')
+def series_verify(request,id):
+    series = get_object_or_404(Series,id=id)
+    start_date = series.row_set.all()[0].timestamp
+    end_date = series.row_set.all().order_by("-timestamp")[0].timestamp
+    step_date = start_date
+    d = timedelta(hours=1)
+    missing = 0
+    found = 0
+    while step_date < end_date:
+        r = series.row_set.filter(timestamp=step_date)
+        if r.count() == 0:
+            missing += 1
+        else:
+            found += 1
+        step_date = step_date + d
+
+    return dict(missing=missing, found=found, total=series.row_set.all().count())
+
+
 def get_default_start():
     return Series.objects.all()[0].row_set.all()[0].timestamp
 
