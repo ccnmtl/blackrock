@@ -20,11 +20,18 @@
 .xy_navigation {
     text-align: center;
     width: 600px;
-    font-size: 1.3em;
+
 }
+
+.xy_navigation a.jcarousel-selector {
+    font-size: 2.5em;
+    cursor: pointer;
+}
+
 
 .xy_navigation a.jcarousel-selector:hover, .xy_navigation a.jcarousel-selected {
     color: yellow;
+
 }
 
 div.jcarousel-caption {
@@ -33,7 +40,8 @@ div.jcarousel-caption {
     line-height: normal;
     text-align: center;
     width: 600px;
-    padding-bottom: 5px;
+    padding: 0 5px 5px;
+    font-size: 85%;
 }
 
 div.jcarousel-caption h4 {
