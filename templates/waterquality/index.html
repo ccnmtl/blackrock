@@ -234,7 +234,7 @@
 
 	<style type="text/css">
 		
-		table.graphtable th, table.graphtable td {font-size: 10px; padding: 4px;}
+		table.graphtable th, table.graphtable td {font-size: 10px; padding: 4px; vertical-align: top;}
 		
 		#contentcontainer {padding: 20px;}
 		
@@ -348,7 +348,7 @@
 	
 	<table class="graphtable">
 		<tr>
-			<th style="color: #435142; width: 150px;text-align: left;">Step 1: Create Graph</th>
+			<th style="color: #435142; width: 200px;text-align: left;">Step 1: Create Graph</th>
 			<th>Graph Title:</th>
 			<td><input type="text" name="title" value="{{graph_title}}" maxlength="25"/></td>
 
@@ -359,14 +359,11 @@
 		</tr>
 	</table>
 	
-	<p style="float: right;">
-	<input type="submit" value="&larr; Graph This Information" style="background-color: green; color: white;" />
-	</p>
 	
 	<table class="graphtable">
 	
 	<tr>
-	<th style="color: #435142; width: 150px;text-align: left;">Step 2: Set Graph Parameters</th>
+	<th style="color: #435142; width: 200px;text-align: left;">Step 2: Set Graph Parameters</th>
 	
 	{% ifequal type "time-series" %}
 	<td>
@@ -463,6 +460,15 @@
 	
 	</table>
 	
+		<table class="graphtable">
+		<tr>
+		<th style="color: #435142; width: 200px;text-align: left;">Step 3: Graph This Information</th>
+		<td>
+		<input type="submit" value="Create Graph &darr; " style="background-color: green; color: white;" />
+		</td>
+		</tr>
+	</table>
+
 	
 	</div>
 	
@@ -476,7 +482,7 @@
 	
 	<table class="graphtable">
 		<tr>
-			<th style="color: #435142;width: 150px;text-align: left;">Step 1: Create Graph</th>
+			<th style="color: #435142;width: 200px;text-align: left;">Step 1: Create Graph</th>
 			<th>Enter Graph Title:</th>
 			<td><input type="text" name="title" value="{{graph_title}}" maxlength="25"/></td>
 
