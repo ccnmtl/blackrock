@@ -36,7 +36,7 @@ class Command(BaseCommand):
                        "BattVolt","CO2"]
 
         columns = [4,18]
-        names = ["Blackrock Forest Lowlands Temp","Blackrock Forest Lowlands Rainfall"]
+        names = ["BRF Lowlands Temp","BRF Lowlands Rainfall"]
         units = ["Celsius","mm"]
 
         # prep the series

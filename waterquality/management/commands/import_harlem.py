@@ -30,7 +30,7 @@ class Command(BaseCommand):
 
         columns = [3,10,18]
         units = ["mg/L","Celsius","psu"]
-        names = ["Harlem Dissolved Oxygen","Harlem Temp","Harlem Salinity"]
+        names = ["Harlem River DO","Harlem River Temp","Harlem River Salinity"]
 
         # prep the series
         series_objects = dict()

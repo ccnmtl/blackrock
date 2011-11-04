@@ -42,7 +42,7 @@ class Command(BaseCommand):
 
         columns = [2,3,4]
         units = ["psu","mg/L","Celsius"]
-        names = ["GW Bridge Salinity", "GW Bridge DO", "GW Bridge Temp"]
+        names = ["Hudson River Salinity", "Hudson River DO", "Hudson River Temp"]
 
         # prep the series
         series_objects = dict()
