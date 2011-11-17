@@ -2,41 +2,76 @@
 
 {% block title %}Water Quality{% endblock %}
 
-{% block css %}
-<style>
-#contentcontainer {padding: 20px;}
-#datatable {width: 100%; border: 1px solid #ccc; border-collapse: collapse;}
-#datatable th, #datatable td {padding: 5px; border: 1px solid #ccc; border-collapse: collapse;}
-#datatable th {text-align: left; background-color: #eee;}
-#datatable td.seriesname {font-weight: bold;}
+{% block js %}
 
-</style>
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/base/jquery-ui.css" type="text/css" media="all" /> 
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript"></script>
+	
+	<script src="/site_media/js/facebox.js" type="text/javascript"></script>
+	<script src="/site_media/js/highcharts.js" type="text/javascript"></script>
+	<script src="/site_media/js/modules/exporting.js" type="text/javascript"></script>
+
+	{% if not show_graph %}
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$('a[rel*=facebox]').facebox();   
+	$(document).bind('reveal.facebox', function() {
+	        $('#facebox a[rel*=facebox]').facebox();
+	});
+
+	})
+	</script>
+	{% endif %}
+
+{% endblock %}
+
+{% block css %}
+
+	<style type="text/css">
+	@import "/site_media/css/waterquality/waterquality.css" ;
+	</style>
+	
+	<!--[if IE 8]>
+	<style>
+	@import "/site_media/css/waterquality/waterquality_ie.css" ;
+    </style>
+	<![endif]-->	
+
 {% endblock %}
 
 {% block masthead %}
 	Water Quality
 {% endblock %}
 
+{% block breadcrumbs %}
+	<ul>
+	<li><a href="/waterquality/">Graphing Tool</a></li>
+	<li><a href="{% url waterquality-browse %}">Data Browser</a></li>
+	<li><a id="teachlink" rel="facebox" href="/waterquality/teaching/">Teaching Resources</a></li>
+	</ul>
+{% endblock %}
+
 {% block content %}
 
 	<div id="contentcontainer">
 
-		<p>
-		<input type=button onClick="parent.location='javascript:history.go(-1)'" value='&laquo; Back to Graphing Tool'>
-		</p>
-		
-	<h2>Browse Data</h2>		
+	<h3>Data Browser</h3>
+	
 		<table id="datatable">
+		
 		<tr>
-		  <th>series</th>
-		  <th>units</th>
-		  <th>count</th>
-		  <th colspan="2">range</th>
-		  <th>min</th>
-		  <th>max</th>
-		  <th>mean</th>
-		  <th>stddev</th>
+		  <th>Series</th>
+		  <th>Units</th>
+		  <th>Count</th>
+		  <th colspan="2">Range</th>
+		  <th>Min</th>
+		  <th>Max</th>
+		  <th>Mean</th>
+		  <th>Std. Dev.</th>
 		</tr>
+		
 		{% for series in series %}
 		<tr class="{% cycle 'even' 'odd' %}">
 		<td class="seriesname">{{series.location.site.name}}/{{series.location.name}}/<a href="{% url waterquality-series series.id %}">{{series.name}}</a></td>
@@ -49,6 +84,7 @@
 		<td>{{series.stddev|floatformat}}</td>
 		</tr>
 		{% endfor %}
+		
 		</table>
 	
 	</div>
