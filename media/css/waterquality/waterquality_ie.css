@@ -1,0 +1,7 @@
+#breadcrumbs ul { padding-left: 40px; }
+
+#breadcrumbs ul li a#teachlink
+{
+	padding-right: 20px;
+	margin-top: -28px;
+}

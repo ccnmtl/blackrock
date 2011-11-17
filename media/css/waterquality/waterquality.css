@@ -1,0 +1,103 @@
+table.graphtable th, table.graphtable td
+{
+	font-size: 10px;
+	padding: 4px;
+	vertical-align: top;
+}
+
+#contentcontainer { padding: 20px; }
+.activity { padding: 20px; }
+h1 { border-bottom: 1px solid #ccc; }
+#breadcrumbs a { text-decoration: none !important; }
+#breadcrumbs a:hover { text-decoration: underline !important; }
+a { text-decoration: underline !important; }
+a:hover { text-decoration: none !important; }
+
+#facebox .content
+{
+	width: 800px !important;
+	display: block !important;
+	overflow: auto;
+	height: 600px;
+	padding: 40px;
+	border-radius: 0 !important;
+}
+
+#facebox .close
+{
+	right: 20px !important;
+	top: 10px !important;
+	border: 1px solid #ccc;
+}
+
+li { margin-top: 10px; }
+
+p.top
+{
+	margin-bottom: 50px;
+	border-top: 1px solid #ccc;
+	padding-top: 5px;
+}
+
+p.reference { font-size: 11px; }
+ul.anchorlinks { margin-bottom: 50px; }
+
+#graphingtool
+{
+	border: 1px solid #ccc;
+	background-color: #eee;
+	margin: 20px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
+#graphingtool-inner { padding: 0px 20px 20px 20px; }
+
+#activitiescontainer
+{
+	border: 1px solid #ccc;
+	margin: 20px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
+#graphingtool-inner { padding: 0px 20px 20px 20px; }
+.content-nav, .content-nav a { font-size: 12px; }
+
+table.graphtable th
+{
+	color: #435142;
+	width: 200px;
+	text-align: left;
+}
+
+#datatable
+{
+	width: 100%;
+	border: 1px solid #ccc;
+	border-collapse: collapse;
+}
+
+#datatable th, #datatable td
+{
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-collapse: collapse;
+}
+
+#datatable th
+{
+	text-align: left;
+	background-color: #eee;
+}
+
+#datatable td.seriesname { }
+a#teachlink { float: right; }
+
+table.graphtable th, table.graphtable td
+{
+	font-size: 10px;
+	padding: 4px;
+}
