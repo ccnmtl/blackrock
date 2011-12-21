@@ -22,6 +22,10 @@ class rendered_with(object):
 
 @rendered_with('waterquality/index.html')
 def index(request):
+    return dict()
+
+@rendered_with('waterquality/graphing_tool.html')
+def graphing_tool(request):
     data = dict()
     start = request.GET.get('start',None)
     end = request.GET.get('end',None)
