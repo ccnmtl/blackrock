@@ -18,3 +18,7 @@ TEMPLATE_DEBUG = DEBUG
 
 HAYSTACK_SOLR_URL = 'http://wwwappdev.cc.columbia.edu/ccnmtl/solr/blackrock_portal'
 
+try:
+    from local_settings import *
+except ImportError:
+    pass
