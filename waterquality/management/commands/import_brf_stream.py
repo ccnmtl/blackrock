@@ -31,8 +31,8 @@ class Command(BaseCommand):
                        "Liters_s","Depth_Ft","Flow Ft^3/s"]
 
         columns = [6,7,9,10]
-        names = ["Blackrock Forest Stream Conductivity","Cascade Brooks Temp",
-                 "Cascade Brooks DO","Cascade Brooks pH"]
+        names = ["Blackrock Forest Stream Conductivity","Cascade Brook Temp",
+                 "Cascade Brook DO","Cascade Brook pH"]
         units = ["ohms","Celsius","mg/L","ph"]
 
         # prep the series
