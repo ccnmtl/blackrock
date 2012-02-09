@@ -154,7 +154,7 @@ div#search {
     float: right;
     color: black; 
     font-weight: normal;
-    margin: 15px;
+    margin: 13px 15px 15px 15px;
     padding: 0;
     height: 24px;
 }
@@ -173,6 +173,13 @@ div#search-tab {
     font-weight: normal;
     background-color: #89a08c;
     border: 1px #dcd3c2 solid;
+}
+
+a.advancedsearch-link {
+    color: #89A08C;
+    display: block;
+    font-size: 0.8em;
+    margin: 0 0 -9px 5px;
 }
 
 /* style the sharing functionality, including the styles that jquery.sharing expects */
