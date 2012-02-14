@@ -43,7 +43,7 @@ jQuery(document).ready(function() {
         fade: 1,
         auto: 10,
         scroll: 1,
-        size: 5,
+        size: 6,
         wrap: "circular",
         initCallback: carousel_initCallback,
         itemVisibleOutCallback: carousel_visibleOutCallback,
