@@ -12,7 +12,7 @@
     <div id="left">
     <div class="header-row"><h5 id="header-copy">Still Views By Date</h5></div>
         <div class="box-content">
-        <h4>Now Viewing: <input id="datepicker" type="text" value="05/15/2011" style="width: 100px">&nbsp;&nbsp;&nbsp;Change Date: &nbsp;<img id="calendar_icon" style="vertical-align:middle;" src="/portal/media/images/calendar.gif" alt="calendar icon"/></h4>
+        <h4>Now Viewing: <input id="datepicker" type="text" value="Today" style="width: 100px">&nbsp;&nbsp;&nbsp;Change Date: &nbsp;<img id="calendar_icon" style="vertical-align:middle;" src="/portal/media/images/calendar.gif" alt="calendar icon"/></h4>
         <center>
             <div class="big-still">
                 <img src="" id="current_image"></img>
@@ -86,12 +86,10 @@
     jQuery(document).ready(function() {
 
         jQuery("#datepicker").datepicker({
-            // we only have pics AND thumbs going back to 3/29/11
-            minDate: new Date(2011, 3 - 1, 29),
+            // we only have good pics starting in Feb 2012
+            minDate: new Date(2012, 2 - 1, 11),
+            maxDate: "+0",
             
-            // the camera broke on 5/15 -- cap selection to this date
-            maxDate: new Date(2011, 5 - 1, 15), // "+0" for "now"
-
             // onSelect - load the photos from that day
             onSelect: function(dateText, inst) {
                 var pickedDate = jQuery(this).datepicker('getDate');
@@ -100,7 +98,7 @@
             }
         });
 
-        draw_image_flow(15, 5 - 1, 2011);
+        draw_image_flow();
 
         var height = jQuery("div#forestcam div#left").innerHeight();
         jQuery("div#forestcam div#right").css("height", height + "px");
