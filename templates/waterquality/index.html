@@ -2,12 +2,12 @@
 
 {% load render %}
 
-{% block title %}Water Quality{% endblock %}
+{% block title %}Water Chemistry{% endblock %}
 
 {% block css %}
 
 	<style type="text/css">
-	@import "/site_media/css/waterquality/waterquality.css" ;
+	@import "/site_media/css/waterquality/waterquality.css";
 	</style>
 	
  <style type="text/css">
@@ -56,9 +56,9 @@ $(document).ready(function() {
 
 {% block breadcrumbs %}
 	<ul>
-	<li><a href="/waterquality/graph/">Graphing Tool</a></li>
-	<li><a href="{% url waterquality-browse %}">Data Browser</a></li>
-	<li><a id="teachlink" rel="facebox" href="/waterquality/teaching/">Teaching Resources</a></li>
+	<li><a href="/waterchemistry/graph/">Graphing Tool</a></li>
+	<li><a href="{% url waterchemistry-browse %}">Data Browser</a></li>
+	<li><a id="teachlink" rel="facebox" href="/waterchemistry/teaching/">Teaching Resources</a></li>
 	</ul>
 {% endblock %}
 
@@ -82,7 +82,7 @@ $(document).ready(function() {
 
 <p><b>Students:</b> Whether you have been to Black Rock Forest before or have yet to travel to Cornwall, take the next step in your journey to becoming a water quality expert here. Download the <a href="http://ccnmtl.columbia.edu/projects/blackrock/waterquality/teachingresources/Palmer_StudentGuide_020812.zip">Student Guide</a> and the <a href="http://ccnmtl.columbia.edu/projects/blackrock/waterquality/teachingresources/Palmer_StudentJournal_020812.zip">Student Journal</a> to start the Water and the Living Environment's curriculum.</p>
 
-<p>You will also be using the <a href="{% url waterquality-graphing-tool %}">Graphing Tool</a> throughout the curriculum.</p>
+<p>You will also be using the <a href="{% url waterchemistry-graphing-tool %}">Graphing Tool</a> throughout the curriculum.</p>
 </div>
 
 {% endblock %}

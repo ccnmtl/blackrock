@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Water Quality{% endblock %}
+{% block title %}Water Chemistry{% endblock %}
 
 {% block js %}
 
@@ -42,14 +42,14 @@
 {% endblock %}
 
 {% block masthead %}
-	Water Quality
+	Water Chemistry
 {% endblock %}
 
 {% block breadcrumbs %}
 	<ul>
-	<li><a href="/waterquality/">Graphing Tool</a></li>
-	<li><a href="{% url waterquality-browse %}">Data Browser</a></li>
-	<li><a id="teachlink" rel="facebox" href="/waterquality/teaching/">Teaching Resources</a></li>
+	<li><a href="/waterchemistry/">Graphing Tool</a></li>
+	<li><a href="{% url waterchemistry-browse %}">Data Browser</a></li>
+	<li><a id="teachlink" rel="facebox" href="/waterchemistry/teaching/">Teaching Resources</a></li>
 	</ul>
 {% endblock %}
 
@@ -78,7 +78,7 @@
 		
 		{% for series in series %}
 		<tr class="{% cycle 'even' 'odd' %}">
-		<td class="seriesname">{{series.location.site.name}}/{{series.location.name}}/<a href="{% url waterquality-series series.id %}">{{series.name}}</a></td>
+		<td class="seriesname">{{series.location.site.name}}/{{series.location.name}}/<a href="{% url waterchemistry-series series.id %}">{{series.name}}</a></td>
 		<td>{{series.units}}</td>
 		<td>{{series.count}}</td>
 		<td>{{series.start.timestamp}}</td><td>{{series.end.timestamp}}</td>

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Water Quality{% endblock %}
+{% block title %}Water Chemistry{% endblock %}
 
 {% load charts %}
 {% block js %}
@@ -28,26 +28,26 @@
 {% endblock %}
 {% block css %}
 
-	<style type="text/css">
-	@import "/site_media/css/waterquality/waterquality.css" ;
-	</style>
-	
-	<!--[if IE 8]>
-	<style>
-	@import "/site_media/css/waterquality/waterquality_ie.css" ;
+    <style type="text/css">
+    @import "/site_media/css/waterquality/waterquality.css" ;
     </style>
-	<![endif]-->	
+    
+    <!--[if IE 8]>
+    <style>
+    @import "/site_media/css/waterquality/waterquality_ie.css" ;
+    </style>
+    <![endif]-->    	
 
 {% endblock %}
 
 {% block masthead %}
-	Water Quality
+	Water Chemistry
 {% endblock %}
 {% block breadcrumbs %}
 	<ul>
-	<li><a href="/waterquality/">Graphing Tool</a></li>
-	<li><a href="{% url waterquality-browse %}">Data Browser</a></li>
-	<li><a id="teachlink" rel="facebox" href="/waterquality/teaching/">Teaching Resources</a></li>
+	<li><a href="/waterchemistry/">Graphing Tool</a></li>
+	<li><a href="{% url waterchemistry-browse %}">Data Browser</a></li>
+	<li><a id="teachlink" rel="facebox" href="/waterchemistry/teaching/">Teaching Resources</a></li>
 	</ul>
 {% endblock %}
 
