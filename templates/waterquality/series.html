@@ -49,7 +49,7 @@
 {% block breadcrumbs %}
 	<ul>
 	<li><a href="/waterchemistry/">Graphing Tool</a></li>
-	<li><a href="{% url waterchemistry-browse %}">Data Browser</a></li>
+	<li><a href="/waterchemistry/browse/">Data Browser</a></li>
 	<li><a id="teachlink" rel="facebox" href="/waterchemistry/teaching/">Teaching Resources</a></li>
 	</ul>
 {% endblock %}
@@ -60,7 +60,7 @@
 
 		<p>
 		<input type=button onClick="parent.location='javascript:history.go(-1)'" value='&laquo; Back to Browse Data'>	
-		<input type=button onClick="parent.location='{% url waterchemistry-series-all series.id %}'" value='View All for {{series.name}}'>	
+		<input type=button onClick="parent.location='/waterchemistry/series/{{series.id}}/all/'" value='View All for {{series.name}}'>	
 		</p>
 <h2>{{series.name}}</h2>
 

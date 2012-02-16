@@ -48,7 +48,7 @@
 {% block breadcrumbs %}
 	<ul>
 	<li><a href="/waterchemistry/">Graphing Tool</a></li>
-	<li><a href="{% url waterchemistry-browse %}">Data Browser</a></li>
+	<li><a href="/waterchemistry/browse/">Data Browser</a></li>
 	<li><a id="teachlink" rel="facebox" href="/waterchemistry/teaching/">Teaching Resources</a></li>
 	</ul>
 {% endblock %}
@@ -78,7 +78,7 @@
 		
 		{% for series in series %}
 		<tr class="{% cycle 'even' 'odd' %}">
-		<td class="seriesname">{{series.location.site.name}}/{{series.location.name}}/<a href="{% url waterchemistry-series series.id %}">{{series.name}}</a></td>
+		<td class="seriesname">{{series.location.site.name}}/{{series.location.name}}/<a href="/waterchemistry/series/{{series.id}}/">{{series.name}}</a></td>
 		<td>{{series.units}}</td>
 		<td>{{series.count}}</td>
 		<td>{{series.start.timestamp}}</td><td>{{series.end.timestamp}}</td>
