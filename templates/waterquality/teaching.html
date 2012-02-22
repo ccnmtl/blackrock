@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% load render %}
+
+{% block title %}Water Chemistry{% endblock %}
+
+{% block css %}
+
+	<style type="text/css">
+	@import "/site_media/css/waterquality/waterquality.css";
+	</style>
+	
+ <style type="text/css">
+.waterchemslideshow { height: 332px; width: 432px; float: right; }
+.waterchemslideshow img { padding: 0 0 0 20px; border: none; background-color: transparent; }
+</style>
+	<!--[if IE 8]>
+	<style>
+	@import "/site_media/css/waterquality/waterquality_ie.css" ;
+    </style>
+	<![endif]-->	
+
+{% endblock %}
+
+{% block js %}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript"></script>
+       
+<script src="/site_media/js/facebox.js" type="text/javascript"></script>
+<script src="/site_media/js/highcharts.js" type="text/javascript"></script>
+<script src="/site_media/js/modules/exporting.js" type="text/javascript"></script>
+<script src="/site_media/js/jquery.cycle.lite.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('.waterchemslideshow').cycle({
+		fx: 'fade' // choose your transition type, ex: fade, scrollUp, shuffle, etc...
+	});
+});
+</script>
+
+{% if not show_graph %}
+<script type="text/javascript">
+$(document).ready(function() {
+  $('a[rel*=facebox]').facebox();   
+  $(document).bind('reveal.facebox', function() {
+    $('#facebox a[rel*=facebox]').facebox();
+  });
+});
+</script>
+{% endif %}
+{% endblock %}
+
+{% block masthead %}
+	Water Chemistry
+{% endblock %}
+
+{% block breadcrumbs %}
+	<ul>
+	<li><a href="/waterchemistry/graph/">Graphing Tool</a></li>
+	<li><a href="/waterchemistry/browse/">Data Browser</a></li>
+	<li><a href="/waterchemistry/teaching/">Teaching Resources</a></li>
+	</ul>
+{% endblock %}
+
+{% block content %}
+    <h2>
+	    Teaching Resources 
+    </h2>
+
+    <p>
+    This section houses curricula that make use of the graphing tool. Feel free to download any that you would like to incorporate in your classroom activities. 
+    </p>
+
+    <p>
+    If you would like to share your own material and the way you incorporate the graphing tool into it, we'll gladly upload it here. 
+    </p>
+
+    <p>
+    To do so, <a href="mailto:ccnmtl-blackrock@columbia.edu">email</a> us a short course description including a title, credits, and target audience. Most importantly, remember to attach all the required files!
+    </p>
+
+    <hr />
+
+    <ul>
+    <!--start - entry-->
+	    <li> 
+	
+	    <p>
+	    <b>Water and the Living Environment</b><br>
+    <a href="http://ccnmtl.columbia.edu/projects/blackrock/waterquality/teachingresources/Palmer_TeacherGuide_020812.zip">Teacher Guide</a><br>
+    <a href="http://ccnmtl.columbia.edu/projects/blackrock/waterquality/teachingresources/Palmer_StudentGuide_020812.zip">Student Guide</a><br>
+    <a href="http://ccnmtl.columbia.edu/projects/blackrock/waterquality/teachingresources/Palmer_StudentJournal_020812.zip">Student Journal</a><br>
+    <br>(Depending on the browser you are using, the Word documents will download in one zip file or in one folder. Teachers should download all 3 files, while students only the 2 pertaining to them.)
+	    </p>
+	
+    <p>
+    <b>Goals:</b><br>
+    - To give students an integrated approach to water quality and its importance to living organisms<br>
+    - To provide experiences in the use of research data and analysis of graphs<br>
+    - To increase student problem‐solving ability<br>
+    - To stimulate student questioning and independent investigation<br>
+    - To give students experience in the use of varied web resources<br>
+    </li>
+
+	    <p>
+	    <b>Written by:</b><br>
+    <a href="mailto:commsci@ptmsc.org">Libby Palmer</a> and <a href="mailto:judydamore@gmail.com">Judy D’Amore</a>, <a href="http://www.ptmsc.org/" target="_blank">Port Townsend Marine Science Center, Washington</a> 
+	    </p>
+	
+	    <p>
+	    <b>Target Audience:</b><br>
+    Students in NYC public high schools and middle schools (7th-8th Grade) with varying levels of proficiency and experience in science. 
+	    </p>
+	
+	    </li>
+    <!--stop - entry-->
+    </ul>
+
+
+
+{% endblock %}

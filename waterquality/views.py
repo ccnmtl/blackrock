@@ -23,6 +23,11 @@ class rendered_with(object):
 @rendered_with('waterquality/index.html')
 def index(request):
     return dict()
+    
+    
+@rendered_with('waterquality/teaching.html')
+def teaching(request):
+    return dict()
 
 @rendered_with('waterquality/graphing_tool.html')
 def graphing_tool(request):
