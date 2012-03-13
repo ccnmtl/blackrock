@@ -3,18 +3,16 @@
 {% load portal %}
 
 {% block title %}Grid Demo{% endblock %}
-
 {% block js %}
+    <script type="text/javascript" src="/portal/media/js/grid.js"></script>
     {{ block.super }}
 {% endblock %}
 
 
 {% block container %}
     <div>
-        <div id="map_canvas" style="width: 1000px; height: 1000px"></div>
+        <div id="map_canvas" style="width: 400px; height: 200px"></div>
     </div>
-    <div id ="grid_json" style="display:none">{{grid_json}}</div>
-    
-    
+    <div id ="grid_json" style="display:none">{{grid_json}}</div>    
 {% endblock %}
 
