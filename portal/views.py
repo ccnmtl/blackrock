@@ -25,6 +25,9 @@ from django.contrib.gis.geos import  *
 from django.contrib.gis.measure import D # D is a shortcut for Distance 
 from django.template.loader import get_template
 
+
+from math import pi, cos, sin, sqrt, atan, atan2
+
 class rendered_with(object):
     def __init__(self, template_name):
         self.template_name = template_name
@@ -103,6 +106,171 @@ def nearby(request, latitude, longitude):
               
     return dict(latitude=latitude, longitude=longitude, results=a, count=len(a))
     
+
+#longitude is X
+def meters_to_degrees_long (x):
+    one_long_degree = 85390.0
+    return x / one_long_degree
+
+def meters_to_degrees_lat (y):
+    one_lat_degree = 111030.0
+    return y / one_lat_degree
+    
+def degrees_long_to_meters(dlx):
+    #this is wrong
+    one_long_degree = 85390.0
+    return dlx * one_long_degree
+
+def degrees_lat_to_meters (dly):
+    one_lat_degree = 111030.0
+    return dly * one_lat_degree
+
+def to_lat_long (x, y):
+    return (
+        meters_to_degrees_lat   (y),
+        meters_to_degrees_long  (x)
+    )
+
+def rotate_about_a_point(y_deg, x_deg, center_y_deg, center_x_deg, theta):
+    #ok let's try this
+    
+    if x_deg == center_x_deg and y_deg == center_y_deg:
+        return (y_deg, x_deg)
+        
+    if theta == 0:
+        return (y_deg, x_deg)
+        
+    
+    center_y_meters = degrees_lat_to_meters  (center_y_deg)
+    center_x_meters = degrees_long_to_meters (center_x_deg)
+    
+    y_meters =        degrees_lat_to_meters  (y_deg )
+    x_meters =        degrees_long_to_meters (x_deg )
+    
+    print 'y_deg ' , y_deg
+    print 'x_deg ' , x_deg
+    
+    print 'y_meters ' , y_meters
+    print 'x_meters ' , x_meters
+    
+    #print 'center_y_meters ' , center_y_meters
+    #print 'center_x_meters ' , center_x_meters
+    
+    delta_y_meters = center_y_meters - y_meters
+    delta_x_meters = center_x_meters - x_meters
+    
+    r_zero = sqrt( delta_y_meters ** 2 + delta_x_meters ** 2 )
+    
+    theta_zero = atan2 (delta_x_meters , delta_y_meters)
+    
+    theta_one = theta_zero + theta
+    
+    
+    print 'r_zero is ' ,     r_zero
+    print 'theta_zero is ' , theta_zero
+    print 'theta_one is ' ,  theta_one
+    
+    print 'delta_y is ' , delta_y_meters
+    print 'delta_x is ' , delta_x_meters
+    
+    print 'sin theta is ' , sin(theta)
+    print 'cos theta is ' , cos(theta)
+    
+    new_x_meters = center_x_meters + sin(theta_one) * r_zero
+    new_y_meters = center_y_meters + cos(theta_one) * r_zero
+    
+    print 'new_x_meters ' , new_x_meters
+    print 'new_y_meters ' , new_y_meters
+    
+    new_x_deg =  meters_to_degrees_long (new_x_meters)
+    new_y_deg =  meters_to_degrees_lat  (new_y_meters)
+
+    return (new_y_deg, new_x_deg)
+
+
+@rendered_with('portal/grid_demo.html')
+def grid_demo(request):
+    #// AT LATITUDE 40 DEGREES (NORTH OR SOUTH)
+    #// http://www.zodiacal.com/tools/lat_table.php
+    #// One degree of latitude =  111.03 km or  68.99 mi
+    #// One degree of longitude =  85.39 km or  53.06 mi
+
+    (brf_y_deg, brf_x_deg)  =    (41.392, -74.015)
+    
+    width_in_blocks , height_in_blocks,  = (3, 2)
+    #width_in_blocks , height_in_blocks,  = (30, 21)
+    block_height_in_m, block_width_in_m   = (250.0, 500.0)
+
+    
+    #magnetic_declination = -13.0
+    magnetic_declination = 0.0
+    
+    theta = magnetic_declination * pi / 180.0 #same thing in radians
+    
+    
+    (grid_width_in_m, grid_height_in_m )  = (block_width_in_m * width_in_blocks, block_height_in_m * height_in_blocks)
+    
+    #convert to lat/long coordinates:
+    
+    (block_width_in_deg, block_height_in_deg) = to_lat_long (block_width_in_m, block_height_in_m) 
+    (grid_height_in_deg, grid_width_in_deg ) =  to_lat_long (grid_height_in_m,  grid_width_in_m )
+    
+    #now switching grid_left_in_deg and grid_top_in_deg
+    
+    (grid_top_in_deg, grid_left_in_deg) = (brf_y_deg - (grid_height_in_deg / 2), brf_x_deg - (grid_width_in_deg/2))
+    
+    grid_json = []
+    
+    for i in range (0, height_in_blocks):
+        new_row = []
+        for j in range (0, width_in_blocks):
+        
+            #move all points to the top left of the BLOCK.            
+            (block_1_x, block_1_y) = (grid_top_in_deg   + i * block_width_in_deg,
+                                      grid_left_in_deg  + j * block_height_in_deg)
+            (block_2_x, block_2_y) = (grid_top_in_deg   + i * block_width_in_deg,
+                                      grid_left_in_deg  + j * block_height_in_deg)
+            (block_3_x, block_3_y) = (grid_top_in_deg   + i * block_width_in_deg,
+                                      grid_left_in_deg  + j * block_height_in_deg)
+            (block_4_x, block_4_y) = (grid_top_in_deg   + i * block_width_in_deg,
+                                      grid_left_in_deg  + j * block_height_in_deg)
+            (block_5_x, block_5_y) = (grid_top_in_deg   + i * block_width_in_deg,
+                                      grid_left_in_deg  + j * block_height_in_deg)
+                        
+            
+            #NOW move the x for 2 and 3 over by one block width:
+            block_2_x += block_width_in_deg
+            block_3_x += block_width_in_deg
+            
+            #NOW move the y for 3 and 4 over by one block height:
+            block_3_y += block_height_in_deg
+            block_4_y += block_height_in_deg
+            
+            #And the center marker gets half-a-width added to both x and y:
+            block_5_x += (block_width_in_deg /  2)
+            block_5_y += (block_height_in_deg / 2)
+            
+            
+            #rotate everything and add the block on to the row.
+            new_block = [
+                rotate_about_a_point(block_1_x, block_1_y, brf_y_deg, brf_x_deg, theta)  # top left
+               ,rotate_about_a_point(block_2_x, block_2_y, brf_y_deg, brf_x_deg, theta)  # top right
+               ,rotate_about_a_point(block_3_x, block_3_y, brf_y_deg, brf_x_deg, theta)  # bottom right
+               ,rotate_about_a_point(block_4_x, block_4_y, brf_y_deg, brf_x_deg, theta)  # bottom left
+               
+               ,rotate_about_a_point(block_5_x, block_5_y, brf_y_deg, brf_x_deg, theta)  # center
+            ] 
+            new_row.append ( new_block )
+        
+        #add the row of blocks to the grid:
+        grid_json.append (new_row)
+        
+    
+            
+
+    return {'grid_json': simplejson.dumps(grid_json)}
+    
+
 def process_datasets(xmldoc):
   datasets = []
   for node in xmldoc.getElementsByTagName('int'):

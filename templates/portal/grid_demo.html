@@ -1,0 +1,20 @@
+{% extends "portal/base_portal.html" %}
+{% load smartif %}
+{% load portal %}
+
+{% block title %}Grid Demo{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+{% endblock %}
+
+
+{% block container %}
+    <div>
+        <div id="map_canvas" style="width: 1000px; height: 1000px"></div>
+    </div>
+    <div id ="grid_json" style="display:none">{{grid_json}}</div>
+    
+    
+{% endblock %}
+
