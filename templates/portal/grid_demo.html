@@ -13,13 +13,14 @@
 
 
     <div id ="grid_json" style="display:none">{{grid_json}}</div>    
+    <div id ="test_points" style="display:none">{{test_points}}</div>    
     
     <div id = "grid_form">
         <form action = '/portal/grid_demo/' method="post">
             <table>
                 <tr>
-                    <td rowspan = "9">
-                        <div id="map_canvas" style="width: 400px; height: 200px"></div>
+                    <td rowspan = "12">
+                        <div id="map_canvas" style="width: 1000px; height: 1000px"></div>
                     </td>
                 </tr>
 
@@ -73,12 +74,46 @@
                     </td>
                 </tr>
                 <tr>
-                    <td> 
+                    <td > 
+                        <input type="submit" value="Redraw"></input>
                     </td>
                     <td> 
-                        <input type="submit" value="Redraw Map"></input>
+                        <a href = "/portal/grid_demo/">Reset</a>
                     </td>
                 </tr>
+                <tr>
+                    <td > 
+                        Click a block to see info below:
+                    </td>
+                    <td> 
+                        &nbsp;
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td  colspan = "2"> 
+                            <table>
+                            <tr>
+                                <td id = "tl">&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td id = "tr">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td id = "c">&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td id = "bl">&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td id = "br">&nbsp;</td>
+                            </tr>
+                            
+                            </table>
+                    
+                    </td>
+                </tr>
+                
             </table>
         </form>
     </div>

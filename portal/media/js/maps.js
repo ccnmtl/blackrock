@@ -458,13 +458,10 @@ if (!Portal.Map) {
             var boundary = new Portal.Layer("brfboundary", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/brfboundary.kml?newcachebuster=" + randomnumber, false);
             boundary.instance.setMap(self.mapInstance);
 
-
-            //eddie:
-            //add grid if the function is defined:            
+  
             if (typeof addGrid !== "undefined") {
                 addGrid(self.mapInstance);
             }
-            // end eddie
             
             self.toggleLayer();
             

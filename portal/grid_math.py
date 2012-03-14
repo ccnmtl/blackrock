@@ -22,11 +22,19 @@ def degrees_lat_to_meters (dly):
 def degrees_long_to_meters(dlx):
     return dlx * one_long_degree
 
+
+def to_lat_long_point (p):
+    return to_lat_long (p[0], p[1])
+
 def to_lat_long (y, x):
     return meters_to_degrees_lat (y), meters_to_degrees_long  (x)
 
 def to_meters  (y, x):
     return degrees_lat_to_meters (y), degrees_long_to_meters  (x)
+
+def to_meters_point (p):
+    return to_meters (p[0], p[1])
+
 
 def degrees_to_radians(angle):
     return angle * pi / 180.0 
@@ -38,19 +46,22 @@ def rotate_points( points, center, angle):
     return result
     
 def rotate_about_a_point(point, center, angle_to_rotate):
-    a = degrees_to_radians (angle_to_rotate)
-    y, x = point
-    center_y, center_x = center
-    if x == center_x and y == center_y:
-        return (y, x)
-    if a == 0:
-        return (y, x)
+    if angle_to_rotate == 0:
+        return point
+    
+    if point[0] == center [0] and point[1] == center [1]:
+        return point
         
+    a = degrees_to_radians (angle_to_rotate)
+    y, x =               to_meters_point (point)
+    center_y, center_x = to_meters_point(center)
+    
     delta_y = center_y - y
     delta_x = center_x - x
     r = sqrt( delta_y ** 2 + delta_x ** 2 )
     new_angle = atan2 (delta_x , delta_y) + a
-    return center_y + cos(new_angle) * r, center_x + sin(new_angle) * r
+    
+    return to_lat_long( center_y + cos(new_angle) * r, center_x + sin(new_angle) * r)
     
 def set_up_block (bottom_left, height, width):
     """

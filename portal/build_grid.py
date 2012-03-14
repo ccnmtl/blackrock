@@ -37,21 +37,20 @@ def grid_demo(request):
     #pdb.set_trace()
     
     if (request.method != 'POST'):
-        magnetic_declination                    = 13.0 # degrees
+        magnetic_declination                    = -13.0 # degrees
         grid_center                             = [41.397,-74.021]
         height_in_blocks,  width_in_blocks,     = [2, 3]
         block_height_in_m, block_width_in_m     = [250.0, 250.0]
-        
         grid_center_y, grid_center_x = grid_center
         
     else:
-        magnetic_declination =                  get_float( request, 'magnetic_declination', 13.0)
-        height_in_blocks =                      get_int( request, 'height_in_blocks',    2)
-        width_in_blocks  =                      get_int( request, 'width_in_blocks',     3)
-        block_height_in_m =                     get_float( request, 'block_height_in_m',  250.0)
-        block_width_in_m =                      get_float( request, 'block_width_in_m',   250.0)
-        grid_center_y                         = get_float( request, 'grid_center_y',      41.397)
-        grid_center_x                       =   get_float( request, 'grid_center_x',      -74.021)
+        magnetic_declination =                  get_float( request, 'magnetic_declination',     -13.0)
+        height_in_blocks =                      get_int( request,   'height_in_blocks',         2)
+        width_in_blocks   =                     get_int( request,   'width_in_blocks',          3)
+        block_height_in_m =                     get_float( request, 'block_height_in_m',        250.0)
+        block_width_in_m  =                     get_float( request, 'block_width_in_m',         250.0)
+        grid_center_y          =                get_float( request, 'grid_center_y',            41.397)
+        grid_center_x           =               get_float( request, 'grid_center_x',            -74.021)
         grid_center = grid_center_y, grid_center_x
     
     grid_height_in_m = block_height_in_m * height_in_blocks
@@ -64,6 +63,10 @@ def grid_demo(request):
     
     grid_json = []
     
+    
+    
+    #import pdb
+    #pdb.set_trace()
     for i in range (0, height_in_blocks):
         new_column = []
         for j in range (0, width_in_blocks):
@@ -75,9 +78,16 @@ def grid_demo(request):
             new_column.append(rotate_points (block, grid_center, magnetic_declination))
         
         grid_json.append (new_column)
+
+    #tp_1 = grid_center
+    #tp_2 = ( grid_center[0], grid_center[1] + meters_to_degrees_long(2000.0))
+    #tp_3 = rotate_about_a_point (tp_2, tp_1, 90.0)
+    
+    
     
     return {
         'grid_json': simplejson.dumps(grid_json)
+        #,'test_points': simplejson.dumps((tp_1, tp_2, tp_3))
         ,'magnetic_declination'                      :  magnetic_declination # degrees
         ,'grid_center_y'                             :  grid_center_y
         ,'grid_center_x'                             :  grid_center_x
