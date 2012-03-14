@@ -1,4 +1,3 @@
-from math import pi, cos, sin, sqrt, atan, atan2
 from portal.grid_math import *
 from django.utils import simplejson
 from django.shortcuts import render_to_response
@@ -18,82 +17,74 @@ class rendered_with(object):
 
         return rendered_func
 
+def get_float (request, name, default):
+    number =request.POST.get(name, default)
+    return float (number)
+
+
+def get_int (request, name, default):
+    number =request.POST.get(name, default)
+    return int (number)
+
+
+#def get_two_numbers_number (request, names, default_tuples):
+#    number =request.POST.get('magnetic_declination', default)
+#    return float (number)
 
 @rendered_with('portal/grid_demo.html')
 def grid_demo(request):
-
-    #  (brf_y_deg, brf_x_deg) =    (41.392, -74.015)
-    (brf_y_deg, brf_x_deg)  = (41.397,-74.021)
-    width_in_blocks , height_in_blocks,  = (1, 1)
-    #width_in_blocks , height_in_blocks,  = (30, 21)
-    #block_height_in_m, block_width_in_m   = (250.0, 500.0)
-
-
-    block_height_in_m, block_width_in_m   = (1000.0, 2000.0)
-
+    #import pdb
+    #pdb.set_trace()
     
-    #magnetic_declination = -13.0
-    magnetic_declination = 13.0
+    if (request.method != 'POST'):
+        magnetic_declination                    = 13.0 # degrees
+        grid_center                             = [41.397,-74.021]
+        height_in_blocks,  width_in_blocks,     = [2, 3]
+        block_height_in_m, block_width_in_m     = [250.0, 250.0]
+        
+        grid_center_y, grid_center_x = grid_center
+        
+    else:
+        magnetic_declination =                  get_float( request, 'magnetic_declination', 13.0)
+        height_in_blocks =                      get_int( request, 'height_in_blocks',    2)
+        width_in_blocks  =                      get_int( request, 'width_in_blocks',     3)
+        block_height_in_m =                     get_float( request, 'block_height_in_m',  250.0)
+        block_width_in_m =                      get_float( request, 'block_width_in_m',   250.0)
+        grid_center_y                         = get_float( request, 'grid_center_y',      41.397)
+        grid_center_x                       =   get_float( request, 'grid_center_x',      -74.021)
+        grid_center = grid_center_y, grid_center_x
     
-    theta = magnetic_declination * pi / 180.0 #same thing in radians
+    grid_height_in_m = block_height_in_m * height_in_blocks
+    grid_width_in_m  = block_width_in_m  * width_in_blocks
     
+    block_height, block_width  = to_lat_long (block_height_in_m,  block_width_in_m )
+    grid_height,  grid_width   = to_lat_long (grid_height_in_m,   grid_width_in_m  )
     
-    (grid_width_in_m, grid_height_in_m )  = (block_width_in_m * width_in_blocks, block_height_in_m * height_in_blocks)
-    
-    #convert to lat/long coordinates:
-    
-    (block_width_in_deg, block_height_in_deg) = to_lat_long (block_width_in_m, block_height_in_m) 
-    (grid_height_in_deg, grid_width_in_deg ) =  to_lat_long (grid_height_in_m,  grid_width_in_m )
-    
-    #now switching grid_left_in_deg and grid_top_in_deg
-    
-    (grid_top_in_deg, grid_left_in_deg) = (brf_y_deg - (grid_height_in_deg / 2), brf_x_deg - (grid_width_in_deg/2))
+    grid_bottom,  grid_left  = grid_center[0] - (grid_height / 2), grid_center[1] - (grid_width/2)
     
     grid_json = []
     
     for i in range (0, height_in_blocks):
-        new_row = []
+        new_column = []
         for j in range (0, width_in_blocks):
-            
-            top_left_of_block_y = grid_top_in_deg   + i * block_width_in_deg
-            top_left_of_block_x = grid_left_in_deg  + j * block_height_in_deg
-            
-            top_left_of_block = (top_left_of_block_y, top_left_of_block_x)
         
-            #move all points to the top left of the BLOCK.            
-            (block_1_x, block_1_y) = top_left_of_block
-            (block_2_x, block_2_y) = top_left_of_block
-            (block_3_x, block_3_y) = top_left_of_block
-            (block_4_x, block_4_y) = top_left_of_block
-            (block_5_x, block_5_y) = top_left_of_block
+            bottom_left = grid_bottom + i * block_height, grid_left + j * block_width
             
-            #NOW move the x for 2 and 3 over by one block width:
-            block_2_x += block_width_in_deg
-            block_3_x += block_width_in_deg
+            block = set_up_block (bottom_left, block_height, block_width)
             
-            #NOW move the y for 3 and 4 over by one block height:
-            block_3_y += block_height_in_deg
-            block_4_y += block_height_in_deg
-            
-            #And the center marker gets half-a-width added to both x and y:
-            block_5_x += (block_width_in_deg /  2)
-            block_5_y += (block_height_in_deg / 2)
-            
-            
-            #rotate everything and add the block on to the row.
-            new_block = [
-                rotate_about_a_point(block_1_x, block_1_y, brf_y_deg, brf_x_deg, theta)  # top left
-               ,rotate_about_a_point(block_2_x, block_2_y, brf_y_deg, brf_x_deg, theta)  # top right
-               ,rotate_about_a_point(block_3_x, block_3_y, brf_y_deg, brf_x_deg, theta)  # bottom right
-               ,rotate_about_a_point(block_4_x, block_4_y, brf_y_deg, brf_x_deg, theta)  # bottom left
-               
-               ,rotate_about_a_point(block_5_x, block_5_y, brf_y_deg, brf_x_deg, theta)  # center
-            ] 
-            new_row.append ( new_block )
+            new_column.append(rotate_points (block, grid_center, magnetic_declination))
         
-        #add the row of blocks to the grid:
-        grid_json.append (new_row)
-            
-
-    return {'grid_json': simplejson.dumps(grid_json)}
+        grid_json.append (new_column)
+    
+    return {
+        'grid_json': simplejson.dumps(grid_json)
+        ,'magnetic_declination'                      :  magnetic_declination # degrees
+        ,'grid_center_y'                             :  grid_center_y
+        ,'grid_center_x'                             :  grid_center_x
+        ,'height_in_blocks'                          :  height_in_blocks
+        ,'width_in_blocks'                           :  width_in_blocks
+        ,'block_height_in_m'                         :  block_height_in_m
+        ,'block_width_in_m'                          :  block_width_in_m
+    
+    }
     
