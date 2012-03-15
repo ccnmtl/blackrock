@@ -13,7 +13,8 @@ urlpatterns = patterns('',
                 url(r'^nearby/(?P<latitude>-?\d+\.\d+)/(?P<longitude>-?\d+\.\d+)/$', 'blackrock.portal.views.nearby'),
                 
 				(r'^browse/(.*)', databrowse.site.root),
-                (r'^grid_demo/', 'blackrock.portal.views.grid_demo' )
+                (r'^grid/',       'blackrock.portal.views.grid' ),
+                (r'^grid_block/', 'blackrock.portal.views.grid_block' )
 )
 
 

@@ -2,10 +2,10 @@
 {% load smartif %}
 {% load portal %}
 
-{% block title %}Grid Demo{% endblock %}
+{% block title %}Grid Block{% endblock %}
 {% block js %}
     <script type="text/javascript" src="/portal/media/js/grid_and_block.js"></script>
-    <script type="text/javascript" src="/portal/media/js/grid.js"></script>
+    <script type="text/javascript" src="/portal/media/js/block.js"></script>
     {{ block.super }}
 {% endblock %}
 
@@ -17,7 +17,7 @@
     <div id ="test_points" style="display:none">{{test_points}}</div>    
     
     <div id = "grid_form">
-        <form action = '/portal/grid_demo/' method="post">
+        <form action = '/portal/grid_block/' method="post">
             <table>
                 <tr>
                     <td rowspan = "12">
@@ -37,20 +37,6 @@
                     </td>
                     <td> 
                         <input type="text" name = "grid_center_x" value ="{{grid_center_x}}"> </input>
-                    </td>
-                </tr>
-                <tr>
-                    <td> Height of grid in blocks:
-                    </td>
-                    <td> 
-                        <input type="text" name = "height_in_blocks" value ="{{height_in_blocks}}"> </input>
-                    </td>
-                </tr>
-                <tr>
-                    <td> Width of grid in blocks:
-                    </td>
-                    <td> 
-                        <input type="text" name = "width_in_blocks" value ="{{width_in_blocks}}"></input>
                     </td>
                 </tr>
                 <tr>

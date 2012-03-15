@@ -1,54 +1,88 @@
-function addGrid(mapInstance) {
 
-    
+function addGrid(mapInstance) {
+    var map_bounds = new google.maps.LatLngBounds();
     grid_json = JSON.parse(jQuery('#grid_json')[0].innerHTML)
-    
-    
     for (var i = 0; i < grid_json.length; i++) {
+
+        var row =  i + 1;
+
         for (var j = 0; j < grid_json[i].length; j++) {
-            box = grid_json[i][j]
-            rect = make_grid_rectangle (bounds (box), mapInstance);
-            /*
-            marker = new google.maps.Marker({ 
-                position: location(box[4]),
-                map: mapInstance
-            });
-            */
-            attach_info (rect, { 'i':  i,  'j':  j, 'box':box } )           
+            var box = grid_json[i][j];
+            var rect = make_grid_rectangle (bounds (box), mapInstance);
+            
+            var column = grid_json[i].length - j;
+
+            attach_info (rect, {
+                    'i':  i,
+                    'j':  j,
+                    'row':  row,
+                    'column':  column,
+                    'id' : i * grid_json.length  + column,
+                    'box':box
+                }
+                    
+            )
+            map_bounds.extend(lat_lng_from_point(box[4] ));
         }
     }
     
     
+    viewer_location = user_location(mapInstance);
+    if (viewer_location ) {
+        you_are_here (viewer_location);
+    }
+    
     // why you no work?
     //mapInstance.setMapType(G_SATELLITE_MAP);
-   
+    
+    
+    if (!map_bounds.isEmpty() ) {
+        mapInstance.fitBounds(map_bounds);
+    } 
 }
 
 
 //closure:
 function attach_info(rect, info) {
-  google.maps.event.addListener(rect, 'mouseup', function() {
+  google.maps.event.addListener(rect, 'mouseover', function() {
   
+    rect.setOptions ({fillOpacity : 0.3});
   
-    jQuery('#bl')[0].innerHTML = trimpoint(info['box'][0])
-    jQuery('#tl')[0].innerHTML = trimpoint(info['box'][1])
-    jQuery('#tr')[0].innerHTML = trimpoint(info['box'][2])
-    jQuery('#br')[0].innerHTML = trimpoint(info['box'][3])
-    jQuery('#c') [0].innerHTML = trimpoint(info['box'][4])
+    jQuery('#bl')[0].innerHTML = trimpoint(info['box'][0]);
+    jQuery('#tl')[0].innerHTML = trimpoint(info['box'][1]);
+    jQuery('#tr')[0].innerHTML = trimpoint(info['box'][2]);
+    jQuery('#br')[0].innerHTML = trimpoint(info['box'][3]);
+    jQuery('#c') [0].innerHTML = trimpoint(info['box'][4]);
   
-    //alert (info);
+    jQuery('#block_info') [0].innerHTML =  'Block # ' + info['id']+ ':'
+    
   });
+  
+  google.maps.event.addListener(rect, 'mouseout', function() {
+    rect.setOptions ({fillOpacity : 0.1});
+  });
+  
+  
+  google.maps.event.addListener(rect, 'click', function() {
+    //rect.setOptions ({fillOpacity : 0.1});
+     jQuery('#grid_form')[0].action =   '/portal/grid_block/';
+     jQuery('#grid_form')[0].submit();
+ 
+  });
+  
+  
+
 }
 
 function trimpoint (point) {
-    return [point[0].toPrecision(5),point[1].toPrecision(5)]
+    return [point[0].toPrecision(6),point[1].toPrecision(6)];
 }
 
 function bounds (box) {
-    var bl  = location(box[0]);
-    var tl  = location(box[1]);
-    var tr  = location(box[2]);
-    var br  = location(box[3]);
+    var bl  = lat_lng_from_point(box[0]);
+    var tl  = lat_lng_from_point(box[1]);
+    var tr  = lat_lng_from_point(box[2]);
+    var br  = lat_lng_from_point(box[3]);
     return [ bl, tl, tr, br];
 }
 
@@ -64,33 +98,40 @@ function make_grid_rectangle (_paths, mapInstance) {
     });
     return rect;
     
-    
 }
 
-function location(point ) {
+function lat_lng_from_point(point ) {
     return new google.maps.LatLng(point[0] , point[1]);
 }
 
 function amarker (point, map) {
     marker = new google.maps.Marker({ 
-        position: location(point),
+        position: lat_lng_from_point(point),
         map: map
     });
 }
 
 function markers (points, map) {
     for (var i = 0; i < points.length; i++) {
-       console.log (points[i]);
        amarker (points [i], map);
     }
 }
 
-/*
-function write (text, point, map) {
-    marker = new google.maps.Marker({ 
-        position: location(point),
-        map: map
-    });
+function user_location (mapInstance) {
+    var position = false;
+    if (typeof(google.loader) != 'undefined' && typeof(google.loader.ClientLocation) != 'undefined') {
+        var lat = google.loader.ClientLocation.latitude;
+        var lng = google.loader.ClientLocation.longitude;
+        if (!isNaN (lat) && !isNaN (lng)) {
+            you_are_here (new google.maps.LatLng(lat, lng), mapInstance);
+        }
+    }
+    if (typeof(navigator.geolocation) != 'undefined') {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var lat = position.coords.latitude;
+            var lng = position.coords.longitude;
+            you_are_here (new google.maps.LatLng(lat, lng), mapInstance);
+        });
+    }
+    return position;
 }
-
-*/

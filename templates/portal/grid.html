@@ -2,8 +2,9 @@
 {% load smartif %}
 {% load portal %}
 
-{% block title %}Grid Demo{% endblock %}
+{% block title %}Grid{% endblock %}
 {% block js %}
+
     <script type="text/javascript" src="/portal/media/js/grid_and_block.js"></script>
     <script type="text/javascript" src="/portal/media/js/grid.js"></script>
     {{ block.super }}
@@ -16,8 +17,8 @@
     <div id ="grid_json" style="display:none">{{grid_json}}</div>    
     <div id ="test_points" style="display:none">{{test_points}}</div>    
     
-    <div id = "grid_form">
-        <form action = '/portal/grid_demo/' method="post">
+    <div >
+        <form action = '/portal/grid/' method="post" id = "grid_form">
             <table>
                 <tr>
                     <td rowspan = "12">
