@@ -22,7 +22,7 @@
             <table>
                 <tr>
                     <td rowspan = "12">
-                        <div id="map_canvas" style="width: 200px; height: 200px"></div>
+                        <div id="map_canvas" style="width: 800px; height: 800px"></div>
                     </td>
                 </tr>
 
@@ -68,13 +68,30 @@
                         <input type="text" name = "block_width_in_m" value ="{{block_width_in_m}}"> </input>
                     </td>
                 </tr> 
-                <tr>
+                <tr >
                     <td> Declination:
                     </td>
                     <td> 
                         <input type="text" name = "magnetic_declination" value ="{{magnetic_declination}}"> </input>
                     </td>
                 </tr>
+                
+                
+                <tr style = "display:none">
+                    <td> Selected block center lat
+                    </td>
+                    <td> 
+                        <input type="text" name = "selected_block_center_y" id="selected_block_center_y" ></input>
+                    </td>
+                </tr>
+                <tr style = "display:none">
+                    <td> Selected block center long:
+                    </td>
+                    <td> 
+                        <input type="text" name = "selected_block_center_x" id="selected_block_center_x" ></input>
+                    </td>
+                </tr>
+                
                 <tr>
                     <td > 
                         <input type="submit" value="Redraw"></input>

@@ -22,7 +22,6 @@ def degrees_lat_to_meters (dly):
 def degrees_long_to_meters(dlx):
     return dlx * one_long_degree
 
-
 def to_lat_long_point (p):
     return to_lat_long (p[0], p[1])
 
@@ -35,9 +34,14 @@ def to_meters  (y, x):
 def to_meters_point (p):
     return to_meters (p[0], p[1])
 
-
 def degrees_to_radians(angle):
     return angle * pi / 180.0 
+
+def radians_to_degrees(angle):
+    a = angle * 180.0 / pi
+    if a < 0:
+        a += 360.0
+    return a
     
 def rotate_points( points, center, angle):
     result = []

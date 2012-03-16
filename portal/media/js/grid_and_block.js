@@ -75,3 +75,21 @@ function user_location (mapInstance) {
     }
     return position;
 }
+
+
+function lat_lng_from_point(point ) {
+    return new google.maps.LatLng(point[0] , point[1]);
+}
+
+function amarker (point, map) {
+    return new google.maps.Marker({ 
+        position: lat_lng_from_point(point),
+        map: map
+    });
+}
+
+function markers (points, map) {
+    for (var i = 0; i < points.length; i++) {
+       amarker (points [i], map);
+    }
+}

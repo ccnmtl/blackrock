@@ -13,7 +13,10 @@
 {% block container %}
 
 
-    <div id ="grid_json" style="display:none">{{grid_json}}</div>    
+    <div id ="block_json" style="display:none">{{block_json}}</div>    
+    
+    <div id ="trap_sites" style="display:none">{{trap_sites}}</div>    
+    
     <div id ="test_points" style="display:none">{{test_points}}</div>    
     
     <div id = "grid_form">
@@ -21,7 +24,7 @@
             <table>
                 <tr>
                     <td rowspan = "12">
-                        <div id="map_canvas" style="width: 200px; height: 200px"></div>
+                        <div id="map_canvas" style="width: 800px; height: 800px"></div>
                     </td>
                 </tr>
 
@@ -60,6 +63,8 @@
                         <input type="text" name = "magnetic_declination" value ="{{magnetic_declination}}"> </input>
                     </td>
                 </tr>
+                
+                
                 <tr>
                     <td > 
                         <input type="submit" value="Redraw"></input>

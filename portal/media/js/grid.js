@@ -53,6 +53,11 @@ function attach_info(rect, info) {
     jQuery('#tr')[0].innerHTML = trimpoint(info['box'][2]);
     jQuery('#br')[0].innerHTML = trimpoint(info['box'][3]);
     jQuery('#c') [0].innerHTML = trimpoint(info['box'][4]);
+    
+    
+    jQuery('#selected_block_center_y') [0].value = info['box'][4][0];
+    jQuery('#selected_block_center_x') [0].value = info['box'][4][1];
+    
   
     jQuery('#block_info') [0].innerHTML =  'Block # ' + info['id']+ ':'
     
@@ -65,6 +70,11 @@ function attach_info(rect, info) {
   
   google.maps.event.addListener(rect, 'click', function() {
     //rect.setOptions ({fillOpacity : 0.1});
+    
+    
+    
+   
+    
      jQuery('#grid_form')[0].action =   '/portal/grid_block/';
      jQuery('#grid_form')[0].submit();
  
@@ -75,7 +85,7 @@ function attach_info(rect, info) {
 }
 
 function trimpoint (point) {
-    return [point[0].toPrecision(6),point[1].toPrecision(6)];
+    return [point[0].toFixed(3),point[1].toFixed(3)];
 }
 
 function bounds (box) {
@@ -100,22 +110,6 @@ function make_grid_rectangle (_paths, mapInstance) {
     
 }
 
-function lat_lng_from_point(point ) {
-    return new google.maps.LatLng(point[0] , point[1]);
-}
-
-function amarker (point, map) {
-    marker = new google.maps.Marker({ 
-        position: lat_lng_from_point(point),
-        map: map
-    });
-}
-
-function markers (points, map) {
-    for (var i = 0; i < points.length; i++) {
-       amarker (points [i], map);
-    }
-}
 
 function user_location (mapInstance) {
     var position = false;
