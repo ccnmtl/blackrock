@@ -16,7 +16,6 @@
         tr.highlighted {
             color : blue;
         }
-        
 
         #distances_table td
         {
@@ -108,6 +107,7 @@
                         <b>Distances from center of block:</b> 
                             <table id ="distances_table" >
                                         <tr>
+                                            <td rowspan="2"> Team</td>
                                             <td rowspan="2"> Lat</td>
                                             <td rowspan="2"> Lon</td>
 
@@ -123,6 +123,9 @@
                                 {%for trap in trap_sites_obj%}
                                                 
                                         <tr id = "point_{{trap.point_id}}">
+                                        
+                                            <td> {{trap.point_id}}</td>
+                                        
                                             <td> {{trap.point.0|floatformat:4}}</td>
                                             <td> {{trap.point.1|floatformat:4}}</td>
                                             

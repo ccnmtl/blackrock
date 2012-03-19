@@ -72,9 +72,6 @@ function attach_info(rect, info) {
     //rect.setOptions ({fillOpacity : 0.1});
     
     
-    
-   
-    
      jQuery('#grid_form')[0].action =   '/portal/grid_block/';
      jQuery('#grid_form')[0].submit();
  
@@ -84,48 +81,3 @@ function attach_info(rect, info) {
 
 }
 
-function trimpoint (point) {
-    return [point[0].toFixed(3),point[1].toFixed(3)];
-}
-
-function bounds (box) {
-    var bl  = lat_lng_from_point(box[0]);
-    var tl  = lat_lng_from_point(box[1]);
-    var tr  = lat_lng_from_point(box[2]);
-    var br  = lat_lng_from_point(box[3]);
-    return [ bl, tl, tr, br];
-}
-
-function make_grid_rectangle (_paths, mapInstance) {
-    rect = new google.maps.Polygon ({
-        paths           : _paths,
-        fillOpacity     : 0.1,
-        fillColor       : 'blue',
-        strokeOpacity   : 0.3,
-        strokeColor     : 'green',
-        strokeWeight    : 1,
-        map             : mapInstance
-    });
-    return rect;
-    
-}
-
-
-function user_location (mapInstance) {
-    var position = false;
-    if (typeof(google.loader) != 'undefined' && typeof(google.loader.ClientLocation) != 'undefined') {
-        var lat = google.loader.ClientLocation.latitude;
-        var lng = google.loader.ClientLocation.longitude;
-        if (!isNaN (lat) && !isNaN (lng)) {
-            you_are_here (new google.maps.LatLng(lat, lng), mapInstance);
-        }
-    }
-    if (typeof(navigator.geolocation) != 'undefined') {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var lat = position.coords.latitude;
-            var lng = position.coords.longitude;
-            you_are_here (new google.maps.LatLng(lat, lng), mapInstance);
-        });
-    }
-    return position;
-}

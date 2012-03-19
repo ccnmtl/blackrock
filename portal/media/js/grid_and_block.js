@@ -93,3 +93,10 @@ function markers (points, map) {
        amarker (points [i], map);
     }
 }
+
+
+function trimpoint (point) {
+    return [point[0].toFixed(3),point[1].toFixed(3)];
+}
+
+

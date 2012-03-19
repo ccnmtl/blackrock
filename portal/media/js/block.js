@@ -1,122 +1,56 @@
-
 function addBlock(mapInstance) {
     var map_bounds = new google.maps.LatLngBounds();
     
-    block_json = JSON.parse(jQuery('#block_json')[0].innerHTML)
-    
-    
-    trap_sites = JSON.parse(jQuery('#trap_sites')[0].innerHTML)
-    
-    //alert (trap_sites);
-    
-    
+    block_json = JSON.parse(jQuery('#block_json')[0].innerHTML);
+    trap_sites = JSON.parse(jQuery('#trap_sites')[0].innerHTML);
     for (var i = 0; i < trap_sites.length; i++) {
         trap_info = trap_sites[i];
-    
-        //console.log (    trap_info['point']);
-        //alert (JSON.stringify(trap_info))
-            
             m = amarker (trap_info['point'], mapInstance)
+            
+            m.setTitle  (trap_info['point_id'].toString());
+            
             attach_marker_info (m, trap_info);
-        
     }
-    
-    
     var box = block_json;
     var rect = make_grid_rectangle (bounds (block_json), mapInstance);
-    
-    /*
-    marker = new google.maps.Marker({ 
-        position: lat_lng_from_point(box[4]),
-        map: mapInstance
-    });
-    */
-    
     map_bounds.extend(lat_lng_from_point(box[0] ));
     map_bounds.extend(lat_lng_from_point(box[1] ));
     map_bounds.extend(lat_lng_from_point(box[2] ));
     map_bounds.extend(lat_lng_from_point(box[3] ));
-
     
-    
-    //viewer_location = user_location(mapInstance);
+    viewer_location = user_location(mapInstance);
     
     if (viewer_location ) {
         you_are_here (viewer_location);
     }
-               // http://tiur.ccnmtl.columbia.edu:54321/portal/grid_block/
-
-    
     
     if (!map_bounds.isEmpty() ) {
-        /*
-        zoomChangeBoundsListener = 
-            google.maps.event.addListenerOnce(mapInstance, 'bounds_changed', function(event) {
-                if (this.getZoom()){
-                    this.setZoom(16);
-                }
-        });
-        */
         mapInstance.fitBounds(map_bounds);
-        
     } 
-    
 }
 
-//closure:
 
 function attach_marker_info(marker, info) {
-
-    /*
-    google.maps.event.addListener(marker, 'click', function() {
-
-        str = "Latitude: " +      info['point'] [0].toFixed(4)  ;
-        str += "\n Longitude: " + info['point'] [1].toFixed(4)  ;
-
-        str += "\nThis point is " + info ['direction_x'] + " of center by " +  info ["distance_x"].toFixed(0) + " meters" ;
-        str += "\n and "       + info ['direction_y'] + " of center by " +  info ["distance_y"].toFixed(0) + " meters," ;
-        str += "\n  or " + info ['actual_distance'].toFixed(0)+ " meters @ compass heading " + info ['heading'].toFixed(0)  + "°." ;
-
-        
-        
-       
-        alert (str);
-        
-  
-
-  
-    rect.setOptions ({fillOpacity : 0.3});
-  
-    jQuery('#bl')[0].innerHTML = trimpoint(info['box'][0]);
-    jQuery('#tl')[0].innerHTML = trimpoint(info['box'][1]);
-    jQuery('#tr')[0].innerHTML = trimpoint(info['box'][2]);
-    jQuery('#br')[0].innerHTML = trimpoint(info['box'][3]);
-    jQuery('#c') [0].innerHTML = trimpoint(info['box'][4]);
-  
-    jQuery('#block_info') [0].innerHTML =  'Block # ' + info['id']+ ':'
-    
-  });
-    */  
-  
-  
     google.maps.event.addListener(marker, 'mouseover', function() {
         jQuery ('#point_' + info['point_id']).addClass("highlighted");
-        
-        
     });
   
     google.maps.event.addListener(marker, 'mouseout', function() {
         jQuery ('#point_' + info['point_id']).removeClass("highlighted");
-        
-        
     });
-  
-/*  
-  google.maps.event.addListener(rect, 'mouseout', function() {
-    rect.setOptions ({fillOpacity : 0.1});
-  });
-*/
-
+    
+    jQuery ('#point_' + info['point_id']).mouseover( function () {
+    
+            jQuery ('#point_' + info['point_id']).addClass("highlighted");
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+    );
+     jQuery ('#point_' + info['point_id']).mouseout( function () {
+    
+            jQuery ('#point_' + info['point_id']).removeClass("highlighted");
+            marker.setAnimation(null);
+        }
+    );
 }
 
 

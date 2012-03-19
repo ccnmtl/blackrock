@@ -28,10 +28,6 @@ def get_int (request, name, default):
     return int (number)
 
 
-#def get_two_numbers_number (request, names, default_tuples):
-#    number =request.POST.get('magnetic_declination', default)
-#    return float (number)
-
 @rendered_with('portal/grid.html')
 def grid(request):
 
@@ -39,10 +35,10 @@ def grid(request):
     #default_lat = 40.80835;
     #default_lon = -73.96455;
     
-    
     #blackrock
     default_lat = 41.400;
     default_lon = -74.0305;
+    
     
     if (request.method != 'POST'):
         magnetic_declination                    = -13.0 # degrees
@@ -84,16 +80,9 @@ def grid(request):
             new_column.append(rotated_block)
             
         grid_json.append (new_column)
-
-    #tp_1 = grid_center
-    #tp_2 = ( grid_center[0], grid_center[1] + meters_to_degrees_long(2000.0))
-    #tp_3 = rotate_about_a_point (tp_2, tp_1, 90.0)
-    
-    
     
     return {
         'grid_json': simplejson.dumps(grid_json)
-        #,'test_points': simplejson.dumps((tp_1, tp_2, tp_3))
         ,'magnetic_declination'                      :  magnetic_declination # degrees
         ,'grid_center_y'                             :  grid_center_y
         ,'grid_center_x'                             :  grid_center_x
@@ -142,8 +131,6 @@ def pick_trap_location (center, max_distance_from_center_y, max_distance_from_ce
     
     point_lat_long = rotate_about_a_point (point_lat_long_before_rotation, center, rotate_by)
 
-
-
     result ['point'] =       point_lat_long
     result ['distance_y'] =  y_distance
     result ['distance_x'] =  x_distance
@@ -167,9 +154,9 @@ def grid_block(request):
     
     if (request.method != 'POST'):
         magnetic_declination                    = -13.0 # degrees
-        grid_center                             = [default_lat, default_lon]
+        block_center                             = [default_lat, default_lon]
         block_height_in_m, block_width_in_m     = [250.0, 250.0]
-        grid_center_y, grid_center_x = grid_center
+        selected_block_center_y, selected_block_center_x = block_center
         num_points = 5
         
     else:
@@ -177,45 +164,34 @@ def grid_block(request):
         magnetic_declination =                  get_float( request, 'magnetic_declination',     -13.0)
         block_height_in_m =                     get_float( request, 'block_height_in_m',        250.0)
         block_width_in_m  =                     get_float( request, 'block_width_in_m',         250.0)
-        grid_center_y          =                get_float( request, 'selected_block_center_y',  default_lat)
-        grid_center_x           =               get_float( request, 'selected_block_center_x',  default_lon)
-        grid_center = grid_center_y, grid_center_x
+        selected_block_center_y          =      get_float( request, 'selected_block_center_y',  default_lat)
+        selected_block_center_x           =     get_float( request, 'selected_block_center_x',  default_lon)
+        block_center = selected_block_center_y, selected_block_center_x
     
-    grid_height_in_m = block_height_in_m 
-    grid_width_in_m  = block_width_in_m  
-    
-    block_height, block_width  = to_lat_long (block_height_in_m,  block_width_in_m )
-    grid_height,  grid_width   = to_lat_long (grid_height_in_m,   grid_width_in_m  )
+    block_height, block_width    = to_lat_long (block_height_in_m,  block_width_in_m )
     
     trap_sites = []
     
     for i in range (num_points):
-        loc = pick_trap_location ((grid_center_y, grid_center_x), block_height_in_m / 2, block_width_in_m / 2, magnetic_declination)
+        center = selected_block_center_y, selected_block_center_x
+        loc = pick_trap_location (center, block_height_in_m / 2, block_width_in_m / 2, magnetic_declination)
         loc ['point_id'] = i + 1
         trap_sites.append (loc)
     
-    grid_bottom,  grid_left  = grid_center[0] - (grid_height / 2), grid_center[1] - (grid_width/2)
-    bottom_left = grid_bottom , grid_left
+    bottom_left = block_center[0] - (block_height / 2), block_center[1] - (block_width/2)
     block = set_up_block (bottom_left, block_height, block_width)
-    rotated_block = rotate_points (block, grid_center, magnetic_declination)
-
-    #tp_1 = grid_center
-    #tp_2 = ( grid_center[0], grid_center[1] + meters_to_degrees_long(2000.0))
-    #tp_3 = rotate_about_a_point (tp_2, tp_1, 90.0)
-    
-    
+    rotated_block = rotate_points (block, block_center, magnetic_declination)
     
     return {
         'block_json': simplejson.dumps(rotated_block)
-        #,'test_points': simplejson.dumps((tp_1, tp_2, tp_3))
         ,'magnetic_declination'                      :  magnetic_declination # degrees
-        ,'grid_center_y'                             :  grid_center_y
-        ,'grid_center_x'                             :  grid_center_x
+        ,'selected_block_center_y'                   :  selected_block_center_y
+        ,'selected_block_center_x'                   :  selected_block_center_x
         ,'block_height_in_m'                         :  block_height_in_m
         ,'block_width_in_m'                          :  block_width_in_m
         ,'num_points'                                :  num_points
-        ,'trap_sites'                                :   simplejson.dumps(trap_sites)
-        ,'trap_sites_obj'                            :   trap_sites
+        ,'trap_sites'                                :  simplejson.dumps(trap_sites)
+        ,'trap_sites_obj'                            :  trap_sites
     
     }
     
