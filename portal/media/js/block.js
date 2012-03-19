@@ -1,6 +1,6 @@
 
 function addBlock(mapInstance) {
-    //var map_bounds = new google.maps.LatLngBounds();
+    var map_bounds = new google.maps.LatLngBounds();
     
     block_json = JSON.parse(jQuery('#block_json')[0].innerHTML)
     
@@ -32,16 +32,14 @@ function addBlock(mapInstance) {
     });
     */
     
-    
-    /*
     map_bounds.extend(lat_lng_from_point(box[0] ));
     map_bounds.extend(lat_lng_from_point(box[1] ));
     map_bounds.extend(lat_lng_from_point(box[2] ));
     map_bounds.extend(lat_lng_from_point(box[3] ));
 
-    */
     
-    viewer_location = user_location(mapInstance);
+    
+    //viewer_location = user_location(mapInstance);
     
     if (viewer_location ) {
         you_are_here (viewer_location);
@@ -49,19 +47,19 @@ function addBlock(mapInstance) {
                // http://tiur.ccnmtl.columbia.edu:54321/portal/grid_block/
 
     
-    /*
+    
     if (!map_bounds.isEmpty() ) {
-        
+        /*
         zoomChangeBoundsListener = 
             google.maps.event.addListenerOnce(mapInstance, 'bounds_changed', function(event) {
                 if (this.getZoom()){
                     this.setZoom(16);
                 }
         });
-        
+        */
         mapInstance.fitBounds(map_bounds);
         
-    } */
+    } 
     
 }
 
@@ -69,16 +67,23 @@ function addBlock(mapInstance) {
 
 function attach_marker_info(marker, info) {
 
+    /*
     google.maps.event.addListener(marker, 'click', function() {
 
-        str = "This point is " + info ['direction_x'] + " of center by " +  info ["distance_x"].toFixed(0) + " meters" ;
-        str += "\n and "       + info ['direction_y'] + " of center by " +  info ["distance_y"].toFixed(0) + " meters." ;
-        str += "\n Compass heading: " + info ['heading'].toFixed(0)  + " degrees." ;
-        str += "\n Distance: " + info ['actual_distance'].toFixed(0) + " meters." ;
+        str = "Latitude: " +      info['point'] [0].toFixed(4)  ;
+        str += "\n Longitude: " + info['point'] [1].toFixed(4)  ;
+
+        str += "\nThis point is " + info ['direction_x'] + " of center by " +  info ["distance_x"].toFixed(0) + " meters" ;
+        str += "\n and "       + info ['direction_y'] + " of center by " +  info ["distance_y"].toFixed(0) + " meters," ;
+        str += "\n  or " + info ['actual_distance'].toFixed(0)+ " meters @ compass heading " + info ['heading'].toFixed(0)  + "°." ;
+
+        
+        
+       
         alert (str);
         
   
-/*    
+
   
     rect.setOptions ({fillOpacity : 0.3});
   
@@ -89,14 +94,29 @@ function attach_marker_info(marker, info) {
     jQuery('#c') [0].innerHTML = trimpoint(info['box'][4]);
   
     jQuery('#block_info') [0].innerHTML =  'Block # ' + info['id']+ ':'
-*/    
+    
   });
+    */  
   
-  /*
+  
+    google.maps.event.addListener(marker, 'mouseover', function() {
+        jQuery ('#point_' + info['point_id']).addClass("highlighted");
+        
+        
+    });
+  
+    google.maps.event.addListener(marker, 'mouseout', function() {
+        jQuery ('#point_' + info['point_id']).removeClass("highlighted");
+        
+        
+    });
+  
+/*  
   google.maps.event.addListener(rect, 'mouseout', function() {
     rect.setOptions ({fillOpacity : 0.1});
   });
 */
+
 }
 
 

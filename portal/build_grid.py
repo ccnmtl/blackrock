@@ -170,8 +170,10 @@ def grid_block(request):
         grid_center                             = [default_lat, default_lon]
         block_height_in_m, block_width_in_m     = [250.0, 250.0]
         grid_center_y, grid_center_x = grid_center
+        num_points = 5
         
     else:
+        num_points           =                  get_int  ( request, 'num_points',               5 )
         magnetic_declination =                  get_float( request, 'magnetic_declination',     -13.0)
         block_height_in_m =                     get_float( request, 'block_height_in_m',        250.0)
         block_width_in_m  =                     get_float( request, 'block_width_in_m',         250.0)
@@ -187,14 +189,10 @@ def grid_block(request):
     
     trap_sites = []
     
-    for i in range (60):
+    for i in range (num_points):
         loc = pick_trap_location ((grid_center_y, grid_center_x), block_height_in_m / 2, block_width_in_m / 2, magnetic_declination)
+        loc ['point_id'] = i + 1
         trap_sites.append (loc)
-
-    #print trap_sites
-        
-        
-    
     
     grid_bottom,  grid_left  = grid_center[0] - (grid_height / 2), grid_center[1] - (grid_width/2)
     bottom_left = grid_bottom , grid_left
@@ -215,7 +213,9 @@ def grid_block(request):
         ,'grid_center_x'                             :  grid_center_x
         ,'block_height_in_m'                         :  block_height_in_m
         ,'block_width_in_m'                          :  block_width_in_m
-        ,'trap_sites'                               :   simplejson.dumps(trap_sites)
+        ,'num_points'                                :  num_points
+        ,'trap_sites'                                :   simplejson.dumps(trap_sites)
+        ,'trap_sites_obj'                            :   trap_sites
     
     }
     
