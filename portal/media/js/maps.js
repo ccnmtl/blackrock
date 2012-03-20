@@ -458,13 +458,37 @@ if (!Portal.Map) {
             var boundary = new Portal.Layer("brfboundary", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/brfboundary.kml?newcachebuster=" + randomnumber, false);
             boundary.instance.setMap(self.mapInstance);
 
+            
+            
+            // eddie adding these two (temporarily)
+            if (typeof addGrid !== "undefined") {
+                addGrid(self.mapInstance);
+                addTrails (self);
+            }
+            
+            
+            if (typeof addBlock !== "undefined") {
+                addBlock(self.mapInstance);
+                addTrails (self);
+            }
+            // end eddie change
+            
             self.toggleLayer();
+            
+            
         }
     }
 }
+
 
 var portalMapInstance = null;
 addLoadEvent(function() {
     portalMapInstance = new Portal.Map();
     portalMapInstance.init();
+    
+    
+    var latlng = new google.maps.LatLng(41.397459,-74.021848);
 });
+
+
+

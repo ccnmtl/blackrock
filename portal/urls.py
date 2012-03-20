@@ -11,7 +11,10 @@ urlpatterns = patterns('',
 				(r'^mobile/(.*)$', 'blackrock.portal.views.mobile'),
                 url(r'^search/', PortalSearchView(template="portal/search.html", form_class=PortalSearchForm), name='search'),
                 url(r'^nearby/(?P<latitude>-?\d+\.\d+)/(?P<longitude>-?\d+\.\d+)/$', 'blackrock.portal.views.nearby'),
-                (r'^(?P<path>.*)$','blackrock.portal.views.page')							 
+                
+				(r'^browse/(.*)', databrowse.site.root),
+                (r'^grid/',       'blackrock.portal.views.grid' ),
+                (r'^grid_block/', 'blackrock.portal.views.grid_block' )
 )
 
 

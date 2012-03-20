@@ -15,6 +15,7 @@ from haystack.query import SearchQuerySet
 from django.contrib.auth.decorators import user_passes_test
 from blackrock_main.solr import SolrUtilities
 from portal.models import * 
+from portal.build_grid import *
 from decimal import Decimal
 from pysolr import Solr, SolrError
 from django.core.cache import cache
@@ -24,6 +25,8 @@ from django.utils.tzinfo import FixedOffset
 from django.contrib.gis.geos import  * 
 from django.contrib.gis.measure import D # D is a shortcut for Distance 
 from django.template.loader import get_template
+
+
 
 class rendered_with(object):
     def __init__(self, template_name):
@@ -103,6 +106,8 @@ def nearby(request, latitude, longitude):
               
     return dict(latitude=latitude, longitude=longitude, results=a, count=len(a))
     
+
+
 def process_datasets(xmldoc):
   datasets = []
   for node in xmldoc.getElementsByTagName('int'):
