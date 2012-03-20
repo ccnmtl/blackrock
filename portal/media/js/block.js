@@ -3,14 +3,7 @@ function addBlock(mapInstance) {
     
     block_json = JSON.parse(jQuery('#block_json')[0].innerHTML);
     trap_sites = JSON.parse(jQuery('#trap_sites')[0].innerHTML);
-    for (var i = 0; i < trap_sites.length; i++) {
-        trap_info = trap_sites[i];
-            m = amarker (trap_info['point'], mapInstance)
-            
-            m.setTitle  (trap_info['point_id'].toString());
-            
-            attach_marker_info (m, trap_info);
-    }
+    
     var box = block_json;
     var rect = make_grid_rectangle (bounds (block_json), mapInstance);
     map_bounds.extend(lat_lng_from_point(box[0] ));
@@ -19,6 +12,13 @@ function addBlock(mapInstance) {
     map_bounds.extend(lat_lng_from_point(box[3] ));
     
     viewer_location = user_location(mapInstance);
+    
+    for (var i = 0; i < trap_sites.length; i++) {
+        trap_info = trap_sites[i];
+        circle = thirty_meter_circle (trap_info['point'], mapInstance);
+        attach_marker_info (circle, trap_info);
+    }
+    
     
     if (viewer_location ) {
         you_are_here (viewer_location);
@@ -29,29 +29,31 @@ function addBlock(mapInstance) {
     } 
 }
 
-
-function attach_marker_info(marker, info) {
-    google.maps.event.addListener(marker, 'mouseover', function() {
+function attach_marker_info(the_circle, info) {    
+    function circle_on () {
         jQuery ('#point_' + info['point_id']).addClass("highlighted");
-    });
-  
-    google.maps.event.addListener(marker, 'mouseout', function() {
+        the_circle.setOptions({fillColor : "red"});
+    }
+    function circle_off () {
         jQuery ('#point_' + info['point_id']).removeClass("highlighted");
-    });
+        the_circle.setOptions({fillColor : "blue"});
+    }
+    google.maps.event.addListener(the_circle, 'mouseover', circle_on);
+    jQuery ('#point_' + info['point_id']).mouseover(circle_on);
     
-    jQuery ('#point_' + info['point_id']).mouseover( function () {
-    
-            jQuery ('#point_' + info['point_id']).addClass("highlighted");
-            marker.setAnimation(google.maps.Animation.BOUNCE);
-        }
-    );
-     jQuery ('#point_' + info['point_id']).mouseout( function () {
-    
-            jQuery ('#point_' + info['point_id']).removeClass("highlighted");
-            marker.setAnimation(null);
-        }
-    );
+    google.maps.event.addListener(the_circle, 'mouseout', circle_off);
+    jQuery ('#point_' + info['point_id']).mouseout( circle_off );
 }
 
-
+function thirty_meter_circle (center, map) {
+  return  new google.maps.Circle({
+      center:  lat_lng_from_point(  center  ),
+      radius: 30, //meters 
+      map: map,
+      fillColor: 'blue',
+      strokeWeight : 1,
+      strokeColor : 'blue',
+      strokeOpacity : 0.3,
+   });
+}
 

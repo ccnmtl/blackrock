@@ -123,15 +123,12 @@
                                 {%for trap in trap_sites_obj%}
                                                 
                                         <tr id = "point_{{trap.point_id}}">
-                                        
                                             <td> {{trap.point_id}}</td>
-                                        
                                             <td> {{trap.point.0|floatformat:4}}</td>
                                             <td> {{trap.point.1|floatformat:4}}</td>
-                                            
-                                            <td> {{trap.distance_y|floatformat:0}} meters {{trap.direction_y}}</td>
-                                            <td> {{trap.distance_x|floatformat:0}} meters {{trap.direction_x}}</td>
-                                            <td>{{trap.actual_distance|floatformat:0}} meters @ {{trap.heading|floatformat:0}}&deg;</td>
+                                            <td> {{trap.distance_y|floatformat:0}} m. {{trap.direction_y}}</td>
+                                            <td> {{trap.distance_x|floatformat:0}} m. {{trap.direction_x}}</td>
+                                            <td>{{trap.actual_distance|floatformat:0}} m. @ {{trap.heading|floatformat:0}}&deg;</td>
                                         </tr>
                                     
                                 {% endfor %}

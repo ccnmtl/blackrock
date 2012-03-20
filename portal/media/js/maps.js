@@ -459,6 +459,8 @@ if (!Portal.Map) {
             boundary.instance.setMap(self.mapInstance);
 
             
+            
+            // eddie adding these two (temporarily)
             if (typeof addGrid !== "undefined") {
                 addGrid(self.mapInstance);
             }
@@ -467,7 +469,7 @@ if (!Portal.Map) {
             if (typeof addBlock !== "undefined") {
                 addBlock(self.mapInstance);
             }
-            
+            // end eddie change
             
             self.toggleLayer();
             
