@@ -69,8 +69,6 @@ function attach_info(rect, info) {
   
   
   google.maps.event.addListener(rect, 'click', function() {
-    //rect.setOptions ({fillOpacity : 0.1});
-    
     
      jQuery('#grid_form')[0].action =   '/portal/grid_block/';
      jQuery('#grid_form')[0].submit();

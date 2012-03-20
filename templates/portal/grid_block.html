@@ -26,6 +26,10 @@
             padding: 4px;
             background-color: #EFE;
         }
+        table.right_hand_table td {
+            margin: 5px;
+            padding: 5px;
+        }
     </style>
 
     {{ block.super }}
@@ -45,7 +49,7 @@
     
     <div id = "grid_form">
         <form action = '/portal/grid_block/' method="post">
-            <table>
+            <table id ="right_hand_table">
                 <tr>
                     <td rowspan = "12">
                         <div id="map_canvas" style="width: 500px; height: 500px"></div>
@@ -88,19 +92,20 @@
                     </td>
                 </tr>
                 <tr>
-                    <td> Number of Points:
+                    <td> Number of Teams:
                     </td>
                     <td> 
                         <input type="text" name = "num_points" value ="{{num_points}}"> </input>
                     </td>
                 </tr>
                 <tr>
-                    <td > 
-                        <input type="submit" value="Redraw"></input>
+                    <td colspan = "2"> 
+                        <input type="submit" value="Pick new sites at random within this block"></input>
                     </td>
-                    <td> 
-                        <a href = "/portal/grid/">Reset</a>
-                    </td>
+
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
                 </tr>
                 <tr>
                     <td  colspan = "2"> 
@@ -138,7 +143,15 @@
                     
                     </td>
                 </tr>
-                
+
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan = "2"> 
+                        <a href = "/portal/grid/">&lt; Back to grid</a>      
+                    </td>
+                </tr>                
             </table>
         </form>
     </div>

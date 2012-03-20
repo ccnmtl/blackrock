@@ -10,6 +10,35 @@
     {{ block.super }}
 {% endblock %}
 
+{% block css %}
+    <style media="screen" type="text/css">
+
+
+        td.top_side
+        {
+            border-top: 2px solid green;
+        }
+        
+        td.bottom_side
+        {
+            border-bottom: 2px solid green;
+        }
+        
+        td.left_side
+        {
+            border-left: 2px solid green;
+        }
+        
+        td.right_side
+        {
+            border-right: 2px solid green;
+        }
+        
+    </style>
+
+    {{ block.super }}
+{% endblock %}
+
 
 {% block container %}
 
@@ -92,7 +121,7 @@
                 </tr>
                 <tr>
                     <td > 
-                        <input type="submit" value="Redraw"></input>
+                        <input type="submit" value="Redraw the grid"></input>
                     </td>
                     <td> 
                         <a href = "/portal/grid/">Reset</a>
@@ -113,19 +142,19 @@
                             </p>
                             <table>
                             <tr>
-                                <td id = "tl">&nbsp;</td>
-                                <td>&nbsp;</td>
-                                <td id = "tr">&nbsp;</td>
+                                <td id = "tl"  class = "top_side left_side">&nbsp;</td>
+                                <td class = "top_side">&nbsp;</td>
+                                <td id = "tr"  class = "top_side right_side">&nbsp;</td>
                             </tr>
                             <tr>
-                                <td>&nbsp;</td>
+                                <td class = "left_side">&nbsp;</td>
                                 <td id = "c">&nbsp;</td>
-                                <td>&nbsp;</td>
+                                <td class = "right_side">&nbsp;</td>
                             </tr>
                             <tr>
-                                <td id = "bl">&nbsp;</td>
-                                <td>&nbsp;</td>
-                                <td id = "br">&nbsp;</td>
+                                <td id = "bl" class = "bottom_side left_side">&nbsp;</td>
+                                <td class = "bottom_side">&nbsp;</td>
+                                <td id = "br" class = "bottom_side right_side">&nbsp;</td>
                             </tr>
                             
                             </table>

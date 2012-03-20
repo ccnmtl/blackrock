@@ -463,11 +463,13 @@ if (!Portal.Map) {
             // eddie adding these two (temporarily)
             if (typeof addGrid !== "undefined") {
                 addGrid(self.mapInstance);
+                addTrails (self);
             }
             
             
             if (typeof addBlock !== "undefined") {
                 addBlock(self.mapInstance);
+                addTrails (self);
             }
             // end eddie change
             

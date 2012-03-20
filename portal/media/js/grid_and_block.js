@@ -99,4 +99,11 @@ function trimpoint (point) {
     return [point[0].toFixed(3),point[1].toFixed(3)];
 }
 
+function addTrails (mapObj) {
+    var self = mapObj;
+    var kmllayer = new Portal.Layer("trails", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/trails.kml", true);
+    self.layers["trails"] = kmllayer;
+    kmllayer.instance.setMap(self.mapInstance);
+}
+
 

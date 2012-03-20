@@ -28,6 +28,11 @@ def get_int (request, name, default):
     return int (number)
 
 
+"""portal/media/kml/trails.kml
+
+
+"""
+
 @rendered_with('portal/grid.html')
 def grid(request):
 
