@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.nt/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+  <name><![CDATA[Black Rock Forest Viewpoints]]></name>
+  <open>1</open>
+  <Snippet maxLines="0"><![CDATA[]]></Snippet>
+  <description><![CDATA[Black Rock Forest Viewpoints]]></description>
+  <Style id="FEATURES_LABELS">
+    <IconStyle>
+      <color>00000000</color>
+      <Icon>
+        <href>http://blackrock.ccnmtl.columbia.edu/portal/media/images/mapicon_viewpoints.png</href>
+      </Icon>
+    </IconStyle>
+    <LabelStyle>
+      <color>FFFFFFFF</color>
+    </LabelStyle>
+  </Style>
+  <Folder>
+    <name>Feature Labels (<![CDATA[NAME]]>)</name>
+    <open>0</open>
+      <Placemark>
+        <name><![CDATA[Eagle Cliff]]></name>
+        <description><![CDATA[1,443 feet (439.82 meters)<br />Eagle Cliff is one of the most prominent bedrock (granite gneiss) outcrops in Black Rock Forest, emerging from the trees to give outstanding views to the south of much of the Hudson Highlands.<br /><i>Source: Black Rock Forest Consortium</i>]]></description>
+        <styleUrl>#FEATURES_LABELS</styleUrl>
+        <Point>
+          <extrude>0</extrude>
+          <altitudeMode>clampedToGround</altitudeMode>
+          <coordinates>-74.029976,41.386486,0.000000</coordinates>
+        </Point>
+      </Placemark>
+      
+      <Placemark>
+        <name><![CDATA[Jupiter's Boulder]]></name>
+        <description><![CDATA[]]></description>
+        <styleUrl>#FEATURES_LABELS</styleUrl>
+        <Point>
+          <extrude>0</extrude>
+          <altitudeMode>clampedToGround</altitudeMode>
+          <coordinates>-74.048111,41.384342,0.000000</coordinates>
+        </Point>
+      </Placemark>
+      
+      <Placemark>
+        <name><![CDATA[Mount Rascal]]></name>
+        <description><![CDATA[1,416 feet (431.59 m)]]></description>
+        <styleUrl>#FEATURES_LABELS</styleUrl>
+        <Point>
+          <extrude>0</extrude>
+          <altitudeMode>clampedToGround</altitudeMode>
+          <coordinates>-74.050468,41.380882,0.000000</coordinates>
+        </Point>
+      </Placemark>
+      
+      <Placemark>
+        <name><![CDATA[Split Rock]]></name>
+        <description><![CDATA[Split Rock is a long granite gneiss rock outcrop at the high point of the northeast-southwest trending ridge that separates the Canterbury Brook watershed to the west from the Sutherland Pond and Sphagnum Pond areas to the east. The "split" in the rock is a long crack that represents an ancient rock fault.<br /><i>Source: Black Rock Forest Consortium</i>]]></description>
+        <styleUrl>#FEATURES_LABELS</styleUrl>
+        <Point>
+          <extrude>0</extrude>
+          <altitudeMode>clampedToGround</altitudeMode>
+          <coordinates>-74.037521,41.394974,0.000000</coordinates>
+        </Point>
+      </Placemark>
+      
+      <Placemark>
+        <name>Rattlesnake Hill</name>
+        <description>1,407 feet (428.85 meters)</description>
+        <styleUrl>#FEATURES_LABELS</styleUrl>
+        <Point>
+          <extrude>0</extrude>
+          <altitudeMode>clampedToGround</altitudeMode>
+          <coordinates>
+            -74.0062515627702,41.394816012301,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      
+      <Placemark>
+        <name><![CDATA[Hill of Pines]]></name>
+        <description><![CDATA[1,400 feet (426.72 meters)<br />Hill of Pines is the name for the long east-west oriented ridge that divides the Upper Reservoir watershed to the north from the Cascade Brook watershed to the south.<br /><i>Source: Black Rock Forest Consortium</i>]]></description>
+        <styleUrl>#FEATURES_LABELS</styleUrl>
+        <Point>
+          <extrude>0</extrude>
+          <altitudeMode>clampedToGround</altitudeMode>
+          <coordinates>
+            -74.0087516748947,41.4025937306957,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      
+      <Placemark>
+        <name><![CDATA[Mount Misery Summit]]></name>
+        <description><![CDATA[1,270 feet (387.10 meters)<br />Mount Misery is the closest mountain peak to the Forest entrance and Science Center area. Rock outcrops on the summit provide dramatic views to the west of Aleck Meadow Reservoir and Black Rock Mountain.<br /><i>Source: Black Rock Forest Consortium</i>]]></description>
+        <styleUrl>#FEATURES_LABELS</styleUrl>
+        <Point>
+          <extrude>0</extrude>
+          <altitudeMode>clampedToGround</altitudeMode>
+          <coordinates>
+            -74.0104183049798,41.40787167096,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name><![CDATA[Black Rock Summit]]></name>
+        <description><![CDATA[1,410 feet (429.76 meters)<br />Black Rock Mountain is the namesake for the Forest, featuring granite gneiss outcrops that contain dark-colored mineral deposits such as iron and hornblende. The summit provides outstanding views to the north, west, and south of features such as the Catskill and Shawangunk Mountains, the Hudson River and the Great Valley including the city of Newburgh and Stewart Airport.<br /><i>Source: Black Rock Forest Consortium</i>]]></description>
+        <styleUrl>#FEATURES_LABELS</styleUrl>
+        <Point>
+          <extrude>0</extrude>
+          <altitudeMode>clampedToGround</altitudeMode>
+          <coordinates>-74.0215297845355,41.4081493869751,0</coordinates>
+        </Point>
+      </Placemark>
+        <Placemark>
+            <name>Viewpoint 1</name>
+            <description><![CDATA[]]></description>
+            <styleUrl>#FEATURES_LABELS</styleUrl>
+            <Point>
+              <coordinates>-74.049179,41.393311,0.000000</coordinates>
+            </Point>
+          </Placemark>
+          <Placemark>
+            <name>Viewpoint 2</name>
+            <description><![CDATA[]]></description>
+            <styleUrl>#FEATURES_LABELS</styleUrl>
+            <Point>
+              <coordinates>-74.046112,41.400505,0.000000</coordinates>
+            </Point>
+          </Placemark>
+          <Placemark>
+            <name>Viewpoint 3</name>
+            <description><![CDATA[]]></description>
+            <styleUrl>#FEATURES_LABELS</styleUrl>
+            <Point>
+              <coordinates>-74.045708,41.402805,0.000000</coordinates>
+            </Point>
+          </Placemark>
+          <Placemark>
+            <name>Viewpoint 4</name>
+            <description><![CDATA[]]></description>
+            <styleUrl>#FEATURES_LABELS</styleUrl>
+            <Point>
+              <coordinates>-74.041412,41.406830,0.000000</coordinates>
+            </Point>
+          </Placemark>
+          <Placemark>
+            <name><![CDATA[Spy Rock]]></name>
+            <description><![CDATA[1,461 feet (445.31 meters)<br />Spy Rock is the highest elevation in the Highlands west of the Hudson River. During the Revolutionary War, Spy Rock was used by Washington's Continental Army to oversee movements of the British Army. Forest regrowth since that time has obscured much of the view from this spot.<br /><i>Source: Black Rock Forest Consortium</i>]]></description>
+            <styleUrl>#FEATURES_LABELS</styleUrl>
+            <Point>
+              <extrude>0</extrude>
+              <altitudeMode>clampedToGround</altitudeMode>
+              <coordinates>
+                -74.0212522355174,41.3909271531036,0
+              </coordinates>
+            </Point>
+          </Placemark>
+          <Placemark>
+            <name>The Great White Oak</name>
+            <description><![CDATA[The White Oak Tree is a landmark tree from the colonial era, more than 250 years old, growing near the center of Black Rock Forest. Its growth form, with widely branching lower limbs beginning 30 feet above the ground, indicates that it grew in a relatively dense forest in the late 1700s that was cleared for pasture in the 1800s. It is located near the highest point on Continental Road at its intersection with White Oak Road, a point about halfway between New Windsor and West Point]]></description>
+            <styleUrl>#FEATURES_LABELS</styleUrl>
+            <Point>
+              <coordinates>-74.02373850345612,41.400274104882385,0.000000</coordinates>
+            </Point>
+          </Placemark>
+    </Folder>
+</Document>
+</kml>

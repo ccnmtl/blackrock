@@ -1,0 +1,29 @@
+<!DOCTYPE html> 
+<html> 
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <title>The Virtual Forest Initiative: {% block title %}{% endblock %}</title> 
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.css" />
+        <link rel="stylesheet" href="/portal/media/css/mobile-style.css" />
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.js"></script>
+        {% block extrahead %}{% endblock %}
+    </head> 
+    <body> 
+        <div data-role="page" id="page_{% block pageid %}{% endblock %}" data-theme="d" style="width:100%; height:100%;">
+        
+            <div data-role="header" data-position="fixed">
+                <h1>Black Rock Forest {% block header %}{% endblock %}</h1>
+                {% block header_navigation %}<a href="/portal/mobile/" data-rel="back" data-icon="back">Back</a>{% endblock %}
+            </div>
+        
+            <div data-role="content">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </body>
+</html>
+
+
+

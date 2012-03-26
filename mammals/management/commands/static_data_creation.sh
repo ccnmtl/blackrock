@@ -1,0 +1,1 @@
+pg_dump -Upostgres blackrock_portal -a -tportal_audiencetype -tportal_digitalformat -tportal_digitalobjecttype -tportal_keyword -tportal_institution -tportal_locationsubtype -tportal_locationtype -tportal_persontype -tportal_publicationtype -tportal_rightstype -tportal_regiontype > ./static_data.sql

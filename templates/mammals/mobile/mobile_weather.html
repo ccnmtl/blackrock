@@ -1,0 +1,10 @@
+{% extends "portal/mobile/mobile_page.html" %}
+{% load portal %}
+
+{% block content %}
+    <div id="data">
+        <div class="weather-widget-title">Current Conditions</div>
+        <h6>as of {% now "g a" %} on {% now "m/d/y" %}</h6>
+        <p><img src="{% value_from_settings BLACK_ROCK_FEED %}data/current/Widget.png" alt="Current Conditions Widget" /></p>
+    </div>
+{% endblock %}

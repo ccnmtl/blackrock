@@ -30,6 +30,7 @@ urlpatterns = patterns('',
                        (r'^waterquality/',include('waterquality.urls')),
                        (r'^blackrock_main/', include('blackrock.blackrock_main.urls')),
                        (r'^portal/', include('blackrock.portal.urls')),
+                       (r'^mammals/', include('blackrock.mammals.urls')),
                        (r'^edit/(?P<path>.*)$', include('blackrock.portal.urls')),
                        (r'^$', 'blackrock.views.index')
 ) + staticmedia.serve()
