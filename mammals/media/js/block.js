@@ -1,4 +1,4 @@
-cp function addBlock(mapInstance) {
+function addBlock(mapInstance) {
     var map_bounds = new google.maps.LatLngBounds();
     
     block_json = JSON.parse(jQuery('#block_json')[0].innerHTML);
@@ -32,11 +32,11 @@ cp function addBlock(mapInstance) {
 function attach_marker_info(the_circle, info) {    
     function circle_on () {
         jQuery ('#point_' + info['point_id']).addClass("highlighted");
-        the_circle.setOptions({fillColor : "red"});
+        the_circle.setOptions({fillColor : "blue"});
     }
     function circle_off () {
         jQuery ('#point_' + info['point_id']).removeClass("highlighted");
-        the_circle.setOptions({fillColor : "blue"});
+        the_circle.setOptions({fillColor : "lightgreen"});
     }
     google.maps.event.addListener(the_circle, 'mouseover', circle_on);
     jQuery ('#point_' + info['point_id']).mouseover(circle_on);
@@ -50,9 +50,9 @@ function thirty_meter_circle (center, map) {
       center:  lat_lng_from_point(  center  ),
       radius: 30, //meters 
       map: map,
-      fillColor: 'blue',
+      fillColor: 'lightgreen',
       strokeWeight : 1,
-      strokeColor : 'blue',
+      strokeColor : 'lightgreen',
       strokeOpacity : 0.3,
    });
 }

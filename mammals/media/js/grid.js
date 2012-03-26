@@ -32,9 +32,6 @@ function addGrid(mapInstance) {
         you_are_here (viewer_location);
     }
     
-    // why you no work?
-    //mapInstance.setMapType(G_SATELLITE_MAP);
-    
     
     if (!map_bounds.isEmpty() ) {
         mapInstance.fitBounds(map_bounds);
@@ -59,7 +56,7 @@ function attach_info(rect, info) {
     jQuery('#selected_block_center_x') [0].value = info['box'][4][1];
     
   
-    jQuery('#block_info') [0].innerHTML =  'Block # ' + info['id']+ ':'
+    jQuery('#block_info') [0].innerHTML =  'Square # ' + info['id']+ ':'
     
   });
   
@@ -70,7 +67,7 @@ function attach_info(rect, info) {
   
   google.maps.event.addListener(rect, 'click', function() {
     
-     jQuery('#grid_form')[0].action =   '/mammals/grid_block/';
+     jQuery('#grid_form')[0].action =   '/mammals/grid_square/';
      jQuery('#grid_form')[0].submit();
  
   });

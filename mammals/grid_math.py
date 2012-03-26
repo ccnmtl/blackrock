@@ -1,5 +1,4 @@
 from math import cos, sin, sqrt, atan2, pi
-from portal.grid_math import *
 
 # http://en.wikipedia.org/wiki/World_Geodetic_System
 # http://home.online.no/~sigurdhu/Grid_1deg.htm
