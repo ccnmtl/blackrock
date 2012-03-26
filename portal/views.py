@@ -14,8 +14,7 @@ from pagetree.models import Hierarchy
 from haystack.query import SearchQuerySet
 from django.contrib.auth.decorators import user_passes_test
 from blackrock_main.solr import SolrUtilities
-from portal.models import * 
-from portal.build_grid import *
+from portal.models import *
 from decimal import Decimal
 from pysolr import Solr, SolrError
 from django.core.cache import cache
