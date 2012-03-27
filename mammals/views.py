@@ -49,8 +49,6 @@ class rendered_with(object):
 
         return rendered_func
 
-
-
 @rendered_with('mammals/grid.html')
 def grid(request):
 
@@ -118,50 +116,38 @@ def grid(request):
     
     
 def pick_trap_location (center, max_distance_from_center_y, max_distance_from_center_x, rotate_by):
-
-    result = {}    
-    center_meters = to_meters_point (center)
     
     y_distance = uniform(0, abs(max_distance_from_center_y))
     x_distance = uniform(0, abs(max_distance_from_center_x))
-
     y_direction = choice(['north', 'south'])
     x_direction = choice(['east',  'west'])
+    #The die has been cast.    
     
-    
-    
+    #figure out distances:
     if y_direction == 'south':
-        trap_location_y_meters = center_meters[0] + y_distance
-        dy =  -y_distance
+        dy = - y_distance
     else:
-        trap_location_y_meters = center_meters[0] - y_distance
         dy =   y_distance
     
     if x_direction == 'west':
-        trap_location_x_meters = center_meters[1] + x_distance
         dx = - x_distance
-    else:
-        trap_location_x_meters = center_meters[1] - x_distance
+    else:    
         dx =   x_distance
     
-    
-    
-    
-    point_lat_long_before_rotation = to_lat_long(trap_location_y_meters, trap_location_x_meters)
-    
-    # the way i have the code written, this converts to meters and back to degrees again.
-    # could refactor to increase speed and precision, if needed. probably not.
-    
-    point_lat_long = rotate_about_a_point (point_lat_long_before_rotation, center, rotate_by)
+    #figure out where the point is:
+    center_meters = to_meters_point (center)
+    tmp = to_lat_long(center_meters[0] - dy, center_meters[1] - dx)
 
-    result ['point'] =       point_lat_long
-    result ['distance_y'] =  y_distance
-    result ['distance_x'] =  x_distance
-    result ['direction_y'] = y_direction
-    result ['direction_x'] = x_direction
+    #describe the point:
+    result = {}    
+    result ['point']           = rotate_about_a_point (tmp, center, rotate_by)
+    result ['distance_y']      = y_distance
+    result ['distance_x']      = x_distance
+    result ['actual_distance'] = hypotenuse (y_distance, x_distance)
+    #directions returned are with respect to compass north
+    result ['direction_y']     = y_direction
+    result ['direction_x']     = x_direction
     result ['heading']         = radians_to_degrees(atan2(dx, dy))
-    result ['actual_distance'] = sqrt( y_distance ** 2 + x_distance ** 2 )
-    
     return result
     
 @rendered_with('mammals/grid_block.html')
@@ -176,6 +162,7 @@ def grid_block(request):
     default_lon = -74.0305;
     
     if (request.method != 'POST'):
+        radius_of_circles                       = 30.0 # degrees
         magnetic_declination                    = -13.0 # degrees
         block_center                             = [default_lat, default_lon]
         block_height_in_m, block_width_in_m     = [250.0, 250.0]
@@ -184,6 +171,7 @@ def grid_block(request):
         
     else:
         num_points           =                  get_int  ( request, 'num_points',               5 )
+        radius_of_circles    =                  get_float( request, 'radius_of_circles',        30.0 )
         magnetic_declination =                  get_float( request, 'magnetic_declination',     -13.0)
         block_height_in_m =                     get_float( request, 'block_height_in_m',        250.0)
         block_width_in_m  =                     get_float( request, 'block_width_in_m',         250.0)
@@ -197,9 +185,16 @@ def grid_block(request):
     
     for i in range (num_points):
         center = selected_block_center_y, selected_block_center_x
-        loc = pick_trap_location (center, block_height_in_m / 2, block_width_in_m / 2, magnetic_declination)
+        loc = pick_trap_location (center, (block_height_in_m - radius_of_circles)/ 2,
+                                          (block_width_in_m  - radius_of_circles)/ 2, magnetic_declination)
         loc ['point_id'] = i + 1
         trap_sites.append (loc)
+    
+    #sort the trap sites north to south:
+    sorted_trap_sites = sorted(trap_sites, key= lambda t: (-t['point'][0]))
+    
+    for i in range (len (sorted_trap_sites)):
+        sorted_trap_sites[i]['team_label'] = i + 1
     
     bottom_left = block_center[0] - (block_height / 2), block_center[1] - (block_width/2)
     block = set_up_block (bottom_left, block_height, block_width)
@@ -207,14 +202,15 @@ def grid_block(request):
     
     return {
         'block_json': simplejson.dumps(rotated_block)
+        ,'radius_of_circles'                         :  radius_of_circles # meters
         ,'magnetic_declination'                      :  magnetic_declination # degrees
         ,'selected_block_center_y'                   :  selected_block_center_y
         ,'selected_block_center_x'                   :  selected_block_center_x
         ,'block_height_in_m'                         :  block_height_in_m
         ,'block_width_in_m'                          :  block_width_in_m
         ,'num_points'                                :  num_points
-        ,'trap_sites'                                :  simplejson.dumps(trap_sites)
-        ,'trap_sites_obj'                            :  trap_sites
+        ,'trap_sites'                                :  simplejson.dumps(sorted_trap_sites)
+        ,'trap_sites_obj'                            :  sorted_trap_sites
     
     }
     

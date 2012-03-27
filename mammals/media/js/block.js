@@ -13,9 +13,11 @@ function addBlock(mapInstance) {
     
     viewer_location = user_location(mapInstance);
     
+    radius = parseFloat(jQuery ('#radius_of_circles')[0].value);
+    
     for (var i = 0; i < trap_sites.length; i++) {
         trap_info = trap_sites[i];
-        circle = thirty_meter_circle (trap_info['point'], mapInstance);
+        circle = x_meter_circle (trap_info['point'], mapInstance, radius);
         attach_marker_info (circle, trap_info);
     }
     
@@ -45,10 +47,10 @@ function attach_marker_info(the_circle, info) {
     jQuery ('#point_' + info['point_id']).mouseout( circle_off );
 }
 
-function thirty_meter_circle (center, map) {
+function x_meter_circle (center, map, radius) {
   return  new google.maps.Circle({
       center:  lat_lng_from_point(  center  ),
-      radius: 30, //meters 
+      radius: radius, //meters 
       map: map,
       fillColor: 'lightgreen',
       strokeWeight : 1,

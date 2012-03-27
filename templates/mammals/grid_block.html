@@ -1,7 +1,6 @@
 {% extends "mammals/base_mammals.html" %}
 {% load smartif %}
 
-
 {% block title %}Grid Block{% endblock %}
 {% block js %}
     <script type="text/javascript" src="/mammals/media/js/grid_and_block.js"></script>
@@ -9,13 +8,11 @@
     {{ block.super }}
 {% endblock %}
 
-
 {% block css %}
     <style media="screen" type="text/css">
         tr.highlighted {
             color : blue;
         }
-
         #distances_table td
         {
             border-color: #ABA;
@@ -34,12 +31,7 @@
     {{ block.super }}
 {% endblock %}
 
-
-
-
 {% block container %}
-
-
     <div id ="block_json" style="display:none">{{block_json}}</div>    
     
     <div id ="trap_sites" style="display:none">{{trap_sites}}</div>    
@@ -50,11 +42,15 @@
         <form action = '/mammals/grid_square/' method="post">
             <table id ="right_hand_table">
                 <tr>
-                    <td rowspan = "12">
+                    <td rowspan = "12" valign ="top">
                         <div id="map_canvas" style="width: 500px; height: 500px"></div>
                     </td>
                 </tr>
-
+                <tr>
+                    <td colspan = "2"> 
+                        <a href = "/mammals/grid/">&lt; Back to grid</a>      
+                    </td>
+                </tr>
                 <tr>
                     <td> Center of square lat:
                     </td>
@@ -97,27 +93,32 @@
                         <input type="text" name = "num_points" value ="{{num_points}}"> </input>
                     </td>
                 </tr>
+                
+                <tr>
+                    <td> Radius of circles in meters:
+                    </td>
+                    <td> 
+                        <input type="text" name = "radius_of_circles" id="radius_of_circles" value ="{{radius_of_circles}}"></input>
+                    </td>
+                </tr>
+                
                 <tr>
                     <td colspan = "2"> 
                         <input type="submit" value="Pick new sites at random within this square"></input>
                     </td>
-
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
                     <td  colspan = "2"> 
-                        <b>Distances from center of square:</b> 
+                        <b>Table of teams:</b> 
                             <table id ="distances_table" >
                                         <tr>
                                             <td rowspan="2"> Team</td>
                                             <td rowspan="2"> Lat</td>
                                             <td rowspan="2"> Lon</td>
-
-                                            <td  colspan="3"> Distance from center</td>
-                                        
-                                        
+                                            <td colspan="3"> Distance from center</td>
                                         </tr>
                                         <tr >
                                             <td > North or south</td>
@@ -126,7 +127,7 @@
                                         </tr>
                                 {%for trap in trap_sites_obj%}
                                         <tr id = "point_{{trap.point_id}}">
-                                            <td>{{trap.point_id}}</td>
+                                            <td>{{trap.team_label}}</td>
                                             <td>{{trap.point.0|floatformat:4}}</td>
                                             <td>{{trap.point.1|floatformat:4}}</td>
                                             <td>{{trap.distance_y|floatformat:0}} m. {{trap.direction_y}}</td>

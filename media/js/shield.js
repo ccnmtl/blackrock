@@ -4,18 +4,11 @@ var browserlist;
 
 function buildshieldbox() {
 	if (!document.getElementById("shieldbox")) return false;
-    if (BrowserDetect.browser == 'Mozilla' && BrowserDetect.version == 'an unknown version') {
-	        return;
-	}
 	var shieldwarningbox = document.getElementById("shieldbox");
 	shieldwarningbox.className = "warningmessage";
 	shieldwarningbox.innerHTML = browserblock;
 	var nobrowserwarningdiv = document.getElementById("nobrowserwarning");
 	var nobrowsercommentdiv = document.getElementById("nobrowsercomment");
-	// bypass for android phone {
-
-	
-	
 	nobrowserwarningdiv.innerHTML = 'You are using ' + BrowserDetect.browser + ' v.' + BrowserDetect.version + ', an unsupported browser.';
 	nobrowsercommentdiv.innerHTML = '<br /><br />For a better experience using this site, please upgrade to a recommended recent web browser.';
 	if (BrowserDetect.browser == 'Internet Explorer') {var thisbrowsername = 'MSIE';};

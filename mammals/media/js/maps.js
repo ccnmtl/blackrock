@@ -349,47 +349,6 @@ if (!Portal.Map) {
             return a;
         }
         
-        this.search = function(lat, long, title) {
-            for (var result in self.search_results) {
-                var location = self.search_results[result];
-                location.marker.setMap(null);
-            }
-            self.search_results = {};
-            
-            document.getElementById("map_filters").style.display = "none";
-            
-            var nearby_results = document.getElementById("nearby_results");
-            
-            jQuery(nearby_results).show('fast', function() {
-                var url = '/portal/nearby/' + lat + '/' + long + '/';
-                var request = doXHR(url);
-                request.addCallback(function(response) {
-                    nearby_results.innerHTML = response.responseText;
-                    document.getElementById("nearby_asset").innerHTML = unescape(title);
-                    self.search_results = self.initMarkers("nearby", 0, true);
-                    
-                    var listener = google.maps.event.addListenerOnce(self.mapInstance, "idle", function() { 
-                        var center = new google.maps.LatLng(lat, long);
-                        self.mapInstance.setCenter(center);
-                    });
-                    
-                });
-            });
-        }
-        
-        this.closeSearch = function() {
-            document.getElementById("map_filters").style.display = "block";
-            var nearby_results = document.getElementById("nearby_results");
-            nearby_results.innerHTML = "";
-            nearby_results.style.display = "none";
-            
-            for (var result in self.search_results) {
-                var location = self.search_results[result];
-                location.marker.setMap(null);
-            }
-            self.search_results = {};
-            self.center();
-        }
         
         this.center = function() {
             var latlng = new google.maps.LatLng(41.397459,-74.021848);
@@ -411,9 +370,18 @@ if (!Portal.Map) {
             var latlng = new google.maps.LatLng(41.397459,-74.021848);
             var myOptions = {
                 zoom: 13,
-                center: latlng,
-                mapTypeId: google.maps.MapTypeId.HYBRID
+                center: latlng
             };
+
+            
+            if (typeof addGrid !== "undefined") {
+                myOptions ['mapTypeId'] = google.maps.MapTypeId.TERRAIN
+            }
+            
+            if (typeof addBlock !== "undefined") {
+                myOptions ['mapTypeId'] = google.maps.MapTypeId.HYBRID
+            }
+            
             
             self.mapInstance = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
             
@@ -442,28 +410,11 @@ if (!Portal.Map) {
                          });
                     });
                 
-            self.locations = self.initMarkers("geocode", 0, false);
-            var detail_locations = self.initMarkers("geocode_detail", 0, true);
-            for (var key in detail_locations)
-                self.locations[key] = detail_locations[key];
-            
-            self.selected = self.initMarkers("geoselected", 0, true);
-            if (self.markerCount(self.selected)) {
-                var listener = google.maps.event.addListenerOnce(self.mapInstance, "idle", function() { 
-                    self.mapInstance.setZoom(14);
-                    
-                    for (var s in self.selected) {
-                        self.showMarkerInfoWindow(s);
-                    }
-                });
-            }
-            
+
             var boundary = new Portal.Layer("brfboundary", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/brfboundary.kml?newcachebuster=" + randomnumber, false);
             boundary.instance.setMap(self.mapInstance);
 
             
-            
-            // eddie adding these two (temporarily)
             if (typeof addGrid !== "undefined") {
                 addGrid(self.mapInstance);
                 addTrails (self);
@@ -474,7 +425,6 @@ if (!Portal.Map) {
                 addBlock(self.mapInstance);
                 addTrails (self);
             }
-            // end eddie change
             
             self.toggleLayer();
             
@@ -489,8 +439,6 @@ addLoadEvent(function() {
     portalMapInstance = new Portal.Map();
     portalMapInstance.init();
     
-    
-    var latlng = new google.maps.LatLng(41.397459,-74.021848);
 });
 
 

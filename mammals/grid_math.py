@@ -36,6 +36,9 @@ def to_meters_point (p):
 def degrees_to_radians(angle):
     return angle * pi / 180.0 
 
+def hypotenuse (x, y):
+    return sqrt( x ** 2 + y ** 2 )
+
 def radians_to_degrees(angle):
     a = angle * 180.0 / pi
     if a < 0:
@@ -61,7 +64,7 @@ def rotate_about_a_point(point, center, angle_to_rotate):
     
     delta_y = center_y - y
     delta_x = center_x - x
-    r = sqrt( delta_y ** 2 + delta_x ** 2 )
+    r = hypotenuse (delta_x, delta_y)
     new_angle = atan2 (delta_x , delta_y) + a
     
     return to_lat_long( center_y + cos(new_angle) * r, center_x + sin(new_angle) * r)
@@ -90,5 +93,5 @@ def set_up_block (bottom_left, height, width):
     box[4][0] += height /  2
     box[4][1] += width  /  2
     return box
-
+    
 
