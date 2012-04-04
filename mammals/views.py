@@ -62,7 +62,7 @@ def grid(request):
     
     
     if (request.method != 'POST'):
-        magnetic_declination                    = -13.0 # degrees
+        magnetic_declination                    = -0.0 # degrees
         grid_center                             = [default_lat, default_lon]
         height_in_blocks,  width_in_blocks,     = [21, 27]
         block_height_in_m, block_width_in_m     = [250.0, 250.0]
@@ -162,7 +162,7 @@ def grid_block(request):
     default_lon = -74.0305;
     
     if (request.method != 'POST'):
-        radius_of_circles                       = 30.0 # degrees
+        radius_of_circles                       = 0.0 # degrees
         magnetic_declination                    = -13.0 # degrees
         block_center                             = [default_lat, default_lon]
         block_height_in_m, block_width_in_m     = [250.0, 250.0]

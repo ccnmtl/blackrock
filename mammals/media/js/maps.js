@@ -379,7 +379,7 @@ if (!Portal.Map) {
             }
             
             if (typeof addBlock !== "undefined") {
-                myOptions ['mapTypeId'] = google.maps.MapTypeId.HYBRID
+                myOptions ['mapTypeId'] = google.maps.MapTypeId.TERRAIN
             }
             
             

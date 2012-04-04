@@ -27,11 +27,13 @@ function addGrid(mapInstance) {
     }
     
     
+    // this works but it's really annoying.
+    /*
     viewer_location = user_location(mapInstance);
     if (viewer_location ) {
         you_are_here (viewer_location);
     }
-    
+    */
     
     if (!map_bounds.isEmpty() ) {
         mapInstance.fitBounds(map_bounds);

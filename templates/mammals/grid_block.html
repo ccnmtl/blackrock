@@ -52,14 +52,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <td> Center of square lat:
+                    <td> Center of square latitude:
                     </td>
                     <td> 
                         <input type="text" name = "grid_center_y" value ="{{selected_block_center_y}}"> </input>
                     </td>
                 </tr>
                 <tr>
-                    <td> Center of square long:
+                    <td> Center of square longitude:
                     </td>
                     <td> 
                         <input type="text" name = "grid_center_x" value ="{{selected_block_center_x}}"> </input>
@@ -116,23 +116,28 @@
                             <table id ="distances_table" >
                                         <tr>
                                             <td rowspan="2"> Team</td>
-                                            <td rowspan="2"> Lat</td>
-                                            <td rowspan="2"> Lon</td>
+                                            <td rowspan="2"> Latitude</td>
+                                            <td rowspan="2"> Longitude</td>
                                             <td colspan="3"> Distance from center</td>
                                         </tr>
                                         <tr >
-                                            <td > North or south</td>
-                                            <td > East or west</td>
+                                            {%comment %}
+                                                <td > North or south</td>
+                                                <td > East or west</td>
+                                            {%endcomment %}
                                             <td> As the crow flies</td>
                                         </tr>
                                 {%for trap in trap_sites_obj%}
                                         <tr id = "point_{{trap.point_id}}">
                                             <td>{{trap.team_label}}</td>
-                                            <td>{{trap.point.0|floatformat:4}}</td>
-                                            <td>{{trap.point.1|floatformat:4}}</td>
-                                            <td>{{trap.distance_y|floatformat:0}} m. {{trap.direction_y}}</td>
-                                            <td> {{trap.distance_x|floatformat:0}} m. {{trap.direction_x}}</td>
-                                            <td>{{trap.actual_distance|floatformat:0}} m. @ {{trap.heading|floatformat:0}}&deg;</td>
+                                            
+                                                <td>{{trap.point.0|floatformat:4}}</td>
+                                                <td>{{trap.point.1|floatformat:4}}</td>
+                                            {%comment %}
+                                                <td>{{trap.distance_y|floatformat:0}} meters {{trap.direction_y}}</td>
+                                                <td> {{trap.distance_x|floatformat:0}} meters {{trap.direction_x}}</td>
+                                            {%endcomment %}
+                                            <td>{{trap.actual_distance|floatformat:0}} meters @ {{trap.heading|floatformat:0}}&deg;</td>
                                         </tr>
                                 {% endfor %}
                             </table>
