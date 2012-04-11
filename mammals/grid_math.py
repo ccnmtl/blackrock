@@ -1,4 +1,5 @@
 from math import cos, sin, sqrt, atan2, pi
+from random import uniform
 
 # http://en.wikipedia.org/wiki/World_Geodetic_System
 # http://home.online.no/~sigurdhu/Grid_1deg.htm
@@ -38,6 +39,34 @@ def degrees_to_radians(angle):
 
 def hypotenuse (x, y):
     return sqrt( x ** 2 + y ** 2 )
+
+
+def walk (start_point, meters, heading):
+    """ Returns the lat and long of where you get after walking x meters from a starting point following a certain heading. Heading is assumed to be in radians clockwise from north."""
+    
+    y, x = to_meters_point (start_point)
+    return to_lat_long( y + cos(heading) * meters, x + sin(heading) * meters)
+
+def to_heading (angle_in_radians):
+    """converts to counterclockwise from east (trig standard) to clockwise from north (map standard)"""
+    a = (pi / 2) - angle_in_radians
+    if a < 0:
+        a += 2 * pi
+    return a
+
+def length_of_transect (heading_in_radians, side_of_square):
+    """Returns the length of a line connecting the center of a square to its side."""
+    #headings are in radians measured clockwise from north.
+    a = to_heading (heading_in_radians)
+    s = side_of_square / 2
+    for q in [1, 3, 5, 7, 9]:
+        if a < (q * pi / 4):
+            return  s / cos(a - (q - 1) * (pi / 4))
+
+
+def pick_transect_heading():
+    return uniform(0,  pi * 2)
+
 
 def radians_to_degrees(angle):
     a = angle * 180.0 / pi

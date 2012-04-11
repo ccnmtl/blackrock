@@ -19,8 +19,7 @@ function addGrid(mapInstance) {
                     'column':  column,
                     'id' : i * grid_json.length  + column,
                     'box':box
-                }
-                    
+                }   
             )
             map_bounds.extend(lat_lng_from_point(box[4] ));
         }

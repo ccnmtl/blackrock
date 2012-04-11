@@ -34,9 +34,12 @@
 {% block container %}
     <div id ="block_json" style="display:none">{{block_json}}</div>    
     
-    <div id ="trap_sites" style="display:none">{{trap_sites}}</div>    
+        {%comment %}
+                <div id ="trap_sites" style="display:none">{{trap_sites}}</div>    
+                <div id ="test_points" style="display:none">{{test_points}}</div>    
+        {%endcomment %}
     
-    <div id ="test_points" style="display:none">{{test_points}}</div>    
+    <div id ="transects_json" style="display:none">{{transects_json}}</div>    
     
     <div id = "grid_form">
         <form action = '/mammals/grid_square/' method="post">
@@ -55,14 +58,14 @@
                     <td> Center of square latitude:
                     </td>
                     <td> 
-                        <input type="text" name = "grid_center_y" value ="{{selected_block_center_y}}"> </input>
+                        <input type="text" name = "selected_block_center_y" value ="{{selected_block_center_y}}"> </input>
                     </td>
                 </tr>
                 <tr>
                     <td> Center of square longitude:
                     </td>
                     <td> 
-                        <input type="text" name = "grid_center_x" value ="{{selected_block_center_x}}"> </input>
+                        <input type="text" name = "selected_block_center_x" value ="{{selected_block_center_x}}"> </input>
                     </td>
                 </tr>
                 <tr>
@@ -87,13 +90,21 @@
                     </td>
                 </tr>
                 <tr>
-                    <td> Number of Teams:
+                    <td> Number of Transects:
                     </td>
                     <td> 
-                        <input type="text" name = "num_points" value ="{{num_points}}"> </input>
+                        <input type="text" name = "num_transects" value ="{{num_transects}}"> </input>
+                    </td>
+                </tr>
+                <tr>
+                    <td> Points per Transect:
+                    </td>
+                    <td> 
+                        <input type="text" name = "points_per_transect" value ="{{points_per_transect}}"> </input>
                     </td>
                 </tr>
                 
+                {%comment %}
                 <tr>
                     <td> Radius of circles in meters:
                     </td>
@@ -101,6 +112,7 @@
                         <input type="text" name = "radius_of_circles" id="radius_of_circles" value ="{{radius_of_circles}}"></input>
                     </td>
                 </tr>
+                {%endcomment %}
                 
                 <tr>
                     <td colspan = "2"> 
@@ -112,20 +124,53 @@
                 </tr>
                 <tr>
                     <td  colspan = "2"> 
+                            <table id ="distances_table" >
+                                <tr>
+                                    <td colspan="2">Transect heading</td>
+                                    <td rowspan = "2">Distance</td>
+                                    <td rowspan = "2">Latitude</td>
+                                    <td rowspan = "2">Longitude</td>
+                                </tr>
+                                <tr>
+                                    <td >True north</td>
+                                    <td >Magnetic north</td>
+                                </tr>
+                                                            {%for transect in transects%}
+                                {%for point in transect.points%}
+                                    <!--  -->
+                                    <tr>
+                                    {% ifchanged transect%}
+                                        <td rowspan = "{{transect.points|length}}" >{{transect.heading|floatformat:0}}&deg; </td>
+                                        <td rowspan = "{{transect.points|length}}">{{transect.heading_wrt_magnetic_north|floatformat:0}} &deg;</td>
+                                    {% endifchanged %}
+                                        <td >{{point.distance|floatformat:0}}</td>
+                                        <td >{{point.point.0|floatformat:4}}</td>
+                                        <td >{{point.point.1|floatformat:4}}</td>
+                                    </tr>
+                                {%endfor%}
+                            {%endfor%}
+                                
+                            </table>
+                    </td>
+                    
+                    
+                {%comment %}
+                    <td  colspan = "2"> 
                         <b>Table of teams:</b> 
                             <table id ="distances_table" >
                                         <tr>
                                             <td rowspan="2"> Team</td>
                                             <td rowspan="2"> Latitude</td>
                                             <td rowspan="2"> Longitude</td>
-                                            <td colspan="3"> Distance from center</td>
+                                            <td > Distance from center</td>
+                                            
+                                            <td > Transect heading (magnetic north)</td>
+                                            <td > Transect heading (true north)</td>
+
                                         </tr>
                                         <tr >
-                                            {%comment %}
                                                 <td > North or south</td>
                                                 <td > East or west</td>
-                                            {%endcomment %}
-                                            <td> As the crow flies</td>
                                         </tr>
                                 {%for trap in trap_sites_obj%}
                                         <tr id = "point_{{trap.point_id}}">
@@ -133,16 +178,20 @@
                                             
                                                 <td>{{trap.point.0|floatformat:4}}</td>
                                                 <td>{{trap.point.1|floatformat:4}}</td>
-                                            {%comment %}
                                                 <td>{{trap.distance_y|floatformat:0}} meters {{trap.direction_y}}</td>
                                                 <td> {{trap.distance_x|floatformat:0}} meters {{trap.direction_x}}</td>
-                                            {%endcomment %}
-                                            <td>{{trap.actual_distance|floatformat:0}} meters @ {{trap.heading|floatformat:0}}&deg;</td>
+                                            <td>{{trap.actual_distance|floatformat:0}} meters</td>
+                                            
+                                            <td>{{trap.heading|floatformat:0}}&deg</deg>
+                                            <td>{{trap.heading|floatformat:0}}&deg</deg>
                                         </tr>
                                 {% endfor %}
                             </table>
                     
                     </td>
+                    
+                {%endcomment %}
+                redo
                 </tr>
 
                 <tr>
