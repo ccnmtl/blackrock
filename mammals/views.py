@@ -43,15 +43,12 @@ class rendered_with(object):
 
 @rendered_with('mammals/grid.html')
 def grid(request):
-
     #butler library:
     #default_lat = 40.80835;
     #default_lon = -73.96455;
-    
     #blackrock
     default_lat = 41.400;
     default_lon = -74.0305;
-    
     
     if (request.method != 'POST'):
         grid_center                             = [default_lat, default_lon]
@@ -75,16 +72,13 @@ def grid(request):
     grid_bottom,  grid_left  = grid_center[0] - (grid_height / 2), grid_center[1] - (grid_width/2)
     grid_json = []
     
-    
     for i in range (0, height_in_blocks):
         new_column = []
         for j in range (0, width_in_blocks):
             bottom_left = grid_bottom + i * block_height, grid_left + j * block_width
             block = set_up_block (bottom_left, block_height, block_width)
             new_column.append(block)
-            
         grid_json.append (new_column)
-    
     return {
         'grid_json': simplejson.dumps(grid_json)
         ,'grid_center_y'                             :  grid_center_y
@@ -101,8 +95,6 @@ def pick_transects (center, side_of_square, number_of_transects, number_of_point
     for i in range (number_of_transects):
         transect = {}
         transect_heading =  pick_transect_heading()
-        #transect_heading =  
-        
         transect_length = length_of_transect (transect_heading, side_of_square)
         transect ['heading'] = radians_to_degrees (transect_heading)
         
@@ -113,7 +105,7 @@ def pick_transects (center, side_of_square, number_of_transects, number_of_point
         transect ['length'] = transect_length
         transect ['edge'] = walk (center, transect_length, transect_heading)
         points = []
-        for i in range (number_of_points_per_transect):
+        for j in range (number_of_points_per_transect):
             new_point = {}
             distance = triangular (0, transect_length, transect_length)
             point = walk (center, distance, transect_heading)
@@ -123,7 +115,16 @@ def pick_transects (center, side_of_square, number_of_transects, number_of_point
             points.append (new_point)
         transect['points'] = sorted(points, key= lambda p: (p['distance']))
         result.append (transect)
-    return sorted(result, key= lambda t: (t['heading']))
+    sorted_transects = sorted(result, key= lambda t: (t['heading']))
+    transect_index, point_index = 0, 0
+    for t in sorted_transects:
+        transect_index += 1
+        t['transect_id'] = transect_index
+        for p in t['points']:
+            point_index += 1
+            p['point_id'] = point_index
+            p['transect_id'] = transect_index
+    return sorted_transects
 
 
 
@@ -179,11 +180,12 @@ def grid_block(request):
     if (request.method != 'POST'):
         num_transects                           = 2
         points_per_transect                     = 2 
+        height_in_blocks,  width_in_blocks,     = [22, 27]
         radius_of_circles                       = 0.0 # degrees
         magnetic_declination                    = -13.0 # degrees
         block_center                             = [default_lat, default_lon]
         block_height_in_m, block_width_in_m     = [250.0, 250.0]
-        
+        grid_center_y, grid_center_x = grid_center
         selected_block_center_y, selected_block_center_x = block_center
     else:
         num_transects        =                  get_int  ( request, 'num_transects',            2 )
@@ -192,30 +194,17 @@ def grid_block(request):
         magnetic_declination =                  get_float( request, 'magnetic_declination',     -13.0 )
         block_height_in_m =                     get_float( request, 'block_height_in_m',        250.0)
         block_width_in_m  =                     get_float( request, 'block_width_in_m',         250.0)
-        selected_block_center_y          =      get_float( request, 'selected_block_center_y',  default_lat)
-        selected_block_center_x           =     get_float( request, 'selected_block_center_x',  default_lon)
-        
+        selected_block_center_y =               get_float( request, 'selected_block_center_y',  default_lat)
+        selected_block_center_x =               get_float( request, 'selected_block_center_x',  default_lon)
+        grid_center_y           =               get_float( request, 'grid_center_y',            default_lat)
+        grid_center_x           =               get_float( request, 'grid_center_x',            default_lon)
+        height_in_blocks =                      get_int( request,   'height_in_blocks',         21)
+        width_in_blocks   =                     get_int( request,   'width_in_blocks',          27)
         block_center = selected_block_center_y, selected_block_center_x
     block_height, block_width    = to_lat_long (block_height_in_m,  block_width_in_m )
     
     transects = []
     transects = pick_transects (block_center, block_width_in_m, num_transects, points_per_transect, magnetic_declination)
-    
-    if 1 == 0:
-        trap_sites = []
-        for i in range (num_points):
-            loc = pick_trap_location (block_center, (block_height_in_m - radius_of_circles)/ 2,
-                                              (block_width_in_m  - radius_of_circles)/ 2, magnetic_declination)
-            loc ['point_id'] = i + 1
-            trap_sites.append (loc)
-    #print transects
-    #sort the trap sites north to south:
-    if 1 == 0:
-        sorted_trap_sites = sorted(trap_sites, key= lambda t: (-t['point'][0]))
-        for i in range (len (sorted_trap_sites)):
-            sorted_trap_sites[i]['team_label'] = i + 1
-
-
 
     bottom_left = block_center[0] - (block_height / 2), block_center[1] - (block_width/2)
     block = set_up_block (bottom_left, block_height, block_width)
@@ -230,14 +219,12 @@ def grid_block(request):
         for i in range (360):
             radians = degrees_to_radians (float(i))
             l = length_of_transect (radians, side_of_square)
-            #print l
             new_point = [center_meters[0] + sin (radians) * l, center_meters[1] + cos (radians) * l]
             test_points.append ( to_lat_long(new_point[0], new_point[1] ))
     ############
         
     return {
         'block_json': simplejson.dumps(block)
-        #'block_json': simplejson.dumps(rotated_block)
         ,'radius_of_circles'                         :  radius_of_circles # meters
         ,'magnetic_declination'                      :  magnetic_declination # degrees
         ,'points_per_transect'                       :  points_per_transect # meters
@@ -246,8 +233,10 @@ def grid_block(request):
         ,'selected_block_center_x'                   :  selected_block_center_x
         ,'block_height_in_m'                         :  block_height_in_m
         ,'block_width_in_m'                          :  block_width_in_m
-        #,'num_points'                                :  num_points
-        #,'test_points'                               :  simplejson.dumps(test_points)
+        ,'grid_center_y'                             :  grid_center_y
+        ,'grid_center_x'                             :  grid_center_x
+        ,'height_in_blocks'                          :  height_in_blocks
+        ,'width_in_blocks'                           :  width_in_blocks
         ,'transects_json'                            :  simplejson.dumps(transects)
         ,'transects'                                 :  transects
     

@@ -1,3 +1,8 @@
+function back_to_grid_from_square () {
+     jQuery('#block_form')[0].action =   '/mammals/grid/';
+     jQuery('#block_form')[0].submit();
+}
+
 
 function you_are_here (location , mapInstance) {
     marker = new google.maps.Marker({ 

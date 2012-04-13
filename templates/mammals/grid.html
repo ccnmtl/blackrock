@@ -11,8 +11,6 @@
 
 {% block css %}
     <style media="screen" type="text/css">
-
-
         td.top_side
         {
             border-top: 2px solid green;
@@ -33,6 +31,9 @@
             border-right: 2px solid green;
         }
         
+        .hide_this {
+            display:none;
+        }
     </style>
 
     {{ block.super }}
@@ -81,30 +82,28 @@
                         <input type="text" name = "width_in_blocks" value ="{{width_in_blocks}}"></input>
                     </td>
                 </tr>
-                <tr>
+                <tr class = "hide_this">
                     <td> Height of square in meters:
                     </td>
                     <td> 
                         <input type="text" name = "block_height_in_m" value ="{{block_height_in_m}}"> </input>
                     </td>
                 </tr>
-                <tr>
+                <tr class = "hide_this">
                     <td> Width of square in meters:
                     </td>
                     <td> 
                         <input type="text" name = "block_width_in_m" value ="{{block_width_in_m}}"> </input>
                     </td>
                 </tr>
-                
-                
-                <tr style = "display:none">
+                <tr class = "hide_this">
                     <td> Selected square center latitude
                     </td>
                     <td> 
                         <input type="text" name = "selected_block_center_y" id="selected_block_center_y" ></input>
                     </td>
                 </tr>
-                <tr style = "display:none">
+                <tr class = "hide_this">
                     <td> Selected square center longitude:
                     </td>
                     <td> 
