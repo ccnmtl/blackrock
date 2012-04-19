@@ -15,6 +15,7 @@ from mammals.grid_math import *
 from django.utils import simplejson
 from django.shortcuts import render_to_response
 from django.template import RequestContext, Context, TemplateDoesNotExist
+from blackrock.mammals.models import *
 from random import *
 
 def get_float (request, name, default):
@@ -41,53 +42,71 @@ class rendered_with(object):
 
         return rendered_func
 
-@rendered_with('mammals/grid.html')
-def grid(request):
-    #butler library:
-    #default_lat = 40.80835;
-    #default_lon = -73.96455;
-    #blackrock
-    default_lat = 41.400;
-    default_lon = -74.0305;
-    
-    if (request.method != 'POST'):
-        grid_center                             = [default_lat, default_lon]
-        height_in_blocks,  width_in_blocks,     = [22, 27]
-        block_height_in_m, block_width_in_m     = [250.0, 250.0]
-        grid_center_y, grid_center_x = grid_center
+
+if 1 == 0:
+    @rendered_with('mammals/grid.html')
+    def grid(request):
+        #butler library:
+        #default_lat = 40.80835;
+        #default_lon = -73.96455;
+        #blackrock
+        default_lat = 41.400;
+        default_lon = -74.0305;
         
-    else:
-        height_in_blocks =                      get_int( request,   'height_in_blocks',         21)
-        width_in_blocks   =                     get_int( request,   'width_in_blocks',          27)
-        block_height_in_m =                     get_float( request, 'block_height_in_m',        250.0)
-        block_width_in_m  =                     get_float( request, 'block_width_in_m',         250.0)
-        grid_center_y          =                get_float( request, 'grid_center_y',            default_lat)
-        grid_center_x           =               get_float( request, 'grid_center_x',            default_lon)
-        grid_center = grid_center_y, grid_center_x
-    
-    grid_height_in_m = block_height_in_m * height_in_blocks
-    grid_width_in_m  = block_width_in_m  * width_in_blocks
-    block_height, block_width  = to_lat_long (block_height_in_m,  block_width_in_m )
-    grid_height,  grid_width   = to_lat_long (grid_height_in_m,   grid_width_in_m  )
-    grid_bottom,  grid_left  = grid_center[0] - (grid_height / 2), grid_center[1] - (grid_width/2)
-    grid_json = []
-    
-    for i in range (0, height_in_blocks):
-        new_column = []
-        for j in range (0, width_in_blocks):
-            bottom_left = grid_bottom + i * block_height, grid_left + j * block_width
-            block = set_up_block (bottom_left, block_height, block_width)
-            new_column.append(block)
-        grid_json.append (new_column)
-    return {
-        'grid_json': simplejson.dumps(grid_json)
-        ,'grid_center_y'                             :  grid_center_y
-        ,'grid_center_x'                             :  grid_center_x
-        ,'height_in_blocks'                          :  height_in_blocks
-        ,'width_in_blocks'                           :  width_in_blocks
-        ,'block_height_in_m'                         :  block_height_in_m
-        ,'block_width_in_m'                          :  block_width_in_m    
-    }
+        if (request.method != 'POST'):
+            grid_center                             = [default_lat, default_lon]
+            height_in_blocks,  width_in_blocks,     = [22, 27]
+            block_height_in_m, block_width_in_m     = [250.0, 250.0]
+            grid_center_y, grid_center_x = grid_center
+            
+        else:
+            height_in_blocks =                      get_int( request,   'height_in_blocks',         21)
+            width_in_blocks   =                     get_int( request,   'width_in_blocks',          27)
+            block_height_in_m =                     get_float( request, 'block_height_in_m',        250.0)
+            block_width_in_m  =                     get_float( request, 'block_width_in_m',         250.0)
+            grid_center_y          =                get_float( request, 'grid_center_y',            default_lat)
+            grid_center_x           =               get_float( request, 'grid_center_x',            default_lon)
+            grid_center = grid_center_y, grid_center_x
+        
+        grid_height_in_m = block_height_in_m * height_in_blocks
+        grid_width_in_m  = block_width_in_m  * width_in_blocks
+        block_height, block_width  = to_lat_long (block_height_in_m,  block_width_in_m )
+        grid_height,  grid_width   = to_lat_long (grid_height_in_m,   grid_width_in_m  )
+        grid_bottom,  grid_left  = grid_center[0] - (grid_height / 2), grid_center[1] - (grid_width/2)
+        grid_json = []
+        
+        for i in range (0, height_in_blocks):
+            new_column = []
+            for j in range (0, width_in_blocks):
+                bottom_left = grid_bottom + i * block_height, grid_left + j * block_width
+                block = set_up_block (bottom_left, block_height, block_width)
+                grid_json.append (block)
+            
+        return {
+            'grid_json': simplejson.dumps(grid_json)
+            ,'grid_center_y'                             :  grid_center_y
+            ,'grid_center_x'                             :  grid_center_x
+            ,'height_in_blocks'                          :  height_in_blocks
+            ,'width_in_blocks'                           :  width_in_blocks
+            ,'block_height_in_m'                         :  block_height_in_m
+            ,'block_width_in_m'                          :  block_width_in_m    
+        }
+
+if 1 == 1:
+    @rendered_with('mammals/grid.html')
+    def grid(request):
+        grid = [gs.info_for_display() for gs in GridSquare.objects.all() if gs.display_this_square]
+        
+        return {
+            'grid_json'                                  :  simplejson.dumps(grid)
+            ,'grid_center_y'                             :  41.400
+            ,'grid_center_x'                             :  -74.0305
+            ,'height_in_blocks'                          :  22
+            ,'width_in_blocks'                           :  27
+            ,'block_height_in_m'                         :  250.0
+            ,'block_width_in_m'                          :  250.0
+        }
+
 
 
 def pick_transects (center, side_of_square, number_of_transects, number_of_points_per_transect, magnetic_declination):

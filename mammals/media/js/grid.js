@@ -3,26 +3,23 @@ function addGrid(mapInstance) {
     var map_bounds = new google.maps.LatLngBounds();
     grid_json = JSON.parse(jQuery('#grid_json')[0].innerHTML)
     for (var i = 0; i < grid_json.length; i++) {
-
-        var row =  i + 1;
-
-        for (var j = 0; j < grid_json[i].length; j++) {
-            var box = grid_json[i][j];
-            var rect = make_grid_rectangle (bounds (box), mapInstance);
-            
-            var column = grid_json[i].length - j;
-
-            attach_info (rect, {
-                    'i':  i,
-                    'j':  j,
-                    'row':  row,
-                    'column':  column,
-                    'id' : i * grid_json.length  + column,
-                    'box':box
-                }   
-            )
-            map_bounds.extend(lat_lng_from_point(box[4] ));
-        }
+        var box = grid_json[i]['corner_obj'];
+        var rect = make_grid_rectangle (bounds (box), mapInstance);
+        
+        //result['corner_obj'] = self.corner_obj()
+        //result['label']      = self.label_2
+        
+        //console.log (grid_json[i]);
+        //console.log (box);
+        
+        attach_info (rect, {
+                'id' :grid_json[i]['label'],
+                'box':grid_json[i]['corner_obj']
+            }   
+        );
+        map_bounds.extend(lat_lng_from_point(box[4] ));
+        
+    
     }
     
     

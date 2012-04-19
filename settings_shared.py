@@ -82,6 +82,8 @@ INSTALLED_APPS = (
     'sentry.client',
     'waterquality',
     'googlecharts',
+    'mammals',
+    'south',
 )
 
 # Enabled Blackrock modules - edit to control what displays on the main page
