@@ -3,6 +3,7 @@
 
 {% block title %}Grid{% endblock %}
 {% block js %}
+
     <script type="text/javascript" src="/mammals/media/js/grid_and_block.js"></script>
     <script type="text/javascript" src="/mammals/media/js/grid.js"></script>
     {{ block.super }}
@@ -33,22 +34,6 @@
         .hide_this {
             display:none;
         }
-
-        {% if sandbox %}
-            #grid_form_table td  {
-                background-color: #9e6;
-            }
-            /* show these elements only in the research version */
-            .research_only {
-                display:none;
-            }
-        {%else %}
-            /* show these elements only in the sandbox version */
-            .sandbox_only {
-                display:none;
-            }
-        {%endif %}
-
     </style>
 
     {{ block.super }}
@@ -56,60 +41,60 @@
 
 
 {% block container %}
-    
+
 
     <div id ="grid_json" style="display:none">{{grid_json}}</div>    
     <div id ="test_points" style="display:none">{{test_points}}</div>    
+    
     <div >
-        <form 
-        {% if sandbox %}
-            action='/mammals/sandbox/grid/'
-        {% else %}
-            action=/mammals/grid/'
-        {% endif %}
-        
-         method="post" id = "grid_form">  {% csrf_token %}
-            <table id= "grid_form_table">
+        <form action = '/mammals/grid/' method="post" id = "grid_form">
+            <table>
                 <tr>
                     <td rowspan = "12">
                         <div id="map_canvas" style="width: 800px; height: 800px"></div>
                     </td>
                 </tr>
-                <tr class = "sandbox_only">
+                <tr>
                     <td> Center of grid latitude:
                     </td>
                     <td> 
                         <input type="text" name = "grid_center_y" value ="{{grid_center_y}}"> </input>
                     </td>
                 </tr>
-                <tr class = "sandbox_only">
+                <tr>
                     <td> Center of grid longitude:
                     </td>
                     <td> 
                         <input type="text" name = "grid_center_x" value ="{{grid_center_x}}"> </input>
                     </td>
                 </tr>
-                <tr  class = "sandbox_only">
+                <tr>
                     <td> Height of grid in squares:
                     </td>
                     <td> 
                         <input type="text" name = "height_in_blocks" value ="{{height_in_blocks}}"> </input>
                     </td>
                 </tr>
-                <tr class = "sandbox_only">
+                <tr>
                     <td> Width of grid in squares:
                     </td>
                     <td> 
                         <input type="text" name = "width_in_blocks" value ="{{width_in_blocks}}"></input>
                     </td>
                 </tr>
-                <tr class = "sandbox_only">
-                    <td> Size of square in meters:
+                <tr >
+                    <td> Height of square in meters:
                     </td>
                     <td> 
-                        <input type="text" name = "block_size_in_m" value ="{{block_size_in_m}}"> </input>
+                        <input type="text" name = "block_height_in_m" value ="{{block_height_in_m}}"> </input>
                     </td>
                 </tr>
+                <tr >
+                    <td> Width of square in meters:
+                    </td>
+                    <td> 
+                        <input type="text" name = "block_width_in_m" value ="{{block_width_in_m}}"> </input>
+                    </td>
                 </tr>
                 <tr class = "hide_this">
                     <td> Selected square center latitude
@@ -125,12 +110,12 @@
                         <input type="text" name = "selected_block_center_x" id="selected_block_center_x" ></input>
                     </td>
                 </tr>
-                <tr class = "sandbox_only">
+                <tr>
                     <td > 
                         <input type="submit" value="Redraw the grid"></input>
                     </td>
-                    <td > 
-                        <a href = "/mammals/sandbox/grid/">Reset</a>
+                    <td> 
+                        <a href = "/mammals/grid/">Reset</a>
                     </td>
                 </tr>
                 <tr>

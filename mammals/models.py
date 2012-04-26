@@ -56,6 +56,11 @@ class GridSquare (models.Model):
     display_this_square = models.BooleanField() #don't show all the squares
     
     
+    row = models.IntegerField() 
+    column = models.IntegerField() 
+    
+    access_difficulty = models.IntegerField() 
+    
     #this is arbitrary, just to start out with.
     label = models.IntegerField()
     
@@ -81,7 +86,9 @@ class GridSquare (models.Model):
     def info_for_display (self):
         result = {}
         result['corner_obj'] = self.corner_obj()
-        result['label']      = self.label
+        result['label']   = self.label_2
+        result['row']        = self.row
+        result['column']     = self.column
         return result
     
         

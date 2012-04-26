@@ -39,13 +39,7 @@
     <div id ="transects_json" style="display:none">{{transects_json}}</div>    
     
     <div >
-        <form 
-        {% if sandbox %}
-            action ='/mammals/grid_square/'
-        {% else %}
-            action='/mammals/sandbox/grid_square/'
-        {% endif %}
-        method="post" id = "block_form">  {% csrf_token %}
+        <form action = '/mammals/sandbox/grid_square/' method="post" id = "block_form">
             <table id ="right_hand_table">
                 <tr>
                     <td rowspan = "12" valign ="top">
@@ -122,7 +116,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td> Number of Bearings:
+                    <td> Number of Bearing:
                     </td>
                     <td> 
                         <input type="text" name = "num_transects" value ="{{num_transects}}"> </input>
@@ -206,7 +200,7 @@
                                             <td rowspan="2"> Team</td>
                                             <td rowspan="2"> Latitude</td>
                                             <td rowspan="2"> Longitude</td>
-                                            <td > Distance from center (m)</td>
+                                            <td > Distance from center(m)</td>
                                             
                                             <td > Transect heading (magnetic north)</td>
                                             <td > Transect heading (true north)</td>

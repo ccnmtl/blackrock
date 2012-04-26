@@ -2,19 +2,24 @@
 function addGrid(mapInstance) {
     var map_bounds = new google.maps.LatLngBounds();
     grid_json = JSON.parse(jQuery('#grid_json')[0].innerHTML)
+    
+    //alert (JSON.stringify(grid_json[0]));
+    //return;
+    
     for (var i = 0; i < grid_json.length; i++) {
         var box = grid_json[i]['corner_obj'];
         var rect = make_grid_rectangle (bounds (box), mapInstance);
         
         //result['corner_obj'] = self.corner_obj()
         //result['label']      = self.label_2
-        
         //console.log (grid_json[i]);
         //console.log (box);
         
         attach_info (rect, {
-                'id' :grid_json[i]['label'],
-                'box':grid_json[i]['corner_obj']
+                'box':     grid_json[i]['corner_obj'],
+                'row' :    grid_json[i]['row'],
+                'column' : grid_json[i]['column'],
+                'label':   grid_json[i]['label'],
             }   
         );
         map_bounds.extend(lat_lng_from_point(box[4] ));
@@ -36,10 +41,12 @@ function addGrid(mapInstance) {
     } 
 }
 
-
 //closure:
 function attach_info(rect, info) {
-  google.maps.event.addListener(rect, 'mouseover', function() {
+
+
+
+    google.maps.event.addListener(rect, 'mouseover', function() {
   
     rect.setOptions ({fillOpacity : 0.3});
   
@@ -54,7 +61,10 @@ function attach_info(rect, info) {
     jQuery('#selected_block_center_x') [0].value = info['box'][4][1];
     
   
-    jQuery('#block_info') [0].innerHTML =  'Square # ' + info['id']+ ':'
+    jQuery('#block_info') [0].innerHTML =  'Square # ' + info['label']+ ':'
+    
+    //jQuery('#block_info') [0].innerHTML =  'Row : ' + info['row']+ ' and column ' +  info['column'] + " and label" +  info['label'] + " and label_2 " +  info['label_2']
+    
     
   });
   
@@ -64,13 +74,17 @@ function attach_info(rect, info) {
   
   
   google.maps.event.addListener(rect, 'click', function() {
-    
-     jQuery('#grid_form')[0].action =   '/mammals/grid_square/';
-     jQuery('#grid_form')[0].submit();
+     the_form = jQuery('#grid_form')[0]
+     if (is_sandbox()) {
+         the_form.action =   '/mammals/sandbox/grid_square/';
+    } else {
+        the_form.action =   '/mammals/grid_square/';
+    }
+     the_form.submit();
  
   });
-  
-  
 
 }
+
+
 

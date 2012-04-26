@@ -68,11 +68,79 @@ def pick_transect_heading():
     return uniform(0,  pi * 2)
 
 
+#def pick_transect_headings(how_many):
+#    return uniform(0,  pi * 2)
+
+
+#angles are meant to be in radians
+def circular_mean(angles):
+    x = y = 0.
+    for angle in angles:
+        x += cos(angle)
+        y += sin(angle)
+    result =  atan2(y, x)
+    if result < 0:
+        result += 2*pi
+    return result
+
+def angle_difference (x, y):
+    return min((2 * pi) - abs(x - y), abs(x - y))
+
+
+def smallest_difference (asd):        
+    return min (angle_difference(asd[a], asd[a+1]) for a in range (len(asd) - 1))
+
+
+def nicely_distributed (angles):
+    #print "............."
+    mean = circular_mean(angles)
+    sum_of_diffs = 0
+    for a in angles:
+        sum_of_diffs += angle_difference (mean, a)
+        
+    if sum_of_diffs  / len(angles) < 0.5:
+        #print "these are all pointing in one direction."
+        return False
+    
+    #import pdb
+    #pdb.set_trace()
+    
+    ideal_angle = 2*pi / len(angles)
+    
+    #print "ideal angle"
+    #print ideal_angle
+    
+    #print "ideal angle / 5"
+    #print ideal_angle / 5
+    
+    #print "smallest_difference"
+    #print smallest_difference(angles)
+    
+    return smallest_difference(angles) > ideal_angle / 5
+    
+
+def pick_transect_angles (number_needed):
+    #import pdb
+    #pdb.set_trace()
+    number_of_tries = 10
+    for a in range (number_of_tries):
+        transects = [pick_transect_heading() for n in range(number_needed)]
+        #print transects
+        #print nicely_distributed(transects)
+        if nicely_distributed(transects) or a == number_of_tries:
+            return transects
+            
+        
+        
+    
+        
+
 def radians_to_degrees(angle):
     a = angle * 180.0 / pi
     if a < 0:
         a += 360.0
     return a
+
     
 def rotate_points( points, center, angle):
     result = []
@@ -81,6 +149,7 @@ def rotate_points( points, center, angle):
     return result
     
 def rotate_about_a_point(point, center, angle_to_rotate):
+    """ This is no longer used."""
     if angle_to_rotate == 0:
         return point
     

@@ -1,5 +1,17 @@
+
+
+function is_sandbox() {
+    // this is just a placeholder, ok? don't sue me.
+    return (location.href.match(/sandbox/) != null)
+}
+
+
 function back_to_grid_from_square () {
-     jQuery('#block_form')[0].action =   '/mammals/grid/';
+    if (is_sandbox()) {
+         jQuery('#block_form')[0].action =   '/mammals/sandbox/grid/';
+    } else {
+         jQuery('#block_form')[0].action =   '/mammals/grid/';
+    }
      jQuery('#block_form')[0].submit();
 }
 
@@ -34,7 +46,6 @@ function make_grid_rectangle (_paths, mapInstance) {
         map             : mapInstance
     });
     return rect;
-    
 }
 
 function you_are_here (location , mapInstance) {
