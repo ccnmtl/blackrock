@@ -101,8 +101,8 @@ def grid(request):
 
     grid = [gs.info_for_display() for gs in GridSquare.objects.all() if gs.display_this_square]
     
-    import pdb
-    pdb.set_trace()
+    #import pdb
+    #pdb.set_trace()
     
     
     return {
