@@ -62,6 +62,8 @@ function attach_marker_info (the_circle, point_info, the_transect, transect_info
     //console.log (transect_top);
     point_id_row = jQuery ('.top_px_number.point_' + point_info['point_id']);
     point_id_row.html(point_id_row.position().top)
+    
+    point_id_row.hide();
     //console.log ('table top');
     //console.log(jQuery ('#transect_table_overflow_div').position().top);
     
