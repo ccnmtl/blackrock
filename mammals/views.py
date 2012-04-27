@@ -46,8 +46,8 @@ class rendered_with(object):
 @rendered_with('mammals/grid.html')
 @csrf_protect
 def sandbox_grid(request):
-    default_lat = 41.400
-    default_lon = -74.0305
+    default_lat  = 41.400
+    default_lon  = -74.0305
     default_size = 250.0
     
     if (request.method != 'POST'):

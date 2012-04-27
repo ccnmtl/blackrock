@@ -29,17 +29,51 @@ function addBlock(mapInstance) {
     
 }
 
+function hide_all_except_printer_friendly_table() {
+    jQuery('#printer_friendly_table').show();
+    jQuery('#right_hand_table').hide();
+    jQuery ('#show_printer_friendly_table').hide();
+    jQuery ('#hide_printer_friendly_table').show();
+}
+
+
+function hide_printer_friendly_table() {
+    jQuery('#printer_friendly_table').hide();
+    jQuery('#right_hand_table').show();
+    jQuery ('#show_printer_friendly_table').show();
+    jQuery ('#hide_printer_friendly_table').hide();
+}
+
 
 /// Some decoration functions for drawing the map:
 
 function attach_marker_info (the_circle, point_info, the_transect, transect_info) {
+
+    jQuery ('#show_printer_friendly_table').click(hide_all_except_printer_friendly_table);
+    jQuery ('#hide_printer_friendly_table').click(hide_printer_friendly_table);
+    hide_printer_friendly_table();
+
     // When the mouse is over a circle or its corresponding row in the table,
     // highlight both the circle and its table row.
+    table = jQuery ('#transect_table_overflow_div');
+    transect_row = table.find( '.transect_'    + point_info['transect_id']);
+    transect_top = transect_row.position().top
+    //console.log (point_info['transect_id']);
+    //console.log (transect_top);
+    point_id_row = jQuery ('.top_px_number.point_' + point_info['point_id']);
+    point_id_row.html(point_id_row.position().top)
+    //console.log ('table top');
+    //console.log(jQuery ('#transect_table_overflow_div').position().top);
+    
     
     function circle_on () {
         // Add some nice css classes to the table:
         jQuery ('.point_'    + point_info['point_id']).addClass("highlighted"); 
         jQuery ('.transect_' + point_info['transect_id']).addClass("highlighted");
+        point_id_row = jQuery ('.top_px_number.point_' + point_info['point_id']);
+        offset = 100;
+        goal = Number(point_id_row.html()) - jQuery ('#transect_table_overflow_div').position().top - offset;
+        jQuery ('#transect_table_overflow_div').animate({scrollTop: goal}, { duration: 100, queue: false });
         // change the decoration of the circle and transect
         the_circle.setOptions({fillColor : "blue", radius:5, zIndex: 1});
         the_transect.setOptions ({strokeOpacity : 1, });

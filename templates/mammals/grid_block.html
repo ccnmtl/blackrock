@@ -26,6 +26,11 @@
             margin: 5px;
             padding: 5px;
         }
+        
+        div#transect_table_overflow_div {
+            height: 300px;
+            overflow: auto;
+        }
         .hide_this {
             display:none;
         }
@@ -145,97 +150,11 @@
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
-                
-                
                     <td  colspan = "2"> 
-                            <table id ="distances_table" >
-                                <tr>
-                                    <td colspan="2" >&nbsp;</td>
-                                    <td >Distance (m)</td>
-                                    <td >Latitude</td>
-                                    <td >Longitude</td>
-                                    <td >Team</td>
-                                </tr>
-                                
-                                <tr >
-                                    <td colspan = "2">Center of the square</td>
-                                    <td >0</td>
-                                    <td >{{selected_block_center_y|floatformat:4}}</td>
-                                    <td >{{selected_block_center_x|floatformat:4}}</td>
-                                    <td >&nbsp;</td>
-                                </tr>
-                            
-                                
-                                <tr>
-                                    <td colspan="2">Transect heading</td>
-                                    <td rowspan = "2">&nbsp;</td>
-                                    <td rowspan = "2">&nbsp;</td>
-                                    <td rowspan = "2">&nbsp;</td>
-                                    <td rowspan = "2">&nbsp;</td>
-                                </tr>
-                                <tr>
-                                    <td >True north</td>
-                                    <td >Magnetic north</td>
-                                </tr>
-                                
-                                
-                            {%for transect in transects%}
-                                {%for point in transect.points%}
-                                    <tr class = "point_{{point.point_id}}">
-                                    {% ifchanged transect%}
-                                        <td rowspan = "{{transect.points|length}}" class = "transect_{{transect.transect_id}}">{{transect.heading|floatformat:0}}&deg; </td>
-                                        <td rowspan = "{{transect.points|length}}" class = "transect_{{transect.transect_id}}">{{transect.heading_wrt_magnetic_north|floatformat:0}} &deg;</td>
-                                    {% endifchanged %}
-                                        <td >{{point.distance|floatformat:0}}</td>
-                                        <td >{{point.point.0|floatformat:4}}</td>
-                                        <td >{{point.point.1|floatformat:4}}</td>
-                                        <td >Team {{transect.transect_id}}</td>
-                                    </tr>
-                                {%endfor%}
-                            {%endfor%}
-                                
-                            </table>
+                        <div id="transect_table_overflow_div">
+                            {% include "mammals/transect_table.html" %} 
+                        </div>
                     </td>
-                    
-                    
-                {%comment %}
-                    <td  colspan = "2"> 
-                        <b>Table of teams:</b> 
-                            <table id ="distances_table" >
-                                        <tr>
-                                            <td rowspan="2"> Team</td>
-                                            <td rowspan="2"> Latitude</td>
-                                            <td rowspan="2"> Longitude</td>
-                                            <td > Distance from center (m)</td>
-                                            
-                                            <td > Transect heading (magnetic north)</td>
-                                            <td > Transect heading (true north)</td>
-
-                                        </tr>
-                                        <tr >
-                                                <td > North or south</td>
-                                                <td > East or west</td>
-                                        </tr>
-                                {%for trap in trap_sites_obj%}
-                                        <tr id = "point_{{trap.point_id}}">
-                                            <td>{{trap.team_label}}</td>
-                                            
-                                            <td>{{trap.point.0|floatformat:4}}</td>
-                                            <td>{{trap.point.1|floatformat:4}}</td>
-                                            <td>{{trap.distance_y|floatformat:0}} meters {{trap.direction_y}}</td>
-                                            <td> {{trap.distance_x|floatformat:0}} meters {{trap.direction_x}}</td>
-                                            <td>{{trap.actual_distance|floatformat:0}} meters</td>
-                                            
-                                            <td>{{trap.heading|floatformat:0}}&deg</deg>
-                                            <td>{{trap.heading|floatformat:0}}&deg</deg>
-                                        </tr>
-                                {% endfor %}
-                            </table>
-                    
-                    </td>
-                    
-                {%endcomment %}
-                redo
                 </tr>
 
                 <tr>
@@ -249,8 +168,23 @@
             </table>
         </form>
     </div>
-    <p>
-        Click "Satellite" to zoom in further.
-    </p>
+    
+    <div id="show_printer_friendly_table">
+        Show printer-friendly table
+    </div>
+    
+    <div id="hide_printer_friendly_table">
+        Hide printer-friendly table
+    </div>
+    
+
+    <div id = "printer_friendly_table">
+        <p>
+            Printer-friendly table:
+        </p>
+    
+        {% include "mammals/transect_table.html" %} 
+    </div>
+
 {% endblock %}
 

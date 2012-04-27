@@ -1,0 +1,52 @@
+<table id ="distances_table" >
+    <tr>
+        <td colspan="2" >&nbsp;</td>
+        <td >Distance (m)</td>
+        <td >Latitude</td>
+        <td >Longitude</td>
+        <td >Team</td>
+        <td >&nbsp;</td>
+    </tr>
+    
+    <tr >
+        <td colspan = "2">Center of the square</td>
+        <td >0</td>
+        <td >{{selected_block_center_y|floatformat:4}}</td>
+        <td >{{selected_block_center_x|floatformat:4}}</td>
+        <td >&nbsp;</td>
+        <td >&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="2">Transect heading</td>
+        <td rowspan = "2">&nbsp;</td>
+        <td rowspan = "2">&nbsp;</td>
+        <td rowspan = "2">&nbsp;</td>
+        <td rowspan = "2">&nbsp;</td>
+        <td rowspan = "2">&nbsp;</td>
+    </tr>
+    <tr>
+        <td >True north</td>
+        <td >Magnetic north</td>
+    </tr>
+    
+    
+    {%for transect in transects%}
+        {%for point in transect.points%}
+            <tr class = "point_tr point_{{point.point_id}}">
+            {% ifchanged transect%}
+                <td rowspan = "{{transect.points|length}}" class = "transect_td transect_{{transect.transect_id}}">{{transect.heading|floatformat:0}}&deg; </td>
+                <td rowspan = "{{transect.points|length}}" class = "transect_td transect_{{transect.transect_id}}">{{transect.heading_wrt_magnetic_north|floatformat:0}} &deg;</td>
+            {% endifchanged %}
+                <td >{{point.distance|floatformat:0}}</td>
+                <td >{{point.point.0|floatformat:4}}</td>
+                <td >{{point.point.1|floatformat:4}}</td>
+                <td >Team {{transect.transect_id}}</td>
+                
+                <td class="top_px_number point_{{point.point_id}}" >aaa</td>
+            </tr>
+        {%endfor%}
+    {%endfor%}
+            
+</table>
+
+

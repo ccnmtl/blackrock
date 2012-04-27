@@ -129,11 +129,7 @@ def pick_transect_angles (number_needed):
         #print nicely_distributed(transects)
         if nicely_distributed(transects) or a == number_of_tries:
             return transects
-            
-        
-        
-    
-        
+
 
 def radians_to_degrees(angle):
     a = angle * 180.0 / pi
