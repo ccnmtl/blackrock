@@ -18,6 +18,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext,  TemplateDoesNotExist
 from blackrock.mammals.models import *
 from operator import attrgetter
+from string import uppercase
 from random import *
 
 def get_float (request, name, default):
@@ -118,6 +119,11 @@ def grid(request):
 def pick_transects (center, side_of_square, number_of_transects, number_of_points_per_transect, magnetic_declination):
     result = []    
     
+    if number_of_transects > 15:
+        number_of_transects = 15
+    
+    
+    
     new_transects = pick_transect_angles (number_of_transects)
     
     for tr in new_transects:
@@ -148,9 +154,12 @@ def pick_transects (center, side_of_square, number_of_transects, number_of_point
         result.append (transect)
     sorted_transects = sorted(result, key= lambda t: (t['heading']))
     transect_index, point_index = 0, 0
+    
+    
     for t in sorted_transects:
         transect_index += 1
         t['transect_id'] = transect_index
+        t['team_letter'] = uppercase[transect_index - 1]
         for p in t['points']:
             point_index += 1
             p['point_id'] = point_index
