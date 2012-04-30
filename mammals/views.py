@@ -166,35 +166,12 @@ def pick_transects (center, side_of_square, number_of_transects, number_of_point
             p['transect_id'] = transect_index
           
     
-    if 1 == 0:
-            asd = [a['heading_radians'] for a in sorted_transects] 
-            print asd
-            
-            print "mean:"
-            
-            print circular_mean(asd)  
-            print "nicely_distributed?"
-            
-            print nicely_distributed(asd)
-            
-            print "smallest difference:"
-            print smallest_difference (asd)
-    
-    #import pdb
-    #pdb.set_trace()
     return sorted_transects
     
 
 @csrf_protect
 @rendered_with('mammals/grid_block.html')
 def grid_block(request):
-
-
-    pick_transect_angles (10)
-
-
-
-
     default_lat = 41.400
     default_lon = -74.0305
     default_size = 250.0

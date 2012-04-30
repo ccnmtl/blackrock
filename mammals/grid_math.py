@@ -121,29 +121,37 @@ def pick_transect_angles (number_needed):
         2) The transects should fan out in all directions -- we don't want them all pointing east, e.g.
     
     """
-    number_of_tries = number_needed * 5
+    number_of_tries = number_needed * 100
     results = []
     for a in range (number_of_tries):
         transects = sorted(pick_transect_heading() for n in range(number_needed))
         sd = smallest_difference (transects)
-        ucd = uniformity_of_circular_distribution (transects)
+        #ucd = uniformity_of_circular_distribution (transects)
         results.append (
             {
                 'sd'      : sd
-                ,'ucd'    : ucd
+                #,'ucd'    : ucd
                 ,'transects' : transects
             }
         )
     sorted_by_smallest_angle = sorted (results, key=itemgetter ('sd'))
+    winner = sorted_by_smallest_angle[-1]
     
-    
-    #print sorted_by_smallest_angle
-    #pick the five winners by smallest angle, and then sort the winners based on the 
-    
-    sorted_by_both = sorted (sorted_by_smallest_angle[-5:],  key=itemgetter ('ucd'))
+    if 1 == 0:
+        #import pdb
+        #pdb.set_trace()
+        
+        #print sorted_by_smallest_angle
+        #pick the five winners by smallest angle, and then sort the winners based on the 
 
+        sorted_by_both = sorted (sorted_by_smallest_angle[-5:],  key=itemgetter ('ucd'))
+        winner = sorted_by_both[-1]
+
+    print "winner sd ", winner['sd']
+    #sd should be > 0.17
+    #print "winner ucd ", winner['ucd']
     
-    return sorted_by_both[-1]['transects']
+    return winner['transects']
     
         
 
