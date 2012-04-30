@@ -104,7 +104,6 @@ def uniformity_of_circular_distribution (angles):
     """We don't want all the kids going off in one direction.
     The larger this number, the more uniformly
     the transects are distributed around the circle."""
-    
     mean = circular_mean(angles)
     sum_of_diffs = 0
     for a in angles:
@@ -115,10 +114,10 @@ def uniformity_of_circular_distribution (angles):
 
 def pick_transect_angles (number_needed):
     """Pick a bunch of transect angles at random, and pick the ones that are the most useful.
-    
     The rules are:
         1) No two transects should be too close together
-        2) The transects should fan out in all directions -- we don't want them all pointing east, e.g.
+        (not using this actually):
+            2) The transects should fan out in all directions -- we don't want them all pointing east, e.g.
     
     """
     number_of_tries = number_needed * 100
@@ -126,35 +125,15 @@ def pick_transect_angles (number_needed):
     for a in range (number_of_tries):
         transects = sorted(pick_transect_heading() for n in range(number_needed))
         sd = smallest_difference (transects)
-        #ucd = uniformity_of_circular_distribution (transects)
         results.append (
             {
                 'sd'      : sd
-                #,'ucd'    : ucd
                 ,'transects' : transects
             }
         )
     sorted_by_smallest_angle = sorted (results, key=itemgetter ('sd'))
     winner = sorted_by_smallest_angle[-1]
-    
-    if 1 == 0:
-        #import pdb
-        #pdb.set_trace()
-        
-        #print sorted_by_smallest_angle
-        #pick the five winners by smallest angle, and then sort the winners based on the 
-
-        sorted_by_both = sorted (sorted_by_smallest_angle[-5:],  key=itemgetter ('ucd'))
-        winner = sorted_by_both[-1]
-
-    print "winner sd ", winner['sd']
-    #sd should be > 0.17
-    #print "winner ucd ", winner['ucd']
-    
     return winner['transects']
-    
-        
-
 
 def radians_to_degrees(angle):
     a = angle * 180.0 / pi
