@@ -1,6 +1,5 @@
 {% extends "mammals/base_mammals.html" %}
 {% load smartif %}
-
 {% block title %}Grid Block{% endblock %}
 {% block js %}
     <script type="text/javascript" src="/mammals/media/js/grid_and_block.js"></script>
@@ -10,7 +9,7 @@
 
 {% block css %}
     <style media="screen" type="text/css">
-        tr.highlighted, td.highlighted {
+        .highlighted {
             color : blue;
         }
         #distances_table td
@@ -22,6 +21,19 @@
             padding: 4px;
             background-color: #EFE;
         }
+        
+        #hide_printer_friendly_table, #show_printer_friendly_table
+        {
+            border-color: #ABA;
+            border-width: 1px;
+            border-style: solid;
+            margin:  1px;
+            padding: 4px;
+            background-color: #EFE;
+            width: 200px;
+            cursor: pointer;
+        }
+        
         table.right_hand_table td {
             margin: 5px;
             padding: 5px;
@@ -46,151 +58,143 @@
 {% endblock %}
 
 {% block container %}
-    <div id ="block_json" style="display:none">{{block_json}}</div>    
-    <div id ="transects_json" style="display:none">{{transects_json}}</div>    
+<div id ="block_json" style="display:none">{{block_json}}</div>    
+<div id ="transects_json" style="display:none">{{transects_json}}</div>    
     
-    <div >
-        <form 
-        {% if sandbox %}
-            action ='/mammals/grid_square/'
-        {% else %}
-            action='/mammals/sandbox/grid_square/'
-        {% endif %}
-        method="post" id = "block_form">  {% csrf_token %}
-            <table id ="right_hand_table">
-                <tr>
-                    <td rowspan = "12" valign ="top">
-                        <div id="map_canvas" style="width: 500px; height: 500px"></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan = "2"> 
-                        <a href="javascript:back_to_grid_from_square ()">&lt; Back to grid</a>      
-                    </td>
-                </tr>
-                <tr class="hide_this">
-                    <td> Center of grid latitude:
-                    </td>
-                    <td> 
-                        <input type="text" name = "grid_center_y" value ="{{grid_center_y}}"> </input>
-                    </td>
-                </tr>
-                <tr class="hide_this">
-                    <td> Center of grid longitude:
-                    </td>
-                    <td> 
-                        <input type="text" name = "grid_center_x" value ="{{grid_center_x}}"> </input>
-                    </td>
-                </tr>
-                
-                <tr class="hide_this">
-                    <td> Height of grid in squares:
-                    </td>
-                    <td> 
-                        <input type="text" name = "height_in_blocks" value ="{{height_in_blocks}}"> </input>
-                    </td>
-                </tr>
-                <tr class="hide_this">
-                    <td> Width of grid in squares:
-                    </td>
-                    <td> 
-                        <input type="text" name = "width_in_blocks" value ="{{width_in_blocks}}"></input>
-                    </td>
-                </tr>
-                <tr class="hide_this">
-                    <td> Center of square latitude:
-                    </td>
-                    <td> 
-                        <input type="text" name = "selected_block_center_y" value ="{{selected_block_center_y}}"> </input>
-                    </td>
-                </tr>
-                <tr class="hide_this">
-                    <td> Center of square longitude:
-                    </td>
-                    <td> 
-                        <input type="text" name = "selected_block_center_x" value ="{{selected_block_center_x}}"> </input>
-                    </td>
-                </tr>
-                <tr class="hide_this">
-                    <td> Height of square in meters:
-                    </td>
-                    <td> 
-                        <input type="text" name = "block_height_in_m" value ="{{block_height_in_m}}"> </input>
-                    </td>
-                </tr>
-                <tr class="hide_this">
-                    <td> Width of square in meters:
-                    </td>
-                    <td> 
-                        <input type="text" name = "block_width_in_m" value ="{{block_width_in_m}}"> </input>
-                    </td>
-                </tr> 
-                <tr>
-                    <td> Declination:
-                    </td>
-                    <td> 
-                        <input type="text" name = "magnetic_declination" value ="{{magnetic_declination}}"> </input>
-                    </td>
-                </tr>
-                <tr>
-                    <td> Number of Bearings:
-                    </td>
-                    <td> 
-                        <input type="text" name = "num_transects" value ="{{num_transects}}"> </input>
-                    </td>
-                </tr>
-                <tr>
-                    <td> Traps per Bearing:
-                    </td>
-                    <td> 
-                        <input type="text" name = "points_per_transect" value ="{{points_per_transect}}"> </input>
-                    </td>
-                </tr>
-                
-                <tr>
-                    <td colspan = "2"> 
-                        <input type="submit" value="Pick new sites at random within this square"></input>
-                    </td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td  colspan = "2"> 
-                        <div id="transect_table_overflow_div">
-                            {% include "mammals/transect_table.html" %} 
-                        </div>
-                    </td>
-                </tr>
+<div >
+    <form 
+    {% if sandbox %}
+        action ='/mammals/grid_square/'
+    {% else %}
+        action='/mammals/sandbox/grid_square/'
+    {% endif %}
+    method="post" id = "block_form">  {% csrf_token %}
+        <table id ="right_hand_table">
+            <tr>
+                <td rowspan = "12" valign ="top">
+                    <div id="map_canvas" style="width: 500px; height: 500px"></div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan = "2"> 
+                    <a href="javascript:back_to_grid_from_square ()">&lt; Back to grid</a>      
+                </td>
+            </tr>
+            <tr class="hide_this">
+                <td> Center of grid latitude:
+                </td>
+                <td> 
+                    <input type="text" name = "grid_center_y" value ="{{grid_center_y}}"> </input>
+                </td>
+            </tr>
+            <tr class="hide_this">
+                <td> Center of grid longitude:
+                </td>
+                <td> 
+                    <input type="text" name = "grid_center_x" value ="{{grid_center_x}}"> </input>
+                </td>
+            </tr>
+            
+            <tr class="hide_this">
+                <td> Height of grid in squares:
+                </td>
+                <td> 
+                    <input type="text" name = "height_in_blocks" value ="{{height_in_blocks}}"> </input>
+                </td>
+            </tr>
+            <tr class="hide_this">
+                <td> Width of grid in squares:
+                </td>
+                <td> 
+                    <input type="text" name = "width_in_blocks" value ="{{width_in_blocks}}"></input>
+                </td>
+            </tr>
+            <tr class="hide_this">
+                <td> Center of square latitude:
+                </td>
+                <td> 
+                    <input type="text" name = "selected_block_center_y" value ="{{selected_block_center_y}}"> </input>
+                </td>
+            </tr>
+            <tr class="hide_this">
+                <td> Center of square longitude:
+                </td>
+                <td> 
+                    <input type="text" name = "selected_block_center_x" value ="{{selected_block_center_x}}"> </input>
+                </td>
+            </tr>
+            <tr class="hide_this">
+                <td> Height of square in meters:
+                </td>
+                <td> 
+                    <input type="text" name = "block_height_in_m" value ="{{block_height_in_m}}"> </input>
+                </td>
+            </tr>
+            <tr class="hide_this">
+                <td> Width of square in meters:
+                </td>
+                <td> 
+                    <input type="text" name = "block_width_in_m" value ="{{block_width_in_m}}"> </input>
+                </td>
+            </tr> 
+            <tr>
+                <td> Declination:
+                </td>
+                <td> 
+                    <input type="text" name = "magnetic_declination" value ="{{magnetic_declination}}"> </input>
+                </td>
+            </tr>
+            <tr>
+                <td> Number of Bearings:
+                </td>
+                <td> 
+                    <input type="text" name = "num_transects" value ="{{num_transects}}"> </input>
+                </td>
+            </tr>
+            <tr>
+                <td> Traps per Bearing:
+                </td>
+                <td> 
+                    <input type="text" name = "points_per_transect" value ="{{points_per_transect}}"> </input>
+                </td>
+            </tr>
+            
+            <tr>
+                <td colspan = "2"> 
+                    <input type="submit" value="Pick new sites at random within this square"></input>
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td  colspan = "2"> 
+                    <div id="show_printer_friendly_table">Show printer-friendly table</div>
+                    <div id="transect_table_overflow_div">
+                        {% include "mammals/transect_table.html" %} 
+                    </div>
+                </td>
+            </tr>
 
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td colspan = "2"> 
-                        <a href="javascript:back_to_grid_from_square ()">&lt; Back to grid</a>      
-                    </td>
-                </tr>                
-            </table>
-        </form>
-    </div>
-    
-    <div id="show_printer_friendly_table">
-        Show printer-friendly table
-    </div>
-    
-    <div id="hide_printer_friendly_table">
-        Hide printer-friendly table
-    </div>
-    
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan = "2"> 
+                    <a href="javascript:back_to_grid_from_square ()">&lt; Back to grid</a>      
+                </td>
+            </tr>                
+        </table>
+    </form>
+</div>
+<div id = "printer_friendly_table">
 
-    <div id = "printer_friendly_table">
-        <p>
-            Printer-friendly table:
-        </p>
-    
-        {% include "mammals/transect_table.html" %} 
-    </div>
+    <div id="hide_printer_friendly_table">Hide printer-friendly table</div>
+    <p>
+        Printer-friendly table:
+    </p>
+    {% include "mammals/transect_table.html" %} 
+</div>
 
 {% endblock %}
 
