@@ -1,5 +1,6 @@
 from math import cos, sin, sqrt, atan2, pi
 from random import uniform
+from operator import itemgetter
 
 # http://en.wikipedia.org/wiki/World_Geodetic_System
 # http://home.online.no/~sigurdhu/Grid_1deg.htm
@@ -74,6 +75,7 @@ def pick_transect_heading():
 
 #angles are meant to be in radians
 def circular_mean(angles):
+    """ The average angle. If the angles are all pointing north, the average angle will be north."""
     x = y = 0.
     for angle in angles:
         x += cos(angle)
@@ -87,48 +89,63 @@ def angle_difference (x, y):
     return min((2 * pi) - abs(x - y), abs(x - y))
 
 
-def smallest_difference (asd):        
-    return min (angle_difference(asd[a], asd[a+1]) for a in range (len(asd) - 1))
+def smallest_difference (angles):
+    """The bigger this number is, the less confusion --
+    we don't want two bearings pointing in almost the same direction.
+    Assumes the angles are sorted. 
+    """
+    pairs = [(a, a + 1) for a in range(len(angles) -1)]
+    pairs.append (( len(angles) -1, 0 ))
+    all_angle_differences = [angle_difference(angles[m], angles[n]) for (m, n) in pairs]
+    return min (all_angle_differences)
+    #return min (angle_difference(asd[a], asd[a+1]) for a in range (len(asd) - 1))
 
-
-def nicely_distributed (angles):
-    #print "............."
+def uniformity_of_circular_distribution (angles):
+    """We don't want all the kids going off in one direction.
+    The larger this number, the more uniformly
+    the transects are distributed around the circle."""
+    
     mean = circular_mean(angles)
     sum_of_diffs = 0
     for a in angles:
         sum_of_diffs += angle_difference (mean, a)
-        
-    if sum_of_diffs  / len(angles) < 0.5:
-        #print "these are all pointing in one direction."
-        return False
-    
-    #import pdb
-    #pdb.set_trace()
-    
-    ideal_angle = 2*pi / len(angles)
-    
-    #print "ideal angle"
-    #print ideal_angle
-    
-    #print "ideal angle / 5"
-    #print ideal_angle / 5
-    
-    #print "smallest_difference"
-    #print smallest_difference(angles)
-    
-    return smallest_difference(angles) > ideal_angle / 5
+    return sum_of_diffs  / len(angles)
+
     
 
 def pick_transect_angles (number_needed):
-    #import pdb
-    #pdb.set_trace()
-    number_of_tries = 10
+    """Pick a bunch of transect angles at random, and pick the ones that are the most useful.
+    
+    The rules are:
+        1) No two transects should be too close together
+        2) The transects should fan out in all directions -- we don't want them all pointing east, e.g.
+    
+    """
+    number_of_tries = number_needed * 5
+    results = []
     for a in range (number_of_tries):
-        transects = [pick_transect_heading() for n in range(number_needed)]
-        #print transects
-        #print nicely_distributed(transects)
-        if nicely_distributed(transects) or a == number_of_tries:
-            return transects
+        transects = sorted(pick_transect_heading() for n in range(number_needed))
+        sd = smallest_difference (transects)
+        ucd = uniformity_of_circular_distribution (transects)
+        results.append (
+            {
+                'sd'      : sd
+                ,'ucd'    : ucd
+                ,'transects' : transects
+            }
+        )
+    sorted_by_smallest_angle = sorted (results, key=itemgetter ('sd'))
+    
+    
+    #print sorted_by_smallest_angle
+    #pick the five winners by smallest angle, and then sort the winners based on the 
+    
+    sorted_by_both = sorted (sorted_by_smallest_angle[-5:],  key=itemgetter ('ucd'))
+
+    
+    return sorted_by_both[-1]['transects']
+    
+        
 
 
 def radians_to_degrees(angle):
