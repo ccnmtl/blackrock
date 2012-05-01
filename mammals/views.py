@@ -241,7 +241,7 @@ def sandbox_grid_block(request):
     default_size = 250.0
     
     if (request.method != 'POST'):
-        #does it really make sense to just do a get on grid square? not really.
+        #does it really make sense to just do a get on grid square? not really. 
         num_transects                           = 2
         points_per_transect                     = 2 
         height_in_blocks,  width_in_blocks,     = [3, 4]

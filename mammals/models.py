@@ -25,6 +25,24 @@ class GridPoint(models.Model):
     def set_lat_long (self, coords):
         self.geo_point = "POINT(%s %s)" % (coords[0], coords[1])
         
+    def __unicode__(self):
+        return self.gps_coords()
+   
+    def gps_coords(self):
+        return "%s, %s" % (self.NSlat(), self.EWlon())
+   
+    def NSlat(self):
+        lat = self.lat()
+        if lat > 0:
+            return '%0.5F N' % abs(lat)
+        return '%0.5F S' % abs(lon)
+        
+    def EWlon(self):
+        lon = self.lon()
+        if lon < 0:
+            return '%0.5F W' % abs(lon)
+        return '%0.5F E' % abs(lon)
+        
     def lat(self):
         return self.geo_point.coords[0]
         
@@ -47,14 +65,16 @@ class GridPoint(models.Model):
 class GridSquare (models.Model):
     """ A square in the grid used to sample the forest. Each square has four points. Contiguous squares will, obviously, have points in common."""
 
-    NW_corner = models.ForeignKey(GridPoint, null=False, blank=False, related_name = "square_to_my_SE")
-    NE_corner = models.ForeignKey(GridPoint, null=False, blank=False, related_name = "square_to_my_SW")
-    SW_corner = models.ForeignKey(GridPoint, null=False, blank=False, related_name = "square_to_my_NE")
-    SE_corner = models.ForeignKey(GridPoint, null=False, blank=False, related_name = "square_to_my_NW")
-    center    = models.ForeignKey(GridPoint, null=False, blank=False, related_name = "square_i_am_in")
+    NW_corner = models.ForeignKey(GridPoint, null=False, blank=False, related_name = "square_to_my_SE", verbose_name="Northwest corner")
+    NE_corner = models.ForeignKey(GridPoint, null=False, blank=False, related_name = "square_to_my_SW", verbose_name="Northeast corner")
+    SW_corner = models.ForeignKey(GridPoint, null=False, blank=False, related_name = "square_to_my_NE", verbose_name="Southwest corner")
+    SE_corner = models.ForeignKey(GridPoint, null=False, blank=False, related_name = "square_to_my_NW", verbose_name="Southeast corner")
+    center    = models.ForeignKey(GridPoint, null=False, blank=False, related_name = "square_i_am_in",  verbose_name="Center point")
     
     display_this_square = models.BooleanField() #don't show all the squares
     
+    def __unicode__(self):
+        return "Row %d, column %d" % (self.row,self.column) 
     
     row = models.IntegerField() 
     column = models.IntegerField() 
@@ -62,10 +82,10 @@ class GridSquare (models.Model):
     access_difficulty = models.IntegerField() 
     
     #this is arbitrary, just to start out with.
-    label = models.IntegerField()
+    label = models.IntegerField('This was just an arbitrary number.')
     
     #this will contain the labels from the map given to me by Khoi:
-    label_2 = models.IntegerField()
+    label_2 = models.IntegerField(help_text = 'This is the number we used in a first numbering. Squares with no number on that map just have a -1.' , verbose_name="Square number on purple map")
     
     @classmethod
     def corner_names(self):
