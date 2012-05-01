@@ -9,18 +9,33 @@
 
 {% block css %}
     <style media="screen" type="text/css">
+        
         .highlighted {
             color : blue;
         }
-        #distances_table td
+        
+        #distances_table td, #center_point_table td
         {
             border-color: #ABA;
             border-width: 1px;
             border-style: solid;
             margin:  1px;
             padding: 4px;
+        }
+                
+        #distances_table, #center_point_table {
             background-color: #EFE;
         }
+        
+        #distances_table tr.first_color {
+            background-color: #EFE;
+        }
+        
+        
+        #distances_table tr.second_color {
+            background-color: #FFE;
+        }
+        
         
         #hide_printer_friendly_table, #show_printer_friendly_table
         {
@@ -46,12 +61,6 @@
         .hide_this {
             display:none;
         }
-        /*
-        .top_px_number {
-        
-            display:none;
-        }
-        */
     </style>
 
     {{ block.super }}
@@ -77,7 +86,7 @@
             </tr>
             <tr>
                 <td colspan = "2"> 
-                    <a href="javascript:back_to_grid_from_square ()">&lt; Back to grid</a>      
+                    <a href="javascript:back_to_grid_from_square ()">&lt;--- Back to the main grid</a>      
                 </td>
             </tr>
             <tr class="hide_this">
@@ -138,50 +147,46 @@
                 </td>
             </tr> 
             <tr>
-                <td> Declination:
+                <td> Declination (difference between magnetic and true North):
                 </td>
                 <td> 
                     <input type="text" name = "magnetic_declination" value ="{{magnetic_declination}}"> </input>
                 </td>
             </tr>
             <tr>
-                <td> Number of Bearings:
+                <td> How many bearings would you like?
                 </td>
                 <td> 
                     <input type="text" name = "num_transects" value ="{{num_transects}}"> </input>
                 </td>
             </tr>
             <tr>
-                <td> Traps per Bearing:
+                <td> How many traps do you want on each bearing?:
                 </td>
                 <td> 
                     <input type="text" name = "points_per_transect" value ="{{points_per_transect}}"> </input>
                 </td>
             </tr>
-            
             <tr>
                 <td colspan = "2"> 
-                    <input type="submit" value="Pick new sites at random within this square"></input>
-                </td>
+                    <input type="submit" value="Generate new bearings"></input> &lt;- Try clicking this button to generate some new bearings at random.</td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
             </tr>
+            
             <tr>
                 <td  colspan = "2"> 
                     <div id="show_printer_friendly_table">Show printer-friendly table</div>
+                    
                     <div id="transect_table_overflow_div">
                         {% include "mammals/transect_table.html" %} 
                     </div>
                 </td>
             </tr>
-
-            <tr>
-                <td>&nbsp;</td>
-            </tr>
             <tr>
                 <td colspan = "2"> 
-                    <a href="javascript:back_to_grid_from_square ()">&lt; Back to grid</a>      
+                    <a href="javascript:back_to_grid_from_square ()">&lt;--- Back to the main grid</a>      
                 </td>
             </tr>                
         </table>

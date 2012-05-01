@@ -68,11 +68,6 @@ def length_of_transect (heading_in_radians, side_of_square):
 def pick_transect_heading():
     return uniform(0,  pi * 2)
 
-
-#def pick_transect_headings(how_many):
-#    return uniform(0,  pi * 2)
-
-
 #angles are meant to be in radians
 def circular_mean(angles):
     """ The average angle. If the angles are all pointing north, the average angle will be north."""
@@ -101,7 +96,7 @@ def smallest_difference (angles):
     #return min (angle_difference(asd[a], asd[a+1]) for a in range (len(asd) - 1))
 
 def uniformity_of_circular_distribution (angles):
-    """We don't want all the kids going off in one direction.
+    """ NOT USED -- We don't want all the kids going off in one direction.
     The larger this number, the more uniformly
     the transects are distributed around the circle."""
     mean = circular_mean(angles)
@@ -116,11 +111,12 @@ def pick_transect_angles (number_needed):
     """Pick a bunch of transect angles at random, and pick the ones that are the most useful.
     The rules are:
         1) No two transects should be too close together
-        (not using this actually):
-            2) The transects should fan out in all directions -- we don't want them all pointing east, e.g.
+        
+         2) (not using this actually):The transects should fan out in all directions -- we don't want them all pointing east, e.g.
     
     """
-    number_of_tries = number_needed * 100
+    number_of_tries = 1 + number_needed * number_needed 
+    
     results = []
     for a in range (number_of_tries):
         transects = sorted(pick_transect_heading() for n in range(number_needed))
