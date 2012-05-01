@@ -73,9 +73,9 @@
 <div >
     <form 
     {% if sandbox %}
-        action ='/mammals/grid_square/'
-    {% else %}
         action='/mammals/sandbox/grid_square/'
+    {% else %}
+        action ='/mammals/grid_square/'
     {% endif %}
     method="post" id = "block_form">  {% csrf_token %}
         <table id ="right_hand_table">
