@@ -1,6 +1,4 @@
-
-
-<table  id = "center_point_table">
+<table class ="center_point_table">
     <tr>
         <td>&nbsp;</td>
         <td >Distance (m)</td>
@@ -16,9 +14,7 @@
     </tr>
 
 </table>
-
-<br />
-<table id ="distances_table">
+<table class ="distances_table">
     <tr>
         <td >&nbsp;</td>
         <td colspan="2">Bearing</td>
@@ -32,8 +28,6 @@
         <td >True north</td>
         <td >Magnetic north</td>
     </tr>
-    
-    
     {%for transect in transects%}
         {%for point in transect.points%}
             <tr class = "point_tr point_{{point.point_id}} {% if forloop.parentloop.counter|divisibleby:2 %}first_color{% else %}second_color{% endif %}">
@@ -49,63 +43,5 @@
                 <td class="top_px_number point_{{point.point_id}}" ></td>
             </tr>
         {%endfor%}
-    {%endfor%}
-            
+    {%endfor%}    
 </table>
-
-
-{%comment%}
-
-<table id ="distances_table" >
-    <tr>
-        <td rowspan="5">&nbsp;</td>
-        <td colspan="2" >&nbsp;</td>
-        <td >Distance (m)</td>
-        <td >Latitude</td>
-        <td >Longitude</td>
-    </tr>
-    
-    <tr >
-        <td colspan = "2">Center of the square</td>
-        <td >0</td>
-        <td >{{selected_block_center_y|floatformat:4}}</td>
-        <td >{{selected_block_center_x|floatformat:4}}</td>
-    </tr>
-
-    <tr>
-        <td colspan="5">&nbsp;</td>
-    </tr>
-
-    <tr>
-        <td colspan="2">Bearing</td>
-        <td rowspan = "2">Distance (m)</td>
-        <td rowspan = "2">Latitude</td>
-        <td rowspan = "2">Longitude</td>
-    </tr>
-    <tr>
-        <td >True north</td>
-        <td >Magnetic north</td>
-    </tr>
-    
-    
-    {%for transect in transects%}
-        {%for point in transect.points%}
-            <tr class = "point_tr point_{{point.point_id}}">
-            {% ifchanged transect%}
-            
-                <td rowspan = "{{transect.points|length}}" >Team&nbsp;{{transect.team_letter}}</td>
-                <td rowspan = "{{transect.points|length}}" class = "transect_td transect_{{transect.transect_id}}">{{transect.heading|floatformat:0}}&deg; </td>
-                <td rowspan = "{{transect.points|length}}" class = "transect_td transect_{{transect.transect_id}}">{{transect.heading_wrt_magnetic_north|floatformat:0}} &deg;</td>
-            {% endifchanged %}
-                <td >{{point.distance|floatformat:0}}</td>
-                <td >{{point.point.0|floatformat:4}}</td>
-                <td >{{point.point.1|floatformat:4}}</td>
-                <td class="top_px_number point_{{point.point_id}}" ></td>
-            </tr>
-        {%endfor%}
-    {%endfor%}
-            
-</table>
-
-
-{%endcomment%}
