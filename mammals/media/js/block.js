@@ -26,7 +26,6 @@ function addBlock(mapInstance) {
             attach_marker_info (circle, next_point, new_transect, transect_obj);
         }
     }
-    
 }
 
 function hide_all_except_printer_friendly_table() {

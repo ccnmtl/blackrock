@@ -43,9 +43,8 @@ class rendered_with(object):
 
         return rendered_func
 
-#@rendered_with('mammals/sandbox_grid.html')
-@rendered_with('mammals/grid.html')
 @csrf_protect
+@rendered_with('mammals/sandbox_grid.html')
 def sandbox_grid(request):
     default_lat  = 41.400
     default_lon  = -74.0305
@@ -188,11 +187,15 @@ def grid_block(request):
         grid_center_y, grid_center_x            = [default_lat, default_lon]
         selected_block_center_y, selected_block_center_x = block_center
     else:
+        
         num_transects        =                  get_int  ( request, 'num_transects',            2 )
         points_per_transect  =                  get_int  ( request, 'points_per_transect',      2 )
         radius_of_circles    =                  get_float( request, 'radius_of_circles',        30.0 )
         magnetic_declination =                  get_float( request, 'magnetic_declination',     -13.0 )
         block_size_in_m =                       get_float( request, 'block_size_in_m',        default_size)
+        
+        #import pdb
+        #pdb.set_trace()
         selected_block_center_y =               get_float( request, 'selected_block_center_y',  default_lat)
         selected_block_center_x =               get_float( request, 'selected_block_center_x',  default_lon)
         grid_center_y           =               get_float( request, 'grid_center_y',            default_lat)

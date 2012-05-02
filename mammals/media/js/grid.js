@@ -1,3 +1,5 @@
+var grid_json;
+
 
 function addGrid(mapInstance) {
     var map_bounds = new google.maps.LatLngBounds();
@@ -23,8 +25,7 @@ function addGrid(mapInstance) {
             }   
         );
         map_bounds.extend(lat_lng_from_point(box[4] ));
-        
-    
+        grid_json [i]['grid_rectangle'] = rect
     }
     
     
@@ -41,15 +42,39 @@ function addGrid(mapInstance) {
     } 
 }
 
-//closure:
+
+function suggest_square() {
+    suggested_square = grid_json[Math.floor(Math.random()*grid_json.length)].grid_rectangle;
+    decorate_suggested_square (suggested_square);
+}
+
+function unsuggest_square() {
+    if (typeof(undecorate_suggested_square) == "function") {
+        undecorate_suggested_square();
+    }
+}
+
+function decorate_suggested_square (suggested_square) {
+    var selected_style = {fillOpacity : 0.6, 
+        fillColor       : 'red',}
+    var unselected_style = {fillOpacity : 0.1,
+        fillColor       : 'blue',}
+    unsuggest_square();
+    suggested_square.setOptions (selected_style);
+    undecorate_suggested_square = function () {
+        suggested_square.setOptions (unselected_style);
+    }
+}
+
+
+
+
 function attach_info(rect, info) {
-
-
 
     google.maps.event.addListener(rect, 'mouseover', function() {
   
     rect.setOptions ({fillOpacity : 0.3});
-  
+    
     jQuery('#bl')[0].innerHTML = trimpoint(info['box'][0]);
     jQuery('#tl')[0].innerHTML = trimpoint(info['box'][1]);
     jQuery('#tr')[0].innerHTML = trimpoint(info['box'][2]);
@@ -62,6 +87,8 @@ function attach_info(rect, info) {
     
   
     jQuery('#block_info') [0].innerHTML =  'Square # ' + info['label']+ ':'
+    
+    jQuery('.grid_border_coords_table').show();
     
     //jQuery('#block_info') [0].innerHTML =  'Row : ' + info['row']+ ' and column ' +  info['column'] + " and label" +  info['label'] + " and label_2 " +  info['label_2']
     
