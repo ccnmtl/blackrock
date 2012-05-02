@@ -14,83 +14,69 @@
 
 {% block container %}
 <div id ="block_json" style="display:none">{{block_json}}</div>    
-<div id ="transects_json" style="display:none">{{transects_json}}</div>    
+<div id ="transects_json" style="display:none">{{transects_json}}</div>
     
 <div >
-    <form 
-    {% if sandbox %}
-        action='/mammals/sandbox/grid_square/'
-    {% else %}
-        action ='/mammals/grid_square/'
-    {% endif %}
-    method="post" id = "block_form">  {% csrf_token %}
-        <table id ="right_hand_table">
-            <tr>
-                <td rowspan = "12" valign ="top">
-                    <div id="map_canvas" style="width: 500px; height: 500px"></div>
-                </td>
-            </tr>
-            <tr>
-                <td colspan = "2"> 
-                    <a href="javascript:back_to_grid_from_square ()">&lt;--- Back to the main grid</a>      
-                </td>
-            </tr>
-            <tr>
-                <td  colspan = "2"> 
-                    <table class ="center_point_table">
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td >Latitude</td>
-                            <td >Longitude</td>
-                        </tr>
-                        
-                        <tr >
-                            <td >Center of the square</td>
-                            <td >{{selected_block_center_y|floatformat:4}}</td>
-                            <td >{{selected_block_center_x|floatformat:4}}</td>
-                        </tr>
-
-                    </table>
-                </td>
-            </tr>
+    <table id ="right_hand_table">
+        <tr>
+            <td rowspan = "12" valign ="top">
+                <div id="map_canvas" style="width: 500px; height: 500px"></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan = "2"> 
+                <a href="javascript:back_to_grid_from_square ()">&lt;--- Back to the main grid</a>      
+            </td>
+        </tr>
+        <tr>
+            <td  colspan = "2">
+                {% include "mammals/grid_center_table.html" %}
+            </td>
+        </tr>
+        <form {% if sandbox %} action='/mammals/sandbox/grid_square/' {% else %} action ='/mammals/grid_square/' {% endif %}
+            method="post" id = "block_form">
+            {% csrf_token %}
             {% include "mammals/grid_form.html" %}
-            <tr>
-                <td> Declination (difference between magnetic and true North):
-                </td>
-                <td> 
-                    <input type="text" name = "magnetic_declination" value ="{{magnetic_declination}}"> </input>
-                </td>
-            </tr>
-            <tr>
-                <td> How many bearings would you like?
-                </td>
-                <td> 
-                    <input type="text" name = "num_transects" value ="{{num_transects}}"> </input>
-                </td>
-            </tr>
-            <tr>
-                <td> How many traps do you want on each bearing?:
-                </td>
-                <td> 
-                    <input type="text" name = "points_per_transect" value ="{{points_per_transect}}"> </input>
-                </td>
-            </tr>
-            <tr>
-                <td colspan = "2"> 
-                    <input type="submit" value="Generate new bearings"></input> &lt;- Try clicking this button to regenerate the table below.</td>
-            </tr>
-            <tr>
-                <td  colspan = "2"> 
-                    <div id="show_printer_friendly_table">Show printer-friendly table</div>
-                    
-                    
-                    <div id="transect_table_overflow_div">
-                        {% include "mammals/transect_table.html" %} 
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </form>
+                <tr>
+                    <td> Declination (difference between magnetic and true North):
+                    </td>
+                    <td> 
+                        <input type="text" name = "magnetic_declination" value ="{{magnetic_declination}}"> </input>
+                    </td>
+                </tr>
+                <tr>
+                    <td> How many bearings would you like?
+                    </td>
+                    <td> 
+                        <input type="text" name = "num_transects" value ="{{num_transects}}"> </input>
+                    </td>
+                </tr>
+                <tr>
+                    <td> How many traps do you want on each bearing?
+                    </td>
+                    <td> 
+                        <input type="text" name = "points_per_transect" value ="{{points_per_transect}}"> </input>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan = "2"> 
+                        <input type="submit" value="Generate new bearings"></input> &lt;- Try clicking this button to regenerate the table below.</td>
+                </tr>
+        </form>
+        <tr>
+            <td colspan = "2"> 
+                {% include "mammals/csv_export_form.html" %}
+            </td>
+        </tr>
+        <tr>
+            <td  colspan = "2"> 
+                <div id="show_printer_friendly_table">Show printer-friendly table</div>
+                <div id="transect_table_overflow_div">
+                    {% include "mammals/transect_table.html" %} 
+                </div>
+            </td>
+        </tr>      
+    </table>
 </div>
 <div id = "printer_friendly_table">
     <div id="hide_printer_friendly_table">Hide printer-friendly table</div>
