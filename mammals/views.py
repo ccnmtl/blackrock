@@ -240,7 +240,7 @@ def grid_square_csv(request):
     obj = simplejson.loads(transects_json)
     
     response = HttpResponse(mimetype='text/csv')
-    response['Content-Disposition'] = 'attachment; filename=somefilename.csv'
+    response['Content-Disposition'] = 'attachment; filename=blackrock_transect_table.csv'
     writer = csv.writer(response)
     writer.writerow(header_row())
     for transect in obj:
