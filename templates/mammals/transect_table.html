@@ -20,7 +20,7 @@
                 <td rowspan = "{{transect.points|length}}" class = "transect_td transect_{{transect.transect_id}}">{{transect.heading|floatformat:0}}&deg; </td>
                 <td rowspan = "{{transect.points|length}}" class = "transect_td transect_{{transect.transect_id}}">{{transect.heading_wrt_magnetic_north|floatformat:0}} &deg;</td>
             {% endifchanged %}
-                <td >{{forloop.counter}}</td>
+                <td >{{transect.team_letter}}{{forloop.counter}}</td>
                 <td >{{point.distance|floatformat:0}}</td>
                 <td >{{point.point.0|floatformat:4}}</td>
                 <td >{{point.point.1|floatformat:4}}</td>

@@ -1,0 +1,23 @@
+{% extends "mammals/base_mammals.html" %}
+
+{% block title %}The Virtual Forest Initiative{% endblock %}
+
+{% block css %}
+<style type='text/css'>
+  @import "site_media/css/style.css";
+</style>
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+
+{% block container %}
+    <h3>Welcome to the Mammals Module!</h3>
+
+    <p>As part of the Virtual Forest Initiative, <a href="http://ccnmtl.columbia.edu/">CCNMTL</a> is developing a suite of web-based learning tools that utilizes Black Rock Forest's rich archive of scientific records such as climate field station and tree data. These learning modules extend Black Rock's research and education assets and are used as laboratory assignments by Barnard and Columbia University Earth Science and Ecology faculty in their respective courses.</p>
+    
+    <p>Use the <a href="/mammals/grid/" >Research Grid</a> to see the real data collected by students at the forest.</p>
+    
+    <p>Use the <a href="/mammals/sandbox/grid/" >Sandbox</a> to get familiar with the tool and set it to your school location.</p>
+
+{% endblock %}

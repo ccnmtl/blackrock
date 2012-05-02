@@ -95,6 +95,12 @@ def sandbox_grid(request):
         ,'sandbox'                                   :  True
     }
 
+
+@rendered_with('mammals/index.html')
+def index(request):
+    return {
+    }
+
 @csrf_protect
 @rendered_with('mammals/grid.html')
 def grid(request):
@@ -210,35 +216,32 @@ def grid_block(request):
     
 def header_row():
     return [
-                'Team letter'
-                , 'Point ID'
-                , 'Heading'
-                , 'Heading wrt magnetic north'
+                'Team name'
+                , 'Bearing (true north)'
+                , 'Bearing (magnetic north)'
+                , 'Trap number'
                 , 'Distance in meters'
                 , 'Latitude'
                 , 'Longitude'
+                , 'Location ID'
             ]
 
 def row_to_output (point, transect):
     return [
                 transect['team_letter']
-                , point['point_index_2']
                 , transect['heading']
                 , transect['heading_wrt_magnetic_north']
+                , "%s%d" % (transect['team_letter'] , point['point_index_2'] )
                 , point['distance']
                 , point['point'][0]
                 , point['point'][1]
+                , point['point_id']
             ]
 
 @csrf_protect
 def grid_square_csv(request):
-    # Create the HttpResponse object with the appropriate CSV header.
-
-    #import pdb
-    #pdb.set_trace()
     transects_json = request.POST.get('transects_json')
     obj = simplejson.loads(transects_json)
-    
     response = HttpResponse(mimetype='text/csv')
     response['Content-Disposition'] = 'attachment; filename=blackrock_transect_table.csv'
     writer = csv.writer(response)
