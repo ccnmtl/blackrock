@@ -18,4 +18,7 @@ urlpatterns = patterns('',
 	(r'^sandbox/$',              'blackrock.mammals.views.sandbox_grid' ),
 	(r'^sandbox/grid/',          'blackrock.mammals.views.sandbox_grid' ),
 	(r'^sandbox/grid_square/',   'blackrock.mammals.views.sandbox_grid_block' ),
+
+	(r'^grid_square_csv/',   'blackrock.mammals.views.grid_square_csv' ),
+
 )

@@ -10,154 +10,47 @@
 {% endblock %}
 
 {% block css %}
-    <style media="screen" type="text/css">
-        td.top_side
-        {
-            border-top: 2px solid green;
-        }
-        
-        td.bottom_side
-        {
-            border-bottom: 2px solid green;
-        }
-        
-        td.left_side
-        {
-            border-left: 2px solid green;
-        }
-        
-        td.right_side
-        {
-            border-right: 2px solid green;
-        }
-        
-        .hide_this {
-            display:none;
-        }
-    </style>
-
+    {% include "mammals/grid_css.html" %} 
     {{ block.super }}
 {% endblock %}
 
 
 {% block container %}
-
-
-    <div id ="grid_json" style="display:none">{{grid_json}}</div>    
-    <div id ="test_points" style="display:none">{{test_points}}</div>    
-    
-    <div >
-        <form action = '/mammals/grid/' method="post" id = "grid_form">
-            <table>
-                <tr>
-                    <td rowspan = "12">
-                        <div id="map_canvas" style="width: 800px; height: 800px"></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td> Center of grid latitude:
-                    </td>
-                    <td> 
-                        <input type="text" name = "grid_center_y" value ="{{grid_center_y}}"> </input>
-                    </td>
-                </tr>
-                <tr>
-                    <td> Center of grid longitude:
-                    </td>
-                    <td> 
-                        <input type="text" name = "grid_center_x" value ="{{grid_center_x}}"> </input>
-                    </td>
-                </tr>
-                <tr>
-                    <td> Height of grid in squares:
-                    </td>
-                    <td> 
-                        <input type="text" name = "height_in_blocks" value ="{{height_in_blocks}}"> </input>
-                    </td>
-                </tr>
-                <tr>
-                    <td> Width of grid in squares:
-                    </td>
-                    <td> 
-                        <input type="text" name = "width_in_blocks" value ="{{width_in_blocks}}"></input>
-                    </td>
-                </tr>
-                <tr >
-                    <td> Height of square in meters:
-                    </td>
-                    <td> 
-                        <input type="text" name = "block_height_in_m" value ="{{block_height_in_m}}"> </input>
-                    </td>
-                </tr>
-                <tr >
-                    <td> Width of square in meters:
-                    </td>
-                    <td> 
-                        <input type="text" name = "block_width_in_m" value ="{{block_width_in_m}}"> </input>
-                    </td>
-                </tr>
-                <tr class = "hide_this">
-                    <td> Selected square center latitude
-                    </td>
-                    <td> 
-                        <input type="text" name = "selected_block_center_y" id="selected_block_center_y" ></input>
-                    </td>
-                </tr>
-                <tr class = "hide_this">
-                    <td> Selected square center longitude:
-                    </td>
-                    <td> 
-                        <input type="text" name = "selected_block_center_x" id="selected_block_center_x" ></input>
-                    </td>
-                </tr>
+<div id ="grid_json" style="display:none">{{grid_json}}</div>
+<div >
+    <table id= "grid_form_table">
+        <tr>
+            <td rowspan = "12">
+                <div id="map_canvas" style="width: 800px; height: 800px"></div>
+            </td>
+        </tr>
+        <form action = '/mammals/sandbox/grid/' method="post" id = "grid_form"> {% csrf_token %}        
+                {% include "mammals/grid_form.html" %} 
                 <tr>
                     <td > 
                         <input type="submit" value="Redraw the grid"></input>
                     </td>
                     <td> 
-                        <a href = "/mammals/grid/">Reset</a>
+                        <a href = "/mammals/sandbox/grid/">Reset</a>
                     </td>
                 </tr>
-                <tr>
-                    <td > 
-                        Click a square to see info below:
-                    </td>
-                    <td> 
-                        &nbsp;
-                    </td>
-                </tr>
-                
-                <tr>
-                    <td  colspan = "2"> 
-                            <p id = "block_info">
-                            </p>
-                            <table>
-                            <tr>
-                                <td id = "tl"  class = "top_side left_side">&nbsp;</td>
-                                <td class = "top_side">&nbsp;</td>
-                                <td id = "tr"  class = "top_side right_side">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td class = "left_side">&nbsp;</td>
-                                <td id = "c">&nbsp;</td>
-                                <td class = "right_side">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td id = "bl" class = "bottom_side left_side">&nbsp;</td>
-                                <td class = "bottom_side">&nbsp;</td>
-                                <td id = "br" class = "bottom_side right_side">&nbsp;</td>
-                            </tr>
-                            
-                            </table>
-                    
-                    </td>
-                </tr>
-                
-            </table>
         </form>
-    </div>
-    <p>
-        Click "Satellite" to zoom in further.
-    </p>
+        <tr>
+            <td  colspan = "2"> 
+                To randomly generate a table of bearings, try clicking a green square on the map.
+            </td>
+        </tr>
+        <tr>
+            <td colspan = "2"> 
+                {% include "mammals/suggest_unsuggest.html" %} 
+            </td>
+        </tr>
+        <tr>
+            <td colspan = "2"> 
+                    {% include "mammals/grid_border_coords.html" %} 
+            </td>
+        </tr>
+    </table>
+</div>
 {% endblock %}
 

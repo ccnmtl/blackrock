@@ -1,0 +1,43 @@
+<style media="screen" type="text/css">
+    .grid_border_coords_table {
+        display: none;
+    }
+    /*
+    #grid_form_table td {
+        border: 3px solid black;
+    }
+    */
+    
+    .top_side
+    {
+        border-top: 2px solid green;
+    }
+    
+    .bottom_side
+    {
+        border-bottom: 2px solid green;
+    }
+    
+    .left_side
+    {
+        border-left: 2px solid green;
+    }
+    
+    .right_side
+    {
+        border-right: 2px solid green;
+    }
+    
+    .hide_this {
+        display:none;
+    }
+    {% if sandbox %}
+        #grid_form_table td  {
+            background-color: #EFE;
+        }
+    {%else %}
+        .form_tr {
+            display:none;    
+        }
+    {%endif %}
+</style>
