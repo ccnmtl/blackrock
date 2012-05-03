@@ -25,7 +25,7 @@
         </tr>
         <tr>
             <td colspan = "2"> 
-                <a href="javascript:back_to_grid_from_square ()">&lt;--- Back to the main grid</a>      
+                <button onclick="back_to_grid_from_square ()">&lt;&lt;&lt; Back to the main grid &lt;&lt;&lt;</button>      
             </td>
         </tr>
         <tr>
@@ -70,7 +70,7 @@
         </tr>
         <tr>
             <td  colspan = "2"> 
-                <div id="show_printer_friendly_table">Show printer-friendly table</div>
+                <button id="show_printer_friendly_table">Show printer-friendly table</button>
                 <div id="transect_table_overflow_div">
                     {% include "mammals/transect_table.html" %} 
                 </div>
@@ -79,7 +79,7 @@
     </table>
 </div>
 <div id = "printer_friendly_table">
-    <div id="hide_printer_friendly_table">Hide printer-friendly table</div>
+    <button id="hide_printer_friendly_table">Hide printer-friendly table</button>
     {% include "mammals/transect_table.html" %} 
 </div>
 

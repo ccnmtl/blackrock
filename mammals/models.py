@@ -109,6 +109,7 @@ class GridSquare (models.Model):
         result['label']   = self.label_2
         result['row']        = self.row
         result['column']     = self.column
+        result['access_difficulty']     = self.access_difficulty
         return result
     
         

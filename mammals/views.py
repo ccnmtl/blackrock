@@ -219,7 +219,7 @@ def header_row():
                 'Team name'
                 , 'Bearing (true north)'
                 , 'Bearing (magnetic north)'
-                , 'Trap number'
+                , 'Trap ID'
                 , 'Distance in meters'
                 , 'Latitude'
                 , 'Longitude'

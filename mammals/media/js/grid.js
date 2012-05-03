@@ -1,5 +1,16 @@
 var grid_json;
 
+function box_info_from_grid_obj(obj) {
+    //TODO: remove this adapter function.
+    return {
+        'box':                 obj['corner_obj'],
+        'row' :                obj['row'],
+        'column' :             obj['column'],
+        'label':               obj['label'],
+        'access_difficulty':   obj['access_difficulty'],
+    }
+}
+
 
 function addGrid(mapInstance) {
     var map_bounds = new google.maps.LatLngBounds();
@@ -11,19 +22,7 @@ function addGrid(mapInstance) {
     for (var i = 0; i < grid_json.length; i++) {
         var box = grid_json[i]['corner_obj'];
         var rect = make_grid_rectangle (bounds (box), mapInstance);
-        
-        //result['corner_obj'] = self.corner_obj()
-        //result['label']      = self.label_2
-        //console.log (grid_json[i]);
-        //console.log (box);
-        
-        attach_info (rect, {
-                'box':     grid_json[i]['corner_obj'],
-                'row' :    grid_json[i]['row'],
-                'column' : grid_json[i]['column'],
-                'label':   grid_json[i]['label'],
-            }   
-        );
+        attach_info (rect, box_info_from_grid_obj (grid_json[i]));
         map_bounds.extend(lat_lng_from_point(box[4] ));
         grid_json [i]['grid_rectangle'] = rect
     }
@@ -44,8 +43,10 @@ function addGrid(mapInstance) {
 
 
 function suggest_square() {
-    suggested_square = grid_json[Math.floor(Math.random()*grid_json.length)].grid_rectangle;
-    decorate_suggested_square (suggested_square);
+    suggested_square = grid_json[Math.floor(Math.random()*grid_json.length)];
+    decorate_suggested_square (suggested_square.grid_rectangle);
+    info = box_info_from_grid_obj(suggested_square);
+    display_info_about_square (info)
 }
 
 function unsuggest_square() {
@@ -61,6 +62,7 @@ function decorate_suggested_square (suggested_square) {
         fillColor       : 'blue',}
     unsuggest_square();
     suggested_square.setOptions (selected_style);
+    
     undecorate_suggested_square = function () {
         suggested_square.setOptions (unselected_style);
     }
@@ -68,30 +70,24 @@ function decorate_suggested_square (suggested_square) {
 
 
 
-
-function attach_info(rect, info) {
-
-    google.maps.event.addListener(rect, 'mouseover', function() {
-  
-    rect.setOptions ({fillOpacity : 0.3});
-    
+function display_info_about_square (info) {
     jQuery('#bl')[0].innerHTML = trimpoint(info['box'][0]);
     jQuery('#tl')[0].innerHTML = trimpoint(info['box'][1]);
     jQuery('#tr')[0].innerHTML = trimpoint(info['box'][2]);
     jQuery('#br')[0].innerHTML = trimpoint(info['box'][3]);
     jQuery('#c') [0].innerHTML = trimpoint(info['box'][4]);
-    
-    
     jQuery('#selected_block_center_y') [0].value = info['box'][4][0];
     jQuery('#selected_block_center_x') [0].value = info['box'][4][1];
-    
-  
-    jQuery('#block_info') [0].innerHTML =  'Square # ' + info['label']+ ':'
-    
+    jQuery('#block_info')       [0].innerHTML =  'Square # ' + info['label']+ ':'
+    jQuery('#block_difficulty') [0].innerHTML =  'Access difficulty: Level ' + info['access_difficulty']+ '.'
     jQuery('.grid_border_coords_table').show();
-    
-    //jQuery('#block_info') [0].innerHTML =  'Row : ' + info['row']+ ' and column ' +  info['column'] + " and label" +  info['label'] + " and label_2 " +  info['label_2']
-    
+}
+
+
+function attach_info(rect, info) {
+    google.maps.event.addListener(rect, 'mouseover', function() {
+    rect.setOptions ({fillOpacity : 0.3});
+    display_info_about_square (info);
     
   });
   
