@@ -6,8 +6,9 @@ from django.contrib.gis.db import models
 from django.template import Context
 from django.template.loader import get_template
 from django.db.models.signals import pre_save
-from django.contrib.gis.geos import  * 
-from django.contrib.gis.measure import D # D is a shortcut for Distance 
+from django.contrib.gis.geos import  *
+from django.contrib.gis.measure import D
+from django.contrib.auth.models import User
 
 class GridPoint(models.Model):
     """ A point in the grid used to sample the forest. Each square is defined by four points. Since it is a grid, a point can be part of up to four different squares, which violates DRY. So I'm denormalizing."""
@@ -62,8 +63,74 @@ class GridPoint(models.Model):
             return existing_close_points [0]
          
 
+class GradeLevel (models.Model):
+
+    def __unicode__(self):
+        return self.label
+    label =  models.CharField(blank=True, help_text = "The name of the grade level", max_length = 256)
+
+class Bait (models.Model):
+
+    def __unicode__(self):
+        return self.bait_name
+    bait_name =  models.CharField(blank=True, help_text = "Label for the type of bait", max_length = 256)
+    class Meta:
+        verbose_name = "Bait type used"
+        verbose_name_plural = "Types of bait used"
+
+class Species(models.Model):
+
+    def __unicode__(self):
+        return self.common_name
+        
+    latin_name =  models.CharField(blank=True, help_text = "Binomial species name", max_length = 256)
+    common_name =  models.CharField(blank=True, help_text = "Common name", max_length = 512)
+    about_this_species =  models.TextField(blank=True, help_text = "A blurb with info about this species at Blackrock")
+
+    class Meta:
+        verbose_name = "Species"
+        verbose_name_plural = "Species" # http://en.wikipedia.org/wiki/Latin_declension#Fifth_declension_.28e.29
+
+
+
+class Animal(models.Model):        
+    def __unicode__(self):
+        return self.species.common_name
+        
+    species = models.ForeignKey (Species, null=True, blank=True)
+    tag_info =  models.CharField(blank=True, help_text = "Tag info if the animal was tagged", max_length = 256)
+    description =  models.TextField(blank=True, help_text = "age / sex / other notes")
+
+
+
+class Trap (models.Model):
+    def __unicode__(self):
+        return self.trap_string
+   
+    trap_string =  models.CharField(blank=True, help_text = "This should be a unique string to identify each trap.", max_length = 256)
+
+    #TODO add notes re: each trap
+    
+
+class Habitat (models.Model):
+    
+    def __unicode__(self):
+        return self.label
+
+    label =  models.CharField(blank=True, help_text = "Short label for this habitat.", max_length = 256)
+    blurb =  models.TextField(blank=True, help_text = "Notes about this habitat (for a habitat page).")
+    
+
+    
+
+    
 class GridSquare (models.Model):
     """ A square in the grid used to sample the forest. Each square has four points. Contiguous squares will, obviously, have points in common."""
+    
+    #TODO: Possible refactor suggested by Anders:
+    #       remove these foreign-keys to GridPoint and just make them
+    #       members of this GridSquare object, possibly stored as a 4-sided native-GIS polygon.
+    
 
     NW_corner = models.ForeignKey(GridPoint, null=False, blank=False, related_name = "square_to_my_SE", verbose_name="Northwest corner")
     NE_corner = models.ForeignKey(GridPoint, null=False, blank=False, related_name = "square_to_my_SW", verbose_name="Northeast corner")
@@ -82,7 +149,7 @@ class GridSquare (models.Model):
     access_difficulty = models.IntegerField() 
     
     #this is arbitrary, just to start out with.
-    label = models.IntegerField('This was just an arbitrary number.')
+    label = models.IntegerField('This was just an arbitrary number. No longer used.')
     
     #this will contain the labels from the map given to me by Khoi:
     label_2 = models.IntegerField(help_text = 'This is the number we used in a first numbering. Squares with no number on that map just have a -1.' , verbose_name="Square number on purple map")
@@ -121,9 +188,83 @@ class GridSquare (models.Model):
                 getattr(self, corner_name).delete()
                 setattr(self, corner_name, point_to_use_instead)
         
+    
+class Expedition (models.Model):  
 
+    def __unicode__(self):
+        return  u"Expedition started on %s" % ( self.start_date_of_expedition )
+  
+    start_date_of_expedition =      models.DateTimeField(auto_now_add=True, null=True)
+    end_date_of_expedition   =      models.DateTimeField(auto_now_add=True, null=True)
+    
+    created_on = models.DateTimeField(auto_now_add=True, null=False)
+    created_by = models.ForeignKey(User,blank=True,null=True, related_name = 'expeditions_created')
+
+    notes_about_this_expedition =  models.TextField(blank=True, help_text = "Notes about this expedition")
+    
+    school_contact_1_phone  =  models.CharField(blank=True,  help_text = "First contact @ the school -- e-mail", max_length = 256)
+    school_contact_1_email  =  models.CharField(blank=True,  help_text = "First contact @ the school   -- phone", max_length = 256)
+    school_contact_2_phone  =  models.CharField(blank=True,  help_text = "Second contact @ the school  -- e-mail", max_length = 256)
+    school_contact_2_email  =  models.CharField(blank=True,  help_text = "Second contact @ the school  -- phone", max_length = 256)
+
+
+    number_of_students = models.IntegerField(help_text = "How many students participated")
+    grade_level = models.ForeignKey(GradeLevel,  null=True, blank=True)
+
+    grid_square = models.ForeignKey(GridSquare, null=True, blank=True, related_name = "Grid Square", verbose_name="Grid Square used for this expedition")
+
+class TrapLocation(models.Model):
+    """ A location you might decide to set a trap."""
+    expedition = models.ForeignKey (Expedition, null=True, blank=True)
+    geo_point = models.PointField(null=True, blank=True)
+    objects = models.GeoManager()
+    trap_used = models.ForeignKey (Trap, null=True, blank=True, help_text = "Which trap, if any, was left at this location")
+    notes_about_location =  models.TextField(blank=True, help_text = "Notes about the location")
+    
+    habitat = models.ForeignKey (Habitat, null=True, blank=True,  help_text = "What habitat best describes this location?")
+    
+    #info about the outcome:    
+    
+    bait = models.ForeignKey (Bait, null=True, blank=True ,  help_text = "Any bait used")
+    animal = models.ForeignKey (Animal, null=True, blank=True,  help_text = "Any animals caught")
+    
+    notes_about_outcome =  models.TextField(blank=True, help_text = "Notes about the outcome")
+    
+    @classmethod
+    def create(self, coords):
+        p = TrapLocation()
+        p.set_lat_long(coords)
+        p.save()
+        return p
+    
+    def set_lat_long (self, coords):
+        self.geo_point = "POINT(%s %s)" % (coords[0], coords[1])
         
+    def __unicode__(self):
+        return self.gps_coords()
+   
+    def gps_coords(self):
+        return "%s, %s" % (self.NSlat(), self.EWlon())
+   
+    def NSlat(self):
+        lat = self.lat()
+        if lat > 0:
+            return '%0.5F N' % abs(lat)
+        return '%0.5F S' % abs(lon)
+        
+    def EWlon(self):
+        lon = self.lon()
+        if lon < 0:
+            return '%0.5F W' % abs(lon)
+        return '%0.5F E' % abs(lon)
+        
+    def lat(self):
+        return self.geo_point.coords[0]
+        
+    def lon(self):
+        return self.geo_point.coords[1]
+
+
+
     
-    
-    
-    # settings.ACCESS_DIFFICULTY_LEVELS
+
