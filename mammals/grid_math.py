@@ -1,6 +1,7 @@
 from math import cos, sin, sqrt, atan2, pi
-from random import uniform
+from random import uniform, triangular
 from operator import itemgetter
+
 
 # http://en.wikipedia.org/wiki/World_Geodetic_System
 # http://home.online.no/~sigurdhu/Grid_1deg.htm
@@ -111,9 +112,6 @@ def pick_transect_angles (number_needed):
     """Pick a bunch of transect angles at random, and pick the ones that are the most useful.
     The rules are:
         1) No two transects should be too close together
-        
-         2) (not using this actually):The transects should fan out in all directions -- we don't want them all pointing east, e.g.
-    
     """
     number_of_tries = 1 + number_needed * number_needed 
     
@@ -130,6 +128,31 @@ def pick_transect_angles (number_needed):
     sorted_by_smallest_angle = sorted (results, key=itemgetter ('sd'))
     winner = sorted_by_smallest_angle[-1]
     return winner['transects']
+
+
+
+def triangular_random (length):
+    return triangular (0, length, length)
+
+
+def pick_new_distance (existing_distances, transect_length, minimum_distance = 5.0):
+    """Make a reasonable attempt to pick a distance at random,
+    not too close to the center,
+    *and* not too close to an existing distance"""
+    
+    new_distance = triangular_random (transect_length)
+    
+    if len(existing_distances) == 0:
+        return new_distance
+    
+    if transect_length / len(existing_distances) < minimum_distance:
+        #too crowded already -- don't try to search for an empty spot.
+        return new_distance
+    
+    while min([ abs(d - new_distance) for d in existing_distances ]) < minimum_distance:
+        new_distance = triangular_random (transect_length)
+    return new_distance
+
 
 def radians_to_degrees(angle):
     a = angle * 180.0 / pi

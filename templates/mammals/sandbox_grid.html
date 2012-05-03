@@ -24,20 +24,29 @@
                 <div id="map_canvas" style="width: 800px; height: 800px"></div>
             </td>
         </tr>
+        
+        <tr>
+            <td  colspan = "2"> 
+                You can use this grid anywhere in the world. Try entering the latitude and longitude of your home below, then click "Redraw the grid". You could also try changing the size of each square, or change the number of squares in your grid.
+            </td>
+        </tr>
+        
         <form action = '/mammals/sandbox/grid/' method="post" id = "grid_form"> {% csrf_token %}        
                 {% include "mammals/grid_form.html" %} 
                 <tr>
-                    <td > 
+                    <td colspan = "2"> 
                         <input type="submit" value="Redraw the grid"></input>
-                    </td>
-                    <td> 
-                        <a href = "/mammals/sandbox/grid/">Reset</a>
                     </td>
                 </tr>
         </form>
+            <tr>
+                <td colspan = "2"> 
+                    <button onclick ="javascript:location.href='/mammals/sandbox/grid/'">Reset</button> &lt; &lt; &lt; Use this to reset the grid.
+                </td>
+        </tr>
         <tr>
             <td  colspan = "2"> 
-                To randomly generate a table of bearings, try clicking a green square on the map.
+                Once you're happy with your grid, try randomly generating a table of bearings by clicking one of the squares on the map. Or you can let us suggest one by clicking "Suggest Square" below.
             </td>
         </tr>
         <tr>
@@ -47,7 +56,7 @@
         </tr>
         <tr>
             <td colspan = "2"> 
-                    {% include "mammals/grid_border_coords.html" %} 
+                {% include "mammals/grid_border_coords.html" %} 
             </td>
         </tr>
     </table>

@@ -19,7 +19,6 @@ from django.template import RequestContext,  TemplateDoesNotExist
 from blackrock.mammals.models import *
 from operator import attrgetter
 from string import uppercase
-from random import *
 import csv
 
 def get_float (request, name, default):
@@ -115,8 +114,13 @@ def grid(request):
         ,'sandbox'                                   :  False
     }
 
+
 def pick_transects (center, side_of_square, number_of_transects, number_of_points_per_transect, magnetic_declination):
     result = []    
+
+    #import pdb
+    #pdb.set_trace()
+    
     if number_of_transects > 15:
         number_of_transects = 15
     new_transects = pick_transect_angles (number_of_transects)
@@ -136,7 +140,16 @@ def pick_transects (center, side_of_square, number_of_transects, number_of_point
         points = []
         for j in range (number_of_points_per_transect):
             new_point = {}
-            distance = triangular (0, transect_length, transect_length)
+            #distance = triangular (0, transect_length, transect_length)
+
+            distance = pick_new_distance ([p['distance'] for p in points], transect_length)
+            
+            #if the point is within 5 meters of another point, try again.
+            if len(points) > 0:
+                while min([ abs(p['distance'] - distance) for p in points ]) < 3.0:
+                    distance = triangular (0, transect_length, transect_length)
+            
+            
             point = walk (center, distance, transect_heading)
             new_point['point']    = point
             new_point['heading']  = radians_to_degrees (transect_heading)
