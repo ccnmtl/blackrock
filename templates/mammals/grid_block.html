@@ -38,10 +38,11 @@
             </td>
         </tr>
         <tr>
-            <td  colspan = "2">
+            <td colspan = "2"> 
                 {% include "mammals/grid_center_table.html" %}
             </td>
         </tr>
+        
         <form {% if sandbox %} action='/mammals/sandbox/grid_square/' {% else %} action ='/mammals/grid_square/' {% endif %}
             method="post" id = "block_form">
             {% csrf_token %}
@@ -81,6 +82,7 @@
         <tr>
             <td  colspan = "2"> 
                 <button id="show_printer_friendly_table">Show printer-friendly table</button>
+                    {% include "mammals/transect_table_heading.html" %} 
                 <div id="transect_table_overflow_div">
                     {% include "mammals/transect_table.html" %} 
                 </div>
@@ -90,6 +92,8 @@
 </div>
 <div id = "printer_friendly_table">
     <button id="hide_printer_friendly_table">Hide printer-friendly table</button>
+    {% include "mammals/grid_center_table.html" %}
+    {% include "mammals/transect_table_heading.html" %} 
     {% include "mammals/transect_table.html" %} 
 </div>
 
