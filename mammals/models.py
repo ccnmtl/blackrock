@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 
 class GridPoint(models.Model):
     """ A point in the grid used to sample the forest. Each square is defined by four points. Since it is a grid, a point can be part of up to four different squares, which violates DRY. So I'm denormalizing."""
-    
+                        
     geo_point = models.PointField(null=True, blank=True)
     objects = models.GeoManager()
     
@@ -62,12 +62,17 @@ class GridPoint(models.Model):
         else:
             return existing_close_points [0]
          
+    def dir(self):
+        return dir(self)
 
 class GradeLevel (models.Model):
 
     def __unicode__(self):
         return self.label
     label =  models.CharField(blank=True, help_text = "The name of the grade level", max_length = 256)
+
+    def dir(self):
+        return dir(self)
 
 class Bait (models.Model):
 
@@ -78,6 +83,11 @@ class Bait (models.Model):
         verbose_name = "Bait type used"
         verbose_name_plural = "Types of bait used"
 
+
+    def dir(self):
+        return dir(self)
+        
+        
 class Species(models.Model):
 
     def __unicode__(self):
@@ -91,6 +101,10 @@ class Species(models.Model):
         verbose_name = "Species"
         verbose_name_plural = "Species" # http://en.wikipedia.org/wiki/Latin_declension#Fifth_declension_.28e.29
 
+
+
+    def dir(self):
+        return dir(self)
 
 
 class Animal(models.Model):        
@@ -111,6 +125,11 @@ class Trap (models.Model):
 
     notes =  models.CharField(blank=True, help_text = "Notes about this trap.", max_length = 256)
 
+
+    def dir(self):
+        return dir(self)
+        
+        
 class Habitat (models.Model):
     
     def __unicode__(self):
@@ -120,6 +139,8 @@ class Habitat (models.Model):
     blurb =  models.TextField(blank=True, help_text = "Notes about this habitat (for a habitat page).")
     
 
+    def dir(self):
+        return dir(self)
     
 
     
@@ -176,6 +197,7 @@ class GridSquare (models.Model):
         result['row']        = self.row
         result['column']     = self.column
         result['access_difficulty']     = self.access_difficulty
+        result['id']     = self.id
         return result
     
         
@@ -187,12 +209,29 @@ class GridSquare (models.Model):
                 getattr(self, corner_name).delete()
                 setattr(self, corner_name, point_to_use_instead)
         
+    def dir(self):
+        return dir(self)
     
-class Expedition (models.Model):  
+class Expedition (models.Model):
 
     def __unicode__(self):
         return  u"Expedition started on %s" % ( self.start_date_of_expedition )
   
+    @classmethod
+    def create_from_obj(self, json_obj, creator):
+        expedition = Expedition()
+        expedition.created_by = creator
+        expedition.number_of_students = 20
+        expedition.save()
+        
+        for transect in json_obj:
+            print transect
+            for point in transect['points']:
+                new_trap_location = TrapLocation.create_from_obj(transect, point, expedition)
+                #print new_trap_location
+                
+        return expedition
+
     start_date_of_expedition =      models.DateTimeField(auto_now_add=True, null=True)
     end_date_of_expedition   =      models.DateTimeField(auto_now_add=True, null=True)
     
@@ -201,8 +240,11 @@ class Expedition (models.Model):
 
     notes_about_this_expedition =  models.TextField(blank=True, help_text = "Notes about this expedition")
     
+    school_contact_1_name  =  models.CharField(blank=True,  help_text = "First contact @ the school -- name", max_length = 256)
     school_contact_1_phone  =  models.CharField(blank=True,  help_text = "First contact @ the school -- e-mail", max_length = 256)
     school_contact_1_email  =  models.CharField(blank=True,  help_text = "First contact @ the school   -- phone", max_length = 256)
+
+    school_contact_2_name  =  models.CharField(blank=True,  help_text = "First contact @ the school -- name", max_length = 256)
     school_contact_2_phone  =  models.CharField(blank=True,  help_text = "Second contact @ the school  -- e-mail", max_length = 256)
     school_contact_2_email  =  models.CharField(blank=True,  help_text = "Second contact @ the school  -- phone", max_length = 256)
 
@@ -212,7 +254,26 @@ class Expedition (models.Model):
 
     grid_square = models.ForeignKey(GridSquare, null=True, blank=True, related_name = "Grid Square", verbose_name="Grid Square used for this expedition")
 
+
+    def dir(self):
+        return dir(self)
+
 class TrapLocation(models.Model):
+
+    @classmethod
+    def create_from_obj(self, transect_obj, point_obj, the_expedition):
+        t = TrapLocation()
+        
+        t.expedition = the_expedition
+        t.set_lat_long(point_obj['point'])
+        t.transect_bearing = transect_obj['heading']
+        t.team_letter = transect_obj['team_letter']
+        t.team_number = point_obj['point_id']
+        t.save()
+        
+        return t
+
+
     """ A location you might decide to set a trap."""
     expedition = models.ForeignKey (Expedition, null=True, blank=True)
     geo_point = models.PointField(null=True, blank=True)
@@ -220,10 +281,17 @@ class TrapLocation(models.Model):
     trap_used = models.ForeignKey (Trap, null=True, blank=True, help_text = "Which trap, if any, was left at this location")
     notes_about_location =  models.TextField(blank=True, help_text = "Notes about the location")
     
+    transect_bearing =  models.FloatField(blank=True, null=True, help_text = "Heading of this bearing")
+    
+    
+    #Team info:
+    team_letter = models.CharField   (blank=True, null=True, help_text = "Name of team responsible for this location.", max_length = 256)
+    team_number = models.IntegerField(blank=True, null=True, help_text = "Designates which trap.")
+    order       = models.IntegerField(blank=True, null=True, help_text = "Order in which to show this trap.")
+    
     habitat = models.ForeignKey (Habitat, null=True, blank=True,  help_text = "What habitat best describes this location?")
     
     #info about the outcome:    
-    
     bait = models.ForeignKey (Bait, null=True, blank=True ,  help_text = "Any bait used")
     animal = models.ForeignKey (Animal, null=True, blank=True,  help_text = "Any animals caught")
     
@@ -263,7 +331,8 @@ class TrapLocation(models.Model):
     def lon(self):
         return self.geo_point.coords[1]
 
-
+    def dir(self):
+        return dir(self)
 
     
 

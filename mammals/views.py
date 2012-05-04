@@ -29,6 +29,8 @@ def get_int (request, name, default):
     number = request.POST.get(name, default)
     return int (number)
 
+
+
 class rendered_with(object):
     def __init__(self, template_name):
         self.template_name = template_name
@@ -97,8 +99,7 @@ def sandbox_grid(request):
 
 @rendered_with('mammals/index.html')
 def index(request):
-    return {
-    }
+    return {}
 
 @csrf_protect
 @rendered_with('mammals/grid.html')
@@ -117,9 +118,6 @@ def grid(request):
 
 def pick_transects (center, side_of_square, number_of_transects, number_of_points_per_transect, magnetic_declination):
     result = []    
-
-    #import pdb
-    #pdb.set_trace()
     
     if number_of_transects > 15:
         number_of_transects = 15
@@ -190,7 +188,9 @@ def grid_block(request):
         block_size_in_m                         = default_size
         grid_center_y, grid_center_x            = [default_lat, default_lon]
         selected_block_center_y, selected_block_center_x = block_center
+        grid_square_id = -1
     else:
+        grid_square_id       =                  get_int  ( request, 'grid_square_id',           -1 )
         num_transects        =                  get_int  ( request, 'num_transects',            2 )
         points_per_transect  =                  get_int  ( request, 'points_per_transect',      2 )
         radius_of_circles    =                  get_float( request, 'radius_of_circles',        30.0 )
@@ -209,6 +209,8 @@ def grid_block(request):
 
     bottom_left = block_center[0] - (block_height / 2), block_center[1] - (block_width/2)
     block = set_up_block (bottom_left, block_height, block_width)
+    
+    
     return {
         'block_json': simplejson.dumps(block)
         ,'radius_of_circles'                         :  radius_of_circles # meters
@@ -223,6 +225,7 @@ def grid_block(request):
         ,'height_in_blocks'                          :  height_in_blocks
         ,'width_in_blocks'                           :  width_in_blocks
         ,'transects_json'                            :  simplejson.dumps(transects)
+        ,'grid_square_id'                            : grid_square_id
         ,'sandbox'                                   :  False
         ,'transects'                                 :  transects
     }
@@ -263,6 +266,32 @@ def grid_square_csv(request):
         for point in transect['points']:
             writer.writerow(row_to_output(point, transect))
     return response
+
+@csrf_protect
+@rendered_with('mammals/expedition.html')
+def new_expedition(request):
+    if not request.user.is_staff:
+        return grid(request)
+    transects_json = request.POST.get('transects_json')
+    grid_square_id = request.POST.get('grid_square_id')
+    obj = simplejson.loads(transects_json)
+    the_new_expedition = Expedition.create_from_obj(obj, request.user)
+    the_new_expedition.grid_square = GridSquare.objects.get(id =grid_square_id)
+    the_new_expedition.save()
+    return HttpResponseRedirect ( '/mammals/edit_expedition/%d/' % the_new_expedition.id)
+    
+
+
+@rendered_with('mammals/expedition.html')
+def edit_expedition(request, expedition_id):
+    exp = Expedition.objects.get(id =expedition_id)
+    if not request.user.is_staff:
+        return grid(request)
+    return {
+        'expedition' : exp
+    }
+
+
 
 
 @csrf_protect

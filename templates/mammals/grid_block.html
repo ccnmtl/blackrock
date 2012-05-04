@@ -25,7 +25,16 @@
         </tr>
         <tr>
             <td colspan = "2"> 
-                <button onclick="back_to_grid_from_square ()">&lt;&lt;&lt; Back to the main grid &lt;&lt;&lt;</button>      
+                <button onclick="back_to_grid_from_square ()">&lt;&lt;&lt; Back to the main grid &lt;&lt;&lt;</button>
+                
+              {% if not sandbox and user.is_staff %}   
+                <form action='/mammals/new_expedition/' method="post" id = "start_expedition_form">
+                <input type="text" name = "grid_square_id" id="grid_square_id" value ="{{grid_square_id}}" class="hide_this"></input>
+                 {% csrf_token %}
+                <input type="text" name="transects_json" style="display:none" value = "{{transects_json}}"></input>
+                <input type="submit" value="Save these locations &gt;&gt;&gt; "></input> 
+                </form>
+              {% endif%}   
             </td>
         </tr>
         <tr>
@@ -62,6 +71,7 @@
                     <td colspan = "2"> 
                         <input type="submit" value="Generate new bearings"></input> &lt;- Try clicking this button to regenerate the table below.</td>
                 </tr>
+                <input type="text" name = "grid_square_id" id="grid_square_id" value ="{{grid_square_id}}" class="hide_this"></input>
         </form>
         <tr>
             <td colspan = "2"> 

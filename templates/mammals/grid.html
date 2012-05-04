@@ -23,7 +23,8 @@
         </tr>
         
         <form action=/mammals/grid/' method="post" id="grid_form" >  {% csrf_token %}
-            {% include "mammals/grid_form.html" %} 
+            {% include "mammals/grid_form.html" %}
+            <input type="text" name = "grid_square_id" id="grid_square_id" value ="{{grid_square_id}}" class="hide_this"></input>
         </form>
         <tr>
             <td colspan = "2"> 

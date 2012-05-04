@@ -8,6 +8,7 @@ function box_info_from_grid_obj(obj) {
         'column' :             obj['column'],
         'label':               obj['label'],
         'access_difficulty':   obj['access_difficulty'],
+        'id':                  obj['id'],
     }
 }
 
@@ -80,6 +81,7 @@ function display_info_about_square (info) {
     jQuery('#selected_block_center_x') [0].value = info['box'][4][1];
     jQuery('#block_info')       [0].innerHTML =  'Square # ' + info['label']+ ':'
     jQuery('#block_difficulty') [0].innerHTML =  'Access difficulty: Level ' + info['access_difficulty']+ '.'
+    jQuery('#grid_square_id')   [0].value =  info['id'];
     jQuery('.grid_border_coords_table').show();
 }
 
