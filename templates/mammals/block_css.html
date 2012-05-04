@@ -7,17 +7,30 @@
         border-color: #ABA;
         border-width: 1px;
         border-style: solid;
-        padding: 4px;
-    }
+    }    
     .distances_table, .center_point_table {
         background-color: #EFE;
-        margin:5px;
     }
     .distances_table tr.first_color {
         background-color: #EFE;
     }
     .distances_table tr.second_color {
         background-color: #FFE;
+    }
+    
+    /*let's try to get the table headings to match:*/
+    .distances_table td {
+        width : 70px;
+        border-spacing: 0px;
+    }
+
+    .distances_table_header td {
+        background-color: #EFE;
+        border-color: #ABA;
+        border-width: 1px;
+        border-style: solid;
+        border-spacing: 0px;
+        width : 70px;
     }
 
     #transect_table_overflow_div .center_point_table {
@@ -30,12 +43,12 @@
     }
     
     div#transect_table_overflow_div {
-        margin:5px;
         height: 230px;
         overflow: auto;
         border-color: #9B9;
         border-width: 1px;
         border-style: solid;
+        width : 525px;
     }
     .hide_this {
         display:none;
