@@ -109,8 +109,7 @@ class Trap (models.Model):
    
     trap_string =  models.CharField(blank=True, help_text = "This should be a unique string to identify each trap.", max_length = 256)
 
-    #TODO add notes re: each trap
-    
+    notes =  models.CharField(blank=True, help_text = "Notes about this trap.", max_length = 256)
 
 class Habitat (models.Model):
     
