@@ -258,6 +258,9 @@ class Expedition (models.Model):
     def dir(self):
         return dir(self)
 
+
+
+##################################################
 class TrapLocation(models.Model):
 
     @classmethod
@@ -292,10 +295,19 @@ class TrapLocation(models.Model):
     habitat = models.ForeignKey (Habitat, null=True, blank=True,  help_text = "What habitat best describes this location?")
     
     #info about the outcome:    
+    whether_a_trap_was_set_here = models.BooleanField(help_text = "We typically won't use ALL the locations suggested; this denotes that a trap was actually placed at or near this point.")
+    
     bait = models.ForeignKey (Bait, null=True, blank=True ,  help_text = "Any bait used")
+    
     animal = models.ForeignKey (Animal, null=True, blank=True,  help_text = "Any animals caught")
     
-    notes_about_outcome =  models.TextField(blank=True, help_text = "Notes about the outcome")
+    bait_still_there = models.BooleanField(help_text = "Was the bait you left in the trap still there when you came back?")
+    
+    notes_about_outcome =  models.TextField(blank=True, help_text = "Any miscellaneous notes about the outcome")
+    
+        
+    student_names =  models.TextField (blank=True, null=True, help_text = "Names of the students responsible for this location (this would be filled in, if at all, by the instructor after the students have left the forest.", max_length = 256)
+    
     
     @classmethod
     def create(self, coords):

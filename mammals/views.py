@@ -29,8 +29,6 @@ def get_int (request, name, default):
     number = request.POST.get(name, default)
     return int (number)
 
-
-
 class rendered_with(object):
     def __init__(self, template_name):
         self.template_name = template_name
@@ -277,6 +275,8 @@ def new_expedition(request):
     obj = simplejson.loads(transects_json)
     the_new_expedition = Expedition.create_from_obj(obj, request.user)
     the_new_expedition.grid_square = GridSquare.objects.get(id =grid_square_id)
+    the_new_expedition.start_date_of_expedition =  datetime.now()
+    the_new_expedition.start_date_of_expedition =  datetime.now()
     the_new_expedition.save()
     return HttpResponseRedirect ( '/mammals/edit_expedition/%d/' % the_new_expedition.id)
     
@@ -284,11 +284,20 @@ def new_expedition(request):
 
 @rendered_with('mammals/expedition.html')
 def edit_expedition(request, expedition_id):
+    baits = Bait.objects.all()
+    species = Species.objects.all()
+    grades = GradeLevel.objects.all()
+    habitats = Habitat.objects.all()
     exp = Expedition.objects.get(id =expedition_id)
     if not request.user.is_staff:
         return grid(request)
+        
     return {
         'expedition' : exp
+        ,'baits'     : baits
+        ,'habitats'  : habitats
+        ,'grades'    : grades
+        ,'species'   : species
     }
 
 
