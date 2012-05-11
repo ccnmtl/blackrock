@@ -35,10 +35,10 @@
         </tr>
         
         <form {% if sandbox %} action='/mammals/sandbox/grid_square/' {% else %} action ='/mammals/grid_square/' {% endif %}
-            method="post" id = "block_form">
+            method="post" id = "block_form" onSubmit="return confirm_new_bearings()">
             {% csrf_token %}
             {% include "mammals/grid_form.html" %}
-                <tr>
+                <tr class="hide_this">
                     <td> Declination (difference between magnetic and true North):
                     </td>
                     <td> 

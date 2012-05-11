@@ -146,3 +146,11 @@ function draw_center_marker (center, map) {
    });
 }
 
+function confirm_new_bearings(){
+    return confirm("Are you sure you want to generate new bearings? \n This will erase the ones currently displayed.");
+}
+
+
+ 
+
+

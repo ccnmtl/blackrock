@@ -30,11 +30,13 @@
                 Click a green square on the map to randomly generate a table of bearings. Or let us suggest one for you by clicking on the Suggest Square button.
             </td>
         </tr>
+        {%comment %}
         <tr>
             <td  colspan = "2"> 
                 {% include "mammals/suggest_unsuggest.html" %} 
             </td>
         </tr>
+        {%endcomment %}
         <tr>
             <td  colspan = "2"> 
                 {% include "mammals/grid_border_coords.html" %} 

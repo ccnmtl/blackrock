@@ -49,11 +49,13 @@
                 Once you're happy with your grid, try randomly generating a table of bearings by clicking one of the squares on the map. Or you can let us suggest one by clicking "Suggest Square" below.
             </td>
         </tr>
+        {%comment %}
         <tr>
             <td colspan = "2"> 
                 {% include "mammals/suggest_unsuggest.html" %} 
             </td>
         </tr>
+        {%endcomment %}
         <tr>
             <td colspan = "2"> 
                 {% include "mammals/grid_border_coords.html" %} 
