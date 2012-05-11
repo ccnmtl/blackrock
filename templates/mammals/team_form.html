@@ -37,22 +37,9 @@
 {% block container %}
 <div id ="block_json" style="display:none">{{block_json}}</div>    
 <div id ="transects_json" style="display:none">{{transects_json}}</div>
-<div > DATA INPUT FORM</div>
-
-    
+<div > DATA INPUT FORM FOR TEAM {{team_letter}} </div>
 <div > Expedition # {{expedition.id }} to {{expedition.grid_square}} ( {{expedition.grid_square.center}})  on {{expedition.start_date_of_expedition|date:"D d M Y" }}</div>
-        <tr>
-            <td > 
-                Grade level: 
-            </td>
-            <td >
-                <select>
-                    {% for grade in grades %}
-                        <option value = "{{grade.id}}">{{grade.label}}</option>
-                    {%endfor %}
-                </select>
-            </td>
-        </tr>
+       
      <table>
             <tr>
                 <td  > 
@@ -105,35 +92,6 @@
                 </td> 
             </tr>
     </table>
-    <table>
-        <tr>
-            <td  > 
-                Number of students:
-            </td> 
-            <td  > 
-                School contact (name):
-            <td > 
-                School contact (phone):
-            </td> 
-            <td  > 
-                School contact (email): 
-            </td>
-        </tr>
-        <tr>
-            <td  > 
-                <input value ="{{expedition.number_of_students}}"></input>
-            </td> 
-            <td  > 
-                <input name = "school_contact_1_name" value ="{{expedition.school_contact_1_name}}"></input></td> 
-            <td  > 
-                <input name = "school_contact_1_phone"  value ="{{expedition.school_contact_1_phone}}"></input>
-            </td> 
-            <td  > 
-                <input  name = "school_contact_1_email" value ="{{expedition.school_contact_1_email}}"></input>
-            </td>
-        </tr>
-    </table>
-        
         <table id ="distances_table">
             <tr>
                 <td colspan = "1"> 
@@ -187,12 +145,6 @@
             </td>
         </tr>      
         
-        
-        
-        
-        
-        
-        
         <tr>
                 <td   > 
                     Trap
@@ -215,39 +167,43 @@
             </tr>    
         
         {%for point in expedition.traplocation_set.all     %}
-        <tr>
-            <td > 
-                {{point.team_letter }}{{point.team_number }}  ( 12m @ {{point.transect_bearing|floatformat:0 }}&deg;)<br/>
-                {{point }}
-            </td>
         
-            <td > 
-                <select><option value = "yes">Yes</option><option value = "no">No</option></select>
-            </td>
-            <td > 
-                <select>
-                {% for b in baits %}
-                    <option value = "{{b.id}}">{{b}}</option>
-                {%endfor %}
-                </select>
-            </td>
-            <td > <select><option value = "yes">Yes</option><option value = "no">No</option></select>
-            </td>
-            <td > 
-                <select>
-                {% for species in species %}
-                    <option value = "{{species.id}}">{{species}}</option>
-                {%endfor %}
-                </select>
-            </td>
-            <td > 
-                <select>
-                {% for habitat in habitats %}
-                    <option value = "{{habitat.id}}">{{habitat}}</option>
-                {%endfor %}
-                </select>
-            </td>
-        </tr>      
+        {%ifequal point.team_letter team_letter%}
+            <tr>
+                <td > 
+                    {{point.team_letter }}{{point.team_number }}  ( 12m @ {{point.transect_bearing|floatformat:0 }}&deg;)<br/>
+                    {{point }}
+                </td>
+            
+                <td > 
+                    <select><option value = "yes">Yes</option><option value = "no">No</option></select>
+                </td>
+                <td > 
+                    <select>
+                    {% for b in baits %}
+                        <option value = "{{b.id}}">{{b}}</option>
+                    {%endfor %}
+                    </select>
+                </td>
+                <td > <select><option value = "yes">Yes</option><option value = "no">No</option></select>
+                </td>
+                <td > 
+                    <select>
+                    {% for species in species %}
+                        <option value = "{{species.id}}">{{species}}</option>
+                    {%endfor %}
+                    </select>
+                </td>
+                <td > 
+                    <select>
+                    {% for habitat in habitats %}
+                        <option value = "{{habitat.id}}">{{habitat}}</option>
+                    {%endfor %}
+                    </select>
+                </td>
+            </tr>      
+        {%endifequal %}
+
         {%endfor%}
 
     </table>

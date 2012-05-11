@@ -1,0 +1,37 @@
+{% extends "mammals/base_mammals.html" %}
+{% load i18n %}
+{% block container %}
+    <table id="login">
+        <tr>
+            <td>
+               {% if error_message %}
+                    <p class="errornote">{{ error_message }}</p>
+                {% endif %}
+                <h4>
+                Log in below so we can store info about this grid square:
+                
+                </h4>
+                <form action="/mammals/process_login/" method="post" id="login-form">{% csrf_token %}
+                    <label for="id_username">{% trans 'Username:' %}</label> <input type="text" name="username" id="id_username" /><br />
+
+                    <label for="id_password">{% trans 'Password:' %}</label> <input type="password" name="password" id="id_password" /><br />
+                    <input type="hidden" name="this_is_the_login_form" value="1" />
+                    
+                    
+                    <input type="hidden" name="transects_json" value="{{ transects_json }}" />
+                    <input type="hidden" name="grid_square_id" value="{{ grid_square_id }}" />
+                    
+                    
+                    <input type="submit" value="{% trans 'Log in' %}" /><br />
+                </form>                                
+            </td>
+            </tr>
+    </table>
+<script type="text/javascript">
+    document.getElementById('id_username').focus()
+</script>
+{% endblock %}
+
+
+{% block footer %}
+{% endblock %}

@@ -19,6 +19,8 @@ from django.template import RequestContext,  TemplateDoesNotExist
 from blackrock.mammals.models import *
 from operator import attrgetter
 from string import uppercase
+from django.contrib.auth import authenticate, login
+
 import csv
 
 def get_float (request, name, default):
@@ -207,8 +209,6 @@ def grid_block(request):
 
     bottom_left = block_center[0] - (block_height / 2), block_center[1] - (block_width/2)
     block = set_up_block (bottom_left, block_height, block_width)
-    
-    
     return {
         'block_json': simplejson.dumps(block)
         ,'radius_of_circles'                         :  radius_of_circles # meters
@@ -265,19 +265,52 @@ def grid_square_csv(request):
             writer.writerow(row_to_output(point, transect))
     return response
 
-@csrf_protect
-@rendered_with('mammals/expedition.html')
-def new_expedition(request):
-    if not request.user.is_staff:
-        return grid(request)
+
+def set_up_expedition (request):
+
     transects_json = request.POST.get('transects_json')
     grid_square_id = request.POST.get('grid_square_id')
     obj = simplejson.loads(transects_json)
     the_new_expedition = Expedition.create_from_obj(obj, request.user)
-    the_new_expedition.grid_square = GridSquare.objects.get(id =grid_square_id)
+    the_new_expedition.grid_square = GridSquare.objects.get(id = grid_square_id)
     the_new_expedition.start_date_of_expedition =  datetime.now()
     the_new_expedition.start_date_of_expedition =  datetime.now()
     the_new_expedition.save()
+    return the_new_expedition
+
+
+@rendered_with('mammals/login.html')
+def mammals_login(request):
+    result = {
+        'transects_json' : request.POST.get('transects_json')
+        ,'grid_square_id' : request.POST.get('grid_square_id')
+    }
+    return result 
+
+@csrf_protect
+@rendered_with('mammals/expedition.html')
+def process_login_and_go_to_expedition(request):
+    
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        if user.is_active:
+            login(request, user)
+            return new_expedition(request)        
+        else:
+            return login(request)
+    else:
+        return login(request)
+        
+
+@csrf_protect
+@rendered_with('mammals/expedition.html')
+def new_expedition(request):
+    if not request.user.is_staff:
+        return mammals_login(request)
+    
+    the_new_expedition = set_up_expedition(request)
     return HttpResponseRedirect ( '/mammals/edit_expedition/%d/' % the_new_expedition.id)
     
 
@@ -290,7 +323,7 @@ def edit_expedition(request, expedition_id):
     habitats = Habitat.objects.all()
     exp = Expedition.objects.get(id =expedition_id)
     if not request.user.is_staff:
-        return grid(request)
+        return mammals_login(request)
         
     return {
         'expedition' : exp
@@ -300,6 +333,24 @@ def edit_expedition(request, expedition_id):
         ,'species'   : species
     }
 
+@rendered_with('mammals/team_form.html')
+def team_form(request, expedition_id, team_letter):
+    baits = Bait.objects.all()
+    species = Species.objects.all()
+    grades = GradeLevel.objects.all()
+    habitats = Habitat.objects.all()
+    exp = Expedition.objects.get(id =expedition_id)
+    if not request.user.is_staff:
+        return mammals_login(request)
+        
+    return {
+        'expedition'  : exp
+        ,'baits'     : baits
+        ,'habitats'  : habitats
+        ,'grades'    : grades
+        ,'species'   : species
+        ,'team_letter' : team_letter
+    }
 
 
 

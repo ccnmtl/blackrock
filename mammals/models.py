@@ -225,10 +225,8 @@ class Expedition (models.Model):
         expedition.save()
         
         for transect in json_obj:
-            print transect
             for point in transect['points']:
                 new_trap_location = TrapLocation.create_from_obj(transect, point, expedition)
-                #print new_trap_location
                 
         return expedition
 
