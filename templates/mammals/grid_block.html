@@ -1,5 +1,10 @@
 {% extends "mammals/base_mammals.html" %}
 {% load smartif %}
+
+{%comment %}
+NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVITY.
+{%endcomment %}
+
 {% block title %}Grid Block{% endblock %}
 {% block js %}
     <script type="text/javascript" src="/mammals/media/js/grid_and_block.js"></script>
@@ -38,13 +43,17 @@
             method="post" id = "block_form" onSubmit="return confirm_new_bearings()">
             {% csrf_token %}
             {% include "mammals/grid_form.html" %}
-                <tr class="hide_this">
+
+
+                <tr {%if sandbox %}{%else%} class="hide_this" {%endif%} >
                     <td> Declination (difference between magnetic and true North):
                     </td>
                     <td> 
                         <input type="text" name = "magnetic_declination" value ="{{magnetic_declination}}"> </input>
                     </td>
                 </tr>
+
+
                 <tr>
                     <td> How many bearings would you like?
                     </td>

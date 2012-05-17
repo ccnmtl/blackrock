@@ -116,7 +116,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td> Number of Bearing:
+                    <td> Number of Bearings:
                     </td>
                     <td> 
                         <input type="text" name = "num_transects" value ="{{num_transects}}"> </input>
