@@ -39,7 +39,7 @@
     <div id ="transects_json" style="display:none">{{transects_json}}</div>    
     
     <div >
-        <form action = '/mammals/sandbox/grid_square/' method="post" id = "block_form">
+        <form action = '/mammals/sandbox/grid_square/' onSubmit="return confirm_new_bearings()" method="post" id = "block_form">
             <table id ="right_hand_table">
                 <tr>
                     <td rowspan = "12" valign ="top">
@@ -116,7 +116,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td> Number of Bearing:
+                    <td> Number of Bearings:
                     </td>
                     <td> 
                         <input type="text" name = "num_transects" value ="{{num_transects}}"> </input>
@@ -132,7 +132,7 @@
                 
                 <tr>
                     <td colspan = "2"> 
-                        <input type="submit" value="Pick new sites at random within this square"></input>
+                        <input type="submit" value="Generate new bearings"></input>
                     </td>
                 </tr>
                 <tr>
