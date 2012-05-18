@@ -56,15 +56,27 @@ function unsuggest_square() {
 }
 
 function decorate_suggested_square (suggested_square) {
-    var selected_style = {fillOpacity : 0.6, 
-        fillColor       : 'red',}
-    var unselected_style = {fillOpacity : 0.1,
-        fillColor       : 'blue',}
+    
+    var special_style = {
+        fillOpacity : 0.6, 
+        fillColor       : 'red'
+    }
+    
+    var unspecial_style = {
+        fillOpacity : 0.1,
+        fillColor       : 'blue'
+    }
+    
     unsuggest_square();
-    suggested_square.setOptions (selected_style);
+    suggested_square.setOptions (special_style);
+    
+    add_special_mouseout  (suggested_square);
+    add_special_mouseover (suggested_square);
     
     undecorate_suggested_square = function () {
-        suggested_square.setOptions (unselected_style);
+        suggested_square.setOptions (unspecial_style);
+        add_regular_mouseover(suggested_square);
+        add_regular_mouseout(suggested_square);
     }
 }
 
@@ -83,20 +95,87 @@ function display_info_about_square (info) {
     jQuery('.grid_border_coords_table').show();
 }
 
+square_styles = {
+    'suggested_square' : {
+        'selected' : {
+            fillOpacity     : 1.0
+           ,fillColor      : 'red'
+        }
+        ,'unselected' : {
+            fillOpacity     : 0.6
+           ,fillColor      : 'red'
+        }
+    }
+    ,'regular': {
+        'selected' : {
+            fillOpacity     : 0.3
+           ,fillColor      : 'blue'
+        }
+        ,'unselected' : {
+            fillOpacity     : 0.1
+           ,fillColor      : 'blue'
+        }
+    }
+}
+
+function add_regular_mouseover (rect) {
+    //google.maps.clearListeners(rect, 'mouseover');
+    var selected_style = {
+        fillOpacity     : 0.3, 
+        fillColor       : 'blue'
+    }
+    google.maps.event.addListener(rect, 'mouseover', function() {
+    rect.setOptions (square_styles['regular']['selected']);
+  });
+}
+
+function add_regular_mouseout (rect) {
+  //google.maps.clearListeners(rect, 'mouseout');
+  var unselected_style = {
+        fillOpacity     : 0.1, 
+        fillColor       : 'blue'
+  }
+  google.maps.event.addListener(rect, 'mouseout', function() {
+    rect.setOptions (square_styles['regular']['unselected']);
+  });
+}
+
+function add_special_mouseover (rect) {
+   //google.maps.clearListeners(rect, 'mouseover');
+   var selected_style = {
+        fillOpacity     : 1.0, 
+        fillColor       : 'red'
+    }
+
+    google.maps.event.addListener(rect, 'mouseover', function() {
+    rect.setOptions (square_styles['suggested_square']['selected']);
+    });
+}
+
+function add_special_mouseout (rect) {
+   //google.maps.clearListeners(rect, 'mouseout');
+   var unselected_style = {
+        fillOpacity     : 0.6, 
+        fillColor       : 'red'
+    }
+
+    google.maps.event.addListener(rect, 'mouseout', function() {
+    rect.setOptions (square_styles['suggested_square']['unselected']);
+    });
+}
 
 function attach_info(rect, info) {
-    google.maps.event.addListener(rect, 'mouseover', function() {
-    rect.setOptions ({fillOpacity : 0.3});
-    display_info_about_square (info);
+   /*
+   google.maps.clearListeners(rect, 'mouseover');
+   google.maps.clearListeners(rect, 'mouseout');
+   */
     
-  });
-  
-  google.maps.event.addListener(rect, 'mouseout', function() {
-    rect.setOptions ({fillOpacity : 0.1});
-  });
-  
-  
-  google.maps.event.addListener(rect, 'click', function() {
+    add_regular_mouseover (rect);
+    add_regular_mouseout (rect);
+    google.maps.event.addListener(rect, 'mouseover', function() {
+        display_info_about_square (info);
+    });
+    google.maps.event.addListener(rect, 'click', function() {
      the_form = jQuery('#grid_form')[0]
      if (is_sandbox()) {
          the_form.action =   '/mammals/sandbox/grid_square/';
