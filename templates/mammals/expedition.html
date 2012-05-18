@@ -37,10 +37,12 @@
 {% block container %}
 <div id ="block_json" style="display:none">{{block_json}}</div>    
 <div id ="transects_json" style="display:none">{{transects_json}}</div>
-<div > DATA INPUT FORM</div>
 
-    
-<div > Expedition # {{expedition.id }} to {{expedition.grid_square}} ( {{expedition.grid_square.center}})  on {{expedition.start_date_of_expedition|date:"D d M Y" }}</div>
+<h3 > Expedition # {{expedition.id }}</h3>
+
+<!-- todo: create edit expedition controller, which then redirects to all expeditions -->
+<form action="/mammals/all_expeditions/" >
+<div >  to Square {{expedition.grid_square.label_2 }} ( {{expedition.grid_square}}, center {{expedition.grid_square.center}})  on {{expedition.start_date_of_expedition|date:"D d M Y" }}</div>
         <tr>
             <td > 
                 Grade level: 
@@ -53,6 +55,7 @@
                 </select>
             </td>
         </tr>
+        {%comment %}
      <table>
             <tr>
                 <td  > 
@@ -105,6 +108,8 @@
                 </td> 
             </tr>
     </table>
+    
+        {%endcomment %}
     <table>
         <tr>
             <td  > 
@@ -133,7 +138,21 @@
             </td>
         </tr>
     </table>
-        
+    
+    
+        <table id ="distances_table">
+        {%for point in expedition.traplocation_set.all %}
+            {%ifchanged point.team_letter        %}
+                <tr>
+                    <td > 
+                        <a href = "/mammals/team_form/{{expedition.id }}/{{point.team_letter }}/" >Team {{point.team_letter }}'s locations</a>
+                    </td>
+                </tr>     
+            {%endifchanged %} 
+        {%endfor%}
+    </table>
+    
+{%comment %}        
         <table id ="distances_table">
             <tr>
                 <td colspan = "1"> 
@@ -186,13 +205,6 @@
                 </select>
             </td>
         </tr>      
-        
-        
-        
-        
-        
-        
-        
         <tr>
                 <td   > 
                     Trap
@@ -251,8 +263,9 @@
         {%endfor%}
 
     </table>
-
+{%endcomment %}
 <button>Save this information </button>
+</form>
 </div>
 {% endblock %}
 

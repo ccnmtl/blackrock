@@ -268,6 +268,7 @@ class TrapLocation(models.Model):
         t.expedition = the_expedition
         t.set_lat_long(point_obj['point'])
         t.transect_bearing = transect_obj['heading']
+        t.transect_distance = point_obj['distance']
         t.team_letter = transect_obj['team_letter']
         t.team_number = point_obj['point_id']
         t.save()
@@ -283,6 +284,7 @@ class TrapLocation(models.Model):
     notes_about_location =  models.TextField(blank=True, help_text = "Notes about the location")
     
     transect_bearing =  models.FloatField(blank=True, null=True, help_text = "Heading of this bearing")
+    transect_distance =  models.FloatField(blank=True, null=True, help_text = "Distance along this bearing")
     
     
     #Team info:

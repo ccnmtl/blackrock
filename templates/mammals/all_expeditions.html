@@ -1,0 +1,64 @@
+{% extends "mammals/base_mammals.html" %}
+{% load smartif %}
+{% load humanize %}
+{% block title %}Grid Block{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="/mammals/media/js/grid_and_block.js"></script>
+    <script type="text/javascript" src="/mammals/media/js/block.js"></script>
+    {{ block.super }}
+{% endblock %}
+{% block css %}
+    <style media="screen" type="text/css">
+        .green_table td
+        {
+            border-color: #ABA;
+            border-width: 1px;
+            border-style: solid;
+            margin:  1px;
+            padding: 4px;
+            background-color: #EFE;
+        }
+    </style>
+
+    {{ block.super }}
+{% endblock %}
+
+{% block container %}
+<h3>All expeditions</h3>
+
+     <table class = "green_table">
+     
+        <tr>
+                <td  > 
+                    Expedition
+                </td> 
+                <td  > 
+                    Start date
+                </td> 
+                <td  > 
+                    To square
+                </td> 
+                <td  > 
+                    Actions
+                </td> 
+        </tr>
+     
+        {% for e in expeditions %}
+            <tr>
+                <td  > 
+                    Expedition #{{e.id }}
+                </td> 
+                <td  > 
+                    {{e.start_date_of_expedition|naturalday}}
+                </td> 
+                <td  > 
+                    Square {{e.grid_square.label_2 }}
+                </td> 
+                <td  > 
+                    <a href= "/mammals/edit_expedition/{{e.id }}/">Expedition page</a>
+                </td> 
+        </tr>
+        {%endfor%}
+    </table>
+{% endblock %}
+

@@ -333,6 +333,18 @@ def edit_expedition(request, expedition_id):
         ,'species'   : species
     }
 
+
+@rendered_with('mammals/all_expeditions.html')
+def all_expeditions(request):
+    if not request.user.is_staff:
+        return mammals_login(request)
+    expeditions = Expedition.objects.all()
+    #TODO sort these 
+    return {
+        'expeditions' : expeditions
+    }
+
+
 @rendered_with('mammals/team_form.html')
 def team_form(request, expedition_id, team_letter):
     baits = Bait.objects.all()

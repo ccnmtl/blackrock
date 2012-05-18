@@ -7,13 +7,9 @@
     {{ block.super }}
 {% endblock %}
 
-
 {% block css %}
     <style media="screen" type="text/css">
-        tr.highlighted, td.highlighted {
-            color : blue;
-        }
-        #distances_table td
+        .green_table td
         {
             border-color: #ABA;
             border-width: 1px;
@@ -21,13 +17,6 @@
             margin:  1px;
             padding: 4px;
             background-color: #EFE;
-        }
-        table.right_hand_table td {
-            margin: 5px;
-            padding: 5px;
-        }
-        .hide_this {
-            display:none;
         }
     </style>
 
@@ -37,10 +26,12 @@
 {% block container %}
 <div id ="block_json" style="display:none">{{block_json}}</div>    
 <div id ="transects_json" style="display:none">{{transects_json}}</div>
-<div > DATA INPUT FORM FOR TEAM {{team_letter}} </div>
-<div > Expedition # {{expedition.id }} to {{expedition.grid_square}} ( {{expedition.grid_square.center}})  on {{expedition.start_date_of_expedition|date:"D d M Y" }}</div>
-       
-     <table>
+<h3 > DATA INPUT FORM FOR TEAM {{team_letter}} </h3>
+<h3 > Expedition # {{expedition.id }} to {{expedition.grid_square}} <br/>( {{expedition.grid_square.center}}) <br/> on {{expedition.start_date_of_expedition|date:"D d M Y" }}</h3>
+     <form action ="/mammals/edit_expedition/{{expedition.id}}/" method ="post"> 
+     
+     <h3 >General conditions:</h3>
+     <table class = "green_table">
             <tr>
                 <td  > 
                     Understory:
@@ -49,56 +40,81 @@
                    Temperature:
                 </td> 
                 <td  > 
-                   Moon Phase
+                   Moon Phase:
                 </td> 
                 <td  > 
-                   Cloud Cover
+                   Cloud Cover:
                 </td>
             </tr>
             <tr>
                 <td  > 
-                    <input value ="{{expedition.number_of_students}}"></input>
+                    <select>
+                        <option value = "none">Grass</option>
+                    </select>
                 </td> 
                 <td  > 
-                    <input name = "school_contact_1_name" value ="{{expedition.school_contact_1_name}}"></input></td> 
-                <td  > 
-                    <input name = "school_contact_1_phone"  value ="{{expedition.school_contact_1_phone}}"></input>
+                    <select>
+                        <option value = "none">15 &deg; C</option>
+                    </select>
                 </td> 
                 <td  > 
-                    <input  name = "school_contact_1_email" value ="{{expedition.school_contact_1_email}}"></input>
+                    <select>
+                        <option value = "none">Waxing gibbous</option>
+                    </select>
+                </td> 
+                <td  > 
+                    <select>
+                        <option value = "none">40%</option>
+                    </select>
                 </td>
-
             </tr>
             <tr>
                 <td  > 
-                   Light
+                   Light:
                 </td>
                 <td  > 
-                   Precipitation
+                   Precipitation:
                 </td>
                 <td  > 
-                   Snow amount
+                   Snow amount:
                 </td>
-            
+                <td>
+                    Habitat:
+                </td>
             </tr>
             <tr>
                 <td  > 
-                    <input value ="{{expedition.number_of_students}}"></input>
+                    <select>
+                        <option value = "none">40%</option>
+                    </select>
                 </td> 
                 <td  > 
-                    <input name = "school_contact_1_name" value ="{{expedition.school_contact_1_name}}"></input></td> 
-                <td  > 
-                    <input name = "school_contact_1_phone"  value ="{{expedition.school_contact_1_phone}}"></input>
+                    <select>
+                        <option value = "none">1,000 lux</option>
+                    </select>
                 </td> 
+                <td  > 
+                    <select>
+                        <option value = "none">No snow</option>
+                    </select>
+                </td> 
+                <td > 
+                    <select>
+                    {% for habitat in habitats %}
+                        <option value = "{{habitat.id}}">{{habitat}}</option>
+                    {%endfor %}
+                    </select>
+                </td>
             </tr>
     </table>
-        <table id ="distances_table">
+    
+        {%comment %}
             <tr>
                 <td colspan = "1"> 
                     ALL LOCATIONS
                 </td>
                 <td > 
-                    Trap<br/>placed<br/>here?
+                    Trap placed here?
                 </td>
                 <td   > 
                     Bait: 
@@ -145,12 +161,20 @@
             </td>
         </tr>      
         
-        <tr>
-                <td   > 
-                    Trap
+        {%endcomment %}
+        
+        <!-- todo: include distance along bearing for each trap. -->
+        
+        {%for point in expedition.traplocation_set.all     %}
+        
+        {%ifequal point.team_letter team_letter%}
+        
+     <table class = "green_table">
+                           <h3>Trap {{point.team_letter }}{{point.team_number }}  ( {{point.transect_distance|floatformat:0}}m @ {{point.transect_bearing|floatformat:0 }}&deg;) {{point }}</h3>
+            <tr>
+                <td > 
+                    Trap placed here?
                 </td>
-                <td   > 
-                    Trap<br/>placed<br/>here?
                 </td>
                 <td   > 
                     Bait: 
@@ -158,23 +182,8 @@
                 <td   > 
                     Bait left: 
                 </td>
-                <td   > 
-                    Catch:
-                </td>
-                <td > 
-                    Habitat:
-                </td>
-            </tr>    
-        
-        {%for point in expedition.traplocation_set.all     %}
-        
-        {%ifequal point.team_letter team_letter%}
+            </tr>
             <tr>
-                <td > 
-                    {{point.team_letter }}{{point.team_number }}  ( 12m @ {{point.transect_bearing|floatformat:0 }}&deg;)<br/>
-                    {{point }}
-                </td>
-            
                 <td > 
                     <select><option value = "yes">Yes</option><option value = "no">No</option></select>
                 </td>
@@ -187,28 +196,41 @@
                 </td>
                 <td > <select><option value = "yes">Yes</option><option value = "no">No</option></select>
                 </td>
+            </tr>
+            <tr>
+                <td   > 
+                    Catch:
+                </td>
+                <td > 
+                    Habitat:
+                </td>
+            </tr>
+            <tr>
                 <td > 
                     <select>
-                    {% for species in species %}
-                        <option value = "{{species.id}}">{{species}}</option>
-                    {%endfor %}
+                        <option value="None">Trap empty</option>
+                        {% for species in species %}
+                            <option value = "{{species.id}}">{{species}}</option>
+                        {%endfor %}
                     </select>
                 </td>
                 <td > 
                     <select>
-                    {% for habitat in habitats %}
-                        <option value = "{{habitat.id}}">{{habitat}}</option>
-                    {%endfor %}
+                        {% for habitat in habitats %}
+                            <option value = "{{habitat.id}}">{{habitat}}</option>
+                        {%endfor %}
                     </select>
                 </td>
             </tr>      
+            
+    </table>
         {%endifequal %}
 
         {%endfor%}
 
-    </table>
-
-<button>Save this information </button>
+    <button>Save this data and go back to expedition page.</button>
+    
+</form>
 </div>
 {% endblock %}
 

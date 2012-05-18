@@ -61,6 +61,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.flatpages',
     'django.contrib.markup',
+    'django.contrib.humanize',
     'sorl.thumbnail',
     'django.contrib.gis',
     'django.contrib.admin',
