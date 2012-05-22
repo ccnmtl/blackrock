@@ -118,11 +118,8 @@ def grid(request):
 def pick_transects (center, side_of_square, number_of_transects, number_of_points_per_transect, magnetic_declination):
     result = []    
 
-    #import pdb
-    #pdb.set_trace()
-    
-    if number_of_transects > 15:
-        number_of_transects = 15
+    if number_of_transects > 20:
+        number_of_transects = 20
     new_transects = pick_transect_angles (number_of_transects)
     for tr in new_transects:
         transect = {}
@@ -230,25 +227,29 @@ def grid_block(request):
 def header_row():
     return [
                 'Team name'
-                , 'Bearing (true north)'
-                , 'Bearing (magnetic north)'
-                , 'Trap ID'
+                ,'Trap number'
+                #, 'Bearing (true north)'
+                #, 'Bearing (magnetic north)'
+                , 'Bearing'# this is magnetig north only.
+                #, 'Trap ID'
                 , 'Distance in meters'
                 , 'Latitude'
                 , 'Longitude'
-                , 'Location ID'
+                #, 'Location ID'
             ]
 
 def row_to_output (point, transect):
     return [
                 transect['team_letter']
-                , transect['heading']
+                ,point['point_index_2']
+                # , transect['heading']
+                # , transect['heading_wrt_magnetic_north']
                 , transect['heading_wrt_magnetic_north']
-                , "%s%d" % (transect['team_letter'] , point['point_index_2'] )
+                #, "%s%d" % (transect['team_letter'] , point['point_index_2'] )
                 , point['distance']
                 , point['point'][0]
                 , point['point'][1]
-                , point['point_id']
+                # , point['point_id']
             ]
 
 @csrf_protect

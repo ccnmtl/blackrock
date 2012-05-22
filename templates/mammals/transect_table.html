@@ -4,10 +4,15 @@
             <tr class = "point_tr point_{{point.point_id}} {% if forloop.parentloop.counter|divisibleby:2 %}first_color{% else %}second_color{% endif %}">
             {% ifchanged transect%}
                 <td rowspan = "{{transect.points|length}}" class = "transect_td transect_{{transect.transect_id}} ">Team&nbsp;{{transect.team_letter}}</td>
+            {% endifchanged %}
+            <td >{{forloop.counter}}</td>
+            {% ifchanged transect%}
+            {%comment %}
                 <td rowspan = "{{transect.points|length}}" class = "transect_td transect_{{transect.transect_id}}">{{transect.heading|floatformat:0}}&deg; </td>
+            {%endcomment %}
                 <td rowspan = "{{transect.points|length}}" class = "transect_td transect_{{transect.transect_id}}">{{transect.heading_wrt_magnetic_north|floatformat:0}} &deg;</td>
             {% endifchanged %}
-                <td >{{transect.team_letter}}{{forloop.counter}}</td>
+    
                 <td >{{point.distance|floatformat:0}}</td>
                 <td >{{point.point.0|floatformat:4}}</td>
                 <td >{{point.point.1|floatformat:4}}</td>

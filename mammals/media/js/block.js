@@ -147,6 +147,12 @@ function draw_center_marker (center, map) {
 }
 
 function confirm_new_bearings(){
+    if (parseInt(jQuery('#num_transects')[0].value) > 20) {
+        alert ("Sorry, you can't have more than 20 bearings.");
+        jQuery('#num_transects')[0].value = "20";
+        return false;
+    }
+
     return confirm("Are you sure you want to generate new bearings? \n This will erase the ones currently displayed.");
 }
 
