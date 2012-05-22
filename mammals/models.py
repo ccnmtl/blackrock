@@ -217,6 +217,8 @@ class Expedition (models.Model):
     def __unicode__(self):
         return  u"Expedition started on %s" % ( self.start_date_of_expedition )
   
+    #TODO make default sort by date, starting w/ most recent. 
+    
     @classmethod
     def create_from_obj(self, json_obj, creator):
         expedition = Expedition()
@@ -256,6 +258,8 @@ class Expedition (models.Model):
     def dir(self):
         return dir(self)
 
+    def how_many_mammals_caught(self):
+        return len([t for t in self.traplocation_set.all() if t.animal])
 
 
 ##################################################

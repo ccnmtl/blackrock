@@ -265,9 +265,7 @@ def grid_square_csv(request):
             writer.writerow(row_to_output(point, transect))
     return response
 
-
 def set_up_expedition (request):
-
     transects_json = request.POST.get('transects_json')
     grid_square_id = request.POST.get('grid_square_id')
     obj = simplejson.loads(transects_json)
@@ -278,7 +276,7 @@ def set_up_expedition (request):
     the_new_expedition.save()
     return the_new_expedition
 
-
+@csrf_protect
 @rendered_with('mammals/login.html')
 def mammals_login(request):
     result = {
@@ -312,8 +310,6 @@ def new_expedition(request):
     
     the_new_expedition = set_up_expedition(request)
     return HttpResponseRedirect ( '/mammals/edit_expedition/%d/' % the_new_expedition.id)
-    
-
 
 @rendered_with('mammals/expedition.html')
 def edit_expedition(request, expedition_id):
@@ -334,26 +330,28 @@ def edit_expedition(request, expedition_id):
     }
 
 
+
+
 @rendered_with('mammals/all_expeditions.html')
 def all_expeditions(request):
     if not request.user.is_staff:
         return mammals_login(request)
-    expeditions = Expedition.objects.all()
-    #TODO sort these 
+    expeditions = Expedition.objects.all().order_by('-start_date_of_expedition')
     return {
         'expeditions' : expeditions
     }
 
-
 @rendered_with('mammals/team_form.html')
 def team_form(request, expedition_id, team_letter):
+
+    if not request.user.is_staff:
+        return mammals_login(request)
+
     baits = Bait.objects.all()
     species = Species.objects.all()
     grades = GradeLevel.objects.all()
     habitats = Habitat.objects.all()
     exp = Expedition.objects.get(id =expedition_id)
-    if not request.user.is_staff:
-        return mammals_login(request)
         
     return {
         'expedition'  : exp
@@ -364,6 +362,39 @@ def team_form(request, expedition_id, team_letter):
         ,'team_letter' : team_letter
     }
 
+
+def save_team_form(request):
+    rp = request.POST
+    expedition_id = rp['expedition_id']
+    exp = Expedition.objects.get(id =expedition_id)
+    
+    #print rp
+    #print exp
+    #import pdb
+    #pdb.set_trace()
+    
+    form_map = {
+        'habitat': 'habitat'
+        ,'bait':'bait'      
+    }
+    
+
+    #TODO: fix bug with A B A B showing up twice in expedition window
+    
+    #TODO: add a new Animal if anyone selects something from the species window, and associate it with this trap location.
+
+    
+    
+    for point in exp.traplocation_set.all():
+        for the_key, thing_to_update in form_map.iteritems():
+            rp_key = '%s_%d' % (the_key , point.id)
+            if rp.has_key (rp_key) and rp[rp_key] != 'None':
+                setattr(point, '%s_id' % thing_to_update,  int(rp[rp_key]))
+                point.save()
+                
+    return HttpResponseRedirect ( '/mammals/edit_expedition/%d/' % int(expedition_id))
+    
+    
 
 
 @csrf_protect
