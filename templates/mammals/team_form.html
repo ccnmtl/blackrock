@@ -28,7 +28,10 @@
 <div id ="transects_json" style="display:none">{{transects_json}}</div>
 <h3 > DATA INPUT FORM FOR TEAM {{team_letter}} </h3>
 <h3 > Expedition # {{expedition.id }} to {{expedition.grid_square}} <br/>( {{expedition.grid_square.center}}) <br/> on {{expedition.start_date_of_expedition|date:"D d M Y" }}</h3>
-     <form action ="/mammals/edit_expedition/{{expedition.id}}/" method ="post"> 
+     <form action ="/mammals/save_team_form/" method ="post"> 
+     
+     
+    <input type="hidden" name = "expedition_id" id = "expedition_id" value ="{{expedition.id}}" />
      
      <h3 >General conditions:</h3>
      <table class = "green_table">
@@ -108,60 +111,6 @@
             </tr>
     </table>
     
-        {%comment %}
-            <tr>
-                <td colspan = "1"> 
-                    ALL LOCATIONS
-                </td>
-                <td > 
-                    Trap placed here?
-                </td>
-                <td   > 
-                    Bait: 
-                </td>
-                <td   > 
-                    Bait left: 
-                </td>
-                <td   > 
-                    Catch:
-                </td>
-                <td > 
-                    Habitat:
-                </td>
-            </tr>    
-        <tr>
-            <td colspan = "1"> 
-                ALL LOCATIONS
-            </td>
-            <td > <select><option value = "yes">Yes</option><option value = "no">No</option></select>
-            </td>
-            <td > 
-                <select>
-                {% for b in baits %}
-                    <option value = "{{b.id}}">{{b}}</option>
-                {%endfor %}
-                </select>
-            </td>
-            <td > <select><option value = "yes">Yes</option><option value = "no">No</option></select>
-            </td>
-            <td > 
-                <select>
-                    <option value = "none">Nothing caught</option>
-                {% for species in species %}
-                    <option value = "{{species.id}}">{{species}}</option>
-                {%endfor %}
-                </select>
-            </td>
-            <td > 
-                <select>
-                {% for habitat in habitats %}
-                    <option value = "{{habitat.id}}">{{habitat}}</option>
-                {%endfor %}
-                </select>
-            </td>
-        </tr>      
-        
-        {%endcomment %}
         
         <!-- todo: include distance along bearing for each trap. -->
         
@@ -188,9 +137,9 @@
                     <select><option value = "yes">Yes</option><option value = "no">No</option></select>
                 </td>
                 <td > 
-                    <select>
+                    <select id="bait_{{point.id}}" name="bait_{{point.id}}">
                     {% for b in baits %}
-                        <option value = "{{b.id}}">{{b}}</option>
+                        <option value = "{{b.id}}"{%ifequal point.bait_id b.id %} selected{%endifequal%}>{{b}}</option>
                     {%endfor %}
                     </select>
                 </td>
@@ -207,17 +156,17 @@
             </tr>
             <tr>
                 <td > 
-                    <select>
-                        <option value="None">Trap empty</option>
-                        {% for species in species %}
-                            <option value = "{{species.id}}">{{species}}</option>
-                        {%endfor %}
+                        <select id="animal_{{point.id}}" name="animal_{{point.id}}">
+                            <option value="None">Trap empty</option>
+                            {% for species in species %}
+                                <option value = "{{species.id}}">{{species}}</option>
+                            {%endfor %}
                     </select>
                 </td>
                 <td > 
-                    <select>
+                        <select id="habitat_{{point.id}}" name="habitat_{{point.id}}">
                         {% for habitat in habitats %}
-                            <option value = "{{habitat.id}}">{{habitat}}</option>
+                            <option value = "{{habitat.id}}" {%ifequal point.habitat_id habitat.id %} selected{%endifequal%} >{{habitat}}</option>
                         {%endfor %}
                     </select>
                 </td>
@@ -228,8 +177,7 @@
 
         {%endfor%}
 
-    <button>Save this data and go back to expedition page.</button>
-    
+    <input type ="submit" value = "Save this data and go back to expedition page." </input>
 </form>
 </div>
 {% endblock %}

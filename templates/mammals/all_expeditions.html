@@ -27,7 +27,6 @@
 <h3>All expeditions</h3>
 
      <table class = "green_table">
-     
         <tr>
                 <td  > 
                     Expedition
@@ -39,10 +38,12 @@
                     To square
                 </td> 
                 <td  > 
+                    Caught
+                </td> 
+                <td  > 
                     Actions
                 </td> 
         </tr>
-     
         {% for e in expeditions %}
             <tr>
                 <td  > 
@@ -53,6 +54,9 @@
                 </td> 
                 <td  > 
                     Square {{e.grid_square.label_2 }}
+                </td> 
+                <td  > 
+                    {{e.how_many_mammals_caught }} animal{{e.how_many_mammals_caught|pluralize }} 
                 </td> 
                 <td  > 
                     <a href= "/mammals/edit_expedition/{{e.id }}/">Expedition page</a>

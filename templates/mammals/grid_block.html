@@ -32,7 +32,7 @@ NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVI
             <td colspan = "2"> 
                 <button onclick="back_to_grid_from_square ()">&lt;&lt;&lt; Back to the main grid &lt;&lt;&lt;</button>
                 <!-- and user.is_staff -->
-              {% if not sandbox  %}   
+              {% if grid_square_id > 0 and not sandbox %}   
                 <form action='/mammals/new_expedition/' method="post" id = "start_expedition_form">
                 <input type="text" name = "grid_square_id" id="grid_square_id" value ="{{grid_square_id}}" class="hide_this"></input>
                  {% csrf_token %}
