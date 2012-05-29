@@ -20,11 +20,15 @@ function addGrid(mapInstance) {
         map_bounds.extend(lat_lng_from_point(box[4] ));
         add_square_difficulty (i, grid_json [i]['access_difficulty']);
         
-        jQuery ('#difficulty_menu_select').change (function (eee) {
-            show_squares (eee.currentTarget.value);
-        });
     }
     
+    
+    jQuery ('#difficulty_menu_select').change (function (eee) {
+        //console.log (eee.currentTarget.value);
+        console.log (eee.currentTarget.value);
+        show_squares (eee.currentTarget.value);
+        //show_squares (eee.currentTarget.value);
+    });
     
     // this works but it's really annoying.
     /*
@@ -70,7 +74,14 @@ function add_square_difficulty(square_index, difficulty) {
 
 }
 
-function eligible_squares (maximum_difficulty) {
+function eligible_squares () {
+
+    console.log (jQuery ('#difficulty_menu_select')[0].value );
+    
+    
+    maximum_difficulty = jQuery ('#difficulty_menu_select')[0].value;
+    
+    
     result = [];
     for (difficulty in difficulty_map) {
         //console.log ("adding difficulty " + difficulty );
@@ -114,32 +125,35 @@ function show_squares (difficulty_level) {
 }
 
 
-function pick_a_square (difficulty_level) {
-    max_difficulty = 5;
-    if (difficulty_level == -1) {
-        //alert ('showing all');
-        difficulty_level = max_difficulty;
-    }
-    else {
-        square_ids_to_choose_from = eligible_squares (difficulty_level);
-        the_id = random_item(square_ids_to_choose_from);
-        return grid_json[the_id];
-    }
-
-    return random_item(grid_json);
+function pick_a_square () {
+    square_ids_to_choose_from = eligible_squares ();
+    the_id = random_item(square_ids_to_choose_from);
+    return grid_json[the_id];
 }
 
 
 
 function suggest_square() {
-    // TODO: select only from squares of a particular length:
-    suggested_square = pick_a_square (-1);
+    suggested_square = pick_a_square ();
     info = box_info_from_grid_obj(suggested_square);
     
     decorate_suggested_square (suggested_square);
     //decorate_suggested_square (suggested_square.grid_rectangle);
     display_info_about_square (info)
 }
+
+
+function decorate_suggested_square (sq) {
+    unsuggest_square();
+    sq['grid_rectangle'].setOptions (square_styles['suggested_square']['unselected']);
+    add_special_mouseout  (sq['grid_rectangle']);
+    add_special_mouseover (sq['grid_rectangle']);
+    undecorate_suggested_square = function () {
+        sq['grid_rectangle'].setOptions (square_styles['regular']['unselected']);
+        attach_info(sq);
+    }
+}
+
 
 function unsuggest_square() {
     if (typeof(undecorate_suggested_square) == "function") {
@@ -204,17 +218,6 @@ function attach_info(sq) {
     });
 }
 
-function decorate_suggested_square (sq) {
-    rect = sq['grid_rectangle'];
-    unsuggest_square();
-    rect.setOptions (square_styles['suggested_square']['unselected']);
-    add_special_mouseout  (rect);
-    add_special_mouseover (rect);
-    undecorate_suggested_square = function () {
-        attach_info(sq);
-        sq['grid_rectangle'].setOptions (square_styles['regular']['unselected']);
-    }
-}
 
 
 function display_info_about_square (info) {
