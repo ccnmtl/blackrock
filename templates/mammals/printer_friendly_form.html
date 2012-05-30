@@ -1,0 +1,9 @@
+<form action='/mammals/grid_square_print/' method="post" id = "print_export_form">
+    {% csrf_token %}
+    <input type="text" name="transects_json" style="display:none" value = "{{transects_json}}"></input>
+    <input type="text" name = "selected_block_center_y" id="selected_block_center_y"  value ="{{selected_block_center_y}}" class="hide_this"></input>
+    <input type="text" name = "selected_block_center_x" id="selected_block_center_x" value ="{{selected_block_center_x}}" class="hide_this"></input>
+    
+    <input type="submit" value="Printer friendly page (2)"></input>
+    &lt;- Printer friendly form (second version.)
+</form>

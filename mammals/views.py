@@ -267,6 +267,19 @@ def grid_square_csv(request):
 
 
 @csrf_protect
+@rendered_with('mammals/grid_square_print.html')
+def grid_square_print(request):
+    transects_json = request.POST.get('transects_json')
+    return {
+        'transects_json': transects_json #not actually used.
+        , 'transects': simplejson.loads(transects_json) 
+        , 'selected_block_center_y' : request.POST.get('selected_block_center_y')
+        , 'selected_block_center_x' :request.POST.get('selected_block_center_x')
+    }
+
+
+
+@csrf_protect
 @rendered_with('mammals/grid_block.html')
 def sandbox_grid_block(request):
     default_lat = 41.400
