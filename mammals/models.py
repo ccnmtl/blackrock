@@ -79,10 +79,10 @@ class GridSquare (models.Model):
     row = models.IntegerField() 
     column = models.IntegerField() 
     
-    access_difficulty = models.IntegerField() 
+    access_difficulty = models.IntegerField(help_text = 'This is the Terrain Difficulty, not to be confused with the Access Difficulty, which we are stillnot keeping track of.', verbose_name="Terrain Difficulty") 
     
     #this is arbitrary, just to start out with.
-    label = models.IntegerField('This was just an arbitrary number.')
+    label = models.IntegerField(help_text = 'This was just an arbitrary number.')
     
     #this will contain the labels from the map given to me by Khoi:
     label_2 = models.IntegerField(help_text = 'This is the number we used in a first numbering. Squares with no number on that map just have a -1.' , verbose_name="Square number on purple map")
