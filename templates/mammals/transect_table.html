@@ -18,6 +18,8 @@
                     <td >{{point.point.0|floatformat:4}}</td>
                     <td >{{point.point.1|floatformat:4}}</td>
                 {%endcomment %}
+                <!-- need this to do a bit of magic with the interaction between transects and scroll-->
+                <td class="top_px_number point_{{point.point_id}}" ></td>
             </tr>
         {%endfor%}
     {%endfor%}

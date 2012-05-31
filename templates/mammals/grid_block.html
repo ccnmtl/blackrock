@@ -82,8 +82,11 @@ NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVI
         
         <tr>
             <td  colspan = "2"> 
-                <button id="show_printer_friendly_table">Show printer-friendly table</button>
+                {% comment %}
+                    <button id="show_printer_friendly_table">Show printer-friendly table</button>
+                {%endcomment %}
                     {% include "mammals/transect_table_heading.html" %} 
+
                 <div id="transect_table_overflow_div">
                     {% include "mammals/transect_table.html" %} 
                 </div>

@@ -25,7 +25,7 @@ function addGrid(mapInstance) {
     
     jQuery ('#difficulty_menu_select').change (function (eee) {
         //console.log (eee.currentTarget.value);
-        console.log (eee.currentTarget.value);
+        //console.log (eee.currentTarget.value);
         show_squares (eee.currentTarget.value);
         //show_squares (eee.currentTarget.value);
     });
@@ -44,9 +44,6 @@ function addGrid(mapInstance) {
 }
 
 
-
-
-
 function box_info_from_grid_obj(obj) {
     //TODO: remove this adapter.
     return {
@@ -55,6 +52,7 @@ function box_info_from_grid_obj(obj) {
         'column' :             obj['column'],
         'label':               obj['label'],
         'access_difficulty':   obj['access_difficulty'],
+        'database_id':         obj['database_id'],
     }
 }
 
@@ -115,7 +113,6 @@ function show_squares (difficulty_level) {
     for (var i = 0; i < grid_json.length; i++) {
         sq = grid_json [i];
         if (sq ['access_difficulty'] > difficulty_level) {
-            //console.log ('hiding square ' + i);
             axe_square (sq);
         } else {
             sq['grid_rectangle'].setOptions (square_styles['regular']['unselected']  );
@@ -162,7 +159,7 @@ function unsuggest_square() {
 }
 
 square_styles = {
-    'hidden' : {
+    'hidden' : { // cause they don't meet the conditions of the filter
         'selected' : {
             fillOpacity     : 0.0
             ,strokeOpacity     : 0.0
@@ -172,14 +169,14 @@ square_styles = {
             ,strokeOpacity     : 0.0
         }
     }
-    ,'suggested_square' : {
-        'selected' : {
+    ,'suggested_square' : { // suggested by the randomize button
+        'selected' : { // mouseover
             fillOpacity     : 1.0
             ,fillColor      : 'red'
             ,strokeOpacity   : 0.3
             ,strokeColor     : 'green'
         }
-        ,'unselected' : {
+        ,'unselected' : { //not mouseover
             fillOpacity     : 0.6
             ,fillColor      : 'red'
             ,strokeOpacity   : 0.3
@@ -187,13 +184,13 @@ square_styles = {
         }
     }
     ,'regular': {
-        'selected' : {
+        'selected' : { // mouseover
             fillOpacity     : 0.3
             ,fillColor      : 'blue'
             ,strokeOpacity   : 0.3
             ,strokeColor     : 'green'
         }
-        ,'unselected' : {
+        ,'unselected' : { //not mouseover
             fillOpacity     : 0.1
             ,fillColor      : 'blue'
             ,strokeOpacity   : 0.3
@@ -228,6 +225,12 @@ function display_info_about_square (info) {
     /// These two lines set the value of the square in the hidden form values.
     jQuery('#selected_block_center_y') [0].value = info['box'][4][0];
     jQuery('#selected_block_center_x') [0].value = info['box'][4][1];
+    
+    
+    if (!is_sandbox()) {
+        //console.log (info['database_id']);
+        jQuery('#selected_block_database_id') [0].value = info['database_id'];
+    }
 
     // show values in the box:
     jQuery('#bl')[0].innerHTML = trimpoint(info['box'][0]);

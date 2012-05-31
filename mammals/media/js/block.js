@@ -26,6 +26,23 @@ function addBlock(mapInstance) {
             attach_marker_info (circle, next_point, new_transect, transect_obj);
         }
     }
+    
+    jQuery ('#hide_square_coords_table_button').click (hide_square_coords_table);
+    jQuery ('#show_square_coords_table_button').click (show_square_coords_table);
+    hide_square_coords_table();
+    
+}
+
+function hide_square_coords_table () {
+    jQuery ('.square_coords_table_div').hide();
+    jQuery ('#hide_square_coords_table_button').hide()
+    jQuery ('#show_square_coords_table_button').show()
+}
+
+function show_square_coords_table () {
+    jQuery ('.square_coords_table_div').show();
+    jQuery ('#hide_square_coords_table_button').show()
+    jQuery ('#show_square_coords_table_button').hide()
 }
 
 function hide_all_except_printer_friendly_table() {
@@ -59,7 +76,12 @@ function attach_marker_info (the_circle, point_info, the_transect, transect_info
     transect_top = transect_row.position().top
     //console.log (point_info['transect_id']);
     //console.log (transect_top);
+    
+    //console.log (point_id_row);
+    
     point_id_row = jQuery ('.top_px_number.point_' + point_info['point_id']);
+    
+    console.log (point_id_row);
     point_id_row.html(point_id_row.position().top)
     
     point_id_row.hide();

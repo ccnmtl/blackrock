@@ -24,7 +24,9 @@ function you_are_here (location , mapInstance) {
 }
 
 function trimpoint (point) {
-    return [point[0].toPrecision(6),point[1].toPrecision(6)];
+    return [ point[0].toPrecision(7),
+             point[1].toPrecision(7)
+    ];
 }
 
 function bounds (box) {
