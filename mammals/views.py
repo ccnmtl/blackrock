@@ -24,7 +24,7 @@ import csv
 def get_float (request, name, default):
     number = request.POST.get(name, default)
     return float (number)
-
+print
 def get_int (request, name, default):
     number = request.POST.get(name, default)
     return int (number)
@@ -109,8 +109,14 @@ def grid(request):
     grid = [gs.info_for_display() for gs in GridSquare.objects.all() if gs.display_this_square]
     
     #TODO: remove 'grid_center_y','grid_center_x','height_in_blocks','width_in_blocks' ,'block_size_in_m'    
+
+    selected_block = None
+             
+    if request.POST.has_key ( 'selected_block_database_id'):
+        selected_block_database_id =            int (request.POST.get('selected_block_database_id'))
+        selected_block = GridSquare.objects.get (id = selected_block_database_id)
     
-         
+
     return {
         'grid_json'                                  :  simplejson.dumps(grid)
         ,'grid_center_y'                             :  41.400   #TODO: remove 
@@ -118,6 +124,7 @@ def grid(request):
         ,'height_in_blocks'                          :  22       #TODO: remove  
         ,'width_in_blocks'                           :  27       #TODO: remove 
         ,'block_size_in_m'                           :  250.0    #TODO: remove 
+        ,'selected_block'                             : selected_block
         ,'sandbox'                                   :  False
     }
 
@@ -319,6 +326,7 @@ def sandbox_grid_block(request):
         grid_center_y, grid_center_x            = [default_lat, default_lon]
         selected_block_center_y, selected_block_center_x = block_center
     else:
+        print simplejson.dumps (request.POST)
         num_transects        =                  get_int  ( request, 'num_transects',            2 )
         points_per_transect  =                  get_int  ( request, 'points_per_transect',      2 )
         magnetic_declination =                  get_float( request, 'magnetic_declination',     -13.0 )

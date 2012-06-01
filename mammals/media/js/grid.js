@@ -1,16 +1,10 @@
 var grid_json;
-
+var difficulty_map = {}
 
 function addGrid(mapInstance) {
-    if (is_sandbox()) {
-         jQuery('#grid_form')[0].action =   '/mammals/sandbox/grid_square/';
-    } else {
-        jQuery('#grid_form')[0].action =   '/mammals/grid_square/';
-    }
 
     var map_bounds = new google.maps.LatLngBounds();
     grid_json = JSON.parse(jQuery('#grid_json')[0].innerHTML)
-    
     
     for (var i = 0; i < grid_json.length; i++) {
         var box = grid_json[i]['corner_obj'];
@@ -24,23 +18,21 @@ function addGrid(mapInstance) {
     
     
     jQuery ('#difficulty_menu_select').change (function (eee) {
-        //console.log (eee.currentTarget.value);
-        //console.log (eee.currentTarget.value);
         show_squares (eee.currentTarget.value);
-        //show_squares (eee.currentTarget.value);
     });
     
+    // if you just came from the square page, paint the square you just visited:
+    deal_with_just_visited_block();
+    if (!map_bounds.isEmpty() ) {
+        mapInstance.fitBounds(map_bounds);
+    }
     // this works but it's really annoying.
     /*
     viewer_location = user_location(mapInstance);
     if (viewer_location ) {
         you_are_here (viewer_location);
     }
-    */
-    
-    if (!map_bounds.isEmpty() ) {
-        mapInstance.fitBounds(map_bounds);
-    } 
+    */ 
 }
 
 
@@ -58,36 +50,22 @@ function box_info_from_grid_obj(obj) {
 
 
 
-difficulty_map = {}
-
 function add_square_difficulty(square_index, difficulty) {
-    //console.log ('adding_difficulty' + " square ix" + square_index + " diff: " + difficulty);
     if (difficulty_map.hasOwnProperty (difficulty)) {
         difficulty_map[difficulty].push (square_index);
     }
     else {
         difficulty_map[difficulty] = [ square_index ];
     }
-    //console.log (JSON.stringify(difficulty_map));
-
 }
 
 function eligible_squares () {
-
-    console.log (jQuery ('#difficulty_menu_select')[0].value );
-    
-    
     maximum_difficulty = jQuery ('#difficulty_menu_select')[0].value;
-    
-    
     result = [];
     for (difficulty in difficulty_map) {
-        //console.log ("adding difficulty " + difficulty );
         if (difficulty <= maximum_difficulty) {
-            //console.log ('adding');
             result = result.concat (difficulty_map[difficulty])
         }
-        //console.log ("eligible squares is now " +  JSON.stringify(result));
     }
     return result;
 }
@@ -131,6 +109,7 @@ function pick_a_square () {
 
 
 function suggest_square() {
+
     suggested_square = pick_a_square ();
     info = box_info_from_grid_obj(suggested_square);
     
@@ -142,6 +121,7 @@ function suggest_square() {
 
 function decorate_suggested_square (sq) {
     unsuggest_square();
+    jQuery ('.randomize_again_hint').show();
     sq['grid_rectangle'].setOptions (square_styles['suggested_square']['unselected']);
     add_special_mouseout  (sq['grid_rectangle']);
     add_special_mouseover (sq['grid_rectangle']);
@@ -153,54 +133,42 @@ function decorate_suggested_square (sq) {
 
 
 function unsuggest_square() {
+    jQuery ('.randomize_again_hint').hide();
     if (typeof(undecorate_suggested_square) == "function") {
         undecorate_suggested_square();
     }
 }
 
-square_styles = {
-    'hidden' : { // cause they don't meet the conditions of the filter
-        'selected' : {
-            fillOpacity     : 0.0
-            ,strokeOpacity     : 0.0
-        }
-        ,'unselected' : {
-            fillOpacity     : 0.0
-            ,strokeOpacity     : 0.0
-        }
+
+function deal_with_just_visited_block () {
+    selected_block_id = jQuery ('#selected_block')[0].innerHTML;
+    if ( selected_block_id == '') {
+        return;
     }
-    ,'suggested_square' : { // suggested by the randomize button
-        'selected' : { // mouseover
-            fillOpacity     : 1.0
-            ,fillColor      : 'red'
-            ,strokeOpacity   : 0.3
-            ,strokeColor     : 'green'
-        }
-        ,'unselected' : { //not mouseover
-            fillOpacity     : 0.6
-            ,fillColor      : 'red'
-            ,strokeOpacity   : 0.3
-            ,strokeColor     : 'green'
-        }
-    }
-    ,'regular': {
-        'selected' : { // mouseover
-            fillOpacity     : 0.3
-            ,fillColor      : 'blue'
-            ,strokeOpacity   : 0.3
-            ,strokeColor     : 'green'
-        }
-        ,'unselected' : { //not mouseover
-            fillOpacity     : 0.1
-            ,fillColor      : 'blue'
-            ,strokeOpacity   : 0.3
-            ,strokeColor     : 'green'
+    
+    for (var i = 0; i < grid_json.length; i++) {
+        sq = grid_json [i];
+        if (sq['database_id'] == selected_block_id) {
+           sq['grid_rectangle'].setOptions (square_styles['just_visited']['unselected']);
+           add_just_visited_mouseout  (sq['grid_rectangle']);
+           add_just_visited_mouseover (sq['grid_rectangle']);
         }
     }
 }
 
-
-
+function make_square_clickable (rect) {
+    // when the user clicks a square, take them to the grid square page, submitting the form
+    // to the appropriate url.
+    google.maps.event.clearListeners(rect, 'click');
+    google.maps.event.addListener(rect, 'click', function() {
+        if (is_sandbox()) {
+             jQuery('#grid_form')[0].action =   '/mammals/sandbox/grid_square/';
+        } else {
+            jQuery('#grid_form')[0].action =   '/mammals/grid_square/';
+        }
+        jQuery('#grid_form')[0].submit();
+    });
+}
 
 function attach_info(sq) {
     rect = sq['grid_rectangle']
@@ -209,18 +177,12 @@ function attach_info(sq) {
     google.maps.event.addListener(rect, 'mouseover', function() {
         display_info_about_square (box_info_from_grid_obj (sq));
     });
-    google.maps.event.clearListeners(rect, 'click');
-    google.maps.event.addListener(rect, 'click', function() {
-        jQuery('#grid_form')[0].submit();
-    });
+    make_square_clickable (rect);
 }
 
 
 
 function display_info_about_square (info) {
-
-    
-    //console.log ('Square # ' + info['label']);
     
     /// These two lines set the value of the square in the hidden form values.
     jQuery('#selected_block_center_y') [0].value = info['box'][4][0];
@@ -244,6 +206,8 @@ function display_info_about_square (info) {
 }
 
 
+
+//TODO: DRY up the below functions.
 function add_regular_mouseover (rect) {
     google.maps.event.clearListeners(rect, 'mouseover');
     google.maps.event.addListener(rect, 'mouseover', function() {
@@ -271,3 +235,18 @@ function add_special_mouseout (rect) {
     rect.setOptions (square_styles['suggested_square']['unselected']);
     });
 }
+
+function add_just_visited_mouseover (rect) {
+    google.maps.event.clearListeners(rect, 'mouseover');
+    google.maps.event.addListener(rect, 'mouseover', function() {
+    rect.setOptions (square_styles['just_visited']['selected']);
+    });
+}
+
+function add_just_visited_mouseout (rect) {
+    google.maps.event.clearListeners(rect, 'mouseout');
+    google.maps.event.addListener(rect, 'mouseout', function() {
+    rect.setOptions (square_styles['just_visited']['unselected']);
+    });
+}
+
