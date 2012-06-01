@@ -326,7 +326,6 @@ def sandbox_grid_block(request):
         grid_center_y, grid_center_x            = [default_lat, default_lon]
         selected_block_center_y, selected_block_center_x = block_center
     else:
-        print simplejson.dumps (request.POST)
         num_transects        =                  get_int  ( request, 'num_transects',            2 )
         points_per_transect  =                  get_int  ( request, 'points_per_transect',      2 )
         magnetic_declination =                  get_float( request, 'magnetic_declination',     -13.0 )
