@@ -9,7 +9,12 @@ urlpatterns = patterns('',
 	
 	(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': media_root}),
 	
-	
+
+	#Research version:
+	(r'^$',              'blackrock.mammals.views.index' ),
+	(r'^grid/',          'blackrock.mammals.views.grid' ),
+	(r'^grid_square/',   'blackrock.mammals.views.grid_block' ),
+
 	#Sandbox version:
 	(r'^sandbox/$',              'blackrock.mammals.views.sandbox_grid' ),
 	(r'^sandbox/grid/',          'blackrock.mammals.views.sandbox_grid' ),
@@ -32,6 +37,9 @@ urlpatterns = patterns('',
 	
 	#(r'^selenium/(?P<task>\w+)/$',               'family_info.views.selenium'),
 
-    (r'^grid_square_csv/',   'blackrock.mammals.views.grid_square_csv' ),
+
+        #printer and csv versions of the grid square:
+	(r'^grid_square_csv/',       'blackrock.mammals.views.grid_square_csv' ),
+	(r'^grid_square_print/',     'blackrock.mammals.views.grid_square_print' ),
 
 )

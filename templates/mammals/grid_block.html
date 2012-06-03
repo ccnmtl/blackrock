@@ -7,6 +7,7 @@ NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVI
 
 {% block title %}Grid Block{% endblock %}
 {% block js %}
+    <script type="text/javascript" src="/mammals/media/js/map_colors.js"></script>
     <script type="text/javascript" src="/mammals/media/js/grid_and_block.js"></script>
     <script type="text/javascript" src="/mammals/media/js/block.js"></script>
     {{ block.super }}
@@ -85,9 +86,18 @@ NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVI
             </td>
         </tr>
         <tr>
+            <td colspan = "2"> 
+                {% include "mammals/printer_friendly_form.html" %}
+            </td>
+        </tr>
+        
+        <tr>
             <td  colspan = "2"> 
-                <button id="show_printer_friendly_table">Show printer-friendly table</button>
+                {% comment %}
+                    <button id="show_printer_friendly_table">Show printer-friendly table</button>
+                {%endcomment %}
                     {% include "mammals/transect_table_heading.html" %} 
+
                 <div id="transect_table_overflow_div">
                     {% include "mammals/transect_table.html" %} 
                 </div>

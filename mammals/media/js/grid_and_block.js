@@ -1,10 +1,7 @@
-
-
 function is_sandbox() {
     // this is just a placeholder, ok? don't sue me.
     return (location.href.match(/sandbox/) != null)
 }
-
 
 function back_to_grid_from_square () {
     if (is_sandbox()) {
@@ -15,7 +12,6 @@ function back_to_grid_from_square () {
      jQuery('#block_form')[0].submit();
 }
 
-
 function you_are_here (location , mapInstance) {
     marker = new google.maps.Marker({ 
         position: location,
@@ -24,7 +20,9 @@ function you_are_here (location , mapInstance) {
 }
 
 function trimpoint (point) {
-    return [point[0].toPrecision(6),point[1].toPrecision(6)];
+    return [ point[0].toPrecision(7),
+             point[1].toPrecision(7)
+    ];
 }
 
 function bounds (box) {
@@ -38,13 +36,9 @@ function bounds (box) {
 function make_grid_rectangle (_paths, mapInstance) {
     rect = new google.maps.Polygon ({
         paths           : _paths,
-        fillOpacity     : 0.1,
-        fillColor       : 'blue',
-        strokeOpacity   : 0.3,
-        strokeColor     : 'green',
-        strokeWeight    : 1,
         map             : mapInstance
     });
+    rect.setOptions (square_styles['regular']['unselected']);
     return rect;
 }
 
@@ -54,7 +48,6 @@ function you_are_here (location , mapInstance) {
         map: mapInstance
     });
 }
-
 
 function lat_lng_from_point(point ) {
     return new google.maps.LatLng(point[0] , point[1]);
@@ -96,7 +89,6 @@ function user_location (mapInstance) {
 function lat_lng_from_point(point ) {
     return new google.maps.LatLng(point[0] , point[1]);
 }
-
 
 function addTrails (mapObj) {
     var self = mapObj;

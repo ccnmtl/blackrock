@@ -15,17 +15,32 @@ function addBlock(mapInstance) {
     } 
     
     center = lat_lng_from_point(box[4]);
-    //center_marker_ = draw_center_marker (center, mapInstance);
-    point_radius = 2.0
     for (var i = 0; i < transects.length; i++) {
         transect_obj = transects[i];
         new_transect = transect (center, lat_lng_from_point(transect_obj['edge']), mapInstance)
         for (var j = 0; j < transects[i]['points'].length; j++) {
             next_point = transects[i]['points'][j];
-            circle = x_meter_circle (next_point['point'], mapInstance, point_radius);
+            circle = x_meter_circle (next_point['point'], mapInstance);
             attach_marker_info (circle, next_point, new_transect, transect_obj);
         }
     }
+    
+    jQuery ('#hide_square_coords_table_button').click (hide_square_coords_table);
+    jQuery ('#show_square_coords_table_button').click (show_square_coords_table);
+    hide_square_coords_table();
+    
+}
+
+function hide_square_coords_table () {
+    jQuery ('.square_coords_table_div').hide();
+    jQuery ('#hide_square_coords_table_button').hide()
+    jQuery ('#show_square_coords_table_button').show()
+}
+
+function show_square_coords_table () {
+    jQuery ('.square_coords_table_div').show();
+    jQuery ('#hide_square_coords_table_button').show()
+    jQuery ('#show_square_coords_table_button').hide()
 }
 
 function hide_all_except_printer_friendly_table() {
@@ -57,14 +72,9 @@ function attach_marker_info (the_circle, point_info, the_transect, transect_info
     table = jQuery ('#transect_table_overflow_div');
     transect_row = table.find( '.transect_'    + point_info['transect_id']);
     transect_top = transect_row.position().top
-    //console.log (point_info['transect_id']);
-    //console.log (transect_top);
     point_id_row = jQuery ('.top_px_number.point_' + point_info['point_id']);
-    point_id_row.html(point_id_row.position().top)
-    
+    point_id_row.html(point_id_row.position().top);
     point_id_row.hide();
-    //console.log ('table top');
-    //console.log(jQuery ('#transect_table_overflow_div').position().top);
     
     
     function circle_on (scroll_into_view) {
@@ -80,15 +90,15 @@ function attach_marker_info (the_circle, point_info, the_transect, transect_info
         }    
         
         // change the decoration of the circle and transect
-        the_circle.setOptions({fillColor : "blue", radius:5, zIndex: 1});
-        the_transect.setOptions ({strokeOpacity : 1, });
+        the_circle.setOptions(circle_on_style);
+        the_transect.setOptions (transect_on_style);
     }
     // Unhighlight a circle:
     function circle_off () {
         jQuery ('.point_'    + point_info['point_id']).removeClass("highlighted");
         jQuery ('.transect_' + point_info['transect_id']).removeClass("highlighted");
-        the_circle.setOptions({fillColor : "lightgreen", radius:2, zIndex: 2});
-        the_transect.setOptions ({strokeOpacity : 0.3, });
+        the_circle.setOptions(circle_off_style);
+        the_transect.setOptions (transect_off_style);
     }
     
     function circle_on_from_map () {
@@ -108,42 +118,26 @@ function attach_marker_info (the_circle, point_info, the_transect, transect_info
     jQuery ('.point_'    + point_info['point_id']).mouseout (circle_off);
 }
 
-function x_meter_circle (center, map, radius) {
-  return  new google.maps.Circle({
+function x_meter_circle (center, map) {
+  c = new google.maps.Circle({
       center:  lat_lng_from_point(  center  ),
-      radius: radius, //meters 
       map: map,
-      fillColor: 'lightgreen',
-      fillOpacity : 1,
-      strokeWeight : 1,
-      strokeColor : 'lightgreen',
-      strokeOpacity : 1,
-      zIndex: 1
+
    });
+    c.setOptions (initial_circle_style);
+
+  return  c;
 }
 
 function transect (center, edge, map) {
-    return polyline = new google.maps.Polyline(
+    pl=  new google.maps.Polyline(
     {
-        path: [center, edge], 
-        strokeColor : 'yellow',
-        strokeOpacity : 0.5, 
-        zIndex: -3,
+        path: [center, edge],
         map : map,
     });
-}
-
-function draw_center_marker (center, map) {
-  return  new google.maps.Circle({
-      center: center,
-      radius: 2.0,
-      fillColor: 'red',
-      strokeWeight : 1,
-      fillOpacity : 1,
-      strokeColor : 'red',
-      strokeOpacity : 1,
-      map: map
-   });
+    pl.setOptions ( initial_transect_style )
+    return pl
+    
 }
 
 function confirm_new_bearings(){

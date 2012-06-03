@@ -1,8 +1,10 @@
 {% extends "mammals/base_mammals.html" %}
 {% load smartif %}
 
+<!-- THIS IS ONLY USED FOR THE RESEARCH GRID -->
 {% block title %}Grid{% endblock %}
 {% block js %}
+    <script type="text/javascript" src="/mammals/media/js/map_colors.js"></script>
     <script type="text/javascript" src="/mammals/media/js/grid_and_block.js"></script>
     <script type="text/javascript" src="/mammals/media/js/grid.js"></script>
     {{ block.super }}
@@ -14,6 +16,7 @@
 {% block container %}
 <div id ="grid_json" style="display:none">{{grid_json}}</div>    
 <div id ="test_points" style="display:none">{{test_points}}</div>    
+<div id ="selected_block" style="display:none" >{{selected_block.id}}</div>    
 <div >
     <table id= "grid_form_table">
         <tr>
@@ -24,7 +27,9 @@
         
         <form action=/mammals/grid/' method="post" id="grid_form" >  {% csrf_token %}
             {% include "mammals/grid_form.html" %}
+
             <input type="text" name = "grid_square_id" id="grid_square_id" value ="{{grid_square_id}}" class="hide_this"></input>
+
         </form>
         <tr>
             <td colspan = "2"> 
@@ -38,7 +43,7 @@
         </tr>
         <tr>
             <td  colspan = "2"> 
-                {% include "mammals/suggest_unsuggest.html" %} 
+                {% include "mammals/suggest_unsuggest.html" %}
             </td>
         </tr>
         <tr>
@@ -48,5 +53,6 @@
         </tr>
     </table>
 </div>
+
 {% endblock %}
 
