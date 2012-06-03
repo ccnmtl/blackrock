@@ -17,7 +17,7 @@
 <div >
     <table id= "grid_form_table">
         <tr>
-            <td rowspan = "12">
+            <td rowspan = "13">
                 <div id="map_canvas" style="width: 800px; height: 800px"></div>
             </td>
         </tr>
@@ -31,13 +31,16 @@
                 Click a green square on the map to randomly generate a table of bearings.
             </td>
         </tr>
-        {%comment %}
+        <tr>
+            <td  colspan = "2"> 
+                {% include "mammals/difficulty_menu.html" %} 
+            </td>
+        </tr>
         <tr>
             <td  colspan = "2"> 
                 {% include "mammals/suggest_unsuggest.html" %} 
             </td>
         </tr>
-        {%endcomment %}
         <tr>
             <td  colspan = "2"> 
                 {% include "mammals/grid_border_coords.html" %} 

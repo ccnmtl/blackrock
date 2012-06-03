@@ -379,7 +379,9 @@ if (!Portal.Map) {
             }
             
             if (typeof addBlock !== "undefined") {
-                myOptions ['mapTypeId'] = google.maps.MapTypeId.SATELLITE
+            
+                myOptions ['mapTypeId'] = google.maps.MapTypeId.SATELLITE;
+                //myOptions ['mapTypeId'] = google.maps.MapTypeId.TERRAIN;
             }
             
             

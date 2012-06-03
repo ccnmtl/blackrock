@@ -166,9 +166,10 @@ class GridSquare (models.Model):
     row = models.IntegerField() 
     column = models.IntegerField() 
     
-    access_difficulty = models.IntegerField() 
+    access_difficulty = models.IntegerField(help_text = 'This is the Terrain Difficulty, not to be confused with the Access Difficulty, which we are stillnot keeping track of.', verbose_name="Terrain Difficulty") 
     
     #this is arbitrary, just to start out with.
+
     label = models.IntegerField('This was just an arbitrary number. No longer used.')
     
     #this will contain the labels from the map given to me by Khoi:
