@@ -1,44 +1,31 @@
-<tr class = 'form_tr'>
-    <td> Center of grid latitude:
-    </td>
-    <td> 
-        <input type="text" name = "grid_center_y" value ="{{grid_center_y}}"> </input>
-    </td>
-</tr>
-<tr class = 'form_tr'>
-    <td> Center of grid longitude:
-    </td>
-    <td> 
-        <input type="text" name = "grid_center_x" value ="{{grid_center_x}}"> </input>
-    </td>
-</tr>
-<tr class = 'form_tr'>
-    <td> Height of grid in squares:
-    </td>
-    <td> 
-        <input type="text" name = "height_in_blocks" value ="{{height_in_blocks}}"> </input>
-    </td>
-</tr>
-<tr class = 'form_tr'>
-    <td> Width of grid in squares:
-    </td>
-    <td> 
-        <input type="text" name = "width_in_blocks" value ="{{width_in_blocks}}"></input>
-    </td>
-</tr>
-<tr class = 'form_tr'>
-    <td> Length of square side in meters:
-    </td>
-    <td> 
-        <input type="text" name = "block_size_in_m" value ="{{block_size_in_m}}"> </input>
-    </td>
-</tr>
+		<h2 class="formfield_header">Draw your grid:</h2><!-- class="formfield_header" -->
+		<div class="formfield">
+			<label for="grid_lat">Center of grid latitude:</label>
+			<input type="text" name="grid_center_y" value="{{grid_center_y}}" id="grid_lat" class="inputbox" />
+		</div><!-- class="formfield" -->
+		<div class="formfield">
+			<label for="grid_long">Center of grid longitude:</label>
+			<input type="text" name="grid_center_x" value="{{grid_center_x}}" id="grid_long" class="inputbox" />
+		</div><!-- class="formfield" -->
+		<div class="formfield">
+			<label for="grid_height">Height of grid in squares:</label>
+			<input type="text" name="height_in_blocks" value="{{height_in_blocks}}" id="grid_height" class="inputbox" />
+		</div><!-- class="formfield" -->
+		<div class="formfield">
+			<label for="grid_width">Width of grid in squares:</label>
+			<input type="text" name="width_in_blocks" value="{{width_in_blocks}}" id="grid_width" class="inputbox" />
+		</div><!-- class="formfield" -->
+		<div class="formfield">
+			<label for="side_length">Length of square side (m):</label>
+			<input type="text" name="block_size_in_m" value="{{block_size_in_m}}" id="side_length" class="inputbox" />
+		</div><!-- class="formfield" -->
 
 
-<input type="text" name = "selected_block_center_y" id="selected_block_center_y"  value ="{{selected_block_center_y}}" class="hide_this"></input>
-<input type="text" name = "selected_block_center_x" id="selected_block_center_x" value ="{{selected_block_center_x}}" class="hide_this"></input>
+<input type="text" name="selected_block_center_y" id="selected_block_center_y"  value="{{selected_block_center_y}}" class="hide_this" />
+<input type="text" name="selected_block_center_x" id="selected_block_center_x" value="{{selected_block_center_x}}" class="hide_this" />
 
 {%if not sandbox %}
-<input type="text" name = "selected_block_database_id" id="selected_block_database_id" value ="{{selected_block_database_id}}" class="hide_this"></input>
+<input type="text" name = "selected_block_database_id" id="selected_block_database_id" value ="{{selected_block_database_id}}" class="hide_this" />
 {%endif %}
+
 
