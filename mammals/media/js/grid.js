@@ -204,12 +204,9 @@ function display_info_about_square (info) {
     jQuery('#tr')[0].innerHTML = trimpoint(info['box'][2]);
     jQuery('#br')[0].innerHTML = trimpoint(info['box'][3]);
     jQuery('#c') [0].innerHTML = trimpoint(info['box'][4]);
-    jQuery('#block_info')       [0].innerHTML =  'Square # ' + info['label']+ ':'
-    jQuery('#block_difficulty') [0].innerHTML =  'Access difficulty: Level ' + info['access_difficulty']+ '.'
-    //console.log (info['id']);
-    //console.log (info['database_id']);
-    //console.log (JSON.stringify(info));
     jQuery('#grid_square_id')   [0].value =  info['database_id'];
+    jQuery('#block_info')       [0].innerHTML =  'Square no.: ' + info['label'];
+    jQuery('#block_difficulty') [0].innerHTML =  '<b>Terrain difficulty level:</b> ' + info['access_difficulty'] + '.';
     jQuery('.grid_border_coords_table').show();
 }
 

@@ -1,14 +1,16 @@
 {% extends "mammals/base_mammals.html" %}
 
-{% block title %}The Virtual Forest Initiative{% endblock %}
+{% block title %}Mammals and Habitats{% endblock %}
 
-{% block css %}
-<style type='text/css'>
-  @import "site_media/css/style.css";
-</style>
-{% endblock %}
-
-{% block js %}
+{% block nav %}
+	<ul>
+	<li class="active"><a href="/mammals/">Home</a></li>
+	<li id="gridcategory">GRID:</li>
+	<li id="gridresearch"><a href="/mammals/grid/">Research</a></li>
+	<li id="gridplay"><a href="/mammals/sandbox/grid/">Playground</a></li>
+	<li><a href="/mammals/teaching/">Teaching Resources</a></li>
+	<li><a href="/mammals/help/">Help</a></li>
+	</ul>
 {% endblock %}
 
 {% block container %}

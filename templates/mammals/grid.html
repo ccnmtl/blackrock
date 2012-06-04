@@ -2,57 +2,69 @@
 {% load smartif %}
 
 <!-- THIS IS ONLY USED FOR THE RESEARCH GRID -->
-{% block title %}Grid{% endblock %}
+{% block title %}Mammals and Habitats -- Research Grid: Square Selection{% endblock %}
+
+{% block bodyclass %}research_grid{% endblock %}
+
 {% block js %}
-    <script type="text/javascript" src="/mammals/media/js/map_colors.js"></script>
-    <script type="text/javascript" src="/mammals/media/js/grid_and_block.js"></script>
-    <script type="text/javascript" src="/mammals/media/js/grid.js"></script>
-    {{ block.super }}
+	<script type="text/javascript" src="/mammals/media/js/map_colors.js"></script>
+	<script type="text/javascript" src="/mammals/media/js/grid_and_block.js"></script>
+	<script type="text/javascript" src="/mammals/media/js/grid.js"></script>
+	{{ block.super }}
 {% endblock %}
-{% block css %}
-    {% include "mammals/grid_css.html" %} 
-    {{ block.super }}
+
+{% block nav %}
+	<ul>
+	<li><a href="/mammals/">Home</a></li>
+	<li id="gridcategory">GRID:</li>
+	<li id="gridresearch" class="active"><a href="/mammals/grid/">Research</a></li>
+	<li id="gridplay"><a href="/mammals/sandbox/grid/">Playground</a></li>
+	<li><a href="/mammals/teaching/">Teaching Resources</a></li>
+	<li><a href="/mammals/help/">Help</a></li>
+	</ul>
 {% endblock %}
+
 {% block container %}
 <div id ="grid_json" style="display:none">{{grid_json}}</div>    
 <div id ="test_points" style="display:none">{{test_points}}</div>    
 <div id ="selected_block" style="display:none" >{{selected_block.id}}</div>    
-<div >
-    <table id= "grid_form_table">
-        <tr>
-            <td rowspan = "13">
-                <div id="map_canvas" style="width: 800px; height: 800px"></div>
-            </td>
-        </tr>
-        
-        <form action=/mammals/grid/' method="post" id="grid_form" >  {% csrf_token %}
-            {% include "mammals/grid_form.html" %}
 
-            <input type="text" name = "grid_square_id" id="grid_square_id" value ="{{grid_square_id}}" class="hide_this"></input>
+<div class="plain" id="grid_form_table">
 
-        </form>
-        <tr>
-            <td colspan = "2"> 
-                Click a green square on the map to randomly generate a table of bearings.
-            </td>
-        </tr>
-        <tr>
-            <td  colspan = "2"> 
-                {% include "mammals/difficulty_menu.html" %} 
-            </td>
-        </tr>
-        <tr>
-            <td  colspan = "2"> 
-                {% include "mammals/suggest_unsuggest.html" %}
-            </td>
-        </tr>
-        <tr>
-            <td  colspan = "2"> 
-                {% include "mammals/grid_border_coords.html" %} 
-            </td>
-        </tr>
-    </table>
-</div>
+	<div id="left">
+		<h3>Research Grid: Location Square Selection</h3>
+
+		<div class="instructions">
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget risus lacus. Sed id mauris vel urna viverra pharetra. Sed ornare, augue quis eleifend ultricies, sapien lacus venenatis neque, vel.
+		</div><!-- class="instructions" -->
+
+
+<form action="/mammals/grid/" method="post" id="grid_form"> {% csrf_token %}
+
+		{% include "mammals/grid_form.html" %}
+
+		
+		<div id="selection_steps">
+		<!-- Terrain difficulty level -->
+			{% include "mammals/difficulty_menu.html" %}
+
+		<!-- Random location suggestion -->
+			{% include "mammals/suggest_unsuggest.html" %}
+			
+			<div class="clearfix"></div><!-- class="clearfix" -->
+		</div>
+</form>
+
+		{% include "mammals/grid_border_coords.html" %}
+
+
+	</div><!-- id="left" -->
+
+	<div id="map_canvas"></div><!-- id="map_canvas" -->
+	
+	<div class="clearfix"></div><!-- class="clearfix" -->
+
+</div><!-- class="plain" id="grid_form_table" -->
 
 {% endblock %}
 
