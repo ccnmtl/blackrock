@@ -1,23 +1,26 @@
-
-
-<p id = "block_info"></p>
-
-<p id = "block_difficulty"></p>
-
-<table class = "grid_border_coords_table">
-    <tr>
-        <td id = "tl"  class = "top_side left_side">&nbsp;</td>
-        <td class = "top_side">&nbsp;</td>
-        <td id = "tr"  class = "top_side right_side">&nbsp;</td>
-    </tr>
-    <tr>
-        <td class = "left_side">&nbsp;</td>
-        <td id = "c">&nbsp;</td>
-        <td class = "right_side">&nbsp;</td>
-    </tr>
-    <tr>
-        <td id = "bl" class = "bottom_side left_side">&nbsp;</td>
-        <td class = "bottom_side">&nbsp;</td>
-        <td id = "br" class = "bottom_side right_side">&nbsp;</td>
-    </tr>
-</table>
+		<div class="coord_display">
+			<div class="arrow_box" id="block_info">Hover over a square on the grid for details</div>
+			<div class="square_infobox">
+				<div class="block_coordbox">
+					<div class="topleft">
+						<div class="coordinates" id="tl">&nbsp;</div>
+					</div>
+					<div class="topright">
+						<div class="coordinates" id="tr">&nbsp;</div>
+					</div>
+					<div class="center">
+						<div class="coordinates" id="c">&nbsp;</div>
+					</div>
+					<div class="bottomleft">
+						<div class="coordinates" id="bl">&nbsp;</div>
+					</div>
+					<div class="bottomright">
+						<div class="coordinates" id="br">&nbsp;</div>
+					</div>
+				</div><!-- class="block_coordbox" -->
+				<div class="terrain_info">
+				<p id="block_difficulty">&nbsp;</p>
+				<p class="prompt">Click a square on the map to set up bearings and traps.</p>
+				</div><!-- class="terrain_info" -->
+			</div><!-- class="square_infobox" -->
+		</div><!-- class="coord_display" -->
