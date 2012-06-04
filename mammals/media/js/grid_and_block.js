@@ -18,11 +18,16 @@ function you_are_here (location , mapInstance) {
         map: mapInstance
     });
 }
-
+/*
 function trimpoint (point) {
     return [ point[0].toPrecision(7),
              point[1].toPrecision(7)
     ];
+}
+*/
+
+function trimpoint (point) {
+    return point[0].toPrecision(7) + "<br/>" +   point[1].toPrecision(7);
 }
 
 function bounds (box) {
