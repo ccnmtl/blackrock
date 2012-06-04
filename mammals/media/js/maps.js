@@ -384,6 +384,10 @@ if (!Portal.Map) {
             }
             
             
+            if (typeof addSimpleMap !== "undefined") {
+                myOptions ['mapTypeId'] = google.maps.MapTypeId.TERRAIN
+            }
+
             self.mapInstance = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
             
             self.events.connect(Portal, 'markerClicked', self, 'showMarkerInfoWindow');
