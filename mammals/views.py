@@ -299,22 +299,32 @@ def grid_square_csv(request):
     return response
 
 def set_up_expedition (request):
-    transects_json = request.POST.get('transects_json')
-    grid_square_id = request.POST.get('grid_square_id')
-    obj = simplejson.loads(transects_json)
-    the_new_expedition = Expedition.create_from_obj(obj, request.user)
-    the_new_expedition.grid_square = GridSquare.objects.get(id = grid_square_id)
-    the_new_expedition.start_date_of_expedition =  datetime.now()
-    the_new_expedition.start_date_of_expedition =  datetime.now()
-    the_new_expedition.save()
+    if request.POST.has_key ('transects_json') and request.POST['transects_json'] != 'None':
+        #print request.POST['transects_json']
+        #import pdb
+        #pdb.set_trace()n
+
+        transects_json = request.POST.get('transects_json')
+        grid_square_id = request.POST.get('grid_square_id')
+        obj = simplejson.loads(transects_json)
+        the_new_expedition = Expedition.create_from_obj(obj, request.user)
+        the_new_expedition.grid_square = GridSquare.objects.get(id = grid_square_id)
+        the_new_expedition.start_date_of_expedition =  datetime.now()
+        the_new_expedition.start_date_of_expedition =  datetime.now()
+        the_new_expedition.save()
+    else:
+        expedition_id = request.POST.get('expedition_id')
+        the_new_expedition = Expedition.objects.get(id =expedition_id)
+
     return the_new_expedition
 
 @csrf_protect
 @rendered_with('mammals/login.html')
-def mammals_login(request):
+def mammals_login(request, expedition_id = None):
     result = {
         'transects_json' : request.POST.get('transects_json')
         ,'grid_square_id' : request.POST.get('grid_square_id')
+        ,'expedition_id' : expedition_id
     }
     return result 
 
@@ -325,16 +335,13 @@ def process_login_and_go_to_expedition(request):
     username = request.POST['username']
     password = request.POST['password']
     user = authenticate(username=username, password=password)
-    if user is not None:
-        if user.is_active:
-            login(request, user)
-            return new_expedition(request)        
-        else:
-            return login(request)
-    else:
-        return login(request)
-        
+    if user is not None and  user.is_active:
+        login(request, user)
+        return new_expedition(request)        
 
+    return login(request, user)
+        
+#TODO: rename this method. it's either new or find.
 @csrf_protect
 @rendered_with('mammals/expedition.html')
 def new_expedition(request):
@@ -346,14 +353,18 @@ def new_expedition(request):
 
 @rendered_with('mammals/expedition.html')
 def edit_expedition(request, expedition_id):
+
+    exp = Expedition.objects.get(id =expedition_id)
+    if not request.user.is_staff:
+        return mammals_login(request, expedition_id)
+        
+
     baits = Bait.objects.all()
     species = Species.objects.all()
     grades = GradeLevel.objects.all()
     habitats = Habitat.objects.all()
-    exp = Expedition.objects.get(id =expedition_id)
-    if not request.user.is_staff:
-        return mammals_login(request)
-        
+
+
     return {
         'expedition' : exp
         ,'baits'     : baits
