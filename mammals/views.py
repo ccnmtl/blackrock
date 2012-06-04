@@ -337,7 +337,15 @@ def process_login_and_go_to_expedition(request):
     user = authenticate(username=username, password=password)
     if user is not None and  user.is_active:
         login(request, user)
-        return new_expedition(request)        
+    
+        #TODO: new_expedition should really be 2 different methods -- one for creating a new expedition and one for bring up an ond one.
+        if request.POST.has_key('expedition_id') and request.POST['expedition_id'] != 'None':
+            return new_expedition(request)        
+        if request.POST.has_key('transects_json') and request.POST['transects_json'] != 'None':
+            return new_expedition(request)
+        #the user just wants to see all the expeditions.
+        return all_expeditions(request)
+
 
     return login(request, user)
         
@@ -380,6 +388,7 @@ def edit_expedition(request, expedition_id):
 def all_expeditions(request):
     if not request.user.is_staff:
         return mammals_login(request)
+        
     expeditions = Expedition.objects.all().order_by('-start_date_of_expedition')
     return {
         'expeditions' : expeditions
