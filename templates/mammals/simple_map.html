@@ -1,0 +1,19 @@
+{% extends "mammals/base_mammals.html" %}
+{% load smartif %}
+
+{% block title %}Simple Animal Map{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="/mammals/media/js/simple_map.js"></script>
+    {{ block.super }}
+{% endblock %}
+{% block css %}
+    {% include "mammals/grid_css.html" %} 
+    {{ block.super }}
+{% endblock %}
+{% block container %}
+<div id ="animals" style="display:none">{{animals|safe}}</div>    
+<div >
+     <div id="map_canvas" style="width: 800px; height: 800px"></div>
+</div>
+{% endblock %}
+

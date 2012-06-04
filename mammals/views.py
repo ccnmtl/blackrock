@@ -413,7 +413,6 @@ def save_team_form(request):
                 point.save()
     
         animal_key = 'animal_%d' % (point.id)
-        
 
         #OK, so like, did we catch any animals???
         #print animal_key
@@ -435,12 +434,39 @@ def save_team_form(request):
                 pass
             point.animal = animal
             point.save()
-    
+            animal.save()
 
-            
-    return HttpResponseRedirect ( '/mammals/edit_expedition/%d/' % int(expedition_id))
+            print animal.traplocation_set.all()
+            #print animal.trapLocation_set.all()
+
+
+            return HttpResponseRedirect ( '/mammals/edit_expedition/%d/' % int(expedition_id))
     
-    
+@rendered_with('mammals/simple_map.html')
+def simple_map(request):
+    all_animals = Animal.objects.all()
+    result = []
+    #import pdb
+    #pdb.set_trace()
+    #print [a.traplocation_set.all() for a in all_animals]
+    #[a.traplocation_set.all() for a in all_animals]
+
+    for a in all_animals:
+        where = [0,0]
+        
+        if len(a.traplocation_set.all()):
+            a_place = a.traplocation_set.all()[0]
+            #print dir( a_place)
+            #print a_place.gps_coords()
+            where = [a_place.lat(), a_place.lon()] 
+        result.append ({
+                'name': a.species.common_name,
+                'where': where
+                } )
+
+    return {
+        'animals':simplejson.dumps(result )
+   }
 
 
 @csrf_protect

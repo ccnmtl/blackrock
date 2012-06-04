@@ -379,7 +379,6 @@ if (!Portal.Map) {
             }
             
             if (typeof addBlock !== "undefined") {
-            
                 myOptions ['mapTypeId'] = google.maps.MapTypeId.SATELLITE;
                 //myOptions ['mapTypeId'] = google.maps.MapTypeId.TERRAIN;
             }
@@ -426,6 +425,11 @@ if (!Portal.Map) {
             if (typeof addBlock !== "undefined") {
                 addBlock(self.mapInstance);
                 addTrails (self);
+            }
+
+            if (typeof addSimpleMap !== "undefined") {
+		console.log (self.mapInstance);
+                addSimpleMap(self.mapInstance);
             }
             
             self.toggleLayer();
