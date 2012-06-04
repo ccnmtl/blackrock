@@ -60,7 +60,9 @@ class GridPoint(models.Model):
             return None
         else:
             return existing_close_points [0]
-         
+
+    def dir(self):
+        return dir(self)
 
 class GridSquare (models.Model):
     """ A square in the grid used to sample the forest. Each square has four points. Contiguous squares will, obviously, have points in common."""
@@ -79,9 +81,12 @@ class GridSquare (models.Model):
     row = models.IntegerField() 
     column = models.IntegerField() 
     
-    access_difficulty = models.IntegerField(help_text = 'This is the Terrain Difficulty, not to be confused with the Access Difficulty, which we are stillnot keeping track of.', verbose_name="Terrain Difficulty") 
+    class Meta:
+        unique_together = ("row", "column") #, thank you very much.
     
-    #this is arbitrary, just to start out with.
+    access_difficulty = models.IntegerField(help_text = 'This is the Terrain Difficulty, not to be confused with the Access Difficulty, which we are still not keeping track of.', verbose_name="Terrain Difficulty") 
+    
+    #This is unreferenced. #TOTO remove.
     label = models.IntegerField(help_text = 'This was just an arbitrary number.')
     
     #this will contain the labels from the map given to me by Khoi:
@@ -105,13 +110,13 @@ class GridSquare (models.Model):
     
     def info_for_display (self):
         result = {}
-        result['corner_obj'] = self.corner_obj()
-        result['label']   = self.label_2
-        result['row']        = self.row
-        result['column']     = self.column
+        result['corner_obj']            = self.corner_obj()
+        result['label']                 = self.label_2
+        result['row']                   = self.row
+        result['column']                = self.column
         result['access_difficulty']     = self.access_difficulty
+        result['database_id']           = self.id
         return result
-    
         
     def use_existing_points(self):
         """If my point is redundant, use a point that's already in the DB and remove my redundant point."""
@@ -120,10 +125,8 @@ class GridSquare (models.Model):
             if point_to_use_instead:
                 getattr(self, corner_name).delete()
                 setattr(self, corner_name, point_to_use_instead)
-        
+                
+    def dir(self):
+        return dir(self)
 
-        
-    
-    
-    
     # settings.ACCESS_DIFFICULTY_LEVELS

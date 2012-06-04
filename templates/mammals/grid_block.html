@@ -5,17 +5,28 @@
 NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVITY.
 {%endcomment %}
 
-{% block title %}Grid Block{% endblock %}
+{% block title %}Mammals and Habitats -- Research Grid: Bearing and Traps{% endblock %}
+
+{% block bodyclass %}research_grid{% endblock %}
+
 {% block js %}
-    <script type="text/javascript" src="/mammals/media/js/grid_and_block.js"></script>
-    <script type="text/javascript" src="/mammals/media/js/block.js"></script>
-    {{ block.super }}
+    <script type="text/javascript" src="/mammals/media/js/map_colors.js"></script>
+	<script type="text/javascript" src="/mammals/media/js/grid_and_block.js"></script>
+	<script type="text/javascript" src="/mammals/media/js/block.js"></script>
+	{{ block.super }}
 {% endblock %}
 
-{% block css %}
-    {% include "mammals/block_css.html" %}     
-    {{ block.super }}
+{% block nav %}
+	<ul>
+	<li><a href="/mammals/">Home</a></li>
+	<li id="gridcategory">GRID:</li>
+	<li id="gridresearch" class="active"><a href="/mammals/grid/">Research</a></li>
+	<li id="gridplay"><a href="/mammals/sandbox/grid/">Playground</a></li>
+	<li><a href="/mammals/teaching/">Teaching Resources</a></li>
+	<li><a href="/mammals/help/">Help</a></li>
+	</ul>
 {% endblock %}
+
 
 {% block container %}
 <div id ="block_json" style="display:none">{{block_json}}</div>    
@@ -38,7 +49,7 @@ NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVI
                 {% include "mammals/grid_center_table.html" %}
             </td>
         </tr>
-        
+
         <form {% if sandbox %} action='/mammals/sandbox/grid_square/' {% else %} action ='/mammals/grid_square/' {% endif %}
             method="post" id = "block_form" onSubmit="return confirm_new_bearings()">
             {% csrf_token %}
@@ -75,9 +86,18 @@ NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVI
             </td>
         </tr>
         <tr>
+            <td colspan = "2"> 
+                {% include "mammals/printer_friendly_form.html" %}
+            </td>
+        </tr>
+
+        <tr>
             <td  colspan = "2"> 
-                <button id="show_printer_friendly_table">Show printer-friendly table</button>
+                {% comment %}
+                    <button id="show_printer_friendly_table">Show printer-friendly table</button>
+                {%endcomment %}
                     {% include "mammals/transect_table_heading.html" %} 
+
                 <div id="transect_table_overflow_div">
                     {% include "mammals/transect_table.html" %} 
                 </div>

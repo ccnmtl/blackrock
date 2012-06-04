@@ -1,0 +1,15 @@
+{% extends "mammals/base_mammals.html" %}
+{% load smartif %}
+{% block css %}
+    {% include "mammals/block_css.html" %}     
+    {{ block.super }}
+{% endblock %}
+
+{% block container %}
+    <div class = "grid_square_print_page_div">
+    {% include "mammals/grid_center_table.html" %}
+    {% include "mammals/transect_table_heading.html" %} 
+    {% include "mammals/transect_table.html" %} 
+    </div>
+{%endblock %}
+
