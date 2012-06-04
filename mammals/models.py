@@ -267,6 +267,12 @@ class Expedition (models.Model):
         return len([t for t in self.traplocation_set.all() if t.animal])
 
 
+    def trap_locations_ordered_by_team(self):
+        #import pdb
+        #pdb.set_trace()
+        return self.traplocation_set.order_by('team_letter')
+
+
 ##################################################
 class TrapLocation(models.Model):
 

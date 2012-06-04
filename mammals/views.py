@@ -169,7 +169,13 @@ def grid_block(request):
     return {
         'block_json': simplejson.dumps(block)
         ,'sandbox'                                   :  False
+
+        #TODO: fix this -- incomplete refactor. These two variables refer to exactly the same thing: the database ID of the square we selected.
         ,'selected_block_database_id'                :  selected_block_database_id
+        ,'grid_square_id'                            :  selected_block_database_id
+        #END TODO
+
+
         ,'magnetic_declination'                      :  magnetic_declination # degrees
         ,'points_per_transect'                       :  points_per_transect # meters
         ,'num_transects'                             :  num_transects # degrees
@@ -394,23 +400,10 @@ def save_team_form(request):
     rp = request.POST
     expedition_id = rp['expedition_id']
     exp = Expedition.objects.get(id =expedition_id)
-    
-    #print rp
-    #print exp
-    #import pdb
-    #pdb.set_trace()
-    
     form_map = {
         'habitat': 'habitat'
         ,'bait':'bait'      
     }
-    
-
-    #TODO: fix bug with A B A B showing up twice in expedition window
-    
-    #TODO: add a new Animal if anyone selects something from the species window, and associate it with this trap location.
-
-    
     
     for point in exp.traplocation_set.all():
         for the_key, thing_to_update in form_map.iteritems():
@@ -418,7 +411,33 @@ def save_team_form(request):
             if rp.has_key (rp_key) and rp[rp_key] != 'None':
                 setattr(point, '%s_id' % thing_to_update,  int(rp[rp_key]))
                 point.save()
-                
+    
+        animal_key = 'animal_%d' % (point.id)
+        
+
+        #OK, so like, did we catch any animals???
+        #print animal_key
+        if rp.has_key (animal_key) and rp[animal_key] != 'None':
+            
+            #Animal!
+            species_id = int( rp[animal_key])
+            species = Species.objects.get (id=species_id)
+            #TODO (icing ) here we assume that the animal has never been trapped before.
+            animal_never_trapped_before = True
+
+            if animal_never_trapped_before:
+                animal = Animal()
+                animal.species = species
+                animal.save()
+            else:
+                # find the already existing animal object
+                # animal = find_animal_in_the_database_somehow()
+                pass
+            point.animal = animal
+            point.save()
+    
+
+            
     return HttpResponseRedirect ( '/mammals/edit_expedition/%d/' % int(expedition_id))
     
     

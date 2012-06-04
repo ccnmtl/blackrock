@@ -55,61 +55,6 @@
                 </select>
             </td>
         </tr>
-        {%comment %}
-     <table>
-            <tr>
-                <td  > 
-                    Understory:
-                </td> 
-                <td  > 
-                   Temperature:
-                </td> 
-                <td  > 
-                   Moon Phase
-                </td> 
-                <td  > 
-                   Cloud Cover
-                </td>
-            </tr>
-            <tr>
-                <td  > 
-                    <input value ="{{expedition.number_of_students}}"></input>
-                </td> 
-                <td  > 
-                    <input name = "school_contact_1_name" value ="{{expedition.school_contact_1_name}}"></input></td> 
-                <td  > 
-                    <input name = "school_contact_1_phone"  value ="{{expedition.school_contact_1_phone}}"></input>
-                </td> 
-                <td  > 
-                    <input  name = "school_contact_1_email" value ="{{expedition.school_contact_1_email}}"></input>
-                </td>
-
-            </tr>
-            <tr>
-                <td  > 
-                   Light
-                </td>
-                <td  > 
-                   Precipitation
-                </td>
-                <td  > 
-                   Snow amount
-                </td>
-            
-            </tr>
-            <tr>
-                <td  > 
-                    <input value ="{{expedition.number_of_students}}"></input>
-                </td> 
-                <td  > 
-                    <input name = "school_contact_1_name" value ="{{expedition.school_contact_1_name}}"></input></td> 
-                <td  > 
-                    <input name = "school_contact_1_phone"  value ="{{expedition.school_contact_1_phone}}"></input>
-                </td> 
-            </tr>
-    </table>
-    
-        {%endcomment %}
     <table>
         <tr>
             <td  > 
@@ -141,7 +86,7 @@
     
     
         <table id ="distances_table">
-        {%for point in expedition.traplocation_set.all %}
+        {%for point in expedition.trap_locations_ordered_by_team %}
             {%ifchanged point.team_letter        %}
                 <tr>
                     <td > 
@@ -151,121 +96,7 @@
             {%endifchanged %} 
         {%endfor%}
     </table>
-    
-{%comment %}        
-        <table id ="distances_table">
-            <tr>
-                <td colspan = "1"> 
-                    ALL LOCATIONS
-                </td>
-                <td > 
-                    Trap<br/>placed<br/>here?
-                </td>
-                <td   > 
-                    Bait: 
-                </td>
-                <td   > 
-                    Bait left: 
-                </td>
-                <td   > 
-                    Catch:
-                </td>
-                <td > 
-                    Habitat:
-                </td>
-            </tr>    
-        <tr>
-            <td colspan = "1"> 
-                ALL LOCATIONS
-            </td>
-            <td > <select><option value = "yes">Yes</option><option value = "no">No</option></select>
-            </td>
-            <td > 
-                <select>
-                {% for b in baits %}
-                    <option value = "{{b.id}}">{{b}}</option>
-                {%endfor %}
-                </select>
-            </td>
-            <td > <select><option value = "yes">Yes</option><option value = "no">No</option></select>
-            </td>
-            <td > 
-                <select>
-                    <option value = "none">Nothing caught</option>
-                {% for species in species %}
-                    <option value = "{{species.id}}">{{species}}</option>
-                {%endfor %}
-                </select>
-            </td>
-            <td > 
-                <select>
-                {% for habitat in habitats %}
-                    <option value = "{{habitat.id}}">{{habitat}}</option>
-                {%endfor %}
-                </select>
-            </td>
-        </tr>      
-        <tr>
-                <td   > 
-                    Trap
-                </td>
-                <td   > 
-                    Trap<br/>placed<br/>here?
-                </td>
-                <td   > 
-                    Bait: 
-                </td>
-                <td   > 
-                    Bait left: 
-                </td>
-                <td   > 
-                    Catch:
-                </td>
-                <td > 
-                    Habitat:
-                </td>
-            </tr>    
-        
-        {%for point in expedition.traplocation_set.all     %}
-        <tr>
-            <td > 
-                {{point.team_letter }}{{point.team_number }}  ( 12m @ {{point.transect_bearing|floatformat:0 }}&deg;)<br/>
-                {{point }}
-            </td>
-        
-            <td > 
-                <select><option value = "yes">Yes</option><option value = "no">No</option></select>
-            </td>
-            <td > 
-                <select>
-                {% for b in baits %}
-                    <option value = "{{b.id}}">{{b}}</option>
-                {%endfor %}
-                </select>
-            </td>
-            <td > <select><option value = "yes">Yes</option><option value = "no">No</option></select>
-            </td>
-            <td > 
-                <select>
-                {% for species in species %}
-                    <option value = "{{species.id}}">{{species}}</option>
-                {%endfor %}
-                </select>
-            </td>
-            <td > 
-                <select>
-                {% for habitat in habitats %}
-                    <option value = "{{habitat.id}}">{{habitat}}</option>
-                {%endfor %}
-                </select>
-            </td>
-        </tr>      
-        {%endfor%}
-
-    </table>
-{%endcomment %}
-<button>Save this information </button>
+<input type="submit" value = "Save this information" ></input>
 </form>
 </div>
 {% endblock %}
-

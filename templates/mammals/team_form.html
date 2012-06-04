@@ -159,7 +159,7 @@
                         <select id="animal_{{point.id}}" name="animal_{{point.id}}">
                             <option value="None">Trap empty</option>
                             {% for species in species %}
-                                <option value = "{{species.id}}">{{species}}</option>
+                                <option value = "{{species.id}}"  {%ifequal point.animal.species_id species.id %} selected{%endifequal%}   >{{species}}</option>
                             {%endfor %}
                     </select>
                 </td>
