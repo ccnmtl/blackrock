@@ -13,16 +13,10 @@
 	{{ block.super }}
 {% endblock %}
 
-{% block nav %}
-	<ul>
-	<li><a href="/mammals/">Home</a></li>
-	<li id="gridcategory">GRID:</li>
-	<li id="gridresearch" class="active"><a href="/mammals/grid/">Research</a></li>
-	<li id="gridplay"><a href="/mammals/sandbox/grid/">Playground</a></li>
-	<li><a href="/mammals/teaching/">Teaching Resources</a></li>
-	<li><a href="/mammals/help/">Help</a></li>
-	</ul>
-{% endblock %}
+{%block mammals_nav_gridresearch %}class="active"{%endblock%}
+
+
+
 
 {% block container %}
 <div id ="grid_json" style="display:none">{{grid_json}}</div>    
