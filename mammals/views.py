@@ -424,43 +424,32 @@ def save_team_form(request):
         'habitat': 'habitat'
         ,'bait':'bait'      
     }
-    
     for point in exp.traplocation_set.all():
         for the_key, thing_to_update in form_map.iteritems():
             rp_key = '%s_%d' % (the_key , point.id)
             if rp.has_key (rp_key) and rp[rp_key] != 'None':
                 setattr(point, '%s_id' % thing_to_update,  int(rp[rp_key]))
                 point.save()
-    
         animal_key = 'animal_%d' % (point.id)
-
-        #OK, so like, did we catch any animals???
-        #print animal_key
+        
         if rp.has_key (animal_key) and rp[animal_key] != 'None':
-            
-            #Animal!
             species_id = int( rp[animal_key])
             species = Species.objects.get (id=species_id)
+            
             #TODO (icing ) here we assume that the animal has never been trapped before.
             animal_never_trapped_before = True
-
             if animal_never_trapped_before:
                 animal = Animal()
                 animal.species = species
                 animal.save()
             else:
-                # find the already existing animal object
-                # animal = find_animal_in_the_database_somehow()
+                # animal = find_already_tagged_animal_in_the_database_somehow()
                 pass
+            
             point.animal = animal
             point.save()
             animal.save()
-
-            print animal.traplocation_set.all()
-            #print animal.trapLocation_set.all()
-
-
-            return HttpResponseRedirect ( '/mammals/edit_expedition/%d/' % int(expedition_id))
+    return edit_expedition(request,  expedition_id)
     
 @rendered_with('mammals/simple_map.html')
 def simple_map(request):
