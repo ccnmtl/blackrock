@@ -295,17 +295,22 @@ def grid_square_csv(request):
 def grid_square_print(request):
     transects_json = request.POST.get('transects_json')
     
-    selected_block_database_id =            int (request.POST.get('selected_block_database_id'))
-    selected_block = GridSquare.objects.get (id = selected_block_database_id)
     
-    return {
+    result =  {
         'transects_json': transects_json #not actually used.
         , 'transects': simplejson.loads(transects_json) 
         , 'selected_block_center_y' : request.POST.get('selected_block_center_y')
         , 'selected_block_center_x' :request.POST.get('selected_block_center_x')
-        ,'selected_block'           :  selected_block
     }
+    
 
+    #only for the research version:
+    if request.POST.has_key ('selected_block_database_id'):
+        selected_block_database_id =            int (request.POST.get('selected_block_database_id'))
+        selected_block = GridSquare.objects.get (id = selected_block_database_id)
+        result ['selected_block'] = selected_block
+    
+    return result
 
 
 @csrf_protect
