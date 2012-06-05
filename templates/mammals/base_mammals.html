@@ -8,7 +8,8 @@
 
 {% block nav %}
     <ul>
-        <li {%block mammals_nav_home%}{%endblock%} ><a href="/mammals/">Home</a></li>
+        <li {%block mammals_nav_home%}{%endblock%} ><a href="/mammals/">Home</a></li>        
+        <li id="simplemap"{%block mammals_nav_simplemap%}{%endblock%} ><a href="/mammals/simple_map/">Map</a></li>
         <li id="gridcategory" {%block  mammals_nav_gridcategory %}{%endblock%} >GRID:</li>
         <li id="gridresearch" {%block mammals_nav_gridresearch%}{%endblock%} ><a href="/mammals/grid/">Research</a></li>
         <li id="gridplay"  {%block mammals_nav_gridplay%}{%endblock%} ><a href="/mammals/sandbox/grid/">Playground</a></li>
