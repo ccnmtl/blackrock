@@ -6,6 +6,19 @@
 </style> 
 {% endblock %}
 
+{% block nav %}
+    <ul>
+        <li {%block mammals_nav_home%}{%endblock%} ><a href="/mammals/">Home</a></li>
+        <li id="gridcategory" {%block  mammals_nav_gridcategory %}{%endblock%} >GRID:</li>
+        <li id="gridresearch" {%block mammals_nav_gridresearch%}{%endblock%} ><a href="/mammals/grid/">Research</a></li>
+        <li id="gridplay"  {%block mammals_nav_gridplay%}{%endblock%} ><a href="/mammals/sandbox/grid/">Playground</a></li>
+        <li {%block mammals_nav_teaching%}{%endblock%} ><a href="/mammals/teaching/">Teaching Resources</a></li>
+        <li {%block mammals_nav_help%}{%endblock%} ><a href="/mammals/help/">Help</a></li>
+    </ul>
+{% endblock %}
+
+
+
 {% block js %}
 <script  type="text/javascript" src="/site_media/js/jquery-ui-1.8.11.custom/js/jquery-1.4.4.min.js"></script>
 <script  type="text/javascript" src="/site_media/js/jquery-ui-1.8.11.custom/js/jquery-ui-1.8.11.custom.min.js"></script>
