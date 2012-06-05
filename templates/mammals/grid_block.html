@@ -20,11 +20,16 @@ NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVI
 	<ul>
 	<li><a href="/mammals/">Home</a></li>
 	<li id="gridcategory">GRID:</li>
-	<li id="gridresearch" class="active"><a href="/mammals/grid/">Research</a></li>
-	<li id="gridplay"><a href="/mammals/sandbox/grid/">Playground</a></li>
+	<li id="gridresearch" {% if not sandbox %} class="active" {% endif %}  ><a href="/mammals/grid/">Research</a></li>
+	<li id="gridplay" {% if sandbox %} class="active" {% endif %}  ><a href="/mammals/sandbox/grid/">Playground</a></li>
 	<li><a href="/mammals/teaching/">Teaching Resources</a></li>
 	<li><a href="/mammals/help/">Help</a></li>
 	</ul>
+{% endblock %}
+
+{% block css %}
+    {% include "mammals/block_css.html" %} 
+    {{ block.super }}
 {% endblock %}
 
 

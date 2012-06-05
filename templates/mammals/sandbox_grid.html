@@ -10,6 +10,17 @@
     {{ block.super }}
 {% endblock %}
 
+{% block nav %}
+	<ul>
+	<li><a href="/mammals/">Home</a></li>
+	<li id="gridcategory">GRID:</li>
+	<li id="gridresearch" ><a href="/mammals/grid/">Research</a></li>
+	<li id="gridplay" class="active"><a href="/mammals/sandbox/grid/">Playground</a></li>
+	<li><a href="/mammals/teaching/">Teaching Resources</a></li>
+	<li><a href="/mammals/help/">Help</a></li>
+	</ul>
+{% endblock %}
+
 {% block css %}
     {% include "mammals/grid_css.html" %} 
     {{ block.super }}
