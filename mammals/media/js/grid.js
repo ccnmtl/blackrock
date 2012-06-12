@@ -201,7 +201,13 @@ function display_info_about_square (info) {
     jQuery('#tr')[0].innerHTML = trimpoint(info['box'][2]);
     jQuery('#br')[0].innerHTML = trimpoint(info['box'][3]);
     jQuery('#c') [0].innerHTML = trimpoint(info['box'][4]);
-    jQuery('#block_info')       [0].innerHTML =  'Square no.: ' + info['battleship_coords'];
+    
+    if (is_sandbox()) {
+        jQuery('#block_info')[0].innerHTML =  'Row ' + info['row'] + ", column " + info['column'];
+    }
+    else {
+        jQuery('#block_info')       [0].innerHTML =  'Square no.: ' + info['battleship_coords'];
+    }
     jQuery('#block_difficulty') [0].innerHTML =  '<b>Terrain difficulty level:</b> ' + info['access_difficulty'] + '.';
     jQuery('.grid_border_coords_table').show();
 }
