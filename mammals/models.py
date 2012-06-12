@@ -30,7 +30,7 @@ class GridPoint(models.Model):
    
     def gps_coords(self):
         return "%s, %s" % (self.NSlat(), self.EWlon())
-   
+
     def NSlat(self):
         lat = self.lat()
         if lat > 0:
@@ -48,18 +48,7 @@ class GridPoint(models.Model):
         
     def lon(self):
         return self.geo_point.coords[1]
-    
-    def close_points (self, meters=0.5):
-        """Points less than 50 cm away are pretty darn close for this particular application."""
-        candidates = GridPoint.objects.filter(geo_point__distance_lte=(self.geo_point,D(m=meters))) 
-        return [ p for p in candidates if p != self]
 
-    def existing_equivalent_point (self):
-        existing_close_points = self.close_points()
-        if len (existing_close_points) == 0:
-            return None
-        else:
-            return existing_close_points [0]
 
     def dir(self):
         return dir(self)
@@ -92,6 +81,16 @@ class GridSquare (models.Model):
     #this will contain the labels from the map given to me by Khoi:
     label_2 = models.IntegerField(help_text = 'This is the number we used in a first numbering. Squares with no number on that map just have a -1.' , verbose_name="Square number on purple map")
     
+    def battleship_coords(self ):
+        alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        try:
+            b_row    = self.row + 1
+            b_column = alphabet[(self.column - 1)]
+            return "%d%s" % (b_row , b_column)
+        except:
+            pass
+        return '**'
+    
     @classmethod
     def corner_names(self):
         """ A square has five corners. Deal with it."""
@@ -116,6 +115,7 @@ class GridSquare (models.Model):
         result['column']                = self.column
         result['access_difficulty']     = self.access_difficulty
         result['database_id']           = self.id
+        result['battleship_coords']     = self.battleship_coords()
         return result
         
     def use_existing_points(self):
