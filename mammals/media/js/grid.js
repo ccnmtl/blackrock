@@ -40,13 +40,13 @@ function addGrid(mapInstance) {
 function box_info_from_grid_obj(obj) {
     //TODO: remove this adapter.
     return {
-        'box':                 obj['corner_obj'],
-        'row' :                obj['row'],
-        'column' :             obj['column'],
-        'label':               obj['label'],
-        'access_difficulty':   obj['access_difficulty'],
-        'database_id':         obj['database_id']// ,
-        ///id':                  obj['id'], // i forget which of these we decided to use..
+         'box':                 obj['corner_obj']
+        ,'row' :                obj['row']
+        ,'column' :             obj['column']
+        ,'label':               obj['label']
+        ,'access_difficulty':   obj['access_difficulty']
+        ,'database_id':         obj['database_id']
+        ,'battleship_coords':   obj['battleship_coords']
     }
 }
 
@@ -206,6 +206,13 @@ function display_info_about_square (info) {
     jQuery('#c') [0].innerHTML = trimpoint(info['box'][4]);
     jQuery('#grid_square_id')   [0].value =  info['database_id'];
     jQuery('#block_info')       [0].innerHTML =  'Square no.: ' + info['label'];
+    
+    if (is_sandbox()) {
+        jQuery('#block_info')[0].innerHTML =  'Row ' + info['row'] + ", column " + info['column'];
+    }
+    else {
+        jQuery('#block_info')       [0].innerHTML =  'Square no.: ' + info['battleship_coords'];
+    }
     jQuery('#block_difficulty') [0].innerHTML =  '<b>Terrain difficulty level:</b> ' + info['access_difficulty'] + '.';
     jQuery('.grid_border_coords_table').show();
 }
