@@ -204,9 +204,7 @@ function display_info_about_square (info) {
     jQuery('#tr')[0].innerHTML = trimpoint(info['box'][2]);
     jQuery('#br')[0].innerHTML = trimpoint(info['box'][3]);
     jQuery('#c') [0].innerHTML = trimpoint(info['box'][4]);
-    jQuery('#grid_square_id')   [0].value =  info['database_id'];
-    jQuery('#block_info')       [0].innerHTML =  'Square no.: ' + info['label'];
-    
+        
     if (is_sandbox()) {
         jQuery('#block_info')[0].innerHTML =  'Row ' + info['row'] + ", column " + info['column'];
     }

@@ -30,8 +30,8 @@ class SpeciesAdmin (admin.ModelAdmin):
 admin.site.register(Species, SpeciesAdmin)
 
 class AnimalAdmin (admin.ModelAdmin):
-    list_display = (  'species',)
-    fields =  (  'species','tag_info', 'description',)
+    list_display = (  'species',) 
+    fields =  (  'species','description', 'sex', 'age', 'scale_used', 'tag_number', 'health', 'weight_in_grams', 'recaptured', 'scat_sample_collected', 'blood_sample_collected', 'hair_sample_collected', 'skin_sample_collected',  )
 admin.site.register(Animal, AnimalAdmin)
 
 class TrapAdmin (admin.ModelAdmin):
@@ -44,6 +44,62 @@ class HabitatAdmin (admin.ModelAdmin):
     list_display = (  'label',)
     fields       =(  'label', 'blurb')
 admin.site.register(Habitat, HabitatAdmin)
+
+
+class ExpeditionMoonPhaseAdmin (admin.ModelAdmin):
+    list_display = (  'label',)
+    fields       =(  'label',)
+admin.site.register(ExpeditionMoonPhase, ExpeditionMoonPhaseAdmin)
+
+
+class ExpeditionOvernightTemperatureAdmin (admin.ModelAdmin):
+    list_display = (  'label',)
+    fields       =(  'label',)
+admin.site.register(ExpeditionOvernightTemperature, ExpeditionOvernightTemperatureAdmin)
+
+
+class ExpeditionOvernightPrecipitationAdmin (admin.ModelAdmin):
+    list_display = (  'label',)
+    fields       =(  'label',)
+admin.site.register(ExpeditionOvernightPrecipitation, ExpeditionOvernightPrecipitationAdmin)
+
+
+class ExpeditionOvernightPrecipitationTypeAdmin (admin.ModelAdmin):
+    list_display = (  'label',)
+    fields       =(  'label',)
+admin.site.register(ExpeditionOvernightPrecipitationType, ExpeditionOvernightPrecipitationTypeAdmin)
+
+
+class ExpeditionCloudCoverAdmin (admin.ModelAdmin):
+    list_display = (  'label',)
+    fields       =(  'label',)
+admin.site.register(ExpeditionCloudCover, ExpeditionCloudCoverAdmin)
+
+class IlluminationAdmin (admin.ModelAdmin):
+    list_display = (  'label',)
+    fields       =(  'label',)
+admin.site.register(Illumination, IlluminationAdmin)
+
+
+class AnimalScaleUsedAdmin (admin.ModelAdmin):
+    list_display = (  'label',)
+    fields       =(  'label',)
+admin.site.register(AnimalScaleUsed, AnimalScaleUsedAdmin)
+
+class AnimalSexAdmin (admin.ModelAdmin):
+    list_display = (  'label',)
+    fields       =(  'label',)
+admin.site.register(AnimalSex, AnimalSexAdmin)
+
+class AnimalAgeAdmin (admin.ModelAdmin):
+    list_display = (  'label',)
+    fields       =(  'label',)
+admin.site.register(AnimalAge, AnimalAgeAdmin)
+
+
+
+
+
 
 
 class ExpeditionAdmin (admin.ModelAdmin):
@@ -63,6 +119,18 @@ class ExpeditionAdmin (admin.ModelAdmin):
         
         'notes_about_this_expedition', 
         'created_by',
+        
+        
+        'understory',
+        'field_notes',
+        'cloud_cover',
+        'ovenight_temperature',
+        'ovenight_precipitation',
+        'ovenight_precipitation_type',
+        'moon_phase',
+        'illumination',
+        
+        
     )
 admin.site.register(Expedition, ExpeditionAdmin)
 

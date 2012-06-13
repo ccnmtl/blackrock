@@ -97,6 +97,22 @@ class Species(models.Model):
         return dir(self)
 
 
+class LabelMenu (models.Model):    
+    def __unicode__(self):
+        return self.label
+    label =  models.CharField(blank=True, null=True, max_length = 256)
+
+
+class AnimalSex (LabelMenu):
+    pass
+
+class AnimalAge (LabelMenu):
+    pass
+    
+class AnimalScaleUsed (LabelMenu):
+    pass
+
+
 class Animal(models.Model):        
     def __unicode__(self):
         return self.species.common_name
@@ -105,6 +121,22 @@ class Animal(models.Model):
     tag_info =  models.CharField(blank=True, help_text = "Tag info if the animal was tagged", max_length = 256)
     description =  models.TextField(blank=True, help_text = "age / sex / other notes")
 
+    sex =  models.ForeignKey(AnimalSex, null=True, blank=True, verbose_name="Sex of this animal",  related_name = "animals_this_sex")
+    age =  models.ForeignKey(AnimalAge, null=True, blank=True, verbose_name="Age of this animal" ,  related_name = "animals_this_age")
+    scale_used =  models.ForeignKey(AnimalScaleUsed, null=True, blank=True, verbose_name="Scale used to weigh this animal",  related_name = "animals_this_scale_used")
+
+    tag_number =  models.CharField(blank=True, null=True, max_length = 256)
+
+    health  = models.CharField(blank=True, null=True, max_length = 256)
+
+
+    weight_in_grams   = models.IntegerField(blank=True, null=True) 
+    recaptured  = models.BooleanField(default=False)     
+    scat_sample_collected = models.BooleanField(default=False) 
+    blood_sample_collected = models.BooleanField(default=False) 
+    hair_sample_collected = models.BooleanField(default=False) 
+    skin_sample_collected = models.BooleanField(default=False) 
+    
 
 
 class Trap (models.Model):
@@ -216,6 +248,22 @@ class GridSquare (models.Model):
         
     def dir(self):
         return dir(self)
+
+
+
+class ExpeditionCloudCover (LabelMenu):
+    pass
+class ExpeditionOvernightTemperature(LabelMenu):
+    pass
+class ExpeditionOvernightPrecipitation (LabelMenu):
+    pass
+class ExpeditionOvernightPrecipitationType (LabelMenu):
+    pass
+class ExpeditionMoonPhase (LabelMenu):
+    pass
+class Illumination (LabelMenu):
+    pass
+
     
 class Expedition (models.Model):
 
@@ -259,19 +307,28 @@ class Expedition (models.Model):
 
     grid_square = models.ForeignKey(GridSquare, null=True, blank=True, related_name = "Grid Square", verbose_name="Grid Square used for this expedition")
 
+    understory   =  models.CharField(blank=True, null=True,  max_length = 256)
+    field_notes  =  models.CharField(blank=True, null=True,  max_length = 1024)
 
+    cloud_cover =  models.ForeignKey(ExpeditionCloudCover, null=True, blank=True,  related_name = "exp_cloudcover")
+    ovenight_temperature =  models.ForeignKey(ExpeditionOvernightTemperature, null=True, blank=True,  related_name = "exp_temperature")
+    ovenight_precipitation =  models.ForeignKey(ExpeditionOvernightPrecipitation, null=True, blank=True,  related_name = "exp_precipitation")
+    ovenight_precipitation_type =  models.ForeignKey(ExpeditionOvernightPrecipitationType, null=True, blank=True,  related_name = "exp_precipitation_type")
+    moon_phase    =  models.ForeignKey(ExpeditionMoonPhase, null=True, blank=True,  related_name = "exp_moon_phase")
+    illumination  =  models.ForeignKey(Illumination, null=True, blank=True,  related_name = "exp_illumination")
+    
     def dir(self):
         return dir(self)
 
     def how_many_mammals_caught(self):
         return len([t for t in self.traplocation_set.all() if t.animal])
 
-
     def trap_locations_ordered_by_team(self):
-        #import pdb
-        #pdb.set_trace()
         return self.traplocation_set.order_by('team_letter')
 
+
+    
+    
 
 ##################################################
 class TrapLocation(models.Model):
