@@ -120,13 +120,12 @@ class ExpeditionAdmin (admin.ModelAdmin):
         'notes_about_this_expedition', 
         'created_by',
         
-        
         'understory',
         'field_notes',
         'cloud_cover',
-        'ovenight_temperature',
-        'ovenight_precipitation',
-        'ovenight_precipitation_type',
+        'overnight_temperature',
+        'overnight_precipitation',
+        'overnight_precipitation_type',
         'moon_phase',
         'illumination',
         

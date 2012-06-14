@@ -359,13 +359,13 @@ def new_expedition(request):
     the_new_expedition = set_up_expedition(request)
     return HttpResponseRedirect ( '/mammals/edit_expedition/%d/' % the_new_expedition.id)
 
+
+
 @rendered_with('mammals/expedition.html')
 def edit_expedition(request, expedition_id):
-
     exp = Expedition.objects.get(id =expedition_id)
     if not request.user.is_staff:
         return mammals_login(request, expedition_id)
-        
 
     baits = Bait.objects.all()
     species = Species.objects.all()
@@ -374,15 +374,9 @@ def edit_expedition(request, expedition_id):
 
 
     return {
-        'expedition' : exp
-        ,'baits'     : baits
-        ,'habitats'  : habitats
-        ,'grades'    : grades
-        ,'species'   : species
+        'expedition'                        : exp
+        ,'grades'                           : grades
     }
-
-
-
 
 @rendered_with('mammals/all_expeditions.html')
 def all_expeditions(request):
@@ -394,6 +388,13 @@ def all_expeditions(request):
         'expeditions' : expeditions
     }
 
+
+#TODO consider moving this to the model.
+def team_points (exp, team_letter):
+    return  [p for p in exp.traplocation_set.all() if p.team_letter == team_letter]
+    
+
+@csrf_protect
 @rendered_with('mammals/team_form.html')
 def team_form(request, expedition_id, team_letter):
 
@@ -405,7 +406,7 @@ def team_form(request, expedition_id, team_letter):
     grades = GradeLevel.objects.all()
     habitats = Habitat.objects.all()
     exp = Expedition.objects.get(id =expedition_id)
-        
+    
     return {
         'expedition'  : exp
         ,'baits'     : baits
@@ -413,6 +414,14 @@ def team_form(request, expedition_id, team_letter):
         ,'grades'    : grades
         ,'species'   : species
         ,'team_letter' : team_letter
+        ,'team_points' : team_points (exp, team_letter)
+        ,'moon_phases'                      : ExpeditionMoonPhase.objects.all()
+        ,'overnight_temperatures'           : ExpeditionOvernightTemperature.objects.all()
+        ,'overnight_precipitations'         : ExpeditionOvernightPrecipitation.objects.all()
+        ,'overnight_precipitation_types'    : ExpeditionOvernightPrecipitationType.objects.all()
+        ,'cloud_covers'                     : ExpeditionCloudCover.objects.all()
+        ,'illuminations'                    : Illumination.objects.all()
+        
     }
 
 
@@ -420,18 +429,56 @@ def save_team_form(request):
     rp = request.POST
     expedition_id = rp['expedition_id']
     exp = Expedition.objects.get(id =expedition_id)
+    team_letter = rp['team_letter']
+    the_team_points = team_points (exp, team_letter)
+    
+    # This info is gathered by the team as a whole,
+    # so we're just going to associate them with
+    # all the points the team is responsible for.
+    
+    if rp.has_key ('understory') and rp['understory'] != 'None':
+        for point in the_team_points:
+            point.understory = rp['understory']
+        
     form_map = {
-        'habitat': 'habitat'
-        ,'bait':'bait'      
+        'moon_phase'                   : 'moon_phase'
+        ,'cloud_cover'                 : 'cloud_cover'
+        ,'illumination'                : 'illumination'
+        ,'overnight_temperature'       : 'overnight_temperature'
+        ,'overnight_precipitation'     : 'overnight_precipitation'
+        ,'overnight_precipitation_type': 'overnight_precipitation_type'
     }
-    for point in exp.traplocation_set.all():
+
+    for point in the_team_points:
+        for the_key, thing_to_update in form_map.iteritems():
+            if rp.has_key (the_key):
+                setattr(point, '%s_id' % thing_to_update,  int(rp[the_key]))
+                point.save()
+    
+    form_map = {
+        'habitat': 'habitat_id'
+        ,'bait'  : 'bait_id'
+    }
+    form_map_booleans = {
+        'whether_a_trap_was_set_here'  : 'whether_a_trap_was_set_here'
+        ,'bait_still_there'            : 'bait_still_there'
+    }
+    
+    for point in the_team_points:
         for the_key, thing_to_update in form_map.iteritems():
             rp_key = '%s_%d' % (the_key , point.id)
             if rp.has_key (rp_key) and rp[rp_key] != 'None':
-                setattr(point, '%s_id' % thing_to_update,  int(rp[rp_key]))
+                setattr(point, '%s' % thing_to_update,  rp[rp_key])
                 point.save()
-        animal_key = 'animal_%d' % (point.id)
+        for the_key, thing_to_update in form_map_booleans.iteritems():
+            rp_key = '%s_%d' % (the_key , point.id)
+            if rp.has_key (rp_key) and rp[rp_key] != 'None':
+                setattr(point, '%s' % thing_to_update,   (rp[rp_key] == 'True'))
+                point.save()
         
+        
+        #Deal with animals:
+        animal_key = 'animal_%d' % (point.id)
         if rp.has_key (animal_key) and rp[animal_key] != 'None':
             species_id = int( rp[animal_key])
             species = Species.objects.get (id=species_id)

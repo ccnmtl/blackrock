@@ -311,9 +311,9 @@ class Expedition (models.Model):
     field_notes  =  models.CharField(blank=True, null=True,  max_length = 1024)
 
     cloud_cover =  models.ForeignKey(ExpeditionCloudCover, null=True, blank=True,  related_name = "exp_cloudcover")
-    ovenight_temperature =  models.ForeignKey(ExpeditionOvernightTemperature, null=True, blank=True,  related_name = "exp_temperature")
-    ovenight_precipitation =  models.ForeignKey(ExpeditionOvernightPrecipitation, null=True, blank=True,  related_name = "exp_precipitation")
-    ovenight_precipitation_type =  models.ForeignKey(ExpeditionOvernightPrecipitationType, null=True, blank=True,  related_name = "exp_precipitation_type")
+    overnight_temperature =  models.ForeignKey(ExpeditionOvernightTemperature, null=True, blank=True,  related_name = "exp_temperature")
+    overnight_precipitation =  models.ForeignKey(ExpeditionOvernightPrecipitation, null=True, blank=True,  related_name = "exp_precipitation")
+    overnight_precipitation_type =  models.ForeignKey(ExpeditionOvernightPrecipitationType, null=True, blank=True,  related_name = "exp_precipitation_type")
     moon_phase    =  models.ForeignKey(ExpeditionMoonPhase, null=True, blank=True,  related_name = "exp_moon_phase")
     illumination  =  models.ForeignKey(Illumination, null=True, blank=True,  related_name = "exp_illumination")
     
@@ -358,7 +358,6 @@ class TrapLocation(models.Model):
     transect_bearing =  models.FloatField(blank=True, null=True, help_text = "Heading of this bearing")
     transect_distance =  models.FloatField(blank=True, null=True, help_text = "Distance along this bearing")
     
-    
     #Team info:
     team_letter = models.CharField   (blank=True, null=True, help_text = "Name of team responsible for this location.", max_length = 256)
     team_number = models.IntegerField(blank=True, null=True, help_text = "Designates which trap.")
@@ -368,16 +367,19 @@ class TrapLocation(models.Model):
     
     #info about the outcome:    
     whether_a_trap_was_set_here = models.BooleanField(help_text = "We typically won't use ALL the locations suggested; this denotes that a trap was actually placed at or near this point.")
-    
     bait = models.ForeignKey (Bait, null=True, blank=True ,  help_text = "Any bait used")
-    
     animal = models.ForeignKey (Animal, null=True, blank=True,  help_text = "Any animals caught")
-    
     bait_still_there = models.BooleanField(help_text = "Was the bait you left in the trap still there when you came back?")
     
+    #field notes:
     notes_about_outcome =  models.TextField(blank=True, help_text = "Any miscellaneous notes about the outcome")
-    
-        
+    understory   =  models.CharField(blank=True, null=True,  max_length = 256)
+    cloud_cover =  models.ForeignKey(ExpeditionCloudCover, null=True, blank=True,  related_name = "trap_cloudcover")
+    overnight_temperature =  models.ForeignKey(ExpeditionOvernightTemperature, null=True, blank=True,  related_name = "trap_temperature")
+    overnight_precipitation =  models.ForeignKey(ExpeditionOvernightPrecipitation, null=True, blank=True,  related_name = "trap_precipitation")
+    overnight_precipitation_type =  models.ForeignKey(ExpeditionOvernightPrecipitationType, null=True, blank=True,  related_name = "trap_precipitation_type")
+    moon_phase    =  models.ForeignKey(ExpeditionMoonPhase, null=True, blank=True,  related_name = "trap_moon_phase")
+    illumination  =  models.ForeignKey(Illumination, null=True, blank=True,  related_name = "trap_illumination")
     student_names =  models.TextField (blank=True, null=True, help_text = "Names of the students responsible for this location (this would be filled in, if at all, by the instructor after the students have left the forest.", max_length = 256)
     
     
