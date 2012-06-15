@@ -24,7 +24,7 @@ import csv
 def get_float (request, name, default):
     number = request.POST.get(name, default)
     return float (number)
-print
+
 def get_int (request, name, default):
     number = request.POST.get(name, default)
     return int (number)
