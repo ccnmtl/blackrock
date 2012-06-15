@@ -185,6 +185,14 @@ label
 	border-bottom: 1px dotted #999;
 }
 
+body.square .height40
+{
+	height: 40px;
+	line-height: 150%;
+	font-size: 12px;
+	border-bottom: 1px dotted #999;
+}
+
 .multiformfield
 {
 	height: 50px;
@@ -205,6 +213,14 @@ label
 {
 	margin-left: 10px;
 	width: 180px;
+	display: block;
+	float: left;
+}
+
+body.square .formfield label
+{
+	margin-left: 10px;
+	width: 270px;
 	display: block;
 	float: left;
 }

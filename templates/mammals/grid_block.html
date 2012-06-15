@@ -39,39 +39,35 @@ NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVI
 			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget risus lacus. Sed id mauris vel urna viverra pharetra. Sed ornare, augue quis eleifend ultricies, sapien lacus venenatis neque, vel.
 		</div><!-- class="instructions" -->
 
-                {% include "mammals/grid_center_table.html" %}
-
-        <form {% if sandbox %}action="/mammals/sandbox/grid_square/" {% else %} action='/mammals/grid_square/'{% endif %} method="post" id="block_form" onSubmit="return confirm_new_bearings()">{% csrf_token %}
+		{% include "mammals/grid_center_table.html" %}
+		
+		<form {% if sandbox %}action="/mammals/sandbox/grid_square/" {% else %} action='/mammals/grid_square/'{% endif %} method="post" id="block_form" onSubmit="return confirm_new_bearings()">{% csrf_token %}
         
-            {% include "mammals/grid_form.html" %}
+			{% include "mammals/grid_form.html" %}
+	
+			{%if sandbox %}{%else%}<div id="playground_form">{%endif%}
+			<div class="formfield height40">
+				<label for="magnetic_declination">Declination (difference between magnetic and true North):</label>
+				<input type="text" name="magnetic_declination" id="magnetic_declination" value="{{magnetic_declination}}" class="inputbox" />
+			</div><!-- class="formfield" -->
+			{%if sandbox %}{%else%}</div><!-- id="playground_form" -->{%endif%}
+	
+			<div class="formfield">
+				<label for="num_transects">How many teams to you have?</label>
+				<input type="text" name="num_transects" id="num_transects" value="{{num_transects}}" class="inputbox" />
+			</div><!-- class="formfield" -->
+	
+			<div class="formfield">
+				<label for="num_transects">How many traps will each team get?</label>
+				<input type="text" name="points_per_transect" id="points_per_transect" value="{{points_per_transect}}" class="inputbox" />
+			</div><!-- class="formfield" -->
+	
+			<div class="formfield" style="text-align: right; padding-right: 5px; padding-top: 4px; height: 26px;">
+				<input type="submit" value="Generate bearings" />
+			</div><!-- class="formfield" -->
+		</form>
 
    <table>
-                <tr {%if sandbox %}{%else%} class="hide_this" {%endif%} >
-                    <td> Declination (difference between magnetic and true North):
-                    </td>
-                    <td> 
-                        <input type="text" name = "magnetic_declination" id = "magnetic_declination"value ="{{magnetic_declination}}"> </input>
-                    </td>
-                </tr>
-                <tr>
-                    <td> How many bearings would you like?
-                    </td>
-                    <td> 
-                        <input type="text" name = "num_transects" id = "num_transects" value ="{{num_transects}}"> </input>
-                    </td>
-                </tr>
-                <tr>
-                    <td> How many traps do you want on each bearing?
-                    </td>
-                    <td> 
-                        <input type="text" name = "points_per_transect" id = "points_per_transect"  value ="{{points_per_transect}}"> </input>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan = "2"> 
-                        <input type="submit" value="Generate new bearings"></input> &lt;- Try clicking this button to regenerate the table below.</td>
-                </tr>
-        </form>
         <tr>
             <td colspan = "2"> 
                 {% include "mammals/csv_export_form.html" %}
