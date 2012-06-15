@@ -14,6 +14,11 @@ urlpatterns = patterns('',
 	(r'^grid/',          'blackrock.mammals.views.grid' ),
 	(r'^grid_square/',   'blackrock.mammals.views.grid_block' ),
 
+
+
+	(r'^help/$',               'blackrock.mammals.views.help' ),
+	(r'^teaching/$', 'blackrock.mammals.views.teaching_resources' ),
+
 	#Sandbox version:
 	(r'^sandbox/$',              'blackrock.mammals.views.sandbox_grid' ),
 	(r'^sandbox/grid/',          'blackrock.mammals.views.sandbox_grid' ),

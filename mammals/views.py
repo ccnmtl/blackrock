@@ -100,6 +100,16 @@ def index(request):
     return {
     }
 
+@rendered_with('mammals/teaching_resources.html')
+def teaching_resources(request):
+    return {
+    }
+
+@rendered_with('mammals/help.html')
+def help(request):
+    return {
+    }
+
 
 #RESEARCH_GRID:
 
