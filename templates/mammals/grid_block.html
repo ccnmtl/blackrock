@@ -67,31 +67,22 @@ NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVI
 			</div><!-- class="formfield" -->
 		</form>
 
-   <table>
-        <tr>
-            <td colspan = "2"> 
-                {% include "mammals/csv_export_form.html" %}
-            </td>
-        </tr>
-        <tr>
-            <td colspan = "2"> 
-                {% include "mammals/printer_friendly_form.html" %}
-            </td>
-        </tr>
-
-        <tr>
-            <td  colspan = "2"> 
-                {% comment %}
-                    <button id="show_printer_friendly_table">Show printer-friendly table</button>
-                {%endcomment %}
+	<div class="team_trap_table">
+		<div class="transect_table">
                     {% include "mammals/transect_table_heading.html" %} 
-
                 <div id="transect_table_overflow_div">
                     {% include "mammals/transect_table.html" %} 
                 </div>
-            </td>
-        </tr>      
-    </table>
+		</div><!-- class="" -->
+	
+		<div class="table_actions">
+                 {% include "mammals/csv_export_form.html" %}
+               {% include "mammals/printer_friendly_form.html" %}
+		</div><!-- class="" -->
+	
+	<div class="clearfix"></div><!-- class="clearfix" -->
+	</div><!-- class="team_trap_table" -->
+
 
 	</div><!-- id="left" -->
 
@@ -100,19 +91,5 @@ NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVI
 	<div class="clearfix"></div><!-- class="clearfix" -->
 
 </div><!-- class="plain" id="grid_form_table" -->
-
-
-
-
-
-
-
-<div id = "printer_friendly_table">
-    <button id="hide_printer_friendly_table">Hide printer-friendly table</button>
-    {% include "mammals/grid_center_table.html" %}
-    {% include "mammals/transect_table_heading.html" %} 
-    {% include "mammals/transect_table.html" %} 
-</div>
-
 {% endblock %}
 

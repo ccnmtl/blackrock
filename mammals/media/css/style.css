@@ -697,7 +697,7 @@ body.square div#transect_table_overflow_div
 	border-color: #9B9;
 	border-width: 1px;
 	border-style: solid;
-	width: 525px;
+	width: auto;
 }
 
 body.square .hide_this { display: none; }
@@ -713,4 +713,31 @@ body.square .terrain_info,
 body.square .block_coordbox
 {
 	border: 0;
+}
+
+.team_trap_table
+{
+	margin: 20px 0 0 0;
+	padding: 0;
+	border: 0;
+}
+
+.transect_table
+{
+	width: 300px;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	display: block;
+	float: left;
+}
+
+.table_actions
+{
+	width: 50px;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	display: block;
+	float: left;
 }
