@@ -265,14 +265,23 @@ label
 
 .back_page
 {
-	width: 260px;
-	margin: -10px 0 20px 0;
+	margin: -12px 0 20px 0;
+	padding: 0x;
+	border: 0;
+	width: 250px
+}
+
+.back_page a
+{
+	display: block;
+	margin: 0;
 	padding: 0 0 0 25px;
 	border: 0;
-	background: #efefef url('../images/back_page.png') 0px 0px no-repeat;
+	background: transparent url('../images/back_page.png') 0px 0px no-repeat;
 	height: 20px;
 	line-height: 20px;
-	font-size: 12px;
+	font-size: 11px;
+	text-decoration: none;
 }
 
 /* GRID SELECTION */
@@ -344,6 +353,49 @@ label
 {
 	width: 100px;
 	margin: 0 0 0 36px;
+}
+
+.selected_sq_info
+{
+	display: block;
+	width: 360px;
+	margin: 20px 0 0 0;
+	padding: 0;
+	border: 1px solid #A18F83;
+	background-color: transparent;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.selected_sq_info h3
+{
+	display: block;
+	margin: 0;
+	padding: 3px;
+	font-weight: bold;
+	font-size: 12px;
+	border: 0;
+	background-color: #dcd3c2;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.detail_toggle
+{
+	padding-right: 3px;
+	display: block;
+	float: right;
+	font-weight: normal;
+	cursor: pointer;
+	color: #006600;
+}
+
+.detail_toggle:hover
+{
+	cursor: pointer;
+	color: #009900;
 }
 
 /* Coordinate box for grid.html */
@@ -637,3 +689,12 @@ body.square .form_tr { display: none; }
 body.square .top_px_number { display: none; }
 body.square .grid_square_print_page_div #hide_square_coords_table_button { display: none; }
 body.square .grid_square_print_page_div #show_square_coords_table_button { display: none; }
+body.square .coord_display
+{
+	margin: 0;
+}
+body.square .terrain_info,
+body.square .block_coordbox
+{
+	border: 0;
+}

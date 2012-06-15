@@ -13,12 +13,17 @@
     </table>
 {%else %}
 
-<button id ="hide_square_coords_table_button">hide square details</button>
-<button id ="show_square_coords_table_button">show square details</button>
 
+
+
+
+<div class="selected_sq_info">
+<h3>Selected square no.: {{selected_block.label_2}}
+<span class="detail_toggle" id ="hide_square_coords_table_button">Hide details</span>
+<span class="detail_toggle" id ="show_square_coords_table_button">See details...</span>
+</h3>
 
 		<div class="coord_display square_coords_table_div">
-			<div class="arrow_box" id="block_info">Square no.: {{selected_block.label_2}}</div>
 			<div class="square_infobox">
 				<div class="block_coordbox">
 					<div class="topleft">
@@ -42,8 +47,12 @@
 				<div class="terrain_info">
 				<p id="block_difficulty">Terrain difficulty level: {{selected_block.access_difficulty}}.</p>
 				</div><!-- class="terrain_info" -->
+				<div class="clearfix"></div><!-- class="clearfix" -->
 			</div><!-- class="square_infobox" -->
+			<div class="clearfix"></div><!-- class="clearfix" -->
 		</div><!-- class="coord_display" -->
+			<div class="clearfix"></div><!-- class="clearfix" -->
+</div><!-- class="selected_sq_info" -->
 
 {%endif%}
 
