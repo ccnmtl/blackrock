@@ -36,10 +36,12 @@ NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVI
 		<div class="back_page"><a href="#" onclick="back_to_grid_from_square()">Return to Location Square Selection</a></div>
 
 		<div class="instructions">
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget risus lacus. Sed id mauris vel urna viverra pharetra. Sed ornare, augue quis eleifend ultricies, sapien lacus venenatis neque, vel.
+		<!--
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget risus lacus. Sed id mauris vel urna viverra pharetra. Sed ornare, augue quis eleifend ultricies, sapien lacus venenatis neque, vel. -->
 		</div><!-- class="instructions" -->
 
 		{% include "mammals/grid_center_table.html" %}
+		  <br />
 		
 		<form {% if sandbox %}action="/mammals/sandbox/grid_square/" {% else %} action='/mammals/grid_square/'{% endif %} method="post" id="block_form" onSubmit="return confirm_new_bearings()">{% csrf_token %}
         
