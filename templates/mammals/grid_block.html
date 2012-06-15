@@ -24,34 +24,28 @@ NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVI
 	{% if not sandbox %}active{% endif %}
 {% endblock %}
 
+
 {% block container %}
 <div id ="block_json" style="display:none">{{block_json}}</div>    
 <div id ="transects_json" style="display:none">{{transects_json}}</div>
     
-<div >
+<div class="plain" id="right_hand_table">
 
+	<div id="left">
+		<h3>{% if sandbox %}Playground{% else %}Research{% endif %} Grid: Bearings and Traps</h3>
+		<div><a href="#" onclick="back_to_grid_from_square()">Return</a> to {% if sandbox %}Playground{% else %}Research{% endif %} Grid: Location Square Selection</div>
 
-   <table id ="right_hand_table">
-        <tr>
-            <td rowspan = "12" valign ="top">
-                <div id="map_canvas" style="width: 500px; height: 500px"></div>
-            </td>
-        </tr>
-        <tr>
-            <td colspan = "2"> 
-                <button onclick="back_to_grid_from_square ()">&lt;&lt;&lt; Back to the main grid &lt;&lt;&lt;</button>      
-            </td>
-        </tr>
-        <tr>
-            <td colspan = "2"> 
+		<div class="instructions">
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget risus lacus. Sed id mauris vel urna viverra pharetra. Sed ornare, augue quis eleifend ultricies, sapien lacus venenatis neque, vel.
+		</div><!-- class="instructions" -->
+
                 {% include "mammals/grid_center_table.html" %}
-            </td>
-        </tr>
 
-        <form {% if sandbox %} action='/mammals/sandbox/grid_square/' {% else %} action ='/mammals/grid_square/' {% endif %}
-            method="post" id = "block_form" onSubmit="return confirm_new_bearings()">
-            {% csrf_token %}
+        <form {% if sandbox %}action="/mammals/sandbox/grid_square/" {% else %} action='/mammals/grid_square/'{% endif %} method="post" id="block_form" onSubmit="return confirm_new_bearings()">{% csrf_token %}
+        
             {% include "mammals/grid_form.html" %}
+
+   <table>
                 <tr {%if sandbox %}{%else%} class="hide_this" {%endif%} >
                     <td> Declination (difference between magnetic and true North):
                     </td>
@@ -102,7 +96,21 @@ NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVI
             </td>
         </tr>      
     </table>
-</div>
+
+	</div><!-- id="left" -->
+
+	<div id="map_canvas"></div><!-- id="map_canvas" -->
+	
+	<div class="clearfix"></div><!-- class="clearfix" -->
+
+</div><!-- class="plain" id="grid_form_table" -->
+
+
+
+
+
+
+
 <div id = "printer_friendly_table">
     <button id="hide_printer_friendly_table">Hide printer-friendly table</button>
     {% include "mammals/grid_center_table.html" %}

@@ -17,24 +17,33 @@
 <button id ="show_square_coords_table_button">show square details</button>
 
 
-<div class="arrow_box square_coords_table_div" id="block_info">Block # {{selected_block.battleship_coords}}; terrain difficulty {{selected_block.access_difficulty}}</div>
-			
-<div class="block_coordbox square_coords_table_div">
-	<div class="topleft">
-		<div class="coordinates" id="tl">{{selected_block.NW_corner.lat|floatformat:5}}<br/> {{selected_block.NW_corner.lon|floatformat:5}}</div>
-	</div>
-	<div class="topright">
-		<div class="coordinates" id="tr">{{selected_block.NE_corner.lat|floatformat:5}}, {{selected_block.NE_corner.lon|floatformat:5}}</div>
-	</div>
-	<div class="center">
-		<div class="coordinates" id="c">{{selected_block.center.lat|floatformat:5}}<br/> {{selected_block.center.lon|floatformat:5}}</div>
-	</div>
-	<div class="bottomleft">
-		<div class="coordinates" id="bl">{{selected_block.SE_corner.lat|floatformat:5}}<br/> {{selected_block.SE_corner.lon|floatformat:5}}</div>
-	</div>
-	<div class="bottomright">
-		<div class="coordinates" id="br">{{selected_block.SW_corner.lat|floatformat:5}}<br/> {{selected_block.SW_corner.lon|floatformat:5}}</div>
-	</div>
-</div><!-- class="block_coordbox" -->
+		<div class="coord_display square_coords_table_div">
+			<div class="arrow_box" id="block_info">Square no.: {{selected_block.label_2}}</div>
+			<div class="square_infobox">
+				<div class="block_coordbox">
+					<div class="topleft">
+						<div class="coordinates" id="tl">{{selected_block.NE_corner.lat|floatformat:5}}<br /> {{selected_block.NE_corner.lon|floatformat:5}}</div>
+					</div>
+					<div class="topright">
+						<div class="coordinates" id="tr">{{selected_block.NW_corner.lat|floatformat:5}}<br /> {{selected_block.NW_corner.lon|floatformat:5}}</div>
+					</div>
+					<div class="center">
+						<div class="coordinates" id="c">{{selected_block.center.lat|floatformat:5}}<br /> {{selected_block.center.lon|floatformat:5}}</div>
+					</div>
+					<div class="bottomleft">
+						<div class="coordinates" id="bl">{{selected_block.SE_corner.lat|floatformat:5}}<br />
+						{{selected_block.SE_corner.lon|floatformat:5}}</div>
+					</div>
+					<div class="bottomright">
+						<div class="coordinates" id="br">{{selected_block.SW_corner.lat|floatformat:5}}<br />
+						{{selected_block.SW_corner.lon|floatformat:5}}</div>
+					</div>
+				</div><!-- class="block_coordbox" -->
+				<div class="terrain_info">
+				<p id="block_difficulty">Terrain difficulty level: {{selected_block.access_difficulty}}.</p>
+				</div><!-- class="terrain_info" -->
+			</div><!-- class="square_infobox" -->
+		</div><!-- class="coord_display" -->
+
 {%endif%}
 
