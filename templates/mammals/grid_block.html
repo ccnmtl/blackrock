@@ -1,45 +1,37 @@
 {% extends "mammals/base_mammals.html" %}
 {% load smartif %}
 
-{%comment %}
+{% comment %}
 NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVITY.
-{%endcomment %}
+{% endcomment %}
 
-{% block title %}Mammals and Habitats -- Research Grid: Bearing and Traps{% endblock %}
+{% block title %}Mammals and Habitats --
+{% if sandbox %}Playground{% else %}Research{% endif %} Grid: Bearing and Traps{% endblock %}
 
-{% block bodyclass %}research_grid{% endblock %}
+{% block bodyclass %}square {% if sandbox %}playground{% else %}research{% endif %}_grid{% endblock %}
 
 {% block js %}
-    <script type="text/javascript" src="/mammals/media/js/map_colors.js"></script>
+	<script type="text/javascript" src="/mammals/media/js/map_colors.js"></script>
 	<script type="text/javascript" src="/mammals/media/js/grid_and_block.js"></script>
 	<script type="text/javascript" src="/mammals/media/js/block.js"></script>
 	{{ block.super }}
 {% endblock %}
 
-{%block mammals_nav_gridresearch %}
-    {%if not sandbox%}
-        class="active"
-    {%endif %}
-{%endblock%}
-
-{%block mammals_nav_gridplay %}
-    {%if sandbox%}
-        class="active"
-    {%endif %}
-{%endblock%}
-
-{% block css %}
-    {% include "mammals/block_css.html" %} 
-    {{ block.super }}
+{% block status_playground %}
+	{% if sandbox %}active{% endif %}
 {% endblock %}
-
+{% block status_research %}
+	{% if not sandbox %}active{% endif %}
+{% endblock %}
 
 {% block container %}
 <div id ="block_json" style="display:none">{{block_json}}</div>    
 <div id ="transects_json" style="display:none">{{transects_json}}</div>
     
 <div >
-    <table id ="right_hand_table">
+
+
+   <table id ="right_hand_table">
         <tr>
             <td rowspan = "12" valign ="top">
                 <div id="map_canvas" style="width: 500px; height: 500px"></div>

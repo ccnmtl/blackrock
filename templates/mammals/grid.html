@@ -13,10 +13,7 @@
 	{{ block.super }}
 {% endblock %}
 
-{%block mammals_nav_gridresearch %}class="active"{%endblock%}
-
-
-
+{% block status_research %}active{% endblock %}
 
 {% block container %}
 <div id ="grid_json" style="display:none">{{grid_json}}</div>    
@@ -46,7 +43,7 @@
 			{% include "mammals/suggest_unsuggest.html" %}
 			
 			<div class="clearfix"></div><!-- class="clearfix" -->
-		</div>
+		</div><!-- id="selection_steps" -->
 </form>
 
 		{% include "mammals/grid_border_coords.html" %}

@@ -1,71 +1,55 @@
 {% extends "mammals/base_mammals.html" %}
 {% load smartif %}
 
-<!-- THIS IS ONLY USED FOR THE SANDBOX GRID -->
-{% block title %}Grid{% endblock %}
+<!-- THIS IS ONLY USED FOR THE PLAYGROUND GRID -->
+{% block title %}Mammals and Habitats -- Playground Grid: Square Selection{% endblock %}
+
+{% block bodyclass %}playground_grid{% endblock %}
+
 {% block js %}
-    <script type="text/javascript" src="/mammals/media/js/map_colors.js"></script>
-    <script type="text/javascript" src="/mammals/media/js/grid_and_block.js"></script>
-    <script type="text/javascript" src="/mammals/media/js/grid.js"></script>
-    {{ block.super }}
+	<script type="text/javascript" src="/mammals/media/js/map_colors.js"></script>
+	<script type="text/javascript" src="/mammals/media/js/grid_and_block.js"></script>
+	<script type="text/javascript" src="/mammals/media/js/grid.js"></script>
+	{{ block.super }}
 {% endblock %}
 
-
-{%block mammals_nav_gridplay %}  class = "active"{%endblock%}
-
-{% block css %}
-    {% include "mammals/grid_css.html" %} 
-    {{ block.super }}
-{% endblock %}
-
+{% block status_playground %}active{% endblock %}
 
 {% block container %}
-<div id ="grid_json" style="display:none">{{grid_json}}</div>
-<div >
-    <table id= "grid_form_table">
-        <tr>
-            <td rowspan = "12">
-                <div id="map_canvas" style="width: 800px; height: 800px"></div>
-            </td>
-        </tr>
-        
-        <tr>
-            <td  colspan = "2"> 
-                You can use this grid anywhere in the world. Try entering the latitude and longitude of your home below, then click "Redraw the grid". You could also try changing the size of each square, or change the number of squares in your grid.
-            </td>
-        </tr>
-        <!-- Careful: this form's target is changed by the javascript.
-        It can submit to both this page, OR to the square page. -->
-        
-        <form action = '/mammals/sandbox/grid/' method="post" id = "grid_form"> {% csrf_token %}        
-                {% include "mammals/grid_form.html" %} 
-                <tr>
-                    <td colspan = "2"> 
+<div id="grid_json" style="display:none">{{grid_json}}</div>
+
+<div class="plain" id="grid_form_table">
+
+	<div id="left">
+		<h3>Playground Grid: Location Square Selection</h3>
+
+		<div class="instructions">
+			You can use this grid anywhere in the world. Try entering the latitude and longitude of your home below, then click "Redraw the grid". You could also try changing the size of each square, or change the number of squares in your grid.
+		</div><!-- class="instructions" -->
+
+
+<form action="/mammals/sandbox/grid/" method="post" id="grid_form"> {% csrf_token %}
+
+		{% include "mammals/grid_form.html" %}
+
 		<div class="formfield" style="text-align: right; padding-right: 5px;">
 			<input type="button" onclick="javascript:location.href='/mammals/sandbox/grid/'" value="Reset grid" />
 			<input type="submit" value="Redraw grid" />
 		</div><!-- class="formfield" -->
-                    </td>
-                </tr>
-        </form>
-        <tr>
-            <td  colspan = "2"> 
-                Once you're happy with your grid, try randomly generating a table of bearings by clicking one of the squares on the map.
-            </td>
-        </tr>
-        {%comment %}
-        <tr>
-            <td colspan = "2"> 
-                {% include "mammals/suggest_unsuggest.html" %} 
-            </td>
-        </tr>
-        {%endcomment %}
-        <tr>
-            <td colspan = "2"> 
-                {% include "mammals/grid_border_coords.html" %} 
-            </td>
-        </tr>
-    </table>
-</div>
+		
+</form>
+
+		{% include "mammals/grid_border_coords.html" %}
+
+
+	</div><!-- id="left" -->
+
+	<div id="map_canvas"></div><!-- id="map_canvas" -->
+	
+	<div class="clearfix"></div><!-- class="clearfix" -->
+
+</div><!-- class="plain" id="grid_form_table" -->
+
+
 {% endblock %}
 
