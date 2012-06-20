@@ -41,16 +41,16 @@
 <h3 > Expedition # {{expedition.id }}</h3>
 
 <!-- todo: create edit expedition controller, which then redirects to all expeditions -->
-<form action="/mammals/all_expeditions/" >
-<div >  to Square {{expedition.grid_square.label_2 }} ( {{expedition.grid_square}}, center {{expedition.grid_square.center}})  on {{expedition.start_date_of_expedition|date:"D d M Y" }}</div>
+<form action="/mammals/edit_expedition/{{expedition.id}}/" method="post" >
+<div >  to Square {{expedition.grid_square.battleship_coords }} ( center {{expedition.grid_square.center}})  on {{expedition.start_date_of_expedition|date:"D d M Y" }}</div>
         <tr>
             <td > 
                 Grade level: 
             </td>
             <td >
-                <select>
+                <select name="grade" id = "grade">
                     {% for grade in grades %}
-                        <option value = "{{grade.id}}">{{grade.label}}</option>
+                        <option value = "{{grade.id}}" {%ifequal expedition.grade_level_id grade.id %} selected{%endifequal%}>{{grade.label}}</option>
                     {%endfor %}
                 </select>
             </td>
@@ -62,6 +62,7 @@
             </td> 
             <td  > 
                 School contact (name):
+            </td>
             <td > 
                 School contact (phone):
             </td> 
@@ -100,7 +101,7 @@
     
 
     
-<input type="submit" value = "Save this information" ></input>
+        <input type="submit" value = "Save this information" ></input>
 </form>
 </div>
 {% endblock %}

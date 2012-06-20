@@ -374,8 +374,24 @@ def new_expedition(request):
 @rendered_with('mammals/expedition.html')
 def edit_expedition(request, expedition_id):
     exp = Expedition.objects.get(id =expedition_id)
+
     if not request.user.is_staff:
         return mammals_login(request, expedition_id)
+
+    rp = request.POST
+    print rp
+    if rp:
+        if rp.has_key ('school_contact_1_name'):
+            exp.school_contact_1_name = rp ['school_contact_1_name']
+        if rp.has_key ('school_contact_1_phone'):
+            exp.school_contact_1_phone = rp ['school_contact_1_phone']
+        if rp.has_key ('school_contact_1_email'):
+            exp.school_contact_1_email = rp ['school_contact_1_email']
+        if rp.has_key ('grade'):
+            exp.grade_level_id = int(rp ['grade'])
+        if rp.has_key ('number_of_students'):
+            exp.number_of_students = int(rp ['number_of_students'])
+        exp.save()
 
     baits = Bait.objects.all()
     species = Species.objects.all()
@@ -387,6 +403,8 @@ def edit_expedition(request, expedition_id):
         'expedition'                        : exp
         ,'grades'                           : grades
     }
+
+
 
 @rendered_with('mammals/all_expeditions.html')
 def all_expeditions(request):
