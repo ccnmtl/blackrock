@@ -13,7 +13,7 @@
     <td rowspan = "{{transect.points|length}}" class = "transect_td transect_{{transect.transect_id}}">{{transect.heading_wrt_magnetic_north|floatformat:0}} &deg;</td>
 {% endifchanged %}
     
-        <td >{{point.distance|floatformat:0}}</td>
+        <td class = "get_row_top_from_here point_{{point.point_id}}" >{{point.distance|floatformat:0}}</td>
         {%comment %}
             <td >{{point.point.0|floatformat:4}}</td>
             <td >{{point.point.1|floatformat:4}}</td>

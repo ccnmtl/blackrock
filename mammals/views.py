@@ -276,8 +276,8 @@ def header_row():
                 , 'Bearing'# this is magnetig north only.
                 #, 'Trap ID'
                 , 'Distance (m) from center'
-                #, 'Latitude'
-                #, 'Longitude'
+                , 'Latitude'
+                , 'Longitude'
                 #, 'Location ID'
             ]
 
@@ -290,8 +290,8 @@ def row_to_output (point, transect):
                 , transect['heading_wrt_magnetic_north']
                 #, "%s%d" % (transect['team_letter'] , point['point_index_2'] )
                 , point['distance']
-                #, point['point'][0]
-                #, point['point'][1]
+                , point['point'][0]
+                , point['point'][1]
                 # , point['point_id']
             ]
 

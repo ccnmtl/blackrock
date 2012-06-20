@@ -73,8 +73,12 @@ function attach_marker_info (the_circle, point_info, the_transect, transect_info
     transect_row = table.find( '.transect_'    + point_info['transect_id']);
     transect_top = transect_row.position().top
     point_id_row = jQuery ('.top_px_number.point_' + point_info['point_id']);
-    point_id_row.html(point_id_row.position().top);
-    point_id_row.hide();
+    
+    
+    row_top = jQuery ('.get_row_top_from_here.point_' + point_info['point_id']).position().top;
+    
+    // this is the hidden column that contains the "top" value we want to scroll to:
+    point_id_row.html(row_top);
     
     
     function circle_on (scroll_into_view) {
@@ -82,13 +86,11 @@ function attach_marker_info (the_circle, point_info, the_transect, transect_info
         jQuery ('.point_'    + point_info['point_id']).addClass("highlighted"); 
         jQuery ('.transect_' + point_info['transect_id']).addClass("highlighted");
         point_id_row = jQuery ('.top_px_number.point_' + point_info['point_id']);
-        
         if (scroll_into_view) {
-            offset = 100;
+            offset = 194;
             goal = Number(point_id_row.html()) - jQuery ('#transect_table_overflow_div').position().top - offset;
-            jQuery ('#transect_table_overflow_div').animate({scrollTop: goal}, { duration: 300, queue: false });
+            jQuery ('#transect_table_overflow_div').animate({scrollTop: goal}, { duration: 500, queue: false });
         }    
-        
         // change the decoration of the circle and transect
         the_circle.setOptions(circle_on_style);
         the_transect.setOptions (transect_on_style);
