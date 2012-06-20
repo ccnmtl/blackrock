@@ -6,17 +6,6 @@
 </style> 
 {% endblock %}
 
-{% block nav %}
-    <ul>
-        <li {%block mammals_nav_home%}{%endblock%} ><a href="/mammals/">Home</a></li>        
-        <li id="simplemap"{%block mammals_nav_simplemap%}{%endblock%} ><a href="/mammals/simple_map/">Map</a></li>
-        <li id="gridcategory" {%block  mammals_nav_gridcategory %}{%endblock%} >GRID:</li>
-        <li id="gridresearch" {%block mammals_nav_gridresearch%}{%endblock%} ><a href="/mammals/grid/">Research</a></li>
-        <li id="gridplay"  {%block mammals_nav_gridplay%}{%endblock%} ><a href="/mammals/sandbox/grid/">Playground</a></li>
-        <li {%block mammals_nav_teaching%}{%endblock%} ><a href="/mammals/teaching/">Teaching Resources</a></li>
-        <li {%block mammals_nav_help%}{%endblock%} ><a href="/mammals/help/">Help</a></li>
-    </ul>
-{% endblock %}
 
 
 
@@ -32,10 +21,10 @@
 {% block masthead %}
 <a href="/mammals/" title="Return to 'Mammals and Habitats' home">Mammals and Habitats</a>
 {% endblock %}
-
 {% block nav %}
     <ul>
         <li class="default {% block status_home %}{% endblock %}"><a href="/mammals/">Home</a></li>
+        <li id="simplemap"{%block mammals_nav_simplemap%}{%endblock%} ><a href="/mammals/simple_map/">Map</a></li>
         <li id="gridcategory">GRID:</li>
         <li id="gridresearch" class="default {% block status_research %}{% endblock %}"><a href="/mammals/grid/">Research</a></li>
         <li id="gridplay" class="default {% block status_playground %}{% endblock %}"><a href="/mammals/sandbox/grid/">Playground</a></li>
