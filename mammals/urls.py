@@ -14,7 +14,7 @@ urlpatterns = patterns('',
 	(r'^grid/',          'blackrock.mammals.views.grid' ),
 	(r'^grid_square/',   'blackrock.mammals.views.grid_block' ),
 
-        #printer and csv versions of the grid square:
+    #printer and csv versions of the grid square:
 	(r'^grid_square_csv/',       'blackrock.mammals.views.grid_square_csv' ),
 	(r'^grid_square_print/',     'blackrock.mammals.views.grid_square_print' ),
 
@@ -23,6 +23,10 @@ urlpatterns = patterns('',
 	(r'^sandbox/grid/',          'blackrock.mammals.views.sandbox_grid' ),
 	(r'^sandbox/grid_square/',   'blackrock.mammals.views.sandbox_grid_block' ),
 	
+	
+	(r'^help/$',               'blackrock.mammals.views.help' ),
+	(r'^teaching/$', 'blackrock.mammals.views.teaching_resources' ),
+
 
 	(r'^login/',                 'blackrock.mammals.views.mammals_login' ),
 	(r'^process_login/',         'blackrock.mammals.views.process_login_and_go_to_expedition' ),

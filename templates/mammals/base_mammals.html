@@ -33,6 +33,17 @@
 <a href="/mammals/" title="Return to 'Mammals and Habitats' home">Mammals and Habitats</a>
 {% endblock %}
 
+{% block nav %}
+    <ul>
+        <li class="default {% block status_home %}{% endblock %}"><a href="/mammals/">Home</a></li>
+        <li id="gridcategory">GRID:</li>
+        <li id="gridresearch" class="default {% block status_research %}{% endblock %}"><a href="/mammals/grid/">Research</a></li>
+        <li id="gridplay" class="default {% block status_playground %}{% endblock %}"><a href="/mammals/sandbox/grid/">Playground</a></li>
+        <li class="default {% block status_teaching %}{% endblock %}"><a href="/mammals/teaching/">Teaching Resources</a></li>
+        <li class="default {% block status_help %}{% endblock %}"><a href="/mammals/help/">Help</a></li>
+    </ul>
+{% endblock %}
+
 {% block content %}
 <div id="container">
 	{% block container %}
@@ -44,6 +55,9 @@
 {% block footer %}
     <div id="footer">
         <ul id="standard-elements">
+            <li><a href="/portal/about/">About</a></li>
+            <li><a href="/portal/credits/">Credits</a></li>
+            <li><a href="/portal/help/">Help</a></li>
             <li><a href="mailto:ccnmtl-blackrock@columbia.edu">Contact</a></li>
         </ul>
     </div>

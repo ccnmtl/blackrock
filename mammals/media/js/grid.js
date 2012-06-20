@@ -143,11 +143,15 @@ function unsuggest_square() {
 
 
 function deal_with_just_visited_block () {
+    if (jQuery('#selected_block').length == 0) { // don't bother doing this  on sandbox
+        return;
+    }
     selected_block_id = jQuery ('#selected_block')[0].innerHTML;
     if ( selected_block_id == '') {
         return;
     }
-    
+
+
     for (var i = 0; i < grid_json.length; i++) {
         sq = grid_json [i];
         if (sq['database_id'] == selected_block_id) {

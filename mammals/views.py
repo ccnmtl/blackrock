@@ -26,7 +26,7 @@ import csv
 def get_float (request, name, default):
     number = request.POST.get(name, default)
     return float (number)
-print
+
 def get_int (request, name, default):
     number = request.POST.get(name, default)
     return int (number)
@@ -100,6 +100,16 @@ def sandbox_grid(request):
 @rendered_with('mammals/index.html')
 def index(request):
     return {}
+
+@rendered_with('mammals/teaching_resources.html')
+def teaching_resources(request):
+    return {
+    }
+
+@rendered_with('mammals/help.html')
+def help(request):
+    return {
+    }
 
 
 #RESEARCH_GRID:
