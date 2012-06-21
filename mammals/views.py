@@ -367,8 +367,23 @@ def new_expedition(request):
         return mammals_login(request)
     
     the_new_expedition = set_up_expedition(request)
-    return HttpResponseRedirect ( '/mammals/edit_expedition/%d/' % the_new_expedition.id)
+    return HttpResponseRedirect ( '/mammals/expedition/%d/' % the_new_expedition.id)
 
+
+@rendered_with('mammals/expedition.html')
+def expedition(request, expedition_id):
+
+    if not request.user.is_staff:
+        return mammals_login(request, expedition_id)
+
+    exp = Expedition.objects.get(id =expedition_id)
+    if not request.user.is_staff:
+        return mammals_login(request, expedition_id)
+    grades = GradeLevel.objects.all()
+    return {
+        'expedition'                        : exp
+        ,'grades'                           : grades
+    }
 
 
 @rendered_with('mammals/expedition.html')
@@ -379,7 +394,6 @@ def edit_expedition(request, expedition_id):
         return mammals_login(request, expedition_id)
 
     rp = request.POST
-    print rp
     if rp:
         if rp.has_key ('school_contact_1_name'):
             exp.school_contact_1_name = rp ['school_contact_1_name']
@@ -392,18 +406,8 @@ def edit_expedition(request, expedition_id):
         if rp.has_key ('number_of_students'):
             exp.number_of_students = int(rp ['number_of_students'])
         exp.save()
-
-    baits = Bait.objects.all()
-    species = Species.objects.all()
-    grades = GradeLevel.objects.all()
-    habitats = Habitat.objects.all()
-
-
-    return {
-        'expedition'                        : exp
-        ,'grades'                           : grades
-    }
-
+        
+    return all_expeditions(request)
 
 
 @rendered_with('mammals/all_expeditions.html')
@@ -524,7 +528,7 @@ def save_team_form(request):
             point.animal = animal
             point.save()
             animal.save()
-    return edit_expedition(request,  expedition_id)
+    return expedition(request,  expedition_id)
     
 @rendered_with('mammals/simple_map.html')
 def simple_map(request):

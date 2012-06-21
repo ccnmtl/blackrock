@@ -33,18 +33,6 @@ NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVI
 	<div id="left">
 		<h3>{% if sandbox %}Playground{% else %}Research{% endif %} Grid: Bearings and Traps</h3>
 		<div class="back_page"><a href="#" onclick="back_to_grid_from_square()">Return to Location Square Selection</a></div>
-
-
-              {% if grid_square_id > 0 and not sandbox %}   
-                <form action='/mammals/new_expedition/' method="post" id = "start_expedition_form">
-                <input type="text" name = "grid_square_id" id="grid_square_id" value ="{{grid_square_id}}" class="hide_this"></input>
-                 {% csrf_token %}
-                <input type="text" name="transects_json" style="display:none" value = "{{transects_json}}"></input>
-                <input type="submit" value="Save these locations &gt;&gt;&gt; "></input> 
-                </form>
-              {% endif%}   
-
-
 		<div class="instructions">
 		<!--
 			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget risus lacus. Sed id mauris vel urna viverra pharetra. Sed ornare, augue quis eleifend ultricies, sapien lacus venenatis neque, vel. -->
@@ -78,6 +66,7 @@ NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVI
 				<input type="submit" value="Generate bearings" />
 			</div><!-- class="formfield" -->
 		</form>
+		
 
 	<div class="team_trap_table">
 		<div class="transect_table">
@@ -88,8 +77,9 @@ NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVI
 		</div><!-- class="" -->
 	
 		<div class="table_actions">
-                 {% include "mammals/csv_export_form.html" %}
-               {% include "mammals/printer_friendly_form.html" %}
+              {% include "mammals/csv_export_form.html" %}
+              {% include "mammals/printer_friendly_form.html" %}
+		      {% include "mammals/save_locations.html" %}
 		</div><!-- class="" -->
 	
 	<div class="clearfix"></div><!-- class="clearfix" -->
