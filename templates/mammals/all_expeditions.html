@@ -55,8 +55,10 @@
                 <td  > 
                     Square {{e.grid_square.label_2 }}
                 </td> 
-                <td  > 
-                    {{e.how_many_mammals_caught }} animal{{e.how_many_mammals_caught|pluralize }} 
+                <td  >
+                    {%if  e.how_many_mammals_caught > 0 %}
+                        {{e.how_many_mammals_caught }} animal{{e.how_many_mammals_caught|pluralize }} 
+                    {%endif %}
                 </td> 
                 <td  > 
                     <a href= "/mammals/expedition/{{e.id }}/">Expedition page</a>
