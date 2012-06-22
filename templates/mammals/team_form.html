@@ -18,6 +18,10 @@
             padding: 4px;
             background-color: #EFE;
         }
+        .coord_input {
+            width : 60px;
+        
+        }
     </style>
 
     {{ block.super }}
@@ -51,7 +55,7 @@
             </tr>
             <tr>
                 <td > 
-                    <input type="text" id = "understory" name= "understory" value ="{{point.understory}}"> </input>
+                    <input type="text" id = "understory" name= "understory" value ="{% if point.understory %}{{point.understory}}{%endif%}"> </input>
                 </td> 
                 <td  > 
                     <select id="overnight_temperature" name="overnight_temperature">
@@ -158,10 +162,11 @@
                     </select>
                 </td>
                 <td>
-                  {{point }}
+                  {{point.suggested_lat|floatformat:5 }} {{point.suggested_lon|floatformat:5 }}
                 </td>
                 <td>
-                  {{point }}
+                  <input class="coord_input" type="text" name = "actual_lat_{{point.id}}" value = "{{point.actual_lat|floatformat:5}}"  maxlength="9" />
+                  <input class="coord_input" type="text" name = "actual_lon_{{point.id}}" value = "{{point.actual_lon|floatformat:5}}"  maxlength="9" />
                 </td>
             </tr>
             

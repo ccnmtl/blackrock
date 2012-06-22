@@ -20,6 +20,7 @@ from blackrock.mammals.models import *
 from operator import attrgetter
 from string import uppercase
 from django.contrib.auth import authenticate, login
+from re import match
 
 import csv
 
@@ -477,7 +478,7 @@ def save_team_form(request):
     # so we're just going to associate them with
     # all the points the team is responsible for.
     
-    if rp.has_key ('understory') and rp['understory'] != 'None':
+    if rp.has_key ('understory') and rp['understory'] != '':
         for point in the_team_points:
             point.understory = rp['understory']
         
@@ -531,12 +532,74 @@ def save_team_form(request):
                 animal.species = species
                 animal.save()
             else:
+                # Note, would be nice to have a foreign key to another Animal
+                # denoting that this Animal is the same actual organism as the
+                # other Animal, but recaptured at a later date and aidentified by the same tag.
                 # animal = find_already_tagged_animal_in_the_database_somehow()
                 pass
             
             point.animal = animal
             point.save()
             animal.save()
+    
+    
+        #Deal with actual latitude and longitude:
+        
+        # The burden of providing good data here rests on the front end.
+        # If the actual lat and lon don't meet our data standards, we're simply not going to use them.
+        
+        # 1) Do they both exist?
+        # 2) Are they both accurate to 5 decimals?
+        # 3) Are they within a certain distance of the original lat and lon (no interest in points in another country.
+        
+        correcting_lat_lon = False
+        match_string = '(\-)?(\d){2}\.(\d){5}' 
+
+        # if your coordinate string doesn't match the above, you have a nice day.
+        lat_key = 'actual_lat_%d' % point.id
+        lon_key = 'actual_lon_%d' % point.id
+        
+        max_diff = 250.0 # meters
+        min_diff = 1.0  # meters
+        
+        
+        correcting_lat_lon = True
+        
+        if correcting_lat_lon and not rp.has_key (lat_key):
+            correcting_lat_lon = False
+            print "not found lat"
+        if correcting_lat_lon and not rp.has_key (lon_key):
+            correcting_lat_lon = False
+            print "not found lon"
+        if correcting_lat_lon and not rp.has_key (lon_key):
+            correcting_lat_lon = False
+            print "not found lat 2"
+        if correcting_lat_lon and match (match_string, rp[lat_key]) == None:
+            correcting_lat_lon = False
+            print "not match lat"
+        if correcting_lat_lon and match (match_string, rp[lon_key]) == None:
+            correcting_lat_lon = False
+            print "not match lon"
+        
+        if correcting_lat_lon:
+            diff_lat = point.actual_lat() - float (rp[lat_key])
+            diff_lon = point.actual_lon() - float (rp[lon_key])
+            
+            distance_to_corrected_point_in_meters = hypotenuse(*to_meters (diff_lat, diff_lon))
+            
+            if distance_to_corrected_point_in_meters > max_diff:
+                correcting_lat_lon = False
+                print "diff too long at %f" % distance_to_corrected_point_in_meters
+                
+        if correcting_lat_lon and distance_to_corrected_point_in_meters < min_diff:
+            correcting_lat_lon = False
+            print "diff too short at %f" % distance_to_corrected_point_in_meters
+
+        if correcting_lat_lon:
+            print "CORRECTING"
+            print distance_to_corrected_point_in_meters
+            point.set_actual_lat_long ( [ float (rp[lat_key]), float (rp[lon_key]) ] )
+            
     return expedition(request,  expedition_id)
     
     
@@ -576,27 +639,18 @@ def save_expedition_animals(request):
 def simple_map(request):
     all_animals = Animal.objects.all()
     result = []
-    #import pdb
-    #pdb.set_trace()
-    #print [a.traplocation_set.all() for a in all_animals]
-    #[a.traplocation_set.all() for a in all_animals]
-
     for a in all_animals:
         where = [0,0]
-        
         if len(a.traplocation_set.all()):
             a_place = a.traplocation_set.all()[0]
-            #print dir( a_place)
-            #print a_place.gps_coords()
             where = [a_place.lat(), a_place.lon()] 
         result.append ({
                 'name': a.species.common_name,
                 'where': where
                 } )
-
     return {
         'animals':simplejson.dumps(result )
-   }
+    }
 
 
 @csrf_protect
