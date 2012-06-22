@@ -136,8 +136,8 @@ admin.site.register(Expedition, ExpeditionAdmin)
 
     
 class TrapLocationAdmin (admin.ModelAdmin):
-    list_display = (  'expedition', 'geo_point','trap_used', 'bait', 'habitat',)
-    fields       = ( 'expedition', 'geo_point', 'trap_used', 'bait', 'habitat',  'notes_about_location', 'animal', 'notes_about_outcome' )
+    list_display = (  'expedition', 'suggested_point','actual_point','trap_used', 'bait', 'habitat',)
+    fields       = ( 'expedition', 'suggested_point','actual_point', 'trap_used', 'bait', 'habitat',  'notes_about_location', 'animal', 'notes_about_outcome' )
     
 admin.site.register(TrapLocation, TrapLocationAdmin)
 

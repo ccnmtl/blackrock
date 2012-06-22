@@ -34,6 +34,11 @@ urlpatterns = patterns('',
 	(r'^new_expedition/',   'blackrock.mammals.views.new_expedition' ),
 	(r'^expedition/(?P<expedition_id>\d+)/$', 'blackrock.mammals.views.expedition'),
 	(r'^edit_expedition/(?P<expedition_id>\d+)/$', 'blackrock.mammals.views.edit_expedition'),
+	
+	(r'^expedition/(?P<expedition_id>\d+)/animals/$', 'blackrock.mammals.views.expedition_animals'),
+	(r'^save_expedition_animals/$', 'blackrock.mammals.views.save_expedition_animals'),
+	
+	
 	(r'^team_form/(?P<expedition_id>\d+)/(?P<team_letter>\w+)/$', 'blackrock.mammals.views.team_form'),
 	(r'^save_team_form/$', 'blackrock.mammals.views.save_team_form'),
 	

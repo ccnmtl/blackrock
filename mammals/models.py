@@ -79,29 +79,21 @@ class Bait (models.Model):
         
         
 class Species(models.Model):
-
     def __unicode__(self):
         return self.common_name
-        
     latin_name =  models.CharField(blank=True, help_text = "Binomial species name", max_length = 256)
     common_name =  models.CharField(blank=True, help_text = "Common name", max_length = 512)
     about_this_species =  models.TextField(blank=True, help_text = "A blurb with info about this species at Blackrock")
-
     class Meta:
         verbose_name = "Species"
         verbose_name_plural = "Species" # http://en.wikipedia.org/wiki/Latin_declension#Fifth_declension_.28e.29
-
-
-
     def dir(self):
         return dir(self)
-
 
 class LabelMenu (models.Model):    
     def __unicode__(self):
         return self.label
     label =  models.CharField(blank=True, null=True, max_length = 256)
-
 
 class AnimalSex (LabelMenu):
     pass
@@ -112,25 +104,20 @@ class AnimalAge (LabelMenu):
 class AnimalScaleUsed (LabelMenu):
     pass
 
-
 class Animal(models.Model):        
     def __unicode__(self):
         return self.species.common_name
         
     species = models.ForeignKey (Species, null=True, blank=True)
-    tag_info =  models.CharField(blank=True, help_text = "Tag info if the animal was tagged", max_length = 256)
     description =  models.TextField(blank=True, help_text = "age / sex / other notes")
 
     sex =  models.ForeignKey(AnimalSex, null=True, blank=True, verbose_name="Sex of this animal",  related_name = "animals_this_sex")
     age =  models.ForeignKey(AnimalAge, null=True, blank=True, verbose_name="Age of this animal" ,  related_name = "animals_this_age")
     scale_used =  models.ForeignKey(AnimalScaleUsed, null=True, blank=True, verbose_name="Scale used to weigh this animal",  related_name = "animals_this_scale_used")
 
-    tag_number =  models.CharField(blank=True, null=True, max_length = 256)
-
-    health  = models.CharField(blank=True, null=True, max_length = 256)
-
-
-    weight_in_grams   = models.IntegerField(blank=True, null=True) 
+    tag_number =  models.CharField(blank=True, null=True, max_length = 256, default = '')
+    health  = models.CharField(blank=True, null=True, max_length = 256, default = '')
+    weight_in_grams   = models.IntegerField(blank=True, null=True, default = None)
     recaptured  = models.BooleanField(default=False)     
     scat_sample_collected = models.BooleanField(default=False) 
     blood_sample_collected = models.BooleanField(default=False) 
@@ -138,6 +125,9 @@ class Animal(models.Model):
     skin_sample_collected = models.BooleanField(default=False) 
     
 
+    
+    def dir(self):
+        return dir(self)
 
 class Trap (models.Model):
     def __unicode__(self):
@@ -293,6 +283,9 @@ class Expedition (models.Model):
 
     notes_about_this_expedition =  models.TextField(blank=True, help_text = "Notes about this expedition")
     
+        
+    school_name  =  models.CharField(blank=True, default = "", help_text = "Name of school", max_length = 256)
+    
     school_contact_1_name  =  models.CharField(blank=True,  help_text = "First contact @ the school -- name", max_length = 256)
     school_contact_1_phone  =  models.CharField(blank=True,  help_text = "First contact @ the school -- e-mail", max_length = 256)
     school_contact_1_email  =  models.CharField(blank=True,  help_text = "First contact @ the school   -- phone", max_length = 256)
@@ -321,13 +314,16 @@ class Expedition (models.Model):
         return dir(self)
 
     def how_many_mammals_caught(self):
-        return len([t for t in self.traplocation_set.all() if t.animal])
+        return len(self.animal_locations())
+
+    def animal_locations(self):
+        return [t for t in self.trap_locations_ordered_by_team() if t.animal]
 
     def trap_locations_ordered_by_team(self):
-        return self.traplocation_set.order_by('team_letter')
+        return self.traplocation_set.order_by('team_number').order_by('team_letter')
 
-
-    
+    def team_points (self, team_letter):
+        return  [p for p in self.traplocation_set.all().order_by('team_number') if p.team_letter == team_letter]
     
 
 ##################################################
@@ -338,7 +334,8 @@ class TrapLocation(models.Model):
         t = TrapLocation()
         
         t.expedition = the_expedition
-        t.set_lat_long(point_obj['point'])
+        t.set_actual_lat_long(point_obj['point'])
+        t.set_suggested_lat_long(point_obj['point'])
         t.transect_bearing = transect_obj['heading']
         t.transect_distance = point_obj['distance']
         t.team_letter = transect_obj['team_letter']
@@ -350,7 +347,11 @@ class TrapLocation(models.Model):
 
     """ A location you might decide to set a trap."""
     expedition = models.ForeignKey (Expedition, null=True, blank=True)
-    geo_point = models.PointField(null=True, blank=True)
+    
+    
+    suggested_point = models.PointField(null=True, blank=True)
+    
+    actual_point    = models.PointField(null=True, blank=True)
     objects = models.GeoManager()
     trap_used = models.ForeignKey (Trap, null=True, blank=True, help_text = "Which trap, if any, was left at this location")
     notes_about_location =  models.TextField(blank=True, help_text = "Notes about the location")
@@ -383,42 +384,103 @@ class TrapLocation(models.Model):
     student_names =  models.TextField (blank=True, null=True, help_text = "Names of the students responsible for this location (this would be filled in, if at all, by the instructor after the students have left the forest.", max_length = 256)
     
     
-    @classmethod
-    def create(self, coords):
-        p = TrapLocation()
-        p.set_lat_long(coords)
-        p.save()
-        return p
-    
-    def set_lat_long (self, coords):
-        self.geo_point = "POINT(%s %s)" % (coords[0], coords[1])
+    def set_suggested_lat_long (self, coords):
+        self.suggested_point = "POINT(%s %s)" % (coords[0], coords[1])
+        
+    def set_actual_lat_long (self, coords):
+        self.actual_point = "POINT(%s %s)" % (coords[0], coords[1])
         
     def __unicode__(self):
         return self.gps_coords()
    
-    def gps_coords(self):
-        return "%s, %s" % (self.NSlat(), self.EWlon())
-   
-    def NSlat(self):
-        lat = self.lat()
-        if lat > 0:
-            return '%0.5F N' % abs(lat)
-        return '%0.5F S' % abs(lon)
+    def suggested_gps_coords(self):
+        return "%s, %s" % (self.suggested_NSlat(), self.suggested_EWlon())
         
-    def EWlon(self):
-        lon = self.lon()
-        if lon < 0:
-            return '%0.5F W' % abs(lon)
-        return '%0.5F E' % abs(lon)
+    def actual_gps_coords(self):
+        return "%s, %s" % (self.actual_NSlat(), self.actual_EWlon())
+    
+    def suggested_NSlat(self):
+        lat = self.suggested_lat()
+        if lat:
+            if lat > 0:
+                return '%0.5F N' % abs(lat)
+            return '%0.5F S' % abs(lon)
+        return None
+    def suggested_EWlon(self):
+        lon = self.suggested_lon()
+        if lon:
+            if lon < 0:
+                return '%0.5F W' % abs(lon)
+            return '%0.5F E' % abs(lon)
+        return None
         
-    def lat(self):
-        return self.geo_point.coords[0]
-        
-    def lon(self):
-        return self.geo_point.coords[1]
+    def actual_NSlat(self):
+        lat = self.actual_lat()
+        if lat:
+            if lat > 0:
+                return '%0.5F N' % abs(lat)
+            return '%0.5F S' % abs(lon)
+        return None
+    def actual_EWlon(self):
+        lon = self.actual_lon()
+        if lon:
+            if lon < 0:
+                return '%0.5F W' % abs(lon)
+            return '%0.5F E' % abs(lon)
+        return None
+            
+    def suggested_lat(self):
+        if self.suggested_point:
+            return self.suggested_point.coords[0]
+        return None
 
+    def suggested_lon(self):
+        if self.suggested_point:
+            return self.suggested_point.coords[1]
+        return None
+
+
+        
+    def actual_lat(self):
+        if self.actual_point:
+            return self.actual_point.coords[0]
+        return None
+            
+    def actual_lon(self):
+        if self.actual_point:
+            return self.actual_point.coords[1]
+        return None
+
+            
+    if 1 == 1:
+    #TODO remove; Now ambiguous.    
+                        def gps_coords(self):
+                            return "%s, %s" % (self.NSlat(), self.EWlon())
+                        def NSlat(self):
+                            lat = self.lat()
+                            if lat:
+                                if lat > 0:
+                                    return '%0.5F N' % abs(lat)
+                                return '%0.5F S' % abs(lon)
+                            return None
+                        def EWlon(self):
+                            lon = self.lon()
+                            if lon:
+                                if lon < 0:
+                                    return '%0.5F W' % abs(lon)
+                                return '%0.5F E' % abs(lon)
+                            return None
+                        def lat(self):
+                            if self.suggested_point:
+                                return self.suggested_point.coords[0]
+                            return None
+                            
+                        def lon(self):
+                            if self.suggested_point:
+                                return self.suggested_point.coords[1]
+                            return None
+
+
+            
     def dir(self):
         return dir(self)
-
-    
-

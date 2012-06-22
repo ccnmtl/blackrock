@@ -27,7 +27,9 @@
         <li class="default {% block status_home %}{% endblock %}"><a href="/mammals/">Home</a></li>
         {% if  user.username == 'eddie' %}
 
-        <li id="simplemap"{%block mammals_nav_simplemap%}{%endblock%} ><a href="/mammals/simple_map/">Map</a></li>
+        <li id="simplemap" {%block mammals_nav_simplemap%}{%endblock%} ><a href="/mammals/simple_map/">Map</a></li>
+        <li id="expeditions" {%block mammals_nav_expeditions%}{%endblock%} ><a href="/mammals/all_expeditions/">Expeditions</a></li>
+        
         {%endif %}
         <li id="gridcategory">GRID:</li>
         <li id="gridresearch" class="default {% block status_research %}{% endblock %}"><a href="/mammals/grid/">Research</a></li>

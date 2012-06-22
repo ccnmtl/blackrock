@@ -310,10 +310,6 @@ def grid_square_csv(request):
 
 def set_up_expedition (request):
     if request.POST.has_key ('transects_json') and request.POST['transects_json'] != 'None':
-        #print request.POST['transects_json']
-        #import pdb
-        #pdb.set_trace()n
-
         transects_json = request.POST.get('transects_json')
         grid_square_id = request.POST.get('grid_square_id')
         obj = simplejson.loads(transects_json)
@@ -389,12 +385,12 @@ def expedition(request, expedition_id):
 @rendered_with('mammals/expedition.html')
 def edit_expedition(request, expedition_id):
     exp = Expedition.objects.get(id =expedition_id)
-
     if not request.user.is_staff:
         return mammals_login(request, expedition_id)
-
     rp = request.POST
     if rp:
+        if rp.has_key ('school_name'):
+            exp.school_name = rp ['school_name']
         if rp.has_key ('school_contact_1_name'):
             exp.school_contact_1_name = rp ['school_contact_1_name']
         if rp.has_key ('school_contact_1_phone'):
@@ -406,8 +402,24 @@ def edit_expedition(request, expedition_id):
         if rp.has_key ('number_of_students'):
             exp.number_of_students = int(rp ['number_of_students'])
         exp.save()
-        
     return all_expeditions(request)
+
+@csrf_protect
+@rendered_with('mammals/expedition_animals.html')
+def expedition_animals(request, expedition_id):
+    exp = Expedition.objects.get(id =expedition_id)
+    if not request.user.is_staff:
+        return mammals_login(request, expedition_id)
+    
+    return {
+        'expedition'  : exp
+        ,'sexes'      : AnimalSex.objects.all()
+        ,'species'    : Species.objects.all()
+        ,'ages'       : AnimalAge.objects.all()
+        ,'scales'     : AnimalScaleUsed.objects.all()
+    }
+
+
 
 
 @rendered_with('mammals/all_expeditions.html')
@@ -420,10 +432,6 @@ def all_expeditions(request):
         'expeditions' : expeditions
     }
 
-
-#TODO consider moving this to the model.
-def team_points (exp, team_letter):
-    return  [p for p in exp.traplocation_set.all() if p.team_letter == team_letter]
     
 
 @csrf_protect
@@ -446,7 +454,7 @@ def team_form(request, expedition_id, team_letter):
         ,'grades'    : grades
         ,'species'   : species
         ,'team_letter' : team_letter
-        ,'team_points' : team_points (exp, team_letter)
+        ,'team_points' : exp.team_points (team_letter)
         ,'moon_phases'                      : ExpeditionMoonPhase.objects.all()
         ,'overnight_temperatures'           : ExpeditionOvernightTemperature.objects.all()
         ,'overnight_precipitations'         : ExpeditionOvernightPrecipitation.objects.all()
@@ -457,12 +465,13 @@ def team_form(request, expedition_id, team_letter):
     }
 
 
+@csrf_protect
 def save_team_form(request):
     rp = request.POST
     expedition_id = rp['expedition_id']
     exp = Expedition.objects.get(id =expedition_id)
     team_letter = rp['team_letter']
-    the_team_points = team_points (exp, team_letter)
+    the_team_points = exp.team_points (team_letter)
     
     # This info is gathered by the team as a whole,
     # so we're just going to associate them with
@@ -529,6 +538,39 @@ def save_team_form(request):
             point.save()
             animal.save()
     return expedition(request,  expedition_id)
+    
+    
+    
+@csrf_protect
+def save_expedition_animals(request):
+    rp = request.POST
+    expedition_id = rp['expedition_id']
+    exp = Expedition.objects.get(id =expedition_id)
+    booleans = ['scat_sample_collected' ,'blood_sample_collected' ,
+        'skin_sample_collected','hair_sample_collected' ,'recaptured']
+    menus = ['sex','age','scale_used']
+
+    for point in exp.animal_locations():
+        for b in booleans:
+            rp_key = '%s_%d' % (b , point.id)
+            if rp.has_key (rp_key) and rp[rp_key] == 'True':
+                setattr(point.animal, b, True)
+            else:
+                setattr(point.animal, b, False)
+        for m in menus:
+            rp_key = '%s_%d' % (m , point.id)
+            if rp.has_key (rp_key) and rp[rp_key] != None:
+                setattr(point.animal, '%s_id' % m, rp[rp_key])
+        rp_key = 'health_%d' % point.id
+        if rp.has_key (rp_key) and rp[rp_key] != '':
+            setattr(point.animal, 'health', rp[rp_key])
+        rp_key = 'weight_in_grams_%d' % point.id
+        if rp.has_key (rp_key) and rp[rp_key] != '':
+            setattr(point.animal, 'weight_in_grams', int(rp[rp_key]))
+        point.animal.save()
+    return expedition (request, expedition_id)
+    
+    
     
 @rendered_with('mammals/simple_map.html')
 def simple_map(request):
