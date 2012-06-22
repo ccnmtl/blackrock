@@ -584,20 +584,16 @@ def save_team_form(request):
         if correcting_lat_lon:
             diff_lat = point.actual_lat() - float (rp[lat_key])
             diff_lon = point.actual_lon() - float (rp[lon_key])
-            
             distance_to_corrected_point_in_meters = hypotenuse(*to_meters (diff_lat, diff_lon))
-            
             if distance_to_corrected_point_in_meters > max_diff:
                 correcting_lat_lon = False
-                print "diff too long at %f" % distance_to_corrected_point_in_meters
-                
+                #print "diff too long at %f" % distance_to_corrected_point_in_meters
         if correcting_lat_lon and distance_to_corrected_point_in_meters < min_diff:
             correcting_lat_lon = False
-            print "diff too short at %f" % distance_to_corrected_point_in_meters
-
+            #print "diff too short at %f" % distance_to_corrected_point_in_meters
         if correcting_lat_lon:
-            print "CORRECTING"
-            print distance_to_corrected_point_in_meters
+            #print "CORRECTING"
+            #print distance_to_corrected_point_in_meters
             point.set_actual_lat_long ( [ float (rp[lat_key]), float (rp[lon_key]) ] )
             
     return expedition(request,  expedition_id)

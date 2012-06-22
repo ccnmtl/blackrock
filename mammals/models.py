@@ -356,8 +356,13 @@ class TrapLocation(models.Model):
     trap_used = models.ForeignKey (Trap, null=True, blank=True, help_text = "Which trap, if any, was left at this location")
     notes_about_location =  models.TextField(blank=True, help_text = "Notes about the location")
     
+    
+    #this is wrt true north. for wrt mag. north, see method below
     transect_bearing =  models.FloatField(blank=True, null=True, help_text = "Heading of this bearing")
     transect_distance =  models.FloatField(blank=True, null=True, help_text = "Distance along this bearing")
+    
+    
+    
     
     #Team info:
     team_letter = models.CharField   (blank=True, null=True, help_text = "Name of team responsible for this location.", max_length = 256)
@@ -382,6 +387,16 @@ class TrapLocation(models.Model):
     moon_phase    =  models.ForeignKey(ExpeditionMoonPhase, null=True, blank=True,  related_name = "trap_moon_phase")
     illumination  =  models.ForeignKey(Illumination, null=True, blank=True,  related_name = "trap_illumination")
     student_names =  models.TextField (blank=True, null=True, help_text = "Names of the students responsible for this location (this would be filled in, if at all, by the instructor after the students have left the forest.", max_length = 256)
+    
+    
+    def transect_bearing_wrt_magnetic_north(self):
+        #print 'goat'
+        #import pdb
+        #pdb.set_trace()
+        result = self.transect_bearing - 13.0
+        if result < 0:
+            result = result + 360.0
+        return result
     
     
     def set_suggested_lat_long (self, coords):
