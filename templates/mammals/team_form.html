@@ -246,7 +246,10 @@
                 </td>
                 <td > 
                         <select id="animal_{{point.id}}" name="animal_{{point.id}}">
+                            {% if not point.animal %}
+                            <!-- you can't remove an animal this way. In fact for now you can only do it via the Django admin.-->
                             <option value="None">Trap empty</option>
+                            {% endif %}
                             {% for species in species %}
                                 <option value = "{{species.id}}"  {%ifequal point.animal.species_id species.id %} selected{%endifequal%}   >{{species}}</option>
                             {%endfor %}
