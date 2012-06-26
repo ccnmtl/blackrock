@@ -229,7 +229,7 @@ def pick_transects (center, side_of_square, number_of_transects, number_of_point
             tmp += 360
         transect ['heading_wrt_magnetic_north'] = tmp
         transect ['length'] = transect_length
-        transect ['edge'] = walk (center, transect_length, transect_heading)
+        transect ['edge'] = walk_transect (center, transect_length, transect_heading)
         points = []
         for j in range (number_of_points_per_transect):
             new_point = {}
@@ -243,7 +243,7 @@ def pick_transects (center, side_of_square, number_of_transects, number_of_point
                     distance = triangular (0, transect_length, transect_length)
             
             
-            point = walk (center, distance, transect_heading)
+            point = walk_transect (center, distance, transect_heading)
             new_point['point']    = point
             new_point['heading']  = radians_to_degrees (transect_heading)
             new_point['distance'] = distance
@@ -562,24 +562,20 @@ def save_team_form(request):
         max_diff = 250.0 # meters
         min_diff = 1.0  # meters
         
-        
         correcting_lat_lon = True
         
         if correcting_lat_lon and not rp.has_key (lat_key):
             correcting_lat_lon = False
-            print "not found lat"
+            #print "not found lat"
         if correcting_lat_lon and not rp.has_key (lon_key):
             correcting_lat_lon = False
-            print "not found lon"
-        if correcting_lat_lon and not rp.has_key (lon_key):
-            correcting_lat_lon = False
-            print "not found lat 2"
+            #print "not found lon"
         if correcting_lat_lon and match (match_string, rp[lat_key]) == None:
             correcting_lat_lon = False
-            print "not match lat"
+            #print "not match lat"
         if correcting_lat_lon and match (match_string, rp[lon_key]) == None:
             correcting_lat_lon = False
-            print "not match lon"
+            #print "not match lon"
         
         if correcting_lat_lon:
             diff_lat = point.actual_lat() - float (rp[lat_key])
@@ -595,6 +591,7 @@ def save_team_form(request):
             #print "CORRECTING"
             #print distance_to_corrected_point_in_meters
             point.set_actual_lat_long ( [ float (rp[lat_key]), float (rp[lon_key]) ] )
+            point.save()
             
     return expedition(request,  expedition_id)
     

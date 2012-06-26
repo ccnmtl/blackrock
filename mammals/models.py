@@ -9,6 +9,8 @@ from django.db.models.signals import pre_save
 from django.contrib.gis.geos import  *
 from django.contrib.gis.measure import D
 from django.contrib.auth.models import User
+from django.utils import simplejson
+from mammals.grid_math import *
 
 class GridPoint(models.Model):
     """ A point in the grid used to sample the forest. Each square is defined by four points. Since it is a grid, a point can be part of up to four different squares, which violates DRY. So I'm denormalizing."""
@@ -216,6 +218,10 @@ class GridSquare (models.Model):
         """ just the lat long coordinates for the corners."""
         return [[c.lat(), c.lon()] for c in self.corners()]
     
+    def corner_obj_json (self):
+        """ just the lat long coordinates for the corners. (json)"""
+        return simplejson.dumps (self.corner_obj())
+    
     def info_for_display (self):
         result = {}
         result['corner_obj']            = self.corner_obj()
@@ -361,9 +367,6 @@ class TrapLocation(models.Model):
     transect_bearing =  models.FloatField(blank=True, null=True, help_text = "Heading of this bearing")
     transect_distance =  models.FloatField(blank=True, null=True, help_text = "Distance along this bearing")
     
-    
-    
-    
     #Team info:
     team_letter = models.CharField   (blank=True, null=True, help_text = "Name of team responsible for this location.", max_length = 256)
     team_number = models.IntegerField(blank=True, null=True, help_text = "Designates which trap.")
@@ -389,10 +392,21 @@ class TrapLocation(models.Model):
     student_names =  models.TextField (blank=True, null=True, help_text = "Names of the students responsible for this location (this would be filled in, if at all, by the instructor after the students have left the forest.", max_length = 256)
     
     
+    def trap_nickname (self):
+        return "%s%d" % (self.team_letter, self.team_number)
+    
+    def transect_endpoints (self):
+        trig_radians_angle = positive_radians(degrees_to_radians(self.transect_bearing))
+        side_of_square = 250.0 # meters. #TODO move this to settings.
+        transect_length = length_of_transect (trig_radians_angle, side_of_square)
+        square_center = self.expedition.grid_square.center
+        center_point = [square_center.lat(), square_center.lon()]
+        result = {}
+        result ['center'] = [square_center.lat(), square_center.lon()]
+        result ['edge'  ] = list(walk_transect (center_point, transect_length, trig_radians_angle))
+        return result
+       
     def transect_bearing_wrt_magnetic_north(self):
-        #print 'goat'
-        #import pdb
-        #pdb.set_trace()
         result = self.transect_bearing - 13.0
         if result < 0:
             result = result + 360.0

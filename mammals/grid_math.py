@@ -38,14 +38,20 @@ def to_meters_point (p):
 
 def degrees_to_radians(angle):
     return angle * pi / 180.0 
+    
+def positive_radians (angle):
+    if angle < 0:
+        angle += 2 * pi
+    return angle
 
 def hypotenuse (x, y):
     return sqrt( x ** 2 + y ** 2 )
 
 
-def walk (start_point, meters, heading):
+def walk_transect (start_point, meters, heading):
     """ Returns the lat and long of where you get after walking x meters from a starting point following a certain heading. Heading is assumed to be in radians clockwise from north."""
-    
+    #import pdb
+    #pdb.set_trace()
     y, x = to_meters_point (start_point)
     return to_lat_long( y + cos(heading) * meters, x + sin(heading) * meters)
 
@@ -55,6 +61,16 @@ def to_heading (angle_in_radians):
     if a < 0:
         a += 2 * pi
     return a
+
+
+def convert_from_heading_to_trig_radians (angle_in_degrees):
+    """converts from clockwise from north (map standard) to counterclockwise from east (trig standard) """
+    a = 90 - angle_in_degrees
+    if a < 0:
+        a += 360
+    return degrees_to_radians(a)
+
+
 
 def length_of_transect (heading_in_radians, side_of_square):
     """Returns the length of a line connecting the center of a square to its side."""
