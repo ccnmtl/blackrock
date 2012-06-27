@@ -42,8 +42,16 @@ urlpatterns = patterns('',
 	(r'^team_form/(?P<expedition_id>\d+)/(?P<team_letter>\w+)/$', 'blackrock.mammals.views.team_form'),
 	(r'^save_team_form/$', 'blackrock.mammals.views.save_team_form'),
 	
-        #very simple proof of concept map.
+     #very simple proof of concept map.
 	(r'^simple_map/$',              'blackrock.mammals.views.simple_map' ),
+	
+	
+     #species and habitat maps -- for now *all* species
+	(r'^species_map/$',              'blackrock.mammals.views.species_map' ),
+	
+	
+     #and *all* habitats.
+	(r'^habitat_map/$',              'blackrock.mammals.views.habitat_map' ),
 
 	
 	#(r'^selenium/(?P<task>\w+)/$',               'family_info.views.selenium'),

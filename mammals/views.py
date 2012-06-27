@@ -644,6 +644,16 @@ def simple_map(request):
     return {
         'animals':simplejson.dumps(result )
     }
+    
+
+@rendered_with('mammals/species_map.html')
+def species_map(request):
+    return {}
+    
+    
+@rendered_with('mammals/habitat_map.html')
+def habitat_map(request):
+    return {}
 
 
 @csrf_protect

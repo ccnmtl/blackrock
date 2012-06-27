@@ -245,8 +245,8 @@ class GridSquare (models.Model):
     def dir(self):
         return dir(self)
 
-
-
+    
+    
 class ExpeditionCloudCover (LabelMenu):
     pass
 class ExpeditionOvernightTemperature(LabelMenu):
@@ -272,7 +272,7 @@ class Expedition (models.Model):
     def create_from_obj(self, json_obj, creator):
         expedition = Expedition()
         expedition.created_by = creator
-        expedition.number_of_students = 20
+        expedition.number_of_students = 0
         expedition.save()
         
         for transect in json_obj:
@@ -301,7 +301,7 @@ class Expedition (models.Model):
     school_contact_2_email  =  models.CharField(blank=True,  help_text = "Second contact @ the school  -- phone", max_length = 256)
 
 
-    number_of_students = models.IntegerField(help_text = "How many students participated")
+    number_of_students = models.IntegerField(help_text = "How many students participated", default = 0)
     grade_level = models.ForeignKey(GradeLevel,  null=True, blank=True)
 
     grid_square = models.ForeignKey(GridSquare, null=True, blank=True, related_name = "Grid Square", verbose_name="Grid Square used for this expedition")
@@ -331,6 +331,8 @@ class Expedition (models.Model):
     def team_points (self, team_letter):
         return  [p for p in self.traplocation_set.all().order_by('team_number') if p.team_letter == team_letter]
     
+
+
 
 ##################################################
 class TrapLocation(models.Model):
@@ -405,12 +407,35 @@ class TrapLocation(models.Model):
         result ['center'] = [square_center.lat(), square_center.lon()]
         result ['edge'  ] = list(walk_transect (center_point, transect_length, trig_radians_angle))
         return result
+    
+    
+    def set_transect_bearing_wrt_magnetic_north(self, mnb):
+        result  = mnb + 13.0
+        if result < 0:
+            result = result + 360.0
+        if result > 360.0:
+            result = result - 360.0
+            
+        self.transect_bearing = result
+    
+    def set_suggested_lat_lon_from_mag_north (self, heading_degrees_from_mag_north, distance):
+        self.set_transect_bearing_wrt_magnetic_north(heading_degrees_from_mag_north)
+        trig_radians_angle = positive_radians(degrees_to_radians(self.transect_bearing))
+        square_center = self.expedition.grid_square.center
+        center_point = [square_center.lat(), square_center.lon()]
+        suggested_location = list(walk_transect (center_point, distance, trig_radians_angle))
+        self.set_suggested_lat_long(suggested_location)
+        
+        
        
     def transect_bearing_wrt_magnetic_north(self):
         result = self.transect_bearing - 13.0
         if result < 0:
             result = result + 360.0
         return result
+    
+    
+    
     
     
     def set_suggested_lat_long (self, coords):
