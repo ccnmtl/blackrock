@@ -1,1 +1,10 @@
 {% extends "mammals/base_map.html" %}
+{% load smartif %}
+{% block map_help_text%}
+    {% if habitat%}
+        Here are the {{habitat}}:
+    {%else %}
+            Here's a map of all the habitats we've sampled so far.
+    {%endif %}
+{%endblock%}
+

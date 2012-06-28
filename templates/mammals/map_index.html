@@ -2,17 +2,18 @@
 
 {% block title %}Mammals and Habitats{% endblock %}
 
-{% block status_home %}active{% endblock %}
+{%block mammals_nav_map%}class="active"{%endblock%}
 
 {% block container %}
-    <h3>Habitat and Species Maps</h3>
+    <h3>Mammals at Blackrock:</h3>
+    <p><strong><a href="/mammals/species_map/" >Overview</a></strong></p>
     {% for sp in all_species %}    
         <p> <a href="/mammals/species_map/{{sp.id}}/" >{{sp}}</a></p>
     {%endfor%}
-        <p> <a href="/mammals/species_map/" > ** Species overview</a></p>
         
+    <h3>Habitats at Blackrock:</h3>
+    <p><strong><a href="/mammals/habitat_map/" >Overview</a></strong></p>
     {% for ha in all_habitats %}    
         <p> <a href="/mammals/habitat_map/{{ha.id}}/" >{{ha}}</a></p>
     {%endfor%}
-        <p> <a href="/mammals/habitat_map/" > ** Habitat overview</a></p>
 {% endblock %}

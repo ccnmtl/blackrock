@@ -690,12 +690,13 @@ def species_map(request, species_id = None):
     
 @rendered_with('mammals/habitat_map.html')
 def habitat_map(request, habitat_id = None):
-    all_habitats = Habitat.objects.all()
+
+
     if habitat_id:
-        species = Habitat.objects.get (id = habitat_id)
-        points = TrapLocation.objects.filter(habitat=species)
+        habitat = Habitat.objects.get (id = habitat_id)
+        points = TrapLocation.objects.filter(habitat=habitat)
     else:
-        species = None
+        habitat = None
         points = TrapLocation.objects.all()
     
     result = []
@@ -708,7 +709,7 @@ def habitat_map(request, habitat_id = None):
                     })
     return {
         'map_data':simplejson.dumps(result )
-        ,'habitat_id' : habitat_id
+        ,'habitat' : None
     }
     
     

@@ -1,9 +1,6 @@
 {% extends "mammals/base_mammals.html" %}
 {% load smartif %}
-
-
-{%block mammals_nav_simplemap%}class="active"{%endblock%}
-
+{%block mammals_nav_map%}class="active"{%endblock%}
 {% block js %}
     <script type="text/javascript" src="/mammals/media/js/general_map.js"></script>
     {%block extra_map_js%}{%endblock%}
@@ -13,35 +10,10 @@
     {{ block.super }}
 {% endblock %}
 {% block container %}
-
 <div id ="map_data" style="display:none">{{map_data|safe}}</div>    
-<div >
-    <p>
-        {% block map_help_text%}{%endblock%}
-    </p>
-     <div id="map_canvas" style="width: 600px; height: 500px"></div>
+<div height="500px">
+    <p>{% block map_help_text%}{%endblock%}</p>
+    <div id="map_canvas" style="width: 600px; height: 450px"></div>
 </div>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
+<br clear="all" />
 {% endblock %}
-

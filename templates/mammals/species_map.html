@@ -1,1 +1,9 @@
 {% extends "mammals/base_map.html" %}
+{% load smartif %}
+{% block map_help_text%}
+    {% if species %}
+        This is where the {{species}}s live:
+    {%else %}
+        Here are all the animals we've seen so far:
+    {%endif %}
+{%endblock%}
