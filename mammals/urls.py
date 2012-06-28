@@ -45,13 +45,13 @@ urlpatterns = patterns('',
      #very simple proof of concept map.
 	(r'^simple_map/$',              'blackrock.mammals.views.simple_map' ),
 	
+	(r'^map_index/$',              'blackrock.mammals.views.map_index' ),
 	
-     #species and habitat maps -- for now *all* species
 	(r'^species_map/$',              'blackrock.mammals.views.species_map' ),
+	(r'^species_map/(?P<species_id>\d+)/$',              'blackrock.mammals.views.species_map' ),
 	
-	
-     #and *all* habitats.
 	(r'^habitat_map/$',              'blackrock.mammals.views.habitat_map' ),
+	(r'^habitat_map/(?P<habitat_id>\d+)/$',              'blackrock.mammals.views.habitat_map' ),
 
 	
 	#(r'^selenium/(?P<task>\w+)/$',               'family_info.views.selenium'),

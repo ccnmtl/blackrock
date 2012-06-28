@@ -646,16 +646,73 @@ def simple_map(request):
     }
     
 
+@rendered_with('mammals/map_index.html')
+def map_index(request):
+    species_set = set()
+    habitat_set = set()
+    for tr in  TrapLocation.objects.all():
+        if tr.animal:
+            species_set.add(tr.animal.species)
+        if tr.habitat:
+            habitat_set.add(tr.habitat)
+    
+    all_species  = Species.objects.all()
+    all_habitats = Habitat.objects.all()
+    
+    return {
+        'all_species':    list (species_set)
+        ,'all_habitats' : list (habitat_set)
+    }
+    
+
 @rendered_with('mammals/species_map.html')
-def species_map(request):
-    return {}
+def species_map(request, species_id = None):
+    if species_id:
+        species = Species.objects.get (id = species_id)
+        animals = Animal.objects.filter(species=species)
+    else:
+        species = None
+        animals = Animal.objects.all()
+    result = []
+    for a in animals:
+        if len(a.traplocation_set.all()):
+            a_place = a.traplocation_set.all()[0]
+            where = [a_place.lat(), a_place.lon()] 
+            result.append ({
+                    'name': a.species.common_name,
+                    'where': where
+                    } )
+    return {
+        'map_data':simplejson.dumps(result )
+        , 'species' : species
+    }
     
     
 @rendered_with('mammals/habitat_map.html')
-def habitat_map(request):
-    return {}
-
-
+def habitat_map(request, habitat_id = None):
+    all_habitats = Habitat.objects.all()
+    if habitat_id:
+        species = Habitat.objects.get (id = habitat_id)
+        points = TrapLocation.objects.filter(habitat=species)
+    else:
+        species = None
+        points = TrapLocation.objects.all()
+    
+    result = []
+    for p in points:
+        if p.habitat:
+            where = [p.lat(), p.lon()] 
+            result.append ({
+                    'name': p.habitat.label
+                    , 'where': where
+                    })
+    return {
+        'map_data':simplejson.dumps(result )
+        ,'habitat_id' : habitat_id
+    }
+    
+    
+    
 @csrf_protect
 @rendered_with('mammals/grid_square_print.html')
 def grid_square_print(request):

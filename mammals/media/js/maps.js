@@ -432,7 +432,6 @@ if (!Portal.Map) {
             }
 
             if (typeof addSimpleMap !== "undefined") {
-		console.log (self.mapInstance);
                 addSimpleMap(self.mapInstance);
             }
             
