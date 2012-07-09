@@ -29,8 +29,13 @@ def test_heatmap():
         (41.41, -74.03)
     ]
     
+    base_path = "mammals/media/kml/test"
     img_test_path    = 'mammals/media/images/heatmaps/'
+    img_mammals_path = 'mammals/media/images/heatmaps/mammals/'
+    img_species_path = 'mammals/media/images/heatmaps/species/'
     
+    
+    print "%stest.png" % img_test_path
     hm = Heatmap()  
     hm.heatmap(the_points, "%stest.png" % img_test_path)
    

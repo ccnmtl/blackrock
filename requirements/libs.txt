@@ -22,4 +22,3 @@ requirements/src/pysolr-2.0.14-beta.tar.gz
 requirements/src/gdata-2.0.10.tar.gz
 requirements/src/django-tinymce-1.5.1a1.tar.gz
 requirements/src/BeautifulSoup-3.0.0.tar.gz
-requirements/src/heatmap-1.0.tar.gz 

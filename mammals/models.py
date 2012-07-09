@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 from django.utils import simplejson
 from mammals.grid_math import *
 import os
-from blackrock.mammals.management.commands import heatmap
+from blackrock.mammals.heatmap import heatmap
 
 
 class GridPoint(models.Model):
@@ -93,8 +93,8 @@ class Species(models.Model):
         return dir(self)
 
 
-    def kml_heatmap(self):
-        """returns a KML file of the distribution of this habitat in the forest"""
+    def ground_overlay_heatmap(self):
+        """returns a PNG of the distribution of this habitat in the forest"""
         pts = []
         animals = Animal.objects.filter(species=self)
         for a in animals:
@@ -171,8 +171,8 @@ class Habitat (models.Model):
     def dir(self):
         return dir(self)
     
-    def kml_heatmap(self):
-        """returns a KML file of the distribution of this habitat in the forest"""
+    def ground_overlay_heatmap(self):
+        """returns a png file of the distribution of this habitat in the forest"""
         pts = []
         for p in TrapLocation.objects.filter(habitat=self):
             pts.append ((p.lat(), p.lon()))
