@@ -690,8 +690,6 @@ def species_map(request, species_id = None):
     
 @rendered_with('mammals/habitat_map.html')
 def habitat_map(request, habitat_id = None):
-
-
     if habitat_id:
         habitat = Habitat.objects.get (id = habitat_id)
         points = TrapLocation.objects.filter(habitat=habitat)
@@ -708,9 +706,24 @@ def habitat_map(request, habitat_id = None):
                     , 'where': where
                     })
     return {
-        'map_data':simplejson.dumps(result )
-        ,'habitat' : None
+        'map_data':  simplejson.dumps(result )
+        ,'habitat' : habitat
     }
+    
+    
+#	(r'^test_heatmaps/$',              'blackrock.mammals.views.test_heatmaps' ),
+@rendered_with('mammals/test_heatmaps.html')
+def test_heatmaps(request, habitat_id = None):
+    result = [
+        { 'name': 'A', 'where': (41.40, -74.00)}
+        ,{'name': 'B', 'where': (41.40, -74.03)}
+        ,{'name': 'C', 'where': (41.41, -74.03)}
+    ]
+    return {
+        'map_data':  simplejson.dumps(result )
+        ,'habitat' : 'Testing habitat maps.'
+    }
+    
     
     
     

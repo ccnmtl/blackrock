@@ -11,6 +11,9 @@ from django.contrib.gis.measure import D
 from django.contrib.auth.models import User
 from django.utils import simplejson
 from mammals.grid_math import *
+import os
+from blackrock.mammals.management.commands import heatmap
+
 
 class GridPoint(models.Model):
     """ A point in the grid used to sample the forest. Each square is defined by four points. Since it is a grid, a point can be part of up to four different squares, which violates DRY. So I'm denormalizing."""
@@ -58,7 +61,6 @@ class GridPoint(models.Model):
         return dir(self)
 
 class GradeLevel (models.Model):
-
     def __unicode__(self):
         return self.label
     label =  models.CharField(blank=True, help_text = "The name of the grade level", max_length = 256)
@@ -67,7 +69,6 @@ class GradeLevel (models.Model):
         return dir(self)
 
 class Bait (models.Model):
-
     def __unicode__(self):
         return self.bait_name
     bait_name =  models.CharField(blank=True, help_text = "Label for the type of bait", max_length = 256)
@@ -78,7 +79,6 @@ class Bait (models.Model):
 
     def dir(self):
         return dir(self)
-        
         
 class Species(models.Model):
     def __unicode__(self):
@@ -91,6 +91,22 @@ class Species(models.Model):
         verbose_name_plural = "Species" # http://en.wikipedia.org/wiki/Latin_declension#Fifth_declension_.28e.29
     def dir(self):
         return dir(self)
+
+
+    def kml_heatmap(self):
+        """returns a KML file of the distribution of this habitat in the forest"""
+        pts = []
+        animals = Animal.objects.filter(species=self)
+        for a in animals:
+            if len(a.traplocation_set.all()):
+                a_place = a.traplocation_set.all()[0]
+                pts.append ((a_place.lat(), a_place.lon()))
+        if len (pts) > 0:
+            hm = heatmap.Heatmap()
+            img_species_path = 'mammals/media/images/heatmaps/species/'
+            hm.heatmap(pts, "%s%d.png" % (img_species_path, self.id))
+           
+
 
 class LabelMenu (models.Model):    
     def __unicode__(self):
@@ -146,18 +162,25 @@ class Trap (models.Model):
         
         
 class Habitat (models.Model):
-    
     def __unicode__(self):
         return self.label
 
     label =  models.CharField(blank=True, help_text = "Short label for this habitat.", max_length = 256)
     blurb =  models.TextField(blank=True, help_text = "Notes about this habitat (for a habitat page).")
     
-
     def dir(self):
         return dir(self)
     
-
+    def kml_heatmap(self):
+        """returns a KML file of the distribution of this habitat in the forest"""
+        pts = []
+        for p in TrapLocation.objects.filter(habitat=self):
+            pts.append ((p.lat(), p.lon()))
+        if len (pts) > 0:
+            hm = heatmap.Heatmap()
+            img_habitat_path = 'mammals/media/images/heatmaps/habitats/'
+            hm.heatmap(pts, "%s%d.png" % (img_habitat_path, self.id))
+            
     
 class GridSquare (models.Model):
     """ A square in the grid used to sample the forest. Each square has four points. Contiguous squares will, obviously, have points in common."""

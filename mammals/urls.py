@@ -50,6 +50,9 @@ urlpatterns = patterns('',
 	(r'^habitat_map/$',              'blackrock.mammals.views.habitat_map' ),
 	(r'^habitat_map/(?P<habitat_id>\d+)/$',              'blackrock.mammals.views.habitat_map' ),
 
+
+
+	(r'^test_heatmaps/$',              'blackrock.mammals.views.test_heatmaps' ),
 	
 	#(r'^selenium/(?P<task>\w+)/$',               'family_info.views.selenium'),
 

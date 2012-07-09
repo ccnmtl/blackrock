@@ -9,8 +9,8 @@ from blackrock.mammals.models import *
 
 class Command(BaseCommand):
     def handle(self, *app_labels, **options):
-        GridPoint.objects.all().delete()
-        GridSquare.objects.all().delete()
+        #GridPoint.objects.all().delete()
+        #GridSquare.objects.all().delete()
         all_points = []
         grid_obj = simplejson.loads(grid_json)
         label_int = 0        
