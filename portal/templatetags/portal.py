@@ -145,9 +145,10 @@ def search_name(obj):
 @register.filter('gallery')
 def gallery(obj):
     images = []
-    display_image = obj.display_image
-    if display_image and display_image.digital_format.is_image() and display_image.file:
-        images.append(display_image)
+    if hasattr(obj, 'display_image'):
+        display_image = obj.display_image
+        if display_image and display_image.digital_format.is_image() and display_image.file:
+            images.append(display_image)
         
     if hasattr(obj, 'digital_object'):
         for d in obj.digital_object.all():
