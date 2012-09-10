@@ -41,6 +41,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
+    'blackrock.portal.middleware.ValueErrorMiddleware'
 )
 
 ROOT_URLCONF = 'blackrock.urls'
