@@ -291,7 +291,7 @@
 		<tr>
 			<th>Step 1: Start your graph.</th>
 			<th>Graph Title:</th>
-			<td><input type="text" name="title" value="{{graph_title}}" maxlength="25"/></td>
+			<td><input type="text" name="title" value="{{graph_title}}"/></td>
 			<th>Graph Type:</th>
 			<td><input type="submit" name="type" value="time-series" /></td>
 			<td><input type="submit" name="type" value="scatter-plot" /></td>
@@ -375,7 +375,7 @@
 	{% for line in lines %}
 	<td>
 	<b>Threshold Label:</b><br />
-	<input type="text" name="line_label_{{line.n}}" value="{{line.label}}" maxlength="15"/>
+	<input type="text" name="line_label_{{line.n}}" value="{{line.label}}" />
 	<br />
 	<b>Threshold Value:</b><br />
 	<input type="text" name="line_value_{{line.n}}"value="{{line.value}}" />
@@ -386,7 +386,7 @@
 	{% with lines|length as n %}
 	<td>
 	<b>Threshold Label:</b><br />
-	<input type="text" name="line_label_{{n}}" value=""  maxlength="15"/>
+	<input type="text" name="line_label_{{n}}" value="" />
 	<br />
 	<b>Threshold Value:</b><br />
 	<input type="text" name="line_value_{{n}}"value="" />
@@ -424,7 +424,7 @@
 		<tr>
 			<th>Step 1: Start your graph.</th>
 			<th>Enter Graph Title:</th>
-			<td><input type="text" name="title" value="{{graph_title}}" maxlength="25"/></td>
+			<td><input type="text" name="title" value="{{graph_title}}" /></td>
 			<th>Choose Graph Type:</th>
 			<td><input type="submit" name="type" value="time-series" /></td>
 			<td><input type="submit" name="type" value="scatter-plot" /></td>

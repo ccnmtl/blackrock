@@ -174,7 +174,7 @@ def graphing_tool(request):
     data['seconds'] = t.seconds
     data['days'] = t.days
     data['type'] = graph_type
-    data['graph_title'] = request.GET.get('title',"")[:25]
+    data['graph_title'] = request.GET.get('title',"")[:50]
     return data
 
 
