@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
 from datetime import datetime, timedelta
 import math
 from django.conf import settings
+import re
 
 class rendered_with(object):
     def __init__(self, template_name):
@@ -175,6 +176,8 @@ def graphing_tool(request):
     data['days'] = t.days
     data['type'] = graph_type
     data['graph_title'] = request.GET.get('title',"")[:50]
+    p = re.compile(r'\W+')
+    data['filename_base'] = p.sub('_', data['graph_title'])
     return data
 
 
