@@ -260,6 +260,14 @@
 
 {% block content %}
 
+{% if error %}
+<div id="error-message">
+<h2>Error</h2>
+<p>{{error}}</p>
+</div>
+
+{% endif %}
+
 <div id="contentcontainer">
 	
 	<h3>Using the Graphing Tool</h3>

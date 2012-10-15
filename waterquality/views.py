@@ -30,6 +30,11 @@ def index(request):
 def teaching(request):
     return dict()
 
+
+def parse_date(s):
+    (year,month,day) = s.split("-")
+    return datetime(int(year),int(month),int(day))
+
 @rendered_with('waterquality/graphing_tool.html')
 def graphing_tool(request):
     data = dict()
@@ -41,14 +46,20 @@ def graphing_tool(request):
     if not start:
         start = get_default_start()
     else:
-        (year,month,day) = start.split("-")
-        start = datetime(int(year),int(month),int(day))
+        try:
+            start = parse_date(start)
+        except:
+            data['error'] = "invalid start date: %s" % start
+            return data
 
     if not end:
         end = get_default_end()
     else:
-        (year,month,day) = end.split("-")
-        end = datetime(int(year),int(month),int(day))
+        try:
+            end = parse_date(end)
+        except:
+            data['error'] = "invalid end date: %s" % end
+            return data
 
     data["start"] = start
     data["end"] = end
