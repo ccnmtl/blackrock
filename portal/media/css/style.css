@@ -123,9 +123,8 @@ div#mainnav ul li:hover {
    color: black;
 }
 
-div#mainnav ul li.search:hover
-
-{background-image: url("../images/searchicon_hover.png");
+div#mainnav ul li.search:hover {
+    background-image: url("../images/searchicon_hover.png");
 }
 
 div#mainnav ul li.search.selected:hover
@@ -436,7 +435,7 @@ div#map_actions {
 }
 
 div#map_actions a {
-	background: url("images/ui-bg_glass_75_dadada_1x400.png") repeat-x scroll 50% 50% #DADADA;
+	background: url("/site_media/js/jquery-ui-1.8.11.custom/css/smoothness/images/ui-bg_glass_75_dadada_1x400.png") repeat-x scroll 50% 50% #DADADA;
     border: 1px solid #999999;
     color: #212121;
 	display: block;
@@ -796,7 +795,7 @@ div.asset-types {
 /*Weather Page*/
 
 div#weather {
-	padding: 10px;
+	padding: 0 10px;
 	font-weight: bold;
 }
 
@@ -805,8 +804,16 @@ div#forestcam h3 {
 	color: #297643;
 }
 
+div#weather h3 {
+    border: 1px solid darkGray;
+    padding: 5px;
+    width: 400px;
+    display: block;
+    margin: 0;
+}
+
 div#weather h5,
-div#forestcam h5{
+div#forestcam h5 {
     margin: 0;
     padding: 0;
     text-decoration: none;
@@ -940,19 +947,44 @@ div#weather ul li a.selected {
 }
 
 a#rawdata, a#historicdata {
-	background: url("images/ui-bg_glass_75_dadada_1x400.png") repeat-x scroll 50% 50% #DADADA;
+	background: url("/site_media/js/jquery-ui-1.8.11.custom/css/smoothness/images/ui-bg_glass_75_dadada_1x400.png") repeat-x scroll 50% 50% #DADADA;
     border: 1px solid #999999;
     color: #212121;
 	display: block;
 	padding: 2px 6px;
-	margin: 3px;
+	margin: -3px 3px 3px 3px;
 	border-radius: 10px;
 	-webkit-border-radius: 10px;
 	text-decoration: none;
 	float: right;
 	font-weight: normal;
-	
+}
 
+img#weather-station-selector {
+    float: right;
+}
+
+div#weather-station-list { 
+    position: absolute;
+    background-color: white;
+    left: 10px;
+    border-left: 1px solid darkGray;
+    border-right: 1px solid darkGray;
+    border-bottom: 1px solid darkGray;
+    width: 416px;
+}
+
+div#weather-station-list h4 {
+    margin: 0;
+    padding: 10px;
+}
+
+div#weather-station-list h4:hover {
+    background-color: #e4dbcc;
+}
+
+div#weather-station-list h4 a {
+    text-decoration: none;
 }
 
 

@@ -2,6 +2,18 @@
 {% load portal %}
 
 <script type="text/javascript">
+    var stations = {
+        'Open Lowland Station': { 
+            'prefix': 'OL_',
+        },
+        'Ridgetop Station': { 
+            'prefix': 'RT_', 
+            'ozone': false,
+            'co2': false
+        }
+    };
+    var currentStation = 'Open Lowland Station';
+    
     function timerange(value) {
         jQuery(".weather-image").hide();
         
@@ -14,6 +26,38 @@
     }
 
     jQuery(document).ready(function() {
+        jQuery("#weather-station-selector").click(function() {
+            jQuery("#weather-station-list").toggle();
+        });
+        jQuery("#weather-station-list h4").click(function(evt) {
+            var srcElement = evt.srcElement || evt.target || evt.originalTarget;
+            jQuery("#weather-station-list").toggle();
+            
+            // Replace titles & images according to recipe
+            jQuery("div.pagetitle h3 span.station-name").html(jQuery(srcElement).html());
+            
+            var newStation = jQuery(srcElement).children('a').html();
+            if (currentStation != newStation) {
+
+                jQuery("a.weather-category-selector").each(function(idx, elt) {
+                   // does this station support this category?
+                   var property = jQuery(elt).attr('id');
+                   if (stations[newStation].hasOwnProperty(property) && !stations[newStation][property]) {
+                       jQuery(elt).parent().hide();
+                   } else {
+                       jQuery(elt).parent().show();
+                   }
+                });
+                
+                jQuery("div.weather-image img").each(function(idx, elt) {
+                    // replace the prefix with this station's prefix
+                    var newSrc = jQuery(elt).attr("src").replace(stations[currentStation].prefix, stations[newStation].prefix);
+                    jQuery(elt).attr("src", newSrc);
+                });
+                    
+                currentStation = newStation;
+            }
+        });
         jQuery(".weather-category-selector").click(function() {
             jQuery(".weather-category-selector").removeClass("selected");
             jQuery(this).addClass("selected");
@@ -35,18 +79,31 @@
 </script>
 
 <div id="weather">
-    <div class="pagetitle">
-        <img src="/portal/media/images/nonmapicon_environmentalmonitoringstations.png" alt="record type icon" /><h3><a href="/portal/browse/portal/station/objects/1/">Open Lowland Station</a>: Elevation 270 feet</h3>
+    <div class="pagetitle">        
+        <h3>
+            <img src="/portal/media/images/nonmapicon_environmentalmonitoringstations.png" alt="record type icon" />
+            <span class="station-name"><a href="/portal/browse/portal/station/objects/1/">Open Lowland Station</a>: Elevation 270 feet</span>
+            <img id="weather-station-selector" src="/portal/media/images/down_arrow_brown.png" alt="Open Station List" />
+        </h3>
+                
+        <div id="weather-station-list" style="display: none">
+            <h4><a href="/portal/browse/portal/station/objects/1/">Open Lowland Station</a>: Elevation 270 feet</h4>
+            <h4><a href="/portal/browse/portal/station/objects/2/">Ridgetop Station</a>: Elevation 1400 feet</h4>
+        </div>        
+    </div>
+        
+	<div class="header-row">
+        <h5>
+        Data as of {% now "g a" %} on {% now "m/d/Y" %} (Updated Hourly)
         
         <span class="tools">
             <a href="/portal/browse/portal/dataset/objects/20" id="historicdata">View Historic Data</a>
             <a href="http://ccnmtl.columbia.edu/projects/blackrock/forestdata/data/current/Building_Daily.csv" id="rawdata">Download Raw Data (YTD)</a>
         </span>
+        </h5>
     </div>
-        
-	<div class="header-row"><h5 id="header-copy">Data as of {% now "g a" %} on {% now "m/d/Y" %} (Updated Hourly)</h5></div>
     
-	<div id="weather-viewer">
+	<div>
 		<ul>
 			<li class="aag">At a Glance</li>
 			<li><a class="weather-category-selector selected" id="air-soil">Air and Soil Temperature</a></li>
@@ -68,34 +125,34 @@
         </div>
          	
         <!-- Air Soil -->
-		<div class="weather-image air-soil twentyfourhours"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/OL_Air-Soil-24Hr.png' alt="Air &amp; Soil 24 hours"/></div>
-        <div class="weather-image air-soil sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/OL_Air-Soil-7Day.png' alt="Air &amp; 7 Days"/></div>
-        <div class="weather-image air-soil thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/OL_Air-Soil-30Day.png' alt="Air &amp; Soil 30 Days"/></div>
+		<div class="weather-image air-soil twentyfourhours"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Air-Soil-24Hr.png' alt="Air &amp; Soil 24 hours"/></div>
+        <div class="weather-image air-soil sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Air-Soil-7Day.png' alt="Air &amp; 7 Days"/></div>
+        <div class="weather-image air-soil thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Air-Soil-30Day.png' alt="Air &amp; Soil 30 Days"/></div>
 
         <!-- Precipitation -->
-        <div class="weather-image precip twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/OL_Precip-24Hr.png' alt="Precipitation 24 hours"/></div>
-        <div class="weather-image precip sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/OL_Precip-7Day.png' alt="Precipitation 7 Days"/></div>
-        <div class="weather-image precip thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/OL_Precip-30Day.png' alt="Precipitation 30 days"/></div>
+        <div class="weather-image precip twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Precip-24Hr.png' alt="Precipitation 24 hours"/></div>
+        <div class="weather-image precip sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Precip-7Day.png' alt="Precipitation 7 Days"/></div>
+        <div class="weather-image precip thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Precip-30Day.png' alt="Precipitation 30 days"/></div>
         
         <!-- Wind -->
-        <div class="weather-image wind twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/OL_Wind-24Hr.png' alt="Wind 24 hours" /></div>
-        <div class="weather-image wind sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/OL_Wind-7Day.png' alt = "Wind 7 Days" /></div>
-        <div class="weather-image wind thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/OL_Wind-30Day.png' alt="Wind 30 Days" /></div>
+        <div class="weather-image wind twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Wind-24Hr.png' alt="Wind 24 hours" /></div>
+        <div class="weather-image wind sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Wind-7Day.png' alt = "Wind 7 Days" /></div>
+        <div class="weather-image wind thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Wind-30Day.png' alt="Wind 30 Days" /></div>
         
         <!-- Baro -->
-        <div class="weather-image baro twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/OL_Baro-24Hr.png' alt="Barometric Pressure 24 hours" /></div>
-        <div class="weather-image baro sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/OL_Baro-7Day.png' alt="Barometric Pressure 7 Days" /></div>
-        <div class="weather-image baro thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/OL_Baro-30Day.png' alt="Barometric Pressure 30 Days" /></div>
+        <div class="weather-image baro twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Baro-24Hr.png' alt="Barometric Pressure 24 hours" /></div>
+        <div class="weather-image baro sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Baro-7Day.png' alt="Barometric Pressure 7 Days" /></div>
+        <div class="weather-image baro thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Baro-30Day.png' alt="Barometric Pressure 30 Days" /></div>
         
         <!-- Ozone -->
-        <div class="weather-image ozone twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/OL_Ozone-24Hr.png' alt="Ozone Levels 24 hours" /></div>
-        <div class="weather-image ozone sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/OL_Ozone-7Day.png' alt="Ozone Levels 7 Days" /></div>
-        <div class="weather-image ozone thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/OL_Ozone-30Day.png' alt="Ozone Levels 30 Days" /></div>
+        <div class="weather-image ozone twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Ozone-24Hr.png' alt="Ozone Levels 24 hours" /></div>
+        <div class="weather-image ozone sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Ozone-7Day.png' alt="Ozone Levels 7 Days" /></div>
+        <div class="weather-image ozone thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Ozone-30Day.png' alt="Ozone Levels 30 Days" /></div>
 
         <!-- CO2 -->
-        <div class="weather-image co2 twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/OL_CO2-24Hr.png' alt="Carbon Dioxide 24 hours" /></div>
-        <div class="weather-image co2 sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/OL_CO2-7Day.png' alt="Carbon Dioxide 7 Days" /></div>
-        <div class="weather-image co2 thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}/data/current/OL_CO2-30Day.png' alt="Carbon Dioxide 30 Days" /></div>
+        <div class="weather-image co2 twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_CO2-24Hr.png' alt="Carbon Dioxide 24 hours" /></div>
+        <div class="weather-image co2 sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_CO2-7Day.png' alt="Carbon Dioxide 7 Days" /></div>
+        <div class="weather-image co2 thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_CO2-30Day.png' alt="Carbon Dioxide 30 Days" /></div>
         
    </div>
 </div>
