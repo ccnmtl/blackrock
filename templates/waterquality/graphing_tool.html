@@ -12,7 +12,7 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript"></script>
 	
 	<script src="/site_media/js/facebox.js" type="text/javascript"></script>
-	<script src="/site_media/js/highcharts.js" type="text/javascript"></script>
+  <script src="/site_media/js/highcharts.js" type="text/javascript"></script>
 	<script src="/site_media/js/modules/exporting.js" type="text/javascript"></script>
 
 	{% if not show_graph %}
@@ -77,6 +77,7 @@
 	
 	{% endifequal %}
 		 tooltip: {
+        xDateFormat: '%H:%M %A, %b %e, %Y',
 	{% ifequal type "time-series" %}
 		    shared: true               
 	{% else %}
@@ -215,7 +216,8 @@
 	
 	{% endifequal %}
 		 exporting: {
-		    enabled: true
+		    enabled: true,
+        filename: '{{filename_base}}'
 		 }
 	
 	   });
@@ -258,6 +260,14 @@
 
 {% block content %}
 
+{% if error %}
+<div id="error-message">
+<h2>Error</h2>
+<p>{{error}}</p>
+</div>
+
+{% endif %}
+
 <div id="contentcontainer">
 	
 	<h3>Using the Graphing Tool</h3>
@@ -290,7 +300,7 @@
 		<tr>
 			<th>Step 1: Start your graph.</th>
 			<th>Graph Title:</th>
-			<td><input type="text" name="title" value="{{graph_title}}" maxlength="25"/></td>
+			<td><input type="text" name="title" value="{{graph_title}}"/></td>
 			<th>Graph Type:</th>
 			<td><input type="submit" name="type" value="time-series" /></td>
 			<td><input type="submit" name="type" value="scatter-plot" /></td>
@@ -374,7 +384,7 @@
 	{% for line in lines %}
 	<td>
 	<b>Threshold Label:</b><br />
-	<input type="text" name="line_label_{{line.n}}" value="{{line.label}}" maxlength="15"/>
+	<input type="text" name="line_label_{{line.n}}" value="{{line.label}}" />
 	<br />
 	<b>Threshold Value:</b><br />
 	<input type="text" name="line_value_{{line.n}}"value="{{line.value}}" />
@@ -385,7 +395,7 @@
 	{% with lines|length as n %}
 	<td>
 	<b>Threshold Label:</b><br />
-	<input type="text" name="line_label_{{n}}" value=""  maxlength="15"/>
+	<input type="text" name="line_label_{{n}}" value="" />
 	<br />
 	<b>Threshold Value:</b><br />
 	<input type="text" name="line_value_{{n}}"value="" />
@@ -423,7 +433,7 @@
 		<tr>
 			<th>Step 1: Start your graph.</th>
 			<th>Enter Graph Title:</th>
-			<td><input type="text" name="title" value="{{graph_title}}" maxlength="25"/></td>
+			<td><input type="text" name="title" value="{{graph_title}}" /></td>
 			<th>Choose Graph Type:</th>
 			<td><input type="submit" name="type" value="time-series" /></td>
 			<td><input type="submit" name="type" value="scatter-plot" /></td>

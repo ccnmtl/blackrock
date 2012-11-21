@@ -8,4 +8,8 @@ deploy_specific
 ve-bootstrap.py
 local_settings.py
 x/*
+.project
+.pydevproject
+.settings/
+uploads/
 *.DS_Store

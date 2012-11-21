@@ -106,3 +106,14 @@ table.graphtable th, table.graphtable td
 	color: #fff;
 	text-decoration: none !important;
 }
+
+#error-message {
+  border: #f00 solid 2px;
+	width: 500px;
+	padding: 20px;
+	margin: 10px;
+}
+
+#error-message h2 {
+  color: #f00;
+}
