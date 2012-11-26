@@ -128,3 +128,9 @@ div.screenshot {
 {
     width: 1100px;
 }
+
+.landingSlideshow
+{ height: 332px; width: 432px; float: right; }
+
+.landingSlideshow img
+{ padding: 0 0 0 20px; border: none; background-color: transparent; }
