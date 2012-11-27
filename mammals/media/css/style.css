@@ -84,12 +84,6 @@ div#nav ol li a.active, div#nav ul li.active { background-color: #ffffff; }
 	max-width: 1200px;
 }
 
-h1#masthead a
-{
-	color: #fff;
-	text-decoration: none;
-}
-
 #left
 {
 	display: block;

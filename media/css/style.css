@@ -18,6 +18,12 @@ h1#masthead
 	border-top: 3px #435142 solid;
 }
 
+h1#masthead a
+{
+	color: #fff;
+	text-decoration: none;
+}
+
 #masthead_top 
 
 {
