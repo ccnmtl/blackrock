@@ -12,3 +12,4 @@ x/*
 .pydevproject
 .settings/
 uploads/
+*.DS_Store
