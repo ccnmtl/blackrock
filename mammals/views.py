@@ -17,6 +17,8 @@ from django.utils import simplejson
 from django.shortcuts import render_to_response
 from django.template import RequestContext,  TemplateDoesNotExist
 from blackrock.mammals.models import *
+#from blackrock.mammals.models import whether_this_user_can_see_mammals_module_data_entry
+
 from operator import attrgetter
 from string import uppercase
 from django.contrib.auth import authenticate, login
@@ -179,7 +181,10 @@ def grid_block(request):
 
     return {
         'block_json': simplejson.dumps(block)
+        
+        ,'show_save_button'                          :  whether_this_user_can_see_mammals_module_data_entry (request.user)
         ,'sandbox'                                   :  False
+        
 
         #TODO: fix this -- incomplete refactor. These two variables refer to exactly the same thing: the database ID of the square we selected.
         ,'selected_block_database_id'                :  selected_block_database_id
@@ -309,6 +314,8 @@ def grid_square_csv(request):
             writer.writerow(row_to_output(point, transect))
     return response
 
+
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 def set_up_expedition (request):
     if request.POST.has_key ('transects_json') and request.POST['transects_json'] != 'None':
         transects_json = request.POST.get('transects_json')
@@ -333,19 +340,19 @@ def mammals_login(request, expedition_id = None):
         ,'grid_square_id' : request.POST.get('grid_square_id')
         ,'expedition_id' : expedition_id
     }
-    return result 
+    return result
+    
 
 @csrf_protect
 @rendered_with('mammals/expedition.html')
 def process_login_and_go_to_expedition(request):
-    
     username = request.POST['username']
     password = request.POST['password']
     user = authenticate(username=username, password=password)
     if user is not None and  user.is_active:
         login(request, user)
     
-        #TODO: new_expedition should really be 2 different methods -- one for creating a new expedition and one for bring up an ond one.
+        #TODO: new_expedition should really be 2 different methods -- one for creating a new expedition and one for bring up an old one.
         if request.POST.has_key('expedition_id') and request.POST['expedition_id'] != 'None':
             return new_expedition(request)        
         if request.POST.has_key('transects_json') and request.POST['transects_json'] != 'None':
@@ -353,16 +360,14 @@ def process_login_and_go_to_expedition(request):
         #the user just wants to see all the expeditions.
         return all_expeditions(request)
 
-
-    return login(request, user)
+    return HttpResponseRedirect ( '/mammals/login/')
+    #return login(request, user)
         
 #TODO: rename this method. it's either new or find.
 @csrf_protect
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 @rendered_with('mammals/expedition.html')
 def new_expedition(request):
-    if not request.user.is_staff:
-        return mammals_login(request)
-    
     the_new_expedition = set_up_expedition(request)
     return HttpResponseRedirect ( '/mammals/expedition/%d/' % the_new_expedition.id)
 
@@ -370,11 +375,11 @@ def new_expedition(request):
 @rendered_with('mammals/expedition.html')
 def expedition(request, expedition_id):
 
-    if not request.user.is_staff:
+    if not whether_this_user_can_see_mammals_module_data_entry(request.user):
         return mammals_login(request, expedition_id)
 
     exp = Expedition.objects.get(id =expedition_id)
-    if not request.user.is_staff:
+    if not whether_this_user_can_see_mammals_module_data_entry(request.user):
         return mammals_login(request, expedition_id)
     grades = GradeLevel.objects.all()
     return {
@@ -386,7 +391,7 @@ def expedition(request, expedition_id):
 @rendered_with('mammals/expedition.html')
 def edit_expedition(request, expedition_id):
     exp = Expedition.objects.get(id =expedition_id)
-    if not request.user.is_staff:
+    if not whether_this_user_can_see_mammals_module_data_entry(request.user):
         return mammals_login(request, expedition_id)
     rp = request.POST
     if rp:
@@ -409,7 +414,7 @@ def edit_expedition(request, expedition_id):
 @rendered_with('mammals/expedition_animals.html')
 def expedition_animals(request, expedition_id):
     exp = Expedition.objects.get(id =expedition_id)
-    if not request.user.is_staff:
+    if not whether_this_user_can_see_mammals_module_data_entry(request.user):
         return mammals_login(request, expedition_id)
     
     return {
@@ -424,10 +429,8 @@ def expedition_animals(request, expedition_id):
 
 
 @rendered_with('mammals/all_expeditions.html')
-def all_expeditions(request):
-    if not request.user.is_staff:
-        return mammals_login(request)
-        
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
+def all_expeditions(request):        
     expeditions = Expedition.objects.all().order_by('-start_date_of_expedition')
     return {
         'expeditions' : expeditions
@@ -436,11 +439,9 @@ def all_expeditions(request):
     
 
 @csrf_protect
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 @rendered_with('mammals/team_form.html')
 def team_form(request, expedition_id, team_letter):
-
-    if not request.user.is_staff:
-        return mammals_login(request)
 
     baits = Bait.objects.all()
     species = Species.objects.all()
@@ -467,6 +468,7 @@ def team_form(request, expedition_id, team_letter):
 
 
 @csrf_protect
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 def save_team_form(request):
     rp = request.POST
     expedition_id = rp['expedition_id']
@@ -598,6 +600,7 @@ def save_team_form(request):
     
     
 @csrf_protect
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 def save_expedition_animals(request):
     rp = request.POST
     expedition_id = rp['expedition_id']
@@ -803,6 +806,10 @@ def sandbox_grid_block(request):
         ,'transects_json'                            :  simplejson.dumps(transects)
         ,'sandbox'                                   :  True
         ,'transects'                                 :  transects
-    
+        ,'show_save_button'                          :  False
     }
+
+
+
+
 

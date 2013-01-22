@@ -298,6 +298,7 @@ class Expedition (models.Model):
         expedition.number_of_students = 0
         expedition.save()
         
+
         for transect in json_obj:
             for point in transect['points']:
                 new_trap_location = TrapLocation.create_from_obj(transect, point, expedition)
@@ -462,10 +463,16 @@ class TrapLocation(models.Model):
     
     
     def set_suggested_lat_long (self, coords):
+        # see 
+        # https://code.djangoproject.com/attachment/ticket/16778/postgis-adapter-2.patch
+        # if this breaks again.
         self.suggested_point = "POINT(%s %s)" % (coords[0], coords[1])
         
     def set_actual_lat_long (self, coords):
-        self.actual_point = "POINT(%s %s)" % (coords[0], coords[1])
+        # see 
+        # https://code.djangoproject.com/attachment/ticket/16778/postgis-adapter-2.patch
+        # if this breaks again.
+        self.actual_point    = "POINT(%s %s)" % (coords[0], coords[1])
         
     def __unicode__(self):
         return self.gps_coords()
@@ -529,7 +536,14 @@ class TrapLocation(models.Model):
         return None
 
             
-    if 1 == 1:
+    def dir(self):
+        return dir(self)
+        
+        
+
+        
+            
+    if 1 == 0:
     #TODO remove; Now ambiguous.    
                         def gps_coords(self):
                             return "%s, %s" % (self.NSlat(), self.EWlon())
@@ -558,6 +572,6 @@ class TrapLocation(models.Model):
                             return None
 
 
-            
-    def dir(self):
-        return dir(self)
+def whether_this_user_can_see_mammals_module_data_entry (a_user):
+    return a_user != None and len (a_user.groups.filter(name='mammals_module_data_entry')) > 0
+
