@@ -543,7 +543,8 @@ class TrapLocation(models.Model):
 
         
             
-    if 1 == 0:
+    if 1 == 1:
+    #these are still called from the map page -- see /sentry/group/1260
     #TODO remove; Now ambiguous.    
                         def gps_coords(self):
                             return "%s, %s" % (self.NSlat(), self.EWlon())
