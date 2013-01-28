@@ -40,8 +40,7 @@
 
 <h3 > Expedition # {{expedition.id }} to Square {{expedition.grid_square.battleship_coords }}, {{expedition.start_date_of_expedition|date:"d M Y" }}</h3>
 
-<!-- todo: create edit expedition controller, which then redirects to all expeditions -->
-<form action="/mammals/edit_expedition/{{expedition.id}}/" method="post" >
+<form action="/mammals/edit_expedition/{{expedition.id}}/" method="post" id="edit_expedition_form" >
     <table id ="distances_table">
         <tr>
             <td > 
@@ -64,7 +63,6 @@
                 <input name="school_name"  value ="{{expedition.school_name}}"></input>
             </td> 
         </tr>
-        
         <tr>
             <td  > 
                 Number of students:
@@ -90,7 +88,6 @@
                 <input name = "school_contact_1_phone"  value ="{{expedition.school_contact_1_phone}}"></input>
             </td> 
         </tr>
-        
         <tr>
             <td  > 
                 School contact (email): 
@@ -99,31 +96,139 @@
                 <input  name = "school_contact_1_email" value ="{{expedition.school_contact_1_email}}"></input>
             </td>
         </tr>
+        <tr>
+            <td  > 
+                Understory:
+            </td> 
+            <td > 
+                <input type="text" id = "understory" name= "understory" value ="{% if expedition.understory %}{{expedition.understory}}{%endif%}"> </input>
+            </td> 
+        </tr>
+        <tr>
+            <td  > 
+               Temperature:
+            </td> 
+            <td  > 
+                <select id="overnight_temperature" name="overnight_temperature">
+                    {% for temp in overnight_temperatures %}
+                        <option value = "{{temp.id}}" {%ifequal expedition.overnight_temperature_id temp.id %} selected{%endifequal%}>{{temp}}</option>
+                    {%endfor %}
+                </select> &deg; C
+            </td> 
+        </tr>
+        <tr>
+             <td  > 
+               Moon Phase:
+            </td> 
+
+            <td  > 
+                <select id = "moon_phase" name = "moon_phase">
+                    {% for moon_phase in moon_phases %}
+                        <option value = "{{moon_phase.id}}" {%ifequal expedition.moon_phase_id moon_phase.id %} selected{%endifequal%}>{{moon_phase}}</option>
+                    {%endfor %}
+                </select>
+            </td> 
+        </tr>
+        <tr>
+
+            <td  > 
+               Cloud Cover:
+            </td>
+            <td  > 
+                <select  id = "cloud_cover" name = "cloud_cover">
+                    {% for cloud_cover in cloud_covers %}
+                        <option value = "{{cloud_cover.id}}" {%ifequal expedition.cloud_cover.id  cloud_cover.id%} selected{%endifequal%}>{{cloud_cover}}</option>
+                    {%endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td  > 
+               Light:
+            </td>
+            <td  > 
+                <select  id = "illumination" name = "illumination">
+                {% for light in illuminations %}
+                    <option value = "{{light.id}}" {%ifequal expedition.illumination_id light.id %} selected{%endifequal%}>{{light}}</option>
+                {%endfor %}
+                </select>
+            </td> 
+        </tr>
+        <tr>
+            <td  > 
+               Precipitation:
+            </td>
+            <td  > 
+                <select  id = "overnight_precipitation" name = "overnight_precipitation">
+                {% for pr in overnight_precipitations %}
+                    <option value = "{{pr.id}}" {%ifequal expedition.overnight_precipitation_id pr.id %} selected{%endifequal%}>{{pr}}</option>
+                {%endfor %}
+                </select>
+            </td> 
+        </tr>
+        <tr>
+            <td  > 
+               Type of precipitation:
+            </td>
+            <td  > 
+                <select  id = "overnight_precipitation_type" name = "overnight_precipitation_type">
+                {% for prt in overnight_precipitation_types %}
+                    <option value = "{{prt.id}}" {%ifequal expedition.overnight_precipitation_type_id prt.id %} selected{%endifequal%}>{{prt}}</option>
+                {%endfor %}
+                </select>
+            </td> 
+        </tr>
+        
+        
+        
+        
     
-    {% if expedition.how_many_mammals_caught %}
-        <tr>
-            <td   > 
-                {{expedition.how_many_mammals_caught }} animal{{expedition.how_many_mammals_caught|pluralize }} caught
-            </td>
-            <td>
-                <a href ="/mammals/expedition/{{expedition.id}}/animals/">Animal details</a>
-            </td>
-        </tr>     
-    {%endif%}
-{%for point in expedition.trap_locations_ordered_by_team %}
-    {%ifchanged point.team_letter %}
-        <tr>
-            <td  colspan = "2"> 
-                <a href = "/mammals/team_form/{{expedition.id }}/{{point.team_letter }}/" >Team {{point.team_letter }}</a>
-            </td>
-        </tr>     
-    {%endifchanged %} 
-{%endfor%}
+    
+        {% if expedition.how_many_mammals_caught %}
+            <tr>
+                <td   > 
+                    {{expedition.how_many_mammals_caught }} animal{{expedition.how_many_mammals_caught|pluralize }} caught
+                </td>
+                <td>
+                    <a href ="/mammals/expedition/{{expedition.id}}/animals/">Animal details</a>
+                </td>
+            </tr>     
+        {%endif%}
+        
+            
+        {%for point in expedition.trap_locations_ordered_by_team %}
+            {%ifchanged point.team_letter %}
+                <tr>
+                    <td  colspan = "2"> 
+                        <a href = "/mammals/team_form/{{expedition.id }}/{{point.team_letter }}/" >Locations for team {{point.team_letter }}</a>
+                    </td>
+                </tr>     
+            {%endifchanged %} 
+        {%endfor%}
         <tr  >
             <td  colspan = "2" > 
-                <input type="submit" value = "Save" ></input> 
+                    <button type="button" onclick="javascript:jQuery('#edit_expedition_form').submit()">Save and go back</button>
+                
            </td>
         </tr> 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+    
+        
+        
+        
+        
     </table>
 </form>
 {% endblock %}

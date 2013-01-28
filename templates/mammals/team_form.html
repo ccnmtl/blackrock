@@ -46,103 +46,6 @@
     <form action ="/mammals/save_team_form/" method ="post" id = "team_form"> 
     <input type="hidden" name = "expedition_id" id = "expedition_id" value ="{{expedition.id}}" />
     <input type="hidden" name = "team_letter"   id = "team_letter"   value ="{{team_letter}}" />
-    {%with team_points.1 as point %}
-    
-     <h3 >General conditions:</h3>
-     <table class = "green_table">
-            <tr>
-                <td  > 
-                    Understory:
-                </td> 
-                <td  > 
-                   Temperature:
-                </td> 
-                <td  > 
-                   Moon Phase:
-                </td> 
-                <td  > 
-                   Cloud Cover:
-                </td>
-            </tr>
-            <tr>
-                <td > 
-                    <input type="text" id = "understory" name= "understory" value ="{% if point.understory %}{{point.understory}}{%endif%}"> </input>
-                </td> 
-                <td  > 
-                    <select id="overnight_temperature" name="overnight_temperature">
-                        {% for temp in overnight_temperatures %}
-                            <option value = "{{temp.id}}" {%ifequal point.overnight_temperature_id temp.id %} selected{%endifequal%}>{{temp}}</option>
-                        {%endfor %}
-                    </select> &deg; C
-                </td> 
-                <td  > 
-                    <select id = "moon_phase" name = "moon_phase">
-                        {% for moon_phase in moon_phases %}
-                            <option value = "{{moon_phase.id}}" {%ifequal point.moon_phase_id moon_phase.id %} selected{%endifequal%}>{{moon_phase}}</option>
-                        {%endfor %}
-                    </select>
-                </td> 
-                <td  > 
-                    <select  id = "cloud_cover" name = "cloud_cover">
-                        {% for cloud_cover in cloud_covers %}
-                            <option value = "{{cloud_cover.id}}" {%ifequal point.cloud_cover.id  cloud_cover.id%} selected{%endifequal%}>{{cloud_cover}}</option>
-                        {%endfor %}
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td  > 
-                   Light:
-                </td>
-                <td  > 
-                   Precipitation:
-                </td>
-                <td  > 
-                   Type of precipitation:
-                </td>
-                {%comment %}
-                <td>
-                    Habitat:
-                </td>
-                {%endcomment %}
-            </tr>
-            <tr>
-                <td  > 
-                    <select  id = "illumination" name = "illumination">
-                    {% for light in illuminations %}
-                        <option value = "{{light.id}}" {%ifequal point.illumination_id light.id %} selected{%endifequal%}>{{light}}</option>
-                    {%endfor %}
-                    </select>
-                </td> 
-                <td  > 
-                    <select  id = "overnight_precipitation" name = "overnight_precipitation">
-                    {% for pr in overnight_precipitations %}
-                        <option value = "{{pr.id}}" {%ifequal point.overnight_precipitation_id pr.id %} selected{%endifequal%}>{{pr}}</option>
-                    {%endfor %}
-                    </select>
-                </td> 
-                <td  > 
-                    <select  id = "overnight_precipitation_type" name = "overnight_precipitation_type">
-                    {% for prt in overnight_precipitation_types %}
-                        <option value = "{{prt.id}}" {%ifequal point.overnight_precipitation_type_id prt.id %} selected{%endifequal%}>{{prt}}</option>
-                    {%endfor %}
-                    </select>
-                </td> 
-                {%comment %}
-                <!-- we're doing habitat per trap i guess. -->
-                <td > 
-                    <select  id = "habitat" name = "habitat">
-                    {% for habitat in habitats %}
-                        <option value = "{{habitat.id}} {%ifequal point.habitat_id habitat.id %} selected{%endifequal%}">{{habitat}}</option>
-                    {%endfor %}
-                    </select>
-                </td>
-                {%endcomment %}
-            </tr>
-    </table>
-    {%endwith %}
-    
-        <!-- todo: include distance along bearing for each trap. -->
         
         {%for point in team_points     %}
 <h3>Trap {{point.team_letter }}{{point.team_number }}  ( {{point.transect_distance|floatformat:0}}m @ {{point.transect_bearing_wrt_magnetic_north|floatformat:0 }}&deg; from magnetic north)</h3> 
@@ -277,7 +180,7 @@
     -->
     <!-- this doesn't -->
     {%endcomment %}
-    <button type="button" onclick="javascript:jQuery('#team_form').submit()">Submit</button>
+    <button type="button" onclick="javascript:jQuery('#team_form').submit()">Save Team {{team_letter}} and go back</button>
 </form>
 </div>
 {% endblock %}

@@ -417,21 +417,9 @@ class TrapLocation(models.Model):
     bait_still_there = models.BooleanField(help_text = "Was the bait you left in the trap still there when you came back?")
     
     
-    #NOTES   
-    if 1 == 1: #These are RECORDED per expedition in the forms, but STORED per trap.
-        #field notes:
-        notes_about_outcome =  models.TextField(blank=True, help_text = "Any miscellaneous notes about the outcome")
-        understory   =  models.CharField(blank=True, null=True,  max_length = 256)
-        cloud_cover =  models.ForeignKey(ExpeditionCloudCover, null=True, blank=True,  related_name = "trap_cloudcover")
-        overnight_temperature =  models.ForeignKey(ExpeditionOvernightTemperature, null=True, blank=True,  related_name = "trap_temperature")
-        overnight_precipitation =  models.ForeignKey(ExpeditionOvernightPrecipitation, null=True, blank=True,  related_name = "trap_precipitation")
-        overnight_precipitation_type =  models.ForeignKey(ExpeditionOvernightPrecipitationType, null=True, blank=True,  related_name = "trap_precipitation_type")
-        moon_phase    =  models.ForeignKey(ExpeditionMoonPhase, null=True, blank=True,  related_name = "trap_moon_phase")
-        illumination  =  models.ForeignKey(Illumination, null=True, blank=True,         related_name = "trap_illumination")
-    
-    
-    
-    
+    #NOTES   THESE ARE GONNA GET AXED:
+    notes_about_outcome =  models.TextField(blank=True, help_text = "Any miscellaneous notes about the outcome")
+        
     student_names =  models.TextField (blank=True, null=True, help_text = "Names of the students responsible for this location (this would be filled in, if at all, by the instructor after the students have left the forest.", max_length = 256)
     
     
