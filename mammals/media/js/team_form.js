@@ -81,8 +81,15 @@ function mini_map_transect (center, edge, map, style) {
     
 }
 
-
-//TODO fix return bug on these forms.
+function hide_trap_info_if_not_used() {
+    
+    the_divs  = jQuery ('.team_form_map');
+    for (var i = 0; i < the_divs.length; i++) {
+      the_div = the_divs [i];
+      point_id = parseInt(the_div.id.split("_")[1]);
+      console.log (point_id); 
+    }
+}
 
 
 function update_actual_location_circles() {

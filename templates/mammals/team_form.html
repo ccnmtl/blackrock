@@ -214,6 +214,15 @@
                         <option value = "True"  {%if point.whether_a_trap_was_set_here %}selected{%endif%}>Yes</option>
                         <option value = "False" {%if not point.whether_a_trap_was_set_here %}selected{%endif%}>No</option>
                     </select>
+                    
+                    <select id="trap_type_{{point.id}}" name="trap_type_{{point.id}}">
+                        {% for trap_type in trap_types %}
+                            <option value = "{{trap_type.id}}"{%ifequal point.trap_type_id trap_type.id %} selected{%endifequal%}>{{trap_type}}</option>
+                        {%endfor %}
+                    </select>
+                    
+                    
+                    
                 </td>
                 <td > 
                     <select id="bait_{{point.id}}" name="bait_{{point.id}}">
@@ -240,8 +249,8 @@
             <tr>
                 <td >
                     <select  id = "bait_still_there_{{point.id}}" name="bait_still_there_{{point.id}}" >
-                        <option value = "True"  {%if point.bait_still_there %}selected{%endif%}>Yes</option>
-                        <option value = "False" {%if not point.bait_still_there %}selected{%endif%}>No</option>
+                        <option value = "True"  {%if point.bait_still_there %}selected{%endif%}>Bait still there</option>
+                        <option value = "False" {%if not point.bait_still_there %}selected{%endif%}>Bait gone</option>
                     </select>
                 </td>
                 <td > 
