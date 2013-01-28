@@ -113,7 +113,7 @@ class LabelMenu (models.Model):
         return self.label
     label =  models.CharField(blank=True, null=True, max_length = 256)
 
-class AnimalSex (LabelMenu):
+class AnimalSex (LabelMenu): #honi soit qui mal y pense
     pass
 
 class AnimalAge (LabelMenu):
@@ -148,6 +148,7 @@ class Animal(models.Model):
         return dir(self)
 
 class Trap (models.Model):
+    """It's a trap!"""
     def __unicode__(self):
         return self.trap_string
    
@@ -155,10 +156,9 @@ class Trap (models.Model):
 
     notes =  models.CharField(blank=True, help_text = "Notes about this trap.", max_length = 256)
 
-
-
     def dir(self):
         return dir(self)
+
         
         
 class Habitat (models.Model):
@@ -282,6 +282,8 @@ class ExpeditionMoonPhase (LabelMenu):
     pass
 class Illumination (LabelMenu):
     pass
+class TrapType (LabelMenu):
+    pass
 
     
 class Expedition (models.Model):
@@ -339,6 +341,7 @@ class Expedition (models.Model):
     overnight_precipitation_type =  models.ForeignKey(ExpeditionOvernightPrecipitationType, null=True, blank=True,  related_name = "exp_precipitation_type")
     moon_phase    =  models.ForeignKey(ExpeditionMoonPhase, null=True, blank=True,  related_name = "exp_moon_phase")
     illumination  =  models.ForeignKey(Illumination, null=True, blank=True,  related_name = "exp_illumination")
+   
     
     def dir(self):
         return dir(self)
@@ -385,7 +388,14 @@ class TrapLocation(models.Model):
     
     actual_point    = models.PointField(null=True, blank=True)
     objects = models.GeoManager()
-    trap_used = models.ForeignKey (Trap, null=True, blank=True, help_text = "Which trap, if any, was left at this location")
+    
+    #this will probably be retired:
+    #trap_used = models.ForeignKey (Trap, null=True, blank=True, help_text = "Which trap, if any, was left at this location (We may not be needing this info.)")
+    
+    #instead we're linking directly to the type of trap.
+    trap_type  =  models.ForeignKey(TrapType, null=True, blank=True, help_text = "Which type of trap, if any, was left at this location.")
+    
+    
     notes_about_location =  models.TextField(blank=True, help_text = "Notes about the location")
     
     
@@ -414,8 +424,9 @@ class TrapLocation(models.Model):
     overnight_precipitation =  models.ForeignKey(ExpeditionOvernightPrecipitation, null=True, blank=True,  related_name = "trap_precipitation")
     overnight_precipitation_type =  models.ForeignKey(ExpeditionOvernightPrecipitationType, null=True, blank=True,  related_name = "trap_precipitation_type")
     moon_phase    =  models.ForeignKey(ExpeditionMoonPhase, null=True, blank=True,  related_name = "trap_moon_phase")
-    illumination  =  models.ForeignKey(Illumination, null=True, blank=True,  related_name = "trap_illumination")
+    illumination  =  models.ForeignKey(Illumination, null=True, blank=True,         related_name = "trap_illumination")
     student_names =  models.TextField (blank=True, null=True, help_text = "Names of the students responsible for this location (this would be filled in, if at all, by the instructor after the students have left the forest.", max_length = 256)
+    
     
     
     def trap_nickname (self):
