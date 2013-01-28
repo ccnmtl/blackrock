@@ -210,7 +210,7 @@
             </tr>
             <tr>
                 <td > 
-                    <select id="whether_a_trap_was_set_here_{{point.id}}" name="whether_a_trap_was_set_here_{{point.id}}">
+                    <select id="whether_a_trap_was_set_here_{{point.id}}" name="whether_a_trap_was_set_here_{{point.id}}" class = "whether_a_trap_was_set_here_dropdown" >
                         <option value = "True"  {%if point.whether_a_trap_was_set_here %}selected{%endif%}>Yes</option>
                         <option value = "False" {%if not point.whether_a_trap_was_set_here %}selected{%endif%}>No</option>
                     </select>

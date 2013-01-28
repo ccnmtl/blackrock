@@ -82,12 +82,37 @@ function mini_map_transect (center, edge, map, style) {
 }
 
 function hide_trap_info_if_not_used() {
-    
     the_divs  = jQuery ('.team_form_map');
     for (var i = 0; i < the_divs.length; i++) {
-      the_div = the_divs [i];
-      point_id = parseInt(the_div.id.split("_")[1]);
-      console.log (point_id); 
+        the_div = the_divs [i];
+        point_id = parseInt(the_div.id.split("_")[1]);
+        switch_id_string = '#whether_a_trap_was_set_here_' + point_id
+
+        //console.log (point_id); 
+        //console.log (switch_id_string); 
+        //console.log (jQuery(switch_id_string)); 
+        //console.log (jQuery('#whether_a_trap_was_set_here_' + point_id).value);  
+        //console.log (jQuery(switch_id_string + " option:selected").text());
+
+        detail_select_ids = [
+            '#trap_type_' +  point_id,
+            '#bait_' +  point_id,
+            '#bait_still_there_' +  point_id,
+            '#animal_' +  point_id,
+        ];
+        
+        //console.log( detail_select_ids);
+        if (jQuery (switch_id_string + ' option:selected')[0].value == "True") {
+            //console.log ( point_id + " has a trap.");
+            for (var j = 0; j < detail_select_ids.length; j++) {
+                jQuery(detail_select_ids[j]).show();
+            }
+        } else {
+            //console.log ( point_id + " has not a trap.");
+            for (var j = 0; j < detail_select_ids.length; j++) {
+                jQuery(detail_select_ids[j]).hide();
+            }    
+        }
     }
 }
 
@@ -167,3 +192,13 @@ function team_form_circle (center, style, map) {
   c.setOptions (style);
   return  c;
 }
+
+function team_form_init() {
+    hide_trap_info_if_not_used();
+    jQuery ('.whether_a_trap_was_set_here_dropdown').change(hide_trap_info_if_not_used);
+}
+
+
+jQuery(team_form_init);
+
+
