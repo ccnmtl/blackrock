@@ -57,6 +57,11 @@ urlpatterns = patterns('',
 
 	(r'^test_heatmaps/$',              'blackrock.mammals.views.test_heatmaps' ),
 	
+	#url(r'^search/', PortalSearchView(template="mammals/search.html", form_class=MammalSearchForm), name='search'),
+	
+	(r'^search/', include('haystack.urls')),
+	
+	
 	#(r'^selenium/(?P<task>\w+)/$',               'family_info.views.selenium'),
 
 

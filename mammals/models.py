@@ -113,7 +113,7 @@ class LabelMenu (models.Model):
         return self.label
     label =  models.CharField(blank=True, null=True, max_length = 256)
 
-class AnimalSex (LabelMenu): #honi soit qui mal y pense
+class AnimalSex (LabelMenu):
     pass
 
 class AnimalAge (LabelMenu):
@@ -417,7 +417,6 @@ class TrapLocation(models.Model):
     bait_still_there = models.BooleanField(help_text = "Was the bait you left in the trap still there when you came back?")
     
     
-    #NOTES   THESE ARE GONNA GET AXED:
     notes_about_outcome =  models.TextField(blank=True, help_text = "Any miscellaneous notes about the outcome")
         
     student_names =  models.TextField (blank=True, null=True, help_text = "Names of the students responsible for this location (this would be filled in, if at all, by the instructor after the students have left the forest.", max_length = 256)
@@ -529,7 +528,7 @@ class TrapLocation(models.Model):
             return self.suggested_point.coords[1]
         return None
 
-
+            
         
     def actual_lat(self):
         if self.actual_point:

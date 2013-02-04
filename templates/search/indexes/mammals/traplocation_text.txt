@@ -1,0 +1,15 @@
+{{ object.text }}
+
+{%comment %}
+{{ object.first_name }}
+{% for facet in object.facet.all %}
+    {{ facet.name }}
+{% endfor %}
+{% for institution in object.institution.all %}
+    {{ institution.name }}
+{% endfor %}
+{{ object.description }}
+{% for tag in object.tag.all %}
+    {{ tag.name }}
+{% endfor %}
+{%endcomment %}

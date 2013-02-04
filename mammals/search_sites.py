@@ -1,1 +1,2 @@
-#NO LONGER IN USE
+import haystack
+haystack.autodiscover()
