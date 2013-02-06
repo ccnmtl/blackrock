@@ -288,7 +288,7 @@ body.square .formfield label
 	margin: 0;
 	padding: 0 0 0 25px;
 	border: 0;
-	background: transparent url('../images/back_page.png') 0px 0px no-repeat;
+	background: transparent url('/mammals/media/back_page.png') 0px 0px no-repeat;
 	height: 20px;
 	line-height: 20px;
 	font-size: 11px;
@@ -323,7 +323,7 @@ body.square .formfield label
 	font-weight: bold;
 	font-size: 12px;
 	height: 36px;
-	background: url('../images/nav_steps.png') -2px -8px no-repeat;
+	background: url('/mammals/media/images/nav_steps.png') -2px -8px no-repeat;
 }
 
 #randomizer
@@ -343,7 +343,7 @@ body.square .formfield label
 	font-weight: bold;
 	font-size: 12px;
 	height: 36px;
-	background: url('../images/nav_steps.png') -2px -48px no-repeat;
+	background: url('/mammals/media/images/nav_steps.png') -2px -48px no-repeat;
 }
 
 .randomize_again_hint
@@ -466,7 +466,7 @@ body.square .formfield label
 {
 	width: 90px;
 	height: 55px;
-	background: url("../images/pointer_topleft.gif") 0 0 no-repeat;
+	background: url("/mammals/media/images/pointer_topleft.gif") 0 0 no-repeat;
 	font-size: 11px;
 	float: left;
 }
@@ -483,7 +483,7 @@ body.square .formfield label
 {
 	width: 90px;
 	height: 55px;
-	background: url("../images/pointer_topright.gif") 76px 0 no-repeat;
+	background: url("/mammals/media/images/pointer_topright.gif") 76px 0 no-repeat;
 	font-size: 11px;
 	float: left;
 }
@@ -501,7 +501,7 @@ body.square .formfield label
 	clear: both;
 	width: 180px;
 	height: 65px;
-	background: url("../images/pointer_center.gif") center center no-repeat;
+	background: url("/mammals/media/images/pointer_center.gif") center center no-repeat;
 	font-size: 11px;
 }
 
@@ -516,7 +516,7 @@ body.square .formfield label
 {
 	width: 90px;
 	height: 60px;
-	background: url("../images/pointer_bottomleft.gif") 0 46px no-repeat;
+	background: url("/mammals/media/images/pointer_bottomleft.gif") 0 46px no-repeat;
 	font-size: 11px;
 	float: left;
 }
@@ -533,7 +533,7 @@ body.square .formfield label
 {
 	width: 90px;
 	height: 60px;
-	background: url("../images/pointer_bottomright.gif") 76px 46px no-repeat;
+	background: url("/mammals/media/images/pointer_bottomright.gif") 76px 46px no-repeat;
 	font-size: 11px;
 	float: left;
 }
@@ -810,7 +810,7 @@ body.square .block_coordbox
 }
 
 .habitatmap .ui-state-focus .ui-icon {
-    background-image: url('carets.png') !important;
+    background-image: url('/mammals/media/images/carets.png') !important;
 }
 
 .habitatmap .ui-icon-triangle-1-s {
@@ -822,6 +822,6 @@ body.square .block_coordbox
 }
 
 .habitatmap .ui-icon-triangle-1-l {
-    background-image: url('carets.png') !important;
+    background-image: url('/mammals/media/images/carets.png') !important;
     background-position: -32px 0px !important;
 }
