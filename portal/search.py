@@ -17,6 +17,7 @@ class PortalSearchForm(SearchForm):
     return choices
   
   def default_facet_choices(facet):
+    
     choices = [ (f.name, f.display_name) for f in Facet.objects.filter(facet=facet)]
     choices.sort()
     return choices
@@ -42,13 +43,21 @@ class PortalSearchForm(SearchForm):
     return query
   
   def search(self):
+  
+    
+    #import pdb    
+    #pdb.set_trace()
+  
     sqs = []
     self.hidden = []
 
     if self.is_valid():
       q = self.cleaned_data['q'].lower()
-      sqs = self.searchqueryset.auto_query(q).order_by("name")
+      
+      sqs = self.searchqueryset.auto_query(q)
+      ordered_query = sqs.order_by("name")
 
+      
       if self.load_all:
         sqs = sqs.load_all()
       
@@ -63,7 +72,7 @@ class PortalSearchForm(SearchForm):
           sqs = sqs.narrow(query)
 
     # facet counts based on result set
-    if len(sqs) > 0:
+    if len(sqs) > 0: ### this is broken
       counts = sqs.facet_counts()
       for facet in counts['fields']:
         if facet in self.fields:
