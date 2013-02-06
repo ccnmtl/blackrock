@@ -735,3 +735,118 @@ body.square .block_coordbox
 	display: block;
 	float: left;
 }
+
+
+
+/* Definitions for Habitat Map */
+
+.habitatmap #left
+{
+	display: block;
+	width: 33%;
+	float: left;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background-color: transparent;
+}
+
+.habitatmap #map_canvas
+{
+	position: relative;
+	display: block;
+	width: 66%;
+	min-width: 500px;
+	height: 550px;
+	float: left;
+	margin: 0;
+	padding: 0;
+	border: 1px solid #999;
+}
+
+.habitatmap .gridselector
+{
+	margin: 0 0 10px 0;
+	padding: 0;
+	border: 0;
+    font-size: 11px;
+}
+
+.habitatmap div.gridselector div.checkbox,
+.habitatmap div.gridselector div.legend,
+.habitatmap div.gridselector div.title {
+    float: left;
+	padding: 0px 2px 0px 0px;
+}
+
+.habitatmap div.gridselector div.title {
+	padding: 3px 0px 0px 0px;
+}
+
+.habitatmap .ui-accordion-content div.facetItem div.title {
+	padding: 3px 0px 0px 0px;
+}
+.habitatmap .ui-widget {
+    font-size: 11px !important;
+    margin-bottom: 10px;
+}
+
+.habitatmap .ui-widget h3 a {
+    font-size: 11px !important;
+    font-weight: bold;
+}
+
+.habitatmap .ui-accordion {
+    width: auto !important;
+    margin-right: 20px !important;
+}
+
+.habitatmap .ui-accordion-content {
+    max-height: 150px;
+    min-height: 100px;
+    overflow: hidden;
+    padding: 0px !important;
+}
+
+.habitatmap .ui-accordion-content-scroll {
+    max-height: 140px;
+    margin: 0px 0px 10px 0px;
+    padding: 0px;
+    overflow: auto;
+    padding: 0px 10px !important;
+}
+
+.habitatmap .ui-accordion-content div {
+	padding-bottom: 3px;
+	padding-top: 3px;
+}
+
+.habitatmap .ui-accordion-content div.facetItem div.checkbox,
+.habitatmap .ui-accordion-content div.facetItem div.legend,
+.habitatmap .ui-accordion-content div.facetItem div.title {
+    float: left;
+	padding: 0px 2px 0px 0px;
+}
+
+.habitatmap .ui-accordion-content div.facetItem div.title {
+	padding: 3px 0px 0px 0px;
+}
+
+.habitatmap .ui-state-focus .ui-icon {
+    background-image: url('carets.png') !important;
+}
+
+.habitatmap .ui-icon-triangle-1-s {
+    background-position: -16px 0px !important;
+}
+
+.habitatmap .ui-icon-triangle-1-e {
+    background-position: 0px 0px !important;
+}
+
+.habitatmap .ui-icon-triangle-1-l {
+    background-image: url('carets.png') !important;
+    background-position: -32px 0px !important;
+}
+
+

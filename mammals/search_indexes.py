@@ -5,11 +5,11 @@ from haystack.fields import MultiValueField, CharField
 from mammals.models import TrapLocation
 
 class TrapLocationIndex(SearchIndex):
-
-    text = CharField(document=True, use_template=True)
+    text = CharField(document=True, use_template=True) #not used.
     
-    trap_species = MultiValueField(faceted=True)
-    trap_habitat = MultiValueField(faceted=True)
+    trap_species = CharField(faceted=True)
+    trap_habitat = CharField(faceted=True)
+    asset_type = CharField(faceted=True)
 
     def get_model(self):
         return TrapLocation
@@ -19,20 +19,21 @@ class TrapLocationIndex(SearchIndex):
 
     def prepare_trap_species(self, obj):
         if obj.animal:
-            return obj.animal.species.common_name
+            return obj.animal.species.id
         else:
             return None
         
     def prepare_trap_habitat(self, obj):
         if obj.habitat:
-            return obj.habitat.label
+            return obj.habitat.id
         else:
             return None
-
-  
-    #def prepare_categories(self, obj):
-    #    # Since we're using a M2M relationship with a complex lookup,
-    #    # we can prepare the list here.
-    #    return [category.id for category in obj.category_set.active().order_by('-created')]
+            
+    def prepare_asset_type(self, obj):
+        return obj._meta.object_name
   
 site.register(TrapLocation, TrapLocationIndex)
+
+
+
+

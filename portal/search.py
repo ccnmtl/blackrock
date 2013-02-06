@@ -6,6 +6,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.db.models import get_model, get_app
 from django.utils.text import capfirst
 
+#[06/Feb/2013 15:20:36] "GET /portal/search/?q=&asset_type=ForestStory&species=Animals&discipline=Forest+Ecology HTTP/1.1" 200 10885
+
+
 class PortalSearchForm(SearchForm):
 
   def default_type_choices(site=None):
@@ -39,7 +42,7 @@ class PortalSearchForm(SearchForm):
           if len(query):
             query += ' OR '
           query += "%s:%s" % (name, a)
-    
+    print "called getmultiplechoice and returned ", query
     return query
   
   def search(self):
@@ -53,7 +56,7 @@ class PortalSearchForm(SearchForm):
 
     if self.is_valid():
       q = self.cleaned_data['q'].lower()
-      
+      print "q is  ", q
       sqs = self.searchqueryset.auto_query(q)
       ordered_query = sqs.order_by("name")
 
@@ -68,7 +71,9 @@ class PortalSearchForm(SearchForm):
         
       for facet in Facet.asset_facets:
         query = self.get_multiplechoicefield(facet)
+        print "original query is ", query
         if len(query):
+          print "narrowing with ", query
           sqs = sqs.narrow(query)
 
     # facet counts based on result set
@@ -109,6 +114,7 @@ class PortalSearchView(SearchView):
         if type(self.results) is ListType and len(self.results) < 1:
             extra["count"] = -1
         else:
+            print "count is ",  len(self.results)
             extra["count"] = len(self.results)
       
     # @todo -- add latitude/longitude into the context. self.request.
@@ -118,11 +124,29 @@ class PortalSearchView(SearchView):
     for param, value in self.request.GET.items():
       if param != 'page':
         query += '%s=%s&' % (param, value) 
+        print "extra query is " + query
     extra['query'] = query
     return extra
 
-
-    
+   
+"""q is   a
+called getmultiplechoice and returned  study_type:Long-Term OR study_type:Modeling
+original query is  study_type:Long-Term OR study_type:Modeling
+narrowing with  study_type:Long-Term OR study_type:Modeling
+called getmultiplechoice and returned  
+original query is  
+called getmultiplechoice and returned  
+original query is  
+called getmultiplechoice and returned  asset_type:ResearchProject
+original query is  asset_type:ResearchProject
+narrowing with  asset_type:ResearchProject
+called getmultiplechoice and returned  
+original query is  
+count is  6
+extra query is q=a&
+extra query is q=a&study_type=Modeling&
+extra query is q=a&study_type=Modeling&asset_type=ResearchProject&
+[06/Feb/2013 15:25:00] "GET /portal/search/?q=a&asset_type=ResearchProject&study_type=Long-Term&study_type=Modeling HTTP/1.1" 200 22435"""
 
     
     

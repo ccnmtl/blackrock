@@ -1,7 +1,9 @@
 from django.conf.urls.defaults import *
 import os.path
 from django.contrib import databrowse
-from portal.search import PortalSearchView, PortalSearchForm
+from mammals.search import MammalSearchView, MammalSearchForm
+
+
 
 media_root = os.path.join(os.path.dirname(__file__),"media")
 
@@ -57,10 +59,7 @@ urlpatterns = patterns('',
 
 	(r'^test_heatmaps/$',              'blackrock.mammals.views.test_heatmaps' ),
 	
-	#url(r'^search/', PortalSearchView(template="mammals/search.html", form_class=MammalSearchForm), name='search'),
-	
-	(r'^search/', include('haystack.urls')),
-	
+    url(r'^search/', MammalSearchView(template="mammals/search.html", form_class=MammalSearchForm), name='search'),
 	
 	#(r'^selenium/(?P<task>\w+)/$',               'family_info.views.selenium'),
 
