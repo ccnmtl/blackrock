@@ -10,9 +10,8 @@
 	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript"></script>
-	
 	<script src="/site_media/js/facebox.js" type="text/javascript"></script>
-  <script src="/site_media/js/highcharts.js" type="text/javascript"></script>
+	<script src="/site_media/js/highcharts.js" type="text/javascript"></script>
 	<script src="/site_media/js/modules/exporting.js" type="text/javascript"></script>
 
 	{% if not show_graph %}
@@ -262,7 +261,6 @@
 
 {% if error %}
 <div id="error-message">
-<h2>Error</h2>
 <p>{{error}}</p>
 </div>
 
@@ -270,23 +268,21 @@
 
 <div id="contentcontainer">
 	
-	<h3>Using the Graphing Tool</h3>
-	
-	<ol>
-	<li>Start your graph. Enter a title for your graph, and select the type of graph you'd like to generate.</li>
-	<li>Set graph parameters. Select the data series you would like to graph, with start/end dates and threshold labels.</li>
-	<li>Create your graph. Click the green Create Graph button to see your results!</li>
-	</ol>
-	
-	<p>
-	You can print your graph or download it, too. The icons are located in the top right corner of the graph. The graph can be downloaded in these four formats: PNG, JPEG, PDF, SVG.
-	</p>	
+	<h3>Graphing Tool</h3>
 	
 	<!--start graphing tool -->
-	<div id="graphingtool">
-	<div id="graphingtool-inner">
 	
-	<h3>Graphing Tool</h3>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<form action="." method="get">
 	
 	{% if type %}
@@ -296,129 +292,189 @@
 	<div id="parameters">
 	
 	
-	<table class="graphtable">
-		<tr>
-			<th>Step 1: Start your graph.</th>
-			<th>Graph Title:</th>
-			<td><input type="text" name="title" value="{{graph_title}}"/></td>
-			<th>Graph Type:</th>
-			<td><input type="submit" name="type" value="time-series" /></td>
-			<td><input type="submit" name="type" value="scatter-plot" /></td>
-			<td><input type="submit" name="type" value="box-plot" /></td>
-		</tr>
-	</table>
+	<fieldset>
 	
+		<legend>Step 1: Give your graph a title and select the type of graph that you'd like to visualize.</legend>
 	
-	<table class="graphtable">
+			<div class="form-element">
+			
+				<div class="form-row">
+					<div class="form-label"><label>Graph Title</label></div>
+					<div class="form-input"><input type="text" name="title" value="{{graph_title}}"/></div>
+				</div>
+				
+			</div>
+			
+			<div class="form-element">
+			
+				<div class="form-row">
+					<div class="form-label"><label>Graph Type</label></div>
+					<div class="form-input">
+						<input type="submit" name="type" value="time-series" />
+						<input type="submit" name="type" value="scatter-plot" />
+						<input type="submit" name="type" value="box-plot" />
+					</div>
+				</div>
 	
-	<tr>
-	<th>Step 2: Set graph parameters.</th>
+			</div>
 	
+	</fieldset>
+	
+	<fieldset>
+
 	{% ifequal type "time-series" %}
-	<td>
-	<b>Graph Type:</b><br />
-	Time Series
-	</td>
-	<td>
-	<b>Series:</b><br />
-	<select size="4" name="series" multiple="multiple">
-	{% for series in all_series %}
-	<option value="{{series.id}}" {% if series.selected %}selected="selected"{% endif %}>{{series.name}} ({{series.units}})</option>
-	{% endfor %}
-	</select>
-	</td>
+	
+	
+		
+			<legend>Step 2: <span class="selected">You've selected "times series."</span> Now, choose your data set and give it some parameters.</legend>
+			
+			<div class="form-element">
+			
+				<div class="form-row">
+					<div class="form-label"><label>Data Set</label></div>
+					<div class="form-input">
+						<select size="4" name="series" multiple="multiple">
+						{% for series in all_series %}
+						<option value="{{series.id}}" {% if series.selected %}selected="selected"{% endif %}>{{series.name}} ({{series.units}})</option>
+						{% endfor %}
+						</select>
+					</div>
+				</div>
+			
+			</div>
+
+	
 	{% endifequal %}
 	
 	{% ifequal type "box-plot" %}
-	<td>
-	<b>Graph Type:</b><br />
-	Box Plot
-	</td>
-	<td>
-	<b>Series:</b><br />
-	<select size="4" name="series" multiple="multiple">
-	{% for series in all_series %}
-	<option value="{{series.id}}" {% if series.selected %}selected="selected"{% endif %}>{{series.name}} ({{series.units}})</option>
-	{% endfor %}
-	</select>
-	</td>
+
+		
+			<legend>Step 2: <span class="selected">You've selected "box plot."</span> Now, choose your data set and give it some parameters.</legend>
+			
+			<div class="form-element">
+			
+				<div class="form-row">
+					<div class="form-label"><label>Data Set</label></div>
+					<div class="form-input">
+						<select size="4" name="series" multiple="multiple">
+						{% for series in all_series %}
+						<option value="{{series.id}}" {% if series.selected %}selected="selected"{% endif %}>{{series.name}} ({{series.units}})</option>
+						{% endfor %}
+						</select>
+					</div>
+				</div>
+			
+			</div>
+
+	
+	
 	{% endifequal %}
 	
 	{% ifequal type "scatter-plot" %}
-	<td>
-	<b>Graph Type:</b><br />
-	Scatter Plot
-	</td>
-	<td>
-	<b>Independent:</b><br />
-	<select name="independent">
-	{% for series in all_series %}
-	<option value="{{series.id}}" {% if series.independent %}selected="selected"{% endif %}>{{series.name}} ({{series.units}})</option>
-	{% endfor %}
-	</select>
-	<br />
-	<b>Dependent:</b><br />
-	<select name="dependent">
-	{% for series in all_series %}
-	<option value="{{series.id}}" {% if series.dependent %}selected="selected"{% endif %}>{{series.name}} ({{series.units}})</option>
-	{% endfor %}
-	</select><br />
-	<b>Skip Zeroes:</b> 
-	<input type="checkbox" name="skip_zeroes" 
-		  {% if skip_zeroes %}checked="checked"{% endif %}
-		  />
-	</td>
+	
+		
+			<legend>Step 2: <span class="selected">You've selected "scatter plot."</span> Now, choose your data set and give it some parameters.</legend>
+			
+			<div class="form-element">
+			
+				<div class="form-row">
+					<div class="form-label"><label>Independent Data Set</label></div>
+					<div class="form-input">
+						<select name="independent">
+						{% for series in all_series %}
+						<option value="{{series.id}}" {% if series.independent %}selected="selected"{% endif %}>{{series.name}} ({{series.units}})</option>
+						{% endfor %}
+						</select>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-label"><label>Dependent Data Set</label></div>
+					<div class="form-input">
+						<select name="dependent">
+						{% for series in all_series %}
+						<option value="{{series.id}}" {% if series.dependent %}selected="selected"{% endif %}>{{series.name}} ({{series.units}})</option>
+						{% endfor %}
+						</select>					
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-label"><label>Skip Zeroes</label></div>
+					<div class="form-input">
+					<input type="checkbox" name="skip_zeroes" 
+						  {% if skip_zeroes %}checked="checked"{% endif %}
+						  />
+					</div>
+				</div>
+			
+			</div>
+
+	
 	{% endifequal %}
 	
-	<td>
-	<b>Start:</b><br />
-	<input type="text" id="start" name="start" size="10" value="{{start|date:"Y-m-d"}}" />
-	<br />
-	<b>End:</b><br />
-	<input type="text" id="end" name="end" size="10" value="{{end|date:"Y-m-d"}}" />
-	</td>
-	
+			<div class="form-element">
+			
+				<div class="form-row">
+					<div class="form-label"><label>Start Date</label></div>
+					<div class="form-input"><input type="text" id="start" name="start" size="10" value="{{start|date:"Y-m-d"}}" /></div>
+				</div>
+			
+				<div class="form-row">
+					<div class="form-label"><label>End Date</label></div>
+					<div class="form-input"><input type="text" id="end" name="end" size="10" value="{{end|date:"Y-m-d"}}" /></div>
+				</div>
+			
+			</div>
 
 	{% ifnotequal type "box-plot" %}
 
 	{% for line in lines %}
-	<td>
-	<b>Threshold Label:</b><br />
-	<input type="text" name="line_label_{{line.n}}" value="{{line.label}}" />
-	<br />
-	<b>Threshold Value:</b><br />
-	<input type="text" name="line_value_{{line.n}}"value="{{line.value}}" />
-	</td>
+	
+			<div class="form-element">
+			
+				<div class="form-row">
+					<div class="form-label"><label>Threshold Label</label></div>
+					<div class="form-input"><input type="text" name="line_label_{{line.n}}" value="{{line.label}}" /></div>
+				</div>
+
+				<div class="form-row">
+					<div class="form-label"><label>Threshold Value</label></div>
+					<div class="form-input"><input type="text" name="line_value_{{line.n}}"value="{{line.value}}" /></div>
+				</div>
+			
+			</div>
+	
 	{% endfor %}
 	
 	{% if allow_more_lines %}
 	{% with lines|length as n %}
-	<td>
-	<b>Threshold Label:</b><br />
-	<input type="text" name="line_label_{{n}}" value="" />
-	<br />
-	<b>Threshold Value:</b><br />
-	<input type="text" name="line_value_{{n}}"value="" />
-	</td>
+	
+	
+			<div class="form-element">
+			
+				<div class="form-row">
+					<div class="form-label"><label>Threshold Label</label></div>
+					<div class="form-input"><input type="text" name="line_label_{{n}}" value="" /></div>
+				</div>
+
+				<div class="form-row">
+					<div class="form-label"><label>Threshold Value</label></div>
+					<div class="form-input"><input type="text" name="line_value_{{n}}"value="" /></div>
+				</div>
+			
+			</div>
+	
+
 	{% endwith %}
 	{% endif %}
-
 	{% endifnotequal %}
-	
-	</tr>
-	
-	</table>
-	
-		<table class="graphtable">
-		<tr>
-		<th style="">Step 3: Graph this information.</th>
-		<td>
-		<input type="submit" value="Create Graph &darr; " style="background-color: green; color: white;" />
-		</td>
-		</tr>
-	</table>
+		</fieldset>
 
-	
+
+		<fieldset>
+		<input type="submit" value="Graph This Information! &uarr; &darr; " /> 
+		</fieldset>
+		
+		<p align="right">You can also both print and export your graph by clicking on the icons.</p>
 	</div>
 	
 	{% if lseriesp %}
@@ -429,47 +485,68 @@
 	
 	{% else %}
 	
-	<table class="graphtable">
-		<tr>
-			<th>Step 1: Start your graph.</th>
-			<th>Enter Graph Title:</th>
-			<td><input type="text" name="title" value="{{graph_title}}" /></td>
-			<th>Choose Graph Type:</th>
-			<td><input type="submit" name="type" value="time-series" /></td>
-			<td><input type="submit" name="type" value="scatter-plot" /></td>
-			<td><input type="submit" name="type" value="box-plot" /></td>
-		</tr>
-	</table>
+	<fieldset>
+	
+		<legend>Step 1: Give your graph a title and select the type of graph that you'd like to visualize.</legend>
+	
+			<div class="form-element">
+			
+				<div class="form-row">
+					<div class="form-label"><label>Graph Title</label></div>
+					<div class="form-input"><input type="text" name="title" value="{{graph_title}}" /></div>
+				</div>
+				
+			</div>
+			
+			<div class="form-element">
+			
+				<div class="form-row">
+					<div class="form-label"><label>Graph Type</label></div>
+					<div class="form-input">
+						<input type="submit" name="type" value="time-series" />
+						<input type="submit" name="type" value="scatter-plot" />
+						<input type="submit" name="type" value="box-plot" />				
+					</div>
+				</div>
+	
+			</div>
+	
+	</fieldset>
 	
 	{% endif %}
 	
-	
 	</form>
+	
+	
+	<!--graph-->
 	{% if show_graph %}
 	<div id="chart-container"></div>
 	{% endif %}
+	
 	{% if show_box_plot %}
+	
 	{% with lsg.box_data as box_data %}
 	{% spaceless %}
 	<img src="https://chart.googleapis.com/chart?chs=600x200&cht=ls&chd=t0:-1,{% for bd in box_data.series %}{{bd.min}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.lq}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.uq}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.max}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.median}},{% endfor %}0&chm=F,0000FF,0,1:{{box_data.count}},20|H,0000FF,0,1:{{box_data.count}},1:20|H,0000FF,3,1:{{box_data.count}},1:20|H,0000FF,4,1:{{box_data.count}},1:20&chxt=y&chxr=0,{{box_data.min}},{{box_data.max}},0" width="600" height="200" />
 	{% endspaceless %}
 	{% endwith %}
-	{% if show_ttest %}<br />
+	
+	{% if show_ttest %}
+	<br />
 	T-Test: {{ttest|floatformat:2}}
 	{% endif %}
+	
 	{% endif %}
+	
 	{% if too_much_data %}
-	<p class="warning">Too many data points or series were selected. Displaying the selection
-	  as-is would break your browser; therefore, one or more data series are
-	  not being displayed. Please try again by selecting fewer data series or
-	  a smaller date range.</p>
+	<p class="warning">
+	Too many data points or series were selected. Displaying the selection as-is would break your browser; therefore, one or more data series are not being displayed. Please try again by selecting fewer data series ora smaller date range.
+	</p>
 	{% endif %}
+	<!--graph-->
 	
-	
-	</div>
-	</div>
 	<!--stop graphing tool -->
-	
+
 </div>
 
 {% endblock %}
