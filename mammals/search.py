@@ -70,10 +70,16 @@ class MammalSearchForm(SearchForm):
     return sqs
     
 class MammalSearchView(SearchView):
+  #import pdb
+  #pdb.set_trace()
   def __name__(self):
       return "MammalSearchView"
     
   def get_results(self):
+    #import pdb
+    #pdb.set_trace()
+    print self.form.fields['trap_species'].choices[0]
+
     return self.form.search()
     
   def extra_context(self):
@@ -88,7 +94,6 @@ class MammalSearchView(SearchView):
       if param != 'page':
         query += '%s=%s&' % (param, value) 
     extra['query'] = query
-    
     extra['species'] = Species.objects.all()
     extra['habitats'] = Habitat.objects.all()
     return extra
