@@ -14,261 +14,27 @@
 {%endcomment %}
 
 
- <!-- ### BEGIN CONTENT FOR HABITAT MAP, PUT IN TEMPLATE -->
- <div id="container" class="habitatmap">
-
-    <div class="plain">
-    
-        <div id="left">
-            <h3>Habitat Map</h3>
-            <div class="gridselector">
-                <div class="checkbox"><input type="checkbox" id="id_gridOn" value="Show map grid" /></div>
-                <div class="legend"><img src="/site_media/img/habitatmap/habitat_grid.png" alt="" width="19" height="20" /></div>
-                <div class="title">Show map grid</div>
-                <div class="clearfix"></div>
-            </div><!-- div class="gridselector" -->
-                        
-            <!-- ### BEGIN TRAPS AND SPOTTING -->
-            <div class="ui-accordion ui-widget ui-helper-reset ui-accordion-icons">
-                <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-state-focus ui-corner-top"><!-- 'ui-icon-triangle-1-s' IS THE CLASS FOR THE BOX TO OPEN. JQUERY UI FLIPS IT BACK TO 'ui-icon-triangle-1-e' IF YOU CLOSE THE BOX --><span class="ui-icon ui-icon-triangle-1-s"></span><a tabindex="-1" href="#">Trap and spotting locations</a></h3>
-                <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active">
-                    <div class="ui-accordion-content-scroll">
-                    
-                        <div class="facetItem">
-                            <div class="checkbox"><input type="checkbox" class="facet traps_spotting_option" id="id_trapNegative" value="Unsuccessful traps" /></div>
-                            <div class="title">Unsuccessful traps (N)</div>
-                            <div class="clearfix"></div>
-                        </div><!-- div class="facetItem" -->
-                        
-                        <div class="facetItem">
-                            <div class="checkbox"><input type="checkbox" class="facet traps_spotting_option" id="id_trapPositive" value="Trapped and released" /></div>
-                            <div class="title">Trapped and released (N)</div>
-                            <div class="clearfix"></div>
-                        </div><!-- div class="facetItem" -->
-                        
-                        <hr />
-                        
-                        <div class="facetItem">
-                            <div class="checkbox"><input type="checkbox" class="facet traps_spotting_option" id="id_spotObserved" value="Observed" /></div>
-                            <div class="title">Observed (N)</div>
-                            <div class="clearfix"></div>
-                        </div><!-- div class="facetItem" -->
-                        
-                        <div class="facetItem">
-                            <div class="checkbox"><input type="checkbox" class="facet traps_spotting_option" id="id_spotCamera" value="Camera" /></div>
-                            <div class="title">Camera (N)</div>
-                            <div class="clearfix"></div>
-                        </div><!-- div class="facetItem" -->
-                        
-                        <div class="facetItem">
-                            <div class="checkbox"><input type="checkbox" class="facet traps_spotting_option" id="id_spotSigns" value="Tracks and signs" /></div>
-                            <div class="title">Tracks and signs (N)</div>
-                            <div class="clearfix"></div>
-                        </div><!-- div class="facetItem" -->
-
-                    </div><!-- div class="ui-accordion-content-scroll -->                       
-                </div><!-- div class="ui-accordion-content ui-helper-reset... -->
-            </div><!-- div class="ui-accordion ui-widget... -->
-            <!-- ### END TRAPS AND SPOTTING -->
-
-            
-            <!-- ### BEGIN HABITATS -->
-            <div class="ui-accordion ui-widget ui-helper-reset ui-accordion-icons">
-                <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-state-focus ui-corner-top"><!-- 'ui-icon-triangle-1-s' IS THE CLASS FOR THE BOX TO OPEN. JQUERY UI FLIPS IT BACK TO 'ui-icon-triangle-1-e' IF YOU CLOSE THE BOX --><span class="ui-icon ui-icon-triangle-1-s"></span><a tabindex="-1" href="#">Habitat</a></h3>
-                <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active">
-                    <div class="ui-accordion-content-scroll">
-                    
-                        <div class="facetItem">
-                            <div class="checkbox"><input type="checkbox" class="facet traps_spotting_option" id="id_habitatB" value="Habitat B" /></div>
-                            <div class="legend"><!-- COLOR: #00cc33 --><img src="/site_media/img/habitatmap/habitat_0c3.png" alt="" width="20" height="20" /></div>
-                            <div class="title">Beech maple mesic forest (N)</div>
-                            <div class="clearfix"></div>
-                        </div><!-- div class="facetItem" -->
-                        
-                        <div class="facetItem">
-                            <div class="checkbox"><input type="checkbox" class="facet traps_spotting_option" id="id_habitatD" value="Habitat D" /></div>
-                            <div class="legend"><!-- COLOR: #00ccff --><img src="/site_media/img/habitatmap/habitat_0cf.png" alt="" width="20" height="20" /></div>
-                            <div class="title">Chestnut oak forest (N)</div>
-                            <div class="clearfix"></div>
-                        </div><!-- div class="facetItem" -->
-                        
-                        <div class="facetItem">
-                            <div class="checkbox"><input type="checkbox" class="facet traps_spotting_option" id="id_habitatF" value="Habitat A" /></div>
-                            <div class="legend"><!-- COLOR: #660066 --><img src="/site_media/img/habitatmap/habitat_606.png" alt="" width="20" height="20" /></div>
-                            <div class="title">Cliff and rock outcrop community (N)</div>
-                            <div class="clearfix"></div>
-                        </div><!-- div class="facetItem" -->
-                        
-                        <div class="facetItem">
-                            <div class="checkbox"><input type="checkbox" class="facet traps_spotting_option" id="id_habitatG" value="Habitat G" /></div>
-                            <div class="legend"><!-- COLOR: #cc0000 --><img src="/site_media/img/habitatmap/habitat_c00.png" alt="" width="20" height="20" /></div>
-                            <div class="title">Hemlock-northern hardwood (N)</div>
-                            <div class="clearfix"></div>
-                        </div><!-- div class="facetItem" -->
-                        
-                        <div class="facetItem">
-                            <div class="checkbox"><input type="checkbox" class="facet traps_spotting_option" id="id_habitatF" value="Habitat A" /></div>
-                            <div class="legend"><!-- COLOR: #cc99cc --><img src="/site_media/img/habitatmap/habitat_c9c.png" alt="" width="20" height="20" /></div>
-                            <div class="title">High bush blueberry bog thicket (N)</div>
-                            <div class="clearfix"></div>
-                        </div><!-- div class="facetItem" -->
-                        
-                        <div class="facetItem">
-                            <div class="checkbox"><input type="checkbox" class="facet traps_spotting_option" id="id_habitatA" value="Habitat A" /></div>
-                            <div class="legend"><!-- COLOR: #cc9900 --><img src="/site_media/img/habitatmap/habitat_c90.png" alt="" width="20" height="20" /></div>
-                            <div class="title">Oak-hickory forest (N)</div>
-                            <div class="clearfix"></div>
-                        </div><!-- div class="facetItem" -->
-                        
-                        <div class="facetItem">
-                            <div class="checkbox"><input type="checkbox" class="facet traps_spotting_option" id="id_habitatE" value="Habitat E" /></div>
-                            <div class="legend"><!-- COLOR: #ff0099 --><img src="/site_media/img/habitatmap/habitat_f09.png" alt="" width="20" height="20" /></div>
-                            <div class="title">Pitch pine-oak-heath rocky summit (N)</div>
-                            <div class="clearfix"></div>
-                        </div><!-- div class="facetItem" -->
-                        
-                        <div class="facetItem">
-                            <div class="checkbox"><input type="checkbox" class="facet traps_spotting_option" id="id_habitatH" value="Habitat H" /></div>
-                            <div class="legend"><!-- COLOR: #ff6633 --><img src="/site_media/img/habitatmap/habitat_f63.png" alt="" width="20" height="20" /></div>
-                            <div class="title">Red maple swamp (N)</div>
-                            <div class="clearfix"></div>
-                        </div><!-- div class="facetItem" -->
-                        
-                        <div class="facetItem">
-                            <div class="checkbox"><input type="checkbox" class="facet traps_spotting_option" id="id_habitatF" value="Habitat A" /></div>
-                            <div class="legend"><!-- COLOR: #ff6666 --><img src="/site_media/img/habitatmap/habitat_f66.png" alt="" width="20" height="20" /></div>
-                            <div class="title">Riparian (N)</div>
-                            <div class="clearfix"></div>
-                        </div><!-- div class="facetItem" -->
-                        
-                        <div class="facetItem">
-                            <div class="checkbox"><input type="checkbox" class="facet traps_spotting_option" id="id_habitatC" value="Habitat C" /></div>
-                            <div class="legend"><!-- COLOR: #ffcc00 --><img src="/site_media/img/habitatmap/habitat_fc0.png" alt="" width="20" height="20" /></div>
-                            <div class="title">Successional northern hardwoods (N)</div>
-                            <div class="clearfix"></div>
-                        </div><!-- div class="facetItem" -->
-
-                    </div><!-- div class="ui-accordion-content-scroll -->                       
-                </div><!-- div class="ui-accordion-content ui-helper-reset... -->
-            </div><!-- div class="ui-accordion ui-widget... -->
-            <!-- ### END HABITATS -->
-
-            
-            <!-- ### BEGIN MAMMAL SPECIES -->
-            <div class="ui-accordion ui-widget ui-helper-reset ui-accordion-icons">
-                <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-state-focus ui-corner-all"><!-- 'ui-icon-triangle-1-e' IS THE CLASS FOR THE BOX TO CLOSE. JQUERY UI FLIPS IT BACK TO 'ui-icon-triangle-1-s' IF YOU OPEN THE BOX --><span class="ui-icon ui-icon-triangle-1-e"></span><a tabindex="-1" href="#">Mammal species</a></h3>
-                <div style="display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active">
-                    <div class="ui-accordion-content-scroll">
-                    
-                        <div class="facetItem">
-                            <div class="checkbox"><input type="checkbox" class="facet traps_spotting_option" id="id_speciesA" value="Mammal species A" /></div>
-                            <div class="title">Mammal species A (N)</div>
-                            <div class="clearfix"></div>
-                        </div><!-- div class="facetItem" -->
-                        
-                        <div class="facetItem">
-                            <div class="checkbox"><input type="checkbox" class="facet traps_spotting_option" id="id_speciesB" value="Mammal species B" /></div>
-                            <div class="title">Mammal species B (N)</div>
-                            <div class="clearfix"></div>
-                        </div><!-- div class="facetItem" -->
-                        
-                        <div class="facetItem">
-                            <div class="checkbox"><input type="checkbox" class="facet traps_spotting_option" id="id_speciesC" value="Mammal species C" /></div>
-                            <div class="title">Mammal species C (N)</div>
-                            <div class="clearfix"></div>
-                        </div><!-- div class="facetItem" -->
-                    
-                    </div><!-- div class="ui-accordion-content-scroll -->                       
-                </div><!-- div class="ui-accordion-content ui-helper-reset... -->
-            </div><!-- div class="ui-accordion ui-widget... -->
-             <!-- ### END MAMMAL SPECIES -->
-
-            
-            <!-- ### BEGIN SCHOOLS -->
-            <div class="ui-accordion ui-widget ui-helper-reset ui-accordion-icons">
-                <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-state-focus ui-corner-all"><!-- 'ui-icon-triangle-1-e' IS THE CLASS FOR THE BOX TO CLOSE. JQUERY UI FLIPS IT BACK TO 'ui-icon-triangle-1-s' IF YOU OPEN THE BOX --><span class="ui-icon ui-icon-triangle-1-e"></span><a tabindex="-1" href="#">School</a></h3>
-                <div style="display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active">
-                    <div class="ui-accordion-content-scroll">
-
-                        <div class="facetItem">
-                            <div class="checkbox"><input type="checkbox" class="facet traps_spotting_option" id="id_schoolA" value="School A" /></div>
-                            <div class="title">School A (N)</div>
-                            <div class="clearfix"></div>
-                        </div><!-- div class="facetItem" -->
-                        
-                        <div class="facetItem">
-                            <div class="checkbox"><input type="checkbox" class="facet traps_spotting_option" id="id_schoolB" value="School B" /></div>
-                            <div class="title">School B (N)</div>
-                            <div class="clearfix"></div>
-                        </div><!-- div class="facetItem" -->
-                        
-                        <div class="facetItem">
-                            <div class="checkbox"><input type="checkbox" class="facet traps_spotting_option" id="id_schoolC" value="School C" /></div>
-                            <div class="title">School C (N)</div>
-                            <div class="clearfix"></div>
-                        </div><!-- div class="facetItem" -->
-    
-                    </div><!-- div class="ui-accordion-content-scroll -->                       
-                </div><!-- div class="ui-accordion-content ui-helper-reset... -->
-            </div><!-- div class="ui-accordion ui-widget... -->
-            <!-- ### END SCHOOLS -->
-        
-
-            <!-- ### BEGIN EXPEDITION DATE -->
-            <div class="ui-accordion ui-widget ui-helper-reset ui-accordion-icons">
-                <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-state-focus ui-corner-all"><!-- 'ui-icon-triangle-1-e' IS THE CLASS FOR THE BOX TO CLOSE. JQUERY UI FLIPS IT BACK TO 'ui-icon-triangle-1-s' IF YOU OPEN THE BOX --><span class="ui-icon ui-icon-triangle-1-e"></span><a tabindex="-1" href="#">Expedition date</a></h3>
-                <div style="display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active">
-                    <div class="ui-accordion-content-scroll">
-
-                        <div class="facetItem">
-                            Expedition date stuff here
-                            <div class="clearfix"></div>
-                        </div><!-- div class="facetItem" -->
-    
-                    </div><!-- div class="ui-accordion-content-scroll -->                       
-                </div><!-- div class="ui-accordion-content ui-helper-reset... -->
-            </div><!-- div class="ui-accordion ui-widget... -->
-            <!-- ### END EXPEDITION DATE -->
-
-
-        </div><!-- div id="left" -->
-        
-        <div id="map_canvas">MAP GO HERE</div><!-- id="map_canvas" -->
-        
-        <div class="clearfix"></div><!-- class="clearfix" -->
-    
-    </div><!-- div class="plain" -->
-
-</div><!-- div id="container" -->
- <!-- ### END CONTENT FOR HABITAT MAP -->
-
-
-<!-- ### BELOW NEEDS TO BE IN THE TEMPLATE -->
-<script type="text/javascript">
-jQuery(document).ready(function() {
-    jQuery(".ui-accordion-header").click(function() {
-        jQuery(this).next().toggle();
-        jQuery(this).toggleClass("ui-corner-all ui-corner-top");
-        var child = jQuery(this).children("span.ui-icon");
-        child.toggleClass("ui-icon-triangle-1-s ui-icon-triangle-1-e");
-        return false;
-    });
-});
-</script>
-<!-- ### END WHAT NEEDS TO BE IN THE TEMPLATE -->
 
 
 {% block container %}
+
+
+
  <form method="get" action=".">
-        <table>
-            {{ form.as_table }}
-            <tr>
-                <td>&nbsp;</td>
-                <td>
-                    <input type="submit" value="Search">
-                </td>
-            </tr>
-        </table>
+        {% for field in form %}
+            {{ field.errors }}
+            {% if field.field.choices %}
+                {%if field.label == "Species" %}
+                    {%include "mammals/search_subtemplates/species.html" %}
+                {%endif %}
+                {%if field.label == "Habitat" %}
+                    {%include "mammals/search_subtemplates/habitats.html" %}
+                {%endif %}
+            {% else %}
+            {% endif %}
+        {%endfor %}
+        <input type="submit" value="Search">
+
 
         {% if query %}
             <h3>Results</h3>
