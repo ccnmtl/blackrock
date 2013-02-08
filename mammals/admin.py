@@ -42,7 +42,7 @@ admin.site.register(Trap, TrapAdmin)
 
 class HabitatAdmin (admin.ModelAdmin):
     list_display = (  'label',)
-    fields       =(  'label', 'blurb')
+    fields       =(  'label', 'blurb', 'image_path_for_legend')
 admin.site.register(Habitat, HabitatAdmin)
 
 

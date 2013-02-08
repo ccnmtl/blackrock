@@ -88,6 +88,9 @@ class MammalSearchView(SearchView):
       if param != 'page':
         query += '%s=%s&' % (param, value) 
     extra['query'] = query
+    
+    extra['species'] = Species.objects.all()
+    extra['habitats'] = Habitat.objects.all()
     return extra
 
 

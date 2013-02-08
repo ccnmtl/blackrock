@@ -127,26 +127,4 @@ class PortalSearchView(SearchView):
         print "extra query is " + query
     extra['query'] = query
     return extra
-
-   
-"""q is   a
-called getmultiplechoice and returned  study_type:Long-Term OR study_type:Modeling
-original query is  study_type:Long-Term OR study_type:Modeling
-narrowing with  study_type:Long-Term OR study_type:Modeling
-called getmultiplechoice and returned  
-original query is  
-called getmultiplechoice and returned  
-original query is  
-called getmultiplechoice and returned  asset_type:ResearchProject
-original query is  asset_type:ResearchProject
-narrowing with  asset_type:ResearchProject
-called getmultiplechoice and returned  
-original query is  
-count is  6
-extra query is q=a&
-extra query is q=a&study_type=Modeling&
-extra query is q=a&study_type=Modeling&asset_type=ResearchProject&
-[06/Feb/2013 15:25:00] "GET /portal/search/?q=a&asset_type=ResearchProject&study_type=Long-Term&study_type=Modeling HTTP/1.1" 200 22435"""
-
-    
     

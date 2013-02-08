@@ -6,14 +6,15 @@
 {% endblock %}
 
 
-{%comment %}
-    {% block css %}
-	    {{ block.super }}
-            @import "http://blackrock.ccnmtl.columbia.edu/site_media/js/jquery-ui-1.8.11.custom/css/smoothness/jquery-ui-1.8.11.custom.css"; /* THIS NEED TO BE ADDED TO THE HABITAT MAP TEMPLATE, NOT THE BASE_MAMMAL. */
-    {% endblock %}
-{%endcomment %}
+
+{% block css %}
+	{{ block.super }}
+        @import "http://blackrock.ccnmtl.columbia.edu/site_media/js/jquery-ui-1.8.11.custom/css/smoothness/jquery-ui-1.8.11.custom.css"; /* THIS NEED TO BE ADDED TO THE HABITAT MAP TEMPLATE, NOT THE BASE_MAMMAL. */
+{% endblock %}
 
 
+
+{% block container %}
  <!-- ### BEGIN CONTENT FOR HABITAT MAP, PUT IN TEMPLATE -->
  <div id="container" class="habitatmap">
 
@@ -258,7 +259,6 @@ jQuery(document).ready(function() {
 <!-- ### END WHAT NEEDS TO BE IN THE TEMPLATE -->
 
 
-{% block container %}
  <form method="get" action=".">
         <table>
             {{ form.as_table }}

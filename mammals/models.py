@@ -56,6 +56,8 @@ class GridPoint(models.Model):
         return self.geo_point.coords[1]
 
 
+
+
          
     def dir(self):
         return dir(self)
@@ -167,6 +169,7 @@ class Habitat (models.Model):
 
     label =  models.CharField(blank=True, help_text = "Short label for this habitat.", max_length = 256)
     blurb =  models.TextField(blank=True, help_text = "Notes about this habitat (for a habitat page).")
+    image_path_for_legend = models.CharField(blank=True, help_text = "Path to the round colored circle for this habitat", max_length = 256)
     
     def dir(self):
         return dir(self)
