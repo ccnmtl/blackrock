@@ -11,8 +11,12 @@ class MammalSearchForm(SearchForm):
   species_list = [(s.id, s.common_name) for s in Species.objects.all()]
   
   csm = forms.CheckboxSelectMultiple
-  trap_species = forms.MultipleChoiceField(required=False, label='Species', widget=csm, choices=species_list)
+  
+  
+  # note: the order in which these are defined... affects the order in which they are displayed in the template. This sucks but it's what I get for acquiescing to Django forms.
   trap_habitat = forms.MultipleChoiceField(required=False, label='Habitat', widget=csm, choices=habitat_list)
+  trap_species = forms.MultipleChoiceField(required=False, label='Species', widget=csm, choices=species_list)
+
   
   def __init__(self, *args, **kwargs):
     super(MammalSearchForm, self).__init__(*args, **kwargs)
