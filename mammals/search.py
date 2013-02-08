@@ -57,12 +57,12 @@ class MammalSearchView(SearchView):
             if param != 'page':
                 query += '%s=%s&' % (param, value)
         extra['query'] = query
+        
+        #import pdb
+        #pdb.set_trace()
+        #search_map_repr
+        extra ['results_json']= simplejson.dumps([tl.object.search_map_repr() for tl in self.results])
+
         return extra
-
-
-    
-
-
-
-    
-    
+        
+        

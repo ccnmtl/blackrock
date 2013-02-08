@@ -18,7 +18,9 @@ function addSimpleMap(mapInstance) {
 	        
         }
     }
-    add_heatmap_ground_overlay()
+    if (jQuery('#heatmap_image').length > 0) {
+        add_heatmap_ground_overlay()
+    }
 }
 
 
@@ -37,5 +39,6 @@ function add_heatmap_ground_overlay() {
     options = { 'map' : the_map }
     heatmap_image_url = jQuery('#heatmap_image')[0].innerHTML;
     var new_overlay = new google.maps.GroundOverlay(heatmap_image_url, the_bounds, options );
+
 }
 

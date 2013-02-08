@@ -1,8 +1,1 @@
-[
-   {% if query %}
-        {% for result in page.object_list %}
-            {{ result.object.search_map_repr }}
-            {% if not forloop.last %},{% endif %}
-        {% endfor %}
-    {% endif %}
-]
+{{ results_json }}

@@ -543,14 +543,30 @@ class TrapLocation(models.Model):
             return self.actual_point.coords[1]
         return None
 
-
-    def search_map_repr (self):
-        where = [self.actual_lat(), self.actual_lon()]
-        result = { 'where': where } 
-        result ['name'] = 'aaa'
-        # 'name': a.species.common_name,
-        return simplejson.dumps(result)
+    def species_if_any(self):
+        if self.animal:
+            return self.animal.species.common_name
+        else:
+            return None
         
+    def habitat_if_any(self):
+        if self.habitat:
+            return self.habitat.label
+        else:
+            return None
+            
+            
+    def search_map_repr (self):
+        result = {}
+        where = [self.actual_lat(), self.actual_lon()]
+        result ['where'] = where
+        date_string = self.expedition.end_date_of_expedition.strftime("%m/%d/%y")
+        result ['name'] = "Species: %s; Habitat: %s; School: %s ; Date: %s" % (self.species_if_any(),self.habitat_if_any(), self.expedition.school_name, date_string)
+        result ['species'] = self.species_if_any()
+        result ['habitat'] = self.habitat_if_any()
+        result ['school']  = self.expedition.school_name
+        result ['date']    = date_string
+        return result
         
             
     def dir(self):
@@ -558,12 +574,12 @@ class TrapLocation(models.Model):
         
 
         
-            
-    if 1 == 1:
-    #these are still called from the map page -- see /sentry/group/1260
+    def gps_coords(self):
+        return "%s, %s" % (self.actual_NSlat(), self.actual_EWlon())
+        
+    if 1 == 0:
+    #these are no longer called from the map page -- see /sentry/group/1260
     #TODO remove; Now ambiguous.    
-                        def gps_coords(self):
-                            return "%s, %s" % (self.NSlat(), self.EWlon())
                         def NSlat(self):
                             lat = self.lat()
                             if lat:
