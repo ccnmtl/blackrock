@@ -645,7 +645,7 @@ def simple_map(request):
         where = [0,0]
         if len(a.traplocation_set.all()):
             a_place = a.traplocation_set.all()[0]
-            where = [a_place.lat(), a_place.lon()] 
+            where = [a_place.actual_lat(), a_place.actual_lon()] 
         result.append ({
                 'name': a.species.common_name,
                 'where': where

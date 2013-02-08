@@ -15,6 +15,7 @@ function addSimpleMap(mapInstance) {
     for (var i = 0; i < map_data.length; i++) {
         if (map_data[i]['where'][0] != 0) {
 	        markers.push ( general_map_marker (map_data[i]['name'], map_data[i]['where'], mapInstance ));
+	        
         }
     }
     add_heatmap_ground_overlay()

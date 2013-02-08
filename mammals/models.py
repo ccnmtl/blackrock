@@ -543,10 +543,18 @@ class TrapLocation(models.Model):
             return self.actual_point.coords[1]
         return None
 
+
+    def search_map_repr (self):
+        where = [self.actual_lat(), self.actual_lon()]
+        result = { 'where': where } 
+        result ['name'] = 'aaa'
+        # 'name': a.species.common_name,
+        return simplejson.dumps(result)
+        
+        
             
     def dir(self):
         return dir(self)
-        
         
 
         

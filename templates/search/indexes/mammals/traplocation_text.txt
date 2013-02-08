@@ -1,5 +1,4 @@
 {{ object.text }}
-
 {%comment %}
 {{ object.first_name }}
 {% for facet in object.facet.all %}

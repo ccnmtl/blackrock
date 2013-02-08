@@ -4,6 +4,7 @@
 	{{ block.super }}
 	<script type="text/javascript" src="/mammals/media/js/habitat_map_style.js"></script>
 	<script type="text/javascript" src="/mammals/media/js/habitat_map_code.js"></script>
+    <script type="text/javascript" src="/mammals/media/js/general_map.js"></script>
 {% endblock %}
 {% block css %}
     <style type='text/css'>
@@ -12,7 +13,9 @@
     </style> 
 {% endblock %}
 {% block container %}
- <!-- ### BEGIN CONTENT FOR HABITAT MAP, PUT IN TEMPLATE -->
+<div id ="map_data" style="display:none">
+    {%include "mammals/search_subtemplates/results.html" %}
+</div>
  <div id="container" class="habitatmap">
     <div class="plain">
         <div id="left">
@@ -21,7 +24,7 @@
                     {%include "mammals/search_subtemplates/grid_selector.html" %}
                     {%include "mammals/search_subtemplates/traps_and_spotting.html" %}
                     <!-- annoying: species and habitat are the wrong way around in the template. 
-                    since I apparently don't understand the "with" tag in the django templating language.-->
+                    since I apparently don't understand the "with" tag in the django templating language. TODO fix.-->
                     {% for field in form %}
                         {%if field.label == "Species" %}
                             {%include "mammals/search_subtemplates/species.html" %}
@@ -41,9 +44,5 @@
         <div class="clearfix"></div><!-- class="clearfix" -->
     </div><!-- div class="plain" -->
 </div><!-- div id="container" -->
- <!-- ### END CONTENT FOR HABITAT MAP -->
-{%include "mammals/search_subtemplates/results.html" %}
 {%include "mammals/search_subtemplates/accordion.html" %}
 {%endblock%}
-
-

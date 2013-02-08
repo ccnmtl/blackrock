@@ -51,24 +51,10 @@ class MammalSearchForm(SearchForm):
     sqs = []
     self.hidden = []
     if self.is_valid():
-        #q = self.cleaned_data['q'].lower()
-        #sqs = self.searchqueryset.auto_query(q)
         sqs = self.searchqueryset.auto_query('')
-        #print "everything"
-        #print len(sqs)
-        #print sqs
-        #print "trap locations"
         sqs = sqs.narrow('asset_type_exact:TrapLocation')
-        #print len(sqs)
-        #print sqs
-        #print "narrowed by habitat"
-        sqs = sqs.narrow (self.checkboxes_or ('trap_habitat'))      
-        #print len(sqs)
-        #print sqs
-        #print "narrowed by species"
+        sqs = sqs.narrow (self.checkboxes_or ('trap_habitat'))
         sqs = sqs.narrow (self.checkboxes_or ('trap_species'))
-        #print len(sqs)
-        #print sqs
         if self.load_all:
             sqs = sqs.load_all()
     return sqs
@@ -76,6 +62,12 @@ class MammalSearchForm(SearchForm):
 class MammalSearchView(SearchView):
   #import pdb
   #pdb.set_trace()
+
+  def __init__(self, *args, **kwargs):
+    LOTS_AND_LOTS = 5000000000 #think it's enough?
+    super(MammalSearchView, self).__init__(*args, **kwargs)
+    self.results_per_page = LOTS_AND_LOTS
+  
   def __name__(self):
       return "MammalSearchView"
     
@@ -84,15 +76,18 @@ class MammalSearchView(SearchView):
     
   def extra_context(self):
     extra = super(MammalSearchView, self).extra_context()
+    
     if hasattr(self, "results"):
         if type(self.results) is ListType and len(self.results) < 1:
             extra["count"] = -1
         else:
             extra["count"] = len(self.results)
     query = ''
+    
     for param, value in self.request.GET.items():
       if param != 'page':
-        query += '%s=%s&' % (param, value) 
+        query += '%s=%s&' % (param, value)
+        
     extra['query'] = query
     extra['species'] = Species.objects.all()
     extra['habitats'] = Habitat.objects.all()
