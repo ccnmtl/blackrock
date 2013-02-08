@@ -21,11 +21,11 @@
                     {% for field in form %}
                         {{ field.errors }}
                         {% if field.field.choices %}
-                            {%if field.label == "Species" %}
-                                {%include "mammals/search_subtemplates/species.html" %}
-                            {%endif %}
                             {%if field.label == "Habitat" %}
                                 {%include "mammals/search_subtemplates/habitats.html" %}
+                            {%endif %}
+                            {%if field.label == "Species" %}
+                                {%include "mammals/search_subtemplates/species.html" %}
                             {%endif %}
                         {% else %}
                         {% endif %}

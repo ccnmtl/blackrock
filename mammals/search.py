@@ -76,10 +76,6 @@ class MammalSearchView(SearchView):
       return "MammalSearchView"
     
   def get_results(self):
-    #import pdb
-    #pdb.set_trace()
-    print self.form.fields['trap_species'].choices[0]
-
     return self.form.search()
     
   def extra_context(self):
