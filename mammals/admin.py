@@ -81,6 +81,11 @@ class IlluminationAdmin (admin.ModelAdmin):
 admin.site.register(Illumination, IlluminationAdmin)
 
 
+class TrapTypeAdmin (admin.ModelAdmin):
+    list_display = (  'label',)
+    fields       =(  'label',)
+admin.site.register(TrapType, TrapTypeAdmin)
+
 class AnimalScaleUsedAdmin (admin.ModelAdmin):
     list_display = (  'label',)
     fields       =(  'label',)
@@ -95,9 +100,6 @@ class AnimalAgeAdmin (admin.ModelAdmin):
     list_display = (  'label',)
     fields       =(  'label',)
 admin.site.register(AnimalAge, AnimalAgeAdmin)
-
-
-
 
 
 
@@ -136,8 +138,8 @@ admin.site.register(Expedition, ExpeditionAdmin)
 
     
 class TrapLocationAdmin (admin.ModelAdmin):
-    list_display = (  'expedition', 'suggested_point','actual_point','trap_used', 'bait', 'habitat',)
-    fields       = ( 'expedition', 'suggested_point','actual_point', 'trap_used', 'bait', 'habitat',  'notes_about_location', 'animal', 'notes_about_outcome' )
+    list_display = (  'expedition', 'suggested_point','actual_point','trap_type', 'bait', 'habitat',)
+    fields       = ( 'expedition', 'suggested_point','actual_point', 'trap_type', 'bait', 'habitat',  'notes_about_location', 'animal', 'notes_about_outcome' )
     
 admin.site.register(TrapLocation, TrapLocationAdmin)
 

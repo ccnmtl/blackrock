@@ -1,4 +1,4 @@
-{% if  user.username == 'eddie' %}
+{% if show_save_button %}
   {% if grid_square_id > 0 and not sandbox %}
     <form action='/mammals/new_expedition/' method="post" id = "start_expedition_form">
         <div  text-align="right">

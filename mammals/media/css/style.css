@@ -130,11 +130,12 @@ div#nav ol li a.active, div#nav ul li.active { background-color: #ffffff; }
 
 .clearfix
 {
-	margin: 0;
-	padding: 0;
-	border: 0;
+	margin: 0 !important;
+	padding: 0 !important;
+	border: 0 !important;
 	clear: both;
 	display:block;
+	float: none !important;
 }
 
 .instructions
@@ -287,7 +288,7 @@ body.square .formfield label
 	margin: 0;
 	padding: 0 0 0 25px;
 	border: 0;
-	background: transparent url('../images/back_page.png') 0px 0px no-repeat;
+	background: transparent url('/mammals/media/back_page.png') 0px 0px no-repeat;
 	height: 20px;
 	line-height: 20px;
 	font-size: 11px;
@@ -322,7 +323,7 @@ body.square .formfield label
 	font-weight: bold;
 	font-size: 12px;
 	height: 36px;
-	background: url('../images/nav_steps.png') -2px -8px no-repeat;
+	background: url('/mammals/media/images/nav_steps.png') -2px -8px no-repeat;
 }
 
 #randomizer
@@ -342,7 +343,7 @@ body.square .formfield label
 	font-weight: bold;
 	font-size: 12px;
 	height: 36px;
-	background: url('../images/nav_steps.png') -2px -48px no-repeat;
+	background: url('/mammals/media/images/nav_steps.png') -2px -48px no-repeat;
 }
 
 .randomize_again_hint
@@ -465,7 +466,7 @@ body.square .formfield label
 {
 	width: 90px;
 	height: 55px;
-	background: url("../images/pointer_topleft.gif") 0 0 no-repeat;
+	background: url("/mammals/media/images/pointer_topleft.gif") 0 0 no-repeat;
 	font-size: 11px;
 	float: left;
 }
@@ -482,7 +483,7 @@ body.square .formfield label
 {
 	width: 90px;
 	height: 55px;
-	background: url("../images/pointer_topright.gif") 76px 0 no-repeat;
+	background: url("/mammals/media/images/pointer_topright.gif") 76px 0 no-repeat;
 	font-size: 11px;
 	float: left;
 }
@@ -500,7 +501,7 @@ body.square .formfield label
 	clear: both;
 	width: 180px;
 	height: 65px;
-	background: url("../images/pointer_center.gif") center center no-repeat;
+	background: url("/mammals/media/images/pointer_center.gif") center center no-repeat;
 	font-size: 11px;
 }
 
@@ -515,7 +516,7 @@ body.square .formfield label
 {
 	width: 90px;
 	height: 60px;
-	background: url("../images/pointer_bottomleft.gif") 0 46px no-repeat;
+	background: url("/mammals/media/images/pointer_bottomleft.gif") 0 46px no-repeat;
 	font-size: 11px;
 	float: left;
 }
@@ -532,7 +533,7 @@ body.square .formfield label
 {
 	width: 90px;
 	height: 60px;
-	background: url("../images/pointer_bottomright.gif") 76px 46px no-repeat;
+	background: url("/mammals/media/images/pointer_bottomright.gif") 76px 46px no-repeat;
 	font-size: 11px;
 	float: left;
 }
@@ -734,4 +735,112 @@ body.square .block_coordbox
 	border: 0;
 	display: block;
 	float: left;
+}
+
+/* Definitions for Habitat Map */
+
+.habitatmap #left
+{
+	display: block;
+	width: 33%;
+	float: left;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background-color: transparent;
+}
+
+.habitatmap #map_canvas
+{
+	position: relative;
+	display: block;
+	width: 66%;
+	min-width: 500px;
+	height: 550px;
+	float: left;
+	margin: 0;
+	padding: 0;
+	border: 1px solid #999;
+}
+
+.habitatmap .gridselector
+{
+	margin: 0 0 10px 0;
+	padding: 0;
+	border: 0;
+    font-size: 11px;
+}
+
+.habitatmap div.gridselector div.checkbox,
+.habitatmap div.gridselector div.legend,
+.habitatmap div.gridselector div.title {
+    float: left;
+	padding: 0px 2px 0px 0px;
+}
+
+.habitatmap div.gridselector div.title {
+	padding: 3px 0px 0px 0px;
+}
+
+.habitatmap .ui-widget {
+    font-size: 11px !important;
+    margin-bottom: 10px;
+}
+
+.habitatmap .ui-widget h3 a {
+    font-size: 11px !important;
+    font-weight: bold;
+}
+
+.habitatmap .ui-accordion {
+    width: auto !important;
+    margin-right: 20px !important;
+}
+
+.habitatmap .ui-accordion-content {
+    max-height: 150px;
+    min-height: 100px;
+    overflow: hidden;
+    padding: 0px !important;
+}
+
+.habitatmap .ui-accordion-content-scroll {
+    max-height: 140px;
+    margin: 0px 0px 10px 0px;
+    padding: 0px;
+    overflow: auto;
+    padding: 0px 10px !important;
+}
+
+.habitatmap .ui-accordion-content div {
+	padding-bottom: 3px;
+	padding-top: 3px;
+}
+
+.habitatmap .ui-accordion-content div.facetItem div.checkbox,
+.habitatmap .ui-accordion-content div.facetItem div.legend,
+.habitatmap .ui-accordion-content div.facetItem div.title {
+    float: left;
+	padding: 0px 2px 0px 0px;
+}
+
+.habitatmap .ui-accordion-content div.facetItem div.title {
+	padding: 3px 0px 0px 0px;
+}
+
+.habitatmap .ui-state-focus .ui-icon {
+    background-image: url('/mammals/media/images/carets.png') !important;
+}
+
+.habitatmap .ui-icon-triangle-1-s {
+    background-position: -16px 0px !important;
+}
+
+.habitatmap .ui-icon-triangle-1-e {
+    background-position: 0px 0px !important;
+}
+
+.habitatmap .ui-icon-triangle-1-l {
+    background-image: url('/mammals/media/images/carets.png') !important;
+    background-position: -32px 0px !important;
 }

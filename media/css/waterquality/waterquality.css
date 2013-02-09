@@ -1,3 +1,95 @@
+#contentcontainer { padding: 20px; }
+
+form
+{
+	font-family: "lucida grande";
+	font-size: 10px;
+	color: #666;
+}
+
+fieldset
+{
+	border: 1px solid #B0B0B0;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 5px;
+	margin-top: 10px;
+}
+
+legend
+{
+	font-weight: bold;
+	font-size: 14px;
+	background-color: #fff;
+	border: 1px solid #B0B0B0;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 5px;
+	padding: 10px;
+	color: #000;
+}
+
+.form-element
+{
+	border: 1px solid #B0B0B0;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 5px;
+	float: left;
+	margin: 5px;
+	padding-bottom: 5px;
+}
+
+.form-row
+{
+	padding: 5px;
+	clear: both;
+}
+
+.form-label
+{
+	float: left;
+	text-align: right;
+	margin-right: 5px;
+}
+
+label
+{
+	padding-top: 4px;
+	display: block;
+}
+
+.form-input { float: left; }
+.selected { color: #ff6633; }
+input[type="button"] { }
+select { }
+
+
+#datatable
+{
+	width: 100%;
+	border: 1px solid #ccc;
+	border-collapse: collapse;
+}
+
+#datatable th, #datatable td
+{
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-collapse: collapse;
+}
+
+#datatable th
+{
+	text-align: left;
+	background-color: #eee;
+}
+
+#datatable td.seriesname { }
+
+
+/*OLD*/
+/*
 table.graphtable th, table.graphtable td
 {
 	font-size: 10px;
@@ -73,27 +165,6 @@ table.graphtable th
 	text-align: left;
 }
 
-#datatable
-{
-	width: 100%;
-	border: 1px solid #ccc;
-	border-collapse: collapse;
-}
-
-#datatable th, #datatable td
-{
-	padding: 5px;
-	border: 1px solid #ccc;
-	border-collapse: collapse;
-}
-
-#datatable th
-{
-	text-align: left;
-	background-color: #eee;
-}
-
-#datatable td.seriesname { }
 
 table.graphtable th, table.graphtable td
 {
@@ -117,3 +188,5 @@ table.graphtable th, table.graphtable td
 #error-message h2 {
   color: #f00;
 }
+*/
+/*OLD*/

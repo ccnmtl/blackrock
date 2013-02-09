@@ -113,7 +113,7 @@ class LabelMenu (models.Model):
         return self.label
     label =  models.CharField(blank=True, null=True, max_length = 256)
 
-class AnimalSex (LabelMenu):
+class AnimalSex (LabelMenu): #honi soit qui mal y pense
     pass
 
 class AnimalAge (LabelMenu):
@@ -148,6 +148,7 @@ class Animal(models.Model):
         return dir(self)
 
 class Trap (models.Model):
+    """It's a trap!"""
     def __unicode__(self):
         return self.trap_string
    
@@ -155,10 +156,9 @@ class Trap (models.Model):
 
     notes =  models.CharField(blank=True, help_text = "Notes about this trap.", max_length = 256)
 
-
-
     def dir(self):
         return dir(self)
+
         
         
 class Habitat (models.Model):
@@ -282,6 +282,8 @@ class ExpeditionMoonPhase (LabelMenu):
     pass
 class Illumination (LabelMenu):
     pass
+class TrapType (LabelMenu):
+    pass
 
     
 class Expedition (models.Model):
@@ -298,6 +300,7 @@ class Expedition (models.Model):
         expedition.number_of_students = 0
         expedition.save()
         
+
         for transect in json_obj:
             for point in transect['points']:
                 new_trap_location = TrapLocation.create_from_obj(transect, point, expedition)
@@ -338,6 +341,7 @@ class Expedition (models.Model):
     overnight_precipitation_type =  models.ForeignKey(ExpeditionOvernightPrecipitationType, null=True, blank=True,  related_name = "exp_precipitation_type")
     moon_phase    =  models.ForeignKey(ExpeditionMoonPhase, null=True, blank=True,  related_name = "exp_moon_phase")
     illumination  =  models.ForeignKey(Illumination, null=True, blank=True,  related_name = "exp_illumination")
+   
     
     def dir(self):
         return dir(self)
@@ -384,7 +388,14 @@ class TrapLocation(models.Model):
     
     actual_point    = models.PointField(null=True, blank=True)
     objects = models.GeoManager()
-    trap_used = models.ForeignKey (Trap, null=True, blank=True, help_text = "Which trap, if any, was left at this location")
+    
+    #this will probably be retired:
+    #trap_used = models.ForeignKey (Trap, null=True, blank=True, help_text = "Which trap, if any, was left at this location (We may not be needing this info.)")
+    
+    #instead we're linking directly to the type of trap.
+    trap_type  =  models.ForeignKey(TrapType, null=True, blank=True, help_text = "Which type of trap, if any, was left at this location.")
+    
+    
     notes_about_location =  models.TextField(blank=True, help_text = "Notes about the location")
     
     
@@ -394,27 +405,23 @@ class TrapLocation(models.Model):
     
     #Team info:
     team_letter = models.CharField   (blank=True, null=True, help_text = "Name of team responsible for this location.", max_length = 256)
-    team_number = models.IntegerField(blank=True, null=True, help_text = "Designates which trap.")
+    team_number = models.IntegerField(blank=True, null=True, help_text = "Differentiates the traps each team is in charge of.")
     order       = models.IntegerField(blank=True, null=True, help_text = "Order in which to show this trap.")
     
     habitat = models.ForeignKey (Habitat, null=True, blank=True,  help_text = "What habitat best describes this location?")
     
     #info about the outcome:    
-    whether_a_trap_was_set_here = models.BooleanField(help_text = "We typically won't use ALL the locations suggested; this denotes that a trap was actually placed at or near this point.")
+    whether_a_trap_was_set_here = models.BooleanField(help_text = "We typically won't use all the locations suggested by the randomization recipe; this denotes that a trap was actually placed at or near this point.")
     bait = models.ForeignKey (Bait, null=True, blank=True ,  help_text = "Any bait used")
     animal = models.ForeignKey (Animal, null=True, blank=True,  help_text = "Any animals caught")
     bait_still_there = models.BooleanField(help_text = "Was the bait you left in the trap still there when you came back?")
     
-    #field notes:
+    
+    #NOTES   THESE ARE GONNA GET AXED:
     notes_about_outcome =  models.TextField(blank=True, help_text = "Any miscellaneous notes about the outcome")
-    understory   =  models.CharField(blank=True, null=True,  max_length = 256)
-    cloud_cover =  models.ForeignKey(ExpeditionCloudCover, null=True, blank=True,  related_name = "trap_cloudcover")
-    overnight_temperature =  models.ForeignKey(ExpeditionOvernightTemperature, null=True, blank=True,  related_name = "trap_temperature")
-    overnight_precipitation =  models.ForeignKey(ExpeditionOvernightPrecipitation, null=True, blank=True,  related_name = "trap_precipitation")
-    overnight_precipitation_type =  models.ForeignKey(ExpeditionOvernightPrecipitationType, null=True, blank=True,  related_name = "trap_precipitation_type")
-    moon_phase    =  models.ForeignKey(ExpeditionMoonPhase, null=True, blank=True,  related_name = "trap_moon_phase")
-    illumination  =  models.ForeignKey(Illumination, null=True, blank=True,  related_name = "trap_illumination")
+        
     student_names =  models.TextField (blank=True, null=True, help_text = "Names of the students responsible for this location (this would be filled in, if at all, by the instructor after the students have left the forest.", max_length = 256)
+    
     
     
     def trap_nickname (self):
@@ -462,10 +469,16 @@ class TrapLocation(models.Model):
     
     
     def set_suggested_lat_long (self, coords):
+        # see 
+        # https://code.djangoproject.com/attachment/ticket/16778/postgis-adapter-2.patch
+        # if this breaks again.
         self.suggested_point = "POINT(%s %s)" % (coords[0], coords[1])
         
     def set_actual_lat_long (self, coords):
-        self.actual_point = "POINT(%s %s)" % (coords[0], coords[1])
+        # see 
+        # https://code.djangoproject.com/attachment/ticket/16778/postgis-adapter-2.patch
+        # if this breaks again.
+        self.actual_point    = "POINT(%s %s)" % (coords[0], coords[1])
         
     def __unicode__(self):
         return self.gps_coords()
@@ -529,7 +542,15 @@ class TrapLocation(models.Model):
         return None
 
             
+    def dir(self):
+        return dir(self)
+        
+        
+
+        
+            
     if 1 == 1:
+    #these are still called from the map page -- see /sentry/group/1260
     #TODO remove; Now ambiguous.    
                         def gps_coords(self):
                             return "%s, %s" % (self.NSlat(), self.EWlon())
@@ -558,6 +579,6 @@ class TrapLocation(models.Model):
                             return None
 
 
-            
-    def dir(self):
-        return dir(self)
+def whether_this_user_can_see_mammals_module_data_entry (a_user):
+    return a_user != None and len (a_user.groups.filter(name='mammals_module_data_entry')) > 0
+

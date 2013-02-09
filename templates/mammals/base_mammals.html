@@ -42,6 +42,11 @@
 
         <li class="default {% block status_teaching %}{% endblock %}"><a href="/mammals/teaching/">Teaching Resources</a></li>
         <li class="default {% block status_help %}{% endblock %}"><a href="/mammals/help/">Help</a></li>
+        {% if user.is_authenticated %}
+        <li class="default"><a href="/mammals/logout/">Logout {{user }}</a></li>
+        {%else %}
+        <li class="default"><a href="/mammals/login/">Log in</a></li>
+        {%endif %}
     </ul>
 {% endblock %}
 

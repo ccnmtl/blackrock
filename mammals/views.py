@@ -17,6 +17,8 @@ from django.utils import simplejson
 from django.shortcuts import render_to_response
 from django.template import RequestContext,  TemplateDoesNotExist
 from blackrock.mammals.models import *
+#from blackrock.mammals.models import whether_this_user_can_see_mammals_module_data_entry
+
 from operator import attrgetter
 from string import uppercase
 from django.contrib.auth import authenticate, login
@@ -179,7 +181,10 @@ def grid_block(request):
 
     return {
         'block_json': simplejson.dumps(block)
+        
+        ,'show_save_button'                          :  whether_this_user_can_see_mammals_module_data_entry (request.user)
         ,'sandbox'                                   :  False
+        
 
         #TODO: fix this -- incomplete refactor. These two variables refer to exactly the same thing: the database ID of the square we selected.
         ,'selected_block_database_id'                :  selected_block_database_id
@@ -309,6 +314,8 @@ def grid_square_csv(request):
             writer.writerow(row_to_output(point, transect))
     return response
 
+
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 def set_up_expedition (request):
     if request.POST.has_key ('transects_json') and request.POST['transects_json'] != 'None':
         transects_json = request.POST.get('transects_json')
@@ -333,19 +340,19 @@ def mammals_login(request, expedition_id = None):
         ,'grid_square_id' : request.POST.get('grid_square_id')
         ,'expedition_id' : expedition_id
     }
-    return result 
+    return result
+    
 
 @csrf_protect
 @rendered_with('mammals/expedition.html')
 def process_login_and_go_to_expedition(request):
-    
     username = request.POST['username']
     password = request.POST['password']
     user = authenticate(username=username, password=password)
     if user is not None and  user.is_active:
         login(request, user)
     
-        #TODO: new_expedition should really be 2 different methods -- one for creating a new expedition and one for bring up an ond one.
+        #TODO: new_expedition should really be 2 different methods -- one for creating a new expedition and one for bring up an old one.
         if request.POST.has_key('expedition_id') and request.POST['expedition_id'] != 'None':
             return new_expedition(request)        
         if request.POST.has_key('transects_json') and request.POST['transects_json'] != 'None':
@@ -353,16 +360,14 @@ def process_login_and_go_to_expedition(request):
         #the user just wants to see all the expeditions.
         return all_expeditions(request)
 
-
-    return login(request, user)
+    return HttpResponseRedirect ( '/mammals/login/')
+    #return login(request, user)
         
 #TODO: rename this method. it's either new or find.
 @csrf_protect
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 @rendered_with('mammals/expedition.html')
 def new_expedition(request):
-    if not request.user.is_staff:
-        return mammals_login(request)
-    
     the_new_expedition = set_up_expedition(request)
     return HttpResponseRedirect ( '/mammals/expedition/%d/' % the_new_expedition.id)
 
@@ -370,23 +375,33 @@ def new_expedition(request):
 @rendered_with('mammals/expedition.html')
 def expedition(request, expedition_id):
 
-    if not request.user.is_staff:
+    if not whether_this_user_can_see_mammals_module_data_entry(request.user):
         return mammals_login(request, expedition_id)
 
     exp = Expedition.objects.get(id =expedition_id)
-    if not request.user.is_staff:
+    if not whether_this_user_can_see_mammals_module_data_entry(request.user):
         return mammals_login(request, expedition_id)
     grades = GradeLevel.objects.all()
     return {
         'expedition'                        : exp
         ,'grades'                           : grades
+        
+        
+        
+        
+        ,'moon_phases'                      : ExpeditionMoonPhase.objects.all()
+        ,'overnight_temperatures'           : ExpeditionOvernightTemperature.objects.all()
+        ,'overnight_precipitations'         : ExpeditionOvernightPrecipitation.objects.all()
+        ,'overnight_precipitation_types'    : ExpeditionOvernightPrecipitationType.objects.all()
+        ,'cloud_covers'                     : ExpeditionCloudCover.objects.all()
+        ,'illuminations'                    : Illumination.objects.all()
     }
 
 
 @rendered_with('mammals/expedition.html')
 def edit_expedition(request, expedition_id):
     exp = Expedition.objects.get(id =expedition_id)
-    if not request.user.is_staff:
+    if not whether_this_user_can_see_mammals_module_data_entry(request.user):
         return mammals_login(request, expedition_id)
     rp = request.POST
     if rp:
@@ -403,13 +418,33 @@ def edit_expedition(request, expedition_id):
         if rp.has_key ('number_of_students'):
             exp.number_of_students = int(rp ['number_of_students'])
         exp.save()
+        
+        if rp.has_key ('understory') and rp['understory'] != '':
+            exp.understory = rp['understory']
+
+        form_map_environment = {
+            'moon_phase'                   : 'moon_phase_id'
+            ,'cloud_cover'                 : 'cloud_cover_id'
+            ,'illumination'                : 'illumination_id'
+            ,'overnight_temperature'       : 'overnight_temperature_id'
+            ,'overnight_precipitation'     : 'overnight_precipitation_id'
+            ,'overnight_precipitation_type': 'overnight_precipitation_type_id'
+        }
+           
+        #for point in self.traplocation_set.all():
+        #    
+        for the_key, thing_to_update in form_map_environment.iteritems():
+            if rp.has_key (the_key):
+                setattr(exp,  thing_to_update,  int(rp[the_key]))
+                exp.save()
+        
     return all_expeditions(request)
 
 @csrf_protect
 @rendered_with('mammals/expedition_animals.html')
 def expedition_animals(request, expedition_id):
     exp = Expedition.objects.get(id =expedition_id)
-    if not request.user.is_staff:
+    if not whether_this_user_can_see_mammals_module_data_entry(request.user):
         return mammals_login(request, expedition_id)
     
     return {
@@ -424,10 +459,8 @@ def expedition_animals(request, expedition_id):
 
 
 @rendered_with('mammals/all_expeditions.html')
-def all_expeditions(request):
-    if not request.user.is_staff:
-        return mammals_login(request)
-        
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
+def all_expeditions(request):        
     expeditions = Expedition.objects.all().order_by('-start_date_of_expedition')
     return {
         'expeditions' : expeditions
@@ -436,16 +469,15 @@ def all_expeditions(request):
     
 
 @csrf_protect
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 @rendered_with('mammals/team_form.html')
 def team_form(request, expedition_id, team_letter):
-
-    if not request.user.is_staff:
-        return mammals_login(request)
 
     baits = Bait.objects.all()
     species = Species.objects.all()
     grades = GradeLevel.objects.all()
     habitats = Habitat.objects.all()
+    trap_types = TrapType.objects.all()
     exp = Expedition.objects.get(id =expedition_id)
     
     return {
@@ -454,19 +486,14 @@ def team_form(request, expedition_id, team_letter):
         ,'habitats'  : habitats
         ,'grades'    : grades
         ,'species'   : species
+        ,'trap_types'  : trap_types
         ,'team_letter' : team_letter
         ,'team_points' : exp.team_points (team_letter)
-        ,'moon_phases'                      : ExpeditionMoonPhase.objects.all()
-        ,'overnight_temperatures'           : ExpeditionOvernightTemperature.objects.all()
-        ,'overnight_precipitations'         : ExpeditionOvernightPrecipitation.objects.all()
-        ,'overnight_precipitation_types'    : ExpeditionOvernightPrecipitationType.objects.all()
-        ,'cloud_covers'                     : ExpeditionCloudCover.objects.all()
-        ,'illuminations'                    : Illumination.objects.all()
-        
     }
 
 
 @csrf_protect
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 def save_team_form(request):
     rp = request.POST
     expedition_id = rp['expedition_id']
@@ -474,32 +501,11 @@ def save_team_form(request):
     team_letter = rp['team_letter']
     the_team_points = exp.team_points (team_letter)
     
-    # This info is gathered by the team as a whole,
-    # so we're just going to associate them with
-    # all the points the team is responsible for.
-    
-    if rp.has_key ('understory') and rp['understory'] != '':
-        for point in the_team_points:
-            point.understory = rp['understory']
-        
-    form_map = {
-        'moon_phase'                   : 'moon_phase'
-        ,'cloud_cover'                 : 'cloud_cover'
-        ,'illumination'                : 'illumination'
-        ,'overnight_temperature'       : 'overnight_temperature'
-        ,'overnight_precipitation'     : 'overnight_precipitation'
-        ,'overnight_precipitation_type': 'overnight_precipitation_type'
-    }
-
-    for point in the_team_points:
-        for the_key, thing_to_update in form_map.iteritems():
-            if rp.has_key (the_key):
-                setattr(point, '%s_id' % thing_to_update,  int(rp[the_key]))
-                point.save()
     
     form_map = {
         'habitat': 'habitat_id'
         ,'bait'  : 'bait_id'
+        ,'trap_type'  : 'trap_type_id'
     }
     form_map_booleans = {
         'whether_a_trap_was_set_here'  : 'whether_a_trap_was_set_here'
@@ -598,13 +604,16 @@ def save_team_form(request):
     
     
 @csrf_protect
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 def save_expedition_animals(request):
     rp = request.POST
     expedition_id = rp['expedition_id']
     exp = Expedition.objects.get(id =expedition_id)
+
     booleans = ['scat_sample_collected' ,'blood_sample_collected' ,
         'skin_sample_collected','hair_sample_collected' ,'recaptured']
     menus = ['sex','age','scale_used']
+
 
     for point in exp.animal_locations():
         for b in booleans:
@@ -803,6 +812,10 @@ def sandbox_grid_block(request):
         ,'transects_json'                            :  simplejson.dumps(transects)
         ,'sandbox'                                   :  True
         ,'transects'                                 :  transects
-    
+        ,'show_save_button'                          :  False
     }
+
+
+
+
 
