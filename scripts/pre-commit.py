@@ -55,7 +55,6 @@ CHECKS = [
                          '.*/deploy_specific/.*',
                          '.*/mammals/.*',
                          '.*/optimization/.*',
-                         '.*/portal/.*',
                          '.*/sampler/.*',
                          '.*/waterquality/.*',
                          ],
