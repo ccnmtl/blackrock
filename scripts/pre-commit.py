@@ -56,7 +56,6 @@ CHECKS = [
                          '.*/mammals/.*',
                          '.*/optimization/.*',
                          '.*/portal/.*',
-                         '.*/respiration/.*',
                          '.*/sampler/.*',
                          '.*/waterquality/.*',
                          ],
