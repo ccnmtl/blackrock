@@ -26,10 +26,18 @@ def explore(request):
     # TODO figure out from data
     interval = 2.5  # cm
     highest = 1070 + 2.5  # cm
-    intervals = [n * interval for n in range(highest / interval)]
+    intervals = [int(n * interval) for n in range(highest / interval)]
+
+    cores = [{'depth': float(sample.depth),
+              'radiocarbon_years': sample.radiocarbon_years}
+             for sample in samples]
+
     samples = [float(sample.depth) for sample in samples]
+
     return render_to_response('paleoecology/core-explore.html',
-                              {'samples': samples, 'intervals': intervals})
+                              {'samples': samples,
+                               'cores': cores,
+                               'intervals': intervals})
 
 
 def getpercents(request):

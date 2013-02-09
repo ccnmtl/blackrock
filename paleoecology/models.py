@@ -8,7 +8,7 @@ class CoreSample(models.Model):
 
     # in cm
     depth = models.DecimalField(max_digits=8, decimal_places=2)
-    radiocarbon_years = models.IntegerField()
+    radiocarbon_years = models.IntegerField(default=0)
 
 
 class PollenType(models.Model):
