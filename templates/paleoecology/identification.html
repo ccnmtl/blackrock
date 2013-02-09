@@ -17,7 +17,15 @@
   
   <script type="text/javascript" src="media/js/interactive_key.js"></script>
   <script type="text/javascript" src="media/js/pollen_identification.js"></script>
-{% endblock %} 
+{% endblock %}
+
+{% block overlay %}
+<div id="pollen-lightbox" class="pollen-lightbox" style="display: none"></div>
+<div id="pollen-lightbox-content" style="display: none">
+    <p><a href="#"  id="pollen-lightbox-close">Click to close</a></p>
+    <center><img id="pollen-image-large" src="" /></center>
+</div>
+{% endblock %}
 
 {% block instructions %}
 <div id="instructions"><strong>Instructions:</strong> Use the appropriate interactive key to identify each of the pictured specimens.  You may change your answer any time by clicking on a specimen you have already identified.</div>
@@ -25,10 +33,16 @@
 
 {% block left %}
 
+
 <div id="identify-box">
   <div class="identify-title">Identify This Specimen</div>
   
- <div id="pollen-image-container"><div id="pollen-image"></div></div>
+ <div id="pollen-image-container">
+    <div id="pollen-image"></div>
+    <div id="pollen-magnify">
+        <img src="/paleoecology/media/images/magnify.png"></img>
+    </div>
+ </div>
   
   <form id="identify-form" action=".">
     <div>

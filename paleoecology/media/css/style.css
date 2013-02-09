@@ -2,17 +2,20 @@ body {
 	font-family: "Lucida Grande", "Trebuchet MS", arial, helvetica, sans-serif !important; 
 }
 
-#breadcrumbs { height: 20px; }
+#breadcrumbs {
+    height: 0px;
+    padding: 0;
+    margin: 0;
+}
 
 div#tab-bar {
 	position: absolute;
 	right: 0;
-	top: 154px;
+	top: 112px;
 }
 
 div.tab {
-	/*background-color: #DCD3C2;*/
-	background-color: #a18f83;
+	background-color: #dcd3c2;
 	color: black;
 	z-index: 100;
 	float: right;
@@ -35,7 +38,7 @@ div#top-box {
 .selected .line-id, .selected .keyitem { background-color: #ffffb3; }
 
 div#content {
-    padding: 20px 5px;
+    padding: 10px 5px 20px 5px;
 }
 
 div#container {
@@ -72,13 +75,12 @@ div#right {
 #identify-box {
   border: 1px #A18F83 solid;
   margin-bottom: 10px;
-  height: 163px;
+  height: 185px;
 }
 
 .identify-title { 
   background-color: #A18F83;
   padding: 5px;
-  font-weight: bold;
 }
 
 #identify-form {
@@ -104,12 +106,13 @@ input#answers {
 #pollen-image-container {
   float: left;
   width: 100px;
-  height: 100px;
+  height: 130px;
   background-color: #ddd;
   border: 1px solid #ccc;
   text-align: center;
   margin: 10px;
-    padding: 5px;
+  padding: 5px;
+  cursor: -moz-zoom-in;
 }
 
 #pollen-image-container2 {
@@ -125,7 +128,17 @@ input#answers {
 #pollen-image img {
   max-width: 100px;
   max-height: 100px;
+  cursor: pointer;    
 }
+
+#pollen-magnify {
+    margin-top: 5px;
+}
+
+#pollen-magnify img {
+    cursor: pointer;
+}
+    
 
 .pollen-zoo-image img {
   cursor: pointer;
@@ -139,7 +152,7 @@ input#answers {
   float: left;
   background-color: #ddd;
   border: 1px solid #ccc;
-  margin: 0 0 5px 12px;
+  margin: 0 0 5px 5px;
 }
 
 .pollen-zoo-image.unanswered {
@@ -172,7 +185,7 @@ input#answers {
 #pollen-zoo {
   height: 335px;
   overflow: auto;
-  padding: 10px;
+  padding: 5px;
 }
 
 #complete {
@@ -189,7 +202,6 @@ div.keytab-selected { background-color: #DCD3C2; }
   text-align: center;
   text-decoration: none;
   margin: 0px;
-  font-weight: bold;
   cursor: pointer;
   background-color: #A18F83;
   padding: 4px .5em 7px .5em;
@@ -387,4 +399,41 @@ table.resultstable td {
 tr.totals td {
   background-color: lightgray;
 }
+
+.pollen-lightbox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(../images/overlay.png) repeat;
+    text-align: center;
+    opacity: 0.75 !important;
+    -moz-opacity: 0.75 !important;
+    filter: alpha(opacity=75) !important;
+    z-index: 200;
+}
+
+#pollen-lightbox-content {
+    position: absolute;
+    z-index: 300;
+    width: 100%;
+    height: 100%;
+}
+
+#pollen-lightbox-content p {
+    color: #fff;
+    font-size: 12px;
+    text-align: center
+}
+
+#pollen-lightbox-content p a {
+    color: #fff;
+}
+
+#pollen-lightbox-content img {
+    border: 20px solid black;
+    max-width: 640px;
+}
+
 
