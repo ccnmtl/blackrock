@@ -94,6 +94,7 @@
       // remove from scenario1 array if it exists
       if(speciesList.indexOf(id) != -1) { 
         speciesList.splice(speciesList.indexOf(id), 1);
+        leafGraph();
       }
     }
 
