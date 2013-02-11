@@ -647,25 +647,79 @@ body.playground_grid .coord_display
 	margin-left: 10px;
 }
 
-body.square .highlighted { color: blue; }
+body.square .highlighted { color: #003399 !important; background-color: #b8dbff !important; }
 
-body.square .distances_table td, body.square .center_point_table td
+body.square .center_point_table td
 {
 	border-color: #ABA;
 	border-width: 1px;
 	border-style: solid;
+	font-size: 12px;
+}
+
+.team_trap_table
+{
+	margin: 20px 0 0 0;
+	padding: 0;
+	border: 0;
+	font-size: 12px;
+	float: left;
+}
+
+.transect_table {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	display: block;
+	float: left;
+}
+
+.table_actions {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	display: block;
+	float: left;
+}
+
+body.square div#transect_table_overflow_div {
+    height: 250px;
+    overflow: auto;
+    border: none;
+    min-width: 345px;
+    width: 345px;
+}
+
+body.square .distances_table_header,
+body.square .distances_table {
+    border-collapse: collapse;
+}
+
+body.square .distances_table_header td,
+body.square .distances_table td {
+    width: 75px;
+    margin: 0;
+    padding: 2px;
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+}
+
+body.square .distances_table_header td
+{
+	vertical-align: top;
+	font-weight: bold;
+    background-color: #e0e0e0;
+}
+
+body.square .distances_table td.transect_td {
+    vertical-align: top;
 }
 
 body.square .distances_table, body.square .center_point_table { background-color: #EFE; }
-body.square .distances_table tr.first_color { background-color: #EFE; }
-body.square .distances_table tr.second_color { background-color: #FFE; }
+body.square .distances_table tr.first_color { background-color: #eeffee; }
+body.square .distances_table tr.second_color { background-color: #ffffcc; }
 
-/*let's try to get the table headings to match:*/
-body.square .distances_table td
-{
-	width: 70px;
-	border-spacing: 0px;
-}
+/*let's try to get the table headings to match:
 
 body.square .distances_table_header td
 {
@@ -684,16 +738,7 @@ body.square table.right_hand_table td
 	margin: 5px;
 	padding: 5px;
 }
-
-body.square div#transect_table_overflow_div
-{
-	height: 230px;
-	overflow: auto;
-	border-color: #9B9;
-	border-width: 1px;
-	border-style: solid;
-	width: auto;
-}
+*/
 
 body.square .hide_this { display: none; }
 body.square .form_tr { display: none; }
@@ -708,33 +753,6 @@ body.square .terrain_info,
 body.square .block_coordbox
 {
 	border: 0;
-}
-
-.team_trap_table
-{
-	margin: 20px 0 0 0;
-	padding: 0;
-	border: 0;
-}
-
-.transect_table
-{
-	width: 300px;
-	margin: 0;
-	padding: 0;
-	border: 0;
-	display: block;
-	float: left;
-}
-
-.table_actions
-{
-	width: 50px;
-	margin: 0;
-	padding: 0;
-	border: 0;
-	display: block;
-	float: left;
 }
 
 /* Definitions for Habitat Map */
