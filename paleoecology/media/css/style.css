@@ -439,6 +439,7 @@ tr.totals td {
 #pollen-lightbox-content img {
     border: 20px solid black;
     max-width: 640px;
+    cursor:pointer;
 }
 
 a.morphology {

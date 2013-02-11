@@ -32,6 +32,7 @@ function setup_id_activity() {
   connect("pollen-image", "onclick", show_lightbox);
   connect("pollen-magnify", "onclick", show_lightbox);
   connect("pollen-lightbox-close", "onclick", hide_lightbox);
+  connect("pollen-lightbox-content", "onclick", hide_lightbox);
   
   //connect("complete", "onclick", restore);
   addElementClass("content", "unanswered");
