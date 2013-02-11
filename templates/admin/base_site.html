@@ -53,7 +53,9 @@
 
 {% block branding %}
 <h1 id="site-name">{% trans "Django Admin" %}</h1>
-
+{% if settings.DATABASE_HOST %}
+    <div style="float: right; font-size: 11px; padding: 0 10px 5px 10px">Database: {{settings.DATABASE_NAME}}@{{ settings.DATABASE_HOST }}</div>
+{% endif %}
 {% endblock %}
 
 {% block nav-global %}{% endblock %}

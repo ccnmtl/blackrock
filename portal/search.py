@@ -1,10 +1,13 @@
 from django import forms
-from haystack.views import SearchView, FacetedSearchView
-from haystack.forms import *
-from portal.models import *
-from django.utils.translation import ugettext_lazy as _
-from django.db.models import get_model, get_app
+from django.db.models import get_model
 from django.utils.text import capfirst
+from django.utils.translation import ugettext_lazy as _
+import haystack
+from haystack.forms import SearchForm
+from haystack.views import SearchView
+from portal.models import Facet
+from types import ListType
+
 
 #[06/Feb/2013 15:20:36] "GET /portal/search/?q=&asset_type=ForestStory&species=Animals&discipline=Forest+Ecology HTTP/1.1" 200 10885
 
@@ -128,3 +131,4 @@ class PortalSearchView(SearchView):
     extra['query'] = query
     return extra
     
+
