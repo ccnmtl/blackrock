@@ -85,6 +85,10 @@ class Bait (models.Model):
 class Species(models.Model):
     def __unicode__(self):
         return self.common_name
+        
+    class Meta:
+        ordering = ['common_name']
+
     latin_name =  models.CharField(blank=True, help_text = "Binomial species name", max_length = 256)
     common_name =  models.CharField(blank=True, help_text = "Common name", max_length = 512)
     about_this_species =  models.TextField(blank=True, help_text = "A blurb with info about this species at Blackrock")
@@ -166,10 +170,15 @@ class Trap (models.Model):
 class Habitat (models.Model):
     def __unicode__(self):
         return self.label
+        
+    class Meta:
+        ordering = ['label']
 
     label =  models.CharField(blank=True, help_text = "Short label for this habitat.", max_length = 256)
     blurb =  models.TextField(blank=True, help_text = "Notes about this habitat (for a habitat page).")
     image_path_for_legend = models.CharField(blank=True, help_text = "Path to the round colored circle for this habitat", max_length = 256)
+    
+    
     
     def dir(self):
         return dir(self)
@@ -288,6 +297,21 @@ class Illumination (LabelMenu):
 class TrapType (LabelMenu):
     pass
 
+class School (models.Model):
+
+    def __unicode__(self):
+        return self.name
+
+    name  =  models.CharField(blank=True, default = "", help_text = "Name of school", max_length = 256)
+    address  =  models.CharField(blank=True, default = "", help_text = "Name of school", max_length = 256)
+    contact_1_name  =  models.CharField(blank=True,  help_text = "First contact @ the school -- name", max_length = 256)
+    contact_1_phone  =  models.CharField(blank=True,  help_text = "First contact @ the school -- e-mail", max_length = 256)
+    contact_1_email  =  models.CharField(blank=True,  help_text = "First contact @ the school   -- phone", max_length = 256)
+    contact_2_name  =  models.CharField(blank=True,  help_text = "First contact @ the school -- name", max_length = 256)
+    contact_2_phone  =  models.CharField(blank=True,  help_text = "Second contact @ the school  -- e-mail", max_length = 256)
+    contact_2_email  =  models.CharField(blank=True,  help_text = "Second contact @ the school  -- phone", max_length = 256)
+    notes            = models.CharField(blank=True,  help_text = "Any other notes about this school.", max_length = 256)
+
     
 class Expedition (models.Model):
 
@@ -319,17 +343,18 @@ class Expedition (models.Model):
     notes_about_this_expedition =  models.TextField(blank=True, help_text = "Notes about this expedition")
     
         
-    school_name  =  models.CharField(blank=True, default = "", help_text = "Name of school", max_length = 256)
-    
-    school_contact_1_name  =  models.CharField(blank=True,  help_text = "First contact @ the school -- name", max_length = 256)
-    school_contact_1_phone  =  models.CharField(blank=True,  help_text = "First contact @ the school -- e-mail", max_length = 256)
-    school_contact_1_email  =  models.CharField(blank=True,  help_text = "First contact @ the school   -- phone", max_length = 256)
+    #school_name  =  models.CharField(blank=True, default = "", help_text = "Name of school", max_length = 256)
+    # 
+    #school_contact_1_name  =  models.CharField(blank=True,  help_text = "First contact @ the school -- name", max_length = 256)
+    #school_contact_1_phone  =  models.CharField(blank=True,  help_text = "First contact @ the school -- e-mail", max_length = 256)
+    #school_contact_1_email  =  models.CharField(blank=True,  help_text = "First contact @ the school   -- phone", max_length = 256)#
 
-    school_contact_2_name  =  models.CharField(blank=True,  help_text = "First contact @ the school -- name", max_length = 256)
-    school_contact_2_phone  =  models.CharField(blank=True,  help_text = "Second contact @ the school  -- e-mail", max_length = 256)
-    school_contact_2_email  =  models.CharField(blank=True,  help_text = "Second contact @ the school  -- phone", max_length = 256)
+    #school_contact_2_name  =  models.CharField(blank=True,  help_text = "First contact @ the school -- name", max_length = 256)
+    #school_contact_2_phone  =  models.CharField(blank=True,  help_text = "Second contact @ the school  -- e-mail", max_length = 256)
+    #school_contact_2_email  =  models.CharField(blank=True,  help_text = "Second contact @ the school  -- phone", max_length = 256)
 
 
+    school  = models.ForeignKey(User,blank=True,null=True )
     number_of_students = models.IntegerField(help_text = "How many students participated", default = 0)
     grade_level = models.ForeignKey(GradeLevel,  null=True, blank=True)
 
@@ -391,9 +416,6 @@ class TrapLocation(models.Model):
     
     actual_point    = models.PointField(null=True, blank=True)
     objects = models.GeoManager()
-    
-    #this will probably be retired:
-    #trap_used = models.ForeignKey (Trap, null=True, blank=True, help_text = "Which trap, if any, was left at this location (We may not be needing this info.)")
     
     #instead we're linking directly to the type of trap.
     trap_type  =  models.ForeignKey(TrapType, null=True, blank=True, help_text = "Which type of trap, if any, was left at this location.")
@@ -555,16 +577,21 @@ class TrapLocation(models.Model):
         else:
             return None
             
-            
+    def school_if_any(self):
+        if self.expedition.school:
+            return self.expedition.school.name
+        else:
+            return None
+    
     def search_map_repr (self):
         result = {}
         where = [self.actual_lat(), self.actual_lon()]
         result ['where'] = where
         date_string = self.expedition.end_date_of_expedition.strftime("%m/%d/%y")
-        result ['name'] = "Species: %s; Habitat: %s; School: %s ; Date: %s" % (self.species_if_any(),self.habitat_if_any(), self.expedition.school_name, date_string)
+        result ['name'] = "Species: %s; Habitat: %s; School: %s ; Date: %s" % (self.species_if_any(),self.habitat_if_any(), self.school_if_any, date_string)
         result ['species'] = self.species_if_any()
         result ['habitat'] = self.habitat_if_any()
-        result ['school']  = self.expedition.school_name
+        result ['school']  = self.school_if_any()
         result ['date']    = date_string
         return result
         

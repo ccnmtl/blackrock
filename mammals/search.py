@@ -25,6 +25,7 @@ class MammalSearchForm(SearchForm):
         sqs = []
         self.hidden = []
         if self.is_valid():
+            ##TODO test validity of connection and throw error if there's a problem.
             sqs = self.searchqueryset.auto_query('')
             sqs = sqs.narrow('asset_type_exact:TrapLocation')
             sqs = sqs.narrow (self.checkboxes_or ('trap_habitat'))

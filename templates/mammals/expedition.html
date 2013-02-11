@@ -57,10 +57,14 @@
         
         <tr>
             <td  > 
-                Name of school:
+                School:
             </td> 
-            <td  > 
-                <input name="school_name"  value ="{{expedition.school_name}}"></input>
+            <td  >             
+                <select name="school" id = "school">
+                        {% for school in schools %}
+                            <option value = "{{school.id}}" {%ifequal expedition.school_id school.id %} selected{%endifequal%}>{{school.name}}</option>
+                        {%endfor %}
+                </select>
             </td> 
         </tr>
         <tr>
@@ -70,31 +74,6 @@
             <td  > 
                 <input name="number_of_students" value ="{{expedition.number_of_students}}"></input>
             </td> 
-        </tr>
-        <tr>
-            <td  > 
-                School contact (name):
-            </td>        
-            <td  > 
-                <input name = "school_contact_1_name" value ="{{expedition.school_contact_1_name}}"></input>
-            </td> 
-        </tr>
-        <tr>
-        
-            <td > 
-                School contact (phone):
-            </td> 
-            <td  > 
-                <input name = "school_contact_1_phone"  value ="{{expedition.school_contact_1_phone}}"></input>
-            </td> 
-        </tr>
-        <tr>
-            <td  > 
-                School contact (email): 
-            </td>
-            <td  > 
-                <input  name = "school_contact_1_email" value ="{{expedition.school_contact_1_email}}"></input>
-            </td>
         </tr>
         <tr>
             <td  > 

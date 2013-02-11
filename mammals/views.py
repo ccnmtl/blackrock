@@ -382,13 +382,11 @@ def expedition(request, expedition_id):
     if not whether_this_user_can_see_mammals_module_data_entry(request.user):
         return mammals_login(request, expedition_id)
     grades = GradeLevel.objects.all()
+    
     return {
         'expedition'                        : exp
         ,'grades'                           : grades
-        
-        
-        
-        
+        ,'schools'                          : School.objects.all()
         ,'moon_phases'                      : ExpeditionMoonPhase.objects.all()
         ,'overnight_temperatures'           : ExpeditionOvernightTemperature.objects.all()
         ,'overnight_precipitations'         : ExpeditionOvernightPrecipitation.objects.all()
@@ -404,15 +402,21 @@ def edit_expedition(request, expedition_id):
     if not whether_this_user_can_see_mammals_module_data_entry(request.user):
         return mammals_login(request, expedition_id)
     rp = request.POST
+    #TODO validation: check that number of students is an integer.
+
     if rp:
-        if rp.has_key ('school_name'):
-            exp.school_name = rp ['school_name']
-        if rp.has_key ('school_contact_1_name'):
-            exp.school_contact_1_name = rp ['school_contact_1_name']
-        if rp.has_key ('school_contact_1_phone'):
-            exp.school_contact_1_phone = rp ['school_contact_1_phone']
-        if rp.has_key ('school_contact_1_email'):
-            exp.school_contact_1_email = rp ['school_contact_1_email']
+        #if rp.has_key ('school_name'):
+        #    exp.school_name = rp ['school_name']
+        #if rp.has_key ('school_contact_1_name'):
+        #    exp.school_contact_1_name = rp ['school_contact_1_name']
+        #if rp.has_key ('school_contact_1_phone'):
+        #    exp.school_contact_1_phone = rp ['school_contact_1_phone']
+        #if rp.has_key ('school_contact_1_email'):
+        #    exp.school_contact_1_email = rp ['school_contact_1_email']
+        
+        if rp.has_key ('school'):
+            exp.school_id = int(rp ['school'])
+
         if rp.has_key ('grade'):
             exp.grade_level_id = int(rp ['grade'])
         if rp.has_key ('number_of_students'):
@@ -453,6 +457,7 @@ def expedition_animals(request, expedition_id):
         ,'species'    : Species.objects.all()
         ,'ages'       : AnimalAge.objects.all()
         ,'scales'     : AnimalScaleUsed.objects.all()
+        ,'schools'    : School.objects.all()
     }
 
 
@@ -686,7 +691,7 @@ def species_map(request, species_id = None):
     for a in animals:
         if len(a.traplocation_set.all()):
             a_place = a.traplocation_set.all()[0]
-            where = [a_place.lat(), a_place.lon()] 
+            where = [a_place.actual_lat(), a_place.actual_lon()] 
             result.append ({
                     'name': a.species.common_name,
                     'where': where

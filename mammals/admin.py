@@ -24,6 +24,12 @@ class BaitAdmin (admin.ModelAdmin):
 
 admin.site.register(Bait, BaitAdmin)
 
+
+class SchoolAdmin (admin.ModelAdmin):
+    list_display = (  'name',)
+    fields = ('name',)
+admin.site.register(School, SchoolAdmin)
+
 class SpeciesAdmin (admin.ModelAdmin):
     list_display = (  'latin_name','common_name',)
     fields =  (  'latin_name','common_name', 'about_this_species',)
@@ -105,19 +111,20 @@ admin.site.register(AnimalAge, AnimalAgeAdmin)
 
 
 class ExpeditionAdmin (admin.ModelAdmin):
-    list_display = (  '__unicode__', 'number_of_students', 'grade_level', 'grid_square',)
+    list_display = (  '__unicode__', 'number_of_students', 'grade_level', 'grid_square', 'school',)
     fields       = (
         #'start_date_of_expedition',
         #'end_date_of_expedition',
         #'created_on',
         'number_of_students',
         'grade_level',
+        'school',
         'grid_square',
         
-        'school_contact_1_phone',
-        'school_contact_1_email',
-        'school_contact_2_phone',
-        'school_contact_2_email',
+        #'school_contact_1_phone',
+        #'school_contact_1_email',
+        #'school_contact_2_phone',
+        #'school_contact_2_email',
         
         'notes_about_this_expedition', 
         'created_by',
