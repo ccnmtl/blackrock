@@ -123,12 +123,13 @@ input#answers {
   text-align: center;
   margin: 10px;
   padding: 5px;
+  cursor: -moz-zoom-in;
 }
 
 #pollen-image img {
   max-width: 100px;
   max-height: 100px;
-  cursor: pointer;    
+  cursor: -moz-zoom-in;
 }
 
 #pollen-magnify {
@@ -136,7 +137,7 @@ input#answers {
 }
 
 #pollen-magnify img {
-    cursor: pointer;
+  cursor: -moz-zoom-in;
 }
     
 
