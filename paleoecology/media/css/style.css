@@ -111,7 +111,7 @@ input#answers {
   text-align: center;
   margin: 10px;
   padding: 5px;
-  cursor: -moz-zoom-in;
+  cursor: pointer;
 }
 
 #pollen-image-container2 {
@@ -122,13 +122,16 @@ input#answers {
   text-align: center;
   margin: 10px;
   padding: 5px;
-  cursor: -moz-zoom-in;
+  cursor: pointer;
+}
+
+#pollen-image-container #pollen-image img {
+  cursor: pointer;
 }
 
 #pollen-image img {
   max-width: 100px;
   max-height: 100px;
-  cursor: -moz-zoom-in;
 }
 
 #pollen-magnify {
@@ -136,16 +139,18 @@ input#answers {
 }
 
 #pollen-magnify img {
-  cursor: -moz-zoom-in;
+  cursor: pointer;
 }
-    
 
 .pollen-zoo-image img {
-  cursor: pointer;
   max-width: 50px;
   max-height: 50px;
   margin: 5px 8px 5px 5px;
   float: left;
+}
+
+#pollen-zoo-outer .pollen-zoo-image img {
+    cursor:pointer;
 }
 
 .pollen-zoo-image {
