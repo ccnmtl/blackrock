@@ -179,8 +179,8 @@ div.keytab-selected { background-color: #DCD3C2; }
   font-style: italic;
   padding: 5px;
   cursor: pointer;
-   font-size: 75%;
-   font-weight: bold;
+  font-size: 75%;
+  font-weight: bold;
   background-color: #dedede;
 }
 
@@ -410,17 +410,12 @@ div.core-slice.core-slice-mud {
  
 }
 
-
 div.core-slice.core-slice-mixed {
- 
   background-color: #925f5f;
-
 }
 
 div.core-slice.core-slice-clay {
-
   background-color: #5d5d5d;
-
 }
 
 div.core-slice.core-slice-blank
@@ -443,10 +438,8 @@ div.middle {
 }
 
 div.datapop {
-
-height:508px;
-width:auto;
-	
+  height:508px;
+  width:auto;
 }
 
 div#right-inner {
