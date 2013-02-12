@@ -1,4 +1,4 @@
-from models import *
+from models import Site, Location, Series, Row
 from django.contrib import admin
 
 admin.site.register(Site)

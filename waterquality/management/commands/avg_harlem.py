@@ -1,30 +1,33 @@
 from django.core.management.base import BaseCommand
-from waterquality.models import Row,Series,Location,Site
+from waterquality.models import Row, Series, Location, Site
 from datetime import timedelta
+
 
 class Command(BaseCommand):
     args = ''
     help = ''
-    
+
     def handle(self, *args, **options):
         print "AVERAGING HARLEM DATA TO HOURLY"
         # use the BRF Stream as canonical for timestamps
         brf = Site.objects.get(name="BRF")
-        stream = Location.objects.get(name="Stream",site=brf)
+        stream = Location.objects.get(name="Stream", site=brf)
         # use any random series
         guide = stream.series_set.all()[0]
 
         # data to average
         harlem = Site.objects.get(name="Harlem")
-        river = Location.objects.get(name="River",site=harlem)
+        river = Location.objects.get(name="River", site=harlem)
 
         # a new location to put it in
-        (averaged,created) = Location.objects.get_or_create(site=harlem,name="Averaged")
+        (averaged, created) = Location.objects.get_or_create(
+            site=harlem, name="Averaged")
 
         for source in river.series_set.all():
-            (dest_series,created) = Series.objects.get_or_create(location=averaged,
-                                                                 name=source.name,
-                                                                 units=source.units)
+            (dest_series, created) = Series.objects.get_or_create(
+                location=averaged,
+                name=source.name,
+                units=source.units)
             previous_value = None
             for guide_row in guide.row_set.all():
                 timestamp = guide_row.timestamp
@@ -35,22 +38,21 @@ class Command(BaseCommand):
                     cnt = source_data.count()
                     total = sum([d.value for d in list(source_data)])
                     avg = total / cnt
-                    r = Row.objects.create(series=dest_series,
-                                           timestamp=timestamp,
-                                           value=avg)
+                    Row.objects.create(
+                        series=dest_series,
+                        timestamp=timestamp,
+                        value=avg)
                     previous_value = avg
                 else:
                     # harlem is missing a bunch of data, so we'll just
                     # fill it in with the previous value
                     # best i can do for now
 
-                    r = Row.objects.create(series=dest_series,
-                                           timestamp=timestamp,
-                                           value=previous_value)
+                    Row.objects.create(series=dest_series,
+                                       timestamp=timestamp,
+                                       value=previous_value)
 
         # rename shuffle
         river.delete()
         averaged.name = 'River'
         averaged.save()
-        
-        

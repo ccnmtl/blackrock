@@ -1,12 +1,13 @@
 from django.core.management.base import BaseCommand
-from waterquality.models import Row,Series
+from waterquality.models import Row, Series
 from datetime import timedelta
 from decimal import Decimal
+
 
 class Command(BaseCommand):
     args = ''
     help = ''
-    
+
     def handle(self, *args, **options):
         series = Series.objects.get(id=args[0])
         start_date = series.row_set.all()[0].timestamp
@@ -19,7 +20,8 @@ class Command(BaseCommand):
             r = series.row_set.filter(timestamp=step_date)
             if r.count() == 0:
                 missing += 1
-                r = Row.objects.create(series=series,timestamp=step_date,value="0.0")
+                r = Row.objects.create(series=series,
+                                       timestamp=step_date, value="0.0")
             else:
                 found += 1
             step_date = step_date + d
@@ -36,8 +38,8 @@ class Command(BaseCommand):
             if r.count() > 1:
                 duplicates += r.count()
                 # need to pick which duplicate(s) to delete
-                # basically, if there's a non-zero, we prefer that one
-                # otherwise, just delete everything but the first
+                # basically,  if there's a non-zero,  we prefer that one
+                # otherwise,  just delete everything but the first
                 has_non_zero = False
                 for row in r:
                     if row.value != zero:
@@ -59,6 +61,5 @@ class Command(BaseCommand):
                         # delete everything but the first
                         for row in r[1:]:
                             row.delete()
-                    
             step_date = step_date + d
         print "duplicates found: %d" % duplicates
