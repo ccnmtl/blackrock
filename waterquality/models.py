@@ -234,6 +234,9 @@ class LimitedSeriesPair(object):
         meanerror = sum([(y - sumy/count)**2 for y in ys])
         residual = sum([(y - a * x - b)**2 for x, y in zip(xs, ys)])
 
+        if not meanerror:
+            # divide by zero
+            return None
         rr = 1.0 - (float(residual) / float(meanerror))
 
         ss = residual / (count - 2)
