@@ -111,7 +111,7 @@ input#answers {
   text-align: center;
   margin: 10px;
   padding: 5px;
-  cursor: -moz-zoom-in;
+  cursor: pointer;
 }
 
 #pollen-image-container2 {
@@ -122,12 +122,16 @@ input#answers {
   text-align: center;
   margin: 10px;
   padding: 5px;
+  cursor: pointer;
+}
+
+#pollen-image-container #pollen-image img {
+  cursor: pointer;
 }
 
 #pollen-image img {
   max-width: 100px;
   max-height: 100px;
-  cursor: pointer;    
 }
 
 #pollen-magnify {
@@ -135,16 +139,18 @@ input#answers {
 }
 
 #pollen-magnify img {
-    cursor: pointer;
+  cursor: pointer;
 }
-    
 
 .pollen-zoo-image img {
-  cursor: pointer;
   max-width: 50px;
   max-height: 50px;
   margin: 5px 8px 5px 5px;
   float: left;
+}
+
+#pollen-zoo-outer .pollen-zoo-image img {
+    cursor:pointer;
 }
 
 .pollen-zoo-image {
@@ -330,52 +336,26 @@ table.resultstable td.header, table.resultstable thead td {
 }
 
 div#details_container {
-
   margin-top: 1em;
-       margin-bottom: 1em;
-
-
-}
-
-div.results-container {
-
-
-
+  margin-bottom: 1em;
 }
 
 div.results-container table {
   border-collapse: collapse;
-
 }
 
 div#details_table  {
-
-
      border: 1px solid #ccc;
      width: auto;
-
 }
-
 
 div#details_table .details_header {
 	position: absolute;
-
-
-
 }
 
 div#details_table .details_header td {
 	background-color: #000;
 	color: #fff;
-
-
-}
-
-#details_data {
-
-   
-
-
 }
 
 div#details_table td {
@@ -384,15 +364,11 @@ div#details_table td {
 
 div#details_table td {
   border: 1px gray solid;
- 
-
-
 }
 
 table.resultstable td {
   border: 1px gray solid;
   padding: 5px;
-
 }
 
 tr.totals td {
@@ -433,6 +409,7 @@ tr.totals td {
 #pollen-lightbox-content img {
     border: 20px solid black;
     max-width: 640px;
+    cursor:pointer;
 }
 
 a.morphology {
