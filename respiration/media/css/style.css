@@ -8,28 +8,30 @@ body
 	background-color: #fff;
 	margin: 0;
 	padding: 20px;
-	padding: 30px;
-	height: 150px;
+	padding-bottom: 15px;
 }
 
-#breadcrumbs { height: 20px; }
+#breadcrumbs {
+    height: 0px;
+    padding: 0;
+    margin: 0;
+}
 
 div#tab-bar
 {
 	position: absolute;
 	right: 0;
-	top: 154px;
+	top: 112px;
 }
 
 div.tab
 {
-	/*background-color: #DCD3C2;*/
-	background-color: #a18f83;
+    background-color: #DCD3C2;
 	color: black;
 	z-index: 100;
 	float: right;
 	padding: 5px 10px 5px 10px;
-	margin: 0px 25px 0 0;
+	margin: 0px 15px 0 0;
 	font-size: 14px;
 	cursor: pointer;
 }
@@ -50,18 +52,17 @@ div#instructions
 {
 	font-size: 12px;
 	line-height: 18px;
-	margin-right: 330px;
+	margin-right: 350px;
 }
 
-div#equation
-{
+div#equation {
 	border: 1px gray solid;
 	width: 280px;
 	margin: 0px;
 	padding: 0px;
 	position: absolute;
-	right: 30px;
-	top: 210px;
+	right: 50px;
+	top: 170px;
 	height: 100px;
 	background-color: #ccc;
 	background-image: url(../images/background_panel.jpg);
@@ -513,11 +514,13 @@ div#error
 	color: white;
 }
 
-
+#print_button,
 #graph_button 
 {
     float: right;
     margin-top: 25px;
+    margin-left: 5px;
+    width: 70px;
 }
 
 
