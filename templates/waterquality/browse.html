@@ -46,9 +46,10 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-	<ul>
+	<ul class="breadcrumbs">
+	<li><a href="/waterchemistry/">Home</a></li>
 	<li><a href="/waterchemistry/graph/">Graphing Tool</a></li>
-	<li><a href="/waterchemistry/browse/">Data Browser</a></li>
+	<li><a href="/waterchemistry/browse/" class="active">Data Browser</a></li>
 	<li><a id="teachlink" href="/waterchemistry/teaching/">Teaching Resources</a></li>
 	</ul>
 {% endblock %}
@@ -96,4 +97,15 @@
 	
 	</div>
 	
+{% endblock %}
+
+{% block footer %}
+    <div id="footer">
+        <ul id="standard-elements">
+            <li><a href="/portal/about/">About</a></li>
+            <li><a href="/portal/credits/">Credits</a></li>
+            <li><a href="/portal/help/">Help</a></li>
+            <li><a href="mailto:ccnmtl-blackrock@columbia.edu">Contact</a></li>
+        </ul>
+    </div>
 {% endblock %}
