@@ -18,7 +18,7 @@ DATABASE_HOST = ''             # Set to empty string for localhost. Not used wit
 DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
 
 if 'test' in sys.argv:
-    DATABASE_ENGINE = 'sqlite3'
+    DATABASE_ENGINE = 'django.contrib.gis.db.backends.spatialite'
     DATABASE_NAME = ':memory:'
     HAYSTACK_SITECONF = 'portal.search_sites'
     HAYSTACK_SEARCH_ENGINE = 'solr'
