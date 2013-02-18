@@ -1,5 +1,6 @@
 # Django settings for blackrock project.
 import os.path
+import sys
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -15,6 +16,23 @@ DATABASE_USER = ''             # Not used with sqlite3.
 DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
+
+if 'test' in sys.argv:
+    DATABASE_ENGINE = 'sqlite3'
+    DATABASE_NAME = ':memory:'
+    HAYSTACK_SITECONF = 'portal.search_sites'
+    HAYSTACK_SEARCH_ENGINE = 'solr'
+    HAYSTACK_SOLR_URL = 'http://wwwapp.cc.columbia.edu/ccnmtl/solr/blackrock_portal'
+    CDRS_SOLR_URL = HAYSTACK_SOLR_URL
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '--with-coverage',
+    "--exclude-dir-file=nose_exclude.txt",
+    '--cover-package=blackrock',
+]
+SOUTH_TESTS_MIGRATE = False
 
 TIME_ZONE = 'America/New_York'
 LANGUAGE_CODE = 'en-us'
@@ -86,6 +104,7 @@ INSTALLED_APPS = (
     'googlecharts',
     'mammals',
     'south',
+    'django_nose',
 )
 
 # Enabled Blackrock modules - edit to control what displays on the main page

@@ -13,3 +13,4 @@ x/*
 .settings/
 uploads/
 *.DS_Store
+.coverage
