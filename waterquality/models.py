@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Site(models.Model):
     name = models.CharField(max_length=256)
 
@@ -18,7 +19,7 @@ class Location(models.Model):
 class Series(models.Model):
     name = models.CharField(max_length=256)
     location = models.ForeignKey(Location)
-    units = models.CharField(max_length=256,blank=True,default=u"")
+    units = models.CharField(max_length=256, blank=True, default=u"")
     ordinality = models.IntegerField(default=0)
 
     class Meta:
@@ -49,7 +50,8 @@ class Series(models.Model):
         return self.row_set.all().aggregate(mean=models.Avg('value'))['mean']
 
     def stddev(self):
-        return self.row_set.all().aggregate(stddev=models.StdDev('value'))['stddev']
+        return self.row_set.all().aggregate(
+            stddev=models.StdDev('value'))['stddev']
 
     def uq(self):
         q = int(self.count() / 4)
@@ -63,7 +65,7 @@ class Series(models.Model):
         h = int(self.count() / 2)
         return self.row_set.all().order_by("value")[h].value
 
-    def test_data(self,points=800):
+    def test_data(self, points=800):
         return [r.value for r in self.row_set.all()[:points]]
 
     def box_data(self):
@@ -77,21 +79,22 @@ class Series(models.Model):
                     uq=float(self.uq() - mn) * scale,
                     median=float(self.median() - mn) * scale)
 
-    def range_data(self,start=None,end=None,max_points=800):
+    def range_data(self, start=None, end=None, max_points=800):
         if start is None:
             start = self.start().timestamp
         if end is None:
             end = self.end().timestamp
-        rows = self.row_set.filter(timestamp__gte=start,timestamp__lte=end)
+        rows = self.row_set.filter(timestamp__gte=start, timestamp__lte=end)
         inc = 1
         if rows.count() > max_points:
             # need to downsample so the graphing library can handle it
             inc = int(float(rows.count())/max_points)
         return [r.value for r in rows[::inc]]
 
+
 class LimitedSeries(object):
     """ a bundling of a Series with start/end range """
-    def __init__(self,series,start=None,end=None,max_points=None):
+    def __init__(self, series, start=None, end=None, max_points=None):
         self.series = series
         if start is not None:
             self.start = start
@@ -107,19 +110,18 @@ class LimitedSeries(object):
         else:
             self.max_points = self.series.count()
 
-
     def row_set(self):
-        return self.series.row_set.filter(timestamp__gte=self.start,
+        return self.series.row_set.filter(
+            timestamp__gte=self.start,
             timestamp__lte=self.end)
 
-    def range_data(self,max_points=800):
+    def range_data(self, max_points=800):
         rows = self.row_set()
         inc = 1
         if rows.count() > max_points:
             # need to downsample so the graphing library can handle it
             inc = int(float(rows.count())/max_points)
         return [r.value for r in rows[::inc]]
-
 
     def count(self):
         return self.row_set().count()
@@ -134,7 +136,8 @@ class LimitedSeries(object):
         return self.row_set().aggregate(mean=models.Avg('value'))['mean']
 
     def stddev(self):
-        return self.row_set().aggregate(stddev=models.StdDev('value'))['stddev']
+        return self.row_set().aggregate(
+            stddev=models.StdDev('value'))['stddev']
 
     def uq(self):
         q = int(self.count() / 4)
@@ -149,7 +152,7 @@ class LimitedSeries(object):
         return self.row_set().order_by("value")[h].value
 
     def sum(self):
-        return self.row_set().aggregate(sum=models.Sum('value'))['sum']        
+        return self.row_set().aggregate(sum=models.Sum('value'))['sum']
 
     def box_data(self):
         mn = self.min()
@@ -162,8 +165,9 @@ class LimitedSeries(object):
                     uq=float(self.uq() - mn) * scale,
                     median=float(self.median() - mn) * scale)
 
+
 class LimitedSeriesGroup(object):
-    def __init__(self,series):
+    def __init__(self, series):
         self.series = series
 
     def min(self):
@@ -185,13 +189,15 @@ class LimitedSeriesGroup(object):
                              uq=float(s.uq() - gmin) * scale,
                              series=s,
                              median=float(s.median() - gmin) * scale))
-        return dict(max=gmax,min=gmin,series=data,
+        return dict(max=gmax, min=gmin, series=data,
                     count=len(data))
 
+
 class LimitedSeriesPair(object):
-    def __init__(self,independent,dependent,start=None,end=None,skip_zeroes=None):
-        self.independent = LimitedSeries(independent,start,end)
-        self.dependent   = LimitedSeries(dependent,start,end)
+    def __init__(self, independent, dependent, start=None,
+                 end=None, skip_zeroes=None):
+        self.independent = LimitedSeries(independent, start, end)
+        self.dependent = LimitedSeries(dependent, start, end)
         self.skip_zeroes = skip_zeroes
 
     def linear_regression(self):
@@ -205,7 +211,7 @@ class LimitedSeriesPair(object):
             # need to tweak things a bit
             newxs = []
             newys = []
-            for x,y in zip(xs,ys):
+            for x, y in zip(xs, ys):
                 if x == 0 or y == 0:
                     continue
                 newxs.append(x)
@@ -215,21 +221,22 @@ class LimitedSeriesPair(object):
             count = len(xs)
             sumx = sum(xs)
             sumy = sum(ys)
-            
 
         sumxx = sum([x * x for x in xs])
-        sumyy = sum([y * y for y in ys])
-        sumxy = sum([x * y for x,y in zip(xs,ys)])
+        sumxy = sum([x * y for x, y in zip(xs, ys)])
         det = (sumxx * count) - (sumx * sumx)
         if not det:
             # divide by zero
             return None
         a = (sumxy * count - sumy * sumx)/det
-        b = (sumxx * sumy  - sumx * sumxy)/det
-        
-        meanerror = sum([(y - sumy/count)**2 for y in ys])
-        residual = sum([(y - a * x - b)**2 for x,y in zip(xs,ys)])
+        b = (sumxx * sumy - sumx * sumxy)/det
 
+        meanerror = sum([(y - sumy/count)**2 for y in ys])
+        residual = sum([(y - a * x - b)**2 for x, y in zip(xs, ys)])
+
+        if not meanerror:
+            # divide by zero
+            return None
         rr = 1.0 - (float(residual) / float(meanerror))
 
         ss = residual / (count - 2)
@@ -237,7 +244,7 @@ class LimitedSeriesPair(object):
         var_a = ss * count / det
         var_b = ss * sumxx / det
 
-        return dict(a=a,b=b,rr=rr,ss=ss,var_a=var_a,var_b=var_b)
+        return dict(a=a, b=b, rr=rr, ss=ss, var_a=var_a, var_b=var_b)
 
     def regression_line_points(self):
         r = self.linear_regression()
@@ -245,12 +252,13 @@ class LimitedSeriesPair(object):
         x2 = self.independent.max()
         y1 = x1 * r['a'] + r['b']
         y2 = x2 * r['a'] + r['b']
-        return [[x1,y1],[x2,y2]]
+        return [[x1, y1], [x2, y2]]
+
 
 class Row(models.Model):
     series = models.ForeignKey(Series)
     timestamp = models.DateTimeField()
-    value = models.DecimalField(null=True,max_digits=19, decimal_places=10)
+    value = models.DecimalField(null=True, max_digits=19, decimal_places=10)
 
     class Meta:
-        ordering = ['series','timestamp']
+        ordering = ['series', 'timestamp']

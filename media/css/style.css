@@ -136,7 +136,7 @@ div.screenshot {
 }
 
 .landingSlideshow
-{ height: 332px; width: 432px; float: right; }
+{ /* height: 332px; width: 432px;*/ margin-left: 20px; float: right; }
 
-.landingSlideshow img
-{ padding: 0 0 0 20px; border: none; background-color: transparent; }
+/* .landingSlideshow img
+{ padding: 0 0 0 20px; border: none; background-color: transparent; } */

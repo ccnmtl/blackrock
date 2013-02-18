@@ -1,11 +1,12 @@
 from django.core.management.base import BaseCommand
-from data.models import Row,Series,Location,Site
+from data.models import Series
 from datetime import timedelta
+
 
 class Command(BaseCommand):
     args = ''
     help = ''
-    
+
     def handle(self, *args, **options):
         for series in Series.objects.all():
             print "series: %s" % series.name
@@ -20,4 +21,3 @@ class Command(BaseCommand):
                     for rr in r:
                         print rr.id, rr.value
                 timestamp = timestamp + d
-                    

@@ -1174,3 +1174,7 @@ ul#standard-elements li a {
 
 }
 
+#portalToyota {
+  float: right;
+  width: 100px;
+}

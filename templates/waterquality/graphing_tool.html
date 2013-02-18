@@ -250,8 +250,9 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-	<ul>
-	<li><a href="/waterchemistry/graph/">Graphing Tool</a></li>
+	<ul class="breadcrumbs">
+	<li><a href="/waterchemistry/">Home</a></li>
+	<li><a href="/waterchemistry/graph/ "class="active">Graphing Tool</a></li>
 	<li><a href="/waterchemistry/browse/">Data Browser</a></li>
 	<li><a id="teachlink" href="/waterchemistry/teaching/">Teaching Resources</a></li>
 	</ul>
@@ -271,18 +272,7 @@
 	<h3>Graphing Tool</h3>
 	
 	<!--start graphing tool -->
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 	<form action="." method="get">
 	
 	{% if type %}
@@ -378,7 +368,7 @@
 			<div class="form-element">
 			
 				<div class="form-row">
-					<div class="form-label"><label>Independent Data Set</label></div>
+					<div class="form-label" style="width: 11em;"><label>Independent Data Set</label></div>
 					<div class="form-input">
 						<select name="independent">
 						{% for series in all_series %}
@@ -388,7 +378,7 @@
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-label"><label>Dependent Data Set</label></div>
+					<div class="form-label" style="width: 11em;"><label>Dependent Data Set</label></div>
 					<div class="form-input">
 						<select name="dependent">
 						{% for series in all_series %}
@@ -398,7 +388,7 @@
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-label"><label>Skip Zeroes</label></div>
+					<div class="form-label" style="width: 11em;"><label>Skip Zeroes</label></div>
 					<div class="form-input">
 					<input type="checkbox" name="skip_zeroes" 
 						  {% if skip_zeroes %}checked="checked"{% endif %}
@@ -414,12 +404,12 @@
 			<div class="form-element">
 			
 				<div class="form-row">
-					<div class="form-label"><label>Start Date</label></div>
+					<div class="form-label" style="width: 5em;"><label>Start Date</label></div>
 					<div class="form-input"><input type="text" id="start" name="start" size="10" value="{{start|date:"Y-m-d"}}" /></div>
 				</div>
 			
 				<div class="form-row">
-					<div class="form-label"><label>End Date</label></div>
+					<div class="form-label" style="width: 5em;"><label>End Date</label></div>
 					<div class="form-input"><input type="text" id="end" name="end" size="10" value="{{end|date:"Y-m-d"}}" /></div>
 				</div>
 			
@@ -432,12 +422,12 @@
 			<div class="form-element">
 			
 				<div class="form-row">
-					<div class="form-label"><label>Threshold Label</label></div>
+					<div class="form-label" style="width: 8em;"><label>Threshold Label</label></div>
 					<div class="form-input"><input type="text" name="line_label_{{line.n}}" value="{{line.label}}" /></div>
 				</div>
 
 				<div class="form-row">
-					<div class="form-label"><label>Threshold Value</label></div>
+					<div class="form-label" style="width: 8em;"><label>Threshold Value</label></div>
 					<div class="form-input"><input type="text" name="line_value_{{line.n}}"value="{{line.value}}" /></div>
 				</div>
 			
@@ -452,12 +442,12 @@
 			<div class="form-element">
 			
 				<div class="form-row">
-					<div class="form-label"><label>Threshold Label</label></div>
+					<div class="form-label" style="width: 8em;"><label>Threshold Label</label></div>
 					<div class="form-input"><input type="text" name="line_label_{{n}}" value="" /></div>
 				</div>
 
 				<div class="form-row">
-					<div class="form-label"><label>Threshold Value</label></div>
+					<div class="form-label" style="width: 8em;"><label>Threshold Value</label></div>
 					<div class="form-input"><input type="text" name="line_value_{{n}}"value="" /></div>
 				</div>
 			
@@ -471,10 +461,10 @@
 
 
 		<fieldset>
-		<input type="submit" value="Graph This Information! &uarr; &darr; " /> 
+		<legend>Step 3: Click below to generate your graph.</legend>
+		<input id="graphit" type="submit" value="Graph Data &darr; " /> 
 		</fieldset>
 		
-		<p align="right">You can also both print and export your graph by clicking on the icons.</p>
 	</div>
 	
 	{% if lseriesp %}
@@ -520,6 +510,9 @@
 	
 	<!--graph-->
 	{% if show_graph %}
+	
+	<div id="icontext">You can also print and download your graph. &darr;</div>
+	
 	<div id="chart-container"></div>
 	{% endif %}
 	
@@ -527,13 +520,15 @@
 	
 	{% with lsg.box_data as box_data %}
 	{% spaceless %}
+	<br />
 	<img src="https://chart.googleapis.com/chart?chs=600x200&cht=ls&chd=t0:-1,{% for bd in box_data.series %}{{bd.min}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.lq}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.uq}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.max}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.median}},{% endfor %}0&chm=F,0000FF,0,1:{{box_data.count}},20|H,0000FF,0,1:{{box_data.count}},1:20|H,0000FF,3,1:{{box_data.count}},1:20|H,0000FF,4,1:{{box_data.count}},1:20&chxt=y&chxr=0,{{box_data.min}},{{box_data.max}},0" width="600" height="200" />
 	{% endspaceless %}
 	{% endwith %}
 	
 	{% if show_ttest %}
-	<br />
+	<p class="ttest">
 	T-Test: {{ttest|floatformat:2}}
+	</p>
 	{% endif %}
 	
 	{% endif %}
@@ -549,4 +544,16 @@
 
 </div>
 
+{% endblock %}
+
+
+{% block footer %}
+    <div id="footer">
+        <ul id="standard-elements">
+            <li><a href="/portal/about/">About</a></li>
+            <li><a href="/portal/credits/">Credits</a></li>
+            <li><a href="/portal/help/">Help</a></li>
+            <li><a href="mailto:ccnmtl-blackrock@columbia.edu">Contact</a></li>
+        </ul>
+    </div>
 {% endblock %}

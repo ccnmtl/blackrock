@@ -1,10 +1,29 @@
 #contentcontainer { padding: 20px; }
 
-form
+ul.breadcrumbs li  a
+{
+padding: 5px 10px 10px 10px; 
+border-top: 5px solid #dcd3c2;
+}
+
+ul.breadcrumbs li a.active 
+{
+background-color: #fff; 
+padding: 5px 10px 10px 10px; 
+border-top: 5px solid #dcd3c2;
+}
+
+#icontext, form
 {
 	font-family: "lucida grande";
 	font-size: 10px;
 	color: #666;
+}
+
+#icontext
+{
+	text-align: right;
+	padding-top: 5px;
 }
 
 fieldset
@@ -60,10 +79,15 @@ label
 }
 
 .form-input { float: left; }
-.selected { color: #ff6633; }
-input[type="button"] { }
+.selected { color: #0099ff; }
+input[type="text"] { width: 7em; }
 select { }
 
+#graphit
+{
+	background-color: #0099ff;
+	color: #fff;
+}
 
 #datatable
 {
@@ -86,9 +110,83 @@ select { }
 }
 
 #datatable td.seriesname { }
+#masthead a, #breadcrumbs a { text-decoration: none !important; }
+#breadcrumbs a:hover { text-decoration: underline !important; }
+a { text-decoration: underline !important; }
+a:hover { text-decoration: none !important; }
+
+p.warning
+{
+	font-family: "lucida grande";
+	font-size: 12px;
+	color: #000;
+	background-color: #fcc;
+	padding: 10px;
+}
+
+p.ttest
+{
+	font-family: "lucida grande";
+	font-size: 12px;
+	color: #000;
+	background-color: #ffc;
+	padding: 10px;
+}
+
+.funder_logo 
+{
+	display: block;
+	margin: 50px 0 0 0;
+	font-size: 12px;
+}
+
+.funder_logo span
+{
+	display: block;
+	float: left;
+	padding: 5px 10px 5px 0;
+	margin: 0;
+}
+
+#footer
+{
+	background-color: #1F2A1E;
+	color: #ffffff;
+	text-align: center;
+	font-size: .7em;
+	margin: 30px 0 0 0;
+	padding: 0;
+	border: 0;
+}
+
+ul#standard-elements
+{
+	list-style: none;
+	margin: 0;
+	padding: 3px 0;
+}
+
+ul#standard-elements li
+{
+	display: inline;
+	padding: 0 5px;
+}
+
+ul#standard-elements li a
+{
+	color: #ffffff;
+	display: inline;
+	text-decoration: none !important;
+}
+
+ul#standard-elements li a:hover
+{
+	text-decoration: underline !important;
+}
 
 
 /*OLD*/
+
 /*
 table.graphtable th, table.graphtable td
 {
@@ -97,13 +195,8 @@ table.graphtable th, table.graphtable td
 	vertical-align: top;
 }
 
-#contentcontainer { padding: 20px; }
 .activity { padding: 20px; }
 h1 { border-bottom: 1px solid #ccc; }
-#breadcrumbs a { text-decoration: none !important; }
-#breadcrumbs a:hover { text-decoration: underline !important; }
-a { text-decoration: underline !important; }
-a:hover { text-decoration: none !important; }
 
 #facebox .content
 {
@@ -189,4 +282,5 @@ table.graphtable th, table.graphtable td
   color: #f00;
 }
 */
+
 /*OLD*/
