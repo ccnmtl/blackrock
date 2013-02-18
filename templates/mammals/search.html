@@ -30,17 +30,25 @@
                             {%include "mammals/search_subtemplates/species.html" %}
                         {%else %}
                         {%endif %}
+                        
                         {%if field.label == "Habitat" %}
                             {%include "mammals/search_subtemplates/habitats.html" %}
                         {%else %}
                         {%endif %}
+                                                
+                        {%if field.label == "School" %}
+                            {%include "mammals/search_subtemplates/schools.html" %}
+                        {%else %}
+                        {%endif %}
+                        
                     {%endfor %}
-                    {%include "mammals/search_subtemplates/schools.html" %}
+                    
+
                     {%include "mammals/search_subtemplates/dates.html" %}
                     <input type="submit" value="Search">
             </form>
             </div><!-- div id="left" -->
-        <div id="map_canvas">MAP GO HERE</div><!-- id="map_canvas" -->
+        <div id="map_canvas"><!-- MAP GO HERE LAH-->Please wait while the map loads.</div><!-- id="map_canvas" -->
         <div class="clearfix"></div><!-- class="clearfix" -->
     </div><!-- div class="plain" -->
 </div><!-- div id="container" -->

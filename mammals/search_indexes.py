@@ -19,25 +19,22 @@ class TrapLocationIndex(SearchIndex):
     trap_tracks_and_signs =     BooleanField     (faceted=True)
     trap_unsuccessful    =      BooleanField     (faceted=True)
     
-    asset_type =                CharField     (faceted=True)
+    asset_type =                CharField        (faceted=True)
 
     def get_model(self):
         return TrapLocation
         
     def prepare_trap_name(self, obj):
         return obj.__unicode__()  
-
-        
+    
     def prepare_trap_species(self, obj):
         if obj.animal:
-            print obj.animal
             return obj.animal.species.id
         else:
             return None
         
     def prepare_trap_habitat(self, obj):
         if obj.habitat:
-            print obj.habitat
             return obj.habitat.id
         else:
             return None
@@ -46,7 +43,6 @@ class TrapLocationIndex(SearchIndex):
         return obj.school_if_any()
     
     def prepare_trap_date(self, obj):
-        print obj.date_for_solr()
         return obj.date_for_solr()
         
     def prepare_trap_trapped_and_released(self, obj):

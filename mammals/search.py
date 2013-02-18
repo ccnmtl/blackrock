@@ -7,12 +7,36 @@ from django.utils.text import capfirst
 from types import *    
 
 class MammalSearchForm(SearchForm):
-    habitat_list = [ (h.id, h.label ) for h in Habitat.objects.all()]
+
+    success_list = [
+        ('unsuccessful',          'Unsuccessful traps')
+        ,('trapped_and_released', 'Trapped and released')
+    ]
+    
+    signs_list = [
+        ('observed',                'Observed')
+        ,('camera',                 'Camera')
+        ,('tracks_and_signs',       'Tracks and signs')
+    ]
+    
+    habitat_list = [(h.id, h.label ) for h in Habitat.objects.all()]
     species_list = [(s.id, s.common_name) for s in Species.objects.all()]
+    school_list =  [(s.id, s.name) for s in School.objects.all()]
+
     csm = forms.CheckboxSelectMultiple
     # note: the order in which these are defined... affects the order in which they are displayed in the template. This sucks but it's what I get for accepting to use Django forms.
+    
+    trap_success = forms.MultipleChoiceField(required=False, label='', widget=csm, choices=success_list)
+    trap_signs =   forms.MultipleChoiceField(required=False, label='', widget=csm, choices=signs_list)
+    
     trap_habitat = forms.MultipleChoiceField(required=False, label='Habitat', widget=csm, choices=habitat_list)
     trap_species = forms.MultipleChoiceField(required=False, label='Species', widget=csm, choices=species_list)
+    trap_school = forms.MultipleChoiceField(required=False, label='School', widget=csm, choices=school_list)
+
+
+
+    #import pdb
+    #pdb.set_trace()
 
     def __init__(self, *args, **kwargs):
         super(MammalSearchForm, self).__init__(*args, **kwargs)
@@ -30,8 +54,15 @@ class MammalSearchForm(SearchForm):
             sqs = sqs.narrow('asset_type_exact:TrapLocation')
             sqs = sqs.narrow (self.checkboxes_or ('trap_habitat'))
             sqs = sqs.narrow (self.checkboxes_or ('trap_species'))
-            if self.load_all:
-                sqs = sqs.load_all()
+            sqs = sqs.narrow (self.checkboxes_or ('trap_school' ))
+            
+            if 'unsuccessful' in self.cleaned_data['trap_success']:
+                sqs = sqs.narrow('trap_unsuccessful:True')
+            elif 'trapped_and_released' in self.cleaned_data['trap_success']:
+                sqs = sqs.narrow('trap_trapped_and_released:True')
+            #not sure i want this.
+            #if self.load_all:
+            #    sqs = sqs.load_all()
         return sqs
     
 class MammalSearchView(SearchView):
@@ -57,6 +88,8 @@ class MammalSearchView(SearchView):
         for param, value in self.request.GET.items():
             if param != 'page':
                 query += '%s=%s&' % (param, value)
+                
+                
         extra['query'] = query
 
         #this is what's used to actually draw the form:
