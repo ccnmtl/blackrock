@@ -55,9 +55,6 @@ class GridPoint(models.Model):
     def lon(self):
         return self.geo_point.coords[1]
 
-
-
-
          
     def dir(self):
         return dir(self)
@@ -86,15 +83,13 @@ class Species(models.Model):
     def __unicode__(self):
         return self.common_name
         
-    class Meta:
-        ordering = ['common_name']
-
     latin_name =  models.CharField(blank=True, help_text = "Binomial species name", max_length = 256)
     common_name =  models.CharField(blank=True, help_text = "Common name", max_length = 512)
     about_this_species =  models.TextField(blank=True, help_text = "A blurb with info about this species at Blackrock")
     class Meta:
         verbose_name = "Species"
         verbose_name_plural = "Species" # http://en.wikipedia.org/wiki/Latin_declension#Fifth_declension_.28e.29
+        ordering = ['common_name']
     def dir(self):
         return dir(self)
 
@@ -588,7 +583,7 @@ class TrapLocation(models.Model):
         where = [self.actual_lat(), self.actual_lon()]
         result ['where'] = where
         date_string = self.expedition.end_date_of_expedition.strftime("%m/%d/%y")
-        result ['name'] = "Species: %s; Habitat: %s; School: %s ; Date: %s" % (self.species_if_any(),self.habitat_if_any(), self.school_if_any, date_string)
+        result ['name'] = "Species: %s; Habitat: %s; School: %s ; Date: %s" % (self.species_if_any(),self.habitat_if_any(), self.school_if_any(), date_string)
         result ['species'] = self.species_if_any()
         result ['habitat'] = self.habitat_if_any()
         result ['school']  = self.school_if_any()

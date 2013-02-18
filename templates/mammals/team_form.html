@@ -48,14 +48,14 @@
     <input type="hidden" name = "team_letter"   id = "team_letter"   value ="{{team_letter}}" />
         
         {%for point in team_points     %}
-<h3>Trap {{point.team_letter }}{{point.team_number }}  ( {{point.transect_distance|floatformat:0}}m @ {{point.transect_bearing_wrt_magnetic_north|floatformat:0 }}&deg; from magnetic north)</h3> 
+<h3>Trap {{point.team_letter }}{{point.team_number }}  ( {{point.transect_distance|floatformat:0}}m @ {{point.transect_bearing|floatformat:0 }}&deg; from true north)</h3> 
      <table class = "green_table">
      
             <tr>
                 <td rowspan="2"> 
                     Location
                 </td>
-                <td > 
+                <td >
                     Habitat:
                 </td>
                 <td > 
