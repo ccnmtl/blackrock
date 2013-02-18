@@ -4,32 +4,32 @@
 
 {% block css %} 
 <style type='text/css'>
-  @import "media/css/style.css";
+  @import "/respiration/media/css/style.css";
 </style> 
 <!--[if IE]>
 <style type='text/css'>
-  @import "media/css/style_ie.css";
+  @import "/respiration/media/css/style_ie.css";
 </style> 
 <![endif]-->
 {% endblock %} 
 
 {% block js %} 
-<script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script> 
-<script type="text/javascript" src="/site_media/js/mochikit/MochiKit/Signal.js"></script> 
-<script type="text/javascript" src="/site_media/js/bluff/js-class.js"></script> 
-<script type="text/javascript" src="/site_media/js/bluff/excanvas.js"></script> 
-<script type="text/javascript" src="/site_media/js/bluff/bluff-src.js"></script> 
-<script type="text/javascript" src="/respiration/media/js/graph.js"></script> 
-
-<script type="text/javascript">
-  function setActiveTab() {
-      var tabname = "{% block tabname %}tab-leaf{% endblock %}";
-      if (document.getElementById(tabname) != null) { 
-          addElementClass(tabname, "tab-selected"); 
+    <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script> 
+    <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/Signal.js"></script> 
+    <script type="text/javascript" src="/site_media/js/bluff/js-class.js"></script> 
+    <script type="text/javascript" src="/site_media/js/bluff/excanvas.js"></script> 
+    <script type="text/javascript" src="/site_media/js/bluff/bluff-src.js"></script> 
+    <script type="text/javascript" src="/respiration/media/js/graph.js"></script> 
+    
+    <script type="text/javascript">
+      function setActiveTab() {
+          var tabname = "{% block tabname %}tab-leaf{% endblock %}";
+          if (document.getElementById(tabname) != null) { 
+              addElementClass(tabname, "tab-selected");
+          }
       }
-  }
-  addLoadEvent(setActiveTab);
-</script>
+      addLoadEvent(setActiveTab);
+    </script>
 {% endblock %} 
 
 {% block masthead %} 
@@ -37,131 +37,122 @@
 {% endblock %} 
 
 {% block content %}
-<div id="respiration_content">
-
-	<div id="tab-bar">
-    	<div class="tab" id="tab-canopy">
-    		Canopy Level
+        <div id="tab-bar">
+            <div class="tab" id="tab-resources" onclick="return window.location = '/respiration/resources';">
+                Teaching Resources
+            </div>
+            <div class="tab" id="tab-canopy">
+                Canopy Level
+            </div>          
+            <div class="tab" id="tab-leaf">
+                Leaf Level
+            </div>          
+        </div>
+    
+    {% block moduleheader %}
+    <div id="respiration_content">
+        	
+        	<div id="instructions">
+        		<strong>Instructions:</strong>
+        		{% block instructions %}
+        		{% endblock %}
+        	</div>
+    		
+    		<div id="equation">
+    			<div class="caption">
+    				Arrhenius Function
+    			</div>
+    			
+    			<table class="equation">
+    			<tr>
+    			<td style="vertical-align: bottom;">
+    			
+    				<div id="equation-left">
+    					<span id="arr-r-result" class="arr-variable">
+    						R
+    					</span>
+    					= 
+    					<span id="arr-r-zero" class="arr-variable">
+    						R<sub>0</sub></span>e 
+    				</div>
+    				
+    			</td>
+    			<td style="vertical-align: top;">
+    				
+    				<table id="equation-right">
+    					<tr class="top">
+    						<td id="arr-e-zero" class="numerator arr-variable">
+    							E<sub>0</sub>
+    						</td>
+    						<td class="eq-big" rowspan="2">
+    							( 
+    						</td>
+    						<td class="numerator">
+    							1
+    						</td>
+    						<td rowspan="2">
+    							&minus; 
+    						</td>
+    						<td class="numerator">
+    							1
+    						</td>
+    						<td class="eq-big" rowspan="2">
+    							) 
+    						</td>
+    					</tr>
+    					<tr>
+    						<td id="arr-r-g" class="arr-variable">
+    							R<sub>g</sub>
+    						</td>
+    						<td id="arr-t-zero" class="arr-variable">
+    							T<sub>0</sub>
+    						</td>
+    						<td id="arr-t-a" class="arr-variable">
+    							T<sub>a</sub>
+    						</td>
+    					</tr>
+    				</table>
+    		       </td>
+    	       </tr>
+    	   </table>				
+        </div> <!--  end equation -->        	
+    </div> <!-- end respiration content -->
+    {% endblock %}  
+    
+    <div id="container">
+        {% block modulecontainer %}
+    	<div id="left">
+    		<div id="leftfield">
+               
+               {% block leftlegend %}
+                  LEFT LEGEND
+               {% endblock %}
+               
+    		
+    		   {% block left %} 
+    		      LEFT PANE 
+    		   {% endblock %} 
+    		</div>
     	</div>
-    	
-    	<div class="tab" id="tab-leaf">
-    		Leaf Level
+    
+    	<div id="right">
+    	  <div id="rightfield">
+            <h3>
+                {% block rightlegend %}
+        	    RIGHT LEGEND
+        	    {% endblock %}
+            </h3>
+    	    {% block graph %} 
+    		  <div id="graph-cursor"><div id="unfreeze"></div></div>
+    		  <canvas id="graph" width="460" height="345"></canvas>
+    	    {% endblock %} 
+    	    {% block right %} 
+    		    RIGHT PANE
+    	    {% endblock %} 
+    	  </div>
     	</div>
-    	
-    	<div class="tab" style="display:none;">
-    		How To (Media)
-    	</div>
-	</div>
-	
-	<!-- Print -->
-	<a href="javascript:window.print()" style="text-decoration: none; color: #000;"><span class="button" style="position: absolute; top: 152px; left: 8px; background-color: white;">Print</span></a>
-
-
-		<div id="instructions">
-			<strong>Instructions:</strong>
-			{% block instructions %}
-			{% endblock %}
-		</div>
-		
-		<div id="equation">
-		
-			<div class="caption">
-				Arrhenius Function
-			</div>
-			
-			<table class="equation">
-			<tr>
-			<td style="vertical-align: bottom;">
-			
-				<div id="equation-left">
-					<span id="arr-r-result" class="arr-variable">
-						R
-					</span>
-					= 
-					<span id="arr-r-zero" class="arr-variable">
-						R<sub>0</sub></span>e 
-				</div>
-				
-			</td>
-			<td style="vertical-align: top;">
-				
-				<table id="equation-right">
-					<tr class="top">
-						<td id="arr-e-zero" class="numerator arr-variable">
-							E<sub>0</sub>
-						</td>
-						<td class="eq-big" rowspan="2">
-							( 
-						</td>
-						<td class="numerator">
-							1
-						</td>
-						<td rowspan="2">
-							&minus; 
-						</td>
-						<td class="numerator">
-							1
-						</td>
-						<td class="eq-big" rowspan="2">
-							) 
-						</td>
-					</tr>
-					<tr>
-						<td id="arr-r-g" class="arr-variable">
-							R<sub>g</sub>
-						</td>
-						<td id="arr-t-zero" class="arr-variable">
-							T<sub>0</sub>
-						</td>
-						<td id="arr-t-a" class="arr-variable">
-							T<sub>a</sub>
-						</td>
-					</tr>
-				</table>
-				
-				
-			</td>
-			</tr>
-			</table>
-				
-		</div> <!--  end equation -->
-		
-</div> <!-- end respiration content -->
-
-<div id="container">
-	
-	<div id="left">
-		<div id="leftfield">
-           
-           {% block leftlegend %}
-              Set Respiration Rate Variables
-           {% endblock %}
-           
-		
-		   {% block left %} 
-		      LEFT PANE REPORTING FOR DUTY 
-		   {% endblock %} 
-		</div>
-	</div>
-	
-
-	<div id="right">
-	  <div id="rightfield">
-        <h3>
-            {% block rightlegend %}
-    	    Respiration Rate Graph
-    	    {% endblock %}
-        </h3>
-	    {% block graph %} 
-		  <div id="graph-cursor"><div id="unfreeze"></div></div>
-		  <canvas id="graph" width="460" height="345"></canvas>
-	    {% endblock %} 
-	    {% block right %} 
-		    RIGHT PANE SIR YES SIR 
-	    {% endblock %} 
-	  </div>
-	</div>
-</div> <!-- end div "container" -->
+        {% endblock %}
+    </div> <!-- end div "container" -->    
 {% endblock %}
 
 {% block script_footer %}    

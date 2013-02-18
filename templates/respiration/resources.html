@@ -1,0 +1,27 @@
+{% extends "respiration/base_respiration.html" %} 
+
+{% block tabname %}tab-resources{% endblock %} 
+
+{% block js %} 
+    {{ block.super }}  
+    <script type="text/javascript" src="/respiration/media/js/foresthelpers.js"></script>  
+    <script type="text/javascript">
+      function initNav() {
+          connect("tab-leaf", "onclick", function() {
+              window.location = '/respiration/leaf';
+          });
+          connect("tab-canopy", "onclick", function() {
+              window.location = '/respiration/forest';
+          });
+       }
+       addLoadEvent(initNav);
+    </script>
+{% endblock %}
+
+{% block moduleheader %}
+{% endblock %} 
+
+{% block modulecontainer %}
+    <h3>Teaching Resources</h3>
+{% endblock %} 
+
