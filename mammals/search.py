@@ -10,7 +10,7 @@ class MammalSearchForm(SearchForm):
     habitat_list = [ (h.id, h.label ) for h in Habitat.objects.all()]
     species_list = [(s.id, s.common_name) for s in Species.objects.all()]
     csm = forms.CheckboxSelectMultiple
-    # note: the order in which these are defined... affects the order in which they are displayed in the template. This sucks but it's what I get for acquiescing to Django forms.
+    # note: the order in which these are defined... affects the order in which they are displayed in the template. This sucks but it's what I get for accepting to use Django forms.
     trap_habitat = forms.MultipleChoiceField(required=False, label='Habitat', widget=csm, choices=habitat_list)
     trap_species = forms.MultipleChoiceField(required=False, label='Species', widget=csm, choices=species_list)
 
@@ -58,11 +58,10 @@ class MammalSearchView(SearchView):
             if param != 'page':
                 query += '%s=%s&' % (param, value)
         extra['query'] = query
-        
-        #import pdb
-        #pdb.set_trace()
-        #search_map_repr
+
+        #this is what's used to actually draw the form:
         extra ['results_json']= simplejson.dumps([tl.object.search_map_repr() for tl in self.results])
+
 
         return extra
         

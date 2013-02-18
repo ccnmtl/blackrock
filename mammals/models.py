@@ -296,6 +296,10 @@ class School (models.Model):
 
     def __unicode__(self):
         return self.name
+        
+        
+    class Meta:
+        ordering = ['name']
 
     name  =  models.CharField(blank=True, default = "", help_text = "Name of school", max_length = 256)
     address  =  models.CharField(blank=True, default = "", help_text = "Name of school", max_length = 256)
@@ -314,6 +318,11 @@ class Expedition (models.Model):
         return  u"Expedition started on %s" % ( self.start_date_of_expedition )
   
     #TODO make default sort by date, starting w/ most recent. 
+    
+    
+    class Meta:
+        ordering = ['-end_date_of_expedition']
+
     
     @classmethod
     def create_from_obj(self, json_obj, creator):
@@ -349,7 +358,7 @@ class Expedition (models.Model):
     #school_contact_2_email  =  models.CharField(blank=True,  help_text = "Second contact @ the school  -- phone", max_length = 256)
 
 
-    school  = models.ForeignKey(User,blank=True,null=True )
+    school  = models.ForeignKey(School ,blank=True,null=True )
     number_of_students = models.IntegerField(help_text = "How many students participated", default = 0)
     grade_level = models.ForeignKey(GradeLevel,  null=True, blank=True)
 
@@ -441,8 +450,19 @@ class TrapLocation(models.Model):
         
     student_names =  models.TextField (blank=True, null=True, help_text = "Names of the students responsible for this location (this would be filled in, if at all, by the instructor after the students have left the forest.", max_length = 256)
     
+    def date (self):
+        if self.expedition:
+            return self.expedition.end_date_of_expedition.strftime("%m/%d/%y")
+        else:
+            return None    
     
-    
+    def date_for_solr (self):
+        if self.expedition:
+            return self.expedition.end_date_of_expedition
+        else:
+            return None    
+        
+        
     def trap_nickname (self):
         return "%s%d" % (self.team_letter, self.team_number)
     
@@ -580,17 +600,20 @@ class TrapLocation(models.Model):
     
     def search_map_repr (self):
         result = {}
-        where = [self.actual_lat(), self.actual_lon()]
-        result ['where'] = where
-        date_string = self.expedition.end_date_of_expedition.strftime("%m/%d/%y")
-        result ['name'] = "Species: %s; Habitat: %s; School: %s ; Date: %s" % (self.species_if_any(),self.habitat_if_any(), self.school_if_any(), date_string)
+        
+        info_string = "Species: %s; Habitat: %s; School: %s ; Date: %s" % (self.species_if_any(),self.habitat_if_any(), self.school_if_any(), self.date())
+        
+        
+        result ['name'] = info_string
+        result ['where'] = [self.actual_lat(), self.actual_lon()]
+        
         result ['species'] = self.species_if_any()
         result ['habitat'] = self.habitat_if_any()
         result ['school']  = self.school_if_any()
-        result ['date']    = date_string
+        result ['date']    = self.date()
+        
         return result
         
-            
     def dir(self):
         return dir(self)
         
@@ -599,7 +622,7 @@ class TrapLocation(models.Model):
     def gps_coords(self):
         return "%s, %s" % (self.actual_NSlat(), self.actual_EWlon())
         
-    if 1 == 0:
+    if 0 == 0:
     #these are no longer called from the map page -- see /sentry/group/1260
     #TODO remove; Now ambiguous.    
                         def NSlat(self):
