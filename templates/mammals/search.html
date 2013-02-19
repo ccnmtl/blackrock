@@ -4,20 +4,17 @@
 	{{ block.super }}
 	<script type="text/javascript" src="/mammals/media/js/habitat_map_style.js"></script>
 	<script type="text/javascript" src="/mammals/media/js/habitat_map_code.js"></script>
-   <!--
-    <script type="text/javascript" src="/mammals/media/js/general_map.js"></script>
-    -->
 {% endblock %}
 {% block css %}
     <style type='text/css'>
-      @import "/mammals/media/css/style.css";
-      @import "/site_media/js/jquery-ui-1.8.11.custom/css/smoothness/jquery-ui-1.8.11.custom.css";
+        @import "/mammals/media/css/style.css";
+        @import "/site_media/js/jquery-ui-1.8.11.custom/css/smoothness/jquery-ui-1.8.11.custom.css";
     </style> 
 {% endblock %}
+{%block mammals_nav_search%}class="active"{%endblock%}
 {% block container %}
 {%include "mammals/search_subtemplates/results.html" %}
-
- <div id="container" class="habitatmap">
+<div id="container" class="habitatmap">
     <div class="plain">
         <div id="left">
             <h3>Habitat Map </h3>
@@ -31,31 +28,23 @@
                             {%include "mammals/search_subtemplates/species.html" %}
                         {%else %}
                         {%endif %}
-                        
                         {%if field.label == "Habitat" %}
                             {%include "mammals/search_subtemplates/habitats.html" %}
                         {%else %}
-                        {%endif %}
-                                                
+                        {%endif %}              
                         {%if field.label == "School" %}
                             {%include "mammals/search_subtemplates/schools.html" %}
                         {%else %}
                         {%endif %}
-                        
                     {%endfor %}
-                    
-
                     {%include "mammals/search_subtemplates/dates.html" %}
                     <input type="submit" value="Search">
             </form>
-            </div><!-- div id="left" -->
+        </div><!-- div id="left" -->
         <div id="map_canvas"><!-- MAP GO HERE LAH-->Please wait while the map loads.</div><!-- id="map_canvas" -->
         <div class="clearfix"></div><!-- class="clearfix" -->
     </div><!-- div class="plain" -->
 </div><!-- div id="container" -->
-
-
-
 {%include "mammals/search_subtemplates/accordion.html" %}
 {%endblock%}
 

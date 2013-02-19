@@ -828,8 +828,6 @@ body.square .block_coordbox
     color: #000 !important;
 }
 
-
-/* grid selector start */
 .habitatmap .gridselector
 {
 	margin: 0 0 10px 0;
@@ -848,11 +846,6 @@ body.square .block_coordbox
 .habitatmap div.gridselector div.title {
 	padding: 3px 0px 0px 0px;
 }
-
-
-/* grid selector end */
-
-
 
 .habitatmap .ui-accordion-content div.facetItem div.title {
 	padding: 3px 0px 0px 0px;
