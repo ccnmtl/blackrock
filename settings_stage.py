@@ -21,6 +21,8 @@ HAYSTACK_SOLR_URL = \
     'http://wwwappdev.cc.columbia.edu/ccnmtl/solr/blackrock_portal'
 HAYSTACK_SITECONF = 'portal.search_sites'
 HAYSTACK_SEARCH_ENGINE = 'solr'
+BLACK_ROCK_FEED = 'http://ccnmtl.columbia.edu/projects/blackrock/forestdata/'
+
 
 try:
     from local_settings import *

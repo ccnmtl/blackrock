@@ -5,8 +5,16 @@ from mammals.models import *
 from django.db.models import get_model, get_app
 from django.utils.text import capfirst
 from types import *    
-from collections import Counter
+#from collections import Counter  ## not allowed in 2.6
+from collections import defaultdict
+
 from django.utils import simplejson
+
+def my_counter(L):
+    d = defaultdict(int)
+    for i in L:
+        d[i] += 1
+    return d
 
 class MammalSearchForm(SearchForm):
 
@@ -46,8 +54,9 @@ class MammalSearchForm(SearchForm):
         
     def calculate_breakdown (self, the_sqs):
         result = {}
-        for thing in  ['species', 'habitat', 'school', 'unsuccessful', 'trapped_and_released']:
-            result [thing] = Counter ([getattr (x, ('trap_%s' % thing)) for x in the_sqs])
+        for thing in  ['species', 'habitat', 'school', 'unsuccessful', 'trapped_and_released']:            
+            what_to_count = [getattr (x, ('trap_%s' % thing)) for x in the_sqs]
+            result [thing] = my_counter (what_to_count )
         
         # nanohack
         result['trap_success'] = {}
