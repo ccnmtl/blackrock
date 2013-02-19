@@ -40,7 +40,10 @@ class TrapLocationIndex(SearchIndex):
             return None
 
     def prepare_trap_school(self, obj):
-        return obj.school_if_any()
+        if obj.expedition.school:
+            return obj.expedition.school.id
+        else:
+            return None
     
     def prepare_trap_date(self, obj):
         return obj.date_for_solr()

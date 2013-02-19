@@ -4,7 +4,9 @@
 	{{ block.super }}
 	<script type="text/javascript" src="/mammals/media/js/habitat_map_style.js"></script>
 	<script type="text/javascript" src="/mammals/media/js/habitat_map_code.js"></script>
+   <!--
     <script type="text/javascript" src="/mammals/media/js/general_map.js"></script>
+    -->
 {% endblock %}
 {% block css %}
     <style type='text/css'>
@@ -19,7 +21,7 @@
  <div id="container" class="habitatmap">
     <div class="plain">
         <div id="left">
-            <h3>Habitat Map</h3>
+            <h3>Habitat Map </h3>
             <form method="get" action=".">
                     {%include "mammals/search_subtemplates/grid_selector.html" %}
                     {%include "mammals/search_subtemplates/traps_and_spotting.html" %}
@@ -52,6 +54,12 @@
         <div class="clearfix"></div><!-- class="clearfix" -->
     </div><!-- div class="plain" -->
 </div><!-- div id="container" -->
+
+
+<div id="breakdown">
+    {{form.breakdown|safe }}
+</div>
+
 {%include "mammals/search_subtemplates/accordion.html" %}
 {%endblock%}
 

@@ -24,3 +24,4 @@ requirements/src/BeautifulSoup-3.0.0.tar.gz
 requirements/src/nose-1.1.2.tar.gz
 requirements/src/coverage-3.5.3.tar.gz
 requirements/src/nose-exclude-0.1.5.tar.gz
+requirements/src/djangohelpers-0.1.tar.gz

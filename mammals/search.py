@@ -5,6 +5,8 @@ from mammals.models import *
 from django.db.models import get_model, get_app
 from django.utils.text import capfirst
 from types import *    
+from collections import Counter
+from django.utils import simplejson
 
 class MammalSearchForm(SearchForm):
 
@@ -35,9 +37,6 @@ class MammalSearchForm(SearchForm):
 
 
 
-    #import pdb
-    #pdb.set_trace()
-
     def __init__(self, *args, **kwargs):
         super(MammalSearchForm, self).__init__(*args, **kwargs)
 
@@ -45,13 +44,29 @@ class MammalSearchForm(SearchForm):
         """" note: this returns a blank string if nothing is checked."""
         return ' OR '.join (['%s:%s'% (name, a)  for a in self.cleaned_data[name]])
         
+    def calculate_breakdown (self, the_sqs):
+        result = {}
+        for thing in  ['species', 'habitat', 'school', 'unsuccessful', 'trapped_and_released']:
+            result [thing] = Counter ([getattr (x, ('trap_%s' % thing)) for x in the_sqs])
+        return simplejson.dumps(result)
+
     def search(self):
         sqs = []
         self.hidden = []
         if self.is_valid():
+        
+            
+            #else
+            
             ##TODO test validity of connection and throw error if there's a problem.
             sqs = self.searchqueryset.auto_query('')
-            sqs = sqs.narrow('asset_type_exact:TrapLocation')
+            sqs = sqs.narrow ('asset_type_exact:TrapLocation')
+            
+            
+            #not sure i want this...
+            #if self.load_all:
+            #    return sqs.load_all()
+            
             sqs = sqs.narrow (self.checkboxes_or ('trap_habitat'))
             sqs = sqs.narrow (self.checkboxes_or ('trap_species'))
             sqs = sqs.narrow (self.checkboxes_or ('trap_school' ))
@@ -60,12 +75,20 @@ class MammalSearchForm(SearchForm):
                 sqs = sqs.narrow('trap_unsuccessful:True')
             elif 'trapped_and_released' in self.cleaned_data['trap_success']:
                 sqs = sqs.narrow('trap_trapped_and_released:True')
-            #not sure i want this.
-            #if self.load_all:
-            #    sqs = sqs.load_all()
+            
+            self.breakdown = self.calculate_breakdown(sqs)
+            #import pdb
+            #pdb.set_trace()    
+        
         return sqs
     
+    
+    
+    
 class MammalSearchView(SearchView):
+    
+
+    
     def __init__(self, *args, **kwargs):
         hella_many = 5000000000
         super(MammalSearchView, self).__init__(*args, **kwargs)
@@ -91,11 +114,12 @@ class MammalSearchView(SearchView):
                 
                 
         extra['query'] = query
+        
+        
+        #self.form.breakdown ( the_sqs):
 
         #this is what's used to actually draw the form:
         extra ['results_json']= simplejson.dumps([tl.object.search_map_repr() for tl in self.results])
 
-
         return extra
-        
         
