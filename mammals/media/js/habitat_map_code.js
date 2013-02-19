@@ -1,6 +1,6 @@
 var markers = []
 var the_map;
-
+var breakdown_object;
 
 function general_map_marker (name, where, map) {
     result = new google.maps.Marker ({
@@ -22,35 +22,75 @@ function addSimpleMap(mapInstance) {
     show_breakdown_numbers();
 }
 
+function isEmpty(obj) {
+    // Stay classy, JavaScript.
+    for(var prop in obj) {
+        if(obj.hasOwnProperty(prop))
+            return false;
+    }
+    return true;
+}
+
 
 function show_breakdown_numbers () {
-    // suggest ways to break down the search.
-    //If you narrow the search by checking more boxes,how many spots would remain on the map ?
-    breakdown_object = JSON.parse(jQuery ('#breakdown')[0].innerHTML)
-    facets = {
-         'habitat' : jQuery ('input[name="trap_habitat"]')
-        ,'species' : jQuery ('input[name="trap_species"]')
-        ,'school'  : jQuery ('input[name="trap_school" ]')
+    // Suggest ways to break down the search.
+    // If you narrow the search by checking more boxes,how many spots would remain on the map ?
+    breakdown_object = JSON.parse(jQuery ('#breakdown')[0].innerHTML);
+    if (isEmpty (breakdown_object)) {
+        return;
+    }
+    
+    var facets = {
+         'habitat' :       jQuery ('input[name="trap_habitat" ]')
+        ,'species' :       jQuery ('input[name="trap_species" ]')
+        ,'school'  :       jQuery ('input[name="trap_school"  ]')
+        ,'trap_success'  : jQuery ('input[name="trap_success" ]')
     }    
     jQuery.each ( facets, show_breakdown_for_facet);
         
 }
 
 function show_breakdown_for_facet (the_facet, the_checkboxes) {
-    // console.log (the_facet);
-    // console.log (the_checkboxes);
+    //if breakdown_objhect
     for (var i = 0; i < the_checkboxes.length; i++) {
-        the_checkbox = the_checkboxes[i];
-        how_many = breakdown_object[the_facet] [the_checkbox.value]
+        var the_checkbox = the_checkboxes[i];
+        var how_many = breakdown_object[the_facet] [the_checkbox.value]
         if ( how_many ) {
-            // console.log (the_checkbox);
-            // console.log (the_checkbox.value);
-            // console.log (how_many);
-            jQuery(the_checkbox).next(how_many);
-            jQuery(the_checkbox.parentElement).append ( ' (' + how_many + ')' )
+            say_how_many (the_checkbox, how_many);
         }
     }
 }
 
 
+function say_how_many (the_checkbox, how_many) {
+    jQuery(the_checkbox.parentElement).append ( ' (' + how_many + ')' );
+}
 
+
+function close_unused_facets () {
+    
+
+}
+
+
+function open_or_close_facet(facet_jquery, open) {
+    // if open is true, make sure the facet is open
+    // if open is false, make sure the facet is closed.
+
+}
+
+/*
+// getter
+var active = $( ".selector" ).accordion( "option", "active" );
+ 
+// setter
+$( ".selector" ).accordion( "option", "active", 2 );
+*/
+
+function facet_is_open  (facet_jquery) {
+    // returns boolean true if the facet is open, false if it is closed. 
+    
+    //var active = $( ".selector" ).accordion( "option", "active" );
+    //console.log (active);
+    
+}

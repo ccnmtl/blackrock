@@ -823,6 +823,37 @@ body.square .block_coordbox
 	padding: 0px 2px 0px 0px;
 }
 
+.habitatmap .ui-accordion-content-scroll label {
+    font-weight: normal !important;
+    color: #000 !important;
+}
+
+
+/* grid selector start */
+.habitatmap .gridselector
+{
+	margin: 0 0 10px 0;
+	padding: 0;
+	border: 0;
+    font-size: 11px;
+}
+
+.habitatmap div.gridselector div.checkbox,
+.habitatmap div.gridselector div.legend,
+.habitatmap div.gridselector div.title {
+    float: left;
+	padding: 0px 2px 0px 0px;
+}
+
+.habitatmap div.gridselector div.title {
+	padding: 3px 0px 0px 0px;
+}
+
+
+/* grid selector end */
+
+
+
 .habitatmap .ui-accordion-content div.facetItem div.title {
 	padding: 3px 0px 0px 0px;
 }

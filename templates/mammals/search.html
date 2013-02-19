@@ -15,9 +15,8 @@
     </style> 
 {% endblock %}
 {% block container %}
-<div id ="map_data" style="display:none">
-    {%include "mammals/search_subtemplates/results.html" %}
-</div>
+{%include "mammals/search_subtemplates/results.html" %}
+
  <div id="container" class="habitatmap">
     <div class="plain">
         <div id="left">
@@ -56,9 +55,6 @@
 </div><!-- div id="container" -->
 
 
-<div id="breakdown">
-    {{form.breakdown|safe }}
-</div>
 
 {%include "mammals/search_subtemplates/accordion.html" %}
 {%endblock%}

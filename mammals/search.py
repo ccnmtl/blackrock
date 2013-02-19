@@ -48,6 +48,17 @@ class MammalSearchForm(SearchForm):
         result = {}
         for thing in  ['species', 'habitat', 'school', 'unsuccessful', 'trapped_and_released']:
             result [thing] = Counter ([getattr (x, ('trap_%s' % thing)) for x in the_sqs])
+        
+        # nanohack
+        result['trap_success'] = {}
+        result['trap_success']['unsuccessful']         = result['trapped_and_released'][False];
+        result['trap_success']['trapped_and_released'] = result['trapped_and_released'][True ];
+
+
+        #import pdb
+        #pdb.set_trace()
+        
+            
         return simplejson.dumps(result)
 
     def search(self):
@@ -71,10 +82,16 @@ class MammalSearchForm(SearchForm):
             sqs = sqs.narrow (self.checkboxes_or ('trap_species'))
             sqs = sqs.narrow (self.checkboxes_or ('trap_school' ))
             
-            if 'unsuccessful' in self.cleaned_data['trap_success']:
+            #trap success:
+            show_unsuccessful = 'unsuccessful'         in self.cleaned_data['trap_success']
+            show_successful   = 'trapped_and_released' in self.cleaned_data['trap_success']
+            # if neither, or both, are clicked, show all locations.
+            # however:
+            if show_unsuccessful and not show_successful:
                 sqs = sqs.narrow('trap_unsuccessful:True')
-            elif 'trapped_and_released' in self.cleaned_data['trap_success']:
+            if show_successful   and not show_unsuccessful:
                 sqs = sqs.narrow('trap_trapped_and_released:True')
+            
             
             self.breakdown = self.calculate_breakdown(sqs)
             #import pdb
@@ -119,6 +136,9 @@ class MammalSearchView(SearchView):
         #self.form.breakdown ( the_sqs):
 
         #this is what's used to actually draw the form:
+        if not hasattr(self.form, 'breakdown'):
+            self.form.breakdown = {}
+            
         extra ['results_json']= simplejson.dumps([tl.object.search_map_repr() for tl in self.results])
 
         return extra
