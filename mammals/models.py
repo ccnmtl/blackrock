@@ -451,7 +451,7 @@ class TrapLocation(models.Model):
     student_names =  models.TextField (blank=True, null=True, help_text = "Names of the students responsible for this location (this would be filled in, if at all, by the instructor after the students have left the forest.", max_length = 256)
     
     def date (self):
-        if self.expedition:
+        if self.expedition and self.expedition.end_date_of_expedition:
             return self.expedition.end_date_of_expedition.strftime("%m/%d/%y")
         else:
             return None    
