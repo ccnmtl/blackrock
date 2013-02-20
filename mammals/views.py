@@ -414,7 +414,9 @@ def edit_expedition(request, expedition_id):
         #if rp.has_key ('school_contact_1_email'):
         #    exp.school_contact_1_email = rp ['school_contact_1_email']
         
-        if rp.has_key ('school'):
+        #import pdb
+        #pdb.set_trace()
+        if rp.has_key ('school') and rp['school'] != 'None':
             exp.school_id = int(rp ['school'])
 
         if rp.has_key ('grade'):

@@ -61,6 +61,7 @@
             </td> 
             <td  >             
                 <select name="school" id = "school">
+                        <option value = "None">None selected</option>
                         {% for school in schools %}
                             <option value = "{{school.id}}" {%ifequal expedition.school_id school.id %} selected{%endifequal%}>{{school.name}}</option>
                         {%endfor %}
