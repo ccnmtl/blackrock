@@ -41,7 +41,7 @@
 <h3 > Expedition # {{expedition.id }} to Square {{expedition.grid_square.battleship_coords }}, {{expedition.start_date_of_expedition|date:"d M Y" }}</h3>
 
 <form action="/mammals/edit_expedition/{{expedition.id}}/" method="post" id="edit_expedition_form" >
-    <table id ="distances_table">
+   <table id ="distances_table">
         <tr>
             <td > 
                 Grade level: 
@@ -76,6 +76,7 @@
                 <input name="number_of_students" value ="{{expedition.number_of_students}}"></input>
             </td> 
         </tr>
+        {%comment %}
         <tr>
             <td  > 
                 Understory:
@@ -84,6 +85,7 @@
                 <input type="text" id = "understory" name= "understory" value ="{% if expedition.understory %}{{expedition.understory}}{%endif%}"> </input>
             </td> 
         </tr>
+        {%endcomment %}
         <tr>
             <td  > 
                Temperature:
@@ -122,6 +124,7 @@
                 </select>
             </td>
         </tr>
+        {%comment %}
         <tr>
             <td  > 
                Light:
@@ -134,6 +137,7 @@
                 </select>
             </td> 
         </tr>
+        {%endcomment %}
         <tr>
             <td  > 
                Precipitation:
@@ -191,21 +195,6 @@
                 
            </td>
         </tr> 
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-    
-        
         
         
         

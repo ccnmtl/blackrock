@@ -41,7 +41,7 @@
 <div id ="corner_obj" style="display:none">{{expedition.grid_square.corner_obj_json}}</div>
 <div id ="block_json" style="display:none">{{block_json}}</div>    
 <div id ="transects_json" style="display:none">{{transects_json}}</div>
-<h3 > DATA INPUT FORM FOR TEAM {{team_letter}} </h3>
+<h3 > Trap data entry form for team {{team_letter}} </h3>
 <h3 > Expedition # {{expedition.id }} to square {{expedition.grid_square.battleship_coords}} on {{expedition.start_date_of_expedition|date:"d M, Y" }}</h3>
     <form action ="/mammals/save_team_form/" method ="post" id = "team_form"> 
     <input type="hidden" name = "expedition_id" id = "expedition_id" value ="{{expedition.id}}" />

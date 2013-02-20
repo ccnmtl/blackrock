@@ -425,13 +425,10 @@ def edit_expedition(request, expedition_id):
             exp.number_of_students = int(rp ['number_of_students'])
         exp.save()
         
-        if rp.has_key ('understory') and rp['understory'] != '':
-            exp.understory = rp['understory']
-
+        
         form_map_environment = {
             'moon_phase'                   : 'moon_phase_id'
             ,'cloud_cover'                 : 'cloud_cover_id'
-            ,'illumination'                : 'illumination_id'
             ,'overnight_temperature'       : 'overnight_temperature_id'
             ,'overnight_precipitation'     : 'overnight_precipitation_id'
             ,'overnight_precipitation_type': 'overnight_precipitation_type_id'
