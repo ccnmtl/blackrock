@@ -12,7 +12,6 @@ from django.contrib.auth.models import User
 from django.utils import simplejson
 from mammals.grid_math import *
 import os
-from blackrock.mammals.heatmap import heatmap
 
 
 class GridPoint(models.Model):
@@ -93,19 +92,6 @@ class Species(models.Model):
     def dir(self):
         return dir(self)
 
-
-    def ground_overlay_heatmap(self):
-        """returns a PNG of the distribution of this habitat in the forest"""
-        pts = []
-        animals = Animal.objects.filter(species=self)
-        for a in animals:
-            if len(a.traplocation_set.all()):
-                a_place = a.traplocation_set.all()[0]
-                pts.append ((a_place.lat(), a_place.lon()))
-        if len (pts) > 0:
-            hm = heatmap.Heatmap()
-            img_species_path = 'mammals/media/images/heatmaps/species/'
-            hm.heatmap(pts, "%s%d.png" % (img_species_path, self.id))
            
 
 
@@ -177,16 +163,7 @@ class Habitat (models.Model):
     
     def dir(self):
         return dir(self)
-    
-    def ground_overlay_heatmap(self):
-        """returns a png file of the distribution of this habitat in the forest"""
-        pts = []
-        for p in TrapLocation.objects.filter(habitat=self):
-            pts.append ((p.lat(), p.lon()))
-        if len (pts) > 0:
-            hm = heatmap.Heatmap()
-            img_habitat_path = 'mammals/media/images/heatmaps/habitats/'
-            hm.heatmap(pts, "%s%d.png" % (img_habitat_path, self.id))
+
             
     
 class GridSquare (models.Model):

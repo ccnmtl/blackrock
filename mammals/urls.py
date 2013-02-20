@@ -56,8 +56,6 @@ urlpatterns = patterns('',
 	(r'^habitat_map/(?P<habitat_id>\d+)/$',              'blackrock.mammals.views.habitat_map' ),
 
 
-
-	(r'^test_heatmaps/$',              'blackrock.mammals.views.test_heatmaps' ),
 	
     url(r'^search/', MammalSearchView(template="mammals/search.html", form_class=MammalSearchForm), name='search'),
 	
