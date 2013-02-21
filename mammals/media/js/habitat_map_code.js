@@ -19,6 +19,7 @@ function addSimpleMap(mapInstance) {
 	        markers.push ( general_map_marker (map_data[i]['name'], map_data[i]['where'], mapInstance ));	        
         }
     }
+    show_little_habitat_disks();
     show_breakdown_numbers();
 }
 
@@ -31,6 +32,42 @@ function isEmpty(obj) {
     return true;
 }
 
+
+
+function show_breakdown_for_facet (the_facet, the_checkboxes) {
+    for (var i = 0; i < the_checkboxes.length; i++) {
+        var the_checkbox = the_checkboxes[i];
+        var how_many = breakdown_object[the_facet] [the_checkbox.value]
+        if ( how_many ) {
+            say_how_many (the_checkbox, how_many);
+        }
+    }
+}
+
+
+function draw_disk_html (disk_path) {
+    return "<img src=" + disk_path + "/>" ;
+
+}
+
+
+function show_little_habitat_disks() {
+
+       
+    //16 and 17 are missing
+
+    var little_habitat_disks_obj = JSON.parse(jQuery ('#little_habitat_disks_div')[0].innerHTML);
+    function show_a_disk (i, checkbox) {
+        var habitat_id = checkbox.value;
+        var disk_path = little_habitat_disks_obj[habitat_id];
+        if (disk_path != '') {
+            jQuery(checkbox.parentElement).prepend ( draw_disk_html(disk_path) );    
+        }else {
+            console.log ( habitat_id);
+        }
+    }
+    jQuery.each (jQuery ('input[name="trap_habitat" ]'), show_a_disk);
+}
 
 function show_breakdown_numbers () {
     // Suggest ways to break down the search.
@@ -50,16 +87,6 @@ function show_breakdown_numbers () {
         
 }
 
-function show_breakdown_for_facet (the_facet, the_checkboxes) {
-    //if breakdown_objhect
-    for (var i = 0; i < the_checkboxes.length; i++) {
-        var the_checkbox = the_checkboxes[i];
-        var how_many = breakdown_object[the_facet] [the_checkbox.value]
-        if ( how_many ) {
-            say_how_many (the_checkbox, how_many);
-        }
-    }
-}
 
 
 function say_how_many (the_checkbox, how_many) {
@@ -68,8 +95,6 @@ function say_how_many (the_checkbox, how_many) {
 
 
 function close_unused_facets () {
-    
-
 }
 
 

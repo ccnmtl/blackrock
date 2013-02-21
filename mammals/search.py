@@ -75,6 +75,8 @@ class MammalSearchForm(SearchForm):
             #else
             
             ##TODO test validity of connection and throw error if there's a problem.
+            #note -- haystack catches the error. so i can't. This kinda sucks.
+            
             sqs = self.searchqueryset.auto_query('')
             sqs = sqs.narrow ('asset_type_exact:TrapLocation')
             
@@ -101,10 +103,8 @@ class MammalSearchForm(SearchForm):
             self.breakdown = self.calculate_breakdown(sqs)
         
         return sqs
-    
-    
-    
-    
+
+
 class MammalSearchView(SearchView):
     def __init__(self, *args, **kwargs):
         hella_many = 5000000000
@@ -134,8 +134,8 @@ class MammalSearchView(SearchView):
         #import pdb
         #pdb.set_trace()
         
-        extra['grid_json'] = []
-        extra['little_habitat_disks_json'] = dict((a.id, a.image_path_for_legend) for a in Habitat.objects.all())
+        extra['grid_json'] = simplejson.dumps([])
+        extra['little_habitat_disks_json'] = simplejson.dumps(dict((a.id, a.image_path_for_legend) for a in Habitat.objects.all()))
 
         #this is what's used to actually draw the form:
         if not hasattr(self.form, 'breakdown'):
