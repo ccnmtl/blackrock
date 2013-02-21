@@ -131,6 +131,12 @@ class MammalSearchView(SearchView):
                 
         extra['query'] = query
         
+        #import pdb
+        #pdb.set_trace()
+        
+        extra['grid_json'] = []
+        extra['little_habitat_disks_json'] = dict((a.id, a.image_path_for_legend) for a in Habitat.objects.all())
+
         #this is what's used to actually draw the form:
         if not hasattr(self.form, 'breakdown'):
             self.form.breakdown = {}
