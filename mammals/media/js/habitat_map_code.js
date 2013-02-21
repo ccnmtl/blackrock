@@ -27,49 +27,63 @@ function habitat_disk_circle (habitat_id, where, style, map) {
 }
 
 
-
-function set_up_habitat_colors(id) {
-    var habitat_colors_obj = JSON.parse(jQuery ('#habitat_colors_div')[0].innerHTML);
-    var baz = 'abc';
-    function foo (a) {
-        console.log (a);
-        console.log (baz);
-    }
-    foo(id );
-}
-
 function to_base_256 (a) {
     var sixteen = 256 / 16;
     return  parseInt(a, 16) * sixteen;
 }
 
 function to_google_color (b) {
+    var r; var g; var b;
 
-    r = to_base_256 (b[0])
-    g = to_base_256 (b[1])
-    b = to_base_256 (b[2])
-
+    try {
+        r = to_base_256 (b[0]);
+    } catch (TypeError) {
+        r = 0;
+    }
+    
+    
+    try {
+        g = to_base_256 (b[1]);
+    } catch (TypeError) {
+        g = 0;
+    }
+    
+    
+    
+    try {
+        b = to_base_256 (b[2]);
+    } catch (TypeError) {
+        b = 0;
+    }
+    
     result =  "rgb(" + r + "," + g + "," + b + ")";
-    console.log (result);
+    //console.log (result);
     return result;
 }
+
+
 
 function addSimpleMap(mapInstance) {
     the_map = mapInstance;
     var habitat_colors_obj = JSON.parse(jQuery ('#habitat_colors_div')[0].innerHTML);
     
     
-    function habitat_marker (habitat_id, where, map) {
+    
+    function habitat_marker (habitat_id, name, where, map) {
+
+
+
+
         //console.log (habitat_id);
-        console.log (habitat_colors_obj[habitat_id]);
+        //console.log (habitat_colors_obj[habitat_id]);
         the_rgb = habitat_colors_obj[habitat_id];
         
         
         
         //console.log (habitat_disk_circle(
         style = habitat_disk_style;
-        style['fillColor'] =    to_google_color (the_rgb);
-        
+        style['fillColor'] = to_google_color (the_rgb);
+        style['name']      = name;
         
         
         // style['fillColor'] =  habitat_colors_obj[habitat_id];
@@ -86,19 +100,33 @@ function addSimpleMap(mapInstance) {
 	        , 'map' : map
 	        , 'title': name // TODO add more interesting info.
             });
-        */  
+        */
+        
+
+
+        function show_info_window (event) {
+            //alert ('hi');
+            the_infowindow = new google.maps.InfoWindow();
+            the_infowindow.setContent( name );
+            the_infowindow.setPosition(event.latLng);
+            the_infowindow.open(the_map);
+        }
+
+
+
+        google.maps.event.addListener(c, 'click', show_info_window);
+        
         return c;
     }
     
     map_data = JSON.parse(jQuery('#map_data')[0].innerHTML);
     for (var i = 0; i < map_data.length; i++) {
         if (map_data[i]['where'][0] != 0) {
-            //console.log (map_data[i]['habitat_id']);
+            // console.log (map_data[i]['habitat_id']);
             habitat_id = map_data[i]['habitat_id'];
-	        //markers.push ( general_map_marker (map_data[i]['name'], map_data[i]['where'], mapInstance ));	        
-	        new_marker = habitat_marker (habitat_id, /*  map_data[i]['name'], */ map_data[i]['where'], mapInstance );
-            markers.push ( new_marker);	        
-        
+	        // markers.push ( general_map_marker (map_data[i]['name'], map_data[i]['where'], mapInstance ));	        
+	        new_marker = habitat_marker (habitat_id,   map_data[i]['name'], map_data[i]['where'], mapInstance );
+            markers.push ( new_marker);
         }
     }
     show_little_habitat_disks();

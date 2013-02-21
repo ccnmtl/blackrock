@@ -585,7 +585,7 @@ class TrapLocation(models.Model):
     def search_map_repr (self):
         result = {}
         
-        info_string = "Species: %s; Habitat: %s; School: %s ; Date: %s" % (self.species_if_any(),self.habitat_if_any(), self.school_if_any(), self.date())
+        info_string = "Animal: %s</br>Habitat: %s</br>School: %s</br>Date: %s" % (self.species_if_any(),self.habitat_if_any(), self.school_if_any(), self.date())
         
         
         result ['name'] = info_string
