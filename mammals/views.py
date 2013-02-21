@@ -315,22 +315,85 @@ def grid_square_csv(request):
     return response
 
 
+
+
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
-def set_up_expedition (request):
-    if request.POST.has_key ('transects_json') and request.POST['transects_json'] != 'None':
+def new_expedition_ajax(request):
+    if request.method == "POST" and request.is_ajax and request.POST.has_key ('transects_json') and request.POST['transects_json'] != 'None':
         transects_json = request.POST.get('transects_json')
         grid_square_id = request.POST.get('grid_square_id')
         obj = simplejson.loads(transects_json)
         the_new_expedition = Expedition.create_from_obj(obj, request.user)
         the_new_expedition.grid_square = GridSquare.objects.get(id = grid_square_id)
         the_new_expedition.start_date_of_expedition =  datetime.now()
-        the_new_expedition.start_date_of_expedition =  datetime.now()
+        the_new_expedition.end_date_of_expedition =  datetime.now()
         the_new_expedition.save()
-    else:
-        expedition_id = request.POST.get('expedition_id')
-        the_new_expedition = Expedition.objects.get(id =expedition_id)
+    msg = '%d' % the_new_expedition.id
+    return HttpResponse(msg)
 
-    return the_new_expedition
+
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
+def save_expedition_animals_ajax(request):
+    """
+    Saves the note content and position within the table.
+    """
+    if 1 == 0:
+        place = get_object_or_404(Space, url=space_name)
+        note_form = NoteForm(request.POST or None)
+
+        if request.method == "POST" and request.is_ajax:
+            msg = "The operation has been received correctly."          
+            print request.POST
+
+        else:
+            msg = "GET petitions are not allowed for this view."
+
+    msg = 'hello world'
+    return HttpResponse(msg)
+
+
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
+def save_team_form_ajax(request):
+    """
+    Saves the note content and position within the table.
+    """
+    if 1 == 0:
+        place = get_object_or_404(Space, url=space_name)
+        note_form = NoteForm(request.POST or None)
+
+        if request.method == "POST" and request.is_ajax:
+            msg = "The operation has been received correctly."          
+            print request.POST
+
+        else:
+            msg = "GET petitions are not allowed for this view."
+
+    msg = 'hello world'
+    return HttpResponse(msg)
+
+
+
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
+def edit_expedition_ajax(request):
+    """
+    Saves the note content and position within the table.
+    """
+    if 1 == 0:
+        place = get_object_or_404(Space, url=space_name)
+        note_form = NoteForm(request.POST or None)
+
+        if request.method == "POST" and request.is_ajax:
+            msg = "The operation has been received correctly."          
+            print request.POST
+
+        else:
+            msg = "GET petitions are not allowed for this view."
+
+    msg = 'hello world'
+    return HttpResponse(msg)
+
+
+
 
 @csrf_protect
 @rendered_with('mammals/login.html')
@@ -362,14 +425,7 @@ def process_login_and_go_to_expedition(request):
 
     return HttpResponseRedirect ( '/mammals/login/')
     #return login(request, user)
-        
-#TODO: rename this method. it's either new or find.
-@csrf_protect
-@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
-@rendered_with('mammals/expedition.html')
-def new_expedition(request):
-    the_new_expedition = set_up_expedition(request)
-    return HttpResponseRedirect ( '/mammals/expedition/%d/' % the_new_expedition.id)
+
 
 
 @rendered_with('mammals/expedition.html')
@@ -377,10 +433,8 @@ def expedition(request, expedition_id):
 
     if not whether_this_user_can_see_mammals_module_data_entry(request.user):
         return mammals_login(request, expedition_id)
-
+        
     exp = Expedition.objects.get(id =expedition_id)
-    if not whether_this_user_can_see_mammals_module_data_entry(request.user):
-        return mammals_login(request, expedition_id)
     grades = GradeLevel.objects.all()
     
     return {
@@ -405,20 +459,16 @@ def edit_expedition(request, expedition_id):
     #TODO validation: check that number of students is an integer.
 
     if rp:
-        #if rp.has_key ('school_name'):
-        #    exp.school_name = rp ['school_name']
-        #if rp.has_key ('school_contact_1_name'):
-        #    exp.school_contact_1_name = rp ['school_contact_1_name']
-        #if rp.has_key ('school_contact_1_phone'):
-        #    exp.school_contact_1_phone = rp ['school_contact_1_phone']
-        #if rp.has_key ('school_contact_1_email'):
-        #    exp.school_contact_1_email = rp ['school_contact_1_email']
-        
-        #import pdb
-        #pdb.set_trace()
         if rp.has_key ('school') and rp['school'] != 'None':
             exp.school_id = int(rp ['school'])
-
+        if rp.has_key ('school_contact_1_name'):
+            exp.school_contact_1_name = rp ['school_contact_1_name']
+        if rp.has_key ('school_contact_1_phone'):
+            exp.school_contact_1_phone = rp ['school_contact_1_phone']
+        if rp.has_key ('school_contact_1_email'):
+            exp.school_contact_1_email = rp ['school_contact_1_email']
+        
+        
         if rp.has_key ('grade'):
             exp.grade_level_id = int(rp ['grade'])
         if rp.has_key ('number_of_students'):

@@ -37,21 +37,35 @@ urlpatterns = patterns('',
 	
 	(r'^all_expeditions/',  'blackrock.mammals.views.all_expeditions' ),
 	(r'^new_expedition/',   'blackrock.mammals.views.new_expedition' ),
+	
+	(r'^new_expedition_ajax/',   'blackrock.mammals.views.new_expedition_ajax' ),
+	
+	
 	(r'^expedition/(?P<expedition_id>\d+)/$', 'blackrock.mammals.views.expedition'),
 	(r'^edit_expedition/(?P<expedition_id>\d+)/$', 'blackrock.mammals.views.edit_expedition'),
+	(r'^edit_expedition_ajax/(?P<expedition_id>\d+)/$', 'blackrock.mammals.views.edit_expedition_ajax'),
+	
 	
 	(r'^expedition/(?P<expedition_id>\d+)/animals/$', 'blackrock.mammals.views.expedition_animals'),
+	
+	
 	(r'^save_expedition_animals/$', 'blackrock.mammals.views.save_expedition_animals'),
+	(r'^save_expedition_animals_ajax/$', 'blackrock.mammals.views.save_expedition_animals_ajax'),
 	
 	
 	(r'^team_form/(?P<expedition_id>\d+)/(?P<team_letter>\w+)/$', 'blackrock.mammals.views.team_form'),
+	
+	
 	(r'^save_team_form/$', 'blackrock.mammals.views.save_team_form'),
+	(r'^save_team_form_ajax/$', 'blackrock.mammals.views.save_team_form_ajax'),
 	
-	(r'^map_index/$',              'blackrock.mammals.views.map_index' ),
 	
+	
+	
+	#TODO remove -- these are obsolete.
+	(r'^map_index/$',              'blackrock.mammals.views.map_index' ),	
 	(r'^species_map/$',              'blackrock.mammals.views.species_map' ),
 	(r'^species_map/(?P<species_id>\d+)/$',              'blackrock.mammals.views.species_map' ),
-	
 	(r'^habitat_map/$',              'blackrock.mammals.views.habitat_map' ),
 	(r'^habitat_map/(?P<habitat_id>\d+)/$',              'blackrock.mammals.views.habitat_map' ),
 

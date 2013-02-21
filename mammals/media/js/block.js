@@ -153,6 +153,14 @@ function confirm_new_bearings(){
 }
 
 
- 
-
-
+function new_expedition_ajax (){ // catch the form's submit event
+    jQuery.ajax({
+        data: jQuery('#new_start_expedition_form').serialize(),
+        type: 'POST',
+        url: '/mammals/new_expedition_ajax/',
+        success: function(response) {
+            alert ('This information has been saved as Expedition #' + response + '.');
+        }
+    });
+    return false;
+}
