@@ -1,13 +1,12 @@
 from django import forms
 from haystack.views import SearchView, FacetedSearchView
-from haystack.forms import *
-from mammals.models import *
+from haystack.forms import SearchForm
+from mammals.models import TrapLocation, Species, Habitat, School
 from django.db.models import get_model, get_app
 from django.utils.text import capfirst
-from types import *    
+from types import ListType
 #from collections import Counter  ## not allowed in 2.6
 from collections import defaultdict
-
 from django.utils import simplejson
 
 def my_counter(L):
@@ -63,9 +62,6 @@ class MammalSearchForm(SearchForm):
         result['trap_success']['unsuccessful']         = result['trapped_and_released'][False];
         result['trap_success']['trapped_and_released'] = result['trapped_and_released'][True ];
 
-
-        #import pdb
-        #pdb.set_trace()
         
             
         return simplejson.dumps(result)
@@ -103,8 +99,6 @@ class MammalSearchForm(SearchForm):
             
             
             self.breakdown = self.calculate_breakdown(sqs)
-            #import pdb
-            #pdb.set_trace()    
         
         return sqs
     
@@ -112,9 +106,6 @@ class MammalSearchForm(SearchForm):
     
     
 class MammalSearchView(SearchView):
-    
-
-    
     def __init__(self, *args, **kwargs):
         hella_many = 5000000000
         super(MammalSearchView, self).__init__(*args, **kwargs)
@@ -138,12 +129,8 @@ class MammalSearchView(SearchView):
             if param != 'page':
                 query += '%s=%s&' % (param, value)
                 
-                
         extra['query'] = query
         
-        
-        #self.form.breakdown ( the_sqs):
-
         #this is what's used to actually draw the form:
         if not hasattr(self.form, 'breakdown'):
             self.form.breakdown = {}
