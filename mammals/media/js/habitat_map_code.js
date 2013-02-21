@@ -34,97 +34,51 @@ function to_base_256 (a) {
 
 function to_google_color (b) {
     var r; var g; var b;
-
     try {
         r = to_base_256 (b[0]);
     } catch (TypeError) {
         r = 0;
     }
-    
-    
     try {
         g = to_base_256 (b[1]);
     } catch (TypeError) {
         g = 0;
     }
-    
-    
-    
     try {
         b = to_base_256 (b[2]);
     } catch (TypeError) {
         b = 0;
     }
-    
     result =  "rgb(" + r + "," + g + "," + b + ")";
-    //console.log (result);
     return result;
 }
-
-
 
 function addSimpleMap(mapInstance) {
     the_map = mapInstance;
     var habitat_colors_obj = JSON.parse(jQuery ('#habitat_colors_div')[0].innerHTML);
-    
-    
-    
     function habitat_marker (habitat_id, name, where, map) {
-
-
-
-
-        //console.log (habitat_id);
-        //console.log (habitat_colors_obj[habitat_id]);
         the_rgb = habitat_colors_obj[habitat_id];
-        
-        
-        
-        //console.log (habitat_disk_circle(
         style = habitat_disk_style;
         style['fillColor'] = to_google_color (the_rgb);
         style['name']      = name;
-        
-        
-        // style['fillColor'] =  habitat_colors_obj[habitat_id];
-          c = new google.maps.Circle({
-              center:  new google.maps.LatLng( where[0], where [1]),
-              map: map,
-
-           });
-          c.setOptions (style);
-          //return  c;
-        /*
-        result = new google.maps.Marker ({
-	        'position' : new google.maps.LatLng( where[0], where [1])
-	        , 'map' : map
-	        , 'title': name // TODO add more interesting info.
-            });
-        */
-        
-
-
+        c = new google.maps.Circle({
+            center:  new google.maps.LatLng( where[0], where [1]),
+            map: map,
+        });
+        c.setOptions (style);
         function show_info_window (event) {
-            //alert ('hi');
             the_infowindow = new google.maps.InfoWindow();
             the_infowindow.setContent( name );
             the_infowindow.setPosition(event.latLng);
             the_infowindow.open(the_map);
         }
-
-
-
         google.maps.event.addListener(c, 'click', show_info_window);
-        
         return c;
     }
-    
     map_data = JSON.parse(jQuery('#map_data')[0].innerHTML);
     for (var i = 0; i < map_data.length; i++) {
         if (map_data[i]['where'][0] != 0) {
-            // console.log (map_data[i]['habitat_id']);
-            habitat_id = map_data[i]['habitat_id'];
-	        // markers.push ( general_map_marker (map_data[i]['name'], map_data[i]['where'], mapInstance ));	        
+            habitat_id = map_data[i]['habitat_id'];        
 	        new_marker = habitat_marker (habitat_id,   map_data[i]['name'], map_data[i]['where'], mapInstance );
             markers.push ( new_marker);
         }
@@ -155,15 +109,10 @@ function show_breakdown_for_facet (the_facet, the_checkboxes) {
     }
 }
 
-
 function draw_disk_html (disk_path) {
     return "<img src=" + disk_path + "/>" ;
 
 }
-
-
-
-
 
 function show_little_habitat_disks() {
     var little_habitat_disks_obj = JSON.parse(jQuery ('#little_habitat_disks_div')[0].innerHTML);
@@ -172,8 +121,6 @@ function show_little_habitat_disks() {
         var disk_path = little_habitat_disks_obj[habitat_id];
         if (disk_path != '') {
             jQuery(checkbox.parentElement).prepend ( draw_disk_html(disk_path) );    
-        }else {
-            console.log ( habitat_id);
         }
     }
     jQuery.each (jQuery ('input[name="trap_habitat" ]'), show_a_disk);
@@ -186,15 +133,13 @@ function show_breakdown_numbers () {
     if (isEmpty (breakdown_object)) {
         return;
     }
-    
     var facets = {
          'habitat' :       jQuery ('input[name="trap_habitat" ]')
         ,'species' :       jQuery ('input[name="trap_species" ]')
         ,'school'  :       jQuery ('input[name="trap_school"  ]')
         ,'trap_success'  : jQuery ('input[name="trap_success" ]')
     }    
-    jQuery.each ( facets, show_breakdown_for_facet);
-        
+    jQuery.each ( facets, show_breakdown_for_facet);    
 }
 
 
