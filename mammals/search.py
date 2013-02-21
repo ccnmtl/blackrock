@@ -136,6 +136,7 @@ class MammalSearchView(SearchView):
         
         extra['grid_json'] = simplejson.dumps([])
         extra['little_habitat_disks_json'] = simplejson.dumps(dict((a.id, a.image_path_for_legend) for a in Habitat.objects.all()))
+        extra['habitat_colors_json'] = simplejson.dumps(dict((a.id, a.color_for_map) for a in Habitat.objects.all()))
 
         #this is what's used to actually draw the form:
         if not hasattr(self.form, 'breakdown'):

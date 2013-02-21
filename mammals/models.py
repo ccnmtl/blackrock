@@ -159,6 +159,7 @@ class Habitat (models.Model):
     blurb =  models.TextField(blank=True, help_text = "Notes about this habitat (for a habitat page).")
     image_path_for_legend = models.CharField(blank=True, help_text = "Path to the round colored circle for this habitat", max_length = 256)
     
+    color_for_map = models.CharField(blank=True, max_length = 3, help_text = "RGB color to use on the map")
     
     
     def dir(self):
@@ -569,6 +570,12 @@ class TrapLocation(models.Model):
         else:
             return None
             
+    def habitat_id_if_any(self):
+        if self.habitat:
+            return self.habitat.id
+        else:
+            return None
+            
     def school_if_any(self):
         if self.expedition.school:
             return self.expedition.school.name
@@ -584,10 +591,11 @@ class TrapLocation(models.Model):
         result ['name'] = info_string
         result ['where'] = [self.actual_lat(), self.actual_lon()]
         
-        result ['species'] = self.species_if_any()
-        result ['habitat'] = self.habitat_if_any()
-        result ['school']  = self.school_if_any()
-        result ['date']    = self.date()
+        result ['species']=     self.species_if_any()
+        result ['habitat_id'] = self.habitat_id_if_any()
+        result ['habitat'] =    self.habitat_if_any()
+        result ['school']  =    self.school_if_any()
+        result ['date']    =    self.date()
         
         return result
         

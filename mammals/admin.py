@@ -48,7 +48,7 @@ admin.site.register(Trap, TrapAdmin)
 
 class HabitatAdmin (admin.ModelAdmin):
     list_display = (  'label',)
-    fields       =(  'label', 'blurb', 'image_path_for_legend')
+    fields       =(  'label', 'blurb', 'image_path_for_legend', 'color_for_map')
 admin.site.register(Habitat, HabitatAdmin)
 
 

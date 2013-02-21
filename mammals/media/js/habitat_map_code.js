@@ -11,12 +11,94 @@ function general_map_marker (name, where, map) {
     return result
 }
 
+
+
+//habitat_disk_style
+
+
+function habitat_disk_circle (habitat_id, where, style, map) {
+  c = new google.maps.Circle({
+      center:  new google.maps.LatLng( where[0], where [1]),
+      map: map,
+
+   });
+  c.setOptions (style);
+  return  c;
+}
+
+
+
+function set_up_habitat_colors(id) {
+    var habitat_colors_obj = JSON.parse(jQuery ('#habitat_colors_div')[0].innerHTML);
+    var baz = 'abc';
+    function foo (a) {
+        console.log (a);
+        console.log (baz);
+    }
+    foo(id );
+}
+
+function to_base_256 (a) {
+    var sixteen = 256 / 16;
+    return  parseInt(a, 16) * sixteen;
+}
+
+function to_google_color (b) {
+
+    r = to_base_256 (b[0])
+    g = to_base_256 (b[1])
+    b = to_base_256 (b[2])
+
+    result =  "rgb(" + r + "," + g + "," + b + ")";
+    console.log (result);
+    return result;
+}
+
 function addSimpleMap(mapInstance) {
-    the_map = mapInstance
+    the_map = mapInstance;
+    var habitat_colors_obj = JSON.parse(jQuery ('#habitat_colors_div')[0].innerHTML);
+    
+    
+    function habitat_marker (habitat_id, where, map) {
+        //console.log (habitat_id);
+        console.log (habitat_colors_obj[habitat_id]);
+        the_rgb = habitat_colors_obj[habitat_id];
+        
+        
+        
+        //console.log (habitat_disk_circle(
+        style = habitat_disk_style;
+        style['fillColor'] =    to_google_color (the_rgb);
+        
+        
+        
+        // style['fillColor'] =  habitat_colors_obj[habitat_id];
+          c = new google.maps.Circle({
+              center:  new google.maps.LatLng( where[0], where [1]),
+              map: map,
+
+           });
+          c.setOptions (style);
+          //return  c;
+        /*
+        result = new google.maps.Marker ({
+	        'position' : new google.maps.LatLng( where[0], where [1])
+	        , 'map' : map
+	        , 'title': name // TODO add more interesting info.
+            });
+        */  
+        return c;
+    }
+    
     map_data = JSON.parse(jQuery('#map_data')[0].innerHTML);
     for (var i = 0; i < map_data.length; i++) {
         if (map_data[i]['where'][0] != 0) {
-	        markers.push ( general_map_marker (map_data[i]['name'], map_data[i]['where'], mapInstance ));	        
+            //console.log (map_data[i]['habitat_id']);
+            habitat_id = map_data[i]['habitat_id'];
+	        //markers.push ( general_map_marker (map_data[i]['name'], map_data[i]['where'], mapInstance ));	        
+	        new_marker = habitat_marker (habitat_id, /*  map_data[i]['name'], */ map_data[i]['where'], mapInstance );
+            markers.push ( new_marker);	        
+        
         }
     }
     show_little_habitat_disks();
@@ -26,8 +108,9 @@ function addSimpleMap(mapInstance) {
 function isEmpty(obj) {
     // Stay classy, JavaScript.
     for(var prop in obj) {
-        if(obj.hasOwnProperty(prop))
+        if(obj.hasOwnProperty(prop)) {
             return false;
+        }
     }
     return true;
 }
@@ -51,11 +134,10 @@ function draw_disk_html (disk_path) {
 }
 
 
+
+
+
 function show_little_habitat_disks() {
-
-       
-    //16 and 17 are missing
-
     var little_habitat_disks_obj = JSON.parse(jQuery ('#little_habitat_disks_div')[0].innerHTML);
     function show_a_disk (i, checkbox) {
         var habitat_id = checkbox.value;
