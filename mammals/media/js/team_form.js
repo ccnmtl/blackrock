@@ -206,7 +206,7 @@ function save_team_form_ajax (){
         type: 'POST',
         url: '/mammals/save_team_form_ajax/',
         success: function(response) {
-            alert ('received: ' + response + '.');
+            alert ('Team information saved.' );
         }
     });
     return false;
