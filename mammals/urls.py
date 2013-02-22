@@ -29,7 +29,7 @@ urlpatterns = patterns('',
 
 
 	(r'^login/$',                 'blackrock.mammals.views.mammals_login' ),
-	(r'^process_login/$',         'blackrock.mammals.views.process_login_and_go_to_expedition' ),
+	(r'^process_login/$',         'blackrock.mammals.views.process_login' ),
 	(r'^logout/$', 'django.contrib.auth.views.logout',  {'next_page': '/mammals/'}),
 	
 	(r'^all_expeditions/$',  'blackrock.mammals.views.all_expeditions' ),

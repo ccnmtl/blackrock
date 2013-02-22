@@ -340,23 +340,23 @@ def save_expedition_animals_ajax(request):
 
 
 
+
+#TODO: THESE ARE NOW OBSOLETE AND CAN  BE (CAUTIOUSLY) REMOVED.
 @csrf_protect
 @rendered_with('mammals/login.html')
 def mammals_login(request):
     return {}
-    
 
 @csrf_protect
-@rendered_with('mammals/expedition.html')
-def process_login_and_go_to_expedition(request):
+def process_login(request):
     username = request.POST['username']
     password = request.POST['password']
     user = authenticate(username=username, password=password)
     if user is not None and  user.is_active:
         login(request, user)
-        return HttpResponseRedirect ( '/mammals/')
+        return HttpResponseRedirect ( '/mammals/grid/')
     else:
-        return HttpResponseRedirect ( '//mammals/grid/')
+        return HttpResponseRedirect ( '/mammals/login/')
 
 
 @rendered_with('mammals/expedition.html')
