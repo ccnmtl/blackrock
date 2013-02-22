@@ -222,50 +222,40 @@
                         </td> 
                     </tr>
             </table>
-        
         </div>
-
         </div><!-- end top_part_of_form -->
+        
+        
         <div id = "bottom_part_of_form" class = "container_div">
-                {% if expedition.how_many_mammals_caught %}
-                        <div id = "animals_caught" class = "slide">
-                            <h4>Animals caught</h4>
-                            
-                            <table id ="distances_table">
-                            <tr>
-                                <td   > 
-                                    {{expedition.how_many_mammals_caught }} animal{{expedition.how_many_mammals_caught|pluralize }} caught
-                                </td>
-                                <td>
-                                    <a href ="/mammals/expedition/{{expedition.id}}/animals/">Details</a>
-                                </td>
-                            </tr>     
-                            </table>
-                        </div>
-
-                {%endif%}
-                <div id = "trap_locations" class = "slide">
-                <h4>Trap Locations per Team</h4>    
-
-                            {%for point in expedition.trap_locations_ordered_by_team %}
-                                {%ifchanged point.team_letter %}
-                                    <div class = "trap_location_container"> 
-                                        <a href = "/mammals/team_form/{{expedition.id }}/{{point.team_letter }}/" > {{point.team_letter }}</a>
-                                    </div>
-                                {%endifchanged %} 
-                            {%endfor%}
+            {% if expedition.how_many_mammals_caught %}
+                <div id = "animals_caught" class = "slide">
+                    <h4>Animals caught</h4>
+                        <div class = "trap_location_container"> 
+                            {{expedition.how_many_mammals_caught }}
+                            animal{{expedition.how_many_mammals_caught|pluralize }}
+                            caught
+                       </div>
+                       <div class = "trap_location_container"> 
+                            <a href ="/mammals/expedition/{{expedition.id}}/animals/">Details</a>
+                       </div>
                 </div>
-
-
-</div><!-- end bottom_part_of_form -->
+            {%endif%}
+                <div id = "trap_locations" class = "slide">
+                <h4>Trap Locations per Team</h4>
+                    {%for point in expedition.trap_locations_ordered_by_team %}
+                        {%ifchanged point.team_letter %}
+                            <div class = "trap_location_container"> 
+                                <a href = "/mammals/team_form/{{expedition.id }}/{{point.team_letter }}/" > {{point.team_letter }}</a>
+                            </div>
+                        {%endifchanged %} 
+                    {%endfor%}
+                </div>
+            </div><!-- end bottom_part_of_form -->
 
 
 <button type="button" onclick="edit_expedition_ajax(); return false;">Save</a>                   
-
 <button type="button" onclick="javascript:jQuery('#edit_expedition_form').submit()">Go back</button>
-
 <input type="text" name="expedition_id" id="expedition_id" value ="{{expedition.id}}" class="hide_this"></input>
-    
 </form>
 
 
