@@ -332,40 +332,18 @@ def new_expedition_ajax(request):
     return HttpResponse(msg)
 
 
+#TODO PROBABLY NOT NECESSARY -- REMOVE
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 def save_expedition_animals_ajax(request):
-    """
-    Saves the note content and position within the table.
-    """
-    if 1 == 0:
-        place = get_object_or_404(Space, url=space_name)
-        note_form = NoteForm(request.POST or None)
-
-        if request.method == "POST" and request.is_ajax:
-            msg = "The operation has been received correctly."          
-            print request.POST
-
-        else:
-            msg = "GET petitions are not allowed for this view."
-
     msg = 'hello world'
     return HttpResponse(msg)
 
 
 
-
-
-
-
 @csrf_protect
 @rendered_with('mammals/login.html')
-def mammals_login(request, expedition_id = None):
-    result = {
-        'transects_json' : request.POST.get('transects_json')
-        ,'grid_square_id' : request.POST.get('grid_square_id')
-        ,'expedition_id' : expedition_id
-    }
-    return result
+def mammals_login(request):
+    return {}
     
 
 @csrf_protect
@@ -376,9 +354,9 @@ def process_login_and_go_to_expedition(request):
     user = authenticate(username=username, password=password)
     if user is not None and  user.is_active:
         login(request, user)
-        return all_expeditions(request)
+        return HttpResponseRedirect ( '/mammals/')
     else:
-        return HttpResponseRedirect ( '/mammals/login/')
+        return HttpResponseRedirect ( '//mammals/grid/')
 
 
 @rendered_with('mammals/expedition.html')
