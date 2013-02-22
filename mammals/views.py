@@ -389,7 +389,7 @@ def process_edit_expedition (request, expedition_id):
     
     if rp:
         if rp.has_key ('school') and rp['school'] != 'None':
-            exp.school_id = int(rp ['school'])
+            exp.school_id = int(rp ['school'])   
         if rp.has_key ('school_contact_1_name'):
             exp.school_contact_1_name = rp ['school_contact_1_name']
         if rp.has_key ('school_contact_1_phone'):
@@ -655,7 +655,7 @@ def save_expedition_animals(request):
     return expedition (request, expedition_id)
     
     
-    
+#TODO remove
 @rendered_with('mammals/simple_map.html')
 def simple_map(request):
     all_animals = Animal.objects.all()
@@ -674,6 +674,7 @@ def simple_map(request):
     }
     
 
+#TODO remove
 @rendered_with('mammals/map_index.html')
 def map_index(request):
     species_set = set()
@@ -693,6 +694,7 @@ def map_index(request):
     }
     
 
+#TODO remove
 @rendered_with('mammals/species_map.html')
 def species_map(request, species_id = None):
     if species_id:
@@ -716,6 +718,7 @@ def species_map(request, species_id = None):
     }
     
     
+#TODO remove
 @rendered_with('mammals/habitat_map.html')
 def habitat_map(request, habitat_id = None):
     if habitat_id:
