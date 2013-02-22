@@ -46,6 +46,10 @@
             min-height: 120px !important;
         }
         
+        input.short_input_field {
+            width: 50px;
+        }
+        
         
         div.container_div h4
         {
@@ -76,9 +80,7 @@
             padding:  10px 10px 10px 10px;
         
         }
-
     </style>
-
     {{ block.super }}
 {% endblock %}
 
@@ -106,7 +108,6 @@
                         </select>
                     </td>
                 </tr>
-                
                 <tr>
                     <td  > 
                         School:
@@ -125,7 +126,7 @@
                         Number of students:
                     </td> 
                     <td  > 
-                        <input name="number_of_students" value ="{{expedition.number_of_students}}"></input>
+                        <input name="number_of_students" value ="{{expedition.number_of_students}}" size="3" maxlength="3" class ="short_input_field" ></input>
                     </td> 
                 </tr>
                 <tr>
@@ -155,10 +156,11 @@
             </table>
         </div>
 
+
         <div id = "overnight_environmental_info" class = "slide">
             <h4>Overnight Environmental Data </h4>
             <table id ="distances_table">
-
+                    {%comment %}
                     <tr>
                         <td  > 
                            Temperature:
@@ -169,6 +171,16 @@
                                     <option value = "{{temp.id}}" {%ifequal expedition.overnight_temperature_id temp.id %} selected{%endifequal%}>{{temp}}</option>
                                 {%endfor %}
                             </select> &deg; C
+                        </td> 
+                    </tr>
+                    {%endcomment %}
+                    <tr>
+                        <td  > 
+                           Temperature:
+                        </td> 
+                        <td  > 
+                            <input name="overnight_temperature_int" class ="short_input_field" value ="{{expedition.overnight_temperature_int}}" size="3" maxlength="3" ></input>
+                        &deg; C
                         </td> 
                     </tr>
                     <tr>
@@ -224,7 +236,6 @@
             </table>
         </div>
         </div><!-- end top_part_of_form -->
-        
         
         <div id = "bottom_part_of_form" class = "container_div">
             {% if expedition.how_many_mammals_caught %}

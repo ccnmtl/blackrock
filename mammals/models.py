@@ -348,6 +348,10 @@ class Expedition (models.Model):
 
     cloud_cover =  models.ForeignKey(ExpeditionCloudCover, null=True, blank=True,  related_name = "exp_cloudcover")
     overnight_temperature =  models.ForeignKey(ExpeditionOvernightTemperature, null=True, blank=True,  related_name = "exp_temperature")
+    
+    
+    overnight_temperature_int = models.IntegerField(help_text = "Overnight Temperature", default = 0)
+    
     overnight_precipitation =  models.ForeignKey(ExpeditionOvernightPrecipitation, null=True, blank=True,  related_name = "exp_precipitation")
     overnight_precipitation_type =  models.ForeignKey(ExpeditionOvernightPrecipitationType, null=True, blank=True,  related_name = "exp_precipitation_type")
     moon_phase    =  models.ForeignKey(ExpeditionMoonPhase, null=True, blank=True,  related_name = "exp_moon_phase")

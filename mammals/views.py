@@ -396,13 +396,32 @@ def process_edit_expedition (request, expedition_id):
             exp.school_contact_1_phone = rp ['school_contact_1_phone']
         if rp.has_key ('school_contact_1_email'):
             exp.school_contact_1_email = rp ['school_contact_1_email']
+            
+        if rp.has_key ('school_contact_1_email'):
+            exp.school_contact_1_email = rp ['school_contact_1_email']
+            
+            
+            
         if rp.has_key ('grade'):
             exp.grade_level_id = int(rp ['grade'])
+            
+            
         if rp.has_key ('number_of_students'):
             try:
                 exp.number_of_students = int(rp ['number_of_students'])
             except ValueError:
                 exp.number_of_students = 0
+        
+        
+        if rp.has_key ('overnight_temperature_int'):
+            try:
+                exp.overnight_temperature_int = int(rp ['overnight_temperature_int'])
+            except ValueError:
+                exp.overnight_temperature_int = 0
+        
+        
+        
+        
         exp.save()
         
         form_map_environment = {
