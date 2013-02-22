@@ -1,17 +1,20 @@
 {% extends "mammals/base_mammals.html" %}
 {% load smartif %}
 {% block css %}
-    {% include "mammals/block_css.html" %}
+    {% comment %}{% include "mammals/block_css.html" %}{% endcomment %}
     {{ block.super }}
 {% endblock %}
-
+{% block bodyclass %}square {% if sandbox %}playground{% else %}research{% endif %}_grid{% endblock %}
 {% block container %}
     <div class = "grid_square_print_page_div">
+    <div class="team_trap_table">
+    {% include "mammals/transect_table_heading.html" %} 
+    {% include "mammals/transect_table.html" %} 
+    </div>
     {% if selected_block %}
         {% include "mammals/grid_center_table.html" %}
     {% endif %}
-    {% include "mammals/transect_table_heading.html" %} 
-    {% include "mammals/transect_table.html" %} 
+    <div class="clearfix">
     </div>
 {%endblock %}
 
