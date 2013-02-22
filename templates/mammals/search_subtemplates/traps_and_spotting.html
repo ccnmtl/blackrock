@@ -4,16 +4,12 @@
     <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active">
         <div class="ui-accordion-content-scroll">
                 {{form.trap_success}}  
-            {%comment %}            
-                        <hr />
-                        {{form.trap_signs}}
-            {%endcomment %}
+            <hr />
+                {{form.trap_signs}}
         </div><!-- div class="ui-accordion-content-scroll -->                       
     </div><!-- div class="ui-accordion-content ui-helper-reset... -->
 </div><!-- div class="ui-accordion ui-widget... -->
 <!-- ### END TRAPS AND SPOTTING -->
-
-
 {%comment %}
     <!-- NOTE THIS APPEARS TO WORK.... WE COULD USE IT TO GET FINER CONTROL. -->
     {%for success_item in form.trap_success.field.choices %}

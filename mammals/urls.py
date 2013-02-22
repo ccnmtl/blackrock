@@ -3,8 +3,6 @@ import os.path
 from django.contrib import databrowse
 from mammals.search import MammalSearchView, MammalSearchForm
 
-
-
 media_root = os.path.join(os.path.dirname(__file__),"media")
 
 urlpatterns = patterns('',
@@ -51,7 +49,9 @@ urlpatterns = patterns('',
 	
 	
 	(r'^save_expedition_animals/$', 'blackrock.mammals.views.save_expedition_animals'),
-	(r'^save_expedition_animals_ajax/$', 'blackrock.mammals.views.save_expedition_animals_ajax'),
+	
+	#prob. not needed/
+	#(r'^save_expedition_animals_ajax/$', 'blackrock.mammals.views.save_expedition_animals_ajax'),
 	
 	
 	(r'^team_form/(?P<expedition_id>\d+)/(?P<team_letter>\w+)/$', 'blackrock.mammals.views.team_form'),
@@ -60,23 +60,15 @@ urlpatterns = patterns('',
 	(r'^save_team_form/$', 'blackrock.mammals.views.save_team_form'),
 	(r'^save_team_form_ajax/$', 'blackrock.mammals.views.save_team_form_ajax'),
 	
-	
-	
-	
 	#TODO remove -- these are obsolete.
-	(r'^map_index/$',              'blackrock.mammals.views.map_index' ),	
-	(r'^species_map/$',              'blackrock.mammals.views.species_map' ),
-	(r'^species_map/(?P<species_id>\d+)/$',              'blackrock.mammals.views.species_map' ),
-	(r'^habitat_map/$',              'blackrock.mammals.views.habitat_map' ),
-	(r'^habitat_map/(?P<habitat_id>\d+)/$',              'blackrock.mammals.views.habitat_map' ),
-
-
-	
+	#(r'^map_index/$',              'blackrock.mammals.views.map_index' ),	
+	#(r'^species_map/$',              'blackrock.mammals.views.species_map' ),
+	#(r'^species_map/(?P<species_id>\d+)/$',              'blackrock.mammals.views.species_map' ),
+	#(r'^habitat_map/$',              'blackrock.mammals.views.habitat_map' ),
+	#(r'^habitat_map/(?P<habitat_id>\d+)/$',              'blackrock.mammals.views.habitat_map' ),
+    
     url(r'^search/', MammalSearchView(template="mammals/search.html", form_class=MammalSearchForm), name='search'),
 	
 	#(r'^selenium/(?P<task>\w+)/$',               'family_info.views.selenium'),
-
-
-
 
 )
