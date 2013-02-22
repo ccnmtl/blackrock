@@ -153,7 +153,7 @@ function confirm_new_bearings(){
 }
 
 
-function new_expedition_ajax (){ // catch the form's submit event
+function new_expedition_ajax (){
     jQuery.ajax({
         data: jQuery('#new_start_expedition_form').serialize(),
         type: 'POST',

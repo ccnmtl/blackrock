@@ -180,8 +180,12 @@
     -->
     <!-- this doesn't -->
     {%endcomment %}
+    <button type="button" onclick="save_team_form_ajax(); return false;">Save Team {{team_letter}}</a>                   
+
+    
     <button type="button" onclick="javascript:jQuery('#team_form').submit()">Save Team {{team_letter}} and go back</button>
 </form>
+
 </div>
 {% endblock %}
 

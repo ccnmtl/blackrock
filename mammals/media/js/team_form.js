@@ -200,6 +200,18 @@ function team_form_init() {
     jQuery ('.whether_a_trap_was_set_here_dropdown').change(hide_trap_info_if_not_used);
 }
 
+function save_team_form_ajax (){
+    jQuery.ajax({
+        data: jQuery('#team_form').serialize(),
+        type: 'POST',
+        url: '/mammals/save_team_form_ajax/',
+        success: function(response) {
+            alert ('received: ' + response + '.');
+        }
+    });
+    return false;
+}
+
 
 jQuery(team_form_init);
 

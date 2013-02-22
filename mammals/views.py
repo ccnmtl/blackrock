@@ -352,26 +352,6 @@ def save_expedition_animals_ajax(request):
     return HttpResponse(msg)
 
 
-@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
-def save_team_form_ajax(request):
-    """
-    Saves the note content and position within the table.
-    """
-    if 1 == 0:
-        place = get_object_or_404(Space, url=space_name)
-        note_form = NoteForm(request.POST or None)
-
-        if request.method == "POST" and request.is_ajax:
-            msg = "The operation has been received correctly."          
-            print request.POST
-
-        else:
-            msg = "GET petitions are not allowed for this view."
-
-    msg = 'hello world'
-    return HttpResponse(msg)
-
-
 
 
 
@@ -524,9 +504,7 @@ def team_form(request, expedition_id, team_letter):
     }
 
 
-@csrf_protect
-@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
-def save_team_form(request):
+def process_save_team_form(request):
     rp = request.POST
     expedition_id = rp['expedition_id']
     exp = Expedition.objects.get(id =expedition_id)
@@ -555,7 +533,6 @@ def save_team_form(request):
             if rp.has_key (rp_key) and rp[rp_key] != 'None':
                 setattr(point, '%s' % thing_to_update,   (rp[rp_key] == 'True'))
                 point.save()
-        
         
         #Deal with animals:
         animal_key = 'animal_%d' % (point.id)
@@ -630,8 +607,25 @@ def save_team_form(request):
             #print distance_to_corrected_point_in_meters
             point.set_actual_lat_long ( [ float (rp[lat_key]), float (rp[lon_key]) ] )
             point.save()
-            
+
+
+@csrf_protect
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
+def save_team_form(request):
+    process_save_team_form(request)
+    rp = request.POST
+    expedition_id = rp['expedition_id']
     return expedition(request,  expedition_id)
+    
+    
+    
+
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
+def save_team_form_ajax(request):
+    process_save_team_form(request)
+    msg = 'OK'
+    return HttpResponse(msg)
+
     
     
     
