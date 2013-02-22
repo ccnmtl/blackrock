@@ -396,25 +396,13 @@ def process_login_and_go_to_expedition(request):
     user = authenticate(username=username, password=password)
     if user is not None and  user.is_active:
         login(request, user)
-    
-        #TODO: new_expedition should really be 2 different methods -- one for creating a new expedition and one for bring up an old one.
-        #if request.POST.has_key('expedition_id') and request.POST['expedition_id'] != 'None':
-        #    return new_expedition(request)        
-        #if request.POST.has_key('transects_json') and request.POST['transects_json'] != 'None':
-        #    return new_expedition(request)
-        #the user just wants to see all the expeditions.
         return all_expeditions(request)
-
-    return HttpResponseRedirect ( '/mammals/login/')
-    #return login(request, user)
-
+    else:
+        return HttpResponseRedirect ( '/mammals/login/')
 
 
 @rendered_with('mammals/expedition.html')
 def expedition(request, expedition_id):
-
-    if not whether_this_user_can_see_mammals_module_data_entry(request.user):
-        return mammals_login(request, expedition_id)
         
     exp = Expedition.objects.get(id =expedition_id)
     grades = GradeLevel.objects.all()
@@ -436,8 +424,6 @@ def expedition(request, expedition_id):
 
 def process_edit_expedition (request, expedition_id):
     exp = Expedition.objects.get(id =expedition_id)
-    if not whether_this_user_can_see_mammals_module_data_entry(request.user):
-        return mammals_login(request, expedition_id)
     rp = request.POST
     
     if rp:
@@ -449,8 +435,6 @@ def process_edit_expedition (request, expedition_id):
             exp.school_contact_1_phone = rp ['school_contact_1_phone']
         if rp.has_key ('school_contact_1_email'):
             exp.school_contact_1_email = rp ['school_contact_1_email']
-        
-        
         if rp.has_key ('grade'):
             exp.grade_level_id = int(rp ['grade'])
         if rp.has_key ('number_of_students'):
@@ -475,6 +459,7 @@ def process_edit_expedition (request, expedition_id):
 
 
 @rendered_with('mammals/expedition.html')
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 def edit_expedition(request, expedition_id):
     process_edit_expedition (request, expedition_id)
     return all_expeditions(request)
@@ -490,11 +475,9 @@ def edit_expedition_ajax(request):
 
 @csrf_protect
 @rendered_with('mammals/expedition_animals.html')
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 def expedition_animals(request, expedition_id):
     exp = Expedition.objects.get(id =expedition_id)
-    if not whether_this_user_can_see_mammals_module_data_entry(request.user):
-        return mammals_login(request, expedition_id)
-    
     return {
         'expedition'  : exp
         ,'sexes'      : AnimalSex.objects.all()
