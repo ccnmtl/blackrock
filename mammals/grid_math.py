@@ -130,7 +130,6 @@ def pick_transect_angles (number_needed):
         1) No two transects should be too close together
     """
     number_of_tries = 1 + number_needed * number_needed 
-    
     results = []
     for a in range (number_of_tries):
         transects = sorted(pick_transect_heading() for n in range(number_needed))
@@ -156,7 +155,16 @@ def pick_new_distance (existing_distances, transect_length, minimum_distance = 5
     not too close to the center,
     *and* not too close to an existing distance"""
     
+    #import pdb
+    #pdb.set_trace()
+    
+    
+    if transect_length < 100:
+        minimum_distance = transect_length / 20
+    
+    
     new_distance = triangular_random (transect_length)
+    
     
     if len(existing_distances) == 0:
         return new_distance

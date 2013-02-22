@@ -51,6 +51,7 @@ class rendered_with(object):
 @csrf_protect
 @rendered_with('mammals/sandbox_grid.html')
 def sandbox_grid(request):
+    """"YES SANDBOX."""""
     default_lat  = 41.400
     default_lon  = -74.0305
     default_size = 250.0
@@ -120,6 +121,7 @@ def help(request):
 @csrf_protect
 @rendered_with('mammals/grid.html')
 def grid(request):
+    """"NOT SANDBOX."""""
     grid = [gs.info_for_display() for gs in GridSquare.objects.all() if gs.display_this_square]
     
     #TODO: remove 'grid_center_y','grid_center_x','height_in_blocks','width_in_blocks' ,'block_size_in_m'    
@@ -147,6 +149,7 @@ def grid(request):
 @csrf_protect
 @rendered_with('mammals/grid_block.html')
 def grid_block(request):
+    """"NOT SANDBOX."""""
     default_lat = 41.400
     default_lon = -74.0305
     default_size = 250.0
@@ -752,6 +755,7 @@ def grid_square_print(request):
 @csrf_protect
 @rendered_with('mammals/grid_block.html')
 def sandbox_grid_block(request):
+    """YES SANDBOX"""
     default_lat = 41.400
     default_lon = -74.0305
     default_size = 250.0
