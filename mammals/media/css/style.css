@@ -448,6 +448,19 @@ body.square .formfield label
 	font-style: italic;
 }
 
+.terrain_info h4
+{
+	margin: 0;
+	padding: 0 0 0 36px;
+	border: 0;
+	font-weight: bold;
+	font-size: 12px;
+	height: 36px;
+	background: url('/mammals/media/images/nav_steps.png') -2px -127px no-repeat;
+}
+
+
+
 .block_coordbox
 {
 	display: block;
