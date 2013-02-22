@@ -373,24 +373,6 @@ def save_team_form_ajax(request):
 
 
 
-@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
-def edit_expedition_ajax(request):
-    """
-    Saves the note content and position within the table.
-    """
-    if 1 == 0:
-        place = get_object_or_404(Space, url=space_name)
-        note_form = NoteForm(request.POST or None)
-
-        if request.method == "POST" and request.is_ajax:
-            msg = "The operation has been received correctly."          
-            print request.POST
-
-        else:
-            msg = "GET petitions are not allowed for this view."
-
-    msg = 'hello world'
-    return HttpResponse(msg)
 
 
 
@@ -416,10 +398,10 @@ def process_login_and_go_to_expedition(request):
         login(request, user)
     
         #TODO: new_expedition should really be 2 different methods -- one for creating a new expedition and one for bring up an old one.
-        if request.POST.has_key('expedition_id') and request.POST['expedition_id'] != 'None':
-            return new_expedition(request)        
-        if request.POST.has_key('transects_json') and request.POST['transects_json'] != 'None':
-            return new_expedition(request)
+        #if request.POST.has_key('expedition_id') and request.POST['expedition_id'] != 'None':
+        #    return new_expedition(request)        
+        #if request.POST.has_key('transects_json') and request.POST['transects_json'] != 'None':
+        #    return new_expedition(request)
         #the user just wants to see all the expeditions.
         return all_expeditions(request)
 
@@ -450,14 +432,14 @@ def expedition(request, expedition_id):
     }
 
 
-@rendered_with('mammals/expedition.html')
-def edit_expedition(request, expedition_id):
+
+
+def process_edit_expedition (request, expedition_id):
     exp = Expedition.objects.get(id =expedition_id)
     if not whether_this_user_can_see_mammals_module_data_entry(request.user):
         return mammals_login(request, expedition_id)
     rp = request.POST
-    #TODO validation: check that number of students is an integer.
-
+    
     if rp:
         if rp.has_key ('school') and rp['school'] != 'None':
             exp.school_id = int(rp ['school'])
@@ -472,9 +454,11 @@ def edit_expedition(request, expedition_id):
         if rp.has_key ('grade'):
             exp.grade_level_id = int(rp ['grade'])
         if rp.has_key ('number_of_students'):
-            exp.number_of_students = int(rp ['number_of_students'])
+            try:
+                exp.number_of_students = int(rp ['number_of_students'])
+            except ValueError:
+                exp.number_of_students = 0
         exp.save()
-        
         
         form_map_environment = {
             'moon_phase'                   : 'moon_phase_id'
@@ -483,15 +467,26 @@ def edit_expedition(request, expedition_id):
             ,'overnight_precipitation'     : 'overnight_precipitation_id'
             ,'overnight_precipitation_type': 'overnight_precipitation_type_id'
         }
-           
-        #for point in self.traplocation_set.all():
-        #    
+
         for the_key, thing_to_update in form_map_environment.iteritems():
             if rp.has_key (the_key):
                 setattr(exp,  thing_to_update,  int(rp[the_key]))
                 exp.save()
-        
+
+
+@rendered_with('mammals/expedition.html')
+def edit_expedition(request, expedition_id):
+    process_edit_expedition (request, expedition_id)
     return all_expeditions(request)
+
+
+
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
+def edit_expedition_ajax(request):
+    process_edit_expedition (request, request.POST['expedition_id'])
+    msg = 'OK'
+    return HttpResponse(msg)
+
 
 @csrf_protect
 @rendered_with('mammals/expedition_animals.html')
