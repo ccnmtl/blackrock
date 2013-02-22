@@ -619,7 +619,7 @@ def save_expedition_animals(request):
 
     booleans = ['scat_sample_collected' ,'blood_sample_collected' ,
         'skin_sample_collected','hair_sample_collected' ,'recaptured']
-    menus = ['sex','age','scale_used']
+    menus = ['sex','age','scale_used'] #these are
 
 
     for point in exp.animal_locations():
@@ -629,16 +629,28 @@ def save_expedition_animals(request):
                 setattr(point.animal, b, True)
             else:
                 setattr(point.animal, b, False)
+        
         for m in menus:
             rp_key = '%s_%d' % (m , point.id)
             if rp.has_key (rp_key) and rp[rp_key] != None:
                 setattr(point.animal, '%s_id' % m, rp[rp_key])
+                
+                
         rp_key = 'health_%d' % point.id
         if rp.has_key (rp_key) and rp[rp_key] != '':
             setattr(point.animal, 'health', rp[rp_key])
+            
+            
         rp_key = 'weight_in_grams_%d' % point.id
         if rp.has_key (rp_key) and rp[rp_key] != '':
             setattr(point.animal, 'weight_in_grams', int(rp[rp_key]))
+            
+        rp_key = 'tag_number_%d' % point.id
+        if rp.has_key (rp_key) and rp[rp_key] != '':
+            setattr(point.animal, 'tag_number', rp[rp_key])
+
+            
+            
         point.animal.save()
     return expedition (request, expedition_id)
     
