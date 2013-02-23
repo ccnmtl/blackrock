@@ -327,16 +327,17 @@ class Expedition (models.Model):
         
     #school_name  =  models.CharField(blank=True, default = "", help_text = "Name of school", max_length = 256)
     # 
-    #school_contact_1_name  =  models.CharField(blank=True,  help_text = "First contact @ the school -- name", max_length = 256)
-    #school_contact_1_phone  =  models.CharField(blank=True,  help_text = "First contact @ the school -- e-mail", max_length = 256)
-    #school_contact_1_email  =  models.CharField(blank=True,  help_text = "First contact @ the school   -- phone", max_length = 256)#
+    
+    school  = models.ForeignKey(School ,blank=True,null=True )
+    school_contact_1_name  =  models.CharField(blank=True,  help_text = "First contact @ the school -- name", max_length = 256)
+    school_contact_1_phone  =  models.CharField(blank=True,  help_text = "First contact @ the school -- e-mail", max_length = 256)
+    school_contact_1_email  =  models.CharField(blank=True,  help_text = "First contact @ the school   -- phone", max_length = 256)#
 
     #school_contact_2_name  =  models.CharField(blank=True,  help_text = "First contact @ the school -- name", max_length = 256)
     #school_contact_2_phone  =  models.CharField(blank=True,  help_text = "Second contact @ the school  -- e-mail", max_length = 256)
     #school_contact_2_email  =  models.CharField(blank=True,  help_text = "Second contact @ the school  -- phone", max_length = 256)
 
 
-    school  = models.ForeignKey(School ,blank=True,null=True )
     number_of_students = models.IntegerField(help_text = "How many students participated", default = 0)
     grade_level = models.ForeignKey(GradeLevel,  null=True, blank=True)
 
@@ -347,6 +348,10 @@ class Expedition (models.Model):
 
     cloud_cover =  models.ForeignKey(ExpeditionCloudCover, null=True, blank=True,  related_name = "exp_cloudcover")
     overnight_temperature =  models.ForeignKey(ExpeditionOvernightTemperature, null=True, blank=True,  related_name = "exp_temperature")
+    
+    
+    overnight_temperature_int = models.IntegerField(help_text = "Overnight Temperature", default = 0)
+    
     overnight_precipitation =  models.ForeignKey(ExpeditionOvernightPrecipitation, null=True, blank=True,  related_name = "exp_precipitation")
     overnight_precipitation_type =  models.ForeignKey(ExpeditionOvernightPrecipitationType, null=True, blank=True,  related_name = "exp_precipitation_type")
     moon_phase    =  models.ForeignKey(ExpeditionMoonPhase, null=True, blank=True,  related_name = "exp_moon_phase")

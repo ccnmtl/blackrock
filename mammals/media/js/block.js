@@ -13,6 +13,22 @@ function addBlock(mapInstance) {
     if (!map_bounds.isEmpty() ) {
         mapInstance.fitBounds(map_bounds);
     } 
+    // if the square is really small, do something
+
+    
+    var dot_radius;
+    var side_of_square =  distHaversine (lat_lng_from_point(box[0]) , lat_lng_from_point(box[1] )) * 1000 //meters.
+    var really_small_square =(side_of_square < 20 );
+    if ( really_small_square ) {
+        dot_radius = side_of_square / 25;
+        initial_circle_style['radius'] = dot_radius;
+        circle_off_style    ['radius'] = dot_radius;
+        circle_on_style     ['radius'] = dot_radius * 2;
+    
+    }
+    else {
+        dot_radius = 2.0;
+    }
     
     center = lat_lng_from_point(box[4]);
     for (var i = 0; i < transects.length; i++) {
@@ -21,6 +37,7 @@ function addBlock(mapInstance) {
         for (var j = 0; j < transects[i]['points'].length; j++) {
             next_point = transects[i]['points'][j];
             circle = x_meter_circle (next_point['point'], mapInstance);
+            circle.radius
             attach_marker_info (circle, next_point, new_transect, transect_obj);
         }
     }
@@ -30,6 +47,31 @@ function addBlock(mapInstance) {
     hide_square_coords_table();
     
 }
+// if you RELO
+
+/*
+initial_circle_style = {
+      radius: 2, // this is the radius in meters on the surface of the planet.
+      fillColor: 'lightgreen',
+      fillOpacity : 1,
+      strokeWeight : 1,
+      strokeColor : 'lightgreen',
+      strokeOpacity : 1,
+      zIndex: 1
+}
+
+circle_on_style = {
+    fillColor : "blue",
+    radius: 5,
+    zIndex: 1
+}
+
+circle_off_style = {
+    fillColor : "lightgreen",
+    radius: 2,
+    zIndex: 2
+}
+*/
 
 function hide_square_coords_table () {
     jQuery ('.square_coords_table_div').hide();
@@ -57,6 +99,7 @@ function hide_printer_friendly_table() {
     jQuery ('#show_printer_friendly_table').show();
     jQuery ('#hide_printer_friendly_table').hide();
 }
+
 
 
 /// Some decoration functions for drawing the map:
@@ -92,6 +135,7 @@ function attach_marker_info (the_circle, point_info, the_transect, transect_info
             jQuery ('#transect_table_overflow_div').animate({scrollTop: goal}, { duration: 500, queue: false });
         }    
         // change the decoration of the circle and transect
+        
         the_circle.setOptions(circle_on_style);
         the_transect.setOptions (transect_on_style);
     }

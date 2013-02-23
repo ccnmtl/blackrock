@@ -11,33 +11,32 @@ urlpatterns = patterns('',
 	
 	#Research version:
 	(r'^$',              'blackrock.mammals.views.index' ),
-	(r'^grid/',          'blackrock.mammals.views.grid' ),
-	(r'^grid_square/',   'blackrock.mammals.views.grid_block' ),
+	(r'^grid/$',          'blackrock.mammals.views.grid' ),
+	(r'^grid_square/$',   'blackrock.mammals.views.grid_block' ),
 
     #printer and csv versions of the grid square:
-	(r'^grid_square_csv/',       'blackrock.mammals.views.grid_square_csv' ),
-	(r'^grid_square_print/',     'blackrock.mammals.views.grid_square_print' ),
+	(r'^grid_square_csv/$',       'blackrock.mammals.views.grid_square_csv' ),
+	(r'^grid_square_print/$',     'blackrock.mammals.views.grid_square_print' ),
 
 	#Sandbox version:
 	(r'^sandbox/$',              'blackrock.mammals.views.sandbox_grid' ),
-	(r'^sandbox/grid/',          'blackrock.mammals.views.sandbox_grid' ),
-	(r'^sandbox/grid_square/',   'blackrock.mammals.views.sandbox_grid_block' ),
+	(r'^sandbox/grid/$',          'blackrock.mammals.views.sandbox_grid' ),
+	(r'^sandbox/grid_square/$',   'blackrock.mammals.views.sandbox_grid_block' ),
 	
 	
 	(r'^help/$',               'blackrock.mammals.views.help' ),
 	(r'^teaching/$', 'blackrock.mammals.views.teaching_resources' ),
 
 
-	(r'^login/',                 'blackrock.mammals.views.mammals_login' ),
-	(r'^process_login/',         'blackrock.mammals.views.process_login_and_go_to_expedition' ),
-	
+	(r'^login/$',                 'blackrock.mammals.views.mammals_login' ),
+	(r'^process_login/$',         'blackrock.mammals.views.process_login' ),
 	(r'^logout/$', 'django.contrib.auth.views.logout',  {'next_page': '/mammals/'}),
 	
-	(r'^all_expeditions/',  'blackrock.mammals.views.all_expeditions' ),
+	(r'^all_expeditions/$',  'blackrock.mammals.views.all_expeditions' ),
 	
 	
 	
-	(r'^new_expedition_ajax/',   'blackrock.mammals.views.new_expedition_ajax' ),
+	(r'^new_expedition_ajax/$',   'blackrock.mammals.views.new_expedition_ajax' ),
 	
 	
 	(r'^expedition/(?P<expedition_id>\d+)/$', 'blackrock.mammals.views.expedition'),

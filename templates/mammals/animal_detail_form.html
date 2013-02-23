@@ -63,6 +63,9 @@
        Recapture
     </td>
     <td  > 
+       Tag #
+    </td>
+    <td  > 
        Scat collected?
     </td>
     <td  > 
@@ -77,34 +80,23 @@
 </tr>
 <tr>
     <td  >
-       <input type="radio" name = "recaptured_{{al.id}}" value="True"  {% if an.recaptured %}checked{%endif%}> Yes
-       <input type="radio" name = "recaptured_{{al.id}}" value="False" {% if not an.recaptured %}checked{%endif%}> No
+       <input type="checkbox" name = "recaptured_{{al.id}}" value="True"  {% if an.recaptured %}checked{%endif%}>
+    </td>
+    <td  >
+       <input value = "{%if an.tag_number%}{{an.tag_number}}{%endif%}" id = "tag_number" name = "tag_number_{{al.id}}"></input>
     </td>
     <td  > 
-       <input type="radio" name = "scat_sample_collected_{{al.id}}" value="True"  {% if an.scat_sample_collected %}checked{%endif%}> Yes
-       <input type="radio" name = "scat_sample_collected_{{al.id}}" value="False" {% if not an.scat_sample_collected %}checked{%endif%}> No
+        <input type="checkbox" name = "scat_sample_collected_{{al.id}}" value="True"  {% if an.scat_sample_collected %}checked{%endif%}>
     </td>
     <td  >
-       <input type="radio" name = "blood_sample_collected_{{al.id}}" value="True"  {% if an.blood_sample_collected %}checked{%endif%}> Yes
-       <input type="radio" name = "blood_sample_collected_{{al.id}}" value="False" {% if not an.blood_sample_collected %}checked{%endif%}> No
+       <input type="checkbox" name = "blood_sample_collected_{{al.id}}" value="True"  {% if an.blood_sample_collected %}checked{%endif%}>
     </td>
     <td  >
-       <input type="radio" name = "hair_sample_collected_{{al.id}}" value="True"  {% if an.hair_sample_collected %}checked{%endif%}> Yes
-       <input type="radio" name = "hair_sample_collected_{{al.id}}" value="False" {% if not an.hair_sample_collected %}checked{%endif%}> No
+       <input type="checkbox" name = "hair_sample_collected_{{al.id}}" value="True"  {% if an.hair_sample_collected %}checked{%endif%}>
     </td>
     <td  >
-       <input type="radio" name = "skin_sample_collected_{{al.id}}" value="True"  {% if an.skin_sample_collected %}checked{%endif%}> Yes
-       <input type="radio" name = "skin_sample_collected_{{al.id}}" value="False" {% if not an.skin_sample_collected %}checked{%endif%}> No
+       <input type="checkbox" name = "skin_sample_collected_{{al.id}}" value="True"  {% if an.skin_sample_collected %}checked{%endif%}>
     </td>
 </tr>
-<!--
-    <tr>    
-        <td colspan="7" style="font-size:70%">{{al.dir}}</td>
-    </td>
-    
-    <tr>    
-        <td colspan="7" style="font-size:70%">{{an.dir}}</td>
-    </td>
--->
     </tr>
 </table>

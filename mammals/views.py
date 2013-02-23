@@ -51,6 +51,7 @@ class rendered_with(object):
 @csrf_protect
 @rendered_with('mammals/sandbox_grid.html')
 def sandbox_grid(request):
+    """"YES SANDBOX."""""
     default_lat  = 41.400
     default_lon  = -74.0305
     default_size = 250.0
@@ -120,6 +121,7 @@ def help(request):
 @csrf_protect
 @rendered_with('mammals/grid.html')
 def grid(request):
+    """"NOT SANDBOX."""""
     grid = [gs.info_for_display() for gs in GridSquare.objects.all() if gs.display_this_square]
     
     #TODO: remove 'grid_center_y','grid_center_x','height_in_blocks','width_in_blocks' ,'block_size_in_m'    
@@ -147,6 +149,7 @@ def grid(request):
 @csrf_protect
 @rendered_with('mammals/grid_block.html')
 def grid_block(request):
+    """"NOT SANDBOX."""""
     default_lat = 41.400
     default_lon = -74.0305
     default_size = 250.0
@@ -332,51 +335,29 @@ def new_expedition_ajax(request):
     return HttpResponse(msg)
 
 
+#TODO PROBABLY NOT NECESSARY -- REMOVE
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 def save_expedition_animals_ajax(request):
-    """
-    Saves the note content and position within the table.
-    """
-    if 1 == 0:
-        place = get_object_or_404(Space, url=space_name)
-        note_form = NoteForm(request.POST or None)
-
-        if request.method == "POST" and request.is_ajax:
-            msg = "The operation has been received correctly."          
-            print request.POST
-
-        else:
-            msg = "GET petitions are not allowed for this view."
-
     msg = 'hello world'
     return HttpResponse(msg)
 
 
 
 
-
-
-
+#TODO: THESE ARE NOW OBSOLETE AND CAN  BE (CAUTIOUSLY) REMOVED.
 @csrf_protect
 @rendered_with('mammals/login.html')
-def mammals_login(request, expedition_id = None):
-    result = {
-        'transects_json' : request.POST.get('transects_json')
-        ,'grid_square_id' : request.POST.get('grid_square_id')
-        ,'expedition_id' : expedition_id
-    }
-    return result
-    
+def mammals_login(request):
+    return {}
 
 @csrf_protect
-@rendered_with('mammals/expedition.html')
-def process_login_and_go_to_expedition(request):
+def process_login(request):
     username = request.POST['username']
     password = request.POST['password']
     user = authenticate(username=username, password=password)
     if user is not None and  user.is_active:
         login(request, user)
-        return all_expeditions(request)
+        return HttpResponseRedirect ( '/mammals/grid/')
     else:
         return HttpResponseRedirect ( '/mammals/login/')
 
@@ -408,20 +389,39 @@ def process_edit_expedition (request, expedition_id):
     
     if rp:
         if rp.has_key ('school') and rp['school'] != 'None':
-            exp.school_id = int(rp ['school'])
+            exp.school_id = int(rp ['school'])   
         if rp.has_key ('school_contact_1_name'):
             exp.school_contact_1_name = rp ['school_contact_1_name']
         if rp.has_key ('school_contact_1_phone'):
             exp.school_contact_1_phone = rp ['school_contact_1_phone']
         if rp.has_key ('school_contact_1_email'):
             exp.school_contact_1_email = rp ['school_contact_1_email']
+            
+        if rp.has_key ('school_contact_1_email'):
+            exp.school_contact_1_email = rp ['school_contact_1_email']
+            
+            
+            
         if rp.has_key ('grade'):
             exp.grade_level_id = int(rp ['grade'])
+            
+            
         if rp.has_key ('number_of_students'):
             try:
                 exp.number_of_students = int(rp ['number_of_students'])
             except ValueError:
                 exp.number_of_students = 0
+        
+        
+        if rp.has_key ('overnight_temperature_int'):
+            try:
+                exp.overnight_temperature_int = int(rp ['overnight_temperature_int'])
+            except ValueError:
+                exp.overnight_temperature_int = 0
+        
+        
+        
+        
         exp.save()
         
         form_map_environment = {
@@ -638,7 +638,7 @@ def save_expedition_animals(request):
 
     booleans = ['scat_sample_collected' ,'blood_sample_collected' ,
         'skin_sample_collected','hair_sample_collected' ,'recaptured']
-    menus = ['sex','age','scale_used']
+    menus = ['sex','age','scale_used'] #these are
 
 
     for point in exp.animal_locations():
@@ -648,21 +648,33 @@ def save_expedition_animals(request):
                 setattr(point.animal, b, True)
             else:
                 setattr(point.animal, b, False)
+        
         for m in menus:
             rp_key = '%s_%d' % (m , point.id)
             if rp.has_key (rp_key) and rp[rp_key] != None:
                 setattr(point.animal, '%s_id' % m, rp[rp_key])
+                
+                
         rp_key = 'health_%d' % point.id
         if rp.has_key (rp_key) and rp[rp_key] != '':
             setattr(point.animal, 'health', rp[rp_key])
+            
+            
         rp_key = 'weight_in_grams_%d' % point.id
         if rp.has_key (rp_key) and rp[rp_key] != '':
             setattr(point.animal, 'weight_in_grams', int(rp[rp_key]))
+            
+        rp_key = 'tag_number_%d' % point.id
+        if rp.has_key (rp_key) and rp[rp_key] != '':
+            setattr(point.animal, 'tag_number', rp[rp_key])
+
+            
+            
         point.animal.save()
     return expedition (request, expedition_id)
     
     
-    
+#TODO remove
 @rendered_with('mammals/simple_map.html')
 def simple_map(request):
     all_animals = Animal.objects.all()
@@ -681,6 +693,7 @@ def simple_map(request):
     }
     
 
+#TODO remove
 @rendered_with('mammals/map_index.html')
 def map_index(request):
     species_set = set()
@@ -700,6 +713,7 @@ def map_index(request):
     }
     
 
+#TODO remove
 @rendered_with('mammals/species_map.html')
 def species_map(request, species_id = None):
     if species_id:
@@ -723,6 +737,7 @@ def species_map(request, species_id = None):
     }
     
     
+#TODO remove
 @rendered_with('mammals/habitat_map.html')
 def habitat_map(request, habitat_id = None):
     if habitat_id:
@@ -774,6 +789,7 @@ def grid_square_print(request):
 @csrf_protect
 @rendered_with('mammals/grid_block.html')
 def sandbox_grid_block(request):
+    """YES SANDBOX"""
     default_lat = 41.400
     default_lon = -74.0305
     default_size = 250.0
