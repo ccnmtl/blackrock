@@ -10,6 +10,8 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+ALLOWED_HOSTS = ['.ccnmtl.columbia.edu', 'localhost']
+
 DATABASE_ENGINE = 'postgresql_psycopg2'
 DATABASE_NAME = 'blackrock'  # Or path to database file if using sqlite3.
 DATABASE_USER = ''  # Not used with sqlite3.
@@ -22,7 +24,8 @@ if 'test' in sys.argv:
     DATABASE_NAME = ':memory:'
     HAYSTACK_SITECONF = 'portal.search_sites'
     HAYSTACK_SEARCH_ENGINE = 'solr'
-    HAYSTACK_SOLR_URL = 'http://wwwapp.cc.columbia.edu/ccnmtl/solr/blackrock_portal'
+    HAYSTACK_SOLR_URL = \
+        'http://wwwapp.cc.columbia.edu/ccnmtl/solr/blackrock_portal'
     CDRS_SOLR_URL = HAYSTACK_SOLR_URL
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
