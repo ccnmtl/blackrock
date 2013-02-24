@@ -47,7 +47,12 @@
     <input type="hidden" name = "expedition_id" id = "expedition_id" value ="{{expedition.id}}" />
     <input type="hidden" name = "team_letter"   id = "team_letter"   value ="{{team_letter}}" />
         
-        {%for point in team_points     %}
+        
+Students' first names: <input name="student_names" value ="{{student_names|default_if_none:''}}" size="75" maxlength="250" ></input><br/>
+<em> Note: To preserve students' privacy, DO NOT ENTER LAST NAMES.</em>
+        
+        
+{%for point in team_points     %}
 <h3>Trap {{point.team_letter }}{{point.team_number }}  ( {{point.transect_distance|floatformat:0}}m @ {{point.transect_bearing_wrt_magnetic_north|floatformat:0 }}&deg; from magnetic north and  {{point.transect_bearing|floatformat:0 }}&deg; from true north.)</h3> 
      <table class = "green_table">
      
@@ -95,6 +100,17 @@
                   <input class="coord_input" type="text" name = "actual_lon_{{point.id}}" id = "actual_lon_{{point.id}}" value = "{{point.actual_lon|floatformat:5}}"  maxlength="9" />
                 </td>
             </tr>
+            
+            <tr>
+                <td> 
+                    Understory:
+                </td>
+                <td colspan = "3">
+                    <input name="understory_{{point.id}}" value ="{{point.understory|default_if_none:''}}" size="75" maxlength="250" ></input>
+                </td>
+            </tr>
+
+            
             
             <tr>
                 <td rowspan="2"> 

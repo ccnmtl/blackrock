@@ -6,7 +6,7 @@ from django.db import connection
 from django.db.models import get_model, DateField
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from django.contrib.auth.decorators import user_passes_test
 from django.utils import simplejson
 from django.contrib.gis.geos import  * 
@@ -47,6 +47,31 @@ class rendered_with(object):
                 return items
 
         return rendered_func
+
+
+@csrf_protect
+@rendered_with('mammals/login.html')
+def mammals_login(request):
+    return {}
+
+@csrf_protect
+def process_login(request):
+    if not (request.POST.has_key('username') and request.POST.has_key('password')):
+        return HttpResponseRedirect ( '/mammals/login/')
+
+    if (request.GET):
+        return HttpResponseRedirect ( '/mammals/login/')
+
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(username=username, password=password)
+    if user is not None and  user.is_active:
+        login(request, user)
+        return HttpResponseRedirect ( '/mammals/grid/')
+    else:
+        return HttpResponseRedirect ( '/mammals/login/')
+        
+
 
 @csrf_protect
 @rendered_with('mammals/sandbox_grid.html')
@@ -214,11 +239,6 @@ def grid_block(request):
         ,'width_in_blocks'                           :  width_in_blocks  #TODO: remove 
     }
     
-    
-
-
-
-
 def pick_transects (center, side_of_square, number_of_transects, number_of_points_per_transect, magnetic_declination):
     result = []    
 
@@ -329,7 +349,7 @@ def new_expedition_ajax(request):
         the_new_expedition = Expedition.create_from_obj(obj, request.user)
         the_new_expedition.grid_square = GridSquare.objects.get(id = grid_square_id)
         the_new_expedition.start_date_of_expedition =  datetime.now()
-        the_new_expedition.end_date_of_expedition =  datetime.now()
+        the_new_expedition.end_date_of_expedition =  datetime.now() #TODO add timedelta (1 day) to the end.
         the_new_expedition.save()
     msg = '%d' % the_new_expedition.id
     return HttpResponse(msg)
@@ -341,27 +361,7 @@ def save_expedition_animals_ajax(request):
     msg = 'hello world'
     return HttpResponse(msg)
 
-@csrf_protect
-@rendered_with('mammals/login.html')
-def mammals_login(request):
-    return {}
 
-@csrf_protect
-def process_login(request):
-    if not (request.POST.has_key('username') and request.POST.has_key('password')):
-        return HttpResponseRedirect ( '/mammals/login/')
-
-    if (request.GET):
-        return HttpResponseRedirect ( '/mammals/login/')
-
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(username=username, password=password)
-    if user is not None and  user.is_active:
-        login(request, user)
-        return HttpResponseRedirect ( '/mammals/grid/')
-    else:
-        return HttpResponseRedirect ( '/mammals/login/')
 
 
 @rendered_with('mammals/expedition.html')
@@ -369,7 +369,22 @@ def expedition(request, expedition_id):
         
     exp = Expedition.objects.get(id =expedition_id)
     grades = GradeLevel.objects.all()
+    hours   = [("%02d" % the_hour  ) for the_hour   in range (0, 24)]
+    minutes = [("%02d" % the_minute) for the_minute in range (0, 60)]
     
+    #import pdb
+    #pdb.set_trace()
+    
+    exp.set_end_time_if_none()
+    
+
+    #def end_minute_string(self):
+    #    return  "%02d" % self.end_date_of_expedition.minute
+    #    
+    #def end_hour_string (self):
+    #    return "%02d"  % self.end_date_of_expedition.hour
+    #import pdb
+    #pdb.set_trace()     
     return {
         'expedition'                        : exp
         ,'grades'                           : grades
@@ -380,8 +395,25 @@ def expedition(request, expedition_id):
         ,'overnight_precipitation_types'    : ExpeditionOvernightPrecipitationType.objects.all()
         ,'cloud_covers'                     : ExpeditionCloudCover.objects.all()
         ,'illuminations'                    : Illumination.objects.all()
+        ,'hours'                            : hours
+        ,'minutes'                          : minutes
     }
 
+
+
+@rendered_with('mammals/expedition.html')
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
+def edit_expedition(request, expedition_id):
+    process_edit_expedition (request, expedition_id)
+    return all_expeditions(request)
+
+
+
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
+def edit_expedition_ajax(request):
+    process_edit_expedition (request, request.POST['expedition_id'])
+    msg = 'OK'
+    return HttpResponse(msg)
 
 
 
@@ -403,6 +435,11 @@ def process_edit_expedition (request, expedition_id):
             exp.school_contact_1_email = rp ['school_contact_1_email']
             
             
+        if rp.has_key ('expedition_hour_string') and rp.has_key ('expedition_minute_string'):
+            exp.set_end_time_from_strings (rp['expedition_hour_string'], rp['expedition_minute_string'])
+        else:
+            pdb.set_trace()
+
             
         if rp.has_key ('grade'):
             exp.grade_level_id = int(rp ['grade'])
@@ -440,19 +477,6 @@ def process_edit_expedition (request, expedition_id):
                 exp.save()
 
 
-@rendered_with('mammals/expedition.html')
-@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
-def edit_expedition(request, expedition_id):
-    process_edit_expedition (request, expedition_id)
-    return all_expeditions(request)
-
-
-
-@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
-def edit_expedition_ajax(request):
-    process_edit_expedition (request, request.POST['expedition_id'])
-    msg = 'OK'
-    return HttpResponse(msg)
 
 
 @csrf_protect
@@ -493,7 +517,8 @@ def team_form(request, expedition_id, team_letter):
     habitats = Habitat.objects.all()
     trap_types = TrapType.objects.all()
     exp = Expedition.objects.get(id =expedition_id)
-    
+    team_points =  exp.team_points (team_letter)
+    student_names = team_points[0].student_names
     return {
         'expedition'  : exp
         ,'baits'     : baits
@@ -502,11 +527,13 @@ def team_form(request, expedition_id, team_letter):
         ,'species'   : species
         ,'trap_types'  : trap_types
         ,'team_letter' : team_letter
-        ,'team_points' : exp.team_points (team_letter)
+        ,'team_points' : team_points
+        ,'student_names': student_names
     }
 
 
 def process_save_team_form(request):
+
     rp = request.POST
     expedition_id = rp['expedition_id']
     exp = Expedition.objects.get(id =expedition_id)
@@ -525,6 +552,11 @@ def process_save_team_form(request):
     }
     
     for point in the_team_points:
+        if rp.has_key ('student_names'):
+            point.student_names = rp['student_names']
+            point.save()
+            
+    
         for the_key, thing_to_update in form_map.iteritems():
             rp_key = '%s_%d' % (the_key , point.id)
             if rp.has_key (rp_key) and rp[rp_key] != 'None':
@@ -536,6 +568,11 @@ def process_save_team_form(request):
                 setattr(point, '%s' % thing_to_update,   (rp[rp_key] == 'True'))
                 point.save()
         
+        rp_key = '%s_%d' % ('understory' , point.id)
+        if rp.has_key (rp_key) and rp[rp_key] != 'None':
+            point.understory = rp[rp_key]
+            point.save()
+            
         #Deal with animals:
         animal_key = 'animal_%d' % (point.id)
         if rp.has_key (animal_key) and rp[animal_key] != 'None':
@@ -614,12 +651,14 @@ def process_save_team_form(request):
 @csrf_protect
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 def save_team_form(request):
-    process_save_team_form(request)
     rp = request.POST
+    if len(rp) == 0:
+        return HttpResponseRedirect ( '/mammals/all_expeditions/')
+
     expedition_id = rp['expedition_id']
+    process_save_team_form(request)
+    
     return expedition(request,  expedition_id)
-    
-    
     
 
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
@@ -628,8 +667,6 @@ def save_team_form_ajax(request):
     msg = 'OK'
     return HttpResponse(msg)
 
-    
-    
     
 @csrf_protect
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')

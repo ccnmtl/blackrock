@@ -319,6 +319,10 @@ class Expedition (models.Model):
     start_date_of_expedition =      models.DateTimeField(auto_now_add=True, null=True)
     end_date_of_expedition   =      models.DateTimeField(auto_now_add=True, null=True)
     
+    
+    
+    
+    
     created_on = models.DateTimeField(auto_now_add=True, null=False)
     created_by = models.ForeignKey(User,blank=True,null=True, related_name = 'expeditions_created')
 
@@ -374,7 +378,23 @@ class Expedition (models.Model):
         return  [p for p in self.traplocation_set.all().order_by('team_number') if p.team_letter == team_letter]
     
 
+    def set_end_time_if_none(self):
+        if (self.end_date_of_expedition == None):
+            self.end_date_of_expedition = datetime.now()
+            self.save()
 
+    def end_minute_string(self):
+
+        return  "%02d" % self.end_date_of_expedition.minute
+        
+    def end_hour_string (self):
+        return "%02d"  % self.end_date_of_expedition.hour
+
+    def set_end_time_from_strings(self, expedition_hour_string, expedition_minute_string):
+        self.set_end_time_if_none()
+        new_time = self.end_date_of_expedition.replace (hour=int(expedition_hour_string),minute=int(expedition_minute_string))
+        self.end_date_of_expedition = new_time
+        self.save()        
 
 ##################################################
 class TrapLocation(models.Model):
@@ -407,6 +427,7 @@ class TrapLocation(models.Model):
     #instead we're linking directly to the type of trap.
     trap_type  =  models.ForeignKey(TrapType, null=True, blank=True, help_text = "Which type of trap, if any, was left at this location.")
     
+    understory =  models.TextField(blank=True,  null=True, default = '', help_text = "Understory")
     
     notes_about_location =  models.TextField(blank=True, help_text = "Notes about the location")
     
