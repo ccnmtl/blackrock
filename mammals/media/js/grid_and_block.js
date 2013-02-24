@@ -104,6 +104,9 @@ function addTrails (mapObj) {
     self.layers["roads"] = roads_kmllayer;
     roads_kmllayer.instance.setMap(self.mapInstance);
     
+    var buildings_kmllayer = new Portal.Layer("roads", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/buildings.kml", true);
+    self.layers["buildings"] = buildings_kmllayer;
+    buildings_kmllayer.instance.setMap(self.mapInstance);
     
 }
 

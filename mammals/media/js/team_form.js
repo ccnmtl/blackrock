@@ -7,10 +7,13 @@ function add_trails_to_mini_map (map) {
         , clickable       : true
     }
 
+    buildings_map = new google.maps.KmlLayer("http://blackrock.ccnmtl.columbia.edu/portal/media/kml/buildings.kml", map_options)
     trail_map = new google.maps.KmlLayer("http://blackrock.ccnmtl.columbia.edu/portal/media/kml/trails.kml", map_options)
     road_map = new google.maps.KmlLayer("http://blackrock.ccnmtl.columbia.edu/portal/media/kml/roads.kml", map_options)
+    
     trail_map.setMap (map);
     road_map.setMap (map);
+    buildings_map.setMap (map);
 }
 
 function add_team_form_maps() {

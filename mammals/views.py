@@ -341,10 +341,6 @@ def save_expedition_animals_ajax(request):
     msg = 'hello world'
     return HttpResponse(msg)
 
-
-
-
-#TODO: THESE ARE NOW OBSOLETE AND CAN  BE (CAUTIOUSLY) REMOVED.
 @csrf_protect
 @rendered_with('mammals/login.html')
 def mammals_login(request):
@@ -352,6 +348,12 @@ def mammals_login(request):
 
 @csrf_protect
 def process_login(request):
+    if not (request.POST.has_key('username') and request.POST.has_key('password')):
+        return HttpResponseRedirect ( '/mammals/login/')
+
+    if (request.GET):
+        return HttpResponseRedirect ( '/mammals/login/')
+
     username = request.POST['username']
     password = request.POST['password']
     user = authenticate(username=username, password=password)
