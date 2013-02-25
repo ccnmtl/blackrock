@@ -187,12 +187,10 @@ function actual_location_adjusted (arg1, arg2) {
     update_actual_location_circles();
 }
 
-
 function team_form_circle (center, style, map) {
   c = new google.maps.Circle({
       center:  lat_lng_from_point(  center  ),
       map: map,
-
    });
   c.setOptions (style);
   return  c;
@@ -215,7 +213,4 @@ function save_team_form_ajax (){
     return false;
 }
 
-
 jQuery(team_form_init);
-
-

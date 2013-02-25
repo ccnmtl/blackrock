@@ -203,6 +203,8 @@ function new_expedition_ajax (){
         type: 'POST',
         url: '/mammals/new_expedition_ajax/',
         success: function(response) {
+            jQuery(jQuery('#save_square_via_ajax')[0]).hide()
+            //jQuery('#save_square_via_ajax').hide();
             alert ('This information has been saved as Expedition #' + response + '.');
         }
     });
