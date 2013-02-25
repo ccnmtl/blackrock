@@ -33,6 +33,3 @@ function show_squares (difficulty_level) {
         }
     }
 }
-
-
-

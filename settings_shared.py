@@ -10,12 +10,12 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-#DATABASE_ENGINE = 'postgresql_psycopg2' # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = 'blackrock' # Or path to database file if using sqlite3.
-DATABASE_USER = ''             # Not used with sqlite3.
-DATABASE_PASSWORD = ''         # Not used with sqlite3.
-DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
-DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
+DATABASE_ENGINE = 'postgresql_psycopg2'
+DATABASE_NAME = 'blackrock'  # Or path to database file if using sqlite3.
+DATABASE_USER = ''  # Not used with sqlite3.
+DATABASE_PASSWORD = ''  # Not used with sqlite3.
+DATABASE_HOST = ''  # Set to empty string for localhost. Not used with sqlite3.
+DATABASE_PORT = ''  # Set to empty string for default. Not used with sqlite3.
 
 if 'test' in sys.argv:
     DATABASE_ENGINE = 'django.contrib.gis.db.backends.spatialite'
@@ -51,6 +51,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.auth',
     'django.core.context_processors.debug',
     'django.core.context_processors.request',
+    'blackrock.blackrock_main.views.django_settings',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -65,12 +66,12 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'blackrock.urls'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Put strings here, like "/home/html/django_templates"
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     # Put application templates before these fallback ones:
     "/var/www/blackrock/templates/",
-    os.path.join(os.path.dirname(__file__),"templates"),
+    os.path.join(os.path.dirname(__file__), "templates"),
 )
 
 INSTALLED_APPS = (
@@ -107,16 +108,8 @@ INSTALLED_APPS = (
     'django_nose',
 )
 
-# Enabled Blackrock modules - edit to control what displays on the main page
-ENABLED_MODULES = (
-    {'path': 'sampler/', 'name': 'Forest Sampling Simulation', 'admin': False},
-    {'path': 'respiration/', 'name': 'Tree Respiration', 'admin': False},
-    {'path': 'optimization/', 'name': 'Forest Sampling Optimization Tool', 'admin': False},
-    {'path': 'paleoecology/', 'name': 'Paleoecology', 'admin': False},
-)
-
-# Pageblocks/Pagetree settings 
-PAGEBLOCKS = ['pageblocks.HTMLBlockWYSIWYG', 
+# Pageblocks/Pagetree settings
+PAGEBLOCKS = ['pageblocks.HTMLBlockWYSIWYG',
               'pageblocks.ImageBlock',
               'portal.AssetList',
               'portal.FeaturedAsset',
@@ -125,20 +118,14 @@ PAGEBLOCKS = ['pageblocks.HTMLBlockWYSIWYG',
               'portal.Webcam',
               'portal.Weather',
               'portal.InteractiveMap',
-              'pageblocks.HTMLBlock'] 
+              'pageblocks.HTMLBlock']
 
 THUMBNAIL_SUBDIR = "thumbs"
-#THUMBNAIL_DEBUG = "True"
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-  'django.core.context_processors.auth', 
-  'django.core.context_processors.debug', 
-  'django.core.context_processors.request', 
-)
+# THUMBNAIL_DEBUG = "True"
 
 LOGIN_URL = "/admin/login"
 
-# put any static media here to override app served static media                                                                                                                           
+# put any static media here to override app served static media
 STATICMEDIA_MOUNTS = (
     ('/sitemedia', 'sitemedia'),
 )
@@ -147,34 +134,29 @@ STATICMEDIA_MOUNTS = (
 TINYMCE_JS_URL = '/site_media/js/tiny_mce/tiny_mce.js'
 TINYMCE_JS_ROOT = 'media/js/tiny_mce'
 
-# if you set this to True, you may have to 
+# if you set this to True, you may have to
 # override TINYMCE_JS_ROOT with the full path on production
-TINYMCE_COMPRESSOR = False 
+TINYMCE_COMPRESSOR = False
 TINYMCE_SPELLCHECKER = True
 
-TINYMCE_DEFAULT_CONFIG = {'cols': 80, 
+TINYMCE_DEFAULT_CONFIG = {'cols': 80,
                           'rows': 30,
-                          'plugins':'table,spellchecker,paste,searchreplace',
-                          'theme' : 'simple',
-                          }
+                          'plugins': 'table,spellchecker,paste,searchreplace',
+                          'theme': 'simple'}
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_SAVE_EVERY_REQUEST = True
-SESSION_COOKIE_AGE = 900 
+SESSION_COOKIE_AGE = 900
 
 MAX_DATA_COUNT = 12000
 
-#if you add a 'deploy_specific' directory
-#then you can put a settings.py file and templates/ overrides there
+# if you add a 'deploy_specific' directory
+# then you can put a settings.py file and templates/ overrides there
 try:
     from blackrock.deploy_specific.settings import *
     INSTALLED_APPS = INSTALLED_APPS + ('blackrock.deploy_specific',)
 
-    if locals().has_key('EXTRA_INSTALLED_APPS'):
+    if 'EXTRA_INSTALLED_APPS' in locals():
         INSTALLED_APPS = EXTRA_INSTALLED_APPS + INSTALLED_APPS
 except ImportError:
     pass
-
-
-
-

@@ -12,7 +12,6 @@ from django.contrib.auth.models import User
 from django.utils import simplejson
 from mammals.grid_math import *
 import os
-from blackrock.mammals.heatmap import heatmap
 
 
 class GridPoint(models.Model):
@@ -55,7 +54,6 @@ class GridPoint(models.Model):
     def lon(self):
         return self.geo_point.coords[1]
 
-
          
     def dir(self):
         return dir(self)
@@ -83,28 +81,17 @@ class Bait (models.Model):
 class Species(models.Model):
     def __unicode__(self):
         return self.common_name
+        
     latin_name =  models.CharField(blank=True, help_text = "Binomial species name", max_length = 256)
     common_name =  models.CharField(blank=True, help_text = "Common name", max_length = 512)
     about_this_species =  models.TextField(blank=True, help_text = "A blurb with info about this species at Blackrock")
     class Meta:
         verbose_name = "Species"
         verbose_name_plural = "Species" # http://en.wikipedia.org/wiki/Latin_declension#Fifth_declension_.28e.29
+        ordering = ['common_name']
     def dir(self):
         return dir(self)
 
-
-    def ground_overlay_heatmap(self):
-        """returns a PNG of the distribution of this habitat in the forest"""
-        pts = []
-        animals = Animal.objects.filter(species=self)
-        for a in animals:
-            if len(a.traplocation_set.all()):
-                a_place = a.traplocation_set.all()[0]
-                pts.append ((a_place.lat(), a_place.lon()))
-        if len (pts) > 0:
-            hm = heatmap.Heatmap()
-            img_species_path = 'mammals/media/images/heatmaps/species/'
-            hm.heatmap(pts, "%s%d.png" % (img_species_path, self.id))
            
 
 
@@ -113,7 +100,7 @@ class LabelMenu (models.Model):
         return self.label
     label =  models.CharField(blank=True, null=True, max_length = 256)
 
-class AnimalSex (LabelMenu): #honi soit qui mal y pense
+class AnimalSex (LabelMenu):
     pass
 
 class AnimalAge (LabelMenu):
@@ -164,22 +151,20 @@ class Trap (models.Model):
 class Habitat (models.Model):
     def __unicode__(self):
         return self.label
+        
+    class Meta:
+        ordering = ['label']
 
     label =  models.CharField(blank=True, help_text = "Short label for this habitat.", max_length = 256)
     blurb =  models.TextField(blank=True, help_text = "Notes about this habitat (for a habitat page).")
+    image_path_for_legend = models.CharField(blank=True, help_text = "Path to the round colored circle for this habitat", max_length = 256)
+    
+    color_for_map = models.CharField(blank=True, max_length = 3, help_text = "RGB color to use on the map")
+    
     
     def dir(self):
         return dir(self)
-    
-    def ground_overlay_heatmap(self):
-        """returns a png file of the distribution of this habitat in the forest"""
-        pts = []
-        for p in TrapLocation.objects.filter(habitat=self):
-            pts.append ((p.lat(), p.lon()))
-        if len (pts) > 0:
-            hm = heatmap.Heatmap()
-            img_habitat_path = 'mammals/media/images/heatmaps/habitats/'
-            hm.heatmap(pts, "%s%d.png" % (img_habitat_path, self.id))
+
             
     
 class GridSquare (models.Model):
@@ -285,6 +270,25 @@ class Illumination (LabelMenu):
 class TrapType (LabelMenu):
     pass
 
+class School (models.Model):
+
+    def __unicode__(self):
+        return self.name
+        
+        
+    class Meta:
+        ordering = ['name']
+
+    name  =  models.CharField(blank=True, default = "", help_text = "Name of school", max_length = 256)
+    address  =  models.CharField(blank=True, default = "", help_text = "Name of school", max_length = 256)
+    contact_1_name  =  models.CharField(blank=True,  help_text = "First contact @ the school -- name", max_length = 256)
+    contact_1_phone  =  models.CharField(blank=True,  help_text = "First contact @ the school -- e-mail", max_length = 256)
+    contact_1_email  =  models.CharField(blank=True,  help_text = "First contact @ the school   -- phone", max_length = 256)
+    contact_2_name  =  models.CharField(blank=True,  help_text = "First contact @ the school -- name", max_length = 256)
+    contact_2_phone  =  models.CharField(blank=True,  help_text = "Second contact @ the school  -- e-mail", max_length = 256)
+    contact_2_email  =  models.CharField(blank=True,  help_text = "Second contact @ the school  -- phone", max_length = 256)
+    notes            = models.CharField(blank=True,  help_text = "Any other notes about this school.", max_length = 256)
+
     
 class Expedition (models.Model):
 
@@ -292,6 +296,11 @@ class Expedition (models.Model):
         return  u"Expedition started on %s" % ( self.start_date_of_expedition )
   
     #TODO make default sort by date, starting w/ most recent. 
+    
+    
+    class Meta:
+        ordering = ['-end_date_of_expedition']
+
     
     @classmethod
     def create_from_obj(self, json_obj, creator):
@@ -310,21 +319,27 @@ class Expedition (models.Model):
     start_date_of_expedition =      models.DateTimeField(auto_now_add=True, null=True)
     end_date_of_expedition   =      models.DateTimeField(auto_now_add=True, null=True)
     
+    
+    
+    
+    
     created_on = models.DateTimeField(auto_now_add=True, null=False)
     created_by = models.ForeignKey(User,blank=True,null=True, related_name = 'expeditions_created')
 
     notes_about_this_expedition =  models.TextField(blank=True, help_text = "Notes about this expedition")
     
         
-    school_name  =  models.CharField(blank=True, default = "", help_text = "Name of school", max_length = 256)
+    #school_name  =  models.CharField(blank=True, default = "", help_text = "Name of school", max_length = 256)
+    # 
     
+    school  = models.ForeignKey(School ,blank=True,null=True )
     school_contact_1_name  =  models.CharField(blank=True,  help_text = "First contact @ the school -- name", max_length = 256)
     school_contact_1_phone  =  models.CharField(blank=True,  help_text = "First contact @ the school -- e-mail", max_length = 256)
-    school_contact_1_email  =  models.CharField(blank=True,  help_text = "First contact @ the school   -- phone", max_length = 256)
+    school_contact_1_email  =  models.CharField(blank=True,  help_text = "First contact @ the school   -- phone", max_length = 256)#
 
-    school_contact_2_name  =  models.CharField(blank=True,  help_text = "First contact @ the school -- name", max_length = 256)
-    school_contact_2_phone  =  models.CharField(blank=True,  help_text = "Second contact @ the school  -- e-mail", max_length = 256)
-    school_contact_2_email  =  models.CharField(blank=True,  help_text = "Second contact @ the school  -- phone", max_length = 256)
+    #school_contact_2_name  =  models.CharField(blank=True,  help_text = "First contact @ the school -- name", max_length = 256)
+    #school_contact_2_phone  =  models.CharField(blank=True,  help_text = "Second contact @ the school  -- e-mail", max_length = 256)
+    #school_contact_2_email  =  models.CharField(blank=True,  help_text = "Second contact @ the school  -- phone", max_length = 256)
 
 
     number_of_students = models.IntegerField(help_text = "How many students participated", default = 0)
@@ -337,6 +352,10 @@ class Expedition (models.Model):
 
     cloud_cover =  models.ForeignKey(ExpeditionCloudCover, null=True, blank=True,  related_name = "exp_cloudcover")
     overnight_temperature =  models.ForeignKey(ExpeditionOvernightTemperature, null=True, blank=True,  related_name = "exp_temperature")
+    
+    
+    overnight_temperature_int = models.IntegerField(help_text = "Overnight Temperature", default = 0)
+    
     overnight_precipitation =  models.ForeignKey(ExpeditionOvernightPrecipitation, null=True, blank=True,  related_name = "exp_precipitation")
     overnight_precipitation_type =  models.ForeignKey(ExpeditionOvernightPrecipitationType, null=True, blank=True,  related_name = "exp_precipitation_type")
     moon_phase    =  models.ForeignKey(ExpeditionMoonPhase, null=True, blank=True,  related_name = "exp_moon_phase")
@@ -359,7 +378,23 @@ class Expedition (models.Model):
         return  [p for p in self.traplocation_set.all().order_by('team_number') if p.team_letter == team_letter]
     
 
+    def set_end_time_if_none(self):
+        if (self.end_date_of_expedition == None):
+            self.end_date_of_expedition = datetime.now()
+            self.save()
 
+    def end_minute_string(self):
+
+        return  "%02d" % self.end_date_of_expedition.minute
+        
+    def end_hour_string (self):
+        return "%02d"  % self.end_date_of_expedition.hour
+
+    def set_end_time_from_strings(self, expedition_hour_string, expedition_minute_string):
+        self.set_end_time_if_none()
+        new_time = self.end_date_of_expedition.replace (hour=int(expedition_hour_string),minute=int(expedition_minute_string))
+        self.end_date_of_expedition = new_time
+        self.save()        
 
 ##################################################
 class TrapLocation(models.Model):
@@ -389,12 +424,10 @@ class TrapLocation(models.Model):
     actual_point    = models.PointField(null=True, blank=True)
     objects = models.GeoManager()
     
-    #this will probably be retired:
-    #trap_used = models.ForeignKey (Trap, null=True, blank=True, help_text = "Which trap, if any, was left at this location (We may not be needing this info.)")
-    
     #instead we're linking directly to the type of trap.
     trap_type  =  models.ForeignKey(TrapType, null=True, blank=True, help_text = "Which type of trap, if any, was left at this location.")
     
+    understory =  models.TextField(blank=True,  null=True, default = '', help_text = "Understory")
     
     notes_about_location =  models.TextField(blank=True, help_text = "Notes about the location")
     
@@ -417,13 +450,23 @@ class TrapLocation(models.Model):
     bait_still_there = models.BooleanField(help_text = "Was the bait you left in the trap still there when you came back?")
     
     
-    #NOTES   THESE ARE GONNA GET AXED:
     notes_about_outcome =  models.TextField(blank=True, help_text = "Any miscellaneous notes about the outcome")
         
     student_names =  models.TextField (blank=True, null=True, help_text = "Names of the students responsible for this location (this would be filled in, if at all, by the instructor after the students have left the forest.", max_length = 256)
     
+    def date (self):
+        if self.expedition and self.expedition.end_date_of_expedition:
+            return self.expedition.end_date_of_expedition.strftime("%m/%d/%y")
+        else:
+            return None    
     
-    
+    def date_for_solr (self):
+        if self.expedition:
+            return self.expedition.end_date_of_expedition
+        else:
+            return None    
+        
+        
     def trap_nickname (self):
         return "%s%d" % (self.team_letter, self.team_number)
     
@@ -529,7 +572,7 @@ class TrapLocation(models.Model):
             return self.suggested_point.coords[1]
         return None
 
-
+            
         
     def actual_lat(self):
         if self.actual_point:
@@ -541,19 +584,58 @@ class TrapLocation(models.Model):
             return self.actual_point.coords[1]
         return None
 
+    def species_if_any(self):
+        if self.animal:
+            return self.animal.species.common_name
+        else:
+            return None
+        
+    def habitat_if_any(self):
+        if self.habitat:
+            return self.habitat.label
+        else:
+            return None
             
+    def habitat_id_if_any(self):
+        if self.habitat:
+            return self.habitat.id
+        else:
+            return None
+            
+    def school_if_any(self):
+        if self.expedition.school:
+            return self.expedition.school.name
+        else:
+            return None
+    
+    def search_map_repr (self):
+        result = {}
+        
+        info_string = "Animal: %s</br>Habitat: %s</br>School: %s</br>Date: %s" % (self.species_if_any(),self.habitat_if_any(), self.school_if_any(), self.date())
+        
+        
+        result ['name'] = info_string
+        result ['where'] = [self.actual_lat(), self.actual_lon()]
+        
+        result ['species']=     self.species_if_any()
+        result ['habitat_id'] = self.habitat_id_if_any()
+        result ['habitat'] =    self.habitat_if_any()
+        result ['school']  =    self.school_if_any()
+        result ['date']    =    self.date()
+        
+        return result
+        
     def dir(self):
         return dir(self)
         
-        
 
         
-            
-    if 1 == 1:
-    #these are still called from the map page -- see /sentry/group/1260
+    def gps_coords(self):
+        return "%s, %s" % (self.actual_NSlat(), self.actual_EWlon())
+        
+    if 0 == 0:
+    #these are no longer called from the map page -- see /sentry/group/1260
     #TODO remove; Now ambiguous.    
-                        def gps_coords(self):
-                            return "%s, %s" % (self.NSlat(), self.EWlon())
                         def NSlat(self):
                             lat = self.lat()
                             if lat:

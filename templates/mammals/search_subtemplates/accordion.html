@@ -1,0 +1,11 @@
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery(".ui-accordion-header").click(function() {
+            jQuery(this).next().toggle();
+            jQuery(this).toggleClass("ui-corner-all ui-corner-top");
+            var child = jQuery(this).children("span.ui-icon");
+            child.toggleClass("ui-icon-triangle-1-s ui-icon-triangle-1-e");
+            return false;
+        });
+    });
+</script>

@@ -40,7 +40,7 @@
                     Start date
                 </td> 
                 <td  > 
-                    To square
+                    Square
                 </td> 
                 <td  > 
                     Caught
@@ -55,13 +55,13 @@
                     Expedition #{{e.id }}
                 </td> 
                 <td  > 
-                    {{e.school_name}}
+                    {{e.school.name}}
                 </td> 
                 <td  > 
                     {{e.start_date_of_expedition|naturalday}}
                 </td> 
                 <td  > 
-                    Square {{e.grid_square.label_2 }}
+                    {{e.grid_square.battleship_coords }}
                 </td> 
                 <td  >
                     {%if  e.how_many_mammals_caught > 0 %}

@@ -1,26 +1,26 @@
 var images = [
-  ["id01.jpg", "abies (fir) needle"],
-  ["id02.jpg", "abies (fir) pollen"],
-  ["id03.jpg", "alnus (alder) pollen"],
-  ["id04.jpg", "asteraceae (ragweed & herbs) pollen"],
-  ["id05.jpg", "betula (birch) pollen"],
-  ["id06.jpg", "betula papyrifera (paper birch) seed"],
-  ["id07.jpg", "betula populifolia (gray birch) seed"],
-  ["id08.jpg", "carya (hickory) pollen"],
-  ["id09.jpg", "castanea dentata (American chestnut) pollen"],
-  ["id10.jpg", "cyperaceae (sedge) pollen"],
-  ["id11.jpg", "fagus grandifolia (American beech) pollen"],
-  ["id12.jpg", "fraxinus (ash) pollen"],
-  ["id13.jpg", "gramineae (grass) pollen"],
-  ["id14.jpg", "ostrya/carpinus pollen"],
-  ["id15.jpg", "picea (spruce) needle"],
-  ["id16.jpg", "picea (spruce) pollen"],
-  ["id17.jpg", "pinus strobus (white pine) needle"],
-  ["id18.jpg", "pinus strobus (white pine) pollen"],
-  ["id19.jpg", "quercus (oak) pollen"],
-  ["id20.jpg", "tsuga canadensis (eastern hemlock) needle"],
-  ["id21.jpg", "tsuga canadensis (eastern hemlock) pollen"],
-  ["id22.jpg", "ulmus (elm) pollen"]
+  ["id01.jpg", "abies (fir) needle", "id01_large.png"],
+  ["id02.jpg", "abies (fir) pollen", "id02_large.png"],
+  ["id03.jpg", "alnus (alder) pollen", "id03_large.png"],
+  ["id04.jpg", "asteraceae (ragweed & herbs) pollen", "id04_large.png"],
+  ["id05.jpg", "betula (birch) pollen", "id05_large.png"],
+  ["id06.jpg", "betula papyrifera (paper birch) seed", "id06_large.png"],
+  ["id07.jpg", "betula populifolia (gray birch) seed", "id07_large.png"],
+  ["id08.jpg", "carya (hickory) pollen", "id08_large.png"],
+  ["id09.jpg", "castanea dentata (American chestnut) pollen", "id09_large.png"],
+  ["id10.jpg", "cyperaceae (sedge) pollen", "id10_large.png"],
+  ["id11.jpg", "fagus grandifolia (American beech) pollen", "id11_large.png"],
+  ["id12.jpg", "fraxinus (ash) pollen", "id12_large.png"],
+  ["id13.jpg", "gramineae (grass) pollen", "id13_large.png"],
+  ["id14.jpg", "ostrya/carpinus pollen", "id14_large.png"],
+  ["id15.jpg", "picea (spruce) needle", "id15_large.png"],
+  ["id16.jpg", "picea (spruce) pollen", "id16_large.png"],
+  ["id17.jpg", "pinus strobus (white pine) needle", "id17_large.png"],
+  ["id18.jpg", "pinus strobus (white pine) pollen", "id18_large.png"],
+  ["id19.jpg", "quercus (oak) pollen", "id19_large.png"],
+  ["id20.jpg", "tsuga canadensis (eastern hemlock) needle", "id20_large.png"],
+  ["id21.jpg", "tsuga canadensis (eastern hemlock) pollen", "id21_large.png"],
+  ["id22.jpg", "ulmus (elm) pollen", "id22_large.png"]
 ];
 
 var current = -1;
@@ -29,6 +29,11 @@ function setup_id_activity() {
   //connect("pollen-choice", "onchange", save_name);
   connect("next", "onclick", display_next_specimen);
   connect("answers", "onclick", check_answers);
+  connect("pollen-image", "onclick", show_lightbox);
+  connect("pollen-magnify", "onclick", show_lightbox);
+  connect("pollen-lightbox-close", "onclick", hide_lightbox);
+  connect("pollen-image-large", "onclick", hide_lightbox);
+  
   //connect("complete", "onclick", restore);
   addElementClass("content", "unanswered");
 }
@@ -55,6 +60,7 @@ function goto_specimen(e) {
   var id = e.src().id;   // imageX
   current = parseInt(id.substr(5));
   replaceChildNodes("pollen-image", IMG({'src':'media/images/pollen/' + images[current][0]}, null));
+  $("pollen-image-large").src = 'media/images/pollen/' + images[current][2];
   $('pollen-choice').value = $('image'+current+'-name').innerHTML;
 }
 
@@ -70,6 +76,7 @@ function display_next_specimen() {
   else {
     current = nextElem.id.substr(16);
     replaceChildNodes("pollen-image", IMG({'src':'media/images/pollen/' + images[current][0]}, null));
+    $("pollen-image-large").src = 'media/images/pollen/' + images[current][2];
     $('pollen-choice').value = $('image'+current+'-name').innerHTML;
 
     // scroll div to the desired element
@@ -132,20 +139,15 @@ function resetKeys () {
   });
 }
 
-//function restore() {
-//  swapElementClass('content', 'answerkey', 'unanswered');
+function show_lightbox () {
+    showElement("pollen-lightbox");
+    showElement("pollen-lightbox-content");
+}
 
-//  forEach(getElementsByTagAndClassName("div", "imageanswer"), function(elem) {
-//    elem.innerHTML = "";
-//  });
-
-//  forEach(getElementsByTagAndClassName("div", "wronganswer"), function(elem) {
-//    removeElementClass(elem, "wronganswer");
-//  });
-//  forEach(getElementsByTagAndClassName("div", "rightanswer"), function(elem) {
-//    removeElementClass(elem, "rightanswer");
-//  });
-//}
+function hide_lightbox () {
+    hideElement("pollen-lightbox");
+    hideElement("pollen-lightbox-content");
+}
 
 addLoadEvent(setup_zoo);
 addLoadEvent(setup_id_activity);

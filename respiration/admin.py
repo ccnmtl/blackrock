@@ -1,4 +1,4 @@
-from blackrock.respiration.models import Temperature,StationMapping
+from blackrock.respiration.models import Temperature, StationMapping
 from django.contrib import admin
 
 admin.site.register(Temperature)

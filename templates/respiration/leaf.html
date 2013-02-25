@@ -47,8 +47,13 @@ Enter values for the parameters of the Arrhenius function to graph the respirati
 Use the red vertical indicator bar on the graph to view the calculated respiration rate (R) value(s) for all given tree species for your selected ambient temperature value (T<sub>a</sub>).
 {% endblock %} 
 
-{% block leftlegend %} 
-<h3>Set Respiration Rate Variables</h3>
+{% block leftlegend %}
+<div id="forestgraph">
+  <input id="print_button" type="button" value="Print" onclick="javascript:window.print()" />      
+</div>
+<h3>
+    Set Respiration Rate Variables
+</h3>
 {% endblock %} 
 
 {% block left %} 
@@ -168,7 +173,12 @@ Use the red vertical indicator bar on the graph to view the calculated respirati
       </div>
     </div>
   </form>
-{% endblock %} 
+{% endblock %}
+
+{% block rightlegend %}
+Respiration Rate Graph
+{% endblock %}
+
 
 {% block right %} 
     <div id="y-grid-leaf"></div>

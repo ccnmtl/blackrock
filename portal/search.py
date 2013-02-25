@@ -1,10 +1,16 @@
 from django import forms
-from haystack.views import SearchView, FacetedSearchView
-from haystack.forms import *
-from portal.models import *
-from django.utils.translation import ugettext_lazy as _
-from django.db.models import get_model, get_app
+from django.db.models import get_model
 from django.utils.text import capfirst
+from django.utils.translation import ugettext_lazy as _
+import haystack
+from haystack.forms import SearchForm
+from haystack.views import SearchView
+from portal.models import Facet
+from types import ListType
+
+
+#[06/Feb/2013 15:20:36] "GET /portal/search/?q=&asset_type=ForestStory&species=Animals&discipline=Forest+Ecology HTTP/1.1" 200 10885
+
 
 class PortalSearchForm(SearchForm):
 
@@ -17,6 +23,7 @@ class PortalSearchForm(SearchForm):
     return choices
   
   def default_facet_choices(facet):
+    
     choices = [ (f.name, f.display_name) for f in Facet.objects.filter(facet=facet)]
     choices.sort()
     return choices
@@ -38,17 +45,25 @@ class PortalSearchForm(SearchForm):
           if len(query):
             query += ' OR '
           query += "%s:%s" % (name, a)
-    
+    print "called getmultiplechoice and returned ", query
     return query
   
   def search(self):
+  
+    
+    #import pdb    
+    #pdb.set_trace()
+  
     sqs = []
     self.hidden = []
 
     if self.is_valid():
       q = self.cleaned_data['q'].lower()
-      sqs = self.searchqueryset.auto_query(q).order_by("name")
+      print "q is  ", q
+      sqs = self.searchqueryset.auto_query(q)
+      ordered_query = sqs.order_by("name")
 
+      
       if self.load_all:
         sqs = sqs.load_all()
       
@@ -59,11 +74,13 @@ class PortalSearchForm(SearchForm):
         
       for facet in Facet.asset_facets:
         query = self.get_multiplechoicefield(facet)
+        print "original query is ", query
         if len(query):
+          print "narrowing with ", query
           sqs = sqs.narrow(query)
 
     # facet counts based on result set
-    if len(sqs) > 0:
+    if len(sqs) > 0: ### this is broken
       counts = sqs.facet_counts()
       for facet in counts['fields']:
         if facet in self.fields:
@@ -100,6 +117,7 @@ class PortalSearchView(SearchView):
         if type(self.results) is ListType and len(self.results) < 1:
             extra["count"] = -1
         else:
+            print "count is ",  len(self.results)
             extra["count"] = len(self.results)
       
     # @todo -- add latitude/longitude into the context. self.request.
@@ -109,11 +127,8 @@ class PortalSearchView(SearchView):
     for param, value in self.request.GET.items():
       if param != 'page':
         query += '%s=%s&' % (param, value) 
+        print "extra query is " + query
     extra['query'] = query
     return extra
-
-
     
 
-    
-    
