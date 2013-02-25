@@ -45,7 +45,6 @@ class PortalSearchForm(SearchForm):
           if len(query):
             query += ' OR '
           query += "%s:%s" % (name, a)
-    print "called getmultiplechoice and returned ", query
     return query
   
   def search(self):
@@ -59,7 +58,6 @@ class PortalSearchForm(SearchForm):
 
     if self.is_valid():
       q = self.cleaned_data['q'].lower()
-      print "q is  ", q
       sqs = self.searchqueryset.auto_query(q)
       ordered_query = sqs.order_by("name")
 
@@ -74,9 +72,7 @@ class PortalSearchForm(SearchForm):
         
       for facet in Facet.asset_facets:
         query = self.get_multiplechoicefield(facet)
-        print "original query is ", query
         if len(query):
-          print "narrowing with ", query
           sqs = sqs.narrow(query)
 
     # facet counts based on result set
@@ -117,7 +113,6 @@ class PortalSearchView(SearchView):
         if type(self.results) is ListType and len(self.results) < 1:
             extra["count"] = -1
         else:
-            print "count is ",  len(self.results)
             extra["count"] = len(self.results)
       
     # @todo -- add latitude/longitude into the context. self.request.
@@ -127,7 +122,6 @@ class PortalSearchView(SearchView):
     for param, value in self.request.GET.items():
       if param != 'page':
         query += '%s=%s&' % (param, value) 
-        print "extra query is " + query
     extra['query'] = query
     return extra
     
