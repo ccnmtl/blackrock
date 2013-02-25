@@ -383,10 +383,10 @@ if (!Portal.Map) {
                 //myOptions ['mapTypeId'] = google.maps.MapTypeId.TERRAIN;
             }
             
-            
-            if (typeof addSimpleMap !== "undefined") {
+            if (typeof addHabitatMap !== "undefined") {
                 myOptions ['mapTypeId'] = google.maps.MapTypeId.TERRAIN
             }
+            
 
             self.mapInstance = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
             
@@ -425,14 +425,14 @@ if (!Portal.Map) {
                 addTrails (self);
             }
             
-            
             if (typeof addBlock !== "undefined") {
                 addBlock(self.mapInstance);
                 addTrails (self);
             }
 
-            if (typeof addSimpleMap !== "undefined") {
-                addSimpleMap(self.mapInstance);
+            if (typeof addHabitatMap !== "undefined") {
+                addHabitatMap(self.mapInstance);
+                addTrails (self);
             }
             
             self.toggleLayer();

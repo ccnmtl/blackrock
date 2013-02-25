@@ -1,3 +1,4 @@
+/*
 function animal_marker (name, where, map) {
     ppp = new google.maps.LatLng( where[0], where [1]);
     //console.log (ppp);
@@ -33,3 +34,5 @@ function show_squares (difficulty_level) {
         }
     }
 }
+*/
+

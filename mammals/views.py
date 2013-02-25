@@ -27,13 +27,19 @@ from re import match
 import csv
 
 def get_float (request, name, default):
-    number = request.POST.get(name, default)
-    return float (number)
-
+    try:
+        number = request.POST.get(name, default)
+        return float (number)
+    except ValueError:
+        return default
+        
 def get_int (request, name, default):
-    number = request.POST.get(name, default)
-    return int (number)
-
+    try:
+        number = request.POST.get(name, default)
+        return int (number)
+    except ValueError:
+        return default
+    
 class rendered_with(object):
     def __init__(self, template_name):
         self.template_name = template_name
@@ -79,7 +85,7 @@ def sandbox_grid(request):
     """"YES SANDBOX."""""
     default_lat  = 41.400
     default_lon  = -74.0305
-    default_size = 250.0
+    default_size = 15
     
     if (request.method != 'POST'):
         grid_center                             = [default_lat, default_lon]
@@ -94,6 +100,11 @@ def sandbox_grid(request):
         grid_center_y          =                get_float( request, 'grid_center_y',            default_lat)
         grid_center_x           =               get_float( request, 'grid_center_x',            default_lon)
         grid_center = grid_center_y, grid_center_x
+
+
+    #we need a minimum block size.
+    if block_size_in_m < 10:
+        block_size_in_m = 10
     
     grid_height_in_m = block_size_in_m * height_in_blocks
     grid_width_in_m  = block_size_in_m  * width_in_blocks
@@ -102,6 +113,8 @@ def sandbox_grid(request):
     grid_height,  grid_width   = to_lat_long (grid_height_in_m,   grid_width_in_m  )
     grid_bottom,  grid_left  = grid_center[0] - (grid_height / 2), grid_center[1] - (grid_width/2)
     grid_json = []
+    
+
     
     for i in range (0, height_in_blocks):
         new_column = []
@@ -701,12 +714,14 @@ def save_expedition_animals(request):
             
         rp_key = 'weight_in_grams_%d' % point.id
         if rp.has_key (rp_key) and rp[rp_key] != '':
-            setattr(point.animal, 'weight_in_grams', int(rp[rp_key]))
-            
+            try:
+                setattr(point.animal, 'weight_in_grams', int(float(rp[rp_key])))
+            except ValueError:
+                pass # not throwing a 500 for this, sorry.
+                        
         rp_key = 'tag_number_%d' % point.id
         if rp.has_key (rp_key) and rp[rp_key] != '':
             setattr(point.animal, 'tag_number', rp[rp_key])
-
             
             
         point.animal.save()
