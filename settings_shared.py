@@ -146,10 +146,14 @@ TINYMCE_DEFAULT_CONFIG = {'cols': 80,
                           'rows': 30,
                           'plugins': 'table,spellchecker,paste,searchreplace',
                           'theme': 'simple'}
+                          
+                          
+FIVE_HOURS = 60 * 60 * 5
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_SAVE_EVERY_REQUEST = True
-SESSION_COOKIE_AGE = 900
+#SESSION_COOKIE_AGE = 900
+SESSION_COOKIE_AGE = FIVE_HOURS
 
 MAX_DATA_COUNT = 12000
 
