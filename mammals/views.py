@@ -383,21 +383,8 @@ def expedition(request, expedition_id):
     exp = Expedition.objects.get(id =expedition_id)
     grades = GradeLevel.objects.all()
     hours   = [("%02d" % the_hour  ) for the_hour   in range (0, 24)]
-    minutes = [("%02d" % the_minute) for the_minute in range (0, 60)]
-    
-    #import pdb
-    #pdb.set_trace()
-    
+    minutes = [("%02d" % the_minute) for the_minute in range (0, 60)]    
     exp.set_end_time_if_none()
-    
-
-    #def end_minute_string(self):
-    #    return  "%02d" % self.end_date_of_expedition.minute
-    #    
-    #def end_hour_string (self):
-    #    return "%02d"  % self.end_date_of_expedition.hour
-    #import pdb
-    #pdb.set_trace()     
     return {
         'expedition'                        : exp
         ,'grades'                           : grades

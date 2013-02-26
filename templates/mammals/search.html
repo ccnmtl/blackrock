@@ -19,11 +19,13 @@
     <div class="plain">
         <div id="left">
             <h3>Habitat Map </h3>
-            <form method="get" action=".">
+            <form method="get" action="." id="the_habitat_search_form">
                     {%include "mammals/search_subtemplates/grid_selector.html" %}
+                    
+                    
+                    <span class = "trap_location_checkbox_container">
                     {%include "mammals/search_subtemplates/traps_and_spotting.html" %}
-                    <!-- annoying: species and habitat are the wrong way around in the template. 
-                    since I apparently don't understand the "with" tag in the django templating language. TODO fix.-->
+                    <!-- annoying: species and habitat are the wrong way around in the template, since I apparently don't understand the "with" tag in the django templating language. TODO fix.-->
                     {% for field in form %}
                         {%if field.label == "Species" %}
                             {%include "mammals/search_subtemplates/species.html" %}
@@ -39,10 +41,10 @@
                         {%endif %}
                     {%endfor %}
                     {%include "mammals/search_subtemplates/dates.html" %}
-                    <input type="submit" value="Search">
+                    </span> <!-- class = "trap_location_checkbox_container" -->
             </form>
         </div><!-- div id="left" -->
-        <div id="map_canvas"><!-- MAP GO HERE LAH-->Please wait while the map loads.</div><!-- id="map_canvas" -->
+        <div id="map_canvas">Please wait while the map loads.</div><!-- id="map_canvas" -->
         <div class="clearfix"></div><!-- class="clearfix" -->
     </div><!-- div class="plain" -->
 </div><!-- div id="container" -->

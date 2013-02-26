@@ -8,6 +8,7 @@ from types import ListType
 #from collections import Counter  ## not allowed in 2.6
 from collections import defaultdict
 from django.utils import simplejson
+from django.http import HttpResponse
 
 def my_counter(L):
     d = defaultdict(int)
@@ -56,24 +57,17 @@ class MammalSearchForm(SearchForm):
         for thing in  ['species', 'habitat', 'school', 'unsuccessful', 'trapped_and_released']:            
             what_to_count = [getattr (x, ('trap_%s' % thing)) for x in the_sqs]
             result [thing] = my_counter (what_to_count )
-        
         # nanohack
         result['trap_success'] = {}
         result['trap_success']['unsuccessful']         = result['trapped_and_released'][False];
         result['trap_success']['trapped_and_released'] = result['trapped_and_released'][True ];
-
-        
-            
-        return simplejson.dumps(result)
+        return result
 
     def search(self):
         sqs = []
         self.hidden = []
         if self.is_valid():
-        
-            
             #else
-            
             ##TODO test validity of connection and throw error if there's a problem.
             #note -- haystack catches the error. so i can't. This kinda sucks.
             
@@ -99,9 +93,7 @@ class MammalSearchForm(SearchForm):
             if show_successful   and not show_unsuccessful:
                 sqs = sqs.narrow('trap_trapped_and_released:True')
             
-            
-            self.breakdown = self.calculate_breakdown(sqs)
-        
+            self.breakdown = simplejson.dumps(self.calculate_breakdown(sqs))
         return sqs
 
 
@@ -130,19 +122,29 @@ class MammalSearchView(SearchView):
                 query += '%s=%s&' % (param, value)
                 
         extra['query'] = query
-        
-        #import pdb
-        #pdb.set_trace()
-        
         extra['grid_json'] = simplejson.dumps([])
         extra['little_habitat_disks_json'] = simplejson.dumps(dict((a.id, a.image_path_for_legend) for a in Habitat.objects.all()))
         extra['habitat_colors_json'] = simplejson.dumps(dict((a.id, a.color_for_map) for a in Habitat.objects.all()))
 
-        #this is what's used to actually draw the form:
         if not hasattr(self.form, 'breakdown'):
             self.form.breakdown = {}
             
+        #this is what's used to actually draw the form:
+        #TODO: index search_map_repr itself.
+        
+        #this is still hitting the DB. TODO: fix.
+        
         extra ['results_json']= simplejson.dumps([tl.object.search_map_repr() for tl in self.results])
-
         return extra
         
+def ajax_search(request):
+    if request.method == 'POST':
+        my_new_form    = MammalSearchForm(request.POST)
+        search_results = my_new_form.search()
+        result_obj = {}
+        #this is still hitting the DB. TODO: fix.
+        result_obj['map_data']  = [tl.object.search_map_repr() for tl in search_results]
+        result_obj['breakdown_object'] = my_new_form.calculate_breakdown(search_results)
+        return HttpResponse(simplejson.dumps(result_obj))
+    else:
+        return HttpResponseRedirect ( '/mammals/search/')
