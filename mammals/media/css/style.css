@@ -708,8 +708,25 @@ body.square div#transect_table_overflow_div {
     overflow: auto;
     border: none;
     min-width: 345px;
-    width: 345px;
 }
+
+body.square .distances_table {
+  height: 350px;
+  overflow: auto;
+}
+
+body.square div#transect_table_overflow_div::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 11px;
+    height: 11px;
+}
+
+body.square div#transect_table_overflow_div::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    border: 2px solid white; /* should match background, can't be transparent */
+    background-color: rgba(0, 0, 0, .5);
+}
+
 
 body.square .distances_table_header,
 body.square .distances_table {
@@ -718,7 +735,8 @@ body.square .distances_table {
 
 body.square .distances_table_header td,
 body.square .distances_table td {
-    width: 75px;
+    font-size: 1.5em;
+    width: 90px;
     margin: 0;
     padding: 2px;
     border: 1px solid #ccc;
