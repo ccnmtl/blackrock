@@ -710,10 +710,6 @@ body.square div#transect_table_overflow_div {
     min-width: 345px;
 }
 
-body.square .distances_table {
-  height: 350px;
-  overflow: auto;
-}
 
 body.square div#transect_table_overflow_div::-webkit-scrollbar {
     -webkit-appearance: none;
