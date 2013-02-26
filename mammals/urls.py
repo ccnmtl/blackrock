@@ -48,25 +48,17 @@ urlpatterns = patterns('',
 	
 	
 	(r'^save_expedition_animals/$', 'blackrock.mammals.views.save_expedition_animals'),
-	
-	#prob. not needed/
-	#(r'^save_expedition_animals_ajax/$', 'blackrock.mammals.views.save_expedition_animals_ajax'),
-	
+
 	
 	(r'^team_form/(?P<expedition_id>\d+)/(?P<team_letter>\w+)/$', 'blackrock.mammals.views.team_form'),
 	
 	
 	(r'^save_team_form/$', 'blackrock.mammals.views.save_team_form'),
 	(r'^save_team_form_ajax/$', 'blackrock.mammals.views.save_team_form_ajax'),
-	
-	#TODO remove -- these are obsolete.
-	#(r'^map_index/$',              'blackrock.mammals.views.map_index' ),	
-	#(r'^species_map/$',              'blackrock.mammals.views.species_map' ),
-	#(r'^species_map/(?P<species_id>\d+)/$',              'blackrock.mammals.views.species_map' ),
-	#(r'^habitat_map/$',              'blackrock.mammals.views.habitat_map' ),
-	#(r'^habitat_map/(?P<habitat_id>\d+)/$',              'blackrock.mammals.views.habitat_map' ),
     
     url(r'^search/', MammalSearchView(template="mammals/search.html", form_class=MammalSearchForm), name='search'),
+	
+    url(r'^ajax_search/$', 'blackrock.mammals.search.ajax_search'),
 	
 	#(r'^selenium/(?P<task>\w+)/$',               'family_info.views.selenium'),
 

@@ -1,31 +1,6 @@
 var markers = []
 var the_map;
-var breakdown_object;
-
-function general_map_marker (name, where, map) {
-    result = new google.maps.Marker ({
-	'position' : new google.maps.LatLng( where[0], where [1])
-	, 'map' : map
-	, 'title': name // TODO add more interesting info.
-    });
-    return result
-}
-
-
-
-//habitat_disk_style
-
-
-function habitat_disk_circle (habitat_id, where, style, map) {
-  c = new google.maps.Circle({
-      center:  new google.maps.LatLng( where[0], where [1]),
-      map: map,
-
-   });
-  c.setOptions (style);
-  return  c;
-}
-
+//var breakdown_object;
 
 function to_base_256 (a) {
     var sixteen = 256 / 16;
@@ -53,8 +28,50 @@ function to_google_color (b) {
     return result;
 }
 
+function decorate_page() {
+    // anything that only has to be done once on page load, put here.
+    show_little_habitat_disks();
+}
+
+function wipe_markers() {
+    // No, really.
+    for (var i = 0; i < markers.length; i++) {
+        
+        markers[i].setMap(null);
+        //delete (markers[i]);
+    }
+    //delete (markers);
+    //markers = [];
+    markers.length = 0;
+}
+
+
+
 function addHabitatMap(mapInstance) {
+    // this is called from on high.
     the_map = mapInstance;
+    breakdown_object = JSON.parse(jQuery ('#breakdown')[0].innerHTML);
+    map_data = JSON.parse(jQuery('#map_data')[0].innerHTML);
+    refresh_map(mapInstance, breakdown_object, map_data);
+    decorate_page();
+}
+
+function ajax_search() {
+    jQuery.ajax({
+        data: jQuery('#the_habitat_search_form').serialize(),
+        type: 'POST',
+        url: '/mammals/ajax_search/',
+        success: function(response) {
+            var resp_obj = JSON.parse(response);
+            //console.log (JSON.stringify (resp_obj['breakdown_object']));
+            refresh_map (the_map, resp_obj['breakdown_object'], resp_obj['map_data']);
+        }
+    });
+    return false;
+}
+
+function refresh_map (mapInstance, breakdown_object, map_data) {
+    wipe_markers();
     var habitat_colors_obj = JSON.parse(jQuery ('#habitat_colors_div')[0].innerHTML);
     function habitat_marker (habitat_id, name, where, map) {
         the_rgb = habitat_colors_obj[habitat_id];
@@ -75,17 +92,16 @@ function addHabitatMap(mapInstance) {
         google.maps.event.addListener(c, 'click', show_info_window);
         return c;
     }
-    map_data = JSON.parse(jQuery('#map_data')[0].innerHTML);
     for (var i = 0; i < map_data.length; i++) {
         if (map_data[i]['where'][0] != 0) {
             habitat_id = map_data[i]['habitat_id'];        
 	        new_marker = habitat_marker (habitat_id,   map_data[i]['name'], map_data[i]['where'], mapInstance );
-            markers.push ( new_marker);
+	        markers.push ( new_marker);
         }
     }
-    show_little_habitat_disks();
-    show_breakdown_numbers();
+    show_breakdown_numbers( breakdown_object);
 }
+
 
 function isEmpty(obj) {
     // Stay classy, JavaScript.
@@ -99,19 +115,78 @@ function isEmpty(obj) {
 
 
 
-function show_breakdown_for_facet (the_facet, the_checkboxes) {
-    for (var i = 0; i < the_checkboxes.length; i++) {
-        var the_checkbox = the_checkboxes[i];
-        var how_many = breakdown_object[the_facet] [the_checkbox.value]
-        if ( how_many ) {
-            say_how_many (the_checkbox, how_many);
+function show_breakdown_numbers (breakdown_object) {
+    
+    jQuery ('.breakdown_number_span').remove();
+
+    console.log (breakdown_object);
+    
+    // Suggest ways to break down the search.
+    // If you narrow the search by checking more boxes,how many spots would remain on the map ?
+    
+    if (isEmpty (breakdown_object)) {
+        return;
+    }
+    var facets = {
+         'habitat' :       jQuery ('input[name="trap_habitat" ]')
+        ,'species' :       jQuery ('input[name="trap_species" ]')
+        ,'school'  :       jQuery ('input[name="trap_school"  ]')
+        ,'trap_success'  : jQuery ('input[name="trap_success" ]')
+    }
+    
+    
+    res = [];
+    jQuery.each (facets, function (k, v) { res.push ( {'k': k, 'v': v } ); }  );
+    
+    
+    //jQuery.each ( facets, show_breakdown_for_facet);    
+    
+    
+    //function show_breakdown_for_facet (the_facet, the_checkboxes) {
+    
+    
+    for (var j = 0; j < res.length; j++) {
+    
+        the_facet      = res[j]['k'];
+        the_checkboxes = res[j]['v'];
+        //console.log (the_facet);
+        
+        for (var i = 0; i < the_checkboxes.length; i++) {
+            var the_checkbox = the_checkboxes[i];
+            var how_many = breakdown_object[the_facet] [the_checkbox.value]
+            if ( how_many ) {
+                say_how_many (the_checkbox, how_many);
+            }
         }
     }
+
+
+    
+    
 }
 
-function draw_disk_html (disk_path) {
-    return "<img src=" + disk_path + "/>" ;
 
+function say_how_many (the_checkbox, how_many) {
+    jQuery(the_checkbox.parentElement).append ( '<span class = "breakdown_number_span"> (' + how_many + ') </span>' );
+    
+    
+    //console.log (the_checkbox.value);
+    //console.log (' --> ' + how_many);
+}
+
+
+
+
+
+
+
+
+///////////// HABITAT LEGEND DISKS:
+
+
+
+function draw_disk_html (disk_path) {
+    return "<img class='habitat_legend_disk' src='" + disk_path + "'/>" ;
 }
 
 function show_little_habitat_disks() {
@@ -126,27 +201,6 @@ function show_little_habitat_disks() {
     jQuery.each (jQuery ('input[name="trap_habitat" ]'), show_a_disk);
 }
 
-function show_breakdown_numbers () {
-    // Suggest ways to break down the search.
-    // If you narrow the search by checking more boxes,how many spots would remain on the map ?
-    breakdown_object = JSON.parse(jQuery ('#breakdown')[0].innerHTML);
-    if (isEmpty (breakdown_object)) {
-        return;
-    }
-    var facets = {
-         'habitat' :       jQuery ('input[name="trap_habitat" ]')
-        ,'species' :       jQuery ('input[name="trap_species" ]')
-        ,'school'  :       jQuery ('input[name="trap_school"  ]')
-        ,'trap_success'  : jQuery ('input[name="trap_success" ]')
-    }    
-    jQuery.each ( facets, show_breakdown_for_facet);    
-}
-
-
-
-function say_how_many (the_checkbox, how_many) {
-    jQuery(the_checkbox.parentElement).append ( ' (' + how_many + ')' );
-}
 
 
 function close_unused_facets () {
