@@ -21,6 +21,9 @@
             <h3>Habitat Map </h3>
             <form method="get" action="." id="the_habitat_search_form">
                     {%include "mammals/search_subtemplates/grid_selector.html" %}
+                    
+                    
+                    <span class = "trap_location_checkbox_container">
                     {%include "mammals/search_subtemplates/traps_and_spotting.html" %}
                     <!-- annoying: species and habitat are the wrong way around in the template, since I apparently don't understand the "with" tag in the django templating language. TODO fix.-->
                     {% for field in form %}
@@ -38,12 +41,7 @@
                         {%endif %}
                     {%endfor %}
                     {%include "mammals/search_subtemplates/dates.html" %}
-                    
-                    
-                    <input type="submit" value="Search">
-            
-                    <button type="button" onclick="ajax_search(); return false;">Ajax search</a>   
-            
+                    </span> <!-- class = "trap_location_checkbox_container" -->
             </form>
         </div><!-- div id="left" -->
         <div id="map_canvas">Please wait while the map loads.</div><!-- id="map_canvas" -->

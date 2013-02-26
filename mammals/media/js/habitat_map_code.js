@@ -53,7 +53,12 @@ function addHabitatMap(mapInstance) {
     breakdown_object = JSON.parse(jQuery ('#breakdown')[0].innerHTML);
     map_data = JSON.parse(jQuery('#map_data')[0].innerHTML);
     refresh_map(mapInstance, breakdown_object, map_data);
+    
+    jQuery('.trap_location_checkbox_container input').change(ajax_search);
+    
     decorate_page();
+    
+    
 }
 
 function ajax_search() {
@@ -118,9 +123,6 @@ function isEmpty(obj) {
 function show_breakdown_numbers (breakdown_object) {
     
     jQuery ('.breakdown_number_span').remove();
-
-    console.log (breakdown_object);
-    
     // Suggest ways to break down the search.
     // If you narrow the search by checking more boxes,how many spots would remain on the map ?
     
@@ -135,22 +137,13 @@ function show_breakdown_numbers (breakdown_object) {
     }
     
     
+    // Don't ask. Just don't ask.
     res = [];
     jQuery.each (facets, function (k, v) { res.push ( {'k': k, 'v': v } ); }  );
     
-    
-    //jQuery.each ( facets, show_breakdown_for_facet);    
-    
-    
-    //function show_breakdown_for_facet (the_facet, the_checkboxes) {
-    
-    
     for (var j = 0; j < res.length; j++) {
-    
         the_facet      = res[j]['k'];
         the_checkboxes = res[j]['v'];
-        //console.log (the_facet);
-        
         for (var i = 0; i < the_checkboxes.length; i++) {
             var the_checkbox = the_checkboxes[i];
             var how_many = breakdown_object[the_facet] [the_checkbox.value]
@@ -159,23 +152,13 @@ function show_breakdown_numbers (breakdown_object) {
             }
         }
     }
-
-
-    
-    
 }
 
 
 function say_how_many (the_checkbox, how_many) {
     jQuery(the_checkbox.parentElement).append ( '<span class = "breakdown_number_span"> (' + how_many + ') </span>' );
     
-    
-    //console.log (the_checkbox.value);
-    //console.log (' --> ' + how_many);
 }
-
-
-
 
 
 
