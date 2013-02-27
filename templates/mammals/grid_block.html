@@ -37,8 +37,15 @@ NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVI
 		
 		{% if sandbox %}
 		
-		{%else %}
-            Welcome to square {{selected_block.battleship_coords}} in Black Rock Forest! Hover over the square in the map at right, or the table of bearings on the left, to highlight different trap locations. Click "Generate bearings" to generate a new random placement for the traps.Click "Download" to save a CSV file of the trap locations. Click "Print" to see a printer-friendly version of the page, complete with precise latitudes and longitudes. If you are logged in, you can save the expedition by clicking the "Save" button. (<em>Note</em>: Bearings are with respect to magnetic north.)
+		{%else %} 
+    Welcome to square {{selected_block.battleship_coords}}  in Black Rock Forest! 
+    <ul>
+    <li>	Hover over the square on the map or in the table below to highlight different trap locations. 
+	</li><li>	Click "Generate bearings" to generate a new random locations for trap setting. (Note: Bearings are based on magnetic north.)
+	</li><li>	Click "Download" to save a CSV file of the trap locations on your computer. 
+	</li><li>	Click "Print" to see a printer-friendly version of the page, complete with latitudes and longitudes. 
+	</li><li>	If you are logged in, click "Save" to save the expedition in the database. 
+    </ul>
         {% endif %}
 		</div><!-- class="instructions" -->
 
@@ -67,7 +74,16 @@ NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVI
 			</div><!-- class="formfield" -->
 	
 			<div class="formfield" style="text-align: right; padding-right: 5px; padding-top: 4px; height: 26px;">
-				<input type="submit" value="Generate bearings" /><button type="button" id="save_square_via_ajax" onclick="new_expedition_ajax();">Save</button>
+				<input type="submit" value="Generate bearings" />
+
+            {% if sandbox %}
+            {%else %}
+                {% if user.is_authenticated %}	
+                    <button type="button" id="save_square_via_ajax" onclick="new_expedition_ajax();">Save</button>
+                {%endif%}
+            {%endif%}
+
+			
 			</div><!-- class="formfield" -->
 		</form>
 		
