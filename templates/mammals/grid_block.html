@@ -34,8 +34,12 @@ NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVI
 		<h3>{% if sandbox %}Playground{% else %}Research{% endif %} Grid: Bearings and Traps</h3>
 		<div class="back_page"><a href="#" onclick="back_to_grid_from_square()">Return to Location Square Selection</a></div>
 		<div class="instructions">
-		<!--
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget risus lacus. Sed id mauris vel urna viverra pharetra. Sed ornare, augue quis eleifend ultricies, sapien lacus venenatis neque, vel. -->
+		
+		{% if sandbox %}
+		
+		{%else %}
+            Welcome to square {{selected_block.battleship_coords}} in Black Rock Forest! Hover over the square in the map at right, or the table of bearings on the left, to highlight different trap locations. Click "Generate bearings" to generate a new random placement for the traps.Click "Dowload" to save a CSV file of the trap locations. Click "Print" to see a printer-friendly version of the page, complete with precise latitudes and longitudes. If you are logged in, you can save the expedition by clicking the "Save" button. (<em>Note</em>: Bearings are with respect to magnetic north.)
+        {% endif %}
 		</div><!-- class="instructions" -->
 
 		{% include "mammals/grid_center_table.html" %}
@@ -63,7 +67,7 @@ NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVI
 			</div><!-- class="formfield" -->
 	
 			<div class="formfield" style="text-align: right; padding-right: 5px; padding-top: 4px; height: 26px;">
-				<input type="submit" value="Generate bearings" />
+				<input type="submit" value="Generate bearings" /><button type="button" id="save_square_via_ajax" onclick="new_expedition_ajax();">Save</button>
 			</div><!-- class="formfield" -->
 		</form>
 		
