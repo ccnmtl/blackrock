@@ -157,7 +157,7 @@ function deal_with_just_visited_block () {
         if (sq['database_id'] == selected_block_id) {
            sq['grid_rectangle'].setOptions (square_styles['just_visited']['unselected']);
            add_just_visited_mouseout  (sq['grid_rectangle']);
-           add_just_visited_mouseover (sq['grid_rectangle']);
+           add_just_visited_mouseover (sq['grid_rectangle'], sq);
         }
     }
 }
@@ -250,9 +250,10 @@ function add_special_mouseout (rect) {
     });
 }
 
-function add_just_visited_mouseover (rect) {
+function add_just_visited_mouseover (rect, sq) {
     google.maps.event.clearListeners(rect, 'mouseover');
     google.maps.event.addListener(rect, 'mouseover', function() {
+    display_info_about_square (box_info_from_grid_obj (sq));
     rect.setOptions (square_styles['just_visited']['selected']);
     });
 }
