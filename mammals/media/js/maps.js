@@ -435,13 +435,10 @@ if (!Portal.Map) {
                 addTrails (self);
             }
             
-            self.toggleLayer();
-            
-            
+            self.toggleLayer();            
         }
     }
 }
-
 
 var portalMapInstance = null;
 addLoadEvent(function() {

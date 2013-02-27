@@ -17,6 +17,7 @@
 {%include "mammals/search_subtemplates/other_hidden_fields.html" %}
 <div id="container" class="habitatmap">
     <div class="plain">
+
         <div id="left">
             <h3>Habitat Map </h3>
             <form method="get" action="." id="the_habitat_search_form">
@@ -25,21 +26,35 @@
                     
                     <span class = "trap_location_checkbox_container">
                     {%include "mammals/search_subtemplates/traps_and_spotting.html" %}
-                    <!-- annoying: species and habitat are the wrong way around in the template, since I apparently don't understand the "with" tag in the django templating language. TODO fix.-->
+                    
+                    
+                    {%include "mammals/search_subtemplates/species.html" %}
+                    
+                    {%include "mammals/search_subtemplates/habitats.html" %}
+                    
+                    {%include "mammals/search_subtemplates/schools.html" %}
+                                                
+            {%comment %}
                     {% for field in form %}
                         {%if field.label == "Species" %}
                             {%include "mammals/search_subtemplates/species.html" %}
                         {%else %}
                         {%endif %}
+                        
                         {%if field.label == "Habitat" %}
-                            {%include "mammals/search_subtemplates/habitats.html" %}
+
                         {%else %}
                         {%endif %}              
+                        
+                        
+            
                         {%if field.label == "School" %}
-                            {%include "mammals/search_subtemplates/schools.html" %}
                         {%else %}
                         {%endif %}
                     {%endfor %}
+                        
+            {%endcomment %}
+            
                     {%include "mammals/search_subtemplates/dates.html" %}
                     </span> <!-- class = "trap_location_checkbox_container" -->
             </form>

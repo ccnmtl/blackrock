@@ -4,7 +4,7 @@
         <div  text-align="right">
             {% csrf_token %}
             <input type="text" name="grid_square_id" id="grid_square_id" value ="{{grid_square_id}}" class="hide_this"></input>
-            <input type="text" name="transects_json" style="display:none" value = "{{transects_json}}"></input>
+            <input type="text" name="transects_json" class="hide_this" value = "{{transects_json}}"></input>
         </div>
     </form>
     <button id="save_square_via_ajax" onclick="new_expedition_ajax();">Save</button>

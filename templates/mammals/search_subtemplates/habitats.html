@@ -1,16 +1,22 @@
+<div class="ui-accordion ui-widget ui-helper-reset ui-accordion-icons">
+        <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-state-focus ui-corner-top"><!-- 'ui-icon-triangle-1-s' IS THE CLASS FOR THE BOX TO OPEN. JQUERY UI FLIPS IT BACK TO 'ui-icon-triangle-1-e' IF YOU CLOSE THE BOX --><span class="ui-icon ui-icon-triangle-1-s"></span><a tabindex="-1" href="#">{{form.trap_habitat.label_tag}}</a></h3>
+        <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active">
+            <div class="ui-accordion-content-scroll">
+            
+            {%for trap_habitat_item in form.trap_habitat.field.choices %}
+                <li>
+                    <label for="id_trap_habitat_{{forloop.counter}}">
+                        <input type="checkbox"
+                            name="trap_habitat"
+                            value="{{trap_habitat_item.0}}"
+                            id="id_trap_habitat_{{forloop.counter}}" />
+                        {{trap_habitat_item.1}}
+                    </label>
+                </li>
+            {%endfor%}
+            
+            
+        </div><!-- div class="ui-accordion-content-scroll -->                       
+    </div><!-- div class="ui-accordion-content ui-helper-reset... -->
+</div><!-- div class="ui-accordion ui-widget... -->
 
-
-{{ field.errors }}
-{% if field.field.choices %}
-    <!-- ### BEGIN HABITATS -->
-        <div class="ui-accordion ui-widget ui-helper-reset ui-accordion-icons">
-            <h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-state-focus ui-corner-top"><!-- 'ui-icon-triangle-1-s' IS THE CLASS FOR THE BOX TO OPEN. JQUERY UI FLIPS IT BACK TO 'ui-icon-triangle-1-e' IF YOU CLOSE THE BOX --><span class="ui-icon ui-icon-triangle-1-s"></span><a tabindex="-1" href="#">{{field.label_tag}}</a></h3>
-            <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active">
-                <div class="ui-accordion-content-scroll">
-                {{ field }}
-            </div><!-- div class="ui-accordion-content-scroll -->                       
-        </div><!-- div class="ui-accordion-content ui-helper-reset... -->
-    </div><!-- div class="ui-accordion ui-widget... -->
-    <!-- ### END HABITATS -->
-{% else %}
-{% endif %}
