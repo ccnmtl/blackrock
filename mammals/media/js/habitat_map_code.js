@@ -1,6 +1,37 @@
 var markers = []
 var the_map;
-//var breakdown_object;
+
+map_square_style = {
+    fillOpacity     : 0.4
+    ,fillColor      : '#f1ab00'
+    ,strokeOpacity   : 0.3
+    ,strokeColor     : '#d38c0c'
+    ,strokeWeight    : 1
+    ,visible        : false
+}
+
+function lat_lng_from_point(point ) {
+    return new google.maps.LatLng(point[0] , point[1]);
+}
+
+
+function bounds (box) {
+    var bl  = lat_lng_from_point(box[0]);
+    var tl  = lat_lng_from_point(box[1]);
+    var tr  = lat_lng_from_point(box[2]);
+    var br  = lat_lng_from_point(box[3]);
+    return [ bl, tl, tr, br];
+}
+
+function make_grid_rectangle (_paths, mapInstance) {
+    rect = new google.maps.Polygon ({
+        paths           : _paths,
+        map             : mapInstance
+    });
+    rect.setOptions (map_square_style);
+    return rect;
+}
+//addGrid(self.mapInstance)
 
 function to_base_256 (a) {
     var sixteen = 256 / 16;
@@ -36,7 +67,6 @@ function decorate_page() {
 function wipe_markers() {
     // No, really.
     for (var i = 0; i < markers.length; i++) {
-        
         markers[i].setMap(null);
         //delete (markers[i]);
     }
@@ -46,8 +76,43 @@ function wipe_markers() {
 }
 
 
+function draw_the_grid(the_map) {
+    var grid_obj = []
+    grid_json = JSON.parse(jQuery('#grid_json')[0].innerHTML)
+    for (var i = 0; i < grid_json.length; i++) {
+        var box = grid_json[i]['corner_obj'];
+        var rect = make_grid_rectangle (bounds (box), the_map);
+        //grid_json [i]['grid_rectangle'] = rect;
+        grid_obj.push (rect);
+    }
+    the_map['grid_obj'] = grid_obj;
+}
+
+function show_the_grid(the_map) {
+    for (var i = 0; i < the_map.grid_obj.length; i++) {
+        the_map.grid_obj[i].setVisible(true)
+    }
+}
+
+
+function hide_the_grid(the_map) {
+    for (var i = 0; i < the_map.grid_obj.length; i++) {
+        the_map.grid_obj[i].setVisible(false)
+    }
+}
+
+
+function show_or_hide_the_grid (the_map) {
+    if (jQuery('#id_gridOn').attr('checked')) {
+        show_the_grid(the_map)
+    }
+    else {
+        hide_the_grid(the_map)
+    }
+}
 
 function addHabitatMap(mapInstance) {
+    // This function is run ONLY ONCE, on page load.
     // this is called from on high.
     the_map = mapInstance;
     breakdown_object = JSON.parse(jQuery ('#breakdown')[0].innerHTML);
@@ -55,7 +120,10 @@ function addHabitatMap(mapInstance) {
     refresh_map(mapInstance, breakdown_object, map_data);
     jQuery('.trap_location_checkbox_container input').change(ajax_search);
     decorate_page();
+    draw_the_grid(the_map);
+    jQuery('#id_gridOn').change(function  () { show_or_hide_the_grid (the_map);});
 }
+
 
 function ajax_search() {
     jQuery.ajax({

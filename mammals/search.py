@@ -1,7 +1,7 @@
 from django import forms
 from haystack.views import SearchView, FacetedSearchView
 from haystack.forms import SearchForm
-from mammals.models import TrapLocation, Species, Habitat, School
+from mammals.models import TrapLocation, Species, Habitat, School, GridSquare
 from django.db.models import get_model, get_app
 from django.utils.text import capfirst
 from types import ListType
@@ -120,9 +120,11 @@ class MammalSearchView(SearchView):
         for param, value in self.request.GET.items():
             if param != 'page':
                 query += '%s=%s&' % (param, value)
-                
+        
+        
+        grid = [gs.info_for_display() for gs in GridSquare.objects.all() if gs.display_this_square]
+        extra['grid_json']  = simplejson.dumps(grid)
         extra['query'] = query
-        extra['grid_json'] = simplejson.dumps([])
         extra['little_habitat_disks_json'] = simplejson.dumps(dict((a.id, a.image_path_for_legend) for a in Habitat.objects.all()))
         extra['habitat_colors_json'] = simplejson.dumps(dict((a.id, a.color_for_map) for a in Habitat.objects.all()))
 
