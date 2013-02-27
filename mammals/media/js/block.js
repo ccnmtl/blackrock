@@ -18,9 +18,9 @@ function addBlock(mapInstance) {
     
     var dot_radius;
     var side_of_square =  distHaversine (lat_lng_from_point(box[0]) , lat_lng_from_point(box[1] )) * 1000 //meters.
-    var really_small_square =(side_of_square < 20 );
+    var really_small_square =(side_of_square < 150 );
     if ( really_small_square ) {
-        dot_radius = side_of_square / 25;
+        dot_radius = side_of_square / 50;
         initial_circle_style['radius'] = dot_radius;
         circle_off_style    ['radius'] = dot_radius;
         circle_on_style     ['radius'] = dot_radius * 2;
@@ -47,31 +47,6 @@ function addBlock(mapInstance) {
     hide_square_coords_table();
     
 }
-// if you RELO
-
-/*
-initial_circle_style = {
-      radius: 2, // this is the radius in meters on the surface of the planet.
-      fillColor: 'lightgreen',
-      fillOpacity : 1,
-      strokeWeight : 1,
-      strokeColor : 'lightgreen',
-      strokeOpacity : 1,
-      zIndex: 1
-}
-
-circle_on_style = {
-    fillColor : "blue",
-    radius: 5,
-    zIndex: 1
-}
-
-circle_off_style = {
-    fillColor : "lightgreen",
-    radius: 2,
-    zIndex: 2
-}
-*/
 
 function hide_square_coords_table () {
     jQuery ('.square_coords_table_div').hide();
