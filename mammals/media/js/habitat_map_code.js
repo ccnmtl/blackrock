@@ -53,12 +53,8 @@ function addHabitatMap(mapInstance) {
     breakdown_object = JSON.parse(jQuery ('#breakdown')[0].innerHTML);
     map_data = JSON.parse(jQuery('#map_data')[0].innerHTML);
     refresh_map(mapInstance, breakdown_object, map_data);
-    
     jQuery('.trap_location_checkbox_container input').change(ajax_search);
-    
     decorate_page();
-    
-    
 }
 
 function ajax_search() {
@@ -89,10 +85,14 @@ function refresh_map (mapInstance, breakdown_object, map_data) {
         });
         c.setOptions (style);
         function show_info_window (event) {
+            if (the_map.currently_open_infowindow != undefined) {
+                the_map.currently_open_infowindow.close()
+            }
             the_infowindow = new google.maps.InfoWindow();
             the_infowindow.setContent( name );
             the_infowindow.setPosition(event.latLng);
             the_infowindow.open(the_map);
+            the_map.currently_open_infowindow = the_infowindow;
         }
         google.maps.event.addListener(c, 'click', show_info_window);
         return c;
@@ -117,8 +117,6 @@ function isEmpty(obj) {
     }
     return true;
 }
-
-
 
 function show_breakdown_numbers (breakdown_object) {
     
