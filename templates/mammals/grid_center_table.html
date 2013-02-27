@@ -1,14 +1,13 @@
 {% if sandbox %}
     <table class ="center_point_table">
         <tr>
-            <td>&nbsp;</td>
-            <td >Latitude</td>
-            <td >Longitude</td>
+            <th colspan="2">Center of the square</th>
         </tr>
         <tr >
-            <td >Center of the square</td>
-            <td >{{selected_block_center_y|floatformat:5}}</td>
-            <td >{{selected_block_center_x|floatformat:5}}</td>
+            <td class="latlong">Latitude</td><td >{{selected_block_center_y|floatformat:5}}</td>
+            </tr>
+            <tr>
+            <td class="latlong">Longitude</td><td >{{selected_block_center_x|floatformat:5}}</td>
         </tr>
     </table>
 {%else %}

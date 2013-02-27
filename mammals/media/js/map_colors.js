@@ -2,20 +2,20 @@
 square_styles = {
     'regular': {
         'selected' : { // mouseover
-            fillOpacity     : 0.3
-            ,fillColor      : 'blue'
-            ,strokeOpacity   : 0.3
-            ,strokeColor     : 'green'
+            fillOpacity     : 0.9
+            ,fillColor      : '#f1ab00'
+            ,strokeOpacity   : 1
+            ,strokeColor     : '#985122'
             ,strokeWeight    : 1
         }
         
         // note square_styles.regular.unselected is also used
         // for the one-square view on the square page.
         ,'unselected' : { //not mouseover
-            fillOpacity     : 0.1
-            ,fillColor      : 'blue'
+            fillOpacity     : 0.4
+            ,fillColor      : '#f1ab00'
             ,strokeOpacity   : 0.3
-            ,strokeColor     : 'green'
+            ,strokeColor     : '#d38c0c'
             ,strokeWeight    : 1
         }
     }

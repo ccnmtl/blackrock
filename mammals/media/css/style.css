@@ -670,12 +670,32 @@ body.playground_grid .coord_display
 
 body.square .highlighted { color: #003399 !important; background-color: #b8dbff !important; }
 
+body.square table.center_point_table {
+  width: 375px;
+  font-size: 12px;
+}
+
 body.square .center_point_table td
 {
 	border-color: #ABA;
 	border-width: 1px;
 	border-style: solid;
-	font-size: 12px;
+  background-color: #EFE;
+}
+
+body.square .center_point_table th {
+  margin: 0;
+  font-weight: bold;
+  border: 1px solid #A18F83;
+  background-color: #dcd3c2;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  text-align: left;
+}
+
+body.square .center_point_table td.latlong {
+  font-weight: bold;
 }
 
 .team_trap_table
@@ -750,7 +770,7 @@ body.square .distances_table td.transect_td {
     vertical-align: top;
 }
 
-body.square .distances_table, body.square .center_point_table { background-color: #EFE; }
+body.square .distances_table { background-color: #EFE; }
 body.square .distances_table tr.first_color { background-color: #eeffee; }
 body.square .distances_table tr.second_color { background-color: #ffffcc; }
 
