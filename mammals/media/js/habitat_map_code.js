@@ -103,18 +103,17 @@ function hide_the_grid(the_map) {
 
 
 function show_or_hide_the_grid (the_map) {
+    // show or hide the grid:
     if (jQuery('#id_gridOn').attr('checked')) {
         show_the_grid(the_map)
     }
     else {
         hide_the_grid(the_map)
-    }
+    }   
 }
 
-function contains_checked_boxes (facet_box) {
-    
+function contains_checked_boxes (facet_box) {    
     var how_many_are_checked = jQuery (facet_box).next().find('input:checkbox:checked').length;
-    
     return (how_many_are_checked > 0)
 
 }
@@ -133,6 +132,12 @@ function basic_turnbuckle_toggle () {
 }
 
 
+function deal_with_facet_checkbox() {
+    //console.log (this);
+
+}
+
+
 function addHabitatMap(mapInstance) {
     // This function is run ONLY ONCE, on page load.
     // this is called from on high.
@@ -140,7 +145,7 @@ function addHabitatMap(mapInstance) {
     breakdown_object = JSON.parse(jQuery ('#breakdown')[0].innerHTML);
     map_data = JSON.parse(jQuery('#map_data')[0].innerHTML);
     refresh_map(mapInstance, breakdown_object, map_data);
-    jQuery('.trap_location_checkbox_container input').change(ajax_search);
+    jQuery('.trap_location_checkbox_container input').change(checkbox_change_callback);
     decorate_page();
     draw_the_grid(the_map);
     jQuery('#id_gridOn').change(function  () { show_or_hide_the_grid (the_map);});
@@ -150,7 +155,37 @@ function addHabitatMap(mapInstance) {
 }
 
 
-function ajax_search() {
+function checkbox_change_callback() {
+    // set turnbuclkes to gray if they are not empty:
+    
+    //jQuery(".ui-accordion-header").each(deal_with_facet_checkbox )
+    
+    var my_accordion = jQuery (this).parents( '.ui-accordion')[0]  ;
+
+    var my_header    = jQuery(my_accordion).children(".ui-accordion-header");
+    
+    
+    var my_triangle = jQuery(my_header).children("span.ui-icon");
+
+    console.log ( jQuery(my_accordion)    )
+    console.log ( jQuery(my_header)    )
+
+    if (contains_checked_boxes(my_header)) {
+        console.log ("contains checked boxes");
+        my_triangle.removeClass("ui-icon-triangle-1-s ui-icon-triangle-1-e ui-icon-triangle-1-l");
+        my_triangle.addClass("ui-icon-triangle-1-l");
+        
+    }
+    
+    else {
+        console.log ("contains NO checked boxes");
+        my_triangle.removeClass("ui-icon-triangle-1-s ui-icon-triangle-1-e ui-icon-triangle-1-l");
+        my_triangle.addClass("ui-icon-triangle-1-s");
+    
+    }
+    
+
+    /// and do an ajax search:
     jQuery.ajax({
         data: jQuery('#the_habitat_search_form').serialize(),
         type: 'POST',
