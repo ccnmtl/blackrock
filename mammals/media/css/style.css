@@ -953,6 +953,11 @@ body.square .block_coordbox
     font-size: 11px;
 }
 
+.habitatmap .reset_map_button {
+  float: right;
+  margin: 0 35px 0 0;
+}
+
 .habitatmap div.gridselector div.checkbox,
 .habitatmap div.gridselector div.legend,
 .habitatmap div.gridselector div.title {
