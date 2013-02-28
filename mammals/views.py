@@ -170,7 +170,6 @@ def grid(request):
         selected_block_database_id =            int (request.POST.get('selected_block_database_id'))
         selected_block = GridSquare.objects.get (id = selected_block_database_id)
     
-
     return {
         'grid_json'                                  :  simplejson.dumps(grid)
         ,'grid_center_y'                             :  41.400   #TODO: remove 
@@ -368,18 +367,9 @@ def new_expedition_ajax(request):
     return HttpResponse(msg)
 
 
-#TODO PROBABLY NOT NECESSARY -- REMOVE
-@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
-def save_expedition_animals_ajax(request):
-    msg = 'hello world'
-    return HttpResponse(msg)
-
-
-
 
 @rendered_with('mammals/expedition.html')
 def expedition(request, expedition_id):
-        
     exp = Expedition.objects.get(id =expedition_id)
     grades = GradeLevel.objects.all()
     hours   = [("%02d" % the_hour  ) for the_hour   in range (0, 24)]
@@ -418,6 +408,7 @@ def edit_expedition_ajax(request):
 
 
 def process_edit_expedition (request, expedition_id):
+
     exp = Expedition.objects.get(id =expedition_id)
     rp = request.POST
     
@@ -510,7 +501,6 @@ def all_expeditions(request):
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 @rendered_with('mammals/team_form.html')
 def team_form(request, expedition_id, team_letter):
-
     baits = Bait.objects.all()
     species = Species.objects.all()
     grades = GradeLevel.objects.all()
@@ -533,7 +523,9 @@ def team_form(request, expedition_id, team_letter):
 
 
 def process_save_team_form(request):
-
+    if request.method != 'POST':
+        return HttpResponseRedirect ( '/mammals/all_expeditions/')
+    
     rp = request.POST
     expedition_id = rp['expedition_id']
     exp = Expedition.objects.get(id =expedition_id)
@@ -651,6 +643,8 @@ def process_save_team_form(request):
 @csrf_protect
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 def save_team_form(request):
+    if request.method != 'POST':
+        return HttpResponseRedirect ( '/mammals/all_expeditions/')
     rp = request.POST
     if len(rp) == 0:
         return HttpResponseRedirect ( '/mammals/all_expeditions/')
@@ -671,6 +665,9 @@ def save_team_form_ajax(request):
 @csrf_protect
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 def save_expedition_animals(request):
+    if request.method != 'POST':
+        return HttpResponseRedirect ( '/mammals/all_expeditions/')
+    
     rp = request.POST
     expedition_id = rp['expedition_id']
     exp = Expedition.objects.get(id =expedition_id)
@@ -713,93 +710,7 @@ def save_expedition_animals(request):
             
         point.animal.save()
     return expedition (request, expedition_id)
-    
-    
-#TODO remove
-@rendered_with('mammals/simple_map.html')
-def simple_map(request):
-    all_animals = Animal.objects.all()
-    result = []
-    for a in all_animals:
-        where = [0,0]
-        if len(a.traplocation_set.all()):
-            a_place = a.traplocation_set.all()[0]
-            where = [a_place.actual_lat(), a_place.actual_lon()] 
-        result.append ({
-                'name': a.species.common_name,
-                'where': where
-                } )
-    return {
-        'animals':simplejson.dumps(result )
-    }
-    
 
-#TODO remove
-@rendered_with('mammals/map_index.html')
-def map_index(request):
-    species_set = set()
-    habitat_set = set()
-    for tr in  TrapLocation.objects.all():
-        if tr.animal:
-            species_set.add(tr.animal.species)
-        if tr.habitat:
-            habitat_set.add(tr.habitat)
-    
-    all_species  = Species.objects.all()
-    all_habitats = Habitat.objects.all()
-    
-    return {
-        'all_species':    list (species_set)
-        ,'all_habitats' : list (habitat_set)
-    }
-    
-
-#TODO remove
-@rendered_with('mammals/species_map.html')
-def species_map(request, species_id = None):
-    if species_id:
-        species = Species.objects.get (id = species_id)
-        animals = Animal.objects.filter(species=species)
-    else:
-        species = None
-        animals = Animal.objects.all()
-    result = []
-    for a in animals:
-        if len(a.traplocation_set.all()):
-            a_place = a.traplocation_set.all()[0]
-            where = [a_place.actual_lat(), a_place.actual_lon()] 
-            result.append ({
-                    'name': a.species.common_name,
-                    'where': where
-                    } )
-    return {
-        'map_data':simplejson.dumps(result )
-        , 'species' : species
-    }
-    
-    
-#TODO remove
-@rendered_with('mammals/habitat_map.html')
-def habitat_map(request, habitat_id = None):
-    if habitat_id:
-        habitat = Habitat.objects.get (id = habitat_id)
-        points = TrapLocation.objects.filter(habitat=habitat)
-    else:
-        habitat = None
-        points = TrapLocation.objects.all()
-    
-    result = []
-    for p in points:
-        if p.habitat:
-            where = [p.lat(), p.lon()] 
-            result.append ({
-                    'name': p.habitat.label
-                    , 'where': where
-                    })
-    return {
-        'map_data':  simplejson.dumps(result )
-        ,'habitat' : habitat
-    }
 
     
     
@@ -807,8 +718,10 @@ def habitat_map(request, habitat_id = None):
 @csrf_protect
 @rendered_with('mammals/grid_square_print.html')
 def grid_square_print(request):
+
     transects_json = request.POST.get('transects_json')
-    
+    if request.method != 'POST':
+        return HttpResponseRedirect ( '/mammals/')
     
     result =  {
         'transects_json': transects_json #not actually used.
