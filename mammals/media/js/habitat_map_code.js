@@ -2,8 +2,8 @@ var markers = []
 var the_map;
 
 map_square_style = {
-    fillOpacity     : 0.4
-    ,fillColor      : '#f1ab00'
+    fillOpacity     : 0.0
+    //,fillColor      : '#f1ab00'
     ,strokeOpacity   : 0.3
     ,strokeColor     : '#d38c0c'
     ,strokeWeight    : 1
@@ -111,6 +111,28 @@ function show_or_hide_the_grid (the_map) {
     }
 }
 
+function contains_checked_boxes (facet_box) {
+    
+    var how_many_are_checked = jQuery (facet_box).next().find('input:checkbox:checked').length;
+    
+    return (how_many_are_checked > 0)
+
+}
+
+function basic_turnbuckle_toggle () {
+    // accordion toggle:
+    if (contains_checked_boxes(this)) {
+        // you can't close a facet box if it contains checked boxes.
+        return false;
+    }
+    jQuery(this).next().toggle();
+    jQuery(this).toggleClass("ui-corner-all ui-corner-top");
+    var child = jQuery(this).children("span.ui-icon");
+    child.toggleClass("ui-icon-triangle-1-s ui-icon-triangle-1-e");
+    return false;
+}
+
+
 function addHabitatMap(mapInstance) {
     // This function is run ONLY ONCE, on page load.
     // this is called from on high.
@@ -122,6 +144,9 @@ function addHabitatMap(mapInstance) {
     decorate_page();
     draw_the_grid(the_map);
     jQuery('#id_gridOn').change(function  () { show_or_hide_the_grid (the_map);});
+
+    jQuery(".ui-accordion-header").click(basic_turnbuckle_toggle);
+
 }
 
 
@@ -253,11 +278,15 @@ function show_little_habitat_disks() {
 
 
 function close_unused_facets () {
+
+
 }
 
 
 function open_or_close_facet(facet_jquery, open) {
     // if open is true, make sure the facet is open
+    
+    
     // if open is false, make sure the facet is closed.
 
 }
