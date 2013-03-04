@@ -9,6 +9,8 @@ from operator import itemgetter
 # Latitude	   minute of latitude   minute of longitude
 # 41 deg       1850.90              1402.25	
 
+
+#TODO: replace these constants with distances calculated using the Haversine formula.
 one_lat_degree  = 111054.0
 one_long_degree = 84135.0
 
@@ -144,27 +146,14 @@ def pick_transect_angles (number_needed):
     winner = sorted_by_smallest_angle[-1]
     return winner['transects']
 
-
-
-def triangular_random (length):
-    return triangular (0, length, length)
-
-
-def pick_new_distance (existing_distances, transect_length, minimum_distance = 5.0):
+def pick_new_distance (existing_distances, transect_length, minimum_distance):
     """Make a reasonable attempt to pick a distance at random,
     not too close to the center,
     *and* not too close to an existing distance"""
-    
-    #import pdb
-    #pdb.set_trace()
-    
-    
-    if transect_length < 100:
-        minimum_distance = transect_length / 20
-    
+
+    safeguard = 0
     
     new_distance = triangular_random (transect_length)
-    
     
     if len(existing_distances) == 0:
         return new_distance
@@ -175,15 +164,25 @@ def pick_new_distance (existing_distances, transect_length, minimum_distance = 5
     
     while min([ abs(d - new_distance) for d in existing_distances ]) < minimum_distance:
         new_distance = triangular_random (transect_length)
+        if safeguard >= 10:
+            return new_distance
+        safeguard = safeguard + 1
+        
     return new_distance
 
+def minimum_distance_between_points (transect_length, number_of_points_per_transect):
+    """ A reasonable minimum distance separating points chosen at random along a line."""
+    factor = 1.0/3.0
+    return ( transect_length * factor ) / number_of_points_per_transect
+
+def triangular_random (length):
+    return triangular (0, length, length)
 
 def radians_to_degrees(angle):
     a = angle * 180.0 / pi
     if a < 0:
         a += 360.0
     return a
-
     
 def rotate_points( points, center, angle):
     result = []

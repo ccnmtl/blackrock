@@ -51,9 +51,7 @@ class rendered_with(object):
                 return render_to_response(self.template_name, items, context_instance=RequestContext(request))
             else:
                 return items
-
         return rendered_func
-
 
 @csrf_protect
 @rendered_with('mammals/login.html')
@@ -139,18 +137,61 @@ def sandbox_grid(request):
     }
 
 
-@rendered_with('mammals/index.html')
-def index(request):
-    return {}
+@csrf_protect
+@rendered_with('mammals/grid_block.html')
+def sandbox_grid_block(request):
+    """YES SANDBOX"""
+    default_lat = 41.400
+    default_lon = -74.0305
+    default_size = 250.0
+    
+    if (request.method != 'POST'):
+        #does it really make sense to just do a get on grid square? not really. 
+        num_transects                           = 2
+        points_per_transect                     = 2 
+        height_in_blocks,  width_in_blocks,     = [3, 4]
+        magnetic_declination                    = -13.0 # degrees
+        block_center                            = [default_lat, default_lon]
+        block_size_in_m                         =  default_size
+        grid_center_y, grid_center_x            = [default_lat, default_lon]
+        selected_block_center_y, selected_block_center_x = block_center
+    else:
+        num_transects        =                  get_int  ( request, 'num_transects',            2 )
+        points_per_transect  =                  get_int  ( request, 'points_per_transect',      2 )
+        magnetic_declination =                  get_float( request, 'magnetic_declination',     -13.0 )
+        block_size_in_m =                       get_float( request, 'block_size_in_m',        default_size)
+        selected_block_center_y =               get_float( request, 'selected_block_center_y',  default_lat)
+        selected_block_center_x =               get_float( request, 'selected_block_center_x',  default_lon)
+        grid_center_y           =               get_float( request, 'grid_center_y',            default_lat)
+        grid_center_x           =               get_float( request, 'grid_center_x',            default_lon)
+        height_in_blocks =                      get_int( request,   'height_in_blocks',         21)
+        width_in_blocks   =                     get_int( request,   'width_in_blocks',          27)
+        block_center = selected_block_center_y, selected_block_center_x
+    
+    block_height, block_width    = to_lat_long (block_size_in_m,  block_size_in_m )
+    
+    transects = []
+    transects = pick_transects (block_center, block_size_in_m, num_transects, points_per_transect, magnetic_declination)
+    
+    bottom_left = block_center[0] - (block_height / 2), block_center[1] - (block_width/2)
+    block = set_up_block (bottom_left, block_height, block_width)
 
-@rendered_with('mammals/teaching_resources.html')
-def teaching_resources(request):
     return {
-    }
-
-@rendered_with('mammals/help.html')
-def help(request):
-    return {
+        'block_json': simplejson.dumps(block)
+        ,'magnetic_declination'                      :  magnetic_declination # degrees
+        ,'points_per_transect'                       :  points_per_transect # meters
+        ,'num_transects'                             :  num_transects # degrees
+        ,'selected_block_center_y'                   :  selected_block_center_y
+        ,'selected_block_center_x'                   :  selected_block_center_x
+        ,'block_size_in_m'                           :  block_size_in_m
+        ,'grid_center_y'                             :  grid_center_y
+        ,'grid_center_x'                             :  grid_center_x
+        ,'height_in_blocks'                          :  height_in_blocks
+        ,'width_in_blocks'                           :  width_in_blocks
+        ,'transects_json'                            :  simplejson.dumps(transects)
+        ,'sandbox'                                   :  True
+        ,'transects'                                 :  transects
+        ,'show_save_button'                          :  False
     }
 
 
@@ -250,6 +291,25 @@ def grid_block(request):
         ,'height_in_blocks'                          :  height_in_blocks #TODO: remove 
         ,'width_in_blocks'                           :  width_in_blocks  #TODO: remove 
     }
+
+
+
+
+@rendered_with('mammals/index.html')
+def index(request):
+    return {}
+
+@rendered_with('mammals/teaching_resources.html')
+def teaching_resources(request):
+    return {
+    }
+
+@rendered_with('mammals/help.html')
+def help(request):
+    return {
+    }
+
+
     
 def pick_transects (center, side_of_square, number_of_transects, number_of_points_per_transect, magnetic_declination):
     result = []    
@@ -258,6 +318,7 @@ def pick_transects (center, side_of_square, number_of_transects, number_of_point
         number_of_transects = 20
     new_transects = pick_transect_angles (number_of_transects)
     for tr in new_transects:
+    
         transect = {}
         transect_heading =  tr
         transect_length = length_of_transect (transect_heading, side_of_square)
@@ -271,17 +332,12 @@ def pick_transects (center, side_of_square, number_of_transects, number_of_point
         transect ['length'] = transect_length
         transect ['edge'] = walk_transect (center, transect_length, transect_heading)
         points = []
+                
+        min_d = minimum_distance_between_points (transect_length, number_of_points_per_transect)
+        
         for j in range (number_of_points_per_transect):
             new_point = {}
-            #distance = triangular (0, transect_length, transect_length)
-
-            distance = pick_new_distance ([p['distance'] for p in points], transect_length)
-            
-            #if the point is within 5 meters of another point, try again.
-            if len(points) > 0:
-                while min([ abs(p['distance'] - distance) for p in points ]) < 3.0:
-                    distance = triangular (0, transect_length, transect_length)
-            
+            distance = pick_new_distance ([p['distance'] for p in points], transect_length, min_d)
             
             point = walk_transect (center, distance, transect_heading)
             new_point['point']    = point
@@ -738,66 +794,6 @@ def grid_square_print(request):
         result ['selected_block'] = selected_block
     
     return result
-
-
-@csrf_protect
-@rendered_with('mammals/grid_block.html')
-def sandbox_grid_block(request):
-    """YES SANDBOX"""
-    default_lat = 41.400
-    default_lon = -74.0305
-    default_size = 250.0
-    
-    if (request.method != 'POST'):
-        #does it really make sense to just do a get on grid square? not really. 
-        num_transects                           = 2
-        points_per_transect                     = 2 
-        height_in_blocks,  width_in_blocks,     = [3, 4]
-        magnetic_declination                    = -13.0 # degrees
-        block_center                            = [default_lat, default_lon]
-        block_size_in_m                         =  default_size
-        grid_center_y, grid_center_x            = [default_lat, default_lon]
-        selected_block_center_y, selected_block_center_x = block_center
-    else:
-        num_transects        =                  get_int  ( request, 'num_transects',            2 )
-        points_per_transect  =                  get_int  ( request, 'points_per_transect',      2 )
-        magnetic_declination =                  get_float( request, 'magnetic_declination',     -13.0 )
-        block_size_in_m =                       get_float( request, 'block_size_in_m',        default_size)
-        selected_block_center_y =               get_float( request, 'selected_block_center_y',  default_lat)
-        selected_block_center_x =               get_float( request, 'selected_block_center_x',  default_lon)
-        grid_center_y           =               get_float( request, 'grid_center_y',            default_lat)
-        grid_center_x           =               get_float( request, 'grid_center_x',            default_lon)
-        height_in_blocks =                      get_int( request,   'height_in_blocks',         21)
-        width_in_blocks   =                     get_int( request,   'width_in_blocks',          27)
-        block_center = selected_block_center_y, selected_block_center_x
-    
-    block_height, block_width    = to_lat_long (block_size_in_m,  block_size_in_m )
-    
-    transects = []
-    transects = pick_transects (block_center, block_size_in_m, num_transects, points_per_transect, magnetic_declination)
-
-    bottom_left = block_center[0] - (block_height / 2), block_center[1] - (block_width/2)
-    block = set_up_block (bottom_left, block_height, block_width)
-
-    return {
-        'block_json': simplejson.dumps(block)
-        ,'magnetic_declination'                      :  magnetic_declination # degrees
-        ,'points_per_transect'                       :  points_per_transect # meters
-        ,'num_transects'                             :  num_transects # degrees
-        ,'selected_block_center_y'                   :  selected_block_center_y
-        ,'selected_block_center_x'                   :  selected_block_center_x
-        ,'block_size_in_m'                           :  block_size_in_m
-        ,'grid_center_y'                             :  grid_center_y
-        ,'grid_center_x'                             :  grid_center_x
-        ,'height_in_blocks'                          :  height_in_blocks
-        ,'width_in_blocks'                           :  width_in_blocks
-        ,'transects_json'                            :  simplejson.dumps(transects)
-        ,'sandbox'                                   :  True
-        ,'transects'                                 :  transects
-        ,'show_save_button'                          :  False
-    }
-
-
 
 
 
