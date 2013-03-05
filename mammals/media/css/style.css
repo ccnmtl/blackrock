@@ -766,6 +766,11 @@ body.square .distances_table_header td
     background-color: #e0e0e0;
 }
 
+body.square .distances_table_header .suggested_td,
+body.square .distances_table .suggested_td {
+  padding-right:35px;
+}
+
 body.square .distances_table td.transect_td {
     vertical-align: top;
 }
