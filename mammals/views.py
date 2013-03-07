@@ -168,6 +168,12 @@ def sandbox_grid_block(request):
         width_in_blocks   =                     get_int( request,   'width_in_blocks',          27)
         block_center = selected_block_center_y, selected_block_center_x
     
+    if num_transects > 20:
+        num_transects = 20
+        
+    if points_per_transect > 4:
+        points_per_transect = 4
+    
     block_height, block_width    = to_lat_long (block_size_in_m,  block_size_in_m )
     
     transects = []
@@ -257,8 +263,11 @@ def grid_block(request):
     bottom_left = block_center[0] - (block_height / 2), block_center[1] - (block_width/2)
     block = set_up_block (bottom_left, block_height, block_width)
 
-    #import pdb
-    #pdb.set_trace()
+    if num_transects > 20:
+        num_transects = 20
+        
+    if points_per_transect > 4:
+        points_per_transect = 4
 
     return {
         'block_json': simplejson.dumps(block)
