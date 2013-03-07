@@ -103,7 +103,7 @@ div#nav ol li a.active, div#nav ul li.active { background-color: #ffffff; }
 	min-width: 500px;
 	height: 550px;
 	float: left;
-	margin: 0;
+	margin: 10px 0 0 0;
 	padding: 0;
 	border: 1px solid #999;
 }
@@ -860,13 +860,6 @@ body.square .grid_square_print_page_div #show_square_coords_table_button { displ
     margin: 0 20px 0 0;
 }
 
-
-
-
-
-
-
-
 body.square .coord_display
 {
 	margin: 0;
@@ -898,7 +891,7 @@ body.square .block_coordbox
 	min-width: 500px;
 	height: 550px;
 	float: left;
-	margin: 0;
+	margin: 10px 0 0 0;
 	padding: 0;
 	border: 1px solid #999;
 }
