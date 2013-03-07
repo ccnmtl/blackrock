@@ -150,7 +150,10 @@ function not_too_far_away (point_id) {
     // http://stackoverflow.com/questions/1502590/calculate-distance-between-two-points-in-google-maps-v3
     //fifty_meters =  0.05 // kilometers
     //twenty_meters =  0.02 // kilometers
-    five_meters =  0.005 // kilometers
+    //five_meters =  0.005 // kilometers
+    
+    two_hundred_fifty_meters =  0.25 // kilometers
+    
     
     suggested_location = lat_lng_from_point([
         parseFloat(jQuery ('#lat_'   + point_id).html()).toFixed(5)
@@ -160,7 +163,7 @@ function not_too_far_away (point_id) {
         parseFloat(jQuery ('#actual_lat_' + point_id)[0].value)
         ,parseFloat(jQuery ('#actual_lon_' + point_id)[0].value)
     ]);
-    return (distHaversine ( suggested_location, actual_location) < five_meters)
+    return (distHaversine ( suggested_location, actual_location) < two_hundred_fifty_meters)
     
 }
 
