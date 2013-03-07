@@ -162,9 +162,20 @@ function transect (center, edge, map) {
 }
 
 function confirm_new_bearings(){
+    var ok = true;
+    var error_msg = "Sorry, you can't have more than 20 bearings, or more than 4 traps on each transect.";
     if (parseInt(jQuery('#num_transects')[0].value) > 20) {
-        alert ("Sorry, you can't have more than 20 bearings.");
         jQuery('#num_transects')[0].value = "20";
+        ok = false;
+    }
+    
+    if (parseInt(jQuery('#points_per_transect')[0].value) > 4) {
+        jQuery('#points_per_transect')[0].value = "4";
+        ok = false;
+    }
+
+    if (!ok) {
+        alert (error_msg);
         return false;
     }
 
