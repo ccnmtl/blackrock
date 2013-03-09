@@ -13,8 +13,6 @@ urlpatterns = patterns(
 
     (r'^browse/(.*)', databrowse.site.root),
 
-    (r'^mobile/(.*)$', 'blackrock.portal.views.mobile'),
-
     url(r'^search/',
         PortalSearchView(template="portal/search.html",
                          form_class=PortalSearchForm),
