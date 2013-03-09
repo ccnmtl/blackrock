@@ -4,7 +4,7 @@ if (typeof Portal === 'undefined') {
 
 if (!Portal.Base) {
     Portal.Base = {
-        'Observer' : function () {
+        'Observer': function () {
             // the real work is done by connect/signal stuff below
             // this just keeps track of the stuff that needs to be destroyed
             var _listeners = {};
@@ -41,17 +41,17 @@ if (!Portal.Base) {
                 }
             };
             this.events = {
-                signal : Portal.Base.Events.signal,
-                connect : Portal.Base.Events.connect
+                signal: Portal.Base.Events.signal,
+                connect: Portal.Base.Events.connect
             };
-        }// Observer
+        } // Observer
     };
 }
 
 if (!Portal.Base.Events) {
     if (typeof MochiKit !== 'undefined') {
         Portal.Base.Events = {
-            'connect' : function (subject, event, self, func) {
+            'connect': function (subject, event, self, func) {
                 if (typeof subject.nodeType !== 'undefined' ||
                     subject === window ||
                     subject === document) {
@@ -59,29 +59,29 @@ if (!Portal.Base.Events) {
                 }
                 var disc = MochiKit.Signal.connect(subject, event, self, func);
                 return {
-                    disconnect : function () {
+                    disconnect: function () {
                         MochiKit.Signal.disconnect(disc);
                     }
                 };
             },
-            'signal' : function (subject, event, param) {
+            'signal': function (subject, event, param) {
                 MochiKit.Signal.signal(subject, event, param);
             }
         };
     } // mochikit
     else if (typeof jQuery !== 'undefined') {
         Portal.Base.Events = {
-            'connect' : function (subject, event, self, func) {
+            'connect': function (subject, event, self, func) {
                 var disc = jQuery(subject).bind(event, function () {
                     func.call(self, event, this);
                 });
                 return {
-                    disconnect : function () {
+                    disconnect: function () {
                         disc.unbind(event);
                     }
                 };
             },
-            'signal' : function (subject, event) {
+            'signal': function (subject, event) {
                 jQuery(subject).trigger(event);
             }
         };
@@ -99,9 +99,9 @@ if (!Portal.Layer) {
         self.identifier = identifier;
 
         var myOptions = {
-            preserveViewport : "true",
-            suppressInfoWindows : true,
-            clickable : clickable
+            preserveViewport: "true",
+            suppressInfoWindows: true,
+            clickable: clickable
         };
         self.instance = new google.maps.KmlLayer(fileName, myOptions);
 
@@ -111,7 +111,8 @@ if (!Portal.Layer) {
                 });
 
         this.isVisible = function () {
-            return self.instance.map !== null;
+            return self.instance.map !== null &&
+                self.instance.map !== undefined;
         };
 
         this.shouldBeVisible = function () {
@@ -133,8 +134,10 @@ if (!Portal.MapMarker) {
         self.marker = null;
         self.latlng = null;
 
-        this.create = function (mapInstance, assetIdentifier, name, description,
-                lat, lng, featured, infrastructure, iconName, zIndex) {
+        this.create = function (mapInstance, assetIdentifier, name,
+                                description, lat, lng, featured,
+                                infrastructure, iconName, zIndex) {
+            
             self.assetIdentifier = assetIdentifier;
             self.description = description;
             self.featured = featured;
@@ -174,11 +177,11 @@ if (!Portal.MapMarker) {
             self.latlng = new google.maps.LatLng(lat, lng);
             var shouldBeVisible = self.shouldBeVisible();
             self.marker = new google.maps.Marker({
-                position : self.latlng,
-                title : name,
-                icon : iconUrl,
-                map : shouldBeVisible ? mapInstance : null,
-                zIndex : zIndex
+                position: self.latlng,
+                title: name,
+                icon: iconUrl,
+                map: shouldBeVisible ? mapInstance: null,
+                zIndex: zIndex
             });
 
             google.maps.event.addListener(self.marker, 'click', function () {
@@ -190,7 +193,8 @@ if (!Portal.MapMarker) {
         };
 
         this.isVisible = function () {
-            return self.marker.map !== null;
+            return self.marker.map !== null &&
+                self.marker.map !== undefined;
         };
 
         this.shouldBeVisible = function () {
@@ -281,9 +285,9 @@ if (!Portal.Map) {
             }
 
             var params = {
-                content : description,
-                position : kmlEvent.latLng,
-                maxWidth : 400
+                content: description,
+                position: kmlEvent.latLng,
+                maxWidth: 400
             };
             if (kmlEvent.pixelOffset.height < 0) {
                 params.pixelOffset = new google.maps.Size(-5, -20);
@@ -311,9 +315,9 @@ if (!Portal.Map) {
                 var offset = new google.maps.Size(-5, 15);
 
                 self.infowindow = new google.maps.InfoWindow({
-                    content : location.description,
-                    maxWidth : 400,
-                    pixelOffset : offset
+                    content: location.description,
+                    maxWidth: 400,
+                    pixelOffset: offset
                 });
                 self.infowindow.open(self.mapInstance, location.marker);
             }
@@ -352,8 +356,8 @@ if (!Portal.Map) {
         };
 
         this.initMarkers = function (className, zIndexBoost, fitBounds) {
-            // iterate over locations within the page, and add the requested
-            // markers
+            // iterate over locations within the page,
+            // and add the requested markers
             var bounds = new google.maps.LatLngBounds();
             var a = {};
             var elements = getElementsByTagAndClassName("div", className);
@@ -482,21 +486,21 @@ if (!Portal.Map) {
                 return;
             }
 
-            // Center on center of Black Rock Forest
+            // Center on Black Rock Forest
             var latlng = new google.maps.LatLng(41.397459, -74.021848);
             var myOptions = {
-                zoom : 13,
-                center : latlng,
-                mapTypeId : google.maps.MapTypeId.TERRAIN
+                zoom: 13,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.TERRAIN
             };
 
-            self.mapInstance = new google.maps.Map(document
-                    .getElementById("map_canvas"), myOptions);
+            var elt = document.getElementById("map_canvas");
+            self.mapInstance = new google.maps.Map(elt, myOptions);
 
             self.events.connect(Portal, 'markerClicked', self,
-                    'showMarkerInfoWindow');
+                'showMarkerInfoWindow');
             self.events.connect(Portal, 'kmlClicked', self,
-                    'showLayerInfoWindow');
+                'showLayerInfoWindow');
             self.events.connect(Portal, 'toggleFacet', self, 'toggleFacet');
             self.events.connect(Portal, 'toggleLayer', self, 'toggleLayer');
 
@@ -505,7 +509,7 @@ if (!Portal.Map) {
             forEach(options, function (option) {
                 var kmllayer = new Portal.Layer(option.id,
                     "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/" +
-                    option.id + ".kml?grrrr=" + randomnumber, true);
+                    option.id + ".kml?version=" + randomnumber, true);
                 self.layers[option.id] = kmllayer;
 
                 connect(option, 'onclick', function (evt) {
@@ -542,11 +546,11 @@ if (!Portal.Map) {
                         });
             }
 
-            var url_base =
-                "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/brfboundary.kml?newcachebuster=";
+            var url_base = "http://blackrock.ccnmtl.columbia.edu/portal" +
+                           "/media/kml/brfboundary.kml?newcachebuster=";
             
-            var boundary = new Portal.Layer("brfboundary",
-                url_base + randomnumber, false);
+            var boundary = new Portal.Layer(
+                "brfboundary", url_base + randomnumber, false);
             boundary.instance.setMap(self.mapInstance);
 
             self.toggleLayer();
