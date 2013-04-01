@@ -240,14 +240,6 @@ class GridSquare (models.Model):
         result['database_id']           = self.id
         result['battleship_coords']     = self.battleship_coords()
         return result
-        
-    def use_existing_points(self):
-        """If my point is redundant, use a point that's already in the DB and remove my redundant point."""
-        for corner_name in self.corner_names():
-            point_to_use_instead = getattr(self, corner_name).existing_equivalent_point()
-            if point_to_use_instead:
-                getattr(self, corner_name).delete()
-                setattr(self, corner_name, point_to_use_instead)
 
         
     def dir(self):
