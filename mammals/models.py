@@ -192,13 +192,9 @@ class GridSquare (models.Model):
     class Meta:
         unique_together = ("row", "column") #, thank you very much.
     
-    access_difficulty = models.IntegerField(help_text = 'This is the Terrain Difficulty, not to be confused with the Access Difficulty, which we are still not keeping track of.', verbose_name="Terrain Difficulty") 
+    access_difficulty = models.IntegerField(help_text = 'How hard it is to get to this square.', verbose_name="Access Difficulty") 
     
-    #This is unreferenced. #TOTO remove.
-    label = models.IntegerField(help_text = 'This was just an arbitrary number.')
-    
-    #this will contain the labels from the map given to me by Khoi:
-    label_2 = models.IntegerField(help_text = 'This is the number we used in a first numbering. Squares with no number on that map just have a -1.' , verbose_name="Square number on purple map")
+    terrain_difficulty = models.IntegerField(help_text = 'How rough the terrain is on this square.', verbose_name="Terrain Difficulty") 
     
     def battleship_coords(self ):
         alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -233,7 +229,6 @@ class GridSquare (models.Model):
     def info_for_display (self):
         result = {}
         result['corner_obj']            = self.corner_obj()
-        result['label']                 = self.label_2
         result['row']                   = self.row
         result['column']                = self.column
         result['access_difficulty']     = self.access_difficulty

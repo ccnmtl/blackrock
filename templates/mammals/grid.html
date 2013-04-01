@@ -25,36 +25,22 @@
 	<div id="left">
 		<h3>Research Grid: Location Square Selection</h3>
 
-		<div class="instructions">
-			To conduct the trapping activity, Black Rock Forest has been divided into squares that will all be sampled over time. The activity starts with randomly selecting a site for your expedition.
-		</div><!-- class="instructions" -->
-
-
+	<div class="instructions">
+		To conduct the trapping activity, Black Rock Forest has been divided into squares that will all be sampled over time. The activity starts with randomly selecting a site for your expedition.
+	</div><!-- class="instructions" -->
     <form action="/mammals/grid/" method="post" id="grid_form"> {% csrf_token %}
-
 	    {% include "mammals/grid_form.html" %}
-
     </form>
-		
 		<div id="selection_steps">
-		<!-- Terrain difficulty level -->
+			{% include "mammals/access_difficulty_menu.html" %}
 			{% include "mammals/difficulty_menu.html" %}
-		<!-- Random location suggestion -->
 			{% include "mammals/suggest_unsuggest.html" %}
-			
 			<div class="clearfix"></div><!-- class="clearfix" -->
 		</div><!-- id="selection_steps" -->
-
-
 		{% include "mammals/grid_border_coords.html" %}
-
-
 	</div><!-- id="left" -->
-
 	<div id="map_canvas"></div><!-- id="map_canvas" -->
-	
 	<div class="clearfix"></div><!-- class="clearfix" -->
-
 </div><!-- class="plain" id="grid_form_table" -->
 
 {% endblock %}
