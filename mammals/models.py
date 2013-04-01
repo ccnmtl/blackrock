@@ -192,9 +192,9 @@ class GridSquare (models.Model):
     class Meta:
         unique_together = ("row", "column") #, thank you very much.
     
-    access_difficulty = models.IntegerField(help_text = 'How hard it is to get to this square.', verbose_name="Access Difficulty") 
+    access_difficulty = models.IntegerField(help_text = 'How hard it is to get to this square.', verbose_name="Access Difficulty", default=0) 
     
-    terrain_difficulty = models.IntegerField(help_text = 'How rough the terrain is on this square.', verbose_name="Terrain Difficulty") 
+    terrain_difficulty = models.IntegerField(help_text = 'How rough the terrain is on this square.', verbose_name="Terrain Difficulty", default=0)
     
     def battleship_coords(self ):
         alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
