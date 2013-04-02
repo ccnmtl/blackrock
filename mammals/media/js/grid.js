@@ -1,5 +1,6 @@
 var grid_json;
-var difficulty_map = {}
+var terrain_difficulty_map = {}
+var access_difficulty_map = {}
 
 
 function addGrid(mapInstance) {
@@ -13,13 +14,22 @@ function addGrid(mapInstance) {
         grid_json [i]['grid_rectangle'] = rect;
         attach_info (grid_json[i]);
         map_bounds.extend(lat_lng_from_point(box[4] ));
-        add_square_difficulty (i, grid_json [i]['access_difficulty']);
+        add_square_difficulty (i, grid_json [i]['access_difficulty'],   grid_json [i]['terrain_difficulty']);
         
     }
     
     
+    jQuery ('#access_difficulty_menu_select').change (function (eee) {
+        //show_squares (eee.currentTarget.value);
+        
+        new_show_squares();
+    });
+    
+    
     jQuery ('#difficulty_menu_select').change (function (eee) {
-        show_squares (eee.currentTarget.value);
+        //show_squares (eee.currentTarget.value);
+        
+        new_show_squares();
     });
     
     // if you just came from the square page, paint the square you just visited:
@@ -45,6 +55,7 @@ function box_info_from_grid_obj(obj) {
         ,'column' :             obj['column']
         ,'label':               obj['label']
         ,'access_difficulty':   obj['access_difficulty']
+        ,'terrain_difficulty':  obj['terrain_difficulty']
         ,'database_id':         obj['database_id']
         ,'battleship_coords':   obj['battleship_coords']
     }
@@ -52,21 +63,29 @@ function box_info_from_grid_obj(obj) {
 
 
 
-function add_square_difficulty(square_index, difficulty) {
-    if (difficulty_map.hasOwnProperty (difficulty)) {
-        difficulty_map[difficulty].push (square_index);
+function add_square_difficulty(square_index, access_difficulty, terrain_difficulty) {
+    if (terrain_difficulty_map.hasOwnProperty (terrain_difficulty)) {
+        terrain_difficulty_map[terrain_difficulty].push (square_index);
     }
     else {
-        difficulty_map[difficulty] = [ square_index ];
+        terrain_difficulty_map[terrain_difficulty] = [ square_index ];
     }
+    
+    if (access_difficulty_map.hasOwnProperty (access_difficulty)) {
+        access_difficulty_map[access_difficulty].push (square_index);
+    }
+    else {
+        access_difficulty_map[access_difficulty] = [ square_index ];
+    }
+    
 }
 
 function eligible_squares () {
-    maximum_difficulty = jQuery ('#difficulty_menu_select')[0].value;
+    maximum_difficulty = 5;
     result = [];
-    for (difficulty in difficulty_map) {
+    for (difficulty in terrain_difficulty_map) {
         if (difficulty <= maximum_difficulty) {
-            result = result.concat (difficulty_map[difficulty])
+            result = result.concat (terrain_difficulty_map[difficulty])
         }
     }
     return result;
@@ -100,6 +119,30 @@ function show_squares (difficulty_level) {
         }
     }
 }
+
+
+
+
+function new_show_squares () {
+
+
+    var access_difficulty_level = parseInt(jQuery('#access_difficulty_menu_select').val());
+    var terrain_difficulty_level = parseInt(jQuery('#difficulty_menu_select').val());
+    
+    
+    // show all the squares up to and including a particular level of difficulty of access.
+    for (var i = 0; i < grid_json.length; i++) {
+        sq = grid_json [i];
+        if (sq ['access_difficulty'] > access_difficulty_level || sq ['terrain_difficulty'] > terrain_difficulty_level) {
+            axe_square (sq);
+        } else {
+            sq['grid_rectangle'].setOptions (square_styles['regular']['unselected']  );
+            attach_info (sq);
+        }
+    }
+}
+
+
 
 
 function pick_a_square () {
@@ -215,7 +258,12 @@ function display_info_about_square (info) {
     else {
         jQuery('#block_info')       [0].innerHTML =  'Square no.: ' + info['battleship_coords'];
     }
-    jQuery('#block_difficulty') [0].innerHTML =  '<b>Terrain difficulty level:</b> ' + info['access_difficulty'] + '.';
+    jQuery('#block_difficulty') [0].innerHTML =  '<br/> <b>Access difficulty level:</b> '+ info['access_difficulty'] 
+    + ' <br/> <b>Terrain difficulty level:</b> ' + info['terrain_difficulty'] ;
+    
+    
+    
+    ;
     jQuery('.grid_border_coords_table').show();
 }
 

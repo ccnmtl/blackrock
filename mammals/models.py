@@ -192,7 +192,7 @@ class GridSquare (models.Model):
     class Meta:
         unique_together = ("row", "column") #, thank you very much.
     
-    access_difficulty = models.IntegerField(help_text = 'How hard it is to get to this square.', verbose_name="Access Difficulty", default=0) 
+    access_difficulty = models.IntegerField(help_text = 'is the overall difficulty and length of time for a group of students to get to the square from the Science Center.', verbose_name="Access Difficulty", default=0) 
     
     terrain_difficulty = models.IntegerField(help_text = 'How rough the terrain is on this square.', verbose_name="Terrain Difficulty", default=0)
     
@@ -232,6 +232,7 @@ class GridSquare (models.Model):
         result['row']                   = self.row
         result['column']                = self.column
         result['access_difficulty']     = self.access_difficulty
+        result['terrain_difficulty']    = self.terrain_difficulty
         result['database_id']           = self.id
         result['battleship_coords']     = self.battleship_coords()
         return result
