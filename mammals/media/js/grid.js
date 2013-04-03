@@ -58,60 +58,17 @@ function eligible_squares () {
     var terrain_difficulty_level = parseInt(jQuery('#difficulty_menu_select').val());
     result = [];
     
-        
-    //var terrain_difficulty_map = {}
-    //var access_difficulty_map = {}
-
-    /*
-    for (difficulty in terrain_difficulty_map) {
-        if (difficulty <= terrain_difficulty_level) {
-            result = result.concat (terrain_difficulty_map[difficulty])
-        }
-    }
-    */
-    
     for (var i = 0; i < grid_json.length; i++) {
         sq = grid_json [i];
         if (sq ['access_difficulty'] > access_difficulty_level || sq ['terrain_difficulty'] > terrain_difficulty_level) {
-            //axe_square (sq);
-            // square is too hard. don't choose it.
+            // No, this square is too hard. Don't send kids there.
         } else {
-            //sq['grid_rectangle'].setOptions (square_styles['regular']['unselected']  );
-            //attach_info (sq);
+            // this square is eligible.
             result = result.concat (i);
         }
     }
-    
-    console.log (JSON.stringify(result));
-    
     return result;
 }
-
-/*
-
-
-function all_squares () {
-    maximum_difficulty = 5;
-    result = [];
-    for (difficulty in terrain_difficulty_map) {
-        if (difficulty <= maximum_difficulty) {
-            result = result.concat (terrain_difficulty_map[difficulty])
-        }
-    }
-    return result;
-}
-
-
-function new_all_squares () {
-    result = [];
-    for (difficulty in terrain_difficulty_map) {
-            result = result.concat (terrain_difficulty_map[difficulty])
-    }
-    return result;
-}
-*/
-
-
 
 function axe_square (sq) {
     sq['grid_rectangle'].setOptions (square_styles['hidden']['unselected']  );
@@ -135,8 +92,6 @@ function show_squares () {
     }
 }
 
-
-
 function random_index (an_array) {
     return Math.floor(Math.random() * an_array.length)
 }
@@ -145,17 +100,9 @@ function random_item (an_array) {
     return an_array [random_index(an_array)];
 }
 
-
-
 function suggest_square() {
-    //console.log ("HEY");
-    
     suggested_square =  grid_json[random_item(eligible_squares ())];
-    
-    //suggested_square = random_item(grid_json);
-    console.log (suggested_square);
     decorate_suggested_square (suggested_square);
-    //decorate_suggested_square (suggested_square.grid_rectangle);
     display_info_about_square (suggested_square);
 }
 
