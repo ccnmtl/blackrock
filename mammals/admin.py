@@ -107,6 +107,10 @@ class AnimalAgeAdmin (admin.ModelAdmin):
     fields       =(  'label',)
 admin.site.register(AnimalAge, AnimalAgeAdmin)
 
+class ObservationTypeAdmin (admin.ModelAdmin):
+    list_display = (  'label',)
+    fields       =(  'label',)
+admin.site.register(ObservationType, ObservationTypeAdmin)
 
 
 

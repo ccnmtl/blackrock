@@ -1,0 +1,70 @@
+{% extends "mammals/base_mammals.html" %}
+{% load smartif %}
+{% load humanize %}
+{% block title %}Grid Block{% endblock %}
+{%block mammals_nav_expeditions%}class="active"{%endblock%}
+
+{% block js %}
+    {{ block.super }}
+  
+    
+{% endblock %}
+{% block css %}
+    <style media="screen" type="text/css">
+        .green_table td
+        {
+            border-color: #ABA;
+            border-width: 1px;
+            border-style: solid;
+            margin:  1px;
+            padding: 4px;
+            background-color: #EFE;
+        }
+    </style>
+
+    {{ block.super }}
+{% endblock %}
+
+{% block container %}
+<h3>All sightings</h3>
+
+     <table class = "green_table">
+        <tr>
+                <td  > 
+                    Species
+                </td> 
+                <td  > 
+                    Habitat
+                </td> 
+                <td  > 
+                    Observer
+                </td> 
+                <td  > 
+                    Date
+                </td> 
+                <td  > 
+                    Details
+                </td> 
+        </tr>
+        {% for si in sightings %}
+            <tr>
+                <td  > 
+                    {{si.species}}
+                </td> 
+                <td  > 
+                    {{si.habitat}}
+                </td> 
+                <td  > 
+                    {{si.observers}}
+                </td> 
+                <td  >
+                    {{si.date|naturalday}}
+                </td>
+                <td  > 
+                    <a href= "/mammals/sighting/{{si.id }}/">Go</a>
+                </td> 
+        </tr>
+        {%endfor%}
+    </table>
+{% endblock %}
+

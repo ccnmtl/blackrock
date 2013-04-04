@@ -44,6 +44,12 @@ urlpatterns = patterns('',
 	(r'^edit_expedition_ajax/$', 'blackrock.mammals.views.edit_expedition_ajax'),
 	
 	
+	(r'^sightings/$', 'blackrock.mammals.views.sightings'),
+	(r'^create_sighting/$', 'blackrock.mammals.views.create_sighting'),
+	(r'^sighting/(?P<sighting_id>\d+)/$', 'blackrock.mammals.views.sighting'),
+	(r'^edit_sighting/$', 'blackrock.mammals.views.edit_sighting'),
+	
+	
 	(r'^expedition/(?P<expedition_id>\d+)/animals/$', 'blackrock.mammals.views.expedition_animals'),
 	
 	

@@ -416,6 +416,99 @@ def grid_square_csv(request):
 
 
 
+#(r'^sightings/$', 'blackrock.mammals.views.sightings'),	
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
+@rendered_with('mammals/sightings.html')
+def sightings(request):
+    if request.method != "GET":
+        return HttpResponse('GET requests only, please.')
+    pass
+    
+    sightings = Sighting.objects.all()
+    return {'sightings':sightings}
+    
+
+
+
+#(r'^sighting/(?P<sighting_id>\d+)/$', 'blackrock.mammals.views.sighting'),
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
+@rendered_with('mammals/sighting.html')
+def create_sighting(request):
+    if request.method != "GET":
+        return HttpResponse('GET requests only, please.')
+    the_new_sighting = Sighting()
+    the_new_sighting.save()
+    return HttpResponseRedirect ( '/mammals/sighting/%d' % the_new_sighting.id)
+    
+    
+#(r'^sighting/(?P<sighting_id>\d+)/$', 'blackrock.mammals.views.sighting'),
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
+@rendered_with('mammals/sighting.html')
+@csrf_protect
+def sighting(request, sighting_id):
+    if request.method != "GET":
+        return HttpResponse('GET requests only, please.')
+    
+    the_sighting = Sighting.objects.get (pk=sighting_id)
+    
+    #import pdb
+    #pdb.set_trace()
+    return {
+        'habitats'    : Habitat.objects.all()
+        ,'species'    : Species.objects.all()
+        ,'observation_types': ObservationType.objects.all()
+        ,'sighting'   : the_sighting,
+    }
+
+
+
+#(r'^edit_sighting/$', 'blackrock.mammals.views.edit_sighting'),
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
+
+def edit_sighting(request):
+    if request.method != "POST":
+        return HttpResponse('POST requests only, please.')
+    rp = request.POST
+    the_sighting = Sighting.objects.get (pk=rp['sighting_id'])
+
+    try:
+        the_sighting.set_lat_long ( [ float (rp['lat']), float (rp['lon']) ] )
+    except ValueError:
+        pass # if it's empty  we don't care .
+        
+    try:
+        date_list = [int(i) for i in rp['date'].split('/')]
+        the_sighting.date = datetime(date_list [2], date_list [0], date_list [1])
+    except:
+        pass
+        
+    try:
+        the_sighting.species = Species.objects.get (pk=rp['species_id'])
+    except:
+        pass
+        
+    try:
+        the_sighting.habitat = Habitat.objects.get (pk=rp['habitat_id'])
+    except:
+        pass
+        
+        
+    try:
+        the_sighting.observation_type = Habitat.objects.get (pk=rp['observation_type_id'])
+    except:
+        pass
+        
+    try:
+        the_sighting.observers = rp ['observers']
+    except:
+        pass
+     
+    import pdb
+    pdb.set_trace()
+        
+    the_sighting.save()
+    return HttpResponseRedirect ( '/mammals/sighting/%d' % the_sighting.id)
+
 
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 def new_expedition_ajax(request):
@@ -432,7 +525,7 @@ def new_expedition_ajax(request):
     return HttpResponse(msg)
 
 
-
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 @rendered_with('mammals/expedition.html')
 def expedition(request, expedition_id):
     exp = Expedition.objects.get(id =expedition_id)
@@ -456,6 +549,9 @@ def expedition(request, expedition_id):
 
 
 
+
+
+
 @rendered_with('mammals/expedition.html')
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 def edit_expedition(request, expedition_id):
@@ -471,7 +567,7 @@ def edit_expedition_ajax(request):
     return HttpResponse(msg)
 
 
-
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 def process_edit_expedition (request, expedition_id):
 
     exp = Expedition.objects.get(id =expedition_id)
@@ -493,8 +589,6 @@ def process_edit_expedition (request, expedition_id):
             
         if rp.has_key ('expedition_hour_string') and rp.has_key ('expedition_minute_string'):
             exp.set_end_time_from_strings (rp['expedition_hour_string'], rp['expedition_minute_string'])
-        else:
-            pdb.set_trace()
 
             
         if rp.has_key ('grade'):

@@ -129,8 +129,6 @@ class Animal(models.Model):
     hair_sample_collected = models.BooleanField(default=False) 
     skin_sample_collected = models.BooleanField(default=False) 
     
-
-    
     def dir(self):
         return dir(self)
 
@@ -290,6 +288,8 @@ class Expedition (models.Model):
         ordering = ['-end_date_of_expedition']
 
     
+    
+    
     @classmethod
     def create_from_obj(self, json_obj, creator):
         expedition = Expedition()
@@ -308,7 +308,7 @@ class Expedition (models.Model):
     end_date_of_expedition   =      models.DateTimeField(auto_now_add=True, null=True)
     
     
-    
+    real  = models.BooleanField(default=True, help_text = "Is this expedition real or just a test?")     
     
     
     created_on = models.DateTimeField(auto_now_add=True, null=False)
@@ -621,33 +621,42 @@ class TrapLocation(models.Model):
     def gps_coords(self):
         return "%s, %s" % (self.actual_NSlat(), self.actual_EWlon())
         
-    if 0 == 0:
-    #these are no longer called from the map page -- see /sentry/group/1260
-    #TODO remove; Now ambiguous.    
-                        def NSlat(self):
-                            lat = self.lat()
-                            if lat:
-                                if lat > 0:
-                                    return '%0.5F N' % abs(lat)
-                                return '%0.5F S' % abs(lon)
-                            return None
-                        def EWlon(self):
-                            lon = self.lon()
-                            if lon:
-                                if lon < 0:
-                                    return '%0.5F W' % abs(lon)
-                                return '%0.5F E' % abs(lon)
-                            return None
-                        def lat(self):
-                            if self.suggested_point:
-                                return self.suggested_point.coords[0]
-                            return None
-                            
-                        def lon(self):
-                            if self.suggested_point:
-                                return self.suggested_point.coords[1]
-                            return None
 
+
+class ObservationType (LabelMenu):
+    pass
+
+
+##################################################
+class Sighting(models.Model):    
+    location    = models.PointField(null=True, blank=True, help_text = "Where the animal was seen")
+    objects = models.GeoManager()
+    species = models.ForeignKey (Species, null=True, blank=True, help_text = "Best guess at species.")
+    habitat = models.ForeignKey (Habitat, null=True, blank=True,  help_text = "What habitat best describes this location?")
+    date =      models.DateTimeField(auto_now_add=True, null=True, help_text = "Where the animal was seen")
+    observation_type  =  models.ForeignKey(ObservationType, null=True, blank=True, help_text = "e.g. sighting, camera-trapped, etc.")
+    observers =  models.TextField(blank=True,  null=True, help_text = "Initials of the people who made the observation.", default = None)
+    how_many_observed = models.IntegerField(blank=True, null=True, help_text = "How many animals were observed, if applicable.", default = None)
+    notes =  models.TextField(blank=True,  null=True, help_text = "Notes about the location" , default = None)
+    def set_lat_long (self, coords):
+        # see 
+        # https://code.djangoproject.com/attachment/ticket/16778/postgis-adapter-2.patch
+        # if this breaks again.
+        self.location    = "POINT(%s %s)" % (coords[0], coords[1])
+    
+    def lat(self):
+        if self.location:
+            return self.location.coords[0]
+        return None
+
+    def lon(self):
+        if self.location:
+            return self.location.coords[1]
+        return None
+        
+        
+        
+        
 
 def whether_this_user_can_see_mammals_module_data_entry (a_user):
     return a_user != None and len (a_user.groups.filter(name='mammals_module_data_entry')) > 0
