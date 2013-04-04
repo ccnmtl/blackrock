@@ -1,7 +1,7 @@
 {% extends "mammals/base_mammals.html" %}
 {% load smartif %}
 {% load humanize %}
-{% block title %}Grid Block{% endblock %}
+{% block title %}List of sightings{% endblock %}
 {%block mammals_nav_expeditions%}class="active"{%endblock%}
 
 {% block js %}
@@ -26,8 +26,7 @@
 {% endblock %}
 
 {% block container %}
-<h3>All sightings</h3>
-
+<h3>Animal sightings by Black Rock Forest staff</h3>
      <table class = "green_table">
         <tr>
                 <td  > 
@@ -65,6 +64,11 @@
                 </td> 
         </tr>
         {%endfor%}
+        <tr>
+            <td colspan = "5">
+                <a href = "/mammals/create_sighting/">New Sighting</a>
+            </td>
+        </tr>
     </table>
 {% endblock %}
 

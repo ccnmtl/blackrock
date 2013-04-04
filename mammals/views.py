@@ -451,8 +451,6 @@ def sighting(request, sighting_id):
     
     the_sighting = Sighting.objects.get (pk=sighting_id)
     
-    #import pdb
-    #pdb.set_trace()
     return {
         'habitats'    : Habitat.objects.all()
         ,'species'    : Species.objects.all()
@@ -494,7 +492,7 @@ def edit_sighting(request):
         
         
     try:
-        the_sighting.observation_type = Habitat.objects.get (pk=rp['observation_type_id'])
+        the_sighting.observation_type = ObservationType.objects.get (pk=rp['observation_type_id'])
     except:
         pass
         
@@ -502,12 +500,19 @@ def edit_sighting(request):
         the_sighting.observers = rp ['observers']
     except:
         pass
-     
-    import pdb
-    pdb.set_trace()
         
+    try:
+        the_sighting.notes = rp ['notes']
+    except:
+        pass
+    
+    
     the_sighting.save()
-    return HttpResponseRedirect ( '/mammals/sighting/%d' % the_sighting.id)
+    if rp['go_back'] == '':
+        return HttpResponseRedirect ( '/mammals/sighting/%d' % the_sighting.id)
+    else:
+        return HttpResponseRedirect ( '/mammals/sightings/')
+    
 
 
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
