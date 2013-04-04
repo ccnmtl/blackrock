@@ -629,6 +629,12 @@ class ObservationType (LabelMenu):
 
 ##################################################
 class Sighting(models.Model):    
+
+
+
+
+
+
     location    = models.PointField(null=True, blank=True, help_text = "Where the animal was seen")
     objects = models.GeoManager()
     species = models.ForeignKey (Species, null=True, blank=True, help_text = "Best guess at species.")
@@ -653,10 +659,12 @@ class Sighting(models.Model):
         if self.location:
             return self.location.coords[1]
         return None
-        
-        
-        
-        
+    
+    def date_for_solr (self):
+        if self.date:
+            return self.date
+        else:
+            return None    
 
 def whether_this_user_can_see_mammals_module_data_entry (a_user):
     return a_user != None and len (a_user.groups.filter(name='mammals_module_data_entry')) > 0
