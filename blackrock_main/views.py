@@ -11,7 +11,8 @@ import urllib
 # returns important setting information for all web pages.
 def django_settings(request):
     whitelist = ['DATABASE_HOST',
-                 'DATABASE_NAME']
+                 'DATABASE_NAME',
+                 'GOOGLE_MAP_API']
 
     rv = {'settings': dict([(k, getattr(settings, k, None))
                             for k in whitelist])}
