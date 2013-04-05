@@ -36,12 +36,12 @@ class MammalSearchForm(SearchForm):
     csm = forms.CheckboxSelectMultiple
     # note: the order in which these are defined... affects the order in which they are displayed in the template. This sucks but it's what I get for accepting to use Django forms.
     
-    trap_success = forms.MultipleChoiceField(required=False, label='', widget=csm, choices=success_list)
-    trap_signs =   forms.MultipleChoiceField(required=False, label='', widget=csm, choices=signs_list)
+    success = forms.MultipleChoiceField(required=False, label='', widget=csm, choices=success_list)
+    signs =   forms.MultipleChoiceField(required=False, label='', widget=csm, choices=signs_list)
     
-    trap_habitat = forms.MultipleChoiceField(required=False, label='Habitat', widget=csm, choices=habitat_list)
-    trap_species = forms.MultipleChoiceField(required=False, label='Species', widget=csm, choices=species_list)
-    trap_school = forms.MultipleChoiceField(required=False, label='School', widget=csm, choices=school_list)
+    habitat = forms.MultipleChoiceField(required=False, label='Habitat', widget=csm, choices=habitat_list)
+    species = forms.MultipleChoiceField(required=False, label='Species', widget=csm, choices=species_list)
+    school = forms.MultipleChoiceField(required=False, label='School', widget=csm, choices=school_list)
 
 
 
@@ -55,12 +55,12 @@ class MammalSearchForm(SearchForm):
     def calculate_breakdown (self, the_sqs):
         result = {}
         for thing in  ['species', 'habitat', 'school', 'unsuccessful', 'trapped_and_released']:            
-            what_to_count = [getattr (x, ('trap_%s' % thing)) for x in the_sqs]
+            what_to_count = [getattr (x, ('%s' % thing)) for x in the_sqs]
             result [thing] = my_counter (what_to_count )
         # nanohack
-        result['trap_success'] = {}
-        result['trap_success']['unsuccessful']         = result['trapped_and_released'][False];
-        result['trap_success']['trapped_and_released'] = result['trapped_and_released'][True ];
+        result['success'] = {}
+        result['success']['unsuccessful']         = result['trapped_and_released'][False];
+        result['success']['trapped_and_released'] = result['trapped_and_released'][True ];
         return result
 
     def search(self):
@@ -75,23 +75,26 @@ class MammalSearchForm(SearchForm):
             sqs = sqs.narrow ('asset_type_exact:TrapLocation')
             
             
+            #import pdb
+            #pdb.set_trace()
+            
             #not sure i want this...
             #if self.load_all:
             #    return sqs.load_all()
             
-            sqs = sqs.narrow (self.checkboxes_or ('trap_habitat'))
-            sqs = sqs.narrow (self.checkboxes_or ('trap_species'))
-            sqs = sqs.narrow (self.checkboxes_or ('trap_school' ))
+            sqs = sqs.narrow (self.checkboxes_or ('habitat'))
+            sqs = sqs.narrow (self.checkboxes_or ('species'))
+            sqs = sqs.narrow (self.checkboxes_or ('school' ))
             
             #trap success:
-            show_unsuccessful = 'unsuccessful'         in self.cleaned_data['trap_success']
-            show_successful   = 'trapped_and_released' in self.cleaned_data['trap_success']
+            show_unsuccessful = 'unsuccessful'         in self.cleaned_data['success']
+            show_successful   = 'trapped_and_released' in self.cleaned_data['success']
             # if neither, or both, are clicked, show all locations.
             # however:
             if show_unsuccessful and not show_successful:
-                sqs = sqs.narrow('trap_unsuccessful:True')
+                sqs = sqs.narrow('unsuccessful:True')
             if show_successful   and not show_unsuccessful:
-                sqs = sqs.narrow('trap_trapped_and_released:True')
+                sqs = sqs.narrow('trapped_and_released:True')
             
             self.breakdown = simplejson.dumps(self.calculate_breakdown(sqs))
         return sqs
@@ -145,8 +148,52 @@ def ajax_search(request):
         search_results = my_new_form.search()
         result_obj = {}
         #this is still hitting the DB. TODO: fix.
-        result_obj['map_data']  = [tl.object.search_map_repr() for tl in search_results]
+        #result_obj['map_data']  = [tl.object.search_map_repr() for tl in search_results]
+        result_obj['map_data']  = [  new_search_map_repr( tl) for tl in search_results]
+        
+            
         result_obj['breakdown_object'] = my_new_form.calculate_breakdown(search_results)
         return HttpResponse(simplejson.dumps(result_obj))
     else:
         return HttpResponseRedirect ( '/mammals/search/')
+        
+        
+        
+    #TODO what happens if lat or long is NULL?
+    
+    
+
+def new_search_map_repr (obj):
+    result = {}
+    
+    vals = (
+        obj.species_label,
+        obj.habitat_label,
+        obj.school_label,
+        obj.date
+    )
+    
+    result ['name'] =  "Animal: %s</br>Habitat: %s</br>School: %s</br>Date: %s" % vals
+    
+    try:
+        result ['where']   =  [float(obj.lat), float(obj.lon)]
+    except TypeError:
+        result ['where'] = [0.0,0.0]
+
+
+    result ['species'] =  obj.species_label
+    result ['habitat_id'] = obj.habitat
+    result ['habitat'] =    obj.habitat_label
+    
+    
+    result ['school_id']  =    obj.school
+    result ['school']     =    obj.school
+    result ['school_label']     =    obj.school_label
+    
+    if obj.date !=None:
+        result ['date']    =    obj.date.strftime("%m/%d/%y")
+    else:
+        result ['date']    =    ''
+    
+    
+    return result

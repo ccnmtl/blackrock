@@ -191,6 +191,7 @@ function checkbox_change_callback() {
         type: 'POST',
         url: '/mammals/ajax_search/',
         success: function(response) {
+            console.log (response);
             var resp_obj = JSON.parse(response);
             //console.log (JSON.stringify (resp_obj['breakdown_object']));
             refresh_map (the_map, resp_obj['breakdown_object'], resp_obj['map_data']);
@@ -256,10 +257,10 @@ function show_breakdown_numbers (breakdown_object) {
         return;
     }
     var facets = {
-         'habitat' :       jQuery ('input[name="trap_habitat" ]')
-        ,'species' :       jQuery ('input[name="trap_species" ]')
-        ,'school'  :       jQuery ('input[name="trap_school"  ]')
-        ,'trap_success'  : jQuery ('input[name="trap_success" ]')
+         'habitat' :       jQuery ('input[name="habitat" ]')
+        ,'species' :       jQuery ('input[name="species" ]')
+        ,'school'  :       jQuery ('input[name="school"  ]')
+        ,'success'  : jQuery ('input[name="success" ]')
     }
     
     
@@ -307,7 +308,7 @@ function show_little_habitat_disks() {
             jQuery(checkbox.parentElement).prepend ( draw_disk_html(disk_path) );    
         }
     }
-    jQuery.each (jQuery ('input[name="trap_habitat" ]'), show_a_disk);
+    jQuery.each (jQuery ('input[name="habitat" ]'), show_a_disk);
 }
 
 

@@ -496,9 +496,6 @@ class TrapLocation(models.Model):
         return result
     
     
-    
-    
-    
     def set_suggested_lat_long (self, coords):
         # see 
         # https://code.djangoproject.com/attachment/ticket/16778/postgis-adapter-2.patch
