@@ -72,12 +72,10 @@ class MammalSearchForm(SearchForm):
             #note -- haystack catches the error. so i can't. This kinda sucks.
             
             sqs = self.searchqueryset.auto_query('')
-            sqs = sqs.narrow ('asset_type_exact:TrapLocation')
-            
-            
             #import pdb
             #pdb.set_trace()
-            
+            #sqs = sqs.narrow ('asset_type_exact:TrapLocation')
+            sqs =sqs.narrow ('asset_type_exact:TrapLocation OR asset_type_exact:Sighting')
             #not sure i want this...
             #if self.load_all:
             #    return sqs.load_all()
@@ -89,6 +87,15 @@ class MammalSearchForm(SearchForm):
             #trap success:
             show_unsuccessful = 'unsuccessful'         in self.cleaned_data['success']
             show_successful   = 'trapped_and_released' in self.cleaned_data['success']
+            
+            
+            
+            
+            observed           = 'observed'         in self.cleaned_data['signs']
+            camera             = 'camera'           in self.cleaned_data['signs']
+            tracks_and_signs   = 'tracks_and_signs' in self.cleaned_data['signs']
+
+
             # if neither, or both, are clicked, show all locations.
             # however:
             if show_unsuccessful and not show_successful:
@@ -96,7 +103,20 @@ class MammalSearchForm(SearchForm):
             if show_successful   and not show_unsuccessful:
                 sqs = sqs.narrow('trapped_and_released:True')
             
-            self.breakdown = simplejson.dumps(self.calculate_breakdown(sqs))
+            
+            if observed or camera or tracks_and_signs:
+                
+                tmp = []
+               
+                if observed:
+                    tmp.append ('observed:True')
+                if camera:
+                    tmp.append ('camera:True')
+                if tracks_and_signs:
+                    tmp.append ('tracks_and_signs:True')
+                sqs = sqs.narrow(  ' OR '.join(tmp))
+        self.breakdown = simplejson.dumps(self.calculate_breakdown(sqs))
+        
         return sqs
 
 
@@ -173,19 +193,15 @@ def new_search_map_repr (obj):
         obj.date
     )
     
-    result ['name'] =  "Animal: %s</br>Habitat: %s</br>School: %s</br>Date: %s" % vals
-    
     try:
         result ['where']   =  [float(obj.lat), float(obj.lon)]
     except TypeError:
         result ['where'] = [0.0,0.0]
-
-
+    
+    result ['name'] =  "Animal: %s</br>Habitat: %s</br>School: %s</br>Date: %s" % vals
     result ['species'] =  obj.species_label
     result ['habitat_id'] = obj.habitat
     result ['habitat'] =    obj.habitat_label
-    
-    
     result ['school_id']  =    obj.school
     result ['school']     =    obj.school
     result ['school_label']     =    obj.school_label
