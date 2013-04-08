@@ -66,13 +66,10 @@ div#mainnav ul li {
 
 
 
-div#mainnav ul li.search
-
-{background-image: url("../images/searchicon.png") ;
-background-position: 4px 0px;
-background-repeat: no-repeat;
-
-
+div#mainnav ul li.search {
+	background-image: url("../images/searchicon.png") ;
+	background-position: 4px 0px;
+	background-repeat: no-repeat;
 }
 
 div#mainnav ul li.home
