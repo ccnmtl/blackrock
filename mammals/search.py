@@ -71,8 +71,6 @@ class MammalSearchForm(SearchForm):
         #pdb.set_trace()
         
         
-        print len (the_sqs)
-        print (result['species'])
 
             
         # nanohack
