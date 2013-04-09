@@ -167,18 +167,18 @@ function checkbox_change_callback() {
     
     var my_triangle = jQuery(my_header).children("span.ui-icon");
 
-    console.log ( jQuery(my_accordion)    )
-    console.log ( jQuery(my_header)    )
+    //console.log ( jQuery(my_accordion)    )
+    //console.log ( jQuery(my_header)    )
 
     if (contains_checked_boxes(my_header)) {
-        console.log ("contains checked boxes");
+       // console.log ("contains checked boxes");
         my_triangle.removeClass("ui-icon-triangle-1-s ui-icon-triangle-1-e ui-icon-triangle-1-l");
         my_triangle.addClass("ui-icon-triangle-1-l");
         
     }
     
     else {
-        console.log ("contains NO checked boxes");
+        //console.log ("contains NO checked boxes");
         my_triangle.removeClass("ui-icon-triangle-1-s ui-icon-triangle-1-e ui-icon-triangle-1-l");
         my_triangle.addClass("ui-icon-triangle-1-s");
     
@@ -191,7 +191,7 @@ function checkbox_change_callback() {
         type: 'POST',
         url: '/mammals/ajax_search/',
         success: function(response) {
-            console.log (response);
+            //console.log (response);
             var resp_obj = JSON.parse(response);
             //console.log (JSON.stringify (resp_obj['breakdown_object']));
             refresh_map (the_map, resp_obj['breakdown_object'], resp_obj['map_data']);
@@ -248,6 +248,8 @@ function isEmpty(obj) {
 }
 
 function show_breakdown_numbers (breakdown_object) {
+    //console.log (JSON.stringify(breakdown_object));
+    
     
     jQuery ('.breakdown_number_span').remove();
     // Suggest ways to break down the search.
@@ -260,25 +262,40 @@ function show_breakdown_numbers (breakdown_object) {
          'habitat' :       jQuery ('input[name="habitat" ]')
         ,'species' :       jQuery ('input[name="species" ]')
         ,'school'  :       jQuery ('input[name="school"  ]')
-        ,'success'  : jQuery ('input[name="success" ]')
+        ,'success'  :      jQuery ('input[name="success" ]')
+        ,'signs'  :        jQuery ('input[name="signs"   ]')
     }
     
     
-    // Don't ask. Just don't ask.
     res = [];
+    
+    
     jQuery.each (facets, function (k, v) { res.push ( {'k': k, 'v': v } ); }  );
+    
+    
     
     for (var j = 0; j < res.length; j++) {
         the_facet      = res[j]['k'];
         the_checkboxes = res[j]['v'];
         for (var i = 0; i < the_checkboxes.length; i++) {
+
             var the_checkbox = the_checkboxes[i];
+            //console.log (the_checkbox);
+            
+            
+            //console.log (JSON.stringify (breakdown_object[the_facet]));
+            
             var how_many = breakdown_object[the_facet] [the_checkbox.value]
+            
+            //console.log (how_many);
+            
             if ( how_many ) {
                 say_how_many (the_checkbox, how_many);
             }
         }
     }
+    //console.log (breakdown_object);
+    
 }
 
 

@@ -41,26 +41,53 @@ class MammalSearchForm(SearchForm):
     
     habitat = forms.MultipleChoiceField(required=False, label='Habitat', widget=csm, choices=habitat_list)
     species = forms.MultipleChoiceField(required=False, label='Species', widget=csm, choices=species_list)
-    school = forms.MultipleChoiceField(required=False, label='School', widget=csm, choices=school_list)
-
-
+    school =  forms.MultipleChoiceField(required=False, label='School', widget=csm, choices=school_list)
 
     def __init__(self, *args, **kwargs):
         super(MammalSearchForm, self).__init__(*args, **kwargs)
 
-    def checkboxes_or (self, name):
+    def checkboxes_or (self, form_key):
         """" note: this returns a blank string if nothing is checked."""
-        return ' OR '.join (['%s:%s'% (name, a)  for a in self.cleaned_data[name]])
+        search_index_key = form_key
+        if form_key == 'species':
+            search_index_key = 'species_id'
+        return ' OR '.join (['%s:%s'% (search_index_key, a)  for a in self.cleaned_data[form_key]])
+        
+    #def checkboxes_or_
+    #    ' OR '.join (['%s:%s'% ('species_id', a)  for a in self.cleaned_data[name]])
+
         
     def calculate_breakdown (self, the_sqs):
         result = {}
-        for thing in  ['species', 'habitat', 'school', 'unsuccessful', 'trapped_and_released']:            
+        
+        for thing in  ['species_id', 'habitat', 'school', 'unsuccessful', 'trapped_and_released', 'observed', 'camera', 'tracks_and_signs']:            
             what_to_count = [getattr (x, ('%s' % thing)) for x in the_sqs]
-            result [thing] = my_counter (what_to_count )
+            if thing == 'species_id':
+                result ['species'] = my_counter (what_to_count )
+            else:
+                result [thing] = my_counter (what_to_count )
+
+        #import pdb
+        #pdb.set_trace()
+        
+        
+        print len (the_sqs)
+        print (result['species'])
+
+            
         # nanohack
         result['success'] = {}
         result['success']['unsuccessful']         = result['trapped_and_released'][False];
         result['success']['trapped_and_released'] = result['trapped_and_released'][True ];
+        
+        
+        result['signs'] = {}
+        result['signs']['observed']         = result['observed']        [True];
+        result['signs']['camera']           = result['camera']          [True ];
+        result['signs']['tracks_and_signs'] = result['tracks_and_signs'][True ];
+        
+        
+        
         return result
 
     def search(self):
@@ -70,52 +97,67 @@ class MammalSearchForm(SearchForm):
             #else
             ##TODO test validity of connection and throw error if there's a problem.
             #note -- haystack catches the error. so i can't. This kinda sucks.
-            
+                    
             sqs = self.searchqueryset.auto_query('')
+            
+            
             #import pdb
             #pdb.set_trace()
             #sqs = sqs.narrow ('asset_type_exact:TrapLocation')
+            
+            
             sqs =sqs.narrow ('asset_type_exact:TrapLocation OR asset_type_exact:Sighting')
+            
+            
+            #hack:
+            for aaa in sqs:
+                aaa.species = aaa.species_id
+            
+            
+            #import pdb
+            #pdb.set_trace()
+            
             #not sure i want this...
             #if self.load_all:
             #    return sqs.load_all()
+            
             
             sqs = sqs.narrow (self.checkboxes_or ('habitat'))
             sqs = sqs.narrow (self.checkboxes_or ('species'))
             sqs = sqs.narrow (self.checkboxes_or ('school' ))
             
+            
+            
             #trap success:
             show_unsuccessful = 'unsuccessful'         in self.cleaned_data['success']
             show_successful   = 'trapped_and_released' in self.cleaned_data['success']
+            observed           = 'observed'            in self.cleaned_data['signs']
+            camera             = 'camera'              in self.cleaned_data['signs']
+            tracks_and_signs   = 'tracks_and_signs'    in self.cleaned_data['signs']
             
-            
-            
-            
-            observed           = 'observed'         in self.cleaned_data['signs']
-            camera             = 'camera'           in self.cleaned_data['signs']
-            tracks_and_signs   = 'tracks_and_signs' in self.cleaned_data['signs']
-
-
-            # if neither, or both, are clicked, show all locations.
-            # however:
-            if show_unsuccessful and not show_successful:
-                sqs = sqs.narrow('unsuccessful:True')
-            if show_successful   and not show_unsuccessful:
-                sqs = sqs.narrow('trapped_and_released:True')
-            
-            
-            if observed or camera or tracks_and_signs:
-                
-                tmp = []
-               
+            if observed or camera or tracks_and_signs or show_unsuccessful or show_successful:
+                tmp = []                   
                 if observed:
                     tmp.append ('observed:True')
                 if camera:
                     tmp.append ('camera:True')
                 if tracks_and_signs:
                     tmp.append ('tracks_and_signs:True')
+                if show_unsuccessful:
+                    tmp.append ('unsuccessful:True')
+                if show_successful:
+                    tmp.append ('trapped_and_released:True')
                 sqs = sqs.narrow(  ' OR '.join(tmp))
+
+
+            else:
+                pass #ignore.
+                
+
+
         self.breakdown = simplejson.dumps(self.calculate_breakdown(sqs))
+
+        
         
         return sqs
 

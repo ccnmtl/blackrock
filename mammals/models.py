@@ -626,12 +626,6 @@ class ObservationType (LabelMenu):
 
 ##################################################
 class Sighting(models.Model):    
-
-
-
-
-
-
     location    = models.PointField(null=True, blank=True, help_text = "Where the animal was seen")
     objects = models.GeoManager()
     species = models.ForeignKey (Species, null=True, blank=True, help_text = "Best guess at species.")

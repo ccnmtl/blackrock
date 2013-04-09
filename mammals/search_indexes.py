@@ -7,14 +7,16 @@ from mammals.models import TrapLocation, Sighting
 class TrapLocationIndex(SearchIndex):
     text = CharField(document=True, use_template=True) #not used, but apparently mandatory.
     
-    species =              CharField        (faceted=True)
+    
+    species_id =           CharField        (faceted=True)
+    
     habitat =              CharField        (faceted=True)    
     school  =              CharField        (faceted=True)
     
     
-    species_label =         CharField        (faceted=True)
-    habitat_label =         CharField        (faceted=True)    
-    school_label  =         CharField        (faceted=True)
+    species_label =        CharField        (faceted=True)
+    habitat_label =        CharField        (faceted=True)    
+    school_label  =        CharField        (faceted=True)
     
     lat =                  CharField        (faceted=True)
     lon =                  CharField        (faceted=True)
@@ -32,13 +34,14 @@ class TrapLocationIndex(SearchIndex):
 
     def get_model(self):
         return TrapLocation
-        
-    
-    def prepare_species(self, obj):
+            
+                
+    def prepare_species_id(self, obj):
         if obj.animal:
             return obj.animal.species.id
         else:
             return None
+            
         
     def prepare_habitat(self, obj):
         if obj.habitat:
@@ -85,14 +88,16 @@ class TrapLocationIndex(SearchIndex):
         else:
             return True 
             
+            
+    #these are not sightings, so none of these three is applicable:    
     def prepare_observed(self, obj):
-        return False
+        return None
         
     def prepare_camera(self, obj):
-        return False
+        return None
 
     def prepare_tracks_and_signs(self, obj):
-        return False
+        return None
         
         
     def prepare_lat(self, obj):
@@ -111,7 +116,7 @@ site.register(TrapLocation, TrapLocationIndex)
 class SightingIndex(SearchIndex):
     text = CharField(document=True, use_template=True) #not used, but apparently mandatory.
     
-    species =              CharField        (faceted=True)
+    species_id =              CharField        (faceted=True)
     habitat =              CharField        (faceted=True)    
     school  =              CharField        (faceted=True)
     
@@ -123,10 +128,10 @@ class SightingIndex(SearchIndex):
     lat =                  CharField        (faceted=True)
     lon =                  CharField        (faceted=True)    
     trapped_and_released = BooleanField     (faceted=True)
+    unsuccessful    =      BooleanField     (faceted=True)
     observed =             BooleanField     (faceted=True)
     camera =               BooleanField     (faceted=True)
     tracks_and_signs =     BooleanField     (faceted=True)
-    unsuccessful    =      BooleanField     (faceted=True)
     
     
     
@@ -139,7 +144,7 @@ class SightingIndex(SearchIndex):
     def prepare_name(self, obj):
         return obj.__unicode__()  
     
-    def prepare_species(self, obj):
+    def prepare_species_id(self, obj):
         if obj.species:
             return obj.species.id
         else:
@@ -151,8 +156,6 @@ class SightingIndex(SearchIndex):
         else:
             return None
             
-            
-
 
     def prepare_school(self, obj):
         return None
@@ -164,7 +167,10 @@ class SightingIndex(SearchIndex):
             return None
             
     def prepare_species_label(self, obj):
+        #print obj
+        #print obj.id
         if obj.species:
+            #print  obj.species.common_name
             return obj.species.common_name
         else:
             return None
@@ -176,11 +182,16 @@ class SightingIndex(SearchIndex):
     def prepare_date(self, obj):
         return obj.date_for_solr()
         
+        
+        
+    #these are not traps, so neither of these is applicable:    
     def prepare_trapped_and_released(self, obj):
-        return False
+        return None
             
     def prepare_unsuccessful(self, obj):
-        return False 
+        return None 
+
+
 
     def prepare_observed(self, obj):
         if obj.observation_type and obj.observation_type.label in ['Sighting']:
