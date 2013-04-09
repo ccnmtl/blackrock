@@ -8,8 +8,8 @@ admin.site.register(GridPoint, GridPointAdmin)
 
 class GridSquareAdmin (admin.ModelAdmin):
     list_filter = ('display_this_square', 'row', 'column',)
-    list_display = (  '__unicode__', 'display_this_square','center', 'row', 'column', 'access_difficulty', 'label_2',)
-    fields = (  'row', 'column', 'display_this_square', 'access_difficulty', 'center', 'NW_corner', 'NE_corner', 'SW_corner', 'SE_corner',   'label_2', )
+    list_display = (  '__unicode__', 'display_this_square','center', 'row', 'column', 'access_difficulty',)
+    fields = (  'row', 'column', 'display_this_square', 'access_difficulty', 'center', 'NW_corner', 'NE_corner', 'SW_corner', 'SE_corner', )
 admin.site.register(GridSquare, GridSquareAdmin)
 
 class GradeLevelAdmin (admin.ModelAdmin):
@@ -107,6 +107,10 @@ class AnimalAgeAdmin (admin.ModelAdmin):
     fields       =(  'label',)
 admin.site.register(AnimalAge, AnimalAgeAdmin)
 
+class ObservationTypeAdmin (admin.ModelAdmin):
+    list_display = (  'label',)
+    fields       =(  'label',)
+admin.site.register(ObservationType, ObservationTypeAdmin)
 
 
 

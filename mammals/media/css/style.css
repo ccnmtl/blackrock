@@ -306,7 +306,7 @@ body.square .formfield label
 	display: block;
 }
 
-#terrain_level
+#terrain_level, #access_level
 {
 	width: 220px;
 	margin: 0;
@@ -315,7 +315,7 @@ body.square .formfield label
 	float: left;
 }
 
-#terrain_level h4
+#terrain_level h4, #access_level h4
 {
 	margin: 0;
 	padding: 0 0 0 36px;
@@ -323,6 +323,14 @@ body.square .formfield label
 	font-weight: bold;
 	font-size: 12px;
 	height: 36px;
+}
+
+#terrain_level h4{
+	background: url('/mammals/media/images/nav_steps.png') -2px -48px no-repeat;
+}
+
+
+#access_level h4{
 	background: url('/mammals/media/images/nav_steps.png') -2px -8px no-repeat;
 }
 
@@ -343,7 +351,7 @@ body.square .formfield label
 	font-weight: bold;
 	font-size: 12px;
 	height: 36px;
-	background: url('/mammals/media/images/nav_steps.png') -2px -48px no-repeat;
+	background: url('/mammals/media/images/nav_steps.png') -2px -126px no-repeat;
 }
 
 .randomize_again_hint

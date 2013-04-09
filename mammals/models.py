@@ -129,8 +129,6 @@ class Animal(models.Model):
     hair_sample_collected = models.BooleanField(default=False) 
     skin_sample_collected = models.BooleanField(default=False) 
     
-
-    
     def dir(self):
         return dir(self)
 
@@ -192,13 +190,9 @@ class GridSquare (models.Model):
     class Meta:
         unique_together = ("row", "column") #, thank you very much.
     
-    access_difficulty = models.IntegerField(help_text = 'This is the Terrain Difficulty, not to be confused with the Access Difficulty, which we are still not keeping track of.', verbose_name="Terrain Difficulty") 
+    access_difficulty = models.IntegerField(help_text = 'is the overall difficulty and length of time for a group of students to get to the square from the Science Center.', verbose_name="Access Difficulty", default=0) 
     
-    #This is unreferenced. #TOTO remove.
-    label = models.IntegerField(help_text = 'This was just an arbitrary number.')
-    
-    #this will contain the labels from the map given to me by Khoi:
-    label_2 = models.IntegerField(help_text = 'This is the number we used in a first numbering. Squares with no number on that map just have a -1.' , verbose_name="Square number on purple map")
+    terrain_difficulty = models.IntegerField(help_text = 'How rough the terrain is on this square.', verbose_name="Terrain Difficulty", default=0)
     
     def battleship_coords(self ):
         alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -233,21 +227,13 @@ class GridSquare (models.Model):
     def info_for_display (self):
         result = {}
         result['corner_obj']            = self.corner_obj()
-        result['label']                 = self.label_2
         result['row']                   = self.row
         result['column']                = self.column
         result['access_difficulty']     = self.access_difficulty
+        result['terrain_difficulty']    = self.terrain_difficulty
         result['database_id']           = self.id
         result['battleship_coords']     = self.battleship_coords()
         return result
-        
-    def use_existing_points(self):
-        """If my point is redundant, use a point that's already in the DB and remove my redundant point."""
-        for corner_name in self.corner_names():
-            point_to_use_instead = getattr(self, corner_name).existing_equivalent_point()
-            if point_to_use_instead:
-                getattr(self, corner_name).delete()
-                setattr(self, corner_name, point_to_use_instead)
 
         
     def dir(self):
@@ -302,6 +288,8 @@ class Expedition (models.Model):
         ordering = ['-end_date_of_expedition']
 
     
+    
+    
     @classmethod
     def create_from_obj(self, json_obj, creator):
         expedition = Expedition()
@@ -320,7 +308,7 @@ class Expedition (models.Model):
     end_date_of_expedition   =      models.DateTimeField(auto_now_add=True, null=True)
     
     
-    
+    real  = models.BooleanField(default=True, help_text = "Is this expedition real or just a test?")     
     
     
     created_on = models.DateTimeField(auto_now_add=True, null=False)
@@ -508,9 +496,6 @@ class TrapLocation(models.Model):
         return result
     
     
-    
-    
-    
     def set_suggested_lat_long (self, coords):
         # see 
         # https://code.djangoproject.com/attachment/ticket/16778/postgis-adapter-2.patch
@@ -633,33 +618,44 @@ class TrapLocation(models.Model):
     def gps_coords(self):
         return "%s, %s" % (self.actual_NSlat(), self.actual_EWlon())
         
-    if 0 == 0:
-    #these are no longer called from the map page -- see /sentry/group/1260
-    #TODO remove; Now ambiguous.    
-                        def NSlat(self):
-                            lat = self.lat()
-                            if lat:
-                                if lat > 0:
-                                    return '%0.5F N' % abs(lat)
-                                return '%0.5F S' % abs(lon)
-                            return None
-                        def EWlon(self):
-                            lon = self.lon()
-                            if lon:
-                                if lon < 0:
-                                    return '%0.5F W' % abs(lon)
-                                return '%0.5F E' % abs(lon)
-                            return None
-                        def lat(self):
-                            if self.suggested_point:
-                                return self.suggested_point.coords[0]
-                            return None
-                            
-                        def lon(self):
-                            if self.suggested_point:
-                                return self.suggested_point.coords[1]
-                            return None
 
+
+class ObservationType (LabelMenu):
+    pass
+
+
+##################################################
+class Sighting(models.Model):    
+    location    = models.PointField(null=True, blank=True, help_text = "Where the animal was seen")
+    objects = models.GeoManager()
+    species = models.ForeignKey (Species, null=True, blank=True, help_text = "Best guess at species.")
+    habitat = models.ForeignKey (Habitat, null=True, blank=True,  help_text = "What habitat best describes this location?")
+    date =      models.DateTimeField(auto_now_add=True, null=True, help_text = "Where the animal was seen")
+    observation_type  =  models.ForeignKey(ObservationType, null=True, blank=True, help_text = "e.g. sighting, camera-trapped, etc.")
+    observers =  models.TextField(blank=True,  null=True, help_text = "Initials of the people who made the observation.", default = None)
+    how_many_observed = models.IntegerField(blank=True, null=True, help_text = "How many animals were observed, if applicable.", default = None)
+    notes =  models.TextField(blank=True,  null=True, help_text = "Notes about the location" , default = None)
+    def set_lat_long (self, coords):
+        # see 
+        # https://code.djangoproject.com/attachment/ticket/16778/postgis-adapter-2.patch
+        # if this breaks again.
+        self.location    = "POINT(%s %s)" % (coords[0], coords[1])
+    
+    def lat(self):
+        if self.location:
+            return self.location.coords[0]
+        return None
+
+    def lon(self):
+        if self.location:
+            return self.location.coords[1]
+        return None
+    
+    def date_for_solr (self):
+        if self.date:
+            return self.date
+        else:
+            return None    
 
 def whether_this_user_can_see_mammals_module_data_entry (a_user):
     return a_user != None and len (a_user.groups.filter(name='mammals_module_data_entry')) > 0
