@@ -5,8 +5,21 @@
     var numSpecies = 1;
     var speciesList = [];
     var html = "";
+    
     function initSpeciesCloner() {
         html = $('species1').innerHTML;
+    }
+    
+    function initPredefinedSpecies() {        
+        forEach(getElementsByTagAndClassName("input", "species-select-predefined"), function(elem) {
+            disconnectAll(elem);
+            connect(elem, "onclick", this, togglePredefinedSpeciesList);
+        });
+        
+        forEach(getElementsByTagAndClassName("div", "species-predefined-choice"), function(elem) {
+            disconnectAll(elem);
+            connect(elem, "onclick", this, populateSpeciesChoice);
+        });
     }
     
     function addSpecies(elem) {
@@ -39,8 +52,9 @@
       namediv.value = "Your Tree #" + numSpecies;
       global.EquationHighlighter.initSpecies(newDiv);
       updateColors();
+      
+      initPredefinedSpecies();
     }
-    
     
     function initSpecies() {
       if($("scenario1-base-temp")) {
@@ -373,9 +387,88 @@
       speciesList = list;
     }
     
+    function togglePredefinedSpeciesList(evt) {
+        var elt = evt.src();
+        var parent = getFirstParentByTagAndClassName(elt,
+                tagName='div', className='species');     
+        var list = getFirstElementByTagAndClassName(tagName="div",
+                className="species-predefined-list", parent=parent);
+        if (getStyle(list, 'display') == 'none') {
+            setStyle(list, {'display': 'block'});
+        } else {
+            setStyle(list, {'display': 'none'});
+        }
+    }
+
+    var predefinedSpecies = {
+        "quercus_rubra" : {
+            'label' : 'Quercus rubra',
+            't0' : 10,
+            'r0' : 0.602,
+            'e0' : 43140
+        },
+        "quercus_prinus" : {
+            'label' : 'Quercus prinus',
+            't0' : 10,
+            'r0' : 0.670,
+            'e0' : 37005
+        },
+        "acer_rubrum" : {
+            'label' : 'Acer rubrum',
+            't0' : 10,
+            'r0' : 0.680,
+            'e0' : 27210
+        },
+        "vaccinium_corymbosum" : {
+            'label' : 'Vaccinium corymbosum',
+            't0' : 10,
+            'r0' : 0.091,
+            'e0' : 62967
+        },
+        "berberis_thumbergii" : {
+            'label' : 'Berberis thumbergii',
+            't0' : 10,
+            'r0' : 0.203,
+            'e0' : 81950
+        },
+        "kalmia_latifolia" : {
+            'label' : 'Kalmia latifolia',
+            't0' : 10,
+            'r0' : 0.308,
+            'e0' : 54940
+        }
+    };
+    
+    function populateSpeciesChoice(evt) {
+        var elt = evt.src();
+        if (elt.id in predefinedSpecies) {
+            var parent = getFirstParentByTagAndClassName(elt, tagName='div', className='species');
+            
+            var eltLabel = getFirstElementByTagAndClassName('input', 'species-name', parent=parent);
+            eltLabel.value = predefinedSpecies[elt.id].label;
+            
+            //var eltLabel = getElementByTagAndClassName('input', 'species-name', parent=parent);
+            //setNodeAttribute(eltTemp, "value", predefinedSpecies[elt.id].t0);
+            
+            var eltRZero = getFirstElementByTagAndClassName('input', 'r-zero', parent=parent);
+            eltRZero.value = predefinedSpecies[elt.id].r0;
+            
+            var eltEZero = getFirstElementByTagAndClassName('input', 'e-zero', parent=parent);
+            eltEZero.value = predefinedSpecies[elt.id].e0;
+
+            var lst = getFirstElementByTagAndClassName('div', 'species-predefined-list', parent=parent);
+            setStyle(lst, {'display': 'none'});
+            
+            global.EquationHighlighter.needsUpdate();
+        } else {
+            alert('Cannot find that species. Please select another one.');
+        }
+    }
+    
     function initSpeciesModule() {
         initSpeciesCloner();
         initSpecies();
+        initPredefinedSpecies();
     }
 
     global.addSpecies = addSpecies;
