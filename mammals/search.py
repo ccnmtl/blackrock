@@ -86,6 +86,9 @@ class MammalSearchForm(SearchForm):
             
             sqs =sqs.narrow ('asset_type_exact:TrapLocation OR asset_type_exact:Sighting')
             
+            #don't display fake/test results:
+            sqs =sqs.narrow ('real_exact:True')
+            
             
             #hack:
             for aaa in sqs:
