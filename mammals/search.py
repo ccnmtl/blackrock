@@ -5,7 +5,6 @@ from mammals.models import TrapLocation, Species, Habitat, School, GridSquare
 from django.db.models import get_model, get_app
 from django.utils.text import capfirst
 from types import ListType
-#from collections import Counter  ## not allowed in 2.6
 from collections import defaultdict
 from django.utils import simplejson
 from django.http import HttpResponse
@@ -38,7 +37,6 @@ class MammalSearchForm(SearchForm):
     
     success = forms.MultipleChoiceField(required=False, label='', widget=csm, choices=success_list)
     signs =   forms.MultipleChoiceField(required=False, label='', widget=csm, choices=signs_list)
-    
     habitat = forms.MultipleChoiceField(required=False, label='Habitat', widget=csm, choices=habitat_list)
     species = forms.MultipleChoiceField(required=False, label='Species', widget=csm, choices=species_list)
     school =  forms.MultipleChoiceField(required=False, label='School', widget=csm, choices=school_list)
@@ -52,32 +50,20 @@ class MammalSearchForm(SearchForm):
         if form_key == 'species':
             search_index_key = 'species_id'
         return ' OR '.join (['%s:%s'% (search_index_key, a)  for a in self.cleaned_data[form_key]])
-        
-    #def checkboxes_or_
-    #    ' OR '.join (['%s:%s'% ('species_id', a)  for a in self.cleaned_data[name]])
 
         
     def calculate_breakdown (self, the_sqs):
         result = {}
-        
         for thing in  ['species_id', 'habitat', 'school', 'unsuccessful', 'trapped_and_released', 'observed', 'camera', 'tracks_and_signs']:            
             what_to_count = [getattr (x, ('%s' % thing)) for x in the_sqs]
             if thing == 'species_id':
                 result ['species'] = my_counter (what_to_count )
             else:
                 result [thing] = my_counter (what_to_count )
-
-        #import pdb
-        #pdb.set_trace()
         
-        
-
-            
-        # nanohack
         result['success'] = {}
         result['success']['unsuccessful']         = result['trapped_and_released'][False];
         result['success']['trapped_and_released'] = result['trapped_and_released'][True ];
-        
         
         result['signs'] = {}
         result['signs']['observed']         = result['observed']        [True];
@@ -98,27 +84,12 @@ class MammalSearchForm(SearchForm):
                     
             sqs = self.searchqueryset.auto_query('')
             
-            
-            #import pdb
-            #pdb.set_trace()
-            #sqs = sqs.narrow ('asset_type_exact:TrapLocation')
-            
-            
             sqs =sqs.narrow ('asset_type_exact:TrapLocation OR asset_type_exact:Sighting')
             
             
             #hack:
             for aaa in sqs:
                 aaa.species = aaa.species_id
-            
-            
-            #import pdb
-            #pdb.set_trace()
-            
-            #not sure i want this...
-            #if self.load_all:
-            #    return sqs.load_all()
-            
             
             sqs = sqs.narrow (self.checkboxes_or ('habitat'))
             sqs = sqs.narrow (self.checkboxes_or ('species'))

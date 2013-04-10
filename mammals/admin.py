@@ -115,7 +115,7 @@ admin.site.register(ObservationType, ObservationTypeAdmin)
 
 
 class ExpeditionAdmin (admin.ModelAdmin):
-    list_display = (  '__unicode__', 'number_of_students', 'grade_level', 'grid_square', 'school',)
+    list_display = (  '__unicode__', 'number_of_students', 'grade_level', 'grid_square', 'school', 'real')
     fields       = (
         #'start_date_of_expedition',
         #'end_date_of_expedition',
@@ -141,7 +141,7 @@ class ExpeditionAdmin (admin.ModelAdmin):
         'overnight_precipitation_type',
         'moon_phase',
         'illumination',
-        
+        'real',
         
     )
 admin.site.register(Expedition, ExpeditionAdmin)
