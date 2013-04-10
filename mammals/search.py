@@ -181,9 +181,7 @@ def ajax_search(request):
         my_new_form    = MammalSearchForm(request.POST)
         search_results = my_new_form.search()
         result_obj = {}
-        #this is still hitting the DB. TODO: fix.
-        #result_obj['map_data']  = [tl.object.search_map_repr() for tl in search_results]
-        result_obj['map_data']  = [  new_search_map_repr( tl) for tl in search_results]
+        result_obj['map_data']  = [  search_map_repr( tl) for tl in search_results]
         
             
         result_obj['breakdown_object'] = my_new_form.calculate_breakdown(search_results)
@@ -197,22 +195,32 @@ def ajax_search(request):
     
     
 
-def new_search_map_repr (obj):
+def search_map_repr (obj):
+
     result = {}
-    
+    html_string =  """
+        Animal: %s</br>
+        Habitat: %s</br>
+        School: %s</br>
+        Observer(s): %s</br>
+        Date: %s"""
+        
     vals = (
         obj.species_label,
         obj.habitat_label,
         obj.school_label,
+        obj.observer_name,
         obj.date
     )
     
+    result ['name'] = html_string % vals
+
+        
     try:
         result ['where']   =  [float(obj.lat), float(obj.lon)]
     except TypeError:
         result ['where'] = [0.0,0.0]
     
-    result ['name'] =  "Animal: %s</br>Habitat: %s</br>School: %s</br>Date: %s" % vals
     result ['species'] =  obj.species_label
     result ['habitat_id'] = obj.habitat
     result ['habitat'] =    obj.habitat_label
