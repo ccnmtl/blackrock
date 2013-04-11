@@ -78,7 +78,7 @@ div#nav ol li a.active, div#nav ul li.active { background-color: #ffffff; }
 {
 	display: block;
 	margin: 0;
-	padding: 0 10px;
+	padding: 0 20px;
 	border: 0;
 	min-width: 960px;
 	max-width: 1200px;
@@ -334,10 +334,16 @@ body.square .formfield label
 	background: url('/mammals/media/images/nav_steps.png') -2px -8px no-repeat;
 }
 
+.randomizer_click {
+  display: inline;
+  float: left;
+  width: 180px;
+}
+
 #randomizer
 {
-	width: 180px;
-	margin: 0;
+	
+	margin: 25px 0 0 0;
 	padding: 0;
 	border: 0;
 	float: left;
@@ -365,6 +371,8 @@ body.square .formfield label
 	-webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
+  float: left;
+  width: 180px;
 }
 
 .red {
@@ -1011,3 +1019,4 @@ body.square .block_coordbox
 	padding: 5px 10px 5px 0;
 	margin: 0;
 }
+  

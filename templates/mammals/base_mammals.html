@@ -44,7 +44,8 @@
         <li class="default {% block status_teaching %}{% endblock %}"><a href="/mammals/teaching/">Teaching Resources</a></li>
         {% if user.is_authenticated %}
         
-        <li class="default"><a href="/mammals/all_expeditions/">Expeditions</a></li>
+        <li id="gridresearch"><a href="/mammals/all_expeditions/">Expeditions</a></li>
+        <li id="gridplay"><a href="/mammals/sightings">Sightings</a></li>
         
         <li class="default"><a href="/mammals/logout/">Logout {{user }}</a></li>
         {%else %}
