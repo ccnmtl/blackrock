@@ -732,11 +732,19 @@ body.square .center_point_table td.latlong {
 }
 
 .table_actions {
+  background-color: #f5f5f5;
 	margin: 0;
-	padding: 0;
-	border: 0;
+	padding: 10px;
+	border-bottom: none;
+	border-top: solid 1px #ccc;
+	border-left: solid 1px #ccc;
+	border-right: solid 1px #ccc;
 	display: block;
-	float: left;
+	clear: both;
+}
+
+#csv_export_form, #print_export_form, #new_start_expedition_form {
+  display: inline;
 }
 
 body.square div#transect_table_overflow_div {
@@ -779,7 +787,7 @@ body.square .distances_table_header td
 {
 	vertical-align: top;
 	font-weight: bold;
-    background-color: #e0e0e0;
+    background-color: #f5f5f5;
 }
 
 body.square .distances_table_header .suggested_td,
