@@ -18,6 +18,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext,  TemplateDoesNotExist
 from blackrock.mammals.models import *
 #from blackrock.mammals.models import whether_this_user_can_see_mammals_module_data_entry
+from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 
 from operator import attrgetter
 from string import uppercase
@@ -653,10 +654,24 @@ def expedition_animals(request, expedition_id):
 
 @rendered_with('mammals/all_expeditions.html')
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
-def all_expeditions(request):        
-    expeditions = Expedition.objects.all().order_by('-start_date_of_expedition')
+def all_expeditions(request):
+    all_the_expeditions = Expedition.objects.all().order_by('-start_date_of_expedition')
+    results_per_page = 25
+    paginator = Paginator(all_the_expeditions, results_per_page)
+    page_num = request.GET.get('page', 1)
+    try:
+        expeditions = paginator.page(page_num)
+    except PageNotAnInteger:
+        # If in any doubt, deliver first page.
+        expeditions = paginator.page(1)
+    except InvalidPage:
+        # If in any doubt, deliver first page.
+        expeditions = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        expeditions = paginator.page(paginator.num_pages)
     return {
-        'expeditions' : expeditions
+        'expeditions' : expeditions,
     }
 
     
