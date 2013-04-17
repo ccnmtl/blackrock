@@ -5,30 +5,32 @@
 
 div.trap_rectangle {
     width : 450px;
+    height : 500px;
     clear:right;
     float:left;
-    border:2px solid;
+    border:1px solid;
     border-radius:25px;
     margin:10px;
     padding: 10px;
     position:relative;
 }
 
+h3.team_form_top_title {
+
+    border:1px solid;
+    border-radius:25px;
+    width:950px;
+    margin:5px;
+    padding: 5px;
+}
+
 div.team_form_lat_lon_coord .value{
-    color:red;
     position:absolute;
-    left:300px;
+    left:200px;
 }
 
 .coord_input {
     width : 60px;
-}
-
-
-
-div.team_form_bait_type_div {
-
-
 }
 
 div.save_buttons {
@@ -37,7 +39,7 @@ div.save_buttons {
 
 h3.trap_label {
 	background-color: white;
-    border:2px solid;
+    border:1px solid;
     border-radius:25px;
     margin:10px;
     padding: 10px;
@@ -50,3 +52,11 @@ h3.trap_label {
 .half_width {
     width: 300px;
 }
+
+
+.team_form_map {
+    width:120px;
+    height:120px;
+}   
+
+

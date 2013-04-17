@@ -17,16 +17,6 @@
     <div id = "map_{{point.id}}" class = "team_form_map" ></div>
 </div>
 
-<div class = "team_form_lat_lon_coord latitude actual half_width">
-    <span class ="label">
-        Latitude:
-    </span>
-    <span class ="value">
-        <input class="coord_input" type="text" name = "actual_lat_{{point.id}}"  id = "actual_lat_{{point.id}}" value = "{{point.actual_lat|floatformat:5}}"  maxlength="9" />
-    </span>
-</div>
-
-
 <div class = "team_form_lat_lon_coord latitude suggested half_width">
     <span class ="label">
         Suggested latitude:
@@ -35,14 +25,12 @@
         {{point.suggested_lat|floatformat:5 }}
     </span>
 </div>
-
-
-<div class = "team_form_lat_lon_coord longitude actual half_width">
+<div class = "team_form_lat_lon_coord latitude actual half_width">
     <span class ="label">
-        Longitude:
+        Actiual latitude:
     </span>
     <span class ="value">
-    <input class="coord_input" type="text" name = "actual_lon_{{point.id}}" id = "actual_lon_{{point.id}}" value = "{{point.actual_lon|floatformat:5}}"  maxlength="9" />
+        <input class="coord_input" type="text" name = "actual_lat_{{point.id}}"  id = "actual_lat_{{point.id}}" value = "{{point.actual_lat|floatformat:5}}"  maxlength="9" />
     </span>
 </div>
 
@@ -55,6 +43,15 @@
         {{point.suggested_lon|floatformat:5 }}
     </span>
 </div>
+<div class = "team_form_lat_lon_coord longitude actual half_width">
+    <span class ="label">
+        Actual longitude:
+    </span>
+    <span class ="value">
+    <input class="coord_input" type="text" name = "actual_lon_{{point.id}}" id = "actual_lon_{{point.id}}" value = "{{point.actual_lon|floatformat:5}}"  maxlength="9" />
+    </span>
+</div>
+
 
 <div class = "team_form_was_a_trap_set_here half_width">
     <span class ="label">
@@ -95,6 +92,34 @@
 </div>
 
 
+<div class = "team_form_trap_success half_width">
+    <span class ="label">
+        Catch:
+    </span>
+    <select  id = "bait_still_there_{{point.id}}" name="bait_still_there_{{point.id}}" >
+        <option value = "True"  {%if point.bait_still_there %}selected{%endif%}>Bait present</option>
+        <option value = "False" {%if not point.bait_still_there %}selected{%endif%}>Bait absent</option>
+    </select>
+    
+</div>
+
+<div class = "team_form_trap_animals half_width">
+    <span class ="label">
+        Trap empty?
+    </span>
+    
+    <select id="animal_{{point.id}}" name="animal_{{point.id}}">
+            {% if not point.animal %}
+            <!-- you can't remove an animal this way. In fact for now you can only do it via the Django admin.-->
+            <option value="None">Trap empty</option>
+            {% endif %}
+            {% for species in species %}
+                <option value = "{{species.id}}"  {%ifequal point.animal.species_id species.id %} selected{%endifequal%}   >{{species}}</option>
+            {%endfor %}
+    </select>
+</div>
+
+
 <div class = "team_form_habitat_type_div half_width">
    <span class ="label">
         Habitat:
@@ -106,27 +131,6 @@
         {% for habitat in habitats %}
             <option value = "{{habitat.id}}" {%ifequal point.habitat_id habitat.id %} selected{%endifequal%} >{{habitat}}</option>
         {%endfor %}
-    </select>
-</div>
-
-<div class = "team_form_trap_success half_width">
-    <span class ="label">
-        Trap success:
-    </span>
-    <select  id = "bait_still_there_{{point.id}}" name="bait_still_there_{{point.id}}" >
-        <option value = "True"  {%if point.bait_still_there %}selected{%endif%}>Bait present</option>
-        <option value = "False" {%if not point.bait_still_there %}selected{%endif%}>Bait absent</option>
-    </select>
-    
-
-    <select id="animal_{{point.id}}" name="animal_{{point.id}}">
-            {% if not point.animal %}
-            <!-- you can't remove an animal this way. In fact for now you can only do it via the Django admin.-->
-            <option value="None">Trap empty</option>
-            {% endif %}
-            {% for species in species %}
-                <option value = "{{species.id}}"  {%ifequal point.animal.species_id species.id %} selected{%endifequal%}   >{{species}}</option>
-            {%endfor %}
     </select>
 </div>
 

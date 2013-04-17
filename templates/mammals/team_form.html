@@ -24,8 +24,8 @@
 <form action ="/mammals/save_team_form/" method ="post" id = "team_form"> 
     <input type="hidden" name = "expedition_id" id = "expedition_id" value ="{{expedition.id}}" />
     <input type="hidden" name = "team_letter"   id = "team_letter"   value ="{{team_letter}}" />
-    <h3 > Expedition   # {{expedition.id }}</h3>
-    <h3 > Mammals and Habitats Data Collection Sheet - DAY 1 </h3>
+    
+    <h3 class="team_form_top_title"> Mammals and Habitats Data Collection Sheet - DAY 1 (Expedition   #{{expedition.id }}) </h3>
     <table class="team_form_top_table">
          <tr>
             <td>School: {{expedition.school}}
