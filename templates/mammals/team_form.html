@@ -2,206 +2,72 @@
 {% load smartif %}
 {% block title %}Team Form{% endblock %}
 {% block js %}
-
-
-	<script type="text/javascript" src="/mammals/media/js/map_colors.js"></script>
+    <script type="text/javascript" src="/mammals/media/js/map_colors.js"></script>
     <script type="text/javascript" src="/mammals/media/js/grid_and_block.js"></script>
     <script type="text/javascript" src="/mammals/media/js/block.js"></script>
-  
     {{ block.super }}
     <script type="text/javascript" src="/mammals/media/js/team_form.js"></script>
     <script type="text/javascript">jQuery (add_team_form_maps);</script>
 {% endblock %}
 
 {% block css %}
-    <style media="screen" type="text/css">
-        .green_table td
-        {
-            border-color: #ABA;
-            border-width: 1px;
-            border-style: solid;
-            margin:  1px;
-            padding: 4px;
-            background-color: #EFE;
-        }
-        .coord_input {
-            width : 60px;
-        
-        }
-        .team_form_map {
-            width:120px;
-            height:120px;
-        }    
-    </style>
-
     {{ block.super }}
+    <style media="screen" type="text/css">
+        @import "/mammals/media/css/team_form.css" ;
+    </style>
 {% endblock %}
 {% block container %}
-
 <div id ="corner_obj" style="display:none">{{expedition.grid_square.corner_obj_json}}</div>
 <div id ="block_json" style="display:none">{{block_json}}</div>    
 <div id ="transects_json" style="display:none">{{transects_json}}</div>
-<h3 > Trap data entry form for team {{team_letter}} </h3>
-<h3 > Expedition # {{expedition.id }} to square {{expedition.grid_square.battleship_coords}} on {{expedition.start_date_of_expedition|date:"d M, Y" }}</h3>
-    <form action ="/mammals/save_team_form/" method ="post" id = "team_form"> 
+
+<form action ="/mammals/save_team_form/" method ="post" id = "team_form"> 
     <input type="hidden" name = "expedition_id" id = "expedition_id" value ="{{expedition.id}}" />
     <input type="hidden" name = "team_letter"   id = "team_letter"   value ="{{team_letter}}" />
-        
-        
-Students' first names: <input name="student_names" value ="{{student_names|default_if_none:''}}" size="75" maxlength="250" ></input><br/>
-<em> Note: To preserve students' privacy, DO NOT ENTER LAST NAMES.</em>
-        
-        
-{%for point in team_points     %}
-<h3>Trap {{point.team_letter }}{{point.team_number }}  ( {{point.transect_distance|floatformat:0}}m @ {{point.transect_bearing_wrt_magnetic_north|floatformat:0 }}&deg; from magnetic north and  {{point.transect_bearing|floatformat:0 }}&deg; from true north.)</h3> 
-     <table class = "green_table">
-     
-            <tr>
-                <td rowspan="2"> 
-                    Location
-                </td>
-                <td >
-                    Habitat:
-                </td>
-                <td > 
-                    Suggested location:
-                </td>
-                <td > 
-                    Actual location used:
-                </td>
-            </tr>
-
-            <tr>
-                <td > 
-                        <select id="habitat_{{point.id}}" name="habitat_{{point.id}}">
-                        
-                        <option value="None">None recorded</option>
-                        {% for habitat in habitats %}
-                            <option value = "{{habitat.id}}" {%ifequal point.habitat_id habitat.id %} selected{%endifequal%} >{{habitat}}</option>
-                        {%endfor %}
-                    </select>
-                </td>
-                <!-- using this data to correctly center the mini-maps in the team_form.js . -->
-                <div style="display:none" id = "transect_center_lat_{{point.id}}">{{point.transect_endpoints.center.0}}</div>
-                <div style="display:none" id = "transect_center_lon_{{point.id}}">{{point.transect_endpoints.center.1}}</div>
-                
-                <div style="display:none" id = "transect_edge_lat_{{point.id}}">{{point.transect_endpoints.edge.0}}</div>
-                <div style="display:none" id = "transect_edge_lon_{{point.id}}">{{point.transect_endpoints.edge.1}}</div>
-                
-                
-                <div style="display:none" id = "lat_{{point.id}}">{{point.suggested_lat}}</div>
-                <div style="display:none" id = "lon_{{point.id}}">{{point.suggested_lon}}</div>
-                
-                <td>
-                  {{point.suggested_lat|floatformat:5 }} {{point.suggested_lon|floatformat:5 }}
-                </td>
-                <td>
-                  <input class="coord_input" type="text" name = "actual_lat_{{point.id}}"  id = "actual_lat_{{point.id}}" value = "{{point.actual_lat|floatformat:5}}"  maxlength="9" />
-                  <input class="coord_input" type="text" name = "actual_lon_{{point.id}}" id = "actual_lon_{{point.id}}" value = "{{point.actual_lon|floatformat:5}}"  maxlength="9" />
-                </td>
-            </tr>
-            
-            <tr>
-                <td> 
-                    Understory:
-                </td>
-                <td colspan = "3">
-                    <input name="understory_{{point.id}}" value ="{{point.understory|default_if_none:''}}" size="75" maxlength="250" ></input>
-                </td>
-            </tr>
-
-            
-            
-            <tr>
-                <td rowspan="2"> 
-                    Trap info:
-                </td>
-                <td > 
-                    Trap placed here?
-                </td>
-                </td>
-                <td > 
-                    Bait: 
-                </td>
-                <td  rowspan = "4"> 
-                    <div id = "map_{{point.id}}" class = "team_form_map" ></div>
-                </td>
-            </tr>
-            <tr>
-                <td > 
-                    <select id="whether_a_trap_was_set_here_{{point.id}}" name="whether_a_trap_was_set_here_{{point.id}}" class = "whether_a_trap_was_set_here_dropdown" >
-                        <option value = "True"  {%if point.whether_a_trap_was_set_here %}selected{%endif%}>Yes</option>
-                        <option value = "False" {%if not point.whether_a_trap_was_set_here %}selected{%endif%}>No</option>
-                    </select>
-                    
-                    <select id="trap_type_{{point.id}}" name="trap_type_{{point.id}}">
-                        {% for trap_type in trap_types %}
-                            <option value = "{{trap_type.id}}"{%ifequal point.trap_type_id trap_type.id %} selected{%endifequal%}>{{trap_type}}</option>
-                        {%endfor %}
-                    </select>
-                    
-                    
-                    
-                </td>
-                <td > 
-                    <select id="bait_{{point.id}}" name="bait_{{point.id}}">
-                    
-                    <option value="None">No bait placed in trap</option>
-                    {% for b in baits %}
-                        <option value = "{{b.id}}"{%ifequal point.bait_id b.id %} selected{%endifequal%}>{{b}}</option>
-                    {%endfor %}
-                    </select>
-                </td>
-            </tr>
-
-            <tr>
-                <td rowspan="2"> 
-                    Results:
-                </td>
-                <td > 
-                    Bait left? 
-                </td>
-                <td   > 
-                    Caught:
-                </td>
-            </tr>
-            <tr>
-                <td >
-                    <select  id = "bait_still_there_{{point.id}}" name="bait_still_there_{{point.id}}" >
-                        <option value = "True"  {%if point.bait_still_there %}selected{%endif%}>Bait still there</option>
-                        <option value = "False" {%if not point.bait_still_there %}selected{%endif%}>Bait gone</option>
-                    </select>
-                </td>
-                <td > 
-                        <select id="animal_{{point.id}}" name="animal_{{point.id}}">
-                            {% if not point.animal %}
-                            <!-- you can't remove an animal this way. In fact for now you can only do it via the Django admin.-->
-                            <option value="None">Trap empty</option>
-                            {% endif %}
-                            {% for species in species %}
-                                <option value = "{{species.id}}"  {%ifequal point.animal.species_id species.id %} selected{%endifequal%}   >{{species}}</option>
-                            {%endfor %}
-                    </select>
-                </td>
-            </tr>      
-            
-    </table>
-
-        {%endfor%}
+    <h3 > Expedition   # {{expedition.id }}</h3>
+    <h3 > Mammals and Habitats Data Collection Sheet - DAY 1 </h3>
+    <table class="team_form_top_table">
+         <tr>
+            <td>School: {{expedition.school}}
+            </td>
+            <td>
+                Date (dd/mm/yy): {{expedition.start_date_of_expedition|date:"d/m/y" }}
+            </td>
+         </tr>
+         <tr>
+            <td>
+                Names: <input name="student_names" value ="{{student_names|default_if_none:''}}" size="75" maxlength="250" ></input>
+            </td>
+            <td>
+                Sample square:{{expedition.grid_square.battleship_coords}}
+            </td>
+        </tr>
+       <tr>
+           <td><em>To preserve students' privacy, do not enter last names.</em>
+           </td>
+           
+           <td>Team Letter: {{team_letter}}
+           </td>
+       </tr> 
+       <tr>
+           <td>
+           </td>
+           
+           <td>Compass bearing: {{team_points.0.transect_bearing_wrt_magnetic_north|floatformat:0 }}&deg; from magnetic north <!--
+           {{point.transect_bearing|floatformat:0 }}&deg; from true north.)
+           -->
+           </td>
+       </tr> 
+     </table>
+    {%for point in team_points     %}
+            {%include "mammals/trap_location.html" %}
+    {%endfor%}
     {% csrf_token %}
-    {%comment %}
-    <!-- this subits automatically whenever you hit "return" in one of the text inputs. -->
-    <!--
-    <input type ="submit" value = "Save" </input>
-    -->
-    <!-- this doesn't -->
-    {%endcomment %}
-    <button type="button" onclick="save_team_form_ajax(); return false;">Save Team {{team_letter}}</a>                   
-
-    
-    <button type="button" onclick="javascript:jQuery('#team_form').submit()">Save Team {{team_letter}} and go back</button>
+    <div  class="save_buttons">
+        <button type="button" onclick="save_team_form_ajax(); return false;">Save Team {{team_letter}}</a>
+        <button type="button" onclick="javascript:jQuery('#team_form').submit()">Save Team {{team_letter}} and go back</button>
+    </div>
 </form>
-
 </div>
 {% endblock %}
 

@@ -17,10 +17,14 @@ function add_trails_to_mini_map (map) {
 }
 
 function add_team_form_maps() {
+    console.log ('hey');
     the_divs  = jQuery ('.team_form_map');
+    
+    console.log (the_divs);
     maps = {}
     for (var i = 0; i < the_divs.length; i++) {
       the_div = the_divs [i];
+      console.log (the_div);
       point_id = parseInt(the_div.id.split("_")[1]);
       
       //center coordinates for map (the coordinates of the suggested location of the point):
@@ -38,7 +42,10 @@ function add_team_form_maps() {
           ,draggable: false
           ,scrollwheel:false
         };
+        
+        
         maps [i] = new google.maps.Map(the_div, myOptions);
+        console.log (maps[i]);
         add_trails_to_mini_map(maps[i]);
         team_form_circle ([lat, lon], mini_map_suggested_point_style, maps[i])
         transect_center = [
@@ -90,13 +97,6 @@ function hide_trap_info_if_not_used() {
         the_div = the_divs [i];
         point_id = parseInt(the_div.id.split("_")[1]);
         switch_id_string = '#whether_a_trap_was_set_here_' + point_id
-
-        //console.log (point_id); 
-        //console.log (switch_id_string); 
-        //console.log (jQuery(switch_id_string)); 
-        //console.log (jQuery('#whether_a_trap_was_set_here_' + point_id).value);  
-        //console.log (jQuery(switch_id_string + " option:selected").text());
-
         detail_select_ids = [
             '#trap_type_' +  point_id,
             '#bait_' +  point_id,
@@ -104,14 +104,11 @@ function hide_trap_info_if_not_used() {
             '#animal_' +  point_id,
         ];
         
-        //console.log( detail_select_ids);
         if (jQuery (switch_id_string + ' option:selected')[0].value == "True") {
-            //console.log ( point_id + " has a trap.");
             for (var j = 0; j < detail_select_ids.length; j++) {
                 jQuery(detail_select_ids[j]).show();
             }
         } else {
-            //console.log ( point_id + " has not a trap.");
             for (var j = 0; j < detail_select_ids.length; j++) {
                 jQuery(detail_select_ids[j]).hide();
             }    

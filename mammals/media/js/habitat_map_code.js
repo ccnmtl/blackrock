@@ -294,14 +294,9 @@ function say_how_many (the_checkbox, how_many) {
 
 
 ///// SHOWING SQUARE COORDS:
-
-
 function add_show_square_mouseover (rect, battleship_coords) {
     google.maps.event.clearListeners(rect, 'mouseover');
     google.maps.event.addListener(rect, 'mouseover', function() {
-        //console.log ('mouseover');
-        //console.log (rect);
-        console.log (battleship_coords);
         rect.setOptions (square_styles['regular']['selected']);
         jQuery ('#battleship_coords_span').html(battleship_coords);
   });
@@ -311,10 +306,7 @@ function add_show_square_mouseout (rect, thing) {
     google.maps.event.clearListeners(rect, 'mouseout');
     google.maps.event.addListener(rect, 'mouseout', function() {
         rect.setOptions (square_styles['regular']['unselected']);
-        jQuery ('#battleship_coords_span').html();
-        //console.log ('mouseout');
-        //console.log (rect);
-        //console.log (thing);
+        jQuery ('#battleship_coords_span').html('');
     });
 }
 
