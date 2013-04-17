@@ -656,7 +656,7 @@ def expedition_animals(request, expedition_id):
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 def all_expeditions(request):
     all_the_expeditions = Expedition.objects.all().order_by('-start_date_of_expedition')
-    results_per_page = 15
+    results_per_page = 25
     paginator = Paginator(all_the_expeditions, results_per_page)
     page_num = request.GET.get('page', 1)
     try:

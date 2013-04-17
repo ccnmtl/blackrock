@@ -1,15 +1,6 @@
 var markers = []
 var the_map;
 
-map_square_style = {
-    fillOpacity     : 0.0
-    //,fillColor      : '#f1ab00'
-    ,strokeOpacity   : 0.3
-    ,strokeColor     : '#d38c0c'
-    ,strokeWeight    : 1
-    ,visible        : false
-}
-
 function lat_lng_from_point(point ) {
     return new google.maps.LatLng(point[0] , point[1]);
 }
@@ -28,7 +19,8 @@ function make_grid_rectangle (_paths, mapInstance) {
         paths           : _paths,
         map             : mapInstance
     });
-    rect.setOptions (map_square_style);
+    rect.setOptions (square_styles['regular']['unselected']);
+    rect.setOptions ({visible:false});
     return rect;
 }
 //addGrid(self.mapInstance)
@@ -84,6 +76,8 @@ function draw_the_grid(the_map) {
         var rect = make_grid_rectangle (bounds (box), the_map);
         //grid_json [i]['grid_rectangle'] = rect;
         grid_obj.push (rect);
+        add_show_square_mouseover (rect, grid_json[i]['battleship_coords']);
+        add_show_square_mouseout  (rect, grid_json[i]['battleship_coords']);
     }
     the_map['grid_obj'] = grid_obj;
 }
@@ -91,6 +85,7 @@ function draw_the_grid(the_map) {
 function show_the_grid(the_map) {
     for (var i = 0; i < the_map.grid_obj.length; i++) {
         the_map.grid_obj[i].setVisible(true)
+        
     }
 }
 
@@ -272,8 +267,6 @@ function show_breakdown_numbers (breakdown_object) {
     
     jQuery.each (facets, function (k, v) { res.push ( {'k': k, 'v': v } ); }  );
     
-    
-    
     for (var j = 0; j < res.length; j++) {
         the_facet      = res[j]['k'];
         the_checkboxes = res[j]['v'];
@@ -281,14 +274,9 @@ function show_breakdown_numbers (breakdown_object) {
 
             var the_checkbox = the_checkboxes[i];
             //console.log (the_checkbox);
-            
-            
             //console.log (JSON.stringify (breakdown_object[the_facet]));
-            
             var how_many = breakdown_object[the_facet] [the_checkbox.value]
-            
             //console.log (how_many);
-            
             if ( how_many ) {
                 say_how_many (the_checkbox, how_many);
             }
@@ -305,7 +293,30 @@ function say_how_many (the_checkbox, how_many) {
 }
 
 
+///// SHOWING SQUARE COORDS:
 
+
+function add_show_square_mouseover (rect, battleship_coords) {
+    google.maps.event.clearListeners(rect, 'mouseover');
+    google.maps.event.addListener(rect, 'mouseover', function() {
+        //console.log ('mouseover');
+        //console.log (rect);
+        console.log (battleship_coords);
+        rect.setOptions (square_styles['regular']['selected']);
+        jQuery ('#battleship_coords_span').html(battleship_coords);
+  });
+}
+
+function add_show_square_mouseout (rect, thing) {
+    google.maps.event.clearListeners(rect, 'mouseout');
+    google.maps.event.addListener(rect, 'mouseout', function() {
+        rect.setOptions (square_styles['regular']['unselected']);
+        jQuery ('#battleship_coords_span').html();
+        //console.log ('mouseout');
+        //console.log (rect);
+        //console.log (thing);
+    });
+}
 
 
 ///////////// HABITAT LEGEND DISKS:

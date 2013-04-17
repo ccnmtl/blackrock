@@ -27,28 +27,41 @@
 
 {% block container %}
 <h3>All expeditions</h3>
+        <div class="pagination">
+            <span class="step-links">
+                {% if expeditions.has_previous %}
+                    <a href="?page={{ expeditions.previous_page_number }}">Back</a>
+                {% endif %}
+                <span class="current">
+                    Page {{ expeditions.number}} of {{ expeditions.paginator.num_pages }}
+                </span>
+                {% if expeditions.has_next %}
+                    <a href="?page={{ expeditions.next_page_number }}">Next</a>
+                {% endif %}
+            </span>
+        </div>
 
         
      <table class = "green_table">
         <tr>
-                <td  > 
-                    Expedition
-                </td> 
-                <td  > 
-                    School
-                </td> 
-                <td  > 
-                    Start date
-                </td> 
-                <td  > 
-                    Square
-                </td> 
-                <td  > 
-                    Caught
-                </td> 
-                <td  > 
-                    Actions
-                </td> 
+            <td  > 
+                Expedition
+            </td> 
+            <td  > 
+                School
+            </td> 
+            <td  > 
+                Start date
+            </td> 
+            <td  > 
+                Square
+            </td> 
+            <td  > 
+                Caught
+            </td> 
+            <td  > 
+                Actions
+            </td> 
         </tr>
         {% for e in expeditions.object_list %}
             <tr>
@@ -79,15 +92,13 @@
     <div class="pagination">
         <span class="step-links">
             {% if expeditions.has_previous %}
-                <a href="?page={{ expeditions.previous_page_number }}">previous</a>
+                <a href="?page={{ expeditions.previous_page_number }}">Back</a>
             {% endif %}
-
             <span class="current">
-                Page {{ expeditions.number}} of {{ expeditions.paginator.num_pages }}.
+                Page {{ expeditions.number}} of {{ expeditions.paginator.num_pages }}
             </span>
-
             {% if expeditions.has_next %}
-                <a href="?page={{ expeditions.next_page_number }}">next</a>
+                <a href="?page={{ expeditions.next_page_number }}">Next</a>
             {% endif %}
         </span>
     </div>
