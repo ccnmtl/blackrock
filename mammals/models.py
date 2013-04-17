@@ -279,7 +279,7 @@ class School (models.Model):
 class Expedition (models.Model):
 
     def __unicode__(self):
-        return  u"Expedition started on %s" % ( self.start_date_of_expedition )
+        return  u"Expedition %d started on %s" % ( self.id, self.start_date_of_expedition.strftime("%m/%d/%y") )
   
     #TODO make default sort by date, starting w/ most recent. 
     
