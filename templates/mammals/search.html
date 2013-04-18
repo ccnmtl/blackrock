@@ -1,6 +1,8 @@
 {% extends "mammals/base_mammals.html" %}
 {% load smartif %}
 
+{%block title %}Species and Habitat Map of Black Rock Forest{%endblock %}
+
 {% block js %}
 	{{ block.super }}
 	<script type="text/javascript" src="/mammals/media/js/habitat_map_style.js"></script>
@@ -11,33 +13,33 @@
     <style type='text/css'>
         @import "/mammals/media/css/style.css";
         @import "/site_media/js/jquery-ui-1.8.11.custom/css/smoothness/jquery-ui-1.8.11.custom.css";
-    </style> 
+    </style>
 {% endblock %}
 
 {%block mammals_nav_search%}class="active"{%endblock%}
 
 {% block container %}
-    {%include "mammals/search_subtemplates/results.html" %}
-    {%include "mammals/search_subtemplates/other_hidden_fields.html" %}
-    <div id="container" class="habitatmap">
-        <div class="plain">
-            <div id="left">
-                <h3>Habitat Map </h3>
-                <form method="get" action="." id="the_habitat_search_form">
-                    {%include "mammals/search_subtemplates/grid_selector.html" %}
-                    <span class = "trap_location_checkbox_container">
-                        {%include "mammals/search_subtemplates/traps_and_spotting.html" %}
-                        {%include "mammals/search_subtemplates/species.html" %}
-                        {%include "mammals/search_subtemplates/habitats.html" %}
-                        {%include "mammals/search_subtemplates/schools.html" %}
-                        {%include "mammals/search_subtemplates/dates.html" %}
-                    </span>
-                </form>
-            </div><!-- div id="left" -->
-            <div id="map_canvas">Loading the map of the forest...</div><!-- id="map_canvas" -->
-            <div class="clearfix"></div><!-- class="clearfix" -->
-        </div><!-- div class="plain" -->
-    </div><!-- div id="container" -->
+{%include "mammals/search_subtemplates/results.html" %}
+{%include "mammals/search_subtemplates/other_hidden_fields.html" %}
+<div id="container" class="habitatmap">
+    <div class="plain">
+        <div id="left">
+            <h3>Species and Habitat Map</h3>
+            <form method="get" action="." id="the_habitat_search_form">
+                {%include "mammals/search_subtemplates/grid_selector.html" %}
+                <span class = "trap_location_checkbox_container">
+                    {%include "mammals/search_subtemplates/traps_and_spotting.html" %}
+                    {%include "mammals/search_subtemplates/species.html" %}
+                    {%include "mammals/search_subtemplates/habitats.html" %}
+                    {%include "mammals/search_subtemplates/schools.html" %}
+                    {%include "mammals/search_subtemplates/dates.html" %}
+                </span>
+            </form>
+        </div>
+        <div id="map_canvas">Loading the map of the forest...</div>
+        <div class="clearfix"></div>
+    </div>
+</div>
 {%endblock%}
 
 

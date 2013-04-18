@@ -632,9 +632,6 @@ def process_edit_expedition (request, expedition_id):
                 setattr(exp,  thing_to_update,  int(rp[the_key]))
                 exp.save()
 
-
-
-
 @csrf_protect
 @rendered_with('mammals/expedition_animals.html')
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
@@ -650,16 +647,12 @@ def expedition_animals(request, expedition_id):
     }
 
 
-
-
 @rendered_with('mammals/all_expeditions.html')
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 def all_expeditions(request):
     all_the_expeditions = Expedition.objects.filter(real=True).order_by('-start_date_of_expedition')
-    
     results_per_page = 25
     paginator = Paginator(all_the_expeditions, results_per_page)
-
     page_num = request.GET.get('page', 1)
     try:
         expeditions = paginator.page(page_num)
@@ -675,7 +668,6 @@ def all_expeditions(request):
     return {
         'expeditions' : expeditions,
     }
-
     
 
 @csrf_protect

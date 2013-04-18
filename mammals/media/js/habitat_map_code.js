@@ -132,6 +132,11 @@ function deal_with_facet_checkbox() {
 
 }
 
+function add_date_boxes() {
+    jQuery( "#id_from_date" ).datepicker();
+    jQuery( "#id_until_date" ).datepicker();
+
+}
 
 function addHabitatMap(mapInstance) {
     // This function is run ONLY ONCE, on page load.
@@ -147,6 +152,7 @@ function addHabitatMap(mapInstance) {
 
     jQuery(".ui-accordion-header").click(basic_turnbuckle_toggle);
 
+    add_date_boxes();
 }
 
 

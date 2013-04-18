@@ -937,7 +937,7 @@ body.square .block_coordbox
 
 .habitatmap .ui-accordion-content {
     max-height: 150px;
-    min-height: 100px;
+    /* min-height: 100px; */
     overflow: hidden;
     padding: 0px !important;
 }
@@ -1012,6 +1012,14 @@ body.square .block_coordbox
     background-position: -32px 0px !important;
 }
 
+.habitatmap #id_from_date, #id_until_date {
+    width: 100px;
+    margin: 3px;
+}
+
+.habitatmap #date_accordion {
+    height: 35px !important;
+}
 
 .funder_logo 
 {

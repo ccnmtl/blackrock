@@ -7,7 +7,8 @@ from django.utils.text import capfirst
 from types import ListType
 from collections import defaultdict
 from django.utils import simplejson
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from datetime import datetime
 
 def my_counter(L):
     d = defaultdict(int)
@@ -28,9 +29,9 @@ class MammalSearchForm(SearchForm):
         ,('tracks_and_signs',       'Tracks and signs')
     ]
     
-    habitat_list = [(h.id, h.label ) for h in Habitat.objects.all()]
+    habitat_list = [(h.id, h.label )      for h in Habitat.objects.all()]
     species_list = [(s.id, s.common_name) for s in Species.objects.all()]
-    school_list =  [(s.id, s.name) for s in School.objects.all()]
+    school_list =  [(s.id, s.name)        for s in School.objects.all() ]
 
     csm = forms.CheckboxSelectMultiple
     # note: the order in which these are defined... affects the order in which they are displayed in the template. This sucks but it's what I get for accepting to use Django forms.
@@ -40,6 +41,10 @@ class MammalSearchForm(SearchForm):
     habitat = forms.MultipleChoiceField(required=False, label='Habitat', widget=csm, choices=habitat_list)
     species = forms.MultipleChoiceField(required=False, label='Species', widget=csm, choices=species_list)
     school =  forms.MultipleChoiceField(required=False, label='School', widget=csm, choices=school_list)
+
+    from_date  = forms.CharField(required=False, initial = "start date", max_length=10, help_text='Click to select a start date for your search' )
+    until_date = forms.CharField(required=False, initial = "end date", max_length=10, help_text='Click to select an end date for your search.')
+
 
     def __init__(self, *args, **kwargs):
         super(MammalSearchForm, self).__init__(*args, **kwargs)
@@ -77,9 +82,12 @@ class MammalSearchForm(SearchForm):
     def search(self):
         sqs = []
         self.hidden = []
+        
+        
         if self.is_valid():
             #else
-            ##TODO test validity of connection and throw error if there's a problem.
+            ##TODO test validity of connection to the stupid SOLR server
+            # and throw some kind of error if there's a problem.
             #note -- haystack catches the error. so i can't. This kinda sucks.
                     
             sqs = self.searchqueryset.auto_query('')
@@ -98,7 +106,21 @@ class MammalSearchForm(SearchForm):
             sqs = sqs.narrow (self.checkboxes_or ('species'))
             sqs = sqs.narrow (self.checkboxes_or ('school' ))
             
+            from_date_val, until_date_val = None,None
+            we_have_dates = False
             
+            try:
+                from_date_val  = datetime.strptime( self.cleaned_data['from_date'], '%m/%d/%Y')
+                until_date_val = datetime.strptime( self.cleaned_data['until_date'], '%m/%d/%Y')
+                if not from_date_val < until_date_val :
+                    raise ValueError  ("The first date should be before the second date.")
+                we_have_dates = True
+            except ValueError:
+                pass # we don't have dates but I don't really care.
+            
+            if we_have_dates:
+                when = (from_date_val.strftime('%Y-%m-%d'), until_date_val.strftime('%Y-%m-%d'))
+                sqs = sqs.narrow('date:[%sT00:00:00.000Z TO %sT23:59:59.999Z]' % when)
             
             #trap success:
             show_unsuccessful = 'unsuccessful'         in self.cleaned_data['success']
@@ -120,17 +142,10 @@ class MammalSearchForm(SearchForm):
                 if show_successful:
                     tmp.append ('trapped_and_released:True')
                 sqs = sqs.narrow(  ' OR '.join(tmp))
-
-
             else:
                 pass #ignore.
-                
-
 
         self.breakdown = simplejson.dumps(self.calculate_breakdown(sqs))
-
-        
-        
         return sqs
 
 
