@@ -157,14 +157,14 @@ class MammalSearchForm(SearchForm):
 
 
 class MammalSearchView(SearchView):
-    print 'SEARCHVIEW'
+    #print 'SEARCHVIEW'
     
     
     def __init__(self, *args, **kwargs):
         hella_many = 5000000000
         super(MammalSearchView, self).__init__(*args, **kwargs)
         self.results_per_page = hella_many
-        print "SEARCHVIEW INIT"
+        #print "SEARCHVIEW INIT"
   
     def __name__(self):
         return "MammalSearchView"
@@ -174,7 +174,7 @@ class MammalSearchView(SearchView):
     
     def extra_context(self):
         """ this only gets run the first time we load the page."""
-        print "Extra context"
+        #print "Extra context"
         extra = super(MammalSearchView, self).extra_context()
         if hasattr(self, "results"):
             if type(self.results) is ListType and len(self.results) < 1:
