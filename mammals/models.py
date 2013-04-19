@@ -92,8 +92,6 @@ class Species(models.Model):
     def dir(self):
         return dir(self)
 
-           
-
 
 class LabelMenu (models.Model):    
     def __unicode__(self):
@@ -283,12 +281,8 @@ class Expedition (models.Model):
   
     #TODO make default sort by date, starting w/ most recent. 
     
-    
     class Meta:
         ordering = ['-end_date_of_expedition']
-
-    
-    
     
     @classmethod
     def create_from_obj(self, json_obj, creator):
@@ -306,38 +300,19 @@ class Expedition (models.Model):
 
     start_date_of_expedition =      models.DateTimeField(auto_now_add=True, null=True)
     end_date_of_expedition   =      models.DateTimeField(auto_now_add=True, null=True)
-    
-    
     real  = models.BooleanField(default=True, help_text = "Is this expedition real or just a test?")     
-    
-    
     created_on = models.DateTimeField(auto_now_add=True, null=False)
     created_by = models.ForeignKey(User,blank=True,null=True, related_name = 'expeditions_created')
-
     notes_about_this_expedition =  models.TextField(blank=True, help_text = "Notes about this expedition")
-    
-        
-    #school_name  =  models.CharField(blank=True, default = "", help_text = "Name of school", max_length = 256)
-    # 
-    
     school  = models.ForeignKey(School ,blank=True,null=True )
     school_contact_1_name  =  models.CharField(blank=True,  help_text = "First contact @ the school -- name", max_length = 256)
     school_contact_1_phone  =  models.CharField(blank=True,  help_text = "First contact @ the school -- e-mail", max_length = 256)
     school_contact_1_email  =  models.CharField(blank=True,  help_text = "First contact @ the school   -- phone", max_length = 256)#
-
-    #school_contact_2_name  =  models.CharField(blank=True,  help_text = "First contact @ the school -- name", max_length = 256)
-    #school_contact_2_phone  =  models.CharField(blank=True,  help_text = "Second contact @ the school  -- e-mail", max_length = 256)
-    #school_contact_2_email  =  models.CharField(blank=True,  help_text = "Second contact @ the school  -- phone", max_length = 256)
-
-
     number_of_students = models.IntegerField(help_text = "How many students participated", default = 0)
     grade_level = models.ForeignKey(GradeLevel,  null=True, blank=True)
-
     grid_square = models.ForeignKey(GridSquare, null=True, blank=True, related_name = "Grid Square", verbose_name="Grid Square used for this expedition")
-
-    understory   =  models.CharField(blank=True, null=True,  max_length = 256)
+    
     field_notes  =  models.CharField(blank=True, null=True,  max_length = 1024)
-
     cloud_cover =  models.ForeignKey(ExpeditionCloudCover, null=True, blank=True,  related_name = "exp_cloudcover")
     overnight_temperature =  models.ForeignKey(ExpeditionOvernightTemperature, null=True, blank=True,  related_name = "exp_temperature")
     
