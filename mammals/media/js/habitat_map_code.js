@@ -1,6 +1,9 @@
 var markers = []
 var the_map;
 
+var recalculate_every_time = false; // recalculate the numbers in parenthesis every time an ajax request is made
+// rather than just on page load.
+
 function lat_lng_from_point(point ) {
     return new google.maps.LatLng(point[0] , point[1]);
 }
@@ -142,7 +145,6 @@ function addHabitatMap(mapInstance) {
     // This function is run ONLY ONCE, on page load.
     // this is called from on high.
     the_map = mapInstance;
-    console.log ("aaa");
     breakdown_object = JSON.parse(jQuery ('#breakdown')[0].innerHTML);
     
     //initial_breakdown_object = JSON.parse(jQuery ('#breakdown')[0].innerHTML);
@@ -166,7 +168,9 @@ function addHabitatMap(mapInstance) {
     add_date_boxes();
     
     //eddie adding this:
-    show_breakdown_numbers( breakdown_object);
+    if (! recalculate_every_time ) {
+        show_breakdown_numbers( breakdown_object);
+    }
 }
 
 
@@ -248,8 +252,10 @@ function refresh_map (mapInstance, breakdown_object, map_data) {
 	        markers.push ( new_marker);
         }
     }
-    //eddie commenting this out:
-    //show_breakdown_numbers( breakdown_object);
+    
+    if (recalculate_every_time ){
+        show_breakdown_numbers( breakdown_object);
+    }
 }
 
 
@@ -268,10 +274,9 @@ function show_breakdown_numbers (breakdown_object) {
     
     
     jQuery ('.breakdown_number_span').remove();
-    // Suggest ways to break down the search.
-    // If you narrow the search by checking more boxes,how many spots would remain on the map ?
     
     if (isEmpty (breakdown_object)) {
+        console.log ('breakdown object is empty');
         return;
     }
     var facets = {

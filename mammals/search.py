@@ -195,13 +195,6 @@ class MammalSearchView(SearchView):
 
         if not hasattr(self.form, 'breakdown'):
             self.form.breakdown = {}
-            
-        #this is what's used to actually draw the form:
-        #TODO: index search_map_repr itself.
-        
-        #this is still hitting the DB. TODO: fix.
-        
-        #extra ['results_json']= simplejson.dumps([tl.object.search_map_repr() for tl in self.results])
         
         extra ['results_json'] = simplejson.dumps([  search_map_repr( tl) for tl in self.results])
         return extra
@@ -210,7 +203,7 @@ class MammalSearchView(SearchView):
 
 
 def ajax_search(request):
-    print 'AJAX REQUEST'
+    #print 'AJAX REQUEST'
     if request.method == 'POST':
         my_new_form    = MammalSearchForm(request.POST)
         search_results = my_new_form.search()
