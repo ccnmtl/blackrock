@@ -142,7 +142,18 @@ function addHabitatMap(mapInstance) {
     // This function is run ONLY ONCE, on page load.
     // this is called from on high.
     the_map = mapInstance;
+    console.log ("aaa");
     breakdown_object = JSON.parse(jQuery ('#breakdown')[0].innerHTML);
+    
+    //initial_breakdown_object = JSON.parse(jQuery ('#breakdown')[0].innerHTML);
+    
+    //alert ('hi');
+    //var goat = breakdown_object;
+    
+    //console.log (goat);
+    
+    
+    
     map_data = JSON.parse(jQuery('#map_data')[0].innerHTML);
     refresh_map(mapInstance, breakdown_object, map_data);
     jQuery('.trap_location_checkbox_container input').change(checkbox_change_callback);
@@ -153,6 +164,9 @@ function addHabitatMap(mapInstance) {
     jQuery(".ui-accordion-header").click(basic_turnbuckle_toggle);
 
     add_date_boxes();
+    
+    //eddie adding this:
+    show_breakdown_numbers( breakdown_object);
 }
 
 
@@ -234,7 +248,8 @@ function refresh_map (mapInstance, breakdown_object, map_data) {
 	        markers.push ( new_marker);
         }
     }
-    show_breakdown_numbers( breakdown_object);
+    //eddie commenting this out:
+    //show_breakdown_numbers( breakdown_object);
 }
 
 

@@ -18,6 +18,7 @@ def my_counter(L):
 
 class MammalSearchForm(SearchForm):
 
+
     success_list = [
         ('unsuccessful',          'Unsuccessful traps')
         ,('trapped_and_released', 'Trapped and released')
@@ -48,6 +49,8 @@ class MammalSearchForm(SearchForm):
 
     def __init__(self, *args, **kwargs):
         super(MammalSearchForm, self).__init__(*args, **kwargs)
+        #print "new thing."
+        #self.search()
 
     def checkboxes_or (self, form_key):
         """" note: this returns a blank string if nothing is checked."""
@@ -75,14 +78,20 @@ class MammalSearchForm(SearchForm):
         result['signs']['camera']           = result['camera']          [True ];
         result['signs']['tracks_and_signs'] = result['tracks_and_signs'][True ];
         
-        
-        
         return result
+
+    def basic_results(self):
+        sqs = self.searchqueryset.auto_query('')
+        sqs =sqs.narrow ('asset_type_exact:TrapLocation OR asset_type_exact:Sighting')
+        #don't display fake/test results:
+        sqs =sqs.narrow ('real_exact:True')
+        return sqs
 
     def search(self):
         sqs = []
         self.hidden = []
-        
+        #import pdb
+        #pdb.set_trace()
         
         if self.is_valid():
             #else
@@ -90,12 +99,7 @@ class MammalSearchForm(SearchForm):
             # and throw some kind of error if there's a problem.
             #note -- haystack catches the error. so i can't. This kinda sucks.
                     
-            sqs = self.searchqueryset.auto_query('')
-            
-            sqs =sqs.narrow ('asset_type_exact:TrapLocation OR asset_type_exact:Sighting')
-            
-            #don't display fake/test results:
-            sqs =sqs.narrow ('real_exact:True')
+            sqs = self.basic_results()
             
             
             #hack:
@@ -144,16 +148,23 @@ class MammalSearchForm(SearchForm):
                 sqs = sqs.narrow(  ' OR '.join(tmp))
             else:
                 pass #ignore.
+        else:
+            sqs = self.basic_results()
+            
 
         self.breakdown = simplejson.dumps(self.calculate_breakdown(sqs))
         return sqs
 
 
 class MammalSearchView(SearchView):
+    print 'SEARCHVIEW'
+    
+    
     def __init__(self, *args, **kwargs):
         hella_many = 5000000000
         super(MammalSearchView, self).__init__(*args, **kwargs)
         self.results_per_page = hella_many
+        print "SEARCHVIEW INIT"
   
     def __name__(self):
         return "MammalSearchView"
@@ -162,6 +173,8 @@ class MammalSearchView(SearchView):
         return self.form.search()
     
     def extra_context(self):
+        """ this only gets run the first time we load the page."""
+        print "Extra context"
         extra = super(MammalSearchView, self).extra_context()
         if hasattr(self, "results"):
             if type(self.results) is ListType and len(self.results) < 1:
@@ -188,17 +201,21 @@ class MammalSearchView(SearchView):
         
         #this is still hitting the DB. TODO: fix.
         
-        extra ['results_json']= simplejson.dumps([tl.object.search_map_repr() for tl in self.results])
+        #extra ['results_json']= simplejson.dumps([tl.object.search_map_repr() for tl in self.results])
+        
+        extra ['results_json'] = simplejson.dumps([  search_map_repr( tl) for tl in self.results])
         return extra
         
+    
+
+
 def ajax_search(request):
+    print 'AJAX REQUEST'
     if request.method == 'POST':
         my_new_form    = MammalSearchForm(request.POST)
         search_results = my_new_form.search()
         result_obj = {}
         result_obj['map_data']  = [  search_map_repr( tl) for tl in search_results]
-        
-            
         result_obj['breakdown_object'] = my_new_form.calculate_breakdown(search_results)
         return HttpResponse(simplejson.dumps(result_obj))
     else:

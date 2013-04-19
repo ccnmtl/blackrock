@@ -123,7 +123,6 @@ class ExpeditionAdmin (admin.ModelAdmin):
         'grid_square',        
         'notes_about_this_expedition', 
         'created_by',
-        'understory',
         'field_notes',
         'cloud_cover',
         'overnight_temperature',
