@@ -18,7 +18,7 @@ settings:
 
 
 regerate the index file
-    ./manage.py build_solr_schema > new_schema.xml
+    ./manage.py build_solr_schema   --settings=$SETTINGS > new_schema.xml
 
 replace the schema file on the solr server with the new schema file:
      scp new_schema.xml $REMOTE_USER@$REMOTE_HOST:$PATH_TO_CCNMTL_TOMCAT/$PATH_TO_SCHEMA_FILE
