@@ -25,14 +25,21 @@
     <input type="hidden" name = "expedition_id" id = "expedition_id" value ="{{expedition.id}}" />
     <input type="hidden" name = "team_letter"   id = "team_letter"   value ="{{team_letter}}" />
     
-    <h3 class="title"> Mammals and Habitats Data Collection Sheet - Day 1 (Expedition #{{expedition.id }}) </h3>
+    <table class="title"> 
+      <tr>      
+        <td class="title_static">Mammals and Habitats Data Collection Sheet</td> 
+      </tr>
+      <tr>      
+       <td class="title_exp">Expedition #{{expedition.id }}</td>
+       <td class="title_day">Day 1 </td>
+       <td>Date (dd/mm/yy): {{expedition.start_date_of_expedition|date:"d/m/y" }}</td>
+      </tr>
+    </table>
     <table class="team_form_top_table">
          <tr>
             <td>School: {{expedition.school}}
             </td>
-            <td>
-                Date (dd/mm/yy): {{expedition.start_date_of_expedition|date:"d/m/y" }}
-            </td>
+            
          </tr>
          <tr>
             <td>

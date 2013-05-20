@@ -1,62 +1,27 @@
+#team_form {
+  margin: 20px;
+  font-size: 14px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 200;
+}
+
+table.title {
+  width: 100%;
+  font-size: 16px;
+  letter-spacing: .035em;
+  border-bottom: solid 1px #ccc;
+  margin: 0 0 20px 0;
+}
+
+.title .title_static {
+   clear: both;
+   display: block;
+   text-align: center;
+   font-weight: bold;
+   text-transform: uppercase;
+}
+  
 .team_form_top_table {
-    margin:10px;
-    padding: 10px;
+
 }
-
-div.trap_rectangle {
-    width : 450px;
-    height : 500px;
-    clear:right;
-    float:left;
-    border:1px solid;
-    border-radius:25px;
-    margin:10px;
-    padding: 10px;
-    position:relative;
-}
-
-h3.team_form_top_title {
-
-    border:1px solid;
-    border-radius:25px;
-    width:950px;
-    margin:5px;
-    padding: 5px;
-}
-
-div.team_form_lat_lon_coord .value{
-    position:absolute;
-    left:200px;
-}
-
-.coord_input {
-    width : 60px;
-}
-
-div.save_buttons {
-    clear:both;
-}
-
-h3.trap_label {
-	background-color: white;
-    border:1px solid;
-    border-radius:25px;
-    margin:10px;
-    padding: 10px;
-    position:absolute;
-    top : -30px;
-    left : 50px;
-    width: 100px;
-}
-
-.half_width {
-    width: 300px;
-}
-
-
-.team_form_map {
-    width:120px;
-    height:120px;
-}   
-
 
