@@ -21,11 +21,11 @@
 <div id ="block_json" style="display:none">{{block_json}}</div>    
 <div id ="transects_json" style="display:none">{{transects_json}}</div>
 
-<form action ="/mammals/save_team_form/" method ="post" id = "team_form"> 
+<form action ="/mammals/save_team_form/" method="post" id="team_form"> 
     <input type="hidden" name = "expedition_id" id = "expedition_id" value ="{{expedition.id}}" />
     <input type="hidden" name = "team_letter"   id = "team_letter"   value ="{{team_letter}}" />
     
-    <h3 class="team_form_top_title"> Mammals and Habitats Data Collection Sheet - DAY 1 (Expedition   #{{expedition.id }}) </h3>
+    <h3 class="title"> Mammals and Habitats Data Collection Sheet - Day 1 (Expedition #{{expedition.id }}) </h3>
     <table class="team_form_top_table">
          <tr>
             <td>School: {{expedition.school}}

@@ -983,12 +983,25 @@ body.square .block_coordbox
 .habitatmap div.gridselector div.checkbox,
 .habitatmap div.gridselector div.legend,
 .habitatmap div.gridselector div.title {
-    float: left;
-	padding: 0px 2px 0px 0px;
+   float: left;
 }
 
-.habitatmap div.gridselector div.title {
-	padding: 3px 0px 0px 0px;
+.habitatmap div.gridselector #show_map_grid,
+.habitatmap div.gridselector #square_coordinates
+{
+ float: left;
+ display: block; 
+ clear:both;
+}
+
+.habitatmap div.gridselector #reset_map_button  {
+  float: right;
+  padding: 0 22px 0 0;
+}
+
+
+.habitatmap div.gridselector #show_map_grid div.title {
+  padding: 3px 0 0 4px;
 }
 
 .habitatmap .ui-accordion-content div.facetItem div.title {
