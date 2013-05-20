@@ -633,6 +633,7 @@ body.square .formfield label
 	margin: 30px 0 0 0;
 	padding: 0;
 	border: 0;
+	clear: both;
 }
 
 ul#standard-elements

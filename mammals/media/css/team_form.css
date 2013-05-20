@@ -1,8 +1,13 @@
 #team_form {
   margin: 20px;
   font-size: 14px;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 200;
+}
+
+input, select {
+  border: solid 1px #000;
+  font-size: 14px;
+  margin: 0 0 5px 0;
+  padding: 1px 5px;
 }
 
 table.title {
@@ -11,6 +16,11 @@ table.title {
   letter-spacing: .035em;
   border-bottom: solid 1px #ccc;
   margin: 0 0 20px 0;
+  padding: 0 0 10px 0;
+}
+
+table.title td{
+  border-bottom: none;
 }
 
 .title .title_static {
@@ -21,7 +31,64 @@ table.title {
    text-transform: uppercase;
 }
   
-.team_form_top_table {
-
+.title .title_day {
+   clear: both;
+   display: block;
+   text-align: center;
+   text-transform: uppercase;
 }
 
+.team_form_top_table {
+  width: 100%;
+}
+
+.team_form_top_table em {
+  font-size: 10px;
+  font-style: normal;
+}
+
+table td {
+  padding: 3px 0;
+  margin: 3px 0;
+}
+
+#trap_container {
+  width: 100%;
+  display: block;
+}
+
+.trap_rectangle {
+  float: left;
+  display: block;
+  width: 450px;
+  border: solid 1px #ccc;
+  padding: 20px;
+  margin: 20px 50px 0 0;
+}
+
+h3.trap_label {
+  position: relative;
+  top: -46px;
+  background-color: #fff;
+  padding: 3px;
+  border: solid 1px #ccc;
+  width: 100px;
+  text-align: center;
+}
+
+.trap_rectangle div {
+  padding: 0 0 8px 0;
+}
+
+.team_form_map {
+  width: 120px;
+  height: 120px;
+}
+
+.half_width {
+  width: 300px;
+}
+
+.save_buttons {
+  clear: both;
+}
