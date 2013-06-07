@@ -3,12 +3,6 @@
   font-size: 14px;
 }
 
-input, select {
-  border: solid 1px #000;
-  font-size: 14px;
-  margin: 0 0 5px 0;
-  padding: 1px 5px;
-}
 
 .title {
   width: 993px;
@@ -112,7 +106,8 @@ table td {
 .team_form_trap_success,
 .team_form_trap_animals,
 .team_form_habitat_type_div,
-.team_form_understory_div {
+.team_form_understory_div,
+.team_form_lat_lon_coord.longitude.actual {
   clear: both;
 }
 
@@ -135,3 +130,4 @@ h3.trap_label {
 .save_buttons {
   clear: both;
 }
+

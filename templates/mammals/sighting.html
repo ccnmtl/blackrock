@@ -30,25 +30,6 @@
       @import "/mammals/media/css/jquery-ui.css";
     </style> 
 
-    <style media="screen" type="text/css">
-        .green_table td
-        {
-            border-color: #ABA;
-            border-width: 1px;
-            border-style: solid;
-            margin:  1px;
-            padding: 4px;
-            background-color: #EFE;
-        }
-        .coord_input {
-            width : 60px;
-        
-        }
-        .team_form_map {
-            width:120px;
-            height:120px;
-        }    
-    </style>
 
     {{ block.super }}
     
@@ -59,6 +40,9 @@
     <form action ="/mammals/edit_sighting/" method ="post" id = "sighting_form"> 
                     
         {% csrf_token %}
+        
+        <h3>Add a sighting</h3>
+
         <table class = "green_table">
             <tr>
                 <td>

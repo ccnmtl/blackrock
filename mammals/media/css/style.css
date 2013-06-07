@@ -74,7 +74,7 @@ div#nav ol li a.default, div#nav ul li.default { background-color: transparent; 
 div#nav ol li a.active, div#nav ul li.active { background-color: #ffffff; }
 
 
-#container
+#container_mammals
 {
 	display: block;
 	margin: 0;
@@ -164,6 +164,26 @@ label
 {
 	font-weight: bold;
 	color: #666;
+}
+
+
+#container_mammals input,
+#container_mammals select,
+#container_mammals textarea
+{
+  border: solid 1px #ccc;
+  font-size: 14px;
+  margin: 0 0 5px 0;
+  padding: 1px 5px;
+}
+
+#container_mammals input [type="button"],
+#container_mammals [type="submit"], 
+#container_mammals input[type="reset"], 
+#container_mammals input[type="file"]::-webkit-file-upload-button, 
+#container_mammals button
+{
+    font-size: 14px;
 }
 
 /* Form fields */
@@ -1034,6 +1054,94 @@ body.square .block_coordbox
 .habitatmap #date_accordion {
     height: 35px !important;
 }
+
+/* Expeditions & Sightings Pages*/
+.green_table td,
+#distances_table td
+   {
+   border-color: #ccc;
+   border-width: 1px;
+   border-style: solid;
+   margin:  1px;
+   padding: 4px;
+   }
+ 
+.green_table td a,
+#distances_table td a,
+div.container_div div.slide a,
+div.trap_location_container a {
+  color: #0071bc;
+  font-weight: bold;
+  text-decoration: none;
+} 
+
+.green_table td a:hover,
+#distances_table td a:hover,
+div.container_div div.slide a:hover,
+div.trap_location_container a:hover  {
+  color: #54A6DD;
+}
+
+    .hide_this {
+            display:none;
+        }
+        
+        div#top_part_of_form div.slide{
+            min-height: 300px !important;
+        }
+        div#bottom_part_of_form div.slide{
+            min-height: 120px !important;
+        }
+        
+        input.short_input_field {
+            width: 50px;
+        }
+        
+        
+        div.container_div h4
+        {
+            margin:  10px;
+            font-weight: bold;
+        }
+
+        
+        div.container_div
+        {
+            overflow: hidden !important;
+        }
+        div.container_div div.slide
+        {
+            float: left;    
+            border:2px solid !important;
+            border-color: #ccc !important;
+            border-width: 1px !important;
+            margin:  2px;
+            padding: 2px;
+        }
+        div.trap_location_container {
+            float:left;
+            border:2px solid !important;
+            border-color: #ccc !important;
+            border-width: 1px !important;
+            margin:  10px 10px 10px 10px;
+            padding:  10px 10px 10px 10px;
+        
+        }
+        
+        .coord_input {
+            width : 60px;
+        
+        }
+        .team_form_map {
+            width:120px;
+            height:120px;
+        }    
+
+.pagination {
+  margin: 10px 0;
+  font-size: .85em;
+}
+
 
 .funder_logo 
 {

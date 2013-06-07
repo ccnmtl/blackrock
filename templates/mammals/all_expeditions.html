@@ -10,17 +10,6 @@
     {{ block.super }}
 {% endblock %}
 {% block css %}
-    <style media="screen" type="text/css">
-        .green_table td
-        {
-            border-color: #ABA;
-            border-width: 1px;
-            border-style: solid;
-            margin:  1px;
-            padding: 4px;
-            background-color: #EFE;
-        }
-    </style>
 
     {{ block.super }}
 {% endblock %}
@@ -45,22 +34,22 @@
      <table class = "green_table">
         <tr>
             <td  > 
-                Expedition
+               <strong> Expedition</strong>
             </td> 
             <td  > 
-                School
+                <strong>School</strong>
             </td> 
             <td  > 
-                Start date
+                <strong>Start date</strong>
             </td> 
             <td  > 
-                Square
+                <strong>Square</strong>
             </td> 
             <td  > 
-                Caught
+                <strong>Caught</strong>
             </td> 
             <td  > 
-                Actions
+                <strong>Actions</strong>
             </td> 
         </tr>
         {% for e in expeditions.object_list %}
