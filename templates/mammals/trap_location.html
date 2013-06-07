@@ -1,9 +1,10 @@
 <div class="trap_rectangle" >
 
 <h3 class="trap_label" >Trap {{point.team_letter }}{{point.team_number }} </h3> 
-<h3>Distance (m) from center: {{point.transect_distance|floatformat:0}}m </h3> 
 
-<div class = "team_form_mini_map_div half_width">
+<div class="team_form_container">
+
+<div class = "team_form_mini_map">
     <div style="display:none" class = "team_form_hidden_div">
         <!-- using this data to correctly center the mini-maps in the team_form.js . -->
         <div id = "lat_{{point.id}}">{{point.suggested_lat}}</div>
@@ -13,21 +14,22 @@
         <div id = "transect_edge_lat_{{point.id}}">{{point.transect_endpoints.edge.0}}</div>
         <div id = "transect_edge_lon_{{point.id}}">{{point.transect_endpoints.edge.1}}</div>
     </div>
-
     <div id = "map_{{point.id}}" class = "team_form_map" ></div>
 </div>
 
-<div class = "team_form_lat_lon_coord latitude suggested half_width">
+<div class="mammals_form team_form_distance"><strong>Distance (m) from center</strong>: {{point.transect_distance|floatformat:0}}m</div>  
+
+<div class = "mammals_form team_form_lat_lon_coord latitude suggested">
     <span class ="label">
-        Suggested latitude:
+        <strong>Suggested latitude</strong>:
     </span>
     <span class ="value">
         {{point.suggested_lat|floatformat:5 }}
     </span>
 </div>
-<div class = "team_form_lat_lon_coord latitude actual half_width">
+<div class = "mammals_form team_form_lat_lon_coord latitude actual">
     <span class ="label">
-        Actiual latitude:
+        <strong>Actual latitude</strong>:
     </span>
     <span class ="value">
         <input class="coord_input" type="text" name = "actual_lat_{{point.id}}"  id = "actual_lat_{{point.id}}" value = "{{point.actual_lat|floatformat:5}}"  maxlength="9" />
@@ -35,17 +37,17 @@
 </div>
 
 
-<div class = "team_form_lat_lon_coord longitude suggested half_width">
+<div class = "mammals_form team_form_lat_lon_coord longitude suggested">
     <span class ="label">
-        Suggested longitude:
+        <strong>Suggested longitude</strong>:
     </span>
     <span class ="value">
         {{point.suggested_lon|floatformat:5 }}
     </span>
 </div>
-<div class = "team_form_lat_lon_coord longitude actual half_width">
+<div class = "mammals_form team_form_lat_lon_coord longitude actual">
     <span class ="label">
-        Actual longitude:
+        <strong>Actual longitude</strong>:
     </span>
     <span class ="value">
     <input class="coord_input" type="text" name = "actual_lon_{{point.id}}" id = "actual_lon_{{point.id}}" value = "{{point.actual_lon|floatformat:5}}"  maxlength="9" />
@@ -53,9 +55,9 @@
 </div>
 
 
-<div class = "team_form_was_a_trap_set_here half_width">
+<div class = "mammals_form team_form_was_a_trap_set_here">
     <span class ="label">
-        Was a trap set here?
+        <strong>Was a trap set here?</strong>
     </span>
 
     <select id="whether_a_trap_was_set_here_{{point.id}}" name="whether_a_trap_was_set_here_{{point.id}}" class = "whether_a_trap_was_set_here_dropdown" >
@@ -65,9 +67,9 @@
 </div>
 
 
-<div class = "team_form_trap_type_div half_width">
+<div class = "mammals_form team_form_trap_type_div">
     <span class ="label">
-        Trap type:
+       <strong>Trap type</strong>:
     </span>
     <select id="trap_type_{{point.id}}" name="trap_type_{{point.id}}">
         {% for trap_type in trap_types %}
@@ -76,10 +78,10 @@
     </select>
 </div>
 
-<div class = "team_form_bait_type_div half_width">
+<div class = "mammals_form team_form_bait_type_div">
 
     <span class ="label">
-        Bait type:
+        <strong>Bait type</strong>:
     </span>
 
     <select id="bait_{{point.id}}" name="bait_{{point.id}}">
@@ -92,9 +94,9 @@
 </div>
 
 
-<div class = "team_form_trap_success half_width">
+<div class = "mammals_form team_form_trap_success">
     <span class ="label">
-        Catch:
+        <strong>Catch</strong>:
     </span>
     <select  id = "bait_still_there_{{point.id}}" name="bait_still_there_{{point.id}}" >
         <option value = "True"  {%if point.bait_still_there %}selected{%endif%}>Bait present</option>
@@ -103,9 +105,9 @@
     
 </div>
 
-<div class = "team_form_trap_animals half_width">
+<div class = "mammals_form team_form_trap_animals">
     <span class ="label">
-        Trap empty?
+        <strong>Trap empty?</strong>
     </span>
     
     <select id="animal_{{point.id}}" name="animal_{{point.id}}">
@@ -120,9 +122,9 @@
 </div>
 
 
-<div class = "team_form_habitat_type_div half_width">
+<div class = "mammals_form team_form_habitat_type_div">
    <span class ="label">
-        Habitat:
+        <strong>Habitat</strong>:
     </span>
 
     <select id="habitat_{{point.id}}" name="habitat_{{point.id}}">
@@ -134,12 +136,13 @@
     </select>
 </div>
 
-<div class = "team_form_understory_div">
+<div class = "mammals_form team_form_understory_div">
     <span class ="label">
-    Understory:
+    <strong>Understory</strong>:
     </span>
     <input name="understory_{{point.id}}" value ="{{point.understory|default_if_none:''}}" size="50" maxlength="250" ></input>
 </div>
 
 
+</div>
 </div  > <!-- class="trap_rectangle" -->

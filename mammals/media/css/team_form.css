@@ -10,16 +10,16 @@ input, select {
   padding: 1px 5px;
 }
 
-table.title {
-  width: 100%;
+.title {
+  width: 993px;
   font-size: 16px;
   letter-spacing: .035em;
-  border-bottom: solid 1px #ccc;
   margin: 0 0 20px 0;
   padding: 0 0 10px 0;
+  float: left;
 }
 
-table.title td{
+.title td{
   border-bottom: none;
 }
 
@@ -39,8 +39,27 @@ table.title td{
 }
 
 .team_form_top_table {
-  width: 100%;
+  width: 993px;
+  border: solid 1px #ccc;
+  padding: 20px;
+  float: left;
 }
+
+.team_form_table_left {
+  width: 50%;
+  float: left;
+}
+
+.team_form_table_right {
+  width: 50%;
+  float: left;
+}
+
+.team_form_table_left div,
+.team_form_table_right div {
+  height: 20px;
+}
+
 
 .team_form_top_table em {
   font-size: 10px;
@@ -55,6 +74,7 @@ table td {
 #trap_container {
   width: 100%;
   display: block;
+  float: left;
 }
 
 .trap_rectangle {
@@ -64,6 +84,36 @@ table td {
   border: solid 1px #ccc;
   padding: 20px;
   margin: 20px 50px 0 0;
+}
+
+.team_form_container {
+  margin: -45px 0 0 0;
+}
+
+.mammals_form {
+  float: left;
+  display: block;
+  height: 35px;
+}
+
+.team_form_distance {
+  float: left;
+}
+
+.team_form_mini_map {
+  float: right;
+  height: 120px;
+  width: 120px;
+}
+
+.team_form_was_a_trap_set_here,
+.team_form_trap_type_div,
+.team_form_bait_type_div,
+.team_form_trap_success,
+.team_form_trap_animals,
+.team_form_habitat_type_div,
+.team_form_understory_div {
+  clear: both;
 }
 
 h3.trap_label {
@@ -76,17 +126,10 @@ h3.trap_label {
   text-align: center;
 }
 
-.trap_rectangle div {
-  padding: 0 0 8px 0;
-}
 
 .team_form_map {
   width: 120px;
   height: 120px;
-}
-
-.half_width {
-  width: 300px;
 }
 
 .save_buttons {

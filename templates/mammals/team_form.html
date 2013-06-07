@@ -25,45 +25,36 @@
     <input type="hidden" name = "expedition_id" id = "expedition_id" value ="{{expedition.id}}" />
     <input type="hidden" name = "team_letter"   id = "team_letter"   value ="{{team_letter}}" />
     
-    <table class="title"> 
-      <tr>      
-        <td class="title_static">Mammals and Habitats Data Collection Sheet - Expedition #{{expedition.id }}</td> 
-      </tr>
-      <tr>      
-       <td class="title_day">Day 1 </td>
-      </tr>
-    </table>
-    <table class="team_form_top_table">
-      <tr>
-        <td><strong>School</strong>: {{expedition.school}}</td>
-        <td><strong>Date (dd/mm/yy)</strong>: {{expedition.start_date_of_expedition|date:"d/m/y" }}</td>
-      </tr>
-      <tr>
-            <td>
+    <div class="title"> 
+      <div>      
+        <div class="title_static">Mammals and Habitats Data Collection Sheet - Expedition #{{expedition.id }}</div> 
+      </div>
+      <div>      
+       <div class="title_day">Day 1 </div>
+      </div>
+    </div>
+    <div class="team_form_top_table">
+      <div class="team_form_table_left">
+        <div><strong>School</strong>: {{expedition.school}}</div>
+        <div>
                 <strong>Names</strong>: <input name="student_names" value ="{{student_names|default_if_none:''}}" size="50" maxlength="350"></input><br />
                 <em>To preserve students' privacy, do not enter last names.</em>
-            </td>
-            <td>
+            </div>
+              </div>
+      <div class="team_form_table_right">
+            
+            <div>
                 <strong>Sample square</strong>: {{expedition.grid_square.battleship_coords}}
-            </td>
-      </tr>
-      <tr>
-           <td><em></em>
-           </td>
-           
-           <td><strong>Team Letter</strong>: {{team_letter}}
-           </td>
-       </tr> 
-       <tr>
-           <td>
-           </td>
-           
-           <td><strong>Compass bearing</strong>: {{team_points.0.transect_bearing_wrt_magnetic_north|floatformat:0 }}&deg; from magnetic north <!--
+            </div>
+      
+         <div><strong>Team Letter</strong>: {{team_letter}}
+           </div>           
+           <div><strong>Compass bearing</strong>: {{team_points.0.transect_bearing_wrt_magnetic_north|floatformat:0 }}&deg; from magnetic north <!--
            {{point.transect_bearing|floatformat:0 }}&deg; from true north.)
            -->
-           </td>
-       </tr> 
-     </table>
+           </div>
+       </div> 
+     </div>
      <div id="trap_container">
     {%for point in team_points     %}
             {%include "mammals/trap_location.html" %}
