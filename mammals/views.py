@@ -737,6 +737,11 @@ def process_save_team_form(request):
         if rp.has_key (rp_key) and rp[rp_key] != 'None':
             point.understory = rp[rp_key]
             point.save()
+
+        rp_key = '%s_%d' % ('notes_about_location' , point.id)
+        if rp.has_key (rp_key) and rp[rp_key] != 'None':
+            point.notes_about_location = rp[rp_key]
+            point.save()
             
         #Deal with animals:
         animal_key = 'animal_%d' % (point.id)

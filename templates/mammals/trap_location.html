@@ -14,7 +14,9 @@
         <div id = "transect_edge_lat_{{point.id}}">{{point.transect_endpoints.edge.0}}</div>
         <div id = "transect_edge_lon_{{point.id}}">{{point.transect_endpoints.edge.1}}</div>
     </div>
+    {%comment %}
     <div id = "map_{{point.id}}" class = "team_form_map" ></div>
+    {%endcomment %}
 </div>
 
 <div class="mammals_form team_form_distance"><strong>Distance (m) from center</strong>: {{point.transect_distance|floatformat:0}}m</div>  

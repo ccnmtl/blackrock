@@ -17,7 +17,7 @@ function add_trails_to_mini_map (map) {
 }
 
 function add_team_form_maps() {
-    console.log ('hey');
+    return; // this is no longer being used. Saving for archival purposes :)
     the_divs  = jQuery ('.team_form_map');
     
     console.log (the_divs);
