@@ -71,6 +71,7 @@ class Bait (models.Model):
         return self.bait_name
     bait_name =  models.CharField(blank=True, help_text = "Label for the type of bait", max_length = 256)
     class Meta:
+        ordering = ['bait_name']
         verbose_name = "Bait type used"
         verbose_name_plural = "Types of bait used"
 
@@ -252,7 +253,8 @@ class ExpeditionMoonPhase (LabelMenu):
 class Illumination (LabelMenu):
     pass
 class TrapType (LabelMenu):
-    pass
+    class Meta:
+        ordering = ['label']
 
 class School (models.Model):
 
