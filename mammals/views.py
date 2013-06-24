@@ -267,8 +267,8 @@ def grid_block(request):
     if num_transects > 20:
         num_transects = 20
         
-    if points_per_transect > 4:
-        points_per_transect = 4
+    if points_per_transect > 10:
+        points_per_transect = 10
 
     return {
         'block_json': simplejson.dumps(block)
