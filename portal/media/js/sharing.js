@@ -3,6 +3,7 @@
  */
 
 jQuery(document).ready(function () {
+    console.log ('goat');
     jQuery.fn.Sharing.websites.twitter = {
         name : 'Twitter',
         image : 'twitter.gif',
@@ -26,6 +27,8 @@ jQuery(document).ready(function () {
     // social interaction tracking, for now
     jQuery('.sharing_link').click(function () {
         var tracker = _gat._getTracker('UA-311226-26');
+
+        console.log (this.href);
         var url = this.href;
 
         var category = "Share: " + document.location;

@@ -178,27 +178,6 @@ a.advancedsearch-link {
     margin: 0 0 -9px 5px;
 }
 
-/* style the sharing functionality, including the styles that jquery.sharing expects */
-div#sharing_container {
-   
-     float: right;
-    margin: 8px 14px 0 0;
-
-}
-
-div#sharing_container #sharing_button {
-cursor: pointer; 
-float: right; 
-border: 1px solid #89a08c; 
-
-
-}
-
-div#sharing_container .sharing_text { margin: 1px; font-size: 11px; color: #000;  }
-div#sharing_container a.sharing_link img { border: none;}
-div#sharing_container .sharing_image { width: 15px; height: 15px; margin: 2px; float: right;}
-div#sharing_container #sharing_actions { display: none; float: right; background-color: #eaeaea; border-left: 1px solid #adadad; height: 21px; width: 102px;} 
-
 /*Page Body*/
 
 div#container {

@@ -14,6 +14,8 @@
 {% block js %}
 <script  type="text/javascript" src="/site_media/js/jquery-ui-1.8.11.custom/js/jquery-1.4.4.min.js"></script>
 <script  type="text/javascript" src="/site_media/js/jquery-ui-1.8.11.custom/js/jquery-ui-1.8.11.custom.min.js"></script>
+<script type="text/javascript" src="/portal/media/js/jquery.sharing/jquery.sharing.js"></script>
+<script type="text/javascript" src="/portal/media/js/sharing.js"></script>
 <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script>
 <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/Signal.js"></script>
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key={{settings.GOOGLE_MAP_API}}&sensor=false"></script>
@@ -22,31 +24,19 @@
 
 {% block masthead %}
 <a href="/mammals/" title="Return to 'Mammals and Habitats' home">Mammals and Habitats</a>
+{% include "mammals/sharing.html" %}
 {% endblock %}
 {% block nav %}
     <ul>
         <li class="default {% block status_home %}{% endblock %}"><a href="/mammals/">Home</a></li>
-        
-        <!--
-        {% if  user.username == 'eddie' %}
-
-        <li id="expeditions" {%block mammals_nav_expeditions%}{%endblock%} ><a href="/mammals/all_expeditions/">Expeditions</a></li>
-        
-        {%endif %}
-
-        -->
         <li id="gridcategory">GRID:</li>
         <li id="gridresearch" class="default {% block status_research %}{% endblock %}"><a href="/mammals/grid/">Research</a></li>
         <li id="gridplay" class="default {% block status_playground %}{% endblock %}"><a href="/mammals/sandbox/grid/">Playground</a></li>
-
         <li id="map" {%block mammals_nav_search%}{%endblock%} ><a href="/mammals/search/">Habitat Map</a></li>
-
         <li class="default {% block status_teaching %}{% endblock %}"><a href="/mammals/teaching/">Teaching Resources</a></li>
         {% if user.is_authenticated %}
-        
         <li id="gridresearch"><a href="/mammals/all_expeditions/">Expeditions</a></li>
-        <li id="gridplay"><a href="/mammals/sightings">Sightings</a></li>
-        
+        <li id="sightings_tab"><a href="/mammals/sightings">Sightings</a></li>
         <li class="default"><a href="/mammals/logout/">Logout {{user }}</a></li>
         {%else %}
         <li class="default"><a href="/mammals/login/">Log in</a></li>
