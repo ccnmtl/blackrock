@@ -2,7 +2,13 @@
  *   enable sharing on all pages of the site
  */
 
+var the_sharing = jQuery.fn.Sharing;
+
 jQuery(document).ready(function () {
+    if (typeof(jQuery.fn.Sharing) == "undefined") {
+        jQuery.fn.Sharing = the_sharing;
+    }
+    delete the_sharing; // not caring.
     jQuery.fn.Sharing.websites.twitter = {
         name : 'Twitter',
         image : 'twitter.gif',
