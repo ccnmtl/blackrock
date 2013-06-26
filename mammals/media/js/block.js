@@ -37,7 +37,6 @@ function addBlock(mapInstance) {
         for (var j = 0; j < transects[i]['points'].length; j++) {
             next_point = transects[i]['points'][j];
             circle = x_meter_circle (next_point['point'], mapInstance);
-            circle.radius
             attach_marker_info (circle, next_point, new_transect, transect_obj);
         }
     }
@@ -89,7 +88,8 @@ function attach_marker_info (the_circle, point_info, the_transect, transect_info
     // highlight both the circle and its table row.
     table = jQuery ('#transect_table_overflow_div');
     transect_row = table.find( '.transect_'    + point_info['transect_id']);
-    transect_top = transect_row.position().top
+    //transect_top = transect_row.position().top
+    transect_top = 100;
     point_id_row = jQuery ('.top_px_number.point_' + point_info['point_id']);
     
     
