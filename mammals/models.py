@@ -238,7 +238,15 @@ class GridSquare (models.Model):
     def dir(self):
         return dir(self)
 
-    
+    def block_json (self):
+        block_size_in_m = 250.0
+        block_center = self.center.lat(), self.center.lon()
+        block_height, block_width    = to_lat_long (block_size_in_m,  block_size_in_m )
+        bottom_left = self.SW_corner.lat(), self.SW_corner.lon()
+        block = set_up_block (bottom_left, block_height, block_width)
+        block_json =  simplejson.dumps(block)
+        return block_json
+        
     
 class ExpeditionCloudCover (LabelMenu):
     pass
@@ -361,6 +369,44 @@ class Expedition (models.Model):
         self.end_date_of_expedition = new_time
         self.save()        
 
+    def transects (self):
+        result = []
+        points_and_letters = dict((t, t.team_letter) for t in self.traplocation_set.all())
+        team_letters = sorted(list (set(points_and_letters.values())))
+        the_id = 0
+        for letter in team_letters:
+            the_other_id = 0
+            the_id = the_id + 1
+            the_points = [point for point, x in points_and_letters.iteritems() if x == letter]
+            a_point  = the_points[0]
+            transect_points = [a.recreate_point_obj() for a in the_points]
+            
+            for p in transect_points:
+                the_other_id =  the_other_id + 1
+                p['transect_id']   = the_id
+                p['point_index_2'] = the_other_id
+
+
+            side_of_square = 250.0 # meters. #TODO move this to settings.
+            trig_radians_angle = positive_radians(degrees_to_radians(a_point.transect_bearing))
+            transect_length = length_of_transect (trig_radians_angle, side_of_square)
+
+            transect_info = {
+                'transect_id'       : the_id,
+                'team_letter'       : letter,
+                'heading'           : a_point.transect_bearing,
+                'heading_radians'   : trig_radians_angle,
+                'length'            : transect_length,
+                'edge'              : a_point.transect_endpoints()['edge'],
+                'heading_wrt_magnetic_north': a.transect_bearing_wrt_magnetic_north(),
+                'points'            : transect_points,
+            }
+            result.append (transect_info)
+        return result
+    
+    def transects_json (self):
+        return simplejson.dumps (self.transects())
+
 ##################################################
 class TrapLocation(models.Model):
 
@@ -369,15 +415,28 @@ class TrapLocation(models.Model):
         t = TrapLocation()
         
         t.expedition = the_expedition
+        
+        t.transect_bearing = transect_obj['heading']
+        t.team_letter = transect_obj['team_letter']
+
         t.set_actual_lat_long(point_obj['point'])
         t.set_suggested_lat_long(point_obj['point'])
-        t.transect_bearing = transect_obj['heading']
         t.transect_distance = point_obj['distance']
-        t.team_letter = transect_obj['team_letter']
         t.team_number = point_obj['point_id']
+
+
+
         t.save()
         
         return t
+
+    def recreate_point_obj(self):
+        result = {}
+        result['distance'] = self.transect_distance
+        result['point_id'] = self.team_number
+        result['point'] = [self.suggested_lat(), self.suggested_lon()]
+        return result
+
 
 
     """ A location you might decide to set a trap."""

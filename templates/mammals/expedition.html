@@ -1,7 +1,10 @@
 {% extends "mammals/base_mammals.html" %}
 {% load smartif %}
 {% block title %}Grid Block{% endblock %}
+
+{% block bodyclass %}square{%endblock%}
 {% block js %}
+    <script type="text/javascript" src="/mammals/media/js/map_colors.js"></script>
     <script type="text/javascript" src="/mammals/media/js/grid_and_block.js"></script>
     <script type="text/javascript" src="/mammals/media/js/block.js"></script>
     
@@ -236,5 +239,23 @@
 <input type="text" name="expedition_id" id="expedition_id" value ="{{expedition.id}}" class="hide_this"></input>
 </form>
 
+
+<div id ="block_json" style="display:none">{{expedition.grid_square.corner_obj_json}}</div>    
+<div id ="transects_json"  style="display:none">{{expedition.transects_json}}</div>
+    {% with expedition.transects as transects %}
+    <div class="team_trap_table">
+        <div class="transect_table">
+                {% include "mammals/transect_table_heading.html" %} 
+                <div id="transect_table_overflow_div">
+                    {% include "mammals/transect_table.html" %} 
+                </div>
+        </div><!-- class="" -->
+    </div>
+    {%endwith %}
+    
+    <div id="map_canvas"></div><!-- id="map_canvas" -->
+
+    <div class="clearfix"></div><!-- class="clearfix" -->
+</div><!-- class="team_trap_table" -->
 
 {% endblock %}

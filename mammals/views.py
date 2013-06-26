@@ -416,8 +416,6 @@ def grid_square_csv(request):
     return response
 
 
-
-#(r'^sightings/$', 'blackrock.mammals.views.sightings'),	
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 @rendered_with('mammals/sightings.html')
 def sightings(request):
@@ -429,9 +427,6 @@ def sightings(request):
     return {'sightings':sightings}
     
 
-
-
-#(r'^sighting/(?P<sighting_id>\d+)/$', 'blackrock.mammals.views.sighting'),
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 @rendered_with('mammals/sighting.html')
 def create_sighting(request):
@@ -441,8 +436,7 @@ def create_sighting(request):
     the_new_sighting.save()
     return HttpResponseRedirect ( '/mammals/sighting/%d' % the_new_sighting.id)
     
-    
-#(r'^sighting/(?P<sighting_id>\d+)/$', 'blackrock.mammals.views.sighting'),
+
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
 @rendered_with('mammals/sighting.html')
 @csrf_protect
@@ -460,10 +454,7 @@ def sighting(request, sighting_id):
     }
 
 
-
-#(r'^edit_sighting/$', 'blackrock.mammals.views.edit_sighting'),
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry, login_url='/mammals/login/')
-
 def edit_sighting(request):
     if request.method != "POST":
         return HttpResponse('POST requests only, please.')
@@ -539,6 +530,10 @@ def expedition(request, expedition_id):
     hours   = [("%02d" % the_hour  ) for the_hour   in range (0, 24)]
     minutes = [("%02d" % the_minute) for the_minute in range (0, 60)]    
     exp.set_end_time_if_none()
+
+    #import pdb
+    #pdb.set_trace()
+    
     return {
         'expedition'                        : exp
         ,'grades'                           : grades

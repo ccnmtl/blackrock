@@ -26,6 +26,8 @@ NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVI
 
 
 {% block container %}
+
+<div  style="display:none" >{{transects_json}}</div>
 <div id ="block_json" style="display:none">{{block_json}}</div>    
 <div id ="transects_json" style="display:none">{{transects_json}}</div>
 <div class="plain" id="right_hand_table">
@@ -89,14 +91,13 @@ NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVI
 		
 
 	<div class="team_trap_table">
-	  <div class="table_actions">
+	    <div class="table_actions">
               {% include "mammals/csv_export_form.html" %}
               {% include "mammals/printer_friendly_form.html" %}
               {% include "mammals/save_locations.html" %}
-    </div><!-- class="" -->
+        </div><!-- class="" -->
 		<div class="transect_table">
-		        
-                {% include "mammals/transect_table_heading.html" %} 
+		        {% include "mammals/transect_table_heading.html" %} 
                 <div id="transect_table_overflow_div">
                     {% include "mammals/transect_table.html" %} 
                 </div>
