@@ -128,6 +128,9 @@ class Animal(models.Model):
     hair_sample_collected = models.BooleanField(default=False) 
     skin_sample_collected = models.BooleanField(default=False) 
     
+    ##DO NOT DELETE THE TRAP LOCATION THIS ANIMAL WAS ASSOCIATED WITH.
+
+
     def dir(self):
         return dir(self)
 
@@ -289,6 +292,9 @@ class Expedition (models.Model):
     def __unicode__(self):
         return  u"Expedition %d started on %s" % ( self.id, self.start_date_of_expedition.strftime("%m/%d/%y") )
   
+    def get_absolute_url(self):
+        return "/mammals/expedition/%i/" % self.id
+
     #TODO make default sort by date, starting w/ most recent. 
     
     class Meta:
@@ -465,12 +471,12 @@ class TrapLocation(models.Model):
     team_number = models.IntegerField(blank=True, null=True, help_text = "Differentiates the traps each team is in charge of.")
     order       = models.IntegerField(blank=True, null=True, help_text = "Order in which to show this trap.")
     
-    habitat = models.ForeignKey (Habitat, null=True, blank=True,  help_text = "What habitat best describes this location?")
+    habitat = models.ForeignKey (Habitat, null=True, blank=True,  help_text = "What habitat best describes this location?" , on_delete=models.SET_NULL)
     
     #info about the outcome:    
     whether_a_trap_was_set_here = models.BooleanField(help_text = "We typically won't use all the locations suggested by the randomization recipe; this denotes that a trap was actually placed at or near this point.")
-    bait = models.ForeignKey (Bait, null=True, blank=True ,  help_text = "Any bait used")
-    animal = models.ForeignKey (Animal, null=True, blank=True,  help_text = "Any animals caught")
+    bait = models.ForeignKey (Bait, null=True, blank=True ,  help_text = "Any bait used", on_delete=models.SET_NULL)
+    animal = models.ForeignKey (Animal, null=True, blank=True,  help_text = "Any animals caught", on_delete=models.SET_NULL)
     bait_still_there = models.BooleanField(help_text = "Was the bait you left in the trap still there when you came back?")
     
     

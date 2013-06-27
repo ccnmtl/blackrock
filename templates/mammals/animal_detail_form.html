@@ -22,9 +22,10 @@
        Scale used
     </td>
 </tr>
+ 
 <tr>
-    <td  >
-       <strong>{{an.species}}</strong>
+    <td style="color:blue">
+       {{an.species}}
     </td>
     <td  >
        {{al.team_letter}}{{al.team_number}}
@@ -77,6 +78,9 @@
     <td  > 
        Skin scraping collected?
     </td>
+    <td  > 
+       Actions
+    </td>
 </tr>
 <tr>
     <td  >
@@ -96,6 +100,9 @@
     </td>
     <td  >
        <input type="checkbox" name = "skin_sample_collected_{{al.id}}" value="True"  {% if an.skin_sample_collected %}checked{%endif%}>
+    </td>
+    <td  >
+       <input type="checkbox" name = "delete_{{al.id}}" class = "delete_animal_checkbox" value="delete" > Delete
     </td>
 </tr>
     </tr>

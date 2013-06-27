@@ -531,8 +531,6 @@ def expedition(request, expedition_id):
     minutes = [("%02d" % the_minute) for the_minute in range (0, 60)]    
     exp.set_end_time_if_none()
 
-    #import pdb
-    #pdb.set_trace()
     
     return {
         'expedition'                        : exp
@@ -879,9 +877,12 @@ def save_expedition_animals(request):
         rp_key = 'tag_number_%d' % point.id
         if rp.has_key (rp_key) and rp[rp_key] != '':
             setattr(point.animal, 'tag_number', rp[rp_key])
-            
-            
         point.animal.save()
+        
+        rp_key = 'delete_%d' % point.id
+        if rp.has_key (rp_key) and rp[rp_key] == 'delete':
+            point.animal.delete()
+
     return expedition (request, expedition_id)
 
 
@@ -897,7 +898,7 @@ def grid_square_print(request):
         return HttpResponseRedirect ( '/mammals/')
     
     result =  {
-        'transects_json': transects_json #not actually used.
+        'transects_json': transects_json
         , 'transects': simplejson.loads(transects_json) 
         , 'selected_block_center_y' : request.POST.get('selected_block_center_y')
         , 'selected_block_center_x' :request.POST.get('selected_block_center_x')
