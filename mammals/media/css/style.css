@@ -1062,6 +1062,7 @@ body.square .block_coordbox
    {
    border-color: #ccc;
    border-width: 1px;
+   background-color: transparent;
    border-style: solid;
    margin:  1px;
    padding: 4px;
