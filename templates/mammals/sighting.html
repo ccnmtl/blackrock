@@ -44,6 +44,22 @@
         <h3>Add a sighting</h3>
 
         <table class = "green_table">
+          <tr>
+                <td>
+                Date:
+                </td>
+                <td>
+                    <input type="text" name = "date" id="date" value = "{{sighting.date|date:"m/d/Y"}}"  maxlength="9" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Observer(s):
+                </td>
+                <td> 
+                     <input type="text" name = "observers" id="observers" value = "{{sighting.observers|default:''}}" />
+                </td>
+            </tr>    
             <tr>
                 <td>
                 Location:
@@ -53,14 +69,7 @@
                     LON  <input class="coord_input" type="text" name = "lon" id="lon" value = "{{sighting.lon|floatformat:5}}"  maxlength="9" />
                     </td>
             </tr>    
-            <tr>
-                <td>
-                Date:
-                </td>
-                <td>
-                    <input type="text" name = "date" id="date" value = "{{sighting.date|date:"m/d/Y"}}"  maxlength="9" />
-                </td>
-            </tr>
+            
             <tr>
                 <td >
                     Species: 
@@ -100,14 +109,7 @@
                     </select>
                 </td>
             </tr>
-            <tr>
-                <td >
-                    Observer(s):
-                </td>
-                <td > 
-                     <input type="text" name = "observers" id="observers" value = "{{sighting.observers|default:''}}" />
-                </td>
-            </tr>    
+          
             
             <tr>
                 <td >
