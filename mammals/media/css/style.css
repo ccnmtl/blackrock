@@ -319,7 +319,7 @@ body.square .formfield label
 
 #selection_steps
 {
-	margin: 20px 0 0 0;
+	margin: 0;
 	padding: 0;
 	border: 0;
 	clear: both;
@@ -329,7 +329,7 @@ body.square .formfield label
 #terrain_level, #access_level
 {
 	width: 220px;
-	margin: 0;
+	margin: 20px 0 0 0;
 	padding: 0;
 	border: 0;
 	float: left;
@@ -367,6 +367,7 @@ body.square .formfield label
 	padding: 0;
 	border: 0;
 	float: left;
+	clear:both;
 }
 
 #randomizer h4
