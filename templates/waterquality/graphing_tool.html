@@ -95,10 +95,7 @@
 			var b3_l = document.getElementById("label3").value;
 			var b4_in = document.getElementById("value4").value;
 			var b4_l = document.getElementById("label4").value;
-			//var b1_act = true;
-			//var b2_act = false;
-			//var b3_act = false;
-			//var b4_act = false;
+
 			//if ($("#form-element-0").css('background','yellow'))
 			//{alert("form is active");}
 
@@ -126,13 +123,13 @@
 				$("#label1").css('background','yellow');
 				alert("Please enter values in box 1");
 			}
-			else if(b1_l == "" && b1_in != "") //may need to change to else if later to indicate which box is broken
+			else if(b1_l == "" && b1_in != "")
 			{
 				$("#value1").css('background','white');
 				$("#label1").css('background','yellow');
 				alert("Please enter a label in box 1");
 			}
-			else if(b1_in == "" && b1_l != "") //may need to change to else if later to indicate which box is broken
+			else if(b1_in == "" && b1_l != "")
 			{
 				$("#label1").css('background','white');
 				$("#value1").css('background','yellow');
@@ -197,19 +194,19 @@
 	   				alert("Please enter a value between 1 and 100 for the threshold value in box 3.");
 				}
 			}
-			else if ((b3_in == "" && b3_l == "") && (b3_act == true && box3_click > 2))
+			else if ((b3_in == "" && b3_l == "") && (b3_act == true && box3_click > 1))
 			{
 				$("#value3").css('background','yellow');
 				$("#label3").css('background','yellow');
 				alert("Please enter values in box 3");
 			}
-			else if((b3_l == "" && b3_in != "") && (b3_act == true && box3_click > 2))//may need to change to else if later to indicate which box is broken
+			else if((b3_l == "" && b3_in != "") && (b3_act == true && box3_click > 1))
 			{
 				$("#value3").css('background','white');
 				$("#label3").css('background','yellow');
 				alert("Please enter a label in box 3");
 			}
-			else if((b3_in == "" && b3_l != "") && (b3_act == true && box3_click > 2))
+			else if((b3_in == "" && b3_l != "") && (b3_act == true && box3_click > 1))
 			{
 				$("#label3").css('background','white');
 				$("#value3").css('background','yellow');
@@ -254,6 +251,43 @@
 
 
 	})//end of click
+
+   	$("#hide2").click(
+   		function(e)
+   		{
+   			$('#form-element-2').css('visibility', 'hidden');
+   			document.getElementById("value2").value = "";
+   			document.getElementById("label2").value = "";
+   			var b2_act = false;
+   			var box2_click = 0;
+   		})
+
+   	$("#hide3").click(
+   		function(e)
+   		{
+   			$('#form-element-3').css('visibility', 'hidden');
+   			document.getElementById("value3").value = "";
+   			document.getElementById("label3").value = "";
+   			var b3_act = false;
+   			var box3_click = 0;
+   		})
+
+   	$("#hide4").click(
+   		function(e)
+   		{
+   			$('#form-element-4').css('visibility', 'hidden');
+   			document.getElementById("value4").value = "";
+   			document.getElementById("label4").value = "";
+   			var b4_act = false;
+   			var box4_click = 0;
+   		})
+
+
+
+
+
+
+
 
 })//end of ready
 
