@@ -18,244 +18,179 @@
 <script type="text/javascript">
     $(document).ready(function() {
 
-	//there are actually 2 places to check - when another box is requested and when the values are actually submitted to the graph
-	//on each click - should check url
-	//on each submission - should check URL
-	var b1_act = true;
-	var b2_act = false;
-	var b3_act = false;
-	var b4_act = false;
-	var box2_click = 0;
-	var box3_click = 0;
-	var box4_click = 0;
+		function get_form_element(e_pos){
+			var s_test = "form-element-";
+			var e_str = e_pos.toString();
+			var chk_content = s_test.concat(e_str);
+			return chk_content;
+		}
 
-	$("#clickme").click(function(e)
-	    {
- 
-    // 	    var search = window.location.search.substring(1);
-    //     	var split = search.split('&');
-
-    //   		for (var i = 0; i < split.length; i++)
-    //   		{
-    //       		var pair = split[i].split('=');
-    //       		if (decodeURIComponent(pair[0]) == "line_label_0")
-    //       		{
-    //       			var elem = document.getElementById("label1");
-		 	//  		elem.value = decodeURIComponent(pair[1]); 
-    // 	      	}
-    // 	      	else
-    // 	      	{
-    // 	      		var b1_in = document.getElementById("value1").value;
-    // 	      	}
-    //     		if (decodeURIComponent(pair[0]) == "line_value_0")
-    //       		{
-    //        	    	var elem = document.getElementById("value1");
-		 	//  		elem.value = decodeURIComponent(pair[1]);
-		  //       }
-    //       		if (decodeURIComponent(pair[0]) == "line_label_1")
-    //       		{
-    //        		    var elem = document.getElementById("label2");
-				//  	elem.value = decodeURIComponent(pair[1]);
-    // 	  		}
-    //       		if (decodeURIComponent(pair[0]) == "line_value_1")
-    //     		{
-    //        	    	var elem = document.getElementById("value2");
-				//   	elem.value = decodeURIComponent(pair[1]);
-    // 	      	}
-	   //     		if (decodeURIComponent(pair[0]) == "line_label_2")
-	   //     		{
-    //   	     	    var elem = document.getElementById("label3");
-				//   	elem.value = decodeURIComponent(pair[1]);
-    // 	      	}
-    //       		if (decodeURIComponent(pair[0]) == "line_value_2")
-    //       		{
-    //        	    	var elem = document.getElementById("value3");
-				//   	elem.value = decodeURIComponent(pair[1]);
-    //       		}
-    //       		if (decodeURIComponent(pair[0]) == "line_label_3")
-    //       		{
-    //        		    var elem = document.getElementById("label4");
-				//   	elem.value = decodeURIComponent(pair[1]);
-    // 	      	}
-    //       		if (decodeURIComponent(pair[0]) == "line_value_3")
-    //       		{
-    //        	    	var elem = document.getElementById("value4");
-				//   	elem.value = decodeURIComponent(pair[1]);
-				// }
-    //     	}//end of for
-
-
-
-    		//maintains state of all values user enters - updated every click
-			var b1_in = document.getElementById("value1").value;
-			var b1_l = document.getElementById("label1").value;
-			var b2_in = document.getElementById("value2").value;
-			var b2_l = document.getElementById("label2").value;
-			var b3_in = document.getElementById("value3").value;
-			var b3_l = document.getElementById("label3").value;
-			var b4_in = document.getElementById("value4").value;
-			var b4_l = document.getElementById("label4").value;
-			//var b1_act = true;
-			//var b2_act = false;
-			//var b3_act = false;
-			//var b4_act = false;
-			//if ($("#form-element-0").css('background','yellow'))
-			//{alert("form is active");}
-
-
-			//check the values of the boxes before making another box available
-			//box 1
-			if (b1_in != "" && b1_l != "")
+		function get_label_value(e_pos){
+			var label_str = "line_label_";
+			var e_str = e_pos.toString();
+			var chk_label = label_str.concat(e_str);
+			var label = document.forms["myForm"][chk_label].value;
+			if (label != '')
 			{
-				if (b1_in >= 0 && b1_in < 100)
-				{
-					$("#label1").css('background', 'white');
-					$("#value1").css('background', 'white');
-					$("#form-element-2").css('visibility', 'visible');
-					b2_act = true;
-				}
-				else
-				{
-					$("#value1").css('background','yellow');
-					alert("Please enter a value between 1 and 100 for the threshold value in box 1.");
-				}
+				return label;
 			}
-			else if (b1_in == "" && b1_l == "")
-			{
-				$("#value1").css('background','yellow');
-				$("#label1").css('background','yellow');
-				alert("Please enter values in box 1");
-			}
-			else if(b1_l == "" && b1_in != "") //may need to change to else if later to indicate which box is broken
-			{
-				$("#value1").css('background','white');
-				$("#label1").css('background','yellow');
-				alert("Please enter a label in box 1");
-			}
-			else if(b1_in == "" && b1_l != "") //may need to change to else if later to indicate which box is broken
-			{
-				$("#label1").css('background','white');
-				$("#value1").css('background','yellow');
-				alert("Please enter a threshold value in box 1");
-			}
+			else{return -1;}
+		}
 
-			if (b2_act == true){box2_click = box2_click + 1;}
+		function get_line_value(e_pos){
+			var value_str = "line_value_";
+			var e_str = e_pos.toString();
+			var chk_value = value_str.concat(e_str);
+			var line = document.forms["myForm"][chk_value].value;
+			if (line != ''){
+				return line;
+			}
+			else{return -1;}
+		}
 
-			//box 2
-			if ((b2_in != "" && b2_l != "") && b2_act == true)
+		// function get_line_value(e_pos){
+		// 	var value_str = "line_value_";
+		// 	var e_str = e_pos.toString();
+		// 	var chk_value = value_str.concat(e_str);
+		// 	var line = document.forms["myForm"][chk_value].value;
+		// 	if (line != ''){
+		// 		return line;
+		// 	}
+		// 	else{return -1;}
+		// }
+
+		function checkValues(element_num){
+			var glv = get_label_value(element_num);
+			var glnv = get_line_value(element_num);
+			if (glv != -1 && glnv != -1)
+				{return true;}
+			else
+				{return false;}
+		}
+
+		function validateLine(e_num)
+		{
+			//var background = get_line_background(e_num);
+			var glv = get_line_value(e_num);
+			if (glv.match(/^\d+$/))
 			{
-				//box2_click = box2_click + 1;
-				if (b2_in >= 1 && b2_in < 100)
-				{
-					$("#label2").css('background', 'white');
-					$("#value2").css('background', 'white');
-					$("#form-element-3").css('visibility', 'visible');
-					b3_act = true;
-				}
-				else
-				{
-					$("#value2").css('background','yellow');
-	   				alert("Please enter a value between 1 and 100 for the threshold value in box 2.");
-				}
+				if (glv > 0 && glv < 100)
+				{return true;}
 			}
-			else if ((b2_in == "" && b2_l == "") && (b2_act == true && box2_click > 2))
+			else
 			{
-				$("#value2").css('background','yellow');
-				$("#label2").css('background','yellow');
-				alert("Please enter values in box 2");
+				alert("Please enter values between 0 and 100");
+				//glv.style.background="yellow";
+				return false;
 			}
-			else if((b2_l == "" && b2_in != "") && (b2_act == true && box2_click > 2))
-			{
-				$("#value2").css('background','white');
-				$("#label2").css('background','yellow');
-				alert("Please enter a label in box 2");
-			}
-			else if((b2_in == "" && b2_l != "") && (b2_act == true && box2_click > 2))
-			{
-				$("#label2").css('background','white');
-				$("#value2").css('background','yellow');
-				alert("Please enter a threshold value in box 2");
-			}
+		}
+
+		
 
 
-			if (b3_act == true){box3_click = box3_click + 1;}
+    	var box_array = new Array();
+		box_array[0] = "#form-element-2";
+		box_array[1] = "#form-element-3";
+		box_array[2] = "#form-element-4";
+    	box_array[3] = "#form-element-1";
 
 
-			//box 3
-			if ((b3_in != "" && b3_l != "") && b3_act == true)
-			{
-				if (b3_in >= 1 && b3_in < 100)
-				{
-					$("#label3").css('background', 'white');
-					$("#value3").css('background', 'white');
-					$("#form-element-4").css('visibility', 'visible');
-					b4_act = true;
-				}
-				else
-				{
-					$("#value3").css('background','yellow');
-	   				alert("Please enter a value between 1 and 100 for the threshold value in box 3.");
-				}
-			}
-			else if ((b3_in == "" && b3_l == "") && (b3_act == true && box3_click > 2))
-			{
-				$("#value3").css('background','yellow');
-				$("#label3").css('background','yellow');
-				alert("Please enter values in box 3");
-			}
-			else if((b3_l == "" && b3_in != "") && (b3_act == true && box3_click > 2))//may need to change to else if later to indicate which box is broken
-			{
-				$("#value3").css('background','white');
-				$("#label3").css('background','yellow');
-				alert("Please enter a label in box 3");
-			}
-			else if((b3_in == "" && b3_l != "") && (b3_act == true && box3_click > 2))
-			{
-				$("#label3").css('background','white');
-				$("#value3").css('background','yellow');
-				alert("Please enter a threshold value in box 3");
-			}
+    	$("#clickme").click(
+    		function(e)
+    			{
+    				if(checkValues(0) == true)
+    				{
+    					var check = get_line_value(0);
+    					if(check  > 0 && check < 100)
+	    				{	
+	    					$(box_array[0]).css('visibility', 'visible');
+	    				}
+	    				else 
+	    				{	
+	    					$("#value1").css('background','yellow');//.style.background="yellow";
+	    					alert("Please enter a value between 1 and 100 for the threshold value in box 1.");
+	    				}
+			
+					}
+					else
+					{
+					//alert("Please enter values between 0 and 100");
+					//glv.style.background="yellow";
+						return false;
+    				}
+    				if(checkValues(1) == true){$(box_array[1]).css('visibility', 'visible');}
+    				if(checkValues(2) == true){$(box_array[2]).css('visibility', 'visible');}
+    			})
 
-			if (b4_act == true){box4_click = box4_click + 1;}
-			//box 4
-			if ((b4_in != "") && (b4_l != "") && (b4_act == true && box4_click > 1))
-			{
+    	$("#hide2").click(
+    		function(e)
+    		{
+    			if(checkValues(0) == true){$(box_array[0]).css('visibility', 'hidden');}
+    		})
 
-				if (b4_in >= 1 && b4_in < 100)
-				{
-					$("#label4").css('background', 'white');
-					$("#value4").css('background', 'white');
-				}
-				else
-				{
-					$("#value4").css('background','yellow');
-	   				alert("Please enter a value between 1 and 100 for the threshold value in box 4.");
-				}
+    	$("#hide3").click(
+    		function(e)
+    		{
+    			if(checkValues(1) == true){$(box_array[1]).css('visibility', 'hidden');}
+    		})
 
-		 	}		
-			else if ((b4_in == "" && b4_l == "") && (b4_act == true && box4_click > 1))
-			{
-				$("#value4").css('background','yellow');
-				$("#label4").css('background','yellow');
-				alert("Please enter values in box 4");
-			}
-			else if((b4_l == "" && b4_in != "") && (b4_act == true && box4_click > 1))
-			{
-				$("#value4").css('background','white');
-				$("#label4").css('background','yellow');
-				alert("Please enter a label in box 4");
-			}
-			else if((b4_in == "" && b4_l != "") && (b4_act == true && box4_click > 1))
-			{
-				$("#label4").css('background','white');
-				$("#value4").css('background','yellow');
-				alert("Please enter a threshold value in box 4");
-			}
+    	$("#hide4").click(
+    		function(e)
+    		{
+    			if(checkValues(2) == true){$(box_array[2]).css('visibility', 'hidden');}
+    		})
 
 
-	})//end of click
+        var search = window.location.search.substring(1);
+        var split = search.split('&');
 
-})//end of ready
+
+     for (var i = 0; i < split.length; i++) {
+         var pair = split[i].split('=');
+         if (decodeURIComponent(pair[0]) == "line_label_0") {
+         		var elem = document.getElementById("label1");
+				elem.value = decodeURIComponent(pair[1]);
+         }
+         if (decodeURIComponent(pair[0]) == "line_value_0") {
+         	    var elem = document.getElementById("value1");
+				elem.value = decodeURIComponent(pair[1]);
+
+         }
+         if (decodeURIComponent(pair[0]) == "line_label_1") {
+         	    var elem = document.getElementById("label2");
+				elem.value = decodeURIComponent(pair[1]);
+         }
+         if (decodeURIComponent(pair[0]) == "line_value_1") {
+         	    var elem = document.getElementById("value2");
+				elem.value = decodeURIComponent(pair[1]);
+				box_array[0] = "#form-element-2";
+				if(checkValues(1) == true){$(box_array[0]).css('visibility', 'visible');}
+				else if(checkValues(1) == false){$(box_array[0]).css('visibility', 'hidden');}
+         }
+         if (decodeURIComponent(pair[0]) == "line_label_2") {
+         	    var elem = document.getElementById("label3");
+				elem.value = decodeURIComponent(pair[1]);
+         }
+         if (decodeURIComponent(pair[0]) == "line_value_2") {
+         	    var elem = document.getElementById("value3");
+				elem.value = decodeURIComponent(pair[1]);
+				if(checkValues(2) == true){$(box_array[1]).css('visibility', 'visible');}
+				else if(checkValues(2) == false){$(box_array[1]).css('visibility', 'hidden');}
+         }
+         if (decodeURIComponent(pair[0]) == "line_label_3") {
+         	    var elem = document.getElementById("label4");
+				elem.value = decodeURIComponent(pair[1]);
+         }
+         if (decodeURIComponent(pair[0]) == "line_value_3") {
+         	    var elem = document.getElementById("value4");
+				elem.value = decodeURIComponent(pair[1]);
+				if(checkValues(3) == true){$(box_array[2]).css('visibility', 'visible');}
+				else if(checkValues(3) == false){$(box_array[2]).css('visibility', 'hidden');}
+         }
+     }
+
+
+})
 
 
 </script>

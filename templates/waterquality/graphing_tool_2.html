@@ -7,7 +7,7 @@
 {% block js %}
 
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/base/jquery-ui.css" type="text/css" media="all" /> 
-	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript"></script>
 	<script src="/site_media/js/facebox.js" type="text/javascript"></script>
@@ -18,246 +18,75 @@
 <script type="text/javascript">
     $(document).ready(function() {
 
-	//there are actually 2 places to check - when another box is requested and when the values are actually submitted to the graph
-	//on each click - should check url
-	//on each submission - should check URL
-	var b1_act = true;
-	var b2_act = false;
-	var b3_act = false;
-	var b4_act = false;
-	var box2_click = 0;
-	var box3_click = 0;
-	var box4_click = 0;
+		function chk_empty(some_var){
+			if (some_var == '')
+				{return true;}
+			else
+				{return false;}
+		}
 
-	$("#clickme").click(function(e)
-	    {
- 
-    // 	    var search = window.location.search.substring(1);
-    //     	var split = search.split('&');
+		function get_form_element(x){
+			var s_test = "form-element-"
+			var x_str = x.toString();
+			var chk_content = s_test.concat(x_str);
+			return chk_content;
+		}
 
-    //   		for (var i = 0; i < split.length; i++)
-    //   		{
-    //       		var pair = split[i].split('=');
-    //       		if (decodeURIComponent(pair[0]) == "line_label_0")
-    //       		{
-    //       			var elem = document.getElementById("label1");
-		 	//  		elem.value = decodeURIComponent(pair[1]); 
-    // 	      	}
-    // 	      	else
-    // 	      	{
-    // 	      		var b1_in = document.getElementById("value1").value;
-    // 	      	}
-    //     		if (decodeURIComponent(pair[0]) == "line_value_0")
-    //       		{
-    //        	    	var elem = document.getElementById("value1");
-		 	//  		elem.value = decodeURIComponent(pair[1]);
-		  //       }
-    //       		if (decodeURIComponent(pair[0]) == "line_label_1")
-    //       		{
-    //        		    var elem = document.getElementById("label2");
-				//  	elem.value = decodeURIComponent(pair[1]);
-    // 	  		}
-    //       		if (decodeURIComponent(pair[0]) == "line_value_1")
-    //     		{
-    //        	    	var elem = document.getElementById("value2");
-				//   	elem.value = decodeURIComponent(pair[1]);
-    // 	      	}
-	   //     		if (decodeURIComponent(pair[0]) == "line_label_2")
-	   //     		{
-    //   	     	    var elem = document.getElementById("label3");
-				//   	elem.value = decodeURIComponent(pair[1]);
-    // 	      	}
-    //       		if (decodeURIComponent(pair[0]) == "line_value_2")
-    //       		{
-    //        	    	var elem = document.getElementById("value3");
-				//   	elem.value = decodeURIComponent(pair[1]);
-    //       		}
-    //       		if (decodeURIComponent(pair[0]) == "line_label_3")
-    //       		{
-    //        		    var elem = document.getElementById("label4");
-				//   	elem.value = decodeURIComponent(pair[1]);
-    // 	      	}
-    //       		if (decodeURIComponent(pair[0]) == "line_value_3")
-    //       		{
-    //        	    	var elem = document.getElementById("value4");
-				//   	elem.value = decodeURIComponent(pair[1]);
-				// }
-    //     	}//end of for
+		function get_label_value(some_var){
+			if (some_var == '')
+				{return true;}
+			else
+				{return false;}
+		}
+
+		function get_line_value(some_var){
+			if (some_var == '')
+				{return true;}
+			else
+				{return false;}
+		}
 
 
 
-    		//maintains state of all values user enters - updated every click
-			var b1_in = document.getElementById("value1").value;
-			var b1_l = document.getElementById("label1").value;
-			var b2_in = document.getElementById("value2").value;
-			var b2_l = document.getElementById("label2").value;
-			var b3_in = document.getElementById("value3").value;
-			var b3_l = document.getElementById("label3").value;
-			var b4_in = document.getElementById("value4").value;
-			var b4_l = document.getElementById("label4").value;
-			//var b1_act = true;
-			//var b2_act = false;
-			//var b3_act = false;
-			//var b4_act = false;
-			//if ($("#form-element-0").css('background','yellow'))
-			//{alert("form is active");}
+    	var box_array = new Array();
+		box_array[0] = "#form-element-2";
+		box_array[1] = "#form-element-3";
+		box_array[2] = "#form-element-4";
+    	box_array[3] = "#form-element-0";
+		var x = 0;
+		var var_array = new Array();
+
+		var s_test = "form-element-";
+		var x_str = x.toString();
+		var chk_content = s_test.concat(x_str);
+
+		var label_str = "line_label_";
+		var value_str = "line_value_";
+		var chk_label = label_str.concat(x_str);
+		var chk_value = value_str.concat(x_str);
+
+		var x=document.forms["myForm"][chk_label].value;
+		var y=document.forms["myForm"][chk_value].value;
+
+		alert(chk_empty(x));
+		alert(chk_empty(y));
 
 
-			//check the values of the boxes before making another box available
-			//box 1
-			if (b1_in != "" && b1_l != "")
-			{
-				if (b1_in >= 0 && b1_in < 100)
-				{
-					$("#label1").css('background', 'white');
-					$("#value1").css('background', 'white');
-					$("#form-element-2").css('visibility', 'visible');
-					b2_act = true;
-				}
-				else
-				{
-					$("#value1").css('background','yellow');
-					alert("Please enter a value between 1 and 100 for the threshold value in box 1.");
-				}
-			}
-			else if (b1_in == "" && b1_l == "")
-			{
-				$("#value1").css('background','yellow');
-				$("#label1").css('background','yellow');
-				alert("Please enter values in box 1");
-			}
-			else if(b1_l == "" && b1_in != "") //may need to change to else if later to indicate which box is broken
-			{
-				$("#value1").css('background','white');
-				$("#label1").css('background','yellow');
-				alert("Please enter a label in box 1");
-			}
-			else if(b1_in == "" && b1_l != "") //may need to change to else if later to indicate which box is broken
-			{
-				$("#label1").css('background','white');
-				$("#value1").css('background','yellow');
-				alert("Please enter a threshold value in box 1");
-			}
+//		$("#clickme").click(
+//			$(box_array[x]).css('visibility', 'visible');
+//			 x = x + 1;));
 
-			if (b2_act == true){box2_click = box2_click + 1;}
+		//var test = add_box(x, y);
 
-			//box 2
-			if ((b2_in != "" && b2_l != "") && b2_act == true)
-			{
-				//box2_click = box2_click + 1;
-				if (b2_in >= 1 && b2_in < 100)
-				{
-					$("#label2").css('background', 'white');
-					$("#value2").css('background', 'white');
-					$("#form-element-3").css('visibility', 'visible');
-					b3_act = true;
-				}
-				else
-				{
-					$("#value2").css('background','yellow');
-	   				alert("Please enter a value between 1 and 100 for the threshold value in box 2.");
-				}
-			}
-			else if ((b2_in == "" && b2_l == "") && (b2_act == true && box2_click > 2))
-			{
-				$("#value2").css('background','yellow');
-				$("#label2").css('background','yellow');
-				alert("Please enter values in box 2");
-			}
-			else if((b2_l == "" && b2_in != "") && (b2_act == true && box2_click > 2))
-			{
-				$("#value2").css('background','white');
-				$("#label2").css('background','yellow');
-				alert("Please enter a label in box 2");
-			}
-			else if((b2_in == "" && b2_l != "") && (b2_act == true && box2_click > 2))
-			{
-				$("#label2").css('background','white');
-				$("#value2").css('background','yellow');
-				alert("Please enter a threshold value in box 2");
-			}
+//if the label and line for the current form element are both not null, allow user to add another box
 
+//		$("#clickme").click(
+//			function(e)
+//			{
+//
+//				$(box_array[x]).css('visibility', 'visible'); x = x + 1; });
 
-			if (b3_act == true){box3_click = box3_click + 1;}
-
-
-			//box 3
-			if ((b3_in != "" && b3_l != "") && b3_act == true)
-			{
-				if (b3_in >= 1 && b3_in < 100)
-				{
-					$("#label3").css('background', 'white');
-					$("#value3").css('background', 'white');
-					$("#form-element-4").css('visibility', 'visible');
-					b4_act = true;
-				}
-				else
-				{
-					$("#value3").css('background','yellow');
-	   				alert("Please enter a value between 1 and 100 for the threshold value in box 3.");
-				}
-			}
-			else if ((b3_in == "" && b3_l == "") && (b3_act == true && box3_click > 2))
-			{
-				$("#value3").css('background','yellow');
-				$("#label3").css('background','yellow');
-				alert("Please enter values in box 3");
-			}
-			else if((b3_l == "" && b3_in != "") && (b3_act == true && box3_click > 2))//may need to change to else if later to indicate which box is broken
-			{
-				$("#value3").css('background','white');
-				$("#label3").css('background','yellow');
-				alert("Please enter a label in box 3");
-			}
-			else if((b3_in == "" && b3_l != "") && (b3_act == true && box3_click > 2))
-			{
-				$("#label3").css('background','white');
-				$("#value3").css('background','yellow');
-				alert("Please enter a threshold value in box 3");
-			}
-
-			if (b4_act == true){box4_click = box4_click + 1;}
-			//box 4
-			if ((b4_in != "") && (b4_l != "") && (b4_act == true && box4_click > 1))
-			{
-
-				if (b4_in >= 1 && b4_in < 100)
-				{
-					$("#label4").css('background', 'white');
-					$("#value4").css('background', 'white');
-				}
-				else
-				{
-					$("#value4").css('background','yellow');
-	   				alert("Please enter a value between 1 and 100 for the threshold value in box 4.");
-				}
-
-		 	}		
-			else if ((b4_in == "" && b4_l == "") && (b4_act == true && box4_click > 1))
-			{
-				$("#value4").css('background','yellow');
-				$("#label4").css('background','yellow');
-				alert("Please enter values in box 4");
-			}
-			else if((b4_l == "" && b4_in != "") && (b4_act == true && box4_click > 1))
-			{
-				$("#value4").css('background','white');
-				$("#label4").css('background','yellow');
-				alert("Please enter a label in box 4");
-			}
-			else if((b4_in == "" && b4_l != "") && (b4_act == true && box4_click > 1))
-			{
-				$("#label4").css('background','white');
-				$("#value4").css('background','yellow');
-				alert("Please enter a threshold value in box 4");
-			}
-
-
-	})//end of click
-
-})//end of ready
-
-
+})
 </script>
 
 
@@ -273,7 +102,13 @@
 
 	})
 
+//	$(document).ready(function() {
+//		$('#clickme').click(function(){$('.form-element-2'.show())});   
+//	$(document).bind('reveal.facebox', function() {
+//	        $('#facebox a[rel*=facebox]').facebox();
+//	});
 
+//	})
 
 
 	</script>
@@ -671,19 +506,23 @@
 	{% ifnotequal type "box-plot" %}
 
 	<!-- start of edit -->
-	<div><input type="button" class="click" id="clickme" name="type" value="Add Another Box" /></div>
+	
+	<div class="click" id="clickme">
+		Add Another Box
+	</div>
+
 	
 			<div class="form-element" id="form-element-1">
 			
 				<div class="form-row">
 					<div class="form-label" style="width: 8em;"><label>Threshold Label</label></div>
 					<!-- <div class="form-input"><input type="text" name="line_label_{{line.n}}" value="{{line.label}}" /></div> -->
-					<div class="form-input"><input id ="label1" type="text" name="line_label_0" value="" /></div>
+					<div class="form-input"><input type="text" name="line_label_0" value="{{line.label}}" /></div>
 				</div>
 
 				<div class="form-row">
 					<div class="form-label" style="width: 8em;"><label>Threshold Value</label></div>
-					<div class="form-input"><input id="value1" type="text" name="line_value_0"value="" /></div>
+					<div class="form-input"><input type="text" name="line_value_0"value="{{line.value}}" /></div>
 				</div>
 			
 			</div>
@@ -694,13 +533,13 @@
 			<div class="form-element hidden-form" id="form-element-2">
 			
 				<div class="form-row">
-					<div class="form-label" style="width: 8em;"><label>Threshold Label</label></div> <i class="icon-collapse-alt icon-large" id="hide2"></i>
-					<div class="form-input"><input id ="label2"  type="text" name="line_label_1" value="" /></div>
+					<div class="form-label" style="width: 8em;"><label>Threshold Label</label></div>
+					<div class="form-input"><input type="text" name="line_label_1" value="" /></div>
 				</div>
 
 				<div class="form-row">
 					<div class="form-label" style="width: 8em;"><label>Threshold Value</label></div>
-					<div class="form-input"><input id="value2" type="text" name="line_value_1"value="" /></div>
+					<div class="form-input"><input type="text" name="line_value_1"value="" /></div>
 				</div>
 			
 			</div>
@@ -711,36 +550,33 @@
 			<div class="form-element hidden-form" id="form-element-3">
 			
 				<div class="form-row">
-					<div class="form-label" style="width: 8em;"><label>Threshold Label</label></div> <i class="icon-collapse-alt icon-large" id="hide3"></i>
-					<div class="form-input"><input id ="label3" type="text" name="line_label_2" value="" /></div>
+					<div class="form-label" style="width: 8em;"><label>Threshold Label</label></div>
+					<div class="form-input"><input type="text" name="line_label_2" value="" /></div>
 				</div>
 
 				<div class="form-row">
 					<div class="form-label" style="width: 8em;"><label>Threshold Value</label></div>
-					<div class="form-input"><input id="value3" type="text" name="line_value_2"value="" /></div>
+					<div class="form-input"><input type="text" name="line_value_2"value="" /></div>
 				</div>
 			
 			</div>
+
 
 
 
 			<div class="form-element hidden-form" id="form-element-4">
 			
 				<div class="form-row">
-					<div class="form-label" style="width: 8em;"><label>Threshold Label</label></div> <i class="icon-collapse-alt icon-large" id="hide4"></i>
-					<div class="form-input"><input id ="label4" type="text" name="line_label_3" value="" /></div>
+					<div class="form-label" style="width: 8em;"><label>Threshold Label</label></div>
+					<div class="form-input"><input type="text" name="line_label_3" value="" /></div>
 				</div>
 
 				<div class="form-row">
 					<div class="form-label" style="width: 8em;"><label>Threshold Value</label></div>
-					<div class="form-input"><input id="value4" type="text" name="line_value_3"value="" /></div>
+					<div class="form-input"><input type="text" name="line_value_3"value="" /></div>
 				</div>
 			
 			</div>
-
-
-
-
 
 
 

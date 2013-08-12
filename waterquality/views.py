@@ -67,18 +67,29 @@ def graphing_tool(request):
 
     data["start"] = start
     data["end"] = end
+    # if graph_type == 'time-series' or graph_type == 'scatter-plot':
+    #     lines = []
+    #     for k in request.GET.keys():
+    #         if k.startswith("line_value_"):
+    #             v = request.GET.get(k, '')
+    #             if v:
+    #                 n = k[len("line_value_"):]
+    #                 l = request.GET.get("line_label_%s" % n)
+    #                 lines.append(dict(label=l, value=v, n=int(n)))
+    #     data["lines"] = lines
+    #     data["allow_more_lines"] = len(lines) < 4
 
     if graph_type == 'time-series' or graph_type == 'scatter-plot':
         lines = []
-        for k in request.GET.keys():
+        for k in request.GET.keys(): #iterating over QueryDict for keys starting with line_value and using v to get value
             if k.startswith("line_value_"):
-                v = request.GET.get(k, '')
+                v = request.GET.get(k, '') # why ''?
                 if v:
                     n = k[len("line_value_"):]
                     l = request.GET.get("line_label_%s" % n)
                     lines.append(dict(label=l, value=v, n=int(n)))
         data["lines"] = lines
-        data["allow_more_lines"] = len(lines) < 4
+        #data["allow_more_lines"] = len(lines) < 4
 
     if graph_type == 'time-series':
         series_ids = request.GET.getlist('series')

@@ -57,6 +57,12 @@ legend
 	float: left;
 	margin: 5px;
 	padding-bottom: 5px;
+
+}
+
+.hidden-form
+{
+	visibility: hidden;
 }
 
 .form-row
