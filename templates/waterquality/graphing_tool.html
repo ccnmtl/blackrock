@@ -21,80 +21,95 @@
 	//there are actually 2 places to check - when another box is requested and when the values are actually submitted to the graph
 	//on each click - should check url
 	//on each submission - should check URL
-	var b1_act = true;
-	var b2_act = false;
-	var b3_act = false;
-	var b4_act = false;
-	var box2_click = 0;
-	var box3_click = 0;
-	var box4_click = 0;
+
+		var search = window.location.search.substring(1);
+		var split = search.split('&');
+
+		for (var i = 0; i < split.length; i++)
+		{
+			var pair = split[i].split('=');
+			if (decodeURIComponent(pair[0]) == "line_label_0")
+			{
+				var elem = document.getElementById("label1");
+				elem.value = decodeURIComponent(pair[1]); 
+			}
+       		if (decodeURIComponent(pair[0]) == "line_value_0")
+       		{
+       	    	var elem = document.getElementById("value1");
+	 	 		elem.value = decodeURIComponent(pair[1]);
+	        }
+       		if (decodeURIComponent(pair[0]) == "line_label_1")
+       		{
+       		    var elem = document.getElementById("label2");
+			 	elem.value = decodeURIComponent(pair[1]);
+    		}
+        	if (decodeURIComponent(pair[0]) == "line_value_1")
+        	{
+            	var elem = document.getElementById("value2");
+			  	elem.value = decodeURIComponent(pair[1]);
+    	   	}
+	    	if (decodeURIComponent(pair[0]) == "line_label_2")
+	    	{
+      	  	    var elem = document.getElementById("label3");
+			  	elem.value = decodeURIComponent(pair[1]);
+    	   	}
+        	if (decodeURIComponent(pair[0]) == "line_value_2")
+        	{
+            	var elem = document.getElementById("value3");
+			  	elem.value = decodeURIComponent(pair[1]);
+        	}
+        	if (decodeURIComponent(pair[0]) == "line_label_3")
+        	{
+        	    var elem = document.getElementById("label4");
+			  	elem.value = decodeURIComponent(pair[1]);
+    	    }
+          	if (decodeURIComponent(pair[0]) == "line_value_3")
+          	{
+           	   	var elem = document.getElementById("value4");
+			  	elem.value = decodeURIComponent(pair[1]);
+			}
+       	}//end of for
+
+
+
+    	//maintains state of all values user enters - updated every click
+		var b1_in = document.getElementById("value1").value;
+		var b1_l = document.getElementById("label1").value;
+		var b2_in = document.getElementById("value2").value;
+		var b2_l = document.getElementById("label2").value;
+		var b3_in = document.getElementById("value3").value;
+		var b3_l = document.getElementById("label3").value;
+		var b4_in = document.getElementById("value4").value;
+		var b4_l = document.getElementById("label4").value;
+
+		if(b2_in != "" && b2_in != "")
+			{$("#form-element-2").css('visibility', 'visible');}
+		if(b3_in != "" && b3_in != "")
+			{$("#form-element-3").css('visibility', 'visible');}
+		if(b4_in != "" && b4_in != "")
+			{$("#form-element-4").css('visibility', 'visible');}
+
+
+		var b1_act = true;
+		var b2_act = false;
+		var b3_act = false;
+		var b4_act = false;
+		var box2_click = 0;
+		var box3_click = 0;
+		var box4_click = 0;
 
 	$("#clickme").click(function(e)
 	    {
  
-    // 	    var search = window.location.search.substring(1);
-    //     	var split = search.split('&');
+			b1_in = document.getElementById("value1").value;
+			b1_l = document.getElementById("label1").value;
+			b2_in = document.getElementById("value2").value;
+			b2_l = document.getElementById("label2").value;
+			b3_in = document.getElementById("value3").value;
+			b3_l = document.getElementById("label3").value;
+			b4_in = document.getElementById("value4").value;
+			b4_l = document.getElementById("label4").value;
 
-    //   		for (var i = 0; i < split.length; i++)
-    //   		{
-    //       		var pair = split[i].split('=');
-    //       		if (decodeURIComponent(pair[0]) == "line_label_0")
-    //       		{
-    //       			var elem = document.getElementById("label1");
-		 	//  		elem.value = decodeURIComponent(pair[1]); 
-    // 	      	}
-    // 	      	else
-    // 	      	{
-    // 	      		var b1_in = document.getElementById("value1").value;
-    // 	      	}
-    //     		if (decodeURIComponent(pair[0]) == "line_value_0")
-    //       		{
-    //        	    	var elem = document.getElementById("value1");
-		 	//  		elem.value = decodeURIComponent(pair[1]);
-		  //       }
-    //       		if (decodeURIComponent(pair[0]) == "line_label_1")
-    //       		{
-    //        		    var elem = document.getElementById("label2");
-				//  	elem.value = decodeURIComponent(pair[1]);
-    // 	  		}
-    //       		if (decodeURIComponent(pair[0]) == "line_value_1")
-    //     		{
-    //        	    	var elem = document.getElementById("value2");
-				//   	elem.value = decodeURIComponent(pair[1]);
-    // 	      	}
-	   //     		if (decodeURIComponent(pair[0]) == "line_label_2")
-	   //     		{
-    //   	     	    var elem = document.getElementById("label3");
-				//   	elem.value = decodeURIComponent(pair[1]);
-    // 	      	}
-    //       		if (decodeURIComponent(pair[0]) == "line_value_2")
-    //       		{
-    //        	    	var elem = document.getElementById("value3");
-				//   	elem.value = decodeURIComponent(pair[1]);
-    //       		}
-    //       		if (decodeURIComponent(pair[0]) == "line_label_3")
-    //       		{
-    //        		    var elem = document.getElementById("label4");
-				//   	elem.value = decodeURIComponent(pair[1]);
-    // 	      	}
-    //       		if (decodeURIComponent(pair[0]) == "line_value_3")
-    //       		{
-    //        	    	var elem = document.getElementById("value4");
-				//   	elem.value = decodeURIComponent(pair[1]);
-				// }
-    //     	}//end of for
-
-
-
-    		//maintains state of all values user enters - updated every click
-			var b1_in = document.getElementById("value1").value;
-			var b1_l = document.getElementById("label1").value;
-			var b2_in = document.getElementById("value2").value;
-			var b2_l = document.getElementById("label2").value;
-			var b3_in = document.getElementById("value3").value;
-			var b3_l = document.getElementById("label3").value;
-			var b4_in = document.getElementById("value4").value;
-			var b4_l = document.getElementById("label4").value;
 
 			//if ($("#form-element-0").css('background','yellow'))
 			//{alert("form is active");}
@@ -155,19 +170,19 @@
 	   				alert("Please enter a value between 1 and 100 for the threshold value in box 2.");
 				}
 			}
-			else if ((b2_in == "" && b2_l == "") && (b2_act == true && box2_click > 2))
+			else if ((b2_in == "" && b2_l == "") && (b2_act == true && box2_click > 1))
 			{
 				$("#value2").css('background','yellow');
 				$("#label2").css('background','yellow');
 				alert("Please enter values in box 2");
 			}
-			else if((b2_l == "" && b2_in != "") && (b2_act == true && box2_click > 2))
+			else if((b2_l == "" && b2_in != "") && (b2_act == true && box2_click > 1))
 			{
 				$("#value2").css('background','white');
 				$("#label2").css('background','yellow');
 				alert("Please enter a label in box 2");
 			}
-			else if((b2_in == "" && b2_l != "") && (b2_act == true && box2_click > 2))
+			else if((b2_in == "" && b2_l != "") && (b2_act == true && box2_click > 1))
 			{
 				$("#label2").css('background','white');
 				$("#value2").css('background','yellow');
@@ -282,6 +297,96 @@
    			var box4_click = 0;
    		})
 
+
+
+	$("#value1").blur(function() 
+	{
+		var v1 = document.getElementById("value1").value;
+
+		if(isNaN(v1))
+		{
+			$("#value1").css('background','yellow');
+			alert( "Please enter a number between 1 and 100." );
+		}
+		else if(v1 > 100 || v1 <=0 )
+		{
+			$("#value1").css('background','yellow');
+			alert( "Please enter a value between 0 and 100." );
+		}
+		else
+		{
+			$("#value1").css('background','white');
+		}
+
+	});
+
+	$("#value2").blur(function() 
+	{
+
+		var v2 = document.getElementById("value2").value;
+
+		if(isNaN(v2))
+		{
+			alert( "Please enter a number between 1 and 100." );
+			$("#value2").css('background','yellow');
+		}	
+		else if(v2 > 100 || v2 <=0 )
+		{
+			alert( "Please enter a value between 0 and 100." );
+			$("#value2").css('background','yellow');
+		}
+		else
+		{
+			$("#value2").css('background','white');
+		}
+
+
+	});
+
+	$("#value3").blur(function() 
+	{
+
+		var v3 = document.getElementById("value3").value;
+
+		if(isNaN(v3))
+		{
+			$("#value3").css('background','yellow');
+			alert( "Please enter a number between 1 and 100." );
+		}
+		else if(v3 > 100 || v3 <=0 )
+		{
+			$("#value3").css('background','yellow');
+			alert( "Please enter a value between 0 and 100." );
+		}
+		else
+		{
+			$("#value3").css('background','white');
+		}
+
+	});
+
+	$("#value4").blur(function() 
+	{
+
+		var v4 = document.getElementById("value4").value;
+
+		if(isNaN(v4))
+		{
+			$("#value4").css('background','yellow');
+			alert( "Please enter a number between 1 and 100." );
+		}
+		else if(v4 > 100 || v4 <=0 )
+		{
+			$("#value4").css('background','yellow');
+			alert( "Please enter a value between 0 and 100." );
+		}
+		else
+		{
+			$("#value4").css('background','white');
+		}
+
+
+	});
 
 
 
