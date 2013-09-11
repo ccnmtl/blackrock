@@ -5,6 +5,7 @@
 from psycopg2 import Binary
 from psycopg2.extensions import ISQLQuote
 
+
 class PostGISAdapter(object):
     def __init__(self, geom):
         "Initializes on the geometry."
@@ -19,7 +20,8 @@ class PostGISAdapter(object):
         if proto == ISQLQuote:
             return self
         else:
-            raise Exception('Error implementing psycopg2 protocol. Is psycopg2 installed?')
+            m = 'Error implementing psycopg2 protocol. Is psycopg2 installed?'
+            raise Exception(m)
 
     def __eq__(self, other):
         return (self.ewkb == other.ewkb) and (self.srid == other.srid)
@@ -28,12 +30,13 @@ class PostGISAdapter(object):
         return self.getquoted()
 
     def prepare(self, conn):
-        # Pass the connection to the adapter: this allows escaping the binary 
-        # in the style required by the server's standard_conforming_string setting
+        # Pass the connection to the adapter: this allows escaping the binary
+        # in the style required by the server's
+        # standard_conforming_string setting
         self._adapter.prepare(conn)
 
     def getquoted(self):
-        "Returns a properly quoted string for use in PostgreSQL/PostGIS."        
+        "Returns a properly quoted string for use in PostgreSQL/PostGIS."
         # psycopg will figure out whether to use E'\\000' or '\000'
         return 'ST_GeomFromEWKB(%s)' % self._adapter.getquoted()
 

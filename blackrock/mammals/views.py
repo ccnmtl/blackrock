@@ -48,7 +48,7 @@ class rendered_with(object):
     def __call__(self, func):
         def rendered_func(request, *args, **kwargs):
             items = func(request, *args, **kwargs)
-            if type(items) == type({}):
+            if isinstance(items, dict):
                 return render_to_response(
                     self.template_name, items,
                     context_instance=RequestContext(request))
@@ -819,16 +819,12 @@ def process_save_team_form(request):
 
         if correcting_lat_lon and not lat_key in rp:
             correcting_lat_lon = False
-            # print "not found lat"
         if correcting_lat_lon and not lon_key in rp:
             correcting_lat_lon = False
-            # print "not found lon"
         if correcting_lat_lon and match(match_string, rp[lat_key]) is None:
             correcting_lat_lon = False
-            # print "not match lat"
         if correcting_lat_lon and match(match_string, rp[lon_key]) is None:
             correcting_lat_lon = False
-            # print "not match lon"
 
         if correcting_lat_lon:
             diff_lat = point.actual_lat() - float(rp[lat_key])
@@ -837,16 +833,12 @@ def process_save_team_form(request):
                 *to_meters(diff_lat, diff_lon))
             if distance_to_corrected_point_in_meters > max_diff:
                 correcting_lat_lon = False
-                # print "diff too long at %f" %
                 # distance_to_corrected_point_in_meters
         if (correcting_lat_lon and
                 distance_to_corrected_point_in_meters < min_diff):
             correcting_lat_lon = False
-            # print "diff too short at %f" %
             # distance_to_corrected_point_in_meters
         if correcting_lat_lon:
-            # print "CORRECTING"
-            # print distance_to_corrected_point_in_meters
             point.set_actual_lat_long(
                 [float(rp[lat_key]), float(rp[lon_key])])
             point.save()

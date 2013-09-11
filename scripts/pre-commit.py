@@ -16,16 +16,17 @@ CHECKS = [
         'ignore_files': ['.*pre-commit', '.*/ve/.*'],
         'print_filename': True,
     },
-#     {
-#         'output': 'Checking for print statements...',
-#         'command': 'grep -n print %s',
-#         'match_files': ['.*\.py$'],
-#         'ignore_files': ['.*migrations.*', '.*management/commands.*',
-#                          '.*manage.py', '.*/scripts/.*', '.*/ve/.*',
-#                          '.*scripts/pre-commit\.py$',
-#                          '.*virtualenv\.py$'],
-#         'print_filename': True,
-#     },
+    {
+        'output': 'Checking for print statements...',
+        'command': 'grep -n "print " %s',
+        'match_files': ['.*\.py$'],
+        'ignore_files': ['.*migrations.*', '.*management/commands.*',
+                         '.*manage.py', '.*/scripts/.*', '.*/ve/.*',
+                         '.*scripts/pre-commit\.py$',
+                         '.*bootstrap.py',
+                         '.*virtualenv\.py$'],
+        'print_filename': True,
+    },
     {
         'output': 'Checking for console.log()...',
         'command': 'grep -n console.log %s',
@@ -41,27 +42,6 @@ CHECKS = [
         'match_files': ['.*\.js$', '.*/media/CACHE/.*'],
         'print_filename': True,
     },
-#     {
-#         'output': 'Running flake8...',
-#         'command': 'flake8 --max-complexity=22 --ignore=W404,E721 %s',
-#         'match_files': ['.*\.py$'],
-#         'ignore_files': ['.*settings/.*',
-#                          '.*manage.py',
-#                          '.*bootstrap.py',
-#                          '.*migrations.*',
-#                          '.*/ve/.*',
-#                          '.*virtualenv\.py$',
-#                          '.*settings_production\.py$',
-#                          '.*blackrock/blackrock_main/.*',
-#                          '.*/haystack/.*',
-#                          '.*/deploy_specific/.*',
-#                          '.*/optimization/.*',
-#                          '.*blackrock/sampler/.*',
-#                          '.*blackrock/waterquality/.*',
-#                          '.*blackrock/mammals/.*',
-#                          ],
-#         'print_filename': True,
-#     },
 ]
 
 
@@ -117,6 +97,13 @@ def main(all_files):
     print 'Running Django Code Validator...'
     return_code = subprocess.call('./manage.py validate', shell=True)
     result = return_code or result
+
+    if result == 0:
+        print 'Running Flake8...'
+        exc = 'pip.py,bootstrap.py,ve,media,haystack,waterquality,optimization'
+        cmd = 'flake8 --exclude=%s --ignore=F403 .' % exc
+        return_code = subprocess.call(cmd, shell=True)
+        result = return_code or result
 
     print 'Running Unit Tests...'
     return_code = subprocess.call(
