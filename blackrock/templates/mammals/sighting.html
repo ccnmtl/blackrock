@@ -1,0 +1,134 @@
+{% extends "mammals/base_mammals.html" %}
+{% load smartif %}
+{% block title %}Sighting{% endblock %}
+{% block js %}
+    {{ block.super }}
+<script type="text/javascript">   
+  jQuery(function() {
+  
+    function go_back() {
+        //alert ('kthxbye');
+        jQuery('#go_back')[0].value = 'True'
+        jQuery('#sighting_form').submit();
+    }
+    
+
+    jQuery( "#date" ).datepicker();
+
+
+    jQuery( "#go_back_button" ).click(go_back);
+  });
+ </script>
+{% endblock %}
+
+  
+
+
+{% block css %} 
+
+    <style type='text/css'>
+      @import "/mammals/media/css/jquery-ui.css";
+    </style> 
+
+
+    {{ block.super }}
+    
+    
+{% endblock %}
+{% block container %}
+
+    <form action ="/mammals/edit_sighting/" method ="post" id = "sighting_form"> 
+                    
+        {% csrf_token %}
+        
+        <h3>Add a sighting</h3>
+
+        <table class = "green_table">
+          <tr>
+                <td>
+                Date:
+                </td>
+                <td>
+                    <input type="text" name = "date" id="date" value = "{{sighting.date|date:"m/d/Y"}}"  maxlength="9" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Observer(s):
+                </td>
+                <td> 
+                     <input type="text" name = "observers" id="observers" value = "{{sighting.observers|default:''}}" />
+                </td>
+            </tr>    
+            <tr>
+                <td>
+                Location:
+                </td>
+                    <td>
+                    LAT  <input class="coord_input" type="text" name = "lat" id="lat" value = "{{sighting.lat|floatformat:5}}"  maxlength="9" />
+                    LON  <input class="coord_input" type="text" name = "lon" id="lon" value = "{{sighting.lon|floatformat:5}}"  maxlength="9" />
+                    </td>
+            </tr>    
+            
+            <tr>
+                <td >
+                    Species: 
+                </td>
+                <td > 
+                    <select id="species_id" name="species_id">
+                        <option value="None"></option>
+                        {% for species in species %}
+                            <option value = "{{species.id}}"  {%ifequal sighting.species_id species.id %} selected{%endifequal%}   >{{species}}</option>
+                        {%endfor %}
+                    </select>
+                </td>
+            </tr>      
+            <tr>
+                <td >
+                    Habitat: 
+                </td>
+                <td > 
+                    <select id="habitat_id" name="habitat_id">
+                        <option value="None"></option>
+                        {% for habitat in habitats %}
+                            <option value = "{{habitat.id}}"  {%ifequal sighting.habitat_id habitat.id %} selected{%endifequal%}   >{{habitat}}</option>
+                        {%endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td >
+                    Observation Type: 
+                </td>
+                <td > 
+                    <select id="observation_type_id" name="observation_type_id">
+                        <option value="None"></option>
+                        {% for observation_type in observation_types %}
+                            <option value = "{{observation_type.id}}"  {%ifequal sighting.observation_type_id observation_type.id %} selected{%endifequal%}   >{{observation_type}}</option>
+                        {%endfor %}
+                    </select>
+                </td>
+            </tr>
+          
+            
+            <tr>
+                <td >
+                    Notes:
+                </td>
+                <td > 
+                     <input type="text" name = "notes" id="notes" value = "{{sighting.notes|default:''}}" />
+                </td>
+            </tr>    
+            
+            
+            <td>
+                <button type="button"  id="go_back_button" >Save and go back</button>
+                <button type="button" onclick="javascript:jQuery('#sighting_form').submit()">Save</button>
+            </td>
+        </table>
+        <input type="hidden" name = "sighting_id" id = "sighting_id" value ="{{sighting.id}}" />
+        <input type="hidden" name = "go_back" id = "go_back" value ="" />
+
+    </form>
+{% endblock %}
+

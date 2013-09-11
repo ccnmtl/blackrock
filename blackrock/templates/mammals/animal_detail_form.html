@@ -1,0 +1,109 @@
+<table class = "green_table">
+<tr>
+    <td  >
+       Species
+    </td>
+    <td  > 
+       Team & location
+    </td>
+    <td  > 
+        Sex
+    </td> 
+    <td  > 
+       Age
+    </td> 
+    <td  > 
+       Health
+    </td> 
+    <td  > 
+       Weight in grams
+    </td>
+    <td  > 
+       Scale used
+    </td>
+</tr>
+ 
+<tr>
+    <td style="color:blue">
+       {{an.species}}
+    </td>
+    <td  >
+       {{al.team_letter}}{{al.team_number}}
+    </td>
+    <td  > 
+       <select  id = "sex" name = "sex_{{al.id}}">
+        {% for sex in sexes %}
+            <option value = "{{sex.id}}" {%ifequal an.sex_id sex.id %}selected{%endifequal%}>{{sex}}</option>
+        {%endfor %}
+        </select>
+    </td> 
+    <td  > 
+       <select  id = "age" name = "age_{{al.id}}">
+        {% for age in ages %}
+            <option value = "{{age.id}}" {%ifequal an.age_id age.id %}selected{%endifequal%}>{{age}}</option>
+        {%endfor %}
+        </select>
+    </td> 
+    <td  > 
+       <input value = "{%if an.health%}{{an.health}}{%endif%}" id = "health" name = "health_{{al.id}}"></input>
+    </td> 
+    <td  > 
+       <input value = "{%if an.weight_in_grams%}{{an.weight_in_grams}}{%endif%}" id = "weight" name = "weight_in_grams_{{al.id}}"></input>
+    </td> 
+    <td  > 
+       <select  id = "scale_used" name = "scale_used_{{al.id}}">
+            {% for scale_used in scales %}
+                <option value = "{{scale_used.id}}" {%ifequal an.scale_used_id scale_used.id %}selected{%endifequal%}>{{scale_used}}</option>
+            {%endfor %}
+        </select>
+    </td>
+</tr>
+
+<tr>
+    <td  > 
+       Recapture
+    </td>
+    <td  > 
+       Tag #
+    </td>
+    <td  > 
+       Scat collected?
+    </td>
+    <td  > 
+       Blood collected?
+    </td>
+    <td  > 
+       Hair collected?
+    </td>
+    <td  > 
+       Skin scraping collected?
+    </td>
+    <td  > 
+       Actions
+    </td>
+</tr>
+<tr>
+    <td  >
+       <input type="checkbox" name = "recaptured_{{al.id}}" value="True"  {% if an.recaptured %}checked{%endif%}>
+    </td>
+    <td  >
+       <input value = "{%if an.tag_number%}{{an.tag_number}}{%endif%}" id = "tag_number" name = "tag_number_{{al.id}}"></input>
+    </td>
+    <td  > 
+        <input type="checkbox" name = "scat_sample_collected_{{al.id}}" value="True"  {% if an.scat_sample_collected %}checked{%endif%}>
+    </td>
+    <td  >
+       <input type="checkbox" name = "blood_sample_collected_{{al.id}}" value="True"  {% if an.blood_sample_collected %}checked{%endif%}>
+    </td>
+    <td  >
+       <input type="checkbox" name = "hair_sample_collected_{{al.id}}" value="True"  {% if an.hair_sample_collected %}checked{%endif%}>
+    </td>
+    <td  >
+       <input type="checkbox" name = "skin_sample_collected_{{al.id}}" value="True"  {% if an.skin_sample_collected %}checked{%endif%}>
+    </td>
+    <td  >
+       <input type="checkbox" name = "delete_{{al.id}}" class = "delete_animal_checkbox" value="delete" > Delete
+    </td>
+</tr>
+    </tr>
+</table>

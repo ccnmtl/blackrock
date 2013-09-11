@@ -1,0 +1,47 @@
+{% extends "mammals/base_mammals.html" %}
+{% load smartif %}
+
+<!-- THIS IS ONLY USED FOR THE RESEARCH GRID -->
+{% block title %}Mammals and Habitats -- Research Grid: Location Square Selection{% endblock %}
+
+{% block bodyclass %}research_grid{% endblock %}
+
+{% block js %}
+	<script type="text/javascript" src="/mammals/media/js/map_colors.js"></script>
+	<script type="text/javascript" src="/mammals/media/js/grid_and_block.js"></script>
+	<script type="text/javascript" src="/mammals/media/js/grid.js"></script>
+	{{ block.super }}
+{% endblock %}
+
+{% block status_research %}active{% endblock %}
+
+{% block container %}
+<div id ="grid_json" style="display:none">{{grid_json}}</div>    
+<div id ="test_points" style="display:none">{{test_points}}</div>    
+<div id ="selected_block" style="display:none" >{{selected_block.id}}</div>    
+
+<div class="plain" id="grid_form_table">
+
+	<div id="left">
+		<h3>Research Grid: Location Square Selection</h3>
+
+	<div class="instructions">
+		To conduct the trapping activity, Black Rock Forest has been divided into squares that will all be sampled over time. The activity starts with randomly selecting a site for your expedition.
+	</div><!-- class="instructions" -->
+    <form action="/mammals/grid/" method="post" id="grid_form"> {% csrf_token %}
+	    {% include "mammals/grid_form.html" %}
+    </form>
+		<div id="selection_steps">
+			{% include "mammals/access_difficulty_menu.html" %}
+			{% include "mammals/difficulty_menu.html" %}
+			{% include "mammals/suggest_unsuggest.html" %}
+			<div class="clearfix"></div><!-- class="clearfix" -->
+		</div><!-- id="selection_steps" -->
+		{% include "mammals/grid_border_coords.html" %}
+	</div><!-- id="left" -->
+	<div id="map_canvas"></div><!-- id="map_canvas" -->
+	<div class="clearfix"></div><!-- class="clearfix" -->
+</div><!-- class="plain" id="grid_form_table" -->
+
+{% endblock %}
+

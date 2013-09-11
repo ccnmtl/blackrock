@@ -14,3 +14,4 @@ x/*
 uploads/
 *.DS_Store
 .coverage
+blackrock.db

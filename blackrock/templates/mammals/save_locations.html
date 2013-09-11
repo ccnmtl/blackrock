@@ -1,0 +1,11 @@
+{% if show_save_button %}
+  {% if grid_square_id > 0 and not sandbox %}
+    <form action='/mammals/new_expedition_ajax/' method="post" id="new_start_expedition_form">
+        <div  text-align="right">
+            {% csrf_token %}
+            <input type="text" name="grid_square_id" id="grid_square_id" value ="{{grid_square_id}}" class="hide_this"></input>
+            <input type="text" name="transects_json" class="hide_this" value = "{{transects_json}}"></input>
+        </div>
+    </form>
+    {% endif%}
+{%endif %}

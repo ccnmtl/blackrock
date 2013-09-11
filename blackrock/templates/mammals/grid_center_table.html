@@ -1,0 +1,60 @@
+{% if sandbox %}
+    <table class ="center_point_table">
+        <tr>
+            <th colspan="2">Center of the square</th>
+        </tr>
+        <tr >
+            <td class="latlong">Latitude</td><td >{{selected_block_center_y|floatformat:5}}</td>
+            </tr>
+            <tr>
+            <td class="latlong">Longitude</td><td >{{selected_block_center_x|floatformat:5}}</td>
+        </tr>
+    </table>
+{%else %}
+
+
+
+
+
+<div class="selected_sq_info">
+<h3>Sample square number: {{selected_block.battleship_coords}}
+<span class="detail_toggle" id ="hide_square_coords_table_button">Hide details</span>
+<span class="detail_toggle" id ="show_square_coords_table_button">See details...</span>
+</h3>
+
+<div class="coord_display square_coords_table_div">
+	<div class="square_infobox">
+		<div class="block_coordbox">
+			<div class="topleft">
+				<div class="coordinates" id="tl">{{selected_block.NE_corner.lat|floatformat:5}}<br /> {{selected_block.NE_corner.lon|floatformat:5}}</div>
+			</div>
+			<div class="topright">
+				<div class="coordinates" id="tr">{{selected_block.NW_corner.lat|floatformat:5}}<br /> {{selected_block.NW_corner.lon|floatformat:5}}</div>
+			</div>
+			<div class="center">
+				<div class="coordinates" id="c">{{selected_block.center.lat|floatformat:5}}<br /> {{selected_block.center.lon|floatformat:5}}</div>
+			</div>
+			<div class="bottomleft">
+				<div class="coordinates" id="bl">{{selected_block.SE_corner.lat|floatformat:5}}<br />
+				{{selected_block.SE_corner.lon|floatformat:5}}</div>
+			</div>
+			<div class="bottomright">
+				<div class="coordinates" id="br">{{selected_block.SW_corner.lat|floatformat:5}}<br />
+				{{selected_block.SW_corner.lon|floatformat:5}}</div>
+			</div>
+		</div><!-- class="block_coordbox" -->
+		<div class="terrain_info">
+		    <p id="block_access_difficulty">Access difficulty level: {{selected_block.terrain_difficulty}}.</p>
+		    <p id="block_difficulty">Terrain difficulty level: {{selected_block.access_difficulty}}.</p>
+		</div><!-- class="terrain_info" -->
+		<div class="clearfix"></div><!-- class="clearfix" -->
+	</div><!-- class="square_infobox" -->
+	<div class="clearfix"></div><!-- class="clearfix" -->
+</div><!-- class="coord_display" -->
+	<div class="clearfix"></div><!-- class="clearfix" -->
+	
+	
+</div><!-- class="selected_sq_info" -->
+
+{%endif%}
+

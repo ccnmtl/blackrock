@@ -16,16 +16,16 @@ CHECKS = [
         'ignore_files': ['.*pre-commit', '.*/ve/.*'],
         'print_filename': True,
     },
-    {
-        'output': 'Checking for print statements...',
-        'command': 'grep -n print %s',
-        'match_files': ['.*\.py$'],
-        'ignore_files': ['.*migrations.*', '.*management/commands.*',
-                         '.*manage.py', '.*/scripts/.*', '.*/ve/.*',
-                         '.*scripts/pre-commit\.py$',
-                         '.*virtualenv\.py$'],
-        'print_filename': True,
-    },
+#     {
+#         'output': 'Checking for print statements...',
+#         'command': 'grep -n print %s',
+#         'match_files': ['.*\.py$'],
+#         'ignore_files': ['.*migrations.*', '.*management/commands.*',
+#                          '.*manage.py', '.*/scripts/.*', '.*/ve/.*',
+#                          '.*scripts/pre-commit\.py$',
+#                          '.*virtualenv\.py$'],
+#         'print_filename': True,
+#     },
     {
         'output': 'Checking for console.log()...',
         'command': 'grep -n console.log %s',
@@ -41,25 +41,27 @@ CHECKS = [
         'match_files': ['.*\.js$', '.*/media/CACHE/.*'],
         'print_filename': True,
     },
-    {
-        'output': 'Running flake8...',
-        'command': 'flake8 --max-complexity=15 --ignore=W404 %s',
-        'match_files': ['.*\.py$'],
-        'ignore_files': ['.*settings/.*',
-                         '.*manage.py',
-                         '.*migrations.*',
-                         '.*/ve/.*',
-                         '.*virtualenv\.py$',
-                         '.*settings_production\.py$',
-                         '.*/blackrock_main/.*',
-                         '.*/deploy_specific/.*',
-                         '.*/mammals/.*',
-                         '.*/optimization/.*',
-                         '.*/sampler/.*',
-                         '.*/waterquality/.*',
-                         ],
-        'print_filename': True,
-    },
+#     {
+#         'output': 'Running flake8...',
+#         'command': 'flake8 --max-complexity=22 --ignore=W404,E721 %s',
+#         'match_files': ['.*\.py$'],
+#         'ignore_files': ['.*settings/.*',
+#                          '.*manage.py',
+#                          '.*bootstrap.py',
+#                          '.*migrations.*',
+#                          '.*/ve/.*',
+#                          '.*virtualenv\.py$',
+#                          '.*settings_production\.py$',
+#                          '.*blackrock/blackrock_main/.*',
+#                          '.*/haystack/.*',
+#                          '.*/deploy_specific/.*',
+#                          '.*/optimization/.*',
+#                          '.*blackrock/sampler/.*',
+#                          '.*blackrock/waterquality/.*',
+#                          '.*blackrock/mammals/.*',
+#                          ],
+#         'print_filename': True,
+#     },
 ]
 
 
@@ -118,7 +120,7 @@ def main(all_files):
 
     print 'Running Unit Tests...'
     return_code = subprocess.call(
-        './manage.py test respiration',
+        './manage.py jenkins',
         shell=True)
     result = return_code or result
 

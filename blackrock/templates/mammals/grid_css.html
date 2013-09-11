@@ -1,0 +1,52 @@
+<style media="screen" type="text/css">
+    .grid_border_coords_table {
+        display: none;
+    }
+
+    .top_side
+    {
+        border-top: 2px solid green;
+    }
+    
+    .bottom_side
+    {
+        border-bottom: 2px solid green;
+    }
+    
+    .left_side
+    {
+        border-left: 2px solid green;
+    }
+    
+    .right_side
+    {
+        border-right: 2px solid green;
+    }
+    
+    .hide_this {
+        display: none;
+    }
+    
+    .randomize_again_hint {
+        display: none; /* this is shown when the user hits the randomize button */
+    }
+    
+    {% if sandbox %}
+        #grid_form_table td  {
+            background-color: #EFE;
+        }
+        
+        #block_difficulty {
+            display:none;
+        }
+        
+        #block_access_difficulty {
+            display:none;
+        }
+        
+    {%else %}
+        .form_tr {
+            display:none;    
+        }
+    {%endif %}
+</style>

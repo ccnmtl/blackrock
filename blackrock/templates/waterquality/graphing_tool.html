@@ -1,0 +1,1095 @@
+{% extends 'base.html' %}
+
+{% load render %}
+
+{% block title %}Water Chemistry{% endblock %}
+
+{% block js %}
+
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/base/jquery-ui.css" type="text/css" media="all" /> 
+	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript"></script>
+	<script src="/site_media/js/facebox.js" type="text/javascript"></script>
+	<script src="/site_media/js/highcharts.js" type="text/javascript"></script>
+	<script src="/site_media/js/modules/exporting.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+
+//     //there are actually 2 places to check - when another box is requested and when the values are actually submitted to the graph
+//     //on each click - should check url
+//     //on each submission - should check URL
+//         //var search;
+//         //var split;
+        
+        var search = window.location.search.substring(1);
+        var split = search.split('&');
+
+        for (var i = 0; i < split.length; i++)
+        {
+            var pair = split[i].split('=');
+
+            if (decodeURIComponent(pair[0]) == "line_label_0")
+            {
+                var elem = document.getElementById("label1");
+                elem.value = decodeURIComponent(pair[1]);
+                //alert(elem.value);
+
+            }
+            if (decodeURIComponent(pair[0]) == "line_value_0")
+            {
+                var elem = document.getElementById("value1");
+                elem.value = decodeURIComponent(pair[1]);
+                //alert(elem.value);
+
+            }
+            if (decodeURIComponent(pair[0]) == "line_label_1")
+            {
+                var elem = document.getElementById("label2");
+                elem.value = decodeURIComponent(pair[1]);
+                //alert(elem.value);
+                
+            }
+            if (decodeURIComponent(pair[0]) == "line_value_1")
+            {
+                var elem = document.getElementById("value2");
+                elem.value = decodeURIComponent(pair[1]);
+                //alert(elem.value);
+                
+            }
+            if (decodeURIComponent(pair[0]) == "line_label_2")
+            {
+                var elem = document.getElementById("label3");
+                elem.value = decodeURIComponent(pair[1]);
+                // alert(elem.value);
+                
+            }
+            if (decodeURIComponent(pair[0]) == "line_value_2")
+            {
+                var elem = document.getElementById("value3");
+                elem.value = decodeURIComponent(pair[1]);
+                // alert(elem.value);
+            }
+            if (decodeURIComponent(pair[0]) == "line_label_3")
+            {
+                var elem = document.getElementById("label4");
+                elem.value = decodeURIComponent(pair[1]);
+                // alert(elem.value);
+                
+            }
+          	if (decodeURIComponent(pair[0]) == "line_value_3")
+            {
+                var elem = document.getElementById("value4");
+                elem.value = decodeURIComponent(pair[1]);
+                // alert(elem.value);
+                
+            }
+        }//end of for
+
+        var b1_in = document.getElementById("value1").value;
+        var b1_l = document.getElementById("label1").value;
+        
+        var b2_in = document.getElementById("value2").value;
+        var b2_l = document.getElementById("label2").value;
+        
+        var b3_in = document.getElementById("value3").value;
+        var b3_l = document.getElementById("label3").value;
+        
+        var b4_in = document.getElementById("value4").value;
+        var b4_l = document.getElementById("label4").value;
+
+
+
+
+		var b1_act = true;
+		var b2_act = false;
+		var b3_act = false;
+		var b4_act = false;
+		var box2_click = 0;
+		var box3_click = 0;
+		var box4_click = 0;
+
+        if(b2_l != "" && b2_in != "")
+            {$("#form-element-2").css('visibility', 'visible');}
+        if(b3_l != "" && b3_in != "")
+            {$("#form-element-3").css('visibility', 'visible');  $("#hide2").css('visibility', 'hidden');}
+        if(b4_l != "" && b4_in != "")
+            {$("#form-element-4").css('visibility', 'visible');  $("#hide2").css('visibility', 'hidden');  $("#hide3").css('visibility', 'hidden'); $("#clickme").css('visibility', 'hidden');}
+        if(b2_l == "" || b2_in == "")
+            {$("#form-element-2").css('visibility', 'hidden');}
+        if(b3_l == "" || b3_in == "")
+            {$("#form-element-3").css('visibility', 'hidden');}
+        if(b4_l == "" || b4_in == "")
+            {$("#form-element-4").css('visibility', 'hidden');}
+
+
+
+
+
+
+    $("#clickme").click(function(e)
+        {
+
+            b1_in = document.getElementById("value1").value;
+            b1_l = document.getElementById("label1").value;
+            b2_in = document.getElementById("value2").value;
+            b2_l = document.getElementById("label2").value;
+            b3_in = document.getElementById("value3").value;
+            b3_l = document.getElementById("label3").value;
+            b4_in = document.getElementById("value4").value;
+            b4_l = document.getElementById("label4").value;
+
+            //check the values of the boxes before making another box available
+            //box 1
+            if (b1_in != "" && b1_l != "")
+            {
+                if (b1_in >= 0 && b1_in < 100)
+                {
+                    $("#label1").css('background', 'white');
+                    $("#value1").css('background', 'white');
+                    $("#form-element-2").css('visibility', 'visible');
+                    $("#hide2").css('visibility', 'visible');
+                    b2_act = true;
+                }
+                else
+                {
+                    $("#value1").css('background','yellow');
+                    alert("Please enter a value between 1 and 100 for the threshold value in box 1.");
+                }
+            }
+            else if (b1_in == "" && b1_l == "")
+            {
+                $("#value1").css('background','yellow');
+                $("#label1").css('background','yellow');
+                alert("Please enter values in box 1");
+            }
+            else if(b1_l == "" && b1_in != "")
+            {
+                $("#value1").css('background','white');
+                $("#label1").css('background','yellow');
+                alert("Please enter a label in box 1");
+            }
+            else if(b1_in == "" && b1_l != "")
+            {
+                $("#label1").css('background','white');
+                $("#value1").css('background','yellow');
+                alert("Please enter a threshold value in box 1");
+            }
+
+            if (b2_act == true){box2_click = box2_click + 1;}
+
+            //box 2
+            if ((b2_in != "" && b2_l != "") && b2_act == true)
+            {
+                //box2_click = box2_click + 1;
+                if (b2_in >= 1 && b2_in < 100)
+                {
+                    $("#label2").css('background', 'white');
+                    $("#value2").css('background', 'white');
+                    $("#form-element-3").css('visibility', 'visible');
+                    b3_act = true;
+                    $("#hide2").css('visibility', 'hidden');
+                    $("#hide3").css('visibility', 'visible');
+                }
+				else
+				{
+					$("#value2").css('background','yellow');
+	   				alert("Please enter a value between 1 and 100 for the threshold value in box 2.");
+				}
+			}
+			else if ((b2_in == "" && b2_l == "") && (b2_act == true && box2_click > 1))
+			{
+				$("#value2").css('background','yellow');
+				$("#label2").css('background','yellow');
+				alert("Please enter values in box 2");
+			}
+			else if((b2_l == "" && b2_in != "") && (b2_act == true && box2_click > 1))
+			{
+				$("#value2").css('background','white');
+				$("#label2").css('background','yellow');
+				alert("Please enter a label in box 2");
+			}
+			else if((b2_in == "" && b2_l != "") && (b2_act == true && box2_click > 1))
+			{
+				$("#label2").css('background','white');
+				$("#value2").css('background','yellow');
+				alert("Please enter a threshold value in box 2");
+			}
+
+
+			if (b3_act == true){box3_click = box3_click + 1;}
+
+
+			//box 3
+			if ((b3_in != "" && b3_l != "") && b3_act == true)
+			{
+				if (b3_in >= 1 && b3_in < 100)
+				{
+					$("#label3").css('background', 'white');
+					$("#value3").css('background', 'white');
+					$("#form-element-4").css('visibility', 'visible');
+					$("#clickme").css('visibility', 'hidden');
+					b4_act = true;
+					$("#hide2").css('visibility', 'hidden');
+					$("#hide3").css('visibility', 'hidden');
+					$("#hide4").css('visibility', 'visible');
+				}
+				else
+				{
+					$("#value3").css('background','yellow');
+	   				alert("Please enter a value between 1 and 100 for the threshold value in box 3.");
+				}
+			}
+			else if ((b3_in == "" && b3_l == "") && (b3_act == true && box3_click > 1))
+			{
+				$("#value3").css('background','yellow');
+				$("#label3").css('background','yellow');
+				alert("Please enter values in box 3");
+			}
+			else if((b3_l == "" && b3_in != "") && (b3_act == true && box3_click > 1))
+			{
+				$("#value3").css('background','white');
+				$("#label3").css('background','yellow');
+				alert("Please enter a label in box 3");
+			}
+			else if((b3_in == "" && b3_l != "") && (b3_act == true && box3_click > 1))
+			{
+				$("#label3").css('background','white');
+				$("#value3").css('background','yellow');
+				alert("Please enter a threshold value in box 3");
+			}
+
+			if (b4_act == true){box4_click = box4_click + 1;}
+
+			//box 4
+			if ((b4_in != "") && (b4_l != "") && (b4_act == true && box4_click > 1))
+			{
+
+				if (b4_in >= 1 && b4_in < 100)
+				{
+					$("#label4").css('background', 'white');
+					$("#value4").css('background', 'white');
+				}
+				else
+				{
+					$("#value4").css('background','yellow');
+	   				alert("Please enter a value between 1 and 100 for the threshold value in box 4.");
+				}
+
+		 	}		
+			else if ((b4_in == "" && b4_l == "") && (b4_act == true && box4_click > 1))
+			{
+				$("#value4").css('background','yellow');
+				$("#label4").css('background','yellow');
+				alert("Please enter values in box 4");
+			}
+			else if((b4_l == "" && b4_in != "") && (b4_act == true && box4_click > 1))
+			{
+				$("#value4").css('background','white');
+				$("#label4").css('background','yellow');
+				alert("Please enter a label in box 4");
+			}
+			else if((b4_in == "" && b4_l != "") && (b4_act == true && box4_click > 1))
+			{
+				$("#label4").css('background','white');
+				$("#value4").css('background','yellow');
+				alert("Please enter a threshold value in box 4");
+			}
+
+
+
+	});//end of click
+
+   	$("#hide2").click(
+   		function(e)
+   		{
+   			$('#form-element-2').css('visibility', 'hidden');
+   			$("#hide2").css('visibility', 'hidden');
+   			$("#hide3").css('visibility', 'hidden');
+   			$("#hide4").css('visibility', 'hidden');
+   			document.getElementById("value2").value = "";
+   			document.getElementById("label2").value = "";
+   			b2_act = false;
+			box2_click = 0;
+   		});
+
+   	$("#hide3").click(
+   		function(e)
+   		{
+   			$('#form-element-3').css('visibility', 'hidden');
+   			$("#hide3").css('visibility', 'hidden');
+   			$("#hide2").css('visibility', 'visible');
+   			$("#hide4").css('visibility', 'hidden');
+   			document.getElementById("value3").value = "";
+   			document.getElementById("label3").value = "";
+   			b3_act = false;
+   			box3_click = 0;
+   		});
+
+   	$("#hide4").click(
+   		function(e)
+   		{
+   			$('#form-element-4').css('visibility', 'hidden');
+   			$("#hide4").css('visibility', 'hidden');
+   			$("#hide3").css('visibility', 'visible');
+   			$("#hide2").css('visibility', 'hidden');
+   			$("#clickme").css('visibility', 'visible');
+   			document.getElementById("value4").value = "";
+   			document.getElementById("label4").value = "";
+   			b4_act = false;
+   			box4_click = 0;
+   		});
+
+
+
+	$("#value1").blur(function() 
+	{
+		var v1 = document.getElementById("value1").value;
+
+		if(isNaN(v1))
+		{
+			$("#value1").css('background','yellow');
+			alert( "Please enter a number between 1 and 100." );
+		}
+		else if(v1 > 100 || v1 <=0 )
+		{
+			$("#value1").css('background','yellow');
+			alert( "Please enter a value between 0 and 100." );
+		}
+		else
+		{
+			$("#value1").css('background','white');
+		}
+
+	});
+
+	$("#value2").blur(function() 
+	{
+
+		var v2 = document.getElementById("value2").value;
+
+		if(isNaN(v2))
+		{
+			alert( "Please enter a number between 1 and 100." );
+			$("#value2").css('background','yellow');
+		}	
+		else if(v2 > 100 || v2 <=0 )
+		{
+			alert( "Please enter a value between 0 and 100." );
+			$("#value2").css('background','yellow');
+		}
+		else
+		{
+			$("#value2").css('background','white');
+		}
+
+
+	});
+
+	$("#value3").blur(function() 
+	{
+
+		var v3 = document.getElementById("value3").value;
+
+		if(isNaN(v3))
+		{
+			$("#value3").css('background','yellow');
+			alert( "Please enter a number between 1 and 100." );
+		}
+		else if(v3 > 100 || v3 <=0 )
+		{
+			$("#value3").css('background','yellow');
+			alert( "Please enter a value between 0 and 100." );
+		}
+		else
+		{
+			$("#value3").css('background','white');
+		}
+
+	});
+
+	$("#value4").blur(function() 
+	{
+
+		var v4 = document.getElementById("value4").value;
+
+		if(isNaN(v4))
+		{
+			$("#value4").css('background','yellow');
+			alert( "Please enter a number between 1 and 100." );
+		}
+		else if(v4 > 100 || v4 <=0 )
+		{
+			$("#value4").css('background','yellow');
+			alert( "Please enter a value between 0 and 100." );
+		}
+		else
+		{
+			$("#value4").css('background','white');
+		}
+
+
+	});
+
+
+// //new
+	$("#label1").blur(function() 
+	{
+		var l1 = document.getElementById("label1").value;
+
+		if(l1 == "")
+		{
+			$("#label1").css('background','yellow');
+			alert( "Please enter a label." );
+		}
+		else
+		{
+			$("#label1").css('background','white');
+		}
+
+	});
+
+	$("#label2").blur(function() 
+	{
+		var l2 = document.getElementById("label2").value;
+
+		if(l2 == "")
+		{
+			$("#label2").css('background','yellow');
+			alert( "Please enter a label." );
+		}
+		else
+		{
+			$("#label2").css('background','white');
+		}
+
+	});
+
+	$("#label3").blur(function() 
+	{
+		var l3 = document.getElementById("label3").value;
+
+		if(l3 == "")
+		{
+			$("#label3").css('background','yellow');
+			alert( "Please enter a label." );
+		}
+		else
+		{
+			$("#label3").css('background','white');
+		}
+
+	});
+
+	$("#label4").blur(function() 
+	{
+		var l4 = document.getElementById("label4").value;
+
+		if(l4 == "")
+		{
+			$("#label4").css('background','yellow');
+			alert( "Please enter a label." );
+		}
+		else
+		{
+			$("#label4").css('background','white');
+		}
+
+	});
+
+
+})//end of ready
+
+
+</script>
+
+
+	{% if not show_graph %}
+
+
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$('a[rel*=facebox]').facebox();  
+	$(document).bind('reveal.facebox', function() {
+	        $('#facebox a[rel*=facebox]').facebox();
+	});
+
+	})
+
+
+
+
+	</script>
+	{% endif %}
+
+	{% if show_graph %}
+	<script type="text/javascript">
+	var chart;
+	$(document).ready(function() {
+        $('a[rel*=facebox]').facebox();
+	$("#start").datepicker({dateFormat: 'yy-mm-dd',
+                                minDate: Date.UTC(2009, 3, 24),
+	                        maxDate: Date.UTC(2009, 8, 6),
+	yearRange: '2009:2009'
+	});
+	$("#end").datepicker({dateFormat: 'yy-mm-dd',
+        minDate: Date.UTC(2009, 3, 24),
+	maxDate: Date.UTC(2009, 8, 6)});
+	   chart = new Highcharts.Chart({
+		 chart: {
+		    renderTo: 'chart-container',
+	{% ifequal type "scatter-plot" %}
+		    defaultSeriesType: 'scatter',
+	{% endifequal %}
+		    spacingRight: 20
+		 },
+		  title: {
+		    text: '{{graph_title}}'
+		 },
+	{% ifequal type "time-series" %}
+		 xAxis: {
+		    type: 'datetime',
+		    title: {
+			  text: null
+		    }
+		 },
+	{% endifequal %}
+	{% ifequal type "scatter-plot" %}
+		 xAxis: {
+		    title: {
+			  enabled: true,
+			  text: '{{independent.name}} ({{independent.units}})'
+		    },
+		    startOnTick: true,
+		    endOnTick: true,
+		    showLastLabel: true
+		 },
+		 yAxis: {
+		    title: {
+			  text: '{{dependent.name}} ({{dependent.units}})'
+		    }
+		 },
+	
+	{% endifequal %}
+		 tooltip: {
+        xDateFormat: '%H:%M %A, %b %e, %Y',
+	{% ifequal type "time-series" %}
+		    shared: true               
+	{% else %}
+	            shared: false
+	{% endifequal %}
+		 },
+		 legend: {
+		    enabled: true
+		 },
+		 plotOptions: {
+		    area: {
+			  fillColor: {
+				linearGradient: [0, 0, 0, 300],
+				stops: [
+				   [0, 'rgba(100,0,6,0)'],
+				   [1, 'rgba(2,0,100,0)']
+				]
+			  },
+			  lineWidth: 1,
+			  marker: {
+				enabled: false,
+				states: {
+				   hover: {
+					 enabled: true,
+					 radius: 5
+				   }
+				}
+			  },
+			  shadow: false,
+			  states: {
+				hover: {
+				   lineWidth: 1                  
+				}
+			  }
+		    },
+		    scatter: {
+			  marker: {
+				radius: 5,
+				states: {
+				   hover: {
+					 enabled: true,
+					 lineColor: 'rgb(100,100,100)'
+				   }
+				}
+			  },
+			  states: {
+				hover: {
+				   marker: {
+					 enabled: false
+				   }
+				}
+			  }
+		    }
+	
+		 },
+	{% ifequal type "time-series" %}
+		 series: [
+	{% for set in datasets %}
+		  {
+		    type: 'area',
+		    name: '{{set.series.name}} ({{set.series.units}})',
+		    pointInterval: 3600 * 1000,
+		    pointStart: Date.UTC({{start.year}}, {{start.month}} - 1, {{start.day}}),
+		    data: [
+			 {% for point in set.data %}{{point}}{% if not forloop.last %},{% endif %}{% endfor %}
+		    ]
+		 }{% if not forloop.last %},{% endif %}{% if forloop.last %}{% if lines %},{% endif %}{% endif %}
+	{% endfor %}
+	
+	 {% for line in lines %} 
+	   {	
+		    name: '{{line.label}}',
+		    type: 'line',
+		    data: [[Date.UTC({{start.year}}, {{start.month}} - 1, {{start.day}}), {{line.value}}], [Date.UTC({{end.year}}, {{end.month}} - 1, {{end.day}}), {{line.value}}]],
+		    marker: {
+			  enabled: false
+		    },
+		    states: {
+			  hover: {
+				lineWidth: 0
+			  }
+		    },
+		    enableMouseTracking: false
+		 }{% if not forloop.last %},{% endif %}
+	
+	{% endfor %} 
+		 ],
+	{% endifequal %}
+	
+	{% ifequal type "scatter-plot" %}
+		 series: [{
+		    name: '{{dependent.name}} vs {{independent.name}}',
+		    color: 'rgba(223, 83, 83, .5)',
+		    data: [{% for point in data %}[{{point.0}},{{point.1}}]{% if not forloop.last %},{% endif %}
+	{% endfor %}
+	   ]
+	   
+		 },
+	
+	   {
+		    type: 'line',
+		    name: 'Regression Line',
+	{% with lseriesp.regression_line_points as lrp %}
+		    data: [[{{lrp.0.0}}, {{lrp.0.1}}], [{{lrp.1.0}}, {{lrp.1.1}}]],
+	{% endwith %}
+		    marker: {
+			  enabled: false
+		    },
+		    states: {
+			  hover: {
+				lineWidth: 0
+			  }
+		    },
+		    enableMouseTracking: false
+		 }{% if lines %},{% endif %}
+	
+	 {% for line in lines %} 
+	   {
+		    name: '{{line.label}}',
+		    type: 'line',
+		    data: [[{{lseriesp.independent.min}}, {{line.value}}], [{{lseriesp.independent.max}}, {{line.value}}]],
+		    marker: {
+			  enabled: false
+		    },
+		    states: {
+			  hover: {
+				lineWidth: 0
+			  }
+		    },
+		    enableMouseTracking: false
+		 }{% if not forloop.last %},{% endif %}
+	
+	{% endfor %} 
+	
+	 ],
+	
+	{% endifequal %}
+		 exporting: {
+		    enabled: true,
+        filename: '{{filename_base}}'
+		 }
+	
+	   });
+	   
+	   
+	});
+	   
+	
+	</script>
+	
+	{% endif %}
+	
+{% endblock %}
+
+{% block css %}
+
+    <style type="text/css">
+    @import "/site_media/css/waterquality/waterquality.css" ;
+    </style>
+    
+    <!--[if IE 8]>
+    <style>
+    @import "/site_media/css/waterquality/waterquality_ie.css" ;
+    </style>
+    <![endif]-->    	
+
+{% endblock %}
+
+{% block masthead %}
+	<a href="/waterchemistry/">Water Chemistry</a>
+{% endblock %}
+
+{% block breadcrumbs %}
+	<ul class="breadcrumbs">
+	<li><a href="/waterchemistry/">Home</a></li>
+	<li><a href="/waterchemistry/graph/ "class="active">Graphing Tool</a></li>
+	<li><a href="/waterchemistry/browse/">Data Browser</a></li>
+	<li><a id="teachlink" href="/waterchemistry/teaching/">Teaching Resources</a></li>
+	</ul>
+{% endblock %}
+
+{% block content %}
+
+{% if error %}
+<div id="error-message">
+<p>{{error}}</p>
+</div>
+
+{% endif %}
+
+<div id="contentcontainer">
+	
+	<h3>Graphing Tool</h3>
+	
+	<!--start graphing tool -->
+		
+{% autoescape on %}	<form action="." method="get" id="myForm"> {% endautoescape %}<!-- added myForm --> <!-- this is what is being passed to highcharts -->
+	
+	{% if type %}
+	
+	<input id="chart_input" type="hidden" name="type" value="{{type}}" />  <!-- This simply passed type of graph-->
+	
+	<div id="parameters">
+	
+	
+	<fieldset>
+	
+		<legend>Step 1: Give your graph a title and select the type of graph that you'd like to visualize.</legend>
+	
+			<div class="form-element">
+			
+				<div class="form-row">
+					<div class="form-label"><label>Graph Title</label></div>
+					<div class="form-input"><input type="text" name="title" value="{{graph_title}}"/></div>
+				</div>
+				
+			</div>
+			
+			<div class="form-element">
+			
+				<div class="form-row">
+					<div class="form-label"><label>Graph Type</label></div>
+					<div class="form-input">
+						<input type="submit" name="type" value="time-series" />
+						<input type="submit" name="type" value="scatter-plot" />
+						<input type="submit" name="type" value="box-plot" />
+					</div>
+				</div>
+	
+			</div>
+	
+	</fieldset>
+	
+	<fieldset>
+
+	{% ifequal type "time-series" %}
+	
+	
+		
+			<legend>Step 2: <span class="selected">You've selected "times series."</span> Now, choose your data set and give it some parameters.</legend>
+			
+			<div class="form-element">
+			
+				<div class="form-row">
+					<div class="form-label"><label>Data Set</label></div>
+					<div class="form-input">
+						<select size="4" name="series" multiple="multiple"> <!-- This may be where to change it -->
+						{% for series in all_series %}
+						<option value="{{series.id}}" {% if series.selected %}selected="selected"{% endif %}>{{series.name}} ({{series.units}})</option>
+						{% endfor %}
+						</select>
+					</div>
+				</div>
+			
+			</div>
+
+	
+	{% endifequal %}
+	
+	{% ifequal type "box-plot" %}
+
+		
+			<legend>Step 2: <span class="selected">You've selected "box plot."</span> Now, choose your data set and give it some parameters.</legend>
+			
+			<div class="form-element">
+			
+				<div class="form-row">
+					<div class="form-label"><label>Data Set</label></div>
+					<div class="form-input">
+						<select size="4" name="series" multiple="multiple">
+						{% for series in all_series %}
+						<option value="{{series.id}}" {% if series.selected %}selected="selected"{% endif %}>{{series.name}} ({{series.units}})</option>
+						{% endfor %}
+						</select>
+					</div>
+				</div>
+			
+			</div>
+
+	
+	
+	{% endifequal %}
+	
+	{% ifequal type "scatter-plot" %}
+	
+		
+			<legend>Step 2: <span class="selected">You've selected "scatter plot."</span> Now, choose your data set and give it some parameters.</legend>
+			
+			<div class="form-element">
+			
+				<div class="form-row">
+					<div class="form-label" style="width: 11em;"><label>Independent Data Set</label></div>
+					<div class="form-input">
+						<select name="independent">
+						{% for series in all_series %}
+						<option value="{{series.id}}" {% if series.independent %}selected="selected"{% endif %}>{{series.name}} ({{series.units}})</option>
+						{% endfor %}
+						</select>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-label" style="width: 11em;"><label>Dependent Data Set</label></div>
+					<div class="form-input">
+						<select name="dependent">
+						{% for series in all_series %}
+						<option value="{{series.id}}" {% if series.dependent %}selected="selected"{% endif %}>{{series.name}} ({{series.units}})</option>
+						{% endfor %}
+						</select>					
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-label" style="width: 11em;"><label>Skip Zeroes</label></div>
+					<div class="form-input">
+					<input type="checkbox" name="skip_zeroes" 
+						  {% if skip_zeroes %}checked="checked"{% endif %}
+						  />
+					</div>
+				</div>
+			
+			</div>
+
+	
+	{% endifequal %}
+	
+			<div class="form-element">
+			
+				<div class="form-row">
+					<div class="form-label" style="width: 5em;"><label>Start Date</label></div>
+					<div class="form-input"><input type="text" id="start" name="start" size="10" value="{{start|date:"Y-m-d"}}" /></div>
+				</div>
+			
+				<div class="form-row">
+					<div class="form-label" style="width: 5em;"><label>End Date</label></div>
+					<div class="form-input"><input type="text" id="end" name="end" size="10" value="{{end|date:"Y-m-d"}}" /></div>
+				</div>
+			
+			</div>
+
+	{% ifnotequal type "box-plot" %}
+
+	<!-- start of edit -->
+	<div><input type="button" class="click" id="clickme" name="type" value="Add Another Box" /></div>
+	
+			<div class="form-element" id="form-element-1">
+			
+				<div class="form-row">
+					<div class="form-label" style="width: 8em;"><label>Threshold Label</label></div>
+					<!-- <div class="form-input"><input type="text" name="line_label_{{line.n}}" value="{{line.label}}" /></div> -->
+					<div class="form-input"><input id ="label1" type="text" name="line_label_0" value="" /></div>
+				</div>
+
+				<div class="form-row">
+					<div class="form-label" style="width: 8em;"><label>Threshold Value</label></div>
+					<div class="form-input"><input id="value1" type="text" name="line_value_0"value="" /></div>
+				</div>
+			
+			</div>
+	
+
+	
+	
+			<div class="form-element hidden-form" id="form-element-2">
+			
+				<div class="form-row">
+					<div class="form-label" style="width: 8em;"><label>Threshold Label</label></div> <i class="icon-collapse-alt icon-large" id="hide2"></i>
+					<div class="form-input"><input id ="label2"  type="text" name="line_label_1" value="" /></div>
+				</div>
+
+				<div class="form-row">
+					<div class="form-label" style="width: 8em;"><label>Threshold Value</label></div>
+					<div class="form-input"><input id="value2" type="text" name="line_value_1"value="" /></div>
+				</div>
+			
+			</div>
+	
+
+
+
+			<div class="form-element hidden-form" id="form-element-3">
+			
+				<div class="form-row">
+					<div class="form-label" style="width: 8em;"><label>Threshold Label</label></div> <i class="icon-collapse-alt icon-large" id="hide3"></i>
+					<div class="form-input"><input id ="label3" type="text" name="line_label_2" value="" /></div>
+				</div>
+
+				<div class="form-row">
+					<div class="form-label" style="width: 8em;"><label>Threshold Value</label></div>
+					<div class="form-input"><input id="value3" type="text" name="line_value_2"value="" /></div>
+				</div>
+			
+			</div>
+
+
+
+			<div class="form-element hidden-form" id="form-element-4">
+			
+				<div class="form-row">
+					<div class="form-label" style="width: 8em;"><label>Threshold Label</label></div> <i class="icon-collapse-alt icon-large" id="hide4"></i>
+					<div class="form-input"><input id ="label4" type="text" name="line_label_3" value="" /></div>
+				</div>
+
+				<div class="form-row">
+					<div class="form-label" style="width: 8em;"><label>Threshold Value</label></div>
+					<div class="form-input"><input id="value4" type="text" name="line_value_3"value="" /></div>
+				</div>
+			
+			</div>
+
+
+
+
+
+
+
+	<!-- end of edit -->
+	{% endifnotequal %}
+		</fieldset>
+
+
+		<fieldset>
+		<legend>Step 3: Click below to generate your graph.</legend>
+		<input id="graphit" type="submit" value="Graph Data &darr; " /> 
+		</fieldset>
+		
+	</div>
+	
+	{% if lseriesp %}
+	<p>
+	R<sup>2</sup>: {{lseriesp.linear_regression.rr|floatformat:2}}
+	</p>
+	{% endif %}
+	
+	{% else %}
+	
+	<fieldset>
+	
+		<legend>Step 1: Give your graph a title and select the type of graph that you'd like to visualize.</legend>
+	
+			<div class="form-element">
+			
+				<div class="form-row">
+					<div class="form-label"><label>Graph Title</label></div>
+					<div class="form-input"><input type="text" name="title" value="{{graph_title}}" /></div>
+				</div>
+				
+			</div>
+			
+			<div class="form-element">
+			
+				<div class="form-row">
+					<div class="form-label"><label>Graph Type</label></div>
+					<div class="form-input">
+						<input type="submit" name="type" value="time-series" />
+						<input type="submit" name="type" value="scatter-plot" />
+						<input type="submit" name="type" value="box-plot" />				
+					</div>
+				</div>
+	
+			</div>
+	
+	</fieldset>
+	
+	{% endif %}
+	
+	</form>
+	
+	
+	<!--graph-->
+	{% if show_graph %}
+	
+	<div id="icontext">You can also print and download your graph. &darr;</div>
+	
+	<div id="chart-container"></div>
+	{% endif %}
+	
+	{% if show_box_plot %}
+	
+	{% with lsg.box_data as box_data %}
+	{% spaceless %}
+	<br />
+	<img src="https://chart.googleapis.com/chart?chs=600x200&cht=ls&chd=t0:-1,{% for bd in box_data.series %}{{bd.min}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.lq}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.uq}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.max}},{% endfor %}0|-1,{% for bd in box_data.series %}{{bd.median}},{% endfor %}0&chm=F,0000FF,0,1:{{box_data.count}},20|H,0000FF,0,1:{{box_data.count}},1:20|H,0000FF,3,1:{{box_data.count}},1:20|H,0000FF,4,1:{{box_data.count}},1:20&chxt=y&chxr=0,{{box_data.min}},{{box_data.max}},0" width="600" height="200" />
+	{% endspaceless %}
+	{% endwith %}
+	
+	{% if show_ttest %}
+	<p class="ttest">
+	T-Test: {{ttest|floatformat:2}}
+	</p>
+	{% endif %}
+	
+	{% endif %}
+	
+	{% if too_much_data %}
+	<p class="warning">
+	Too many data points or series were selected. Displaying the selection as-is would break your browser; therefore, one or more data series are not being displayed. Please try again by selecting fewer data series ora smaller date range.
+	</p>
+	{% endif %}
+	<!--graph-->
+	
+	<!--stop graphing tool -->
+
+</div>
+
+{% endblock %}
+
+
+{% block footer %}
+    <div id="footer">
+        <ul id="standard-elements">
+            <li><a href="/portal/about/">About</a></li>
+            <li><a href="/portal/credits/">Credits</a></li>
+            <li><a href="/portal/help/">Help</a></li>
+            <li><a href="mailto:ccnmtl-blackrock@columbia.edu">Contact</a></li>
+        </ul>
+    </div>
+{% endblock %}

@@ -1,0 +1,170 @@
+{% extends "base.html" %} 
+{% load render %}
+{% block title %}Tree Respiration{% endblock %}
+
+{% block css %} 
+<style type='text/css'>
+  @import "/respiration/media/css/style.css";
+</style> 
+<!--[if IE]>
+<style type='text/css'>
+  @import "/respiration/media/css/style_ie.css";
+</style> 
+<![endif]-->
+{% endblock %} 
+
+{% block js %} 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/respiration/media/js/jquery.sharing/jquery.sharing.js"></script>
+    <script type="text/javascript" src="/respiration/media/js/sharing.js"></script>
+    <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script> 
+    <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/Signal.js"></script> 
+    <script type="text/javascript" src="/site_media/js/bluff/js-class.js"></script> 
+    <script type="text/javascript" src="/site_media/js/bluff/excanvas.js"></script> 
+    <script type="text/javascript" src="/site_media/js/bluff/bluff-src.js"></script> 
+    <script type="text/javascript" src="/respiration/media/js/graph.js"></script> 
+    <script type="text/javascript">
+      function setActiveTab() {
+          var tabname = "{% block tabname %}tab-leaf{% endblock %}";
+          if (document.getElementById(tabname) != null) { 
+              addElementClass(tabname, "tab-selected");
+          }
+      }
+      addLoadEvent(setActiveTab);
+      //alert("base_respiration");
+    </script>
+{% endblock %} 
+
+{% block masthead %} 
+<a href="/respiration/" title="Return to 'Tree Respiration' home">Tree Respiration</a>
+
+{% endblock %} 
+
+{% block content %}
+{% include "respiration/sharing.html" %}
+        <div id="tab-bar">
+            <div class="tab" id="tab-resources" onclick="return window.location = '/respiration/resources';">
+                Teaching Resources
+            </div>
+            <div class="tab" id="tab-canopy">
+                Canopy Level
+            </div>          
+            <div class="tab" id="tab-leaf">
+                Leaf Level
+            </div>          
+        </div>
+    
+    {% block moduleheader %}
+    <div id="respiration_content">
+        	
+        	<div id="instructions">
+        		<strong>Instructions:</strong>
+        		{% block instructions %}
+        		{% endblock %}
+        	</div>
+    		
+    		<div id="equation">
+    			<div class="caption">
+    				Arrhenius Function
+    			</div>
+    			
+    			<table class="equation">
+    			<tr>
+    			<td style="vertical-align: bottom;">
+    			
+    				<div id="equation-left">
+    					<span id="arr-r-result" class="arr-variable">
+    						R
+    					</span>
+    					= 
+    					<span id="arr-r-zero" class="arr-variable">
+    						R<sub>0</sub></span>e 
+    				</div>
+    				
+    			</td>
+    			<td style="vertical-align: top;">
+    				
+    				<table id="equation-right">
+    					<tr class="top">
+    						<td id="arr-e-zero" class="numerator arr-variable">
+    							E<sub>0</sub>
+    						</td>
+    						<td class="eq-big" rowspan="2">
+    							( 
+    						</td>
+    						<td class="numerator">
+    							1
+    						</td>
+    						<td rowspan="2">
+    							&minus; 
+    						</td>
+    						<td class="numerator">
+    							1
+    						</td>
+    						<td class="eq-big" rowspan="2">
+    							) 
+    						</td>
+    					</tr>
+    					<tr>
+    						<td id="arr-r-g" class="arr-variable">
+    							R<sub>g</sub>
+    						</td>
+    						<td id="arr-t-zero" class="arr-variable">
+    							T<sub>0</sub>
+    						</td>
+    						<td id="arr-t-a" class="arr-variable">
+    							T<sub>a</sub>
+    						</td>
+    					</tr>
+    				</table>
+    		       </td>
+    	       </tr>
+    	   </table>				
+        </div> <!--  end equation -->        	
+    </div> <!-- end respiration content -->
+    {% endblock %}  
+    
+    <div id="container">
+        {% block modulecontainer %}
+    	<div id="left">
+    		<div id="leftfield">
+               
+               {% block leftlegend %}
+                  LEFT LEGEND
+               {% endblock %}
+               
+    		
+    		   {% block left %} 
+    		      LEFT PANE 
+    		   {% endblock %} 
+    		</div>
+    	</div>
+    
+    	<div id="right">
+    	  <div id="rightfield">
+            <h3>
+                {% block rightlegend %}
+        	    RIGHT LEGEND
+        	    {% endblock %}
+            </h3>
+    	    {% block graph %} 
+    		  <div id="graph-cursor"><div id="unfreeze"></div></div>
+    		  <canvas id="graph" width="460" height="345"></canvas>
+    	    {% endblock %} 
+    	    {% block right %} 
+    		    RIGHT PANE
+    	    {% endblock %} 
+    	  </div>
+    	</div>
+        {% endblock %}
+    </div> <!-- end div "container" -->    
+{% endblock %}
+
+{% block script_footer %}    
+    <script type="text/javascript">
+        /* Select from list: Chrome, Firefox, Safari, MSIE */
+        shieldbrowser({"Chrome": 1, "Firefox": 3.6, "Safari": 4, "MSIE": 9});
+
+    </script>
+{% endblock %} 

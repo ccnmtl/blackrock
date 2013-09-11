@@ -1,0 +1,120 @@
+{% extends "mammals/base_mammals.html" %}
+{% load smartif %}
+
+{% comment %}
+NOTE: THIS TEMPLATE IS USED FOR BOTH RESEARCH AND SANDBOX VERSIONS OF THE ACTIVITY.
+{% endcomment %}
+
+{% block title %}Mammals and Habitats --
+{% if sandbox %}Playground{% else %}Research{% endif %} Grid: Bearing and Traps{% endblock %}
+
+{% block bodyclass %}square {% if sandbox %}playground{% else %}research{% endif %}_grid{% endblock %}
+
+{% block js %}
+	<script type="text/javascript" src="/mammals/media/js/map_colors.js"></script>
+	<script type="text/javascript" src="/mammals/media/js/grid_and_block.js"></script>
+	<script type="text/javascript" src="/mammals/media/js/block.js"></script>
+	{{ block.super }}
+{% endblock %}
+
+{% block status_playground %}
+	{% if sandbox %}active{% endif %}
+{% endblock %}
+{% block status_research %}
+	{% if not sandbox %}active{% endif %}
+{% endblock %}
+
+
+{% block container %}
+
+<div  style="display:none" >{{transects_json}}</div>
+<div id ="block_json" style="display:none">{{block_json}}</div>    
+<div id ="transects_json" style="display:none">{{transects_json}}</div>
+<div class="plain" id="right_hand_table">
+
+	<div id="left">
+		<h3>{% if sandbox %}Playground{% else %}Research{% endif %} Grid: Bearings and Traps</h3>
+		<div class="back_page"><a href="#" onclick="back_to_grid_from_square()">Return to Location Square Selection</a></div>
+		<div class="instructions">
+		
+		{% if sandbox %}
+		
+		{%else %} 
+    Welcome to square {{selected_block.battleship_coords}}  in Black Rock Forest! 
+    <ul>
+    <li>	Hover over the square on the map or in the table below to highlight different trap locations. 
+	</li><li>	Click "Generate bearings" to generate a new random locations for trap setting. (Note: Bearings are based on magnetic north.)
+	</li><li>	Click "Download" to save a CSV file of the trap locations on your computer. 
+	</li><li>	Click "Print" to see a printer-friendly version of the page, complete with latitudes and longitudes. 
+	</li><li>	If you are logged in, click "Save" to save the expedition in the database. 
+    </ul>
+        {% endif %}
+		</div><!-- class="instructions" -->
+
+		{% include "mammals/grid_center_table.html" %}
+		  <br />
+		
+		<form {% if sandbox %}action="/mammals/sandbox/grid_square/" {% else %} action='/mammals/grid_square/'{% endif %} method="post" id="block_form" onSubmit="return confirm_new_bearings()">{% csrf_token %}
+        
+			{% include "mammals/grid_form.html" %}
+	
+			{%if sandbox %}{%else%}<div id="playground_form">{%endif%}
+			<div class="formfield height40">
+				<label for="magnetic_declination">Declination (difference between magnetic and true North):</label>
+				<input type="text" name="magnetic_declination" id="magnetic_declination" value="{{magnetic_declination}}" class="inputbox" />
+			</div><!-- class="formfield" -->
+			{%if sandbox %}{%else%}</div><!-- id="playground_form" -->{%endif%}
+	
+			<div class="formfield">
+				<label for="num_transects">How many teams do you have?</label>
+				<input type="text" name="num_transects" id="num_transects" value="{{num_transects}}" class="inputbox" />
+			</div><!-- class="formfield" -->
+	
+			<div class="formfield">
+				<label for="num_transects">How many traps will each team get?</label>
+				<input type="text" name="points_per_transect" id="points_per_transect" value="{{points_per_transect}}" class="inputbox" />
+			</div><!-- class="formfield" -->
+	
+			<div class="formfield" style="text-align: right; padding-right: 5px; padding-top: 4px; height: 26px;">
+				<input type="submit" value="Generate bearings" />
+
+            {% if sandbox %}
+            {%else %}
+                {% if user.is_authenticated %}	
+                    <button type="button" id="save_square_via_ajax" onclick="new_expedition_ajax();">Save</button>
+                {%endif%}
+            {%endif%}
+
+			
+			</div><!-- class="formfield" -->
+		</form>
+		
+
+	<div class="team_trap_table">
+	    <div class="table_actions">
+              {% include "mammals/csv_export_form.html" %}
+              {% include "mammals/printer_friendly_form.html" %}
+              {% include "mammals/save_locations.html" %}
+        </div><!-- class="" -->
+		<div class="transect_table">
+		        {% include "mammals/transect_table_heading.html" %} 
+                <div id="transect_table_overflow_div">
+                    {% include "mammals/transect_table.html" %} 
+                </div>
+		</div><!-- class="" -->
+	
+		
+	
+	<div class="clearfix"></div><!-- class="clearfix" -->
+	</div><!-- class="team_trap_table" -->
+
+
+	</div><!-- id="left" -->
+
+	<div id="map_canvas"></div><!-- id="map_canvas" -->
+	
+	<div class="clearfix"></div><!-- class="clearfix" -->
+
+</div><!-- class="plain" id="grid_form_table" -->
+{% endblock %}
+

@@ -1,0 +1,30 @@
+<table class="distances_table">
+{%for transect in transects%}
+    {%for point in transect.points%}
+        <tr class="point_tr point_{{point.point_id}} {% if forloop.parentloop.counter|divisibleby:2 %}first_color{% else %}second_color{% endif %}">
+        {% ifchanged transect%}
+            <td rowspan="{{transect.points|length}}" class="transect_td transect_{{transect.transect_id}} ">Team&nbsp;{{transect.team_letter}}</td>
+        {% endifchanged %}
+        
+        {% ifchanged transect%}
+        {%comment %}
+            <td rowspan="{{transect.points|length}}" class="transect_td transect_{{transect.transect_id}}">{{transect.heading|floatformat:0}}&deg; </td>
+        {%endcomment %}
+            <td rowspan="{{transect.points|length}}" class="transect_td transect_{{transect.transect_id}}">{{transect.heading_wrt_magnetic_north|floatformat:0}} &deg;</td>
+        {% endifchanged %}
+        
+            <td>{{forloop.counter}}</td>
+        
+            <td class="get_row_top_from_here point_{{point.point_id}}" >{{point.distance|floatformat:0}}</td>
+            
+            
+            {%ifequal printer_friendly 'True' %}
+                <td class="suggested_td">{{point.point.0|floatformat:5}}</td>
+                <td class="suggested_td">{{point.point.1|floatformat:5}}</td>
+            {%endifequal %}
+            <!-- need this to do a bit of magic with the interaction between transects and scroll-->
+            <td class="top_px_number point_{{point.point_id}}" ></td>
+        </tr>
+    {%endfor%}
+{%endfor%}
+</table>

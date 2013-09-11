@@ -1,0 +1,55 @@
+{% extends "mammals/base_mammals.html" %}
+{% load smartif %}
+
+<!-- THIS IS ONLY USED FOR THE PLAYGROUND GRID -->
+{% block title %}Mammals and Habitats -- Playground Grid: Square Selection{% endblock %}
+
+{% block bodyclass %}playground_grid{% endblock %}
+
+{% block js %}
+	<script type="text/javascript" src="/mammals/media/js/map_colors.js"></script>
+	<script type="text/javascript" src="/mammals/media/js/grid_and_block.js"></script>
+	<script type="text/javascript" src="/mammals/media/js/grid.js"></script>
+	{{ block.super }}
+{% endblock %}
+
+{% block status_playground %}active{% endblock %}
+
+{% block container %}
+<div id="grid_json" style="display:none">{{grid_json}}</div>
+
+<div class="plain" id="grid_form_table">
+
+	<div id="left">
+		<h3>Playground Grid: Location Square Selection</h3>
+
+		<div class="instructions">
+			You can use this grid anywhere in the world. Try entering the latitude and longitude of your home below, then click "Draw grid". You can also try changing the size of each square, or the number of squares in your grid. When you are satisfied with your grid, click on one of the blue squares in the map to experiment with the bearings and traps activity.
+		</div><!-- class="instructions" -->
+
+
+<form action="/mammals/sandbox/grid/" method="post" id="grid_form"> {% csrf_token %}
+
+		{% include "mammals/grid_form.html" %}
+
+		<div class="formfield" style="text-align: right; padding-right: 5px;">
+			<input type="submit" value="Draw grid" />
+			<input type="button" onclick="javascript:location.href='/mammals/sandbox/grid/'" value="Reset grid" />
+		</div><!-- class="formfield" -->
+		
+</form>
+
+		{% include "mammals/grid_border_coords.html" %}
+
+
+	</div><!-- id="left" -->
+
+	<div id="map_canvas"></div><!-- id="map_canvas" -->
+	
+	<div class="clearfix"></div><!-- class="clearfix" -->
+
+</div><!-- class="plain" id="grid_form_table" -->
+
+
+{% endblock %}
+

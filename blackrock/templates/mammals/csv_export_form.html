@@ -1,0 +1,5 @@
+<form action='/mammals/grid_square_csv/' method="post" id="csv_export_form">
+    {% csrf_token %}
+    <input type="text" name="transects_json" style="display:none" value = "{{transects_json}}"></input>
+    <input type="submit" value="Download"></input>
+</form>
