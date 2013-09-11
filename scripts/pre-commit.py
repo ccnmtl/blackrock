@@ -100,7 +100,7 @@ def main(all_files):
 
     if result == 0:
         print 'Running Flake8...'
-        exc = 'pip.py,bootstrap.py,ve,media,haystack,waterquality,optimization'
+        exc = 'pip.py,bootstrap.py,ve,media,haystack,waterquality'
         cmd = 'flake8 --exclude=%s --ignore=F403 .' % exc
         return_code = subprocess.call(cmd, shell=True)
         result = return_code or result
