@@ -88,7 +88,7 @@ class Series(models.Model):
         inc = 1
         if rows.count() > max_points:
             # need to downsample so the graphing library can handle it
-            inc = int(float(rows.count())/max_points)
+            inc = int(float(rows.count()) / max_points)
         return [r.value for r in rows[::inc]]
 
 
@@ -120,7 +120,7 @@ class LimitedSeries(object):
         inc = 1
         if rows.count() > max_points:
             # need to downsample so the graphing library can handle it
-            inc = int(float(rows.count())/max_points)
+            inc = int(float(rows.count()) / max_points)
         return [r.value for r in rows[::inc]]
 
     def count(self):
@@ -228,11 +228,11 @@ class LimitedSeriesPair(object):
         if not det:
             # divide by zero
             return None
-        a = (sumxy * count - sumy * sumx)/det
-        b = (sumxx * sumy - sumx * sumxy)/det
+        a = (sumxy * count - sumy * sumx) / det
+        b = (sumxx * sumy - sumx * sumxy) / det
 
-        meanerror = sum([(y - sumy/count)**2 for y in ys])
-        residual = sum([(y - a * x - b)**2 for x, y in zip(xs, ys)])
+        meanerror = sum([(y - sumy / count) ** 2 for y in ys])
+        residual = sum([(y - a * x - b) ** 2 for x, y in zip(xs, ys)])
 
         if not meanerror:
             # divide by zero

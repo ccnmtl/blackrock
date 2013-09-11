@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from blackrock.waterquality.models import Site, Location, Series, Row
 import csv
-from datetime import datetime,  timedelta
+from datetime import datetime, timedelta
 
 months = dict(Jan=1, Feb=2, Mar=3, Apr=4, May=5, Jun=6, Jul=7,
               Aug=8, Sep=9, Oct=10, Nov=11, Dec=12)
@@ -21,10 +21,10 @@ class Command(BaseCommand):
     args = ''
     help = ''
 
-    def handle(self,  *args,  **options):
+    def handle(self, *args, **options):
         print "importing BRF Stream data"
         (site, created) = Site.objects.get_or_create(name='BRF')
-        (location,  created) = Location.objects.get_or_create(
+        (location, created) = Location.objects.get_or_create(
             name='Stream', site=site)
 
         reader = csv.reader(open("waterquality/xls/BRF_Stream_2009.csv"))
@@ -41,7 +41,7 @@ class Command(BaseCommand):
         # prep the series
         series_objects = dict()
         for (column, unit, name) in zip(columns, units, names):
-            (series,  created) = Series.objects.get_or_create(
+            (series, created) = Series.objects.get_or_create(
                 name=name, location=location, units=unit)
             if not created:
                 print "clearing out %s" % name

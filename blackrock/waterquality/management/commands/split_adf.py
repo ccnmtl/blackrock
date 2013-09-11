@@ -16,7 +16,7 @@ class Command(BaseCommand):
     args = ''
     help = ''
 
-    def handle(self,  *args,  **options):
+    def handle(self, *args, **options):
         reader = csv.reader(open("adf.csv"))
         all_columns = ["Station_ID", "Observation_Date", "High_Out__Temp_",
                        "Low_Out__Temp_", "Out_Tmp_High_Time",

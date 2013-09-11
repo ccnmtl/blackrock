@@ -38,7 +38,7 @@ class Command(BaseCommand):
         # prep the series
         series_objects = dict()
         for (column, unit, name) in zip(columns, units, names):
-            (series,  created) = Series.objects.get_or_create(
+            (series, created) = Series.objects.get_or_create(
                 name=name, location=location, units=unit)
             if not created:
                 print "clearing out %s" % name

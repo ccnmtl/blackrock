@@ -81,9 +81,11 @@ def graphing_tool(request):
 
     if graph_type == 'time-series' or graph_type == 'scatter-plot':
         lines = []
-        for k in request.GET.keys(): #iterating over QueryDict for keys starting with line_value and using v to get value
+        #iterating over QueryDict for keys starting with line_value
+        # and using v to get value
+        for k in request.GET.keys():
             if k.startswith("line_value_"):
-                v = request.GET.get(k, '') # why ''?
+                v = request.GET.get(k, '')  # why ''?
                 if v:
                     n = k[len("line_value_"):]
                     l = request.GET.get("line_label_%s" % n)
@@ -151,7 +153,7 @@ def graphing_tool(request):
             n1 = ls1.count()
             n2 = ls2.count()
             numerator = (m1 - m2)
-            denominator = math.sqrt((sd1/float(n1)) + (sd2/float(n2)))
+            denominator = math.sqrt((sd1 / float(n1)) + (sd2 / float(n2)))
             data['ttest'] = float(numerator) / float(denominator)
             data['show_ttest'] = True
 
