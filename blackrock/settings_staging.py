@@ -33,8 +33,6 @@ STATSD_PREFIX = 'blackrock-staging'
 SENTRY_SITE = 'blackrock-staging'
 
 if 'migrate' not in sys.argv:
-    INSTALLED_APPS.append('sentry.client')
-
     import logging
     from sentry.client.handlers import SentryHandler
     logger = logging.getLogger()
