@@ -21,14 +21,6 @@ ret = subprocess.call(["python", "virtualenv.py",
 if ret:
     exit(ret)
 
-ret = subprocess.call([os.path.join(vedir, 'bin', 'pip'), "install",
-                       "-E", vedir,
-                       "--index-url=''",
-                       "--requirement",
-                       os.path.join(pwd, "requirements/apps.txt")])
-if ret:
-    exit(ret)
-
 if sys.version_info < (2, 7, 0):
     ret = subprocess.call(
         [os.path.join(vedir, 'bin', 'pip'), "install",
@@ -56,6 +48,14 @@ if sys.version.startswith('2.6'):
          os.path.join(pwd, "requirements/src/unittest2-0.5.1.tar.gz")])
     if ret:
         exit(ret)
+
+ret = subprocess.call([os.path.join(vedir, 'bin', 'pip'), "install",
+                       "-E", vedir,
+                       "--index-url=''",
+                       "--requirement",
+                       os.path.join(pwd, "requirements/apps.txt")])
+if ret:
+    exit(ret)
 
 subprocess.call([os.path.join(vedir, "bin/easy_install"),
                  os.path.join(pwd, "requirements/eggs/pytz-2011b-py2.6.egg")])

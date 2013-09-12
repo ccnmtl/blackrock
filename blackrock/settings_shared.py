@@ -84,6 +84,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'django_statsd.middleware.GraphiteRequestTimingMiddleware',
+    'django_statsd.middleware.GraphiteMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -104,7 +106,7 @@ TEMPLATE_DIRS = (
     os.path.join(os.path.dirname(__file__), "templates"),
 )
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -113,6 +115,8 @@ INSTALLED_APPS = (
     'django.contrib.markup',
     'django.contrib.humanize',
     'sorl.thumbnail',
+    'compressor',
+    'django_statsd',
     'django.contrib.gis',
     'django.contrib.admin',
     'blackrock.sampler',
@@ -130,14 +134,13 @@ INSTALLED_APPS = (
     'pageblocks',
     'template_utils',
     'typogrify',
-    'sentry.client',
     'blackrock.waterquality',
     'googlecharts',
     'blackrock.mammals',
     'south',
     'django_nose',
     'django_jenkins',
-)
+]
 
 # Pageblocks/Pagetree settings
 PAGEBLOCKS = ['pageblocks.HTMLBlockWYSIWYG',
@@ -156,10 +159,18 @@ THUMBNAIL_SUBDIR = "thumbs"
 
 LOGIN_URL = "/admin/login"
 
+COMPRESS_ROOT = "/var/www/blackrock/blackrock/media/"
+
 # put any static media here to override app served static media
 STATICMEDIA_MOUNTS = (
     ('/sitemedia', 'sitemedia'),
 )
+
+STATSD_CLIENT = 'statsd.client'
+STATSD_PREFIX = 'blackrock'
+STATSD_HOST = '127.0.0.1'
+STATSD_PORT = 8125
+STATSD_PATCHES = ['django_statsd.patches.db', ]
 
 # TinyMCE settings
 TINYMCE_JS_URL = '/site_media/js/tiny_mce/tiny_mce.js'
