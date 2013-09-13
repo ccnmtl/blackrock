@@ -20,7 +20,7 @@ from django.views.decorators.csrf import csrf_protect
 from re import match
 from string import uppercase
 import csv
-import datetime
+from datetime import datetime
 import simplejson
 
 
