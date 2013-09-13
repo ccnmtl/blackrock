@@ -474,7 +474,7 @@ def trees_csv(request):
     for plot, point in enumerate(sample):
         for tree in Tree.objects.filter(sample.Q(point)):
             t_names = Species.get(tree.species, [tree.species, tree.species],
-                                  format='array')
+                                  fmt='array')
             writer.writerow([
                 sample_num, plot + 1,
                 t_names[0], t_names[1],
