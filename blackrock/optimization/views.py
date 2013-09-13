@@ -487,7 +487,7 @@ def export_csv(request):
     if request.POST['results'] == '':
         HttpResponse("")
 
-    export_type = request.POST['export_type']
+    export_type = request.POST['type']
 
     if (export_type == 'trees'):
         return trees_csv(request)
