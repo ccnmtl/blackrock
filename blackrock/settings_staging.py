@@ -30,8 +30,9 @@ DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 STATSD_PREFIX = 'blackrock-staging'
-SENTRY_SITE = 'blackrock-staging'
+STAGING_ENV = True
 
+SENTRY_SITE = 'blackrock-staging'
 SENTRY_SERVERS = ['http://sentry.ccnmtl.columbia.edu/sentry/store/']
 
 if 'migrate' not in sys.argv:

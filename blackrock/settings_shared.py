@@ -81,6 +81,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.debug',
     'django.core.context_processors.request',
     'blackrock.blackrock_main.views.django_settings',
+    'stagingcontext.staging_processor',
 )
 
 MIDDLEWARE_CLASSES = (
