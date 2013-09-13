@@ -26,7 +26,7 @@ def explore(request):
     # TODO figure out from data
     interval = 2.5  # cm
     highest = 1070 + 2.5  # cm
-    intervals = [int(n * interval) for n in range(highest / interval)]
+    intervals = [int(n * interval) for n in range(int(highest / interval))]
 
     cores = [{'depth': float(sample.depth),
               'radiocarbon_years': sample.radiocarbon_years}
