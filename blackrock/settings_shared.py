@@ -14,7 +14,7 @@ ALLOWED_HOSTS = ['.ccnmtl.columbia.edu', 'localhost']
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'blackrock',
         'HOST': '',
         'PORT': 5432,

@@ -16,7 +16,7 @@ STATICMEDIA_MOUNTS = (
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'blackrock',
         'HOST': '',
         'PORT': 6432,  # see /etc/pgbouncer/pgbouncer.ini
