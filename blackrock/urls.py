@@ -11,6 +11,7 @@ site_media_root = os.path.join(os.path.dirname(__file__), "../media")
 urlpatterns = patterns(
     '',
     ('^accounts/', include('djangowind.urls')),
+    (r'^smoketest/', include('smoketest.urls')),
     (r'^admin/pagetree/', include('pagetree.urls')),
     (r'^pagetree/', include('pagetree.urls')),
     (r'^admin/portal/', include('gspreadsheet_importer.urls')),

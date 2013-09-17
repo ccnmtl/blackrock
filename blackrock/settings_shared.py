@@ -52,14 +52,21 @@ JENKINS_TASKS = (
     'django_jenkins.tasks.run_pyflakes',
 )
 
-PROJECT_APPS = ['blackrock.respiration']
+PROJECT_APPS = ['blackrock.blackrock_main',
+                'blackrock.mammals',
+                'blackrock.optimization',
+                'blackrock.paleoecology',
+                'blackrock.portal',
+                'blackrock.respiration',
+                'blackrock.sampler',
+                'blackrock.waterquality']
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 NOSE_ARGS = [
     '--with-coverage',
     "--exclude-dir-file=nose_exclude.txt",
-    '--cover-package=blackrock.respiration',
+    '--cover-package=blackrock.respiration,blackrock.blackrock_main',
 ]
 SOUTH_TESTS_MIGRATE = False
 
@@ -141,6 +148,7 @@ INSTALLED_APPS = [
     'south',
     'django_nose',
     'django_jenkins',
+    'smoketest'
 ]
 
 # Pageblocks/Pagetree settings
