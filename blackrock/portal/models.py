@@ -4,7 +4,6 @@ from django.conf import settings
 from django.contrib.contenttypes import generic
 from django.contrib.gis.db import models
 from django.db.models.signals import pre_save
-from haystack.query import SearchQuerySet
 from pagetree.models import PageBlock
 import re
 
@@ -568,6 +567,8 @@ class AssetList(models.Model):
             form.save()
 
     def list(self):
+        from haystack.query import SearchQuerySet
+
         results = SearchQuerySet()
         for facet in Facet.asset_facets:
                 results = results.facet(facet)
