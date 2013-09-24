@@ -1,5 +1,6 @@
 from django.test import TestCase
 from blackrock.waterquality.models import Site, Location, Series, Row
+from blackrock.waterquality.models import LimitedSeries
 from datetime import datetime
 
 
@@ -16,61 +17,62 @@ class LocationTest(TestCase):
         self.assertEqual(str(l), "test")
 
 
-class SeriesTest(TestCase):
-    def series_factory(self):
-        site = Site.objects.create(name="test")
-        l = Location.objects.create(name="test", site=site)
-        return Series.objects.create(name="test", location=l)
+def series_factory():
+    site = Site.objects.create(name="test")
+    l = Location.objects.create(name="test", site=site)
+    return Series.objects.create(name="test", location=l)
 
+
+class SeriesTest(TestCase):
     def test_unicode(self):
-        s = self.series_factory()
+        s = series_factory()
         self.assertEqual(str(s), "test")
 
     def test_get_absolute_url(self):
-        s = self.series_factory()
+        s = series_factory()
         self.assertEqual(s.get_absolute_url(), "/series/%d/" % s.id)
 
     def test_count_empty(self):
-        s = self.series_factory()
+        s = series_factory()
         self.assertEqual(s.count(), 0)
 
     def test_count_populated(self):
-        s = self.series_factory()
+        s = series_factory()
         Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
         self.assertEqual(s.count(), 1)
 
     def test_start(self):
-        s = self.series_factory()
+        s = series_factory()
         Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
         self.assertEqual(s.start().value, 1.0)
 
     def test_end(self):
-        s = self.series_factory()
+        s = series_factory()
         Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
         self.assertEqual(s.end().value, 1.0)
 
     def test_max(self):
-        s = self.series_factory()
+        s = series_factory()
         Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
         self.assertEqual(s.max(), 1.0)
 
     def test_min(self):
-        s = self.series_factory()
+        s = series_factory()
         Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
         self.assertEqual(s.min(), 1.0)
 
     def test_mean(self):
-        s = self.series_factory()
+        s = series_factory()
         Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
         self.assertEqual(s.mean(), 1.0)
 
     def test_stddev(self):
-        s = self.series_factory()
+        s = series_factory()
         Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
         self.assertEqual(s.stddev(), 0.0)
 
     def test_uq(self):
-        s = self.series_factory()
+        s = series_factory()
         Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
         Row.objects.create(series=s, timestamp=datetime.now(), value=2.0)
         Row.objects.create(series=s, timestamp=datetime.now(), value=3.0)
@@ -78,7 +80,7 @@ class SeriesTest(TestCase):
         self.assertEqual(s.uq(), 3.0)
 
     def test_lq(self):
-        s = self.series_factory()
+        s = series_factory()
         Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
         Row.objects.create(series=s, timestamp=datetime.now(), value=2.0)
         Row.objects.create(series=s, timestamp=datetime.now(), value=3.0)
@@ -86,7 +88,7 @@ class SeriesTest(TestCase):
         self.assertEqual(s.lq(), 2.0)
 
     def test_median(self):
-        s = self.series_factory()
+        s = series_factory()
         Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
         Row.objects.create(series=s, timestamp=datetime.now(), value=2.0)
         Row.objects.create(series=s, timestamp=datetime.now(), value=3.0)
@@ -95,12 +97,12 @@ class SeriesTest(TestCase):
         self.assertEqual(s.median(), 3.0)
 
     def test_test_data(self):
-        s = self.series_factory()
+        s = series_factory()
         Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
         self.assertEqual(s.test_data(points=1)[0], 1.0)
 
     def test_box_data(self):
-        s = self.series_factory()
+        s = series_factory()
         Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
         Row.objects.create(series=s, timestamp=datetime.now(), value=2.0)
         Row.objects.create(series=s, timestamp=datetime.now(), value=3.0)
@@ -114,7 +116,7 @@ class SeriesTest(TestCase):
         self.assertEqual(r['median'], 50.0)
 
     def test_range_data(self):
-        s = self.series_factory()
+        s = series_factory()
         Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
         Row.objects.create(series=s, timestamp=datetime.now(), value=2.0)
         Row.objects.create(series=s, timestamp=datetime.now(), value=3.0)
@@ -124,7 +126,7 @@ class SeriesTest(TestCase):
         self.assertEqual(r, [1.0, 2.0, 3.0, 4.0, 5.0])
 
     def test_range_data_constrained(self):
-        s = self.series_factory()
+        s = series_factory()
         Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
         row1 = Row.objects.create(
             series=s, timestamp=datetime.now(), value=2.0)
@@ -136,7 +138,7 @@ class SeriesTest(TestCase):
         self.assertEqual(r, [2.0, 3.0, 4.0])
 
     def test_range_data_sampled(self):
-        s = self.series_factory()
+        s = series_factory()
         Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
         Row.objects.create(series=s, timestamp=datetime.now(), value=2.0)
         Row.objects.create(series=s, timestamp=datetime.now(), value=3.0)
@@ -145,3 +147,32 @@ class SeriesTest(TestCase):
         # is this actually a fencepost error?
         r = s.range_data(max_points=2)
         self.assertEqual(r, [1.0, 3.0, 5.0])
+
+
+class LimitedSeriesTest(TestCase):
+    def test_create_defaults(self):
+        s = series_factory()
+        rows = [
+            Row.objects.create(series=s, timestamp=datetime.now(), value=1.0),
+            Row.objects.create(series=s, timestamp=datetime.now(), value=2.0),
+            Row.objects.create(series=s, timestamp=datetime.now(), value=3.0),
+            Row.objects.create(series=s, timestamp=datetime.now(), value=4.0),
+            Row.objects.create(series=s, timestamp=datetime.now(), value=5.0)]
+
+        ls = LimitedSeries(s)
+        self.assertEqual(ls.max_points, 5)
+        self.assertEqual(ls.start, rows[0].timestamp)
+        self.assertEqual(ls.end, rows[-1].timestamp)
+
+    def test_create(self):
+        s = series_factory()
+        Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=2.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=3.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=4.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=5.0)
+
+        ls = LimitedSeries(s, start=1, end=2, max_points=3)
+        self.assertEqual(ls.max_points, 3)
+        self.assertEqual(ls.start, 1)
+        self.assertEqual(ls.end, 2)
