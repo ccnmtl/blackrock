@@ -141,7 +141,6 @@ INSTALLED_APPS = [
     'pagetree',
     'pageblocks',
     'template_utils',
-    'typogrify',
     'blackrock.waterquality',
     'googlecharts',
     'blackrock.mammals',
