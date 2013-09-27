@@ -159,3 +159,9 @@ class ImportTestCases(TestCase):
         self.assertEquals(json['complete'], True)
 
         self.assertTrue('solr_complete' in cache)
+
+
+
+
+
+

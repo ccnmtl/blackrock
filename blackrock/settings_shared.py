@@ -66,7 +66,7 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
     '--with-coverage',
     "--exclude-dir-file=nose_exclude.txt",
-    '--cover-package=blackrock.respiration,blackrock.blackrock_main',
+    '--cover-package=blackrock.respiration,blackrock.blackrock_main,blackrock.mammals',
 ]
 SOUTH_TESTS_MIGRATE = False
 
