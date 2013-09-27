@@ -1,6 +1,7 @@
 from django.test import TestCase
 from blackrock.waterquality.models import Site, Location, Series, Row
 from blackrock.waterquality.models import LimitedSeries, LimitedSeriesGroup
+from blackrock.waterquality.models import LimitedSeriesPair
 from datetime import datetime
 
 
@@ -360,3 +361,77 @@ class TestLimitedSeriesGroup(TestCase):
         self.assertEqual(r['min'], 1.0)
         self.assertEqual(r['count'], 2)
         self.assertEqual(r['series'][0]['min'], 0.0)
+
+
+class TestLimitedSeriesPair(TestCase):
+    def test_linear_regression(self):
+        s1 = series_factory()
+        s2 = series_factory()
+
+        Row.objects.create(series=s1, timestamp=datetime.now(), value=1.0)
+        Row.objects.create(series=s1, timestamp=datetime.now(), value=2.0)
+        Row.objects.create(series=s1, timestamp=datetime.now(), value=3.0)
+        Row.objects.create(series=s1, timestamp=datetime.now(), value=4.0)
+        Row.objects.create(series=s1, timestamp=datetime.now(), value=5.0)
+
+        Row.objects.create(series=s2, timestamp=datetime.now(), value=1.0)
+        Row.objects.create(series=s2, timestamp=datetime.now(), value=2.0)
+        Row.objects.create(series=s2, timestamp=datetime.now(), value=3.0)
+        Row.objects.create(series=s2, timestamp=datetime.now(), value=4.0)
+        Row.objects.create(series=s2, timestamp=datetime.now(), value=5.0)
+
+        lsp = LimitedSeriesPair(s1, s2)
+        r = lsp.linear_regression()
+        # dict(a=a, b=b, rr=rr, ss=ss, var_a=var_a, var_b=var_b)
+        self.assertEqual(r['a'], 1.0)
+        self.assertEqual(r['b'], 0.0)
+        self.assertEqual(r['rr'], 1.0)
+        self.assertEqual(r['ss'], 0.0)
+        self.assertEqual(r['var_a'], 0.0)
+        self.assertEqual(r['var_b'], 0.0)
+
+    def test_linear_regression_skip_zeroes(self):
+        s1 = series_factory()
+        s2 = series_factory()
+
+        Row.objects.create(series=s1, timestamp=datetime.now(), value=1.0)
+        Row.objects.create(series=s1, timestamp=datetime.now(), value=2.0)
+        Row.objects.create(series=s1, timestamp=datetime.now(), value=0.0)
+        Row.objects.create(series=s1, timestamp=datetime.now(), value=4.0)
+        Row.objects.create(series=s1, timestamp=datetime.now(), value=5.0)
+
+        Row.objects.create(series=s2, timestamp=datetime.now(), value=1.0)
+        Row.objects.create(series=s2, timestamp=datetime.now(), value=2.0)
+        Row.objects.create(series=s2, timestamp=datetime.now(), value=3.0)
+        Row.objects.create(series=s2, timestamp=datetime.now(), value=4.0)
+        Row.objects.create(series=s2, timestamp=datetime.now(), value=5.0)
+
+        lsp = LimitedSeriesPair(s1, s2, skip_zeroes=True)
+        r = lsp.linear_regression()
+        # dict(a=a, b=b, rr=rr, ss=ss, var_a=var_a, var_b=var_b)
+        self.assertEqual(r['a'], 1.0)
+        self.assertEqual(r['b'], 0.0)
+        self.assertEqual(r['rr'], 1.0)
+        self.assertEqual(r['ss'], 0.0)
+        self.assertEqual(r['var_a'], 0.0)
+        self.assertEqual(r['var_b'], 0.0)
+
+    def test_regression_line_points(self):
+        s1 = series_factory()
+        s2 = series_factory()
+
+        Row.objects.create(series=s1, timestamp=datetime.now(), value=1.0)
+        Row.objects.create(series=s1, timestamp=datetime.now(), value=2.0)
+        Row.objects.create(series=s1, timestamp=datetime.now(), value=3.0)
+        Row.objects.create(series=s1, timestamp=datetime.now(), value=4.0)
+        Row.objects.create(series=s1, timestamp=datetime.now(), value=5.0)
+
+        Row.objects.create(series=s2, timestamp=datetime.now(), value=1.0)
+        Row.objects.create(series=s2, timestamp=datetime.now(), value=2.0)
+        Row.objects.create(series=s2, timestamp=datetime.now(), value=3.0)
+        Row.objects.create(series=s2, timestamp=datetime.now(), value=4.0)
+        Row.objects.create(series=s2, timestamp=datetime.now(), value=5.0)
+
+        lsp = LimitedSeriesPair(s1, s2)
+        r = lsp.regression_line_points()
+        self.assertEqual(r, [[1.0, 1.0], [5.0, 5.0]])
