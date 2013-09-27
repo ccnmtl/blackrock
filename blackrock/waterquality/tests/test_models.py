@@ -158,7 +158,6 @@ class LimitedSeriesTest(TestCase):
             Row.objects.create(series=s, timestamp=datetime.now(), value=3.0),
             Row.objects.create(series=s, timestamp=datetime.now(), value=4.0),
             Row.objects.create(series=s, timestamp=datetime.now(), value=5.0)]
-
         ls = LimitedSeries(s)
         self.assertEqual(ls.max_points, 5)
         self.assertEqual(ls.start, rows[0].timestamp)
@@ -171,8 +170,145 @@ class LimitedSeriesTest(TestCase):
         Row.objects.create(series=s, timestamp=datetime.now(), value=3.0)
         Row.objects.create(series=s, timestamp=datetime.now(), value=4.0)
         Row.objects.create(series=s, timestamp=datetime.now(), value=5.0)
-
         ls = LimitedSeries(s, start=1, end=2, max_points=3)
         self.assertEqual(ls.max_points, 3)
         self.assertEqual(ls.start, 1)
         self.assertEqual(ls.end, 2)
+
+    def test_row_set(self):
+        s = series_factory()
+        Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
+        r1 = Row.objects.create(series=s, timestamp=datetime.now(), value=2.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=3.0)
+        r2 = Row.objects.create(series=s, timestamp=datetime.now(), value=4.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=5.0)
+        ls = LimitedSeries(s, start=r1.timestamp, end=r2.timestamp,
+                           max_points=3)
+        self.assertEqual(ls.row_set().count(), 3)
+
+    def test_range_data(self):
+        s = series_factory()
+        Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
+        r1 = Row.objects.create(series=s, timestamp=datetime.now(), value=2.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=3.0)
+        r2 = Row.objects.create(series=s, timestamp=datetime.now(), value=4.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=5.0)
+        ls = LimitedSeries(s, start=r1.timestamp, end=r2.timestamp,
+                           max_points=3)
+        self.assertEqual(ls.range_data(), [2.0, 3.0, 4.0])
+        self.assertEqual(ls.range_data(max_points=1), [2.0])
+
+    def test_count(self):
+        s = series_factory()
+        Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
+        r1 = Row.objects.create(series=s, timestamp=datetime.now(), value=2.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=3.0)
+        r2 = Row.objects.create(series=s, timestamp=datetime.now(), value=4.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=5.0)
+        ls = LimitedSeries(s, start=r1.timestamp, end=r2.timestamp,
+                           max_points=3)
+        self.assertEqual(ls.count(), 3)
+
+    def test_max(self):
+        s = series_factory()
+        Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
+        r1 = Row.objects.create(series=s, timestamp=datetime.now(), value=2.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=3.0)
+        r2 = Row.objects.create(series=s, timestamp=datetime.now(), value=4.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=5.0)
+        ls = LimitedSeries(s, start=r1.timestamp, end=r2.timestamp,
+                           max_points=3)
+        self.assertEqual(ls.max(), 4.0)
+
+    def test_min(self):
+        s = series_factory()
+        Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
+        r1 = Row.objects.create(series=s, timestamp=datetime.now(), value=2.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=3.0)
+        r2 = Row.objects.create(series=s, timestamp=datetime.now(), value=4.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=5.0)
+        ls = LimitedSeries(s, start=r1.timestamp, end=r2.timestamp,
+                           max_points=3)
+        self.assertEqual(ls.min(), 2.0)
+
+    def test_mean(self):
+        s = series_factory()
+        Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
+        r1 = Row.objects.create(series=s, timestamp=datetime.now(), value=2.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=3.0)
+        r2 = Row.objects.create(series=s, timestamp=datetime.now(), value=4.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=5.0)
+        ls = LimitedSeries(s, start=r1.timestamp, end=r2.timestamp,
+                           max_points=3)
+        self.assertEqual(ls.mean(), 3.0)
+
+    def test_stddev(self):
+        s = series_factory()
+        Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
+        r1 = Row.objects.create(series=s, timestamp=datetime.now(), value=2.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=3.0)
+        r2 = Row.objects.create(series=s, timestamp=datetime.now(), value=4.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=5.0)
+        ls = LimitedSeries(s, start=r1.timestamp, end=r2.timestamp,
+                           max_points=3)
+        self.assertTrue(0.81 < ls.stddev() < 0.82)
+
+    def test_uq(self):
+        s = series_factory()
+        r1 = Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=2.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=3.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=4.0)
+        r2 = Row.objects.create(series=s, timestamp=datetime.now(), value=5.0)
+        ls = LimitedSeries(s, start=r1.timestamp, end=r2.timestamp,
+                           max_points=3)
+        self.assertEqual(ls.uq(), 4.0)
+
+    def test_lq(self):
+        s = series_factory()
+        r1 = Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=2.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=3.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=4.0)
+        r2 = Row.objects.create(series=s, timestamp=datetime.now(), value=5.0)
+        ls = LimitedSeries(s, start=r1.timestamp, end=r2.timestamp,
+                           max_points=3)
+        self.assertEqual(ls.lq(), 2.0)
+
+    def test_median(self):
+        s = series_factory()
+        r1 = Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=2.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=3.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=4.0)
+        r2 = Row.objects.create(series=s, timestamp=datetime.now(), value=5.0)
+        ls = LimitedSeries(s, start=r1.timestamp, end=r2.timestamp,
+                           max_points=3)
+        self.assertEqual(ls.median(), 3.0)
+
+    def test_sum(self):
+        s = series_factory()
+        r1 = Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=2.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=3.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=4.0)
+        r2 = Row.objects.create(series=s, timestamp=datetime.now(), value=5.0)
+        ls = LimitedSeries(s, start=r1.timestamp, end=r2.timestamp,
+                           max_points=3)
+        self.assertEqual(ls.sum(), 15.0)
+
+    def test_box_data(self):
+        s = series_factory()
+        r1 = Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=2.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=3.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=4.0)
+        r2 = Row.objects.create(series=s, timestamp=datetime.now(), value=5.0)
+        ls = LimitedSeries(s, start=r1.timestamp, end=r2.timestamp,
+                           max_points=3)
+        r = ls.box_data()
+        self.assertEqual(r['min'], 0.0)
+        self.assertEqual(r['max'], 100.0)
+        self.assertEqual(r['lq'], 25.0)
+        self.assertEqual(r['uq'], 75.0)
+        self.assertEqual(r['median'], 50.0)
