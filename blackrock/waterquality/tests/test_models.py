@@ -1,6 +1,6 @@
 from django.test import TestCase
 from blackrock.waterquality.models import Site, Location, Series, Row
-from blackrock.waterquality.models import LimitedSeries
+from blackrock.waterquality.models import LimitedSeries, LimitedSeriesGroup
 from datetime import datetime
 
 
@@ -312,3 +312,51 @@ class LimitedSeriesTest(TestCase):
         self.assertEqual(r['lq'], 25.0)
         self.assertEqual(r['uq'], 75.0)
         self.assertEqual(r['median'], 50.0)
+
+
+class TestLimitedSeriesGroup(TestCase):
+    def test_min(self):
+        s = series_factory()
+        r1 = Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
+        r2 = Row.objects.create(series=s, timestamp=datetime.now(), value=2.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=3.0)
+        r3 = Row.objects.create(series=s, timestamp=datetime.now(), value=4.0)
+        r4 = Row.objects.create(series=s, timestamp=datetime.now(), value=5.0)
+        ls1 = LimitedSeries(s, start=r1.timestamp, end=r3.timestamp,
+                            max_points=3)
+        ls2 = LimitedSeries(s, start=r2.timestamp, end=r4.timestamp,
+                            max_points=3)
+        lsg = LimitedSeriesGroup([ls1, ls2])
+        self.assertEqual(lsg.min(), 1.0)
+
+    def test_max(self):
+        s = series_factory()
+        r1 = Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
+        r2 = Row.objects.create(series=s, timestamp=datetime.now(), value=2.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=3.0)
+        r3 = Row.objects.create(series=s, timestamp=datetime.now(), value=4.0)
+        r4 = Row.objects.create(series=s, timestamp=datetime.now(), value=5.0)
+        ls1 = LimitedSeries(s, start=r1.timestamp, end=r3.timestamp,
+                            max_points=3)
+        ls2 = LimitedSeries(s, start=r2.timestamp, end=r4.timestamp,
+                            max_points=3)
+        lsg = LimitedSeriesGroup([ls1, ls2])
+        self.assertEqual(lsg.max(), 5.0)
+
+    def test_box_data(self):
+        s = series_factory()
+        r1 = Row.objects.create(series=s, timestamp=datetime.now(), value=1.0)
+        r2 = Row.objects.create(series=s, timestamp=datetime.now(), value=2.0)
+        Row.objects.create(series=s, timestamp=datetime.now(), value=3.0)
+        r3 = Row.objects.create(series=s, timestamp=datetime.now(), value=4.0)
+        r4 = Row.objects.create(series=s, timestamp=datetime.now(), value=5.0)
+        ls1 = LimitedSeries(s, start=r1.timestamp, end=r3.timestamp,
+                            max_points=3)
+        ls2 = LimitedSeries(s, start=r2.timestamp, end=r4.timestamp,
+                            max_points=3)
+        lsg = LimitedSeriesGroup([ls1, ls2])
+        r = lsg.box_data()
+        self.assertEqual(r['max'], 5.0)
+        self.assertEqual(r['min'], 1.0)
+        self.assertEqual(r['count'], 2)
+        self.assertEqual(r['series'][0]['min'], 0.0)
