@@ -38,7 +38,7 @@ urlpatterns = patterns(
 
     (r'^login/$',
      'blackrock.mammals.views.mammals_login'),
-    
+
     (r'^process_login/$',
      'blackrock.mammals.views.process_login'),
     (r'^logout/$', 'django.contrib.auth.views.logout',
