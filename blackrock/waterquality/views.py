@@ -187,7 +187,7 @@ def graphing_tool(request):
             if skip_zeroes:
                 newdata = []
                 for d in data["data"]:
-                    if d[0] == 0 or d[1] == 0:
+                    if d[0] == 0 or d[1] == 0 or d[0] == 0.0 or d[1] == 0.0:
                         continue
                     newdata.append(d)
                 data["data"] = newdata
