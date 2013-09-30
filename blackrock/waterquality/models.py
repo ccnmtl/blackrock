@@ -212,7 +212,7 @@ class LimitedSeriesPair(object):
             newxs = []
             newys = []
             for x, y in zip(xs, ys):
-                if x == 0 or y == 0:
+                if x == 0 or y == 0 or x == 0.0 or y == 0.0:
                     continue
                 newxs.append(x)
                 newys.append(y)

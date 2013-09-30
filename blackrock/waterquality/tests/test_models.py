@@ -416,6 +416,19 @@ class TestLimitedSeriesPair(TestCase):
         self.assertEqual(r['var_a'], 0.0)
         self.assertEqual(r['var_b'], 0.0)
 
+    def test_linear_regression_divide_by_zero(self):
+        s1 = series_factory()
+        s2 = series_factory()
+
+        Row.objects.create(series=s1, timestamp=datetime.now(), value=0.0)
+        Row.objects.create(series=s1, timestamp=datetime.now(), value=0.0)
+        Row.objects.create(series=s2, timestamp=datetime.now(), value=0.0)
+        Row.objects.create(series=s2, timestamp=datetime.now(), value=0.0)
+
+        lsp = LimitedSeriesPair(s1, s2)
+        r = lsp.linear_regression()
+        self.assertEqual(r, None)
+
     def test_regression_line_points(self):
         s1 = series_factory()
         s2 = series_factory()
