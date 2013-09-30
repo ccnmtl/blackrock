@@ -1,35 +1,19 @@
-from models import Series, LimitedSeries, LimitedSeriesPair, LimitedSeriesGroup
-from django.shortcuts import render_to_response, get_object_or_404
-from django.template import RequestContext
+from annoying.decorators import render_to
+from .models import Series, LimitedSeries, LimitedSeriesPair
+from .models import LimitedSeriesGroup
+from django.shortcuts import get_object_or_404
 from datetime import datetime, timedelta
 import math
 from django.conf import settings
 import re
 
 
-class rendered_with(object):
-    def __init__(self, template_name):
-        self.template_name = template_name
-
-    def __call__(self, func):
-        def rendered_func(request, *args, **kwargs):
-            items = func(request, *args, **kwargs)
-            if isinstance(items, dict):
-                return render_to_response(
-                    self.template_name, items,
-                    context_instance=RequestContext(request))
-            else:
-                return items
-
-        return rendered_func
-
-
-@rendered_with('waterquality/index.html')
+@render_to('waterquality/index.html')
 def index(request):
     return dict()
 
 
-@rendered_with('waterquality/teaching.html')
+@render_to('waterquality/teaching.html')
 def teaching(request):
     return dict()
 
@@ -39,7 +23,7 @@ def parse_date(s):
     return datetime(int(year), int(month), int(day))
 
 
-@rendered_with('waterquality/graphing_tool.html')
+@render_to('waterquality/graphing_tool.html')
 def graphing_tool(request):
     data = dict()
     start = request.GET.get('start', None)
@@ -67,17 +51,6 @@ def graphing_tool(request):
 
     data["start"] = start
     data["end"] = end
-    # if graph_type == 'time-series' or graph_type == 'scatter-plot':
-    #     lines = []
-    #     for k in request.GET.keys():
-    #         if k.startswith("line_value_"):
-    #             v = request.GET.get(k, '')
-    #             if v:
-    #                 n = k[len("line_value_"):]
-    #                 l = request.GET.get("line_label_%s" % n)
-    #                 lines.append(dict(label=l, value=v, n=int(n)))
-    #     data["lines"] = lines
-    #     data["allow_more_lines"] = len(lines) < 4
 
     if graph_type == 'time-series' or graph_type == 'scatter-plot':
         lines = []
@@ -91,7 +64,6 @@ def graphing_tool(request):
                     l = request.GET.get("line_label_%s" % n)
                     lines.append(dict(label=l, value=v, n=int(n)))
         data["lines"] = lines
-        #data["allow_more_lines"] = len(lines) < 4
 
     if graph_type == 'time-series':
         series_ids = request.GET.getlist('series')
@@ -215,12 +187,12 @@ def graphing_tool(request):
     return data
 
 
-@rendered_with('waterquality/browse.html')
+@render_to('waterquality/browse.html')
 def browse(request):
     return dict(series=Series.objects.all())
 
 
-@rendered_with('waterquality/series.html')
+@render_to('waterquality/series.html')
 def series(request, id):
     series = get_object_or_404(Series, id=id)
     start = request.GET.get('start', False)
@@ -235,13 +207,13 @@ def series(request, id):
     return dict(series=series, lseries=lseries)
 
 
-@rendered_with('waterquality/series_all.html')
+@render_to('waterquality/series_all.html')
 def series_all(request, id):
     series = get_object_or_404(Series, id=id)
     return dict(series=series)
 
 
-@rendered_with('waterquality/series_verify.html')
+@render_to('waterquality/series_verify.html')
 def series_verify(request, id):
     series = get_object_or_404(Series, id=id)
     start_date = series.row_set.all()[0].timestamp

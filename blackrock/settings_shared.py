@@ -147,7 +147,8 @@ INSTALLED_APPS = [
     'south',
     'django_nose',
     'django_jenkins',
-    'smoketest'
+    'smoketest',
+    'annoying',
 ]
 
 # Pageblocks/Pagetree settings
