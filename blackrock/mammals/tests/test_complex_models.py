@@ -12,9 +12,9 @@ from django.utils import simplejson
 class ModelsTest(TestCase):
 
     def setUp(self):
-    	'''trying to create sighting leaving out attibtutes whic are key or objects - location = objects = species = date = observers =    observation_type =     how_many_observed =      notes ='''
-    	self.sighting = Sighting()
-    	self.sighting.save()
+        '''trying to create sighting leaving out attibtutes whic are key or objects - location = objects = species = date = observers =    observation_type =     how_many_observed =      notes ='''
+        self.sighting = Sighting()
+        self.sighting.save()
         self.expedition = Expedition()
         self.expedition.save()
         self.trap_location = TrapLocation()
@@ -29,6 +29,68 @@ class ModelsTest(TestCase):
         self.timed_expedition.save()
         self.time_trap = TrapLocation(expedition=self.timed_expedition, team_letter="team name here", team_number=6, habitat=self.habitat, animal=self.animal)
         self.time_trap.save()
+        self.new_sighting = Sighting(species=self.species, date=datetime.now())
+        self.new_sighting.save()
+        self.grid_point_nw = GridPoint()
+        self.grid_point_nw.save()
+        self.grid_point_ne = GridPoint()
+        self.grid_point_ne.save()
+        self.grid_point_sw = GridPoint()
+        self.grid_point_sw.save()
+        self.grid_point_se = GridPoint()
+        self.grid_point_se.save()
+        self.grid_point_center = GridPoint()
+        self.grid_point_center.save()
+        self.grid_square = GridSquare(NW_corner=self.grid_point_nw, NE_corner=self.grid_point_ne, SW_corner=self.grid_point_sw, SE_corner=self.grid_point_se, center=self.grid_point_center, display_this_square=False, row=1, column=0, access_difficulty=3, terrain_difficulty=4)
+        self.grid_square.save()
+
+    def test_sighting_methods(self):
+        self.new_sighting.set_lat_long([5.0, 8.0])
+        self.assertIsNotNone(self.new_sighting.location)
+        self.assertEquals(self.new_sighting.lat(), 5.0)
+        # make sure blank sightings returns None
+        self.assertEquals(self.sighting.lat(), None)
+        self.assertEquals(self.new_sighting.lon(), 8.0)
+        self.assertEquals(self.sighting.lon(), None)
+        self.assertIsNotNone(self.new_sighting.date_for_solr())
+
+    def test_species_has_attributes(self):
+        species_attributes = self.species.dir()
+        self.assertIn("latin_name", species_attributes)
+        self.assertIn("common_name", species_attributes)
+        self.assertIn("about_this_species", species_attributes)
+        self.assertEquals(self.species.latin_name, "official_mouse_name")
+        self.assertEquals(self.species.common_name, "blackrock_mouse")
+        self.assertEquals(self.species.about_this_species, "too smart for traps")
+        self.other_species = Species()
+        self.other_species.latin_name = "official_name"
+        self.other_species.common_name = "blackrock"
+        self.other_species.about_this_species = "too smart for traps"
+        self.assertEquals(self.other_species.latin_name, "official_name")
+        self.assertEquals(self.other_species.common_name, "blackrock")
+        self.assertEquals(self.other_species.about_this_species, "too smart for traps")
+
+
+
+    def test_grid_point_assignments_dir_and_uni(self):
+        self.grid_point_nw.set_lat_long([4,5])
+        gp_dir = self.grid_point_nw.dir()
+        self.grid_point_nw.save()
+        self.assertIn("geo_point", gp_dir)
+        self.assertIn("objects", gp_dir)
+        self.assertEquals(self.grid_point_nw.lat(), 4.0)
+        self.assertEquals(self.grid_point_nw.lon(), 5.0)
+        self.assertEquals(self.grid_point_nw.NSlat(), '%0.5F N' % abs(self.grid_point_nw.lat()))
+        self.assertEquals(self.grid_point_nw.EWlon(), '%0.5F E' % abs(self.grid_point_nw.lon()))
+        self.assertEquals(self.grid_point_nw.gps_coords(),"%s, %s" % (self.grid_point_nw.NSlat(), self.grid_point_nw.EWlon()))
+        self.assertEquals(unicode(self.grid_point_nw), self.grid_point_nw.gps_coords() )
+        self.assertEquals(type(self.grid_point_nw.create([6,7])), type(GridPoint()))
+        self.grid_point_se.set_lat_long([-8,-9])
+        self.grid_point_se.save()
+        self.assertEquals(self.grid_point_se.NSlat(), '%0.5F S' % abs(self.grid_point_se.lat()))
+        self.assertEquals(self.grid_point_se.EWlon(), '%0.5F W' % abs(self.grid_point_se.lon()))
+        self.assertEquals(self.grid_point_se.lat(), self.grid_point_se.geo_point.coords[0])
+        self.assertEquals(self.grid_point_se.lon(), self.grid_point_se.geo_point.coords[1])
 
 
     def test_sighting_has_attributes(self):
@@ -117,6 +179,46 @@ class ModelsTest(TestCase):
         self.assertIn("habitat_if_any", dir_test)
         self.assertIn("habitat_id_if_any", dir_test)
         self.assertIn("species_if_any", dir_test)
+
+
+    def test_create_observation_type(self):
+        observation = ObservationType()
+        self.failUnlessEqual(type(ObservationType()), type(observation))
+
+    def test_create_observation_self(self):
+        self.observation = ObservationType()
+        self.observation.save()
+        self.failUnlessEqual(type(ObservationType()), type(self.observation))
+
+    def test_grid_square_uni_dir(self):
+        self.assertEquals(unicode(self.grid_square), "Row %d, column %d" % (self.grid_square.row, self.grid_square.column))
+        dir_test = self.grid_square.dir()
+        self.assertIn("row", dir_test)
+        self.assertIn("column", dir_test)
+        self.assertIn("access_difficulty", dir_test)
+        self.assertIn("corner_names", dir_test)
+        self.assertIn("corners", dir_test)
+        self.assertIn("corner_obj", dir_test)
+        self.assertIn("corner_obj_json", dir_test)
+        self.assertIn("info_for_display", dir_test)
+        self.assertIn("block_json", dir_test)
+
+    def test_grid_square_corner_names_method(self):
+        corner_names = self.grid_square.corner_names()
+        self.assertEquals(['SW_corner','NW_corner','NE_corner','SE_corner','center'], corner_names)
+
+    def test_battleship_coords(self):
+        battleship_coordinates = self.grid_square.battleship_coords()
+        self.assertIsNotNone(battleship_coordinates)
+
+#    def test_grid_square_display_info(self):
+#        info_for_display = self.grid_square.info_for_display()
+        #self.assertIn("row", info_for_display)
+        #self.assertIn("column", info_for_display)
+        #self.assertIn("access_difficulty", info_for_display)
+        #self.assertIn("terrain_difficulty", info_for_display)
+        #self.assertIn("database_id", info_for_display)
+
 
 
     def tearDown(self):

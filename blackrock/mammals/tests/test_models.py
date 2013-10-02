@@ -45,6 +45,37 @@ class ModelsTest(TestCase):
     def test_grade_level_uni(self):
         gl = self.grade_level.__unicode__()
         self.assertEquals(gl, "grade_level_here")
+        self.new_grade_level = GradeLevel()
+        self.failUnlessEqual(type(GradeLevel()), type(self.new_grade_level))
+        self.failUnless(hasattr(self.new_grade_level, 'label'))
+        self.new_grade_level.label = "value of label"
+        self.new_grade_level.save()
+        self.failUnless(self.new_grade_level.id)
+        self.assertEquals(unicode(self.new_grade_level), "value of label")
+        self.another_grade_level = GradeLevel()
+        self.assertEquals(self.another_grade_level.label, "")
+        self.another_grade_level.label = "a" * 267
+        self.failUnlessRaises(Warning, self.another_grade_level.save())
+        self.assertIn("label", self.new_grade_level.dir())
+        #self.assertEquals(type(self.another_grade_level.label), models.CharField)
+        #self.assertEquals(self.another_grade_level.label.blank, True)
+        #self.assertIn(self.new_grade_level, "blank")
+
+    def test_grade_level_no_self(self):
+        new_grade_level = GradeLevel()
+        self.failUnlessEqual(type(GradeLevel()), type(new_grade_level))
+        self.failUnless(hasattr(new_grade_level, 'label'))
+        new_grade_level.label = "value of label"
+        new_grade_level.save()
+        self.failUnless(new_grade_level.id)
+        self.assertEquals(unicode(new_grade_level), "value of label")
+        another_grade_level = GradeLevel()
+        self.assertEquals(another_grade_level.label, "")
+        another_grade_level.label = "a" * 267
+        self.failUnlessRaises(Warning, another_grade_level.save())
+        self.assertIn("label", new_grade_level.dir())
+
+
 
     def test_grade_level_dir(self):
         gl = self.grade_level.dir()
@@ -75,6 +106,11 @@ class ModelsTest(TestCase):
     def test_bait_uni(self):
         bait_uni = self.bait.__unicode__()
         self.assertEquals(bait_uni, "very good nibbles")
+        self.assertEquals(unicode(self.bait), "very good nibbles")
+        self.new_bait = Bait()
+        self.failUnlessEqual(type(Bait()), type(self.new_bait))
+        self.failUnless(hasattr(self.new_bait, "bait_name"))
+
 
     def test_bait_dir(self):
         bait_dir = self.bait.dir()
@@ -107,6 +143,10 @@ class ModelsTest(TestCase):
     def test_school_uni(self):
         school_uni = self.school.__unicode__()
         self.assertEquals(school_uni, self.school.name)
+        self.new_school = School()
+        self.new_school.name = "new school"
+        self.assertEquals(unicode(self.new_school), "new school" )
+
 
 
     def tearDown(self):
