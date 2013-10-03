@@ -21,13 +21,28 @@ class TestMoreMammalModels(TestCase):
         self.trap_location.save()
         self.species = Species(latin_name="official_mouse_name", common_name="blackrock_mouse", about_this_species="too smart for traps",)
         self.species.save()
-        self.animal = Animal(species=self.species, description="this is a special mouse", tag_number="6789", health="excellent", weight_in_grams=35) #left off sex of animal, age of animal, scale used - foreign keys? other details which were booleans with default left off
-        self.animal.save()
+        self.animal_1 = Animal(species=self.species, description="this is a special mouse", tag_number="6789", health="excellent", weight_in_grams=35) #left off sex of animal, age of animal, scale used - foreign keys? other details which were booleans with default left off
+        self.animal_1.save()
+        self.animal_2 = Animal(species=self.species, description="this is a naughty mouse", tag_number="8355", health="excellent", weight_in_grams=45) #left off sex of animal, age of animal, scale used - foreign keys? other details which were booleans with default left off
+        self.animal_2.save()
+        self.animal_3 = Animal(species=self.species, description="this is a super mouse", tag_number="8888", health="excellent", weight_in_grams=15) #left off sex of animal, age of animal, scale used - foreign keys? other details which were booleans with default left off
+        self.animal_3.save()
+        self.another_expedition = Expedition(start_date_of_expedition=datetime.now(), end_date_of_expedition=datetime.now())
+        self.another_expedition.save()
         self.habitat = Habitat(label="habitat label", blurb="this is a habitat", image_path_for_legend="/path/here", color_for_map="111")
         self.habitat.save()
+        self.trap_1 = TrapLocation(expedition=self.another_expedition, team_letter="A", team_number=1, habitat=self.habitat, animal=self.animal_1)
+        self.trap_1.save()
+        self.trap_2 = TrapLocation(expedition=self.another_expedition, team_letter="B", team_number=2, habitat=self.habitat, animal=self.animal_2)
+        self.trap_2.save()
+        self.trap_3 = TrapLocation(expedition=self.another_expedition, team_letter="C", team_number=3, habitat=self.habitat, animal=self.animal_3)
+        self.trap_3.save()
+        self.trap_4 = TrapLocation(expedition=self.another_expedition, team_letter="D", team_number=4, habitat=self.habitat)
+        self.trap_4.save()
+        self.another_expedition.save()
         self.timed_expedition = Expedition(end_date_of_expedition=datetime.now())
         self.timed_expedition.save()
-        self.time_trap = TrapLocation(expedition=self.timed_expedition, team_letter="team name here", team_number=6, habitat=self.habitat, animal=self.animal)
+        self.time_trap = TrapLocation(expedition=self.timed_expedition, team_letter="team name here", team_number=6, habitat=self.habitat, animal=self.animal_1)
         self.time_trap.save()
         self.new_sighting = Sighting(species=self.species, date=datetime.now())
         self.new_sighting.save()
@@ -43,6 +58,7 @@ class TestMoreMammalModels(TestCase):
         self.grid_point_center.save()
         self.grid_square = GridSquare(NW_corner=self.grid_point_nw, NE_corner=self.grid_point_ne, SW_corner=self.grid_point_sw, SE_corner=self.grid_point_se, center=self.grid_point_center, display_this_square=False, row=1, column=0, access_difficulty=3, terrain_difficulty=4)
         self.grid_square.save()
+
 
     def test_sighting_methods(self):
         self.new_sighting.set_lat_long([5.0, 8.0])
@@ -207,9 +223,40 @@ class TestMoreMammalModels(TestCase):
         corner_names = self.grid_square.corner_names()
         self.assertEquals(['SW_corner','NW_corner','NE_corner','SE_corner','center'], corner_names)
 
+    '''There may be a typo in the actual program says for corner_name may be supposed to be corner_names'''
+    # def test_grid_square_corners(self):
+    #     #corner_names = self.grid_square.corner_names()
+    #     corners = self.grid_square.corners()
+    #     self.assertIn( "SW_corner", corners)
+    #     self.assertIn( type(GridPoint()), corners)
+
+
+    def test_corner_obj(self):
+        self.grid_point_nw.set_lat_long([4,5])
+        self.grid_point_se.set_lat_long([-8,-9])
+        self.grid_point_sw.set_lat_long([-8,-9])
+        self.grid_point_ne.set_lat_long([-8,-9])
+        self.grid_point_center.set_lat_long([-8,-9])
+        corner_objects = self.grid_square.corner_obj()
+        self.assertEquals([[-8.0, -9.0], [4.0, 5.0], [-8.0, -9.0], [-8.0, -9.0], [-8.0, -9.0]], corner_objects)
+
+
+    def test_corner_obj_json(self):
+        self.grid_point_nw.set_lat_long([4,5])
+        self.grid_point_se.set_lat_long([-8,-9])
+        self.grid_point_sw.set_lat_long([-8,-9])
+        self.grid_point_ne.set_lat_long([-8,-9])
+        self.grid_point_center.set_lat_long([-8,-9])
+        corner_obj_json = self.grid_square.corner_obj_json()
+        self.assertIn("[4.0, 5.0]", corner_obj_json)
+        self.assertEquals('[[-8.0, -9.0], [4.0, 5.0], [-8.0, -9.0], [-8.0, -9.0], [-8.0, -9.0]]', corner_obj_json)
+
+
+
     def test_battleship_coords(self):
         battleship_coordinates = self.grid_square.battleship_coords()
         self.assertIsNotNone(battleship_coordinates)
+
 
 #    def test_grid_square_display_info(self):
 #        info_for_display = self.grid_square.info_for_display()
@@ -217,8 +264,65 @@ class TestMoreMammalModels(TestCase):
         #self.assertIn("column", info_for_display)
         #self.assertIn("access_difficulty", info_for_display)
         #self.assertIn("terrain_difficulty", info_for_display)
-        #self.assertIn("database_id", info_for_display)
+        #self.assertIn("database_id", info_for_display) 
 
+
+    # Test More Expedition Methods
+    def test_trap_locations(self):
+        '''Test methods requiring TrapLocations, Animals, and Teams'''
+        '''This is not a good test - the unicode returns the gps coordinates
+        so it is returning TrapLocation objects but need to verify that they
+        have team letter and number'''
+        trap_location_team = self.another_expedition.trap_locations_ordered_by_team()
+        #self.assertIn(TrapLocation(), trap_location_team)
+        self.assertEquals(1, trap_location_team[0].team_number)
+        self.assertEquals('A', trap_location_team[0].team_letter)
+        self.assertEquals(2, trap_location_team[1].team_number)
+        self.assertEquals('B', trap_location_team[1].team_letter)
+        self.assertEquals(3, trap_location_team[2].team_number)
+        self.assertEquals('C', trap_location_team[2].team_letter)
+        self.assertEquals(4, trap_location_team[3].team_number)
+        self.assertEquals('D', trap_location_team[3].team_letter)
+        
+    def test_mammals(self):
+        '''Only return trap locations which have caught an animal. In this case the first three as in above method test_trap_locations. Should exclude trap 4.'''
+        animals_trapped = self.another_expedition.animal_locations()
+        self.assertEquals(1, animals_trapped[0].team_number)
+        self.assertEquals("blackrock_mouse", animals_trapped[0].animal.species.common_name)
+        self.assertEquals('A', animals_trapped[0].team_letter)
+        self.assertEquals(2, animals_trapped[1].team_number)
+        self.assertEquals('B', animals_trapped[1].team_letter)
+        self.assertEquals(3, animals_trapped[2].team_number)
+        self.assertEquals('C', animals_trapped[2].team_letter)
+
+
+    def test_number_of_mammals(self):
+        number_of_mammals = self.another_expedition.how_many_mammals_caught()
+        self.assertEquals(number_of_mammals, 3)
+
+    def test_team_points(self):
+        '''Takes a team_letter and returns matching trap locations with letter'''
+        team_a = self.another_expedition.team_points('A')
+        self.assertEquals(team_a[0].team_letter, 'A')
+        team_b = self.another_expedition.team_points('B')
+        self.assertEquals(team_b[0].team_letter, 'B')
+        team_c = self.another_expedition.team_points('C')
+        self.assertEquals(team_c[0].team_letter, 'C')
+
+    def test_end_minute_string(self):
+        self.new_expedition = Expedition(field_notes="some field notes here")
+        self.new_expedition.save()
+        end_minute_string = self.new_expedition.end_minute_string()
+        self.assertIsNotNone(end_minute_string)
+        self.assertEquals(end_minute_string, "%02d" % self.new_expedition.end_date_of_expedition.minute)
+
+
+    def test_end_hour_string(self):
+        self.new_expedition = Expedition(field_notes="some field notes here")
+        self.new_expedition.save()
+        end_hour_string = self.new_expedition.end_hour_string()
+        self.assertIsNotNone(end_hour_string)
+        self.assertEquals(end_hour_string, "%02d" % self.new_expedition.end_date_of_expedition.hour)
 
 
     def tearDown(self):
@@ -230,292 +334,5 @@ class TestMoreMammalModels(TestCase):
 
 
 
-#     suggested_point = models.PointField(null=True, blank=True)
-
-#     actual_point = models.PointField(null=True, blank=True)
-#     objects = models.GeoManager()
-
-#     # instead we're linking directly to the type of trap.
-#     trap_type = models.ForeignKey(
-#         TrapType, null=True, blank=True,
-#         help_text="Which type of trap, if any, was left at this location.")
-
-#     understory = models.TextField(
-#         blank=True, null=True, default='', help_text="Understory")
-
-#     notes_about_location = models.TextField(
-#         blank=True, help_text="Notes about the location")
-
-#     # this is wrt true north. for wrt mag. north, see method below
-#     transect_bearing = models.FloatField(
-#         blank=True, null=True, help_text="Heading of this bearing")
-#     transect_distance = models.FloatField(
-#         blank=True, null=True, help_text="Distance along this bearing")
-
-#     # Team info:
-
-#     order = models.IntegerField(
-#         blank=True, null=True, help_text="Order in which to show this trap.")
-
-
-
-#     # info about the outcome:
-#     whether_a_trap_was_set_here = models.BooleanField(
-#         help_text='''We typically won't use all the locations suggested by the
-#         randomization recipe; this denotes that a trap was actually placed at
-#         or near this point.''')
-#     bait = models.ForeignKey(
-#         Bait, null=True, blank=True, help_text="Any bait used",
-#         on_delete=models.SET_NULL)
-#     animal = models.ForeignKey(Animal, null=True, blank=True,
-#                                help_text="Any animals caught",
-#                                on_delete=models.SET_NULL)
-#     bait_still_there = models.BooleanField(
-#         help_text='''Was the bait you left in the trap still there
-#         when you came back?''')
-
-#     notes_about_outcome = models.TextField(
-#         blank=True, help_text="Any miscellaneous notes about the outcome")
-
-#     student_names = models.TextField(
-#         blank=True, null=True,
-#         help_text='''Names of the students responsible for this location
-#         (this would be filled in, if at all, by the instructor after the
-#         students have left the forest.''', max_length=256)
-
-
-
-# class TrapLocation(models.Model):
-
-#     @classmethod
-#     def create_from_obj(self, transect_obj, point_obj, the_expedition):
-#         t = TrapLocation()
-
-#         t.expedition = the_expedition
-
-#         t.transect_bearing = transect_obj['heading']
-#         t.team_letter = transect_obj['team_letter']
-
-#         t.set_actual_lat_long(point_obj['point'])
-#         t.set_suggested_lat_long(point_obj['point'])
-#         t.transect_distance = point_obj['distance']
-#         t.team_number = point_obj['point_id']
-
-#         t.save()
-
-#         return t
-
-#     def recreate_point_obj(self):
-#         result = {}
-#         result['distance'] = self.transect_distance
-#         result['point_id'] = self.team_number
-#         result['point'] = [self.suggested_lat(), self.suggested_lon()]
-#         return result
-
-#     """ A location you might decide to set a trap."""
-
-
-#     def __unicode__(self):
-#         return self.gps_coords()
-
-
-
-
-
-#     def school_if_any(self):
-#         if self.expedition.school:
-#             return self.expedition.school.name
-#         else:
-#             return None
-
-#     def search_map_repr(self):
-#         result = {}
-
-#         info_string = \
-#             "Animal: %s</br>Habitat: %s</br>School: %s</br>Date: %s" % (
-#                 self.species_if_any(), self.habitat_if_any(),
-#                 self.school_if_any(), self.date())
-
-#         result['name'] = info_string
-#         result['where'] = [self.actual_lat(), self.actual_lon()]
-
-#         result['species'] = self.species_if_any()
-#         result['habitat_id'] = self.habitat_id_if_any()
-#         result['habitat'] = self.habitat_if_any()
-#         result['school'] = self.school_if_any()
-#         result['date'] = self.date()
-
-#         return result
-
-#     def dir(self):
-#         return dir(self)
-
-#     def gps_coords(self):
-#         return "%s, %s" % (self.actual_NSlat(), self.actual_EWlon())
-
-
-
-
-
-
-
-# class Expedition (models.Model):
-
-#     def __unicode__(self):
-#         return u"Expedition %d started on %s" % (
-#             self.id, self.start_date_of_expedition.strftime("%m/%d/%y"))
-
-#     def get_absolute_url(self):
-#         return "/mammals/expedition/%i/" % self.id
-
-#     # TODO make default sort by date, starting w/ most recent.
-
-#     class Meta:
-#         ordering = ['-end_date_of_expedition']
-
-#     @classmethod
-#     def create_from_obj(self, json_obj, creator):
-#         expedition = Expedition()
-#         expedition.created_by = creator
-#         expedition.number_of_students = 0
-#         expedition.save()
-
-#         for transect in json_obj:
-#             for point in transect['points']:
-#                 TrapLocation.create_from_obj(transect, point, expedition)
-
-#         return expedition
-
-#     start_date_of_expedition = models.DateTimeField(
-#         auto_now_add=True, null=True)
-#     end_date_of_expedition = models.DateTimeField(
-#         auto_now_add=True, null=True)
-#     real = models.BooleanField(
-#         default=True, help_text="Is this expedition real or just a test?")
-#     created_on = models.DateTimeField(auto_now_add=True, null=False)
-#     created_by = models.ForeignKey(
-#         User, blank=True, null=True, related_name='expeditions_created')
-#     notes_about_this_expedition = models.TextField(
-#         blank=True, help_text="Notes about this expedition")
-#     school = models.ForeignKey(School, blank=True, null=True)
-#     school_contact_1_name = models.CharField(
-#         blank=True, help_text="First contact @ the school -- name",
-#         max_length=256)
-#     school_contact_1_phone = models.CharField(
-#         blank=True, help_text="First contact @ the school -- e-mail",
-#         max_length=256)
-#     school_contact_1_email = models.CharField(
-#         blank=True, help_text="First contact @ the school -- phone",
-#         max_length=256)
-#     number_of_students = models.IntegerField(
-#         help_text="How many students participated", default=0)
-#     grade_level = models.ForeignKey(GradeLevel, null=True, blank=True)
-#     grid_square = models.ForeignKey(
-#         GridSquare, null=True, blank=True, related_name="Grid Square",
-#         verbose_name="Grid Square used for this expedition")
-
-#     field_notes = models.CharField(blank=True, null=True, max_length=1024)
-#     cloud_cover = models.ForeignKey(
-#         ExpeditionCloudCover, null=True, blank=True,
-#         related_name="exp_cloudcover")
-#     overnight_temperature = models.ForeignKey(
-#         ExpeditionOvernightTemperature, null=True, blank=True,
-#         related_name="exp_temperature")
-
-#     overnight_temperature_int = models.IntegerField(
-#         help_text="Overnight Temperature", default=0)
-
-#     overnight_precipitation = models.ForeignKey(
-#         ExpeditionOvernightPrecipitation, null=True, blank=True,
-#         related_name="exp_precipitation")
-#     overnight_precipitation_type = models.ForeignKey(
-#         ExpeditionOvernightPrecipitationType, null=True, blank=True,
-#         related_name="exp_precipitation_type")
-#     moon_phase = models.ForeignKey(
-#         ExpeditionMoonPhase, null=True, blank=True,
-#         related_name="exp_moon_phase")
-#     illumination = models.ForeignKey(
-#         Illumination, null=True, blank=True, related_name="exp_illumination")
-
-
-#     def how_many_mammals_caught(self):
-#         return len(self.animal_locations())
-
-#     def animal_locations(self):
-#         return [t for t in self.trap_locations_ordered_by_team() if t.animal]
-
-#     def trap_locations_ordered_by_team(self):
-#         return self.traplocation_set.order_by(
-#             'team_number').order_by('team_letter')
-
-#     def team_points(self, team_letter):
-#         return [p for p in self.traplocation_set.all().order_by('team_number')
-#                 if p.team_letter == team_letter]
-
-#     def set_end_time_if_none(self):
-#         if self.end_date_of_expedition is None:
-#             self.end_date_of_expedition = datetime.now()
-#             self.save()
-
-#     def end_minute_string(self):
-
-#         return "%02d" % self.end_date_of_expedition.minute
-
-#     def end_hour_string(self):
-#         return "%02d" % self.end_date_of_expedition.hour
-
-#     def set_end_time_from_strings(self,
-#                                   expedition_hour_string,
-#                                   expedition_minute_string):
-#         self.set_end_time_if_none()
-#         new_time = self.end_date_of_expedition.replace(
-#             hour=int(expedition_hour_string),
-#             minute=int(expedition_minute_string))
-#         self.end_date_of_expedition = new_time
-#         self.save()
-
-#     def transects(self):
-#         result = []
-#         points_and_letters = dict((t, t.team_letter)
-#                                   for t in self.traplocation_set.all())
-#         team_letters = sorted(list(set(points_and_letters.values())))
-#         the_id = 0
-#         for letter in team_letters:
-#             the_other_id = 0
-#             the_id = the_id + 1
-#             the_points = [
-#                 point for point, x in points_and_letters.iteritems()
-#                 if x == letter]
-#             a_point = the_points[0]
-#             transect_points = [a.recreate_point_obj() for a in the_points]
-
-#             for p in transect_points:
-#                 the_other_id = the_other_id + 1
-#                 p['transect_id'] = the_id
-#                 p['point_index_2'] = the_other_id
-
-#             side_of_square = 250.0  # meters. #TODO move this to settings.
-#             trig_radians_angle = positive_radians(
-#                 degrees_to_radians(a_point.transect_bearing))
-#             transect_length = length_of_transect(
-#                 trig_radians_angle, side_of_square)
-
-#             magnetic_north = a.transect_bearing_wrt_magnetic_north()
-
-#             transect_info = {
-#                 'transect_id': the_id,
-#                 'team_letter': letter,
-#                 'heading': a_point.transect_bearing,
-#                 'heading_radians': trig_radians_angle,
-#                 'length': transect_length,
-#                 'edge': a_point.transect_endpoints()['edge'],
-#                 'heading_wrt_magnetic_north': magnetic_north,
-#                 'points': transect_points,
-#             }
-#             result.append(transect_info)
-#         return result
-
-#     def transects_json(self):
-#         return simplejson.dumps(self.transects())
 
 
