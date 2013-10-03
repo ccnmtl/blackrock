@@ -27,7 +27,7 @@ class LastImportDate(models.Model):
             t = time.strptime(
                 date_string + ' ' + time_string, '%Y-%m-%d %H:%M:%S')
             tz = pytz.timezone('US/Eastern')
-            dt = datetime.datetime(
+            dt = datetime(
                 t[0], t[1], t[2], t[3], t[4], t[5], tzinfo=tz)
             return dt
         except:
