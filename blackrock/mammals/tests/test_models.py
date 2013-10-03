@@ -19,7 +19,7 @@ test:
     Habitat - uni and dir
     School - uni
 '''
-class ModelsTest(TestCase):
+class TestMammalModels(TestCase):
 
     def setUp(self):
         self.grade_level = GradeLevel(label="grade_level_here")
@@ -36,8 +36,6 @@ class ModelsTest(TestCase):
         self.trap.save()
         self.habitat = Habitat(label="habitat label", blurb="this is a habitat", image_path_for_legend="/path/here", color_for_map="111")
         self.habitat.save()
-        #self.grid_square=()
-        #self.grid_square.save()
         self.school = School(name="school", address="school address", contact_1_name="contact 1 for school", contact_1_phone="000-000-0000", contact_1_email="contact1@contact1.com", contact_2_name="contact 2 for school", contact_2_phone="111-111-1111", contact_2_email="contact2@contacts.com", notes="this student has appropriate information")
         self.school.save()
 
@@ -84,9 +82,14 @@ class ModelsTest(TestCase):
 
 
     def test_species_uni(self):
-    	sp_uni = self.species.__unicode__()
-    	self.assertEquals(sp_uni, "blackrock_mouse")
-	
+        sp_uni = self.species.__unicode__()
+        self.assertEquals(sp_uni, "blackrock_mouse")
+        self.assertNotEquals(sp_uni, "blkms")
+        self.assertIsNot(sp_uni, "blkms")
+        self.new_species = Species()
+        self.new_species.common_name="blkms"
+        self.assertEquals(unicode(self.new_species), "blkms")
+
     def test_species_dir(self):
         sp = self.species.dir()
         self.assertEquals(type(sp), list)
@@ -94,8 +97,8 @@ class ModelsTest(TestCase):
 
 
     def test_trap_uni(self):
-    	trap_uni = self.trap.__unicode__()
-    	self.assertEquals(trap_uni, "ineffective mouse trap")
+        trap_uni = self.trap.__unicode__()
+        self.assertEquals(trap_uni, "ineffective mouse trap")
 
     def test_trap_dir(self):
         trap_dir = self.trap.dir()

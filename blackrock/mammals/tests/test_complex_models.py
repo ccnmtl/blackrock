@@ -9,7 +9,7 @@ from django.utils import simplejson
 
 
 
-class ModelsTest(TestCase):
+class TestMoreMammalModels(TestCase):
 
     def setUp(self):
         '''trying to create sighting leaving out attibtutes whic are key or objects - location = objects = species = date = observers =    observation_type =     how_many_observed =      notes ='''
