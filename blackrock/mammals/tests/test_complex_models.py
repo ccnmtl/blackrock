@@ -407,6 +407,21 @@ class TestMoreMammalModels(TestCase):
         self.assertIsNone(self.time_trap.actual_lat())
         self.assertIsNone(self.time_trap.actual_lon())
 
+    def test_trap_location_school(self):
+        self.school = School(name="school", address="school address", contact_1_name="contact 1 for school", contact_1_phone="000-000-0000", contact_1_email="contact1@contact1.com", contact_2_name="contact 2 for school", contact_2_phone="111-111-1111", contact_2_email="contact2@contacts.com", notes="this student has appropriate information")
+        self.school.save()
+        self.another_expedition.school=self.school
+        self.assertIsNotNone(self.trap_4.school_if_any())
+        self.assertEquals(self.trap_4.school_if_any(), "school")
+        self.assertIsNone(self.time_trap.school_if_any())
+
+    def test_sightings_date_for_solr(self):
+        self.new_sighting = Sighting(species=self.species, date=datetime.now())
+        self.new_sighting.save()
+        self.assertIsNotNone(self.new_sighting.date_for_solr())
+        #you can test for none - auto generated
+        #self.assertIsNone(self.sighting.date_for_solr())
+
 
     def tearDown(self):
         self.sighting.delete()
