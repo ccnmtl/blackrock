@@ -60,6 +60,7 @@ class TestMoreMammalModels(TestCase):
         self.grid_square.save()
 
 
+
     def test_sighting_methods(self):
         self.new_sighting.set_lat_long([5.0, 8.0])
         self.assertIsNotNone(self.new_sighting.location)
@@ -296,6 +297,14 @@ class TestMoreMammalModels(TestCase):
         self.assertEquals('C', animals_trapped[2].team_letter)
 
 
+    def test_expedition_unicode(self):
+        self.assertEquals(unicode(self.another_expedition), "Expedition %d started on %s" % (self.another_expedition.id, self.another_expedition.start_date_of_expedition.strftime("%m/%d/%y")))
+
+
+    def test_expedition_absolute_url(self):
+        self.assertEquals(self.another_expedition.get_absolute_url(), "/mammals/expedition/%i/" % self.another_expedition.id)
+
+
     def test_number_of_mammals(self):
         number_of_mammals = self.another_expedition.how_many_mammals_caught()
         self.assertEquals(number_of_mammals, 3)
@@ -308,6 +317,7 @@ class TestMoreMammalModels(TestCase):
         self.assertEquals(team_b[0].team_letter, 'B')
         team_c = self.another_expedition.team_points('C')
         self.assertEquals(team_c[0].team_letter, 'C')
+
 
     def test_end_minute_string(self):
         self.new_expedition = Expedition(field_notes="some field notes here")
@@ -323,6 +333,79 @@ class TestMoreMammalModels(TestCase):
         end_hour_string = self.new_expedition.end_hour_string()
         self.assertIsNotNone(end_hour_string)
         self.assertEquals(end_hour_string, "%02d" % self.new_expedition.end_date_of_expedition.hour)
+
+    # Now test TrapLocation methods
+    def test_points_trap_location(self):
+        self.trap_4.set_suggested_lat_long([4,5])
+        self.trap_4.set_actual_lat_long([6,7])
+        self.trap_4.save()
+
+        actual_lat = self.trap_4.actual_lat()
+        actual_lon = self.trap_4.actual_lon()
+        self.assertEquals(actual_lat, 6)
+        self.assertEquals(actual_lon, 7)
+        
+        suggested_lon = self.trap_4.suggested_lon()
+        suggested_lat = self.trap_4.suggested_lat()
+        self.assertEquals(suggested_lat, 4)
+        self.assertEquals(suggested_lon, 5)
+
+
+    def test_points_trap_location_when_none(self):
+        self.assertIsNone(self.time_trap.suggested_lat())
+        self.assertIsNone(self.time_trap.suggested_lon())
+        self.assertIsNone(self.time_trap.actual_lat())
+        self.assertIsNone(self.time_trap.actual_lon())
+
+    def test_trap_location_unicode(self):
+        self.assertEquals(unicode(self.trap_4), self.trap_4.gps_coords())
+
+    def test_trap_location_suggested_gps_coords(self):
+        self.assertEquals(self.trap_4.suggested_gps_coords(), "%s, %s" % (self.trap_4.suggested_NSlat(), self.trap_4.suggested_EWlon()))
+
+
+    def test_trap_location_actual_gps_coords(self):
+        self.assertEquals(self.trap_4.actual_gps_coords(), "%s, %s" % (self.trap_4.actual_NSlat(), self.trap_4.actual_EWlon()))
+
+
+    def test_trap_location_suggested_NSlat_EWlon_positive_values(self):
+        self.trap_4.set_suggested_lat_long([4,5])
+        self.trap_4.save()
+        self.assertEquals(self.trap_4.suggested_NSlat(), '%0.5F N' % abs(self.trap_4.suggested_lat()))
+        self.assertEquals(self.trap_4.suggested_EWlon(), '%0.5F E' % abs(self.trap_4.suggested_lon()))
+    
+
+    def test_trap_location_suggested_NSlat_EWlon_negative_values(self):
+        self.trap_4.set_suggested_lat_long([-3,-4])
+        self.trap_4.save()
+
+        self.assertEquals(self.trap_4.suggested_NSlat(), '%0.5F S' % abs(self.trap_4.suggested_lat()))
+        self.assertEquals(self.trap_4.suggested_EWlon(), '%0.5F W' % abs(self.trap_4.suggested_lon()))
+
+
+    def test_trap_location_suggested_NSlat_EWlon_None(self):
+        self.assertIsNone(self.time_trap.suggested_lat())
+        self.assertIsNone(self.time_trap.suggested_lon())
+
+
+    def test_trap_location_actual_NSlat_EWlon_positve_values(self):
+        self.trap_4.set_actual_lat_long([4,5])
+        self.trap_4.save()
+        self.assertEquals(self.trap_4.actual_NSlat(), '%0.5F N' % abs(self.trap_4.actual_lat()))
+        self.assertEquals(self.trap_4.actual_EWlon(), '%0.5F E' % abs(self.trap_4.actual_lon()))
+
+
+    def test_trap_location_actual_NSlat_EWlon_negative_values(self):
+        self.trap_4.set_actual_lat_long([-3,-4])
+        self.trap_4.save()
+
+        self.assertEquals(self.trap_4.actual_NSlat(), '%0.5F S' % abs(self.trap_4.actual_lat()))
+        self.assertEquals(self.trap_4.actual_EWlon(), '%0.5F W' % abs(self.trap_4.actual_lon()))
+
+
+    def test_trap_location_actual_NSlat_EWlon_None(self):
+        self.assertIsNone(self.time_trap.actual_lat())
+        self.assertIsNone(self.time_trap.actual_lon())
 
 
     def tearDown(self):
