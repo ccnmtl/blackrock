@@ -1,4 +1,4 @@
-from blackrock.portal.models import Audience, DigitalFormat, Facet, Institution, LocationSubtype, LocationType, PersonType, PublicationType, RegionType, Tag, Url, DigitalObject, Location, Station
+from blackrock.portal.models import Audience, DigitalFormat, Facet, Institution, LocationSubtype, LocationType, PersonType, PublicationType, RegionType, RightsType, Tag, Url, DigitalObject, Location, Station, Person, Publication, DataSet, PhotoGalleryItem
 from django.test import TestCase
 from datetime import datetime
 #from django.contrib.auth.models import User
@@ -6,8 +6,8 @@ from datetime import datetime
 #from django.utils import simplejson
 
 
-
 class TestPortalModels(TestCase):
+
 
     def setUp(self):
         self.audience = Audience(name="audience name")
@@ -40,6 +40,19 @@ class TestPortalModels(TestCase):
         self.location.save()
         self.station = Station(name="station name", description="this is a station object", access_means="you can walk there!", activation_date=datetime.now(), location=self.location) # , audience=self.audience() has null=True in model - may be cause of problem, display_image=self.digital_object(), created_date=datetime.now(), modified_date=datetime.now() digital_object=self.digital_object, , tag=self.tag , 
         self.station.save()
+        self.person = Person(full_name="Harold The Flying Sheep", first_name="Harold", last_name="Sheep", description="most people have 2 legs, Harold has 4 and can fly with wings")
+        self.person.save()
+        self.person_no_first_name = Person(full_name="person has no name", last_name="Sheep No. 2")
+        self.person_no_first_name.save()
+        self.publication_long_name = Publication(name="This is a very very long publication name, long as in longer than twenty five (25) characters")
+        self.publication_long_name.save()
+        self.publication = Publication(name="Regular Publication Name")
+        self.publication.save()
+        self.dataset = DataSet(name="data set",description="This is a data set.",collection_start_date=datetime.now(), location=self.location)
+        self.dataset.save()
+        self.rights_type = RightsType(name="Rights Type Name")
+        #self.photo_gallery_item = PhotoGalleryItem(title="photo_gallery_item")
+        #self.photo_gallery_item.save()
 
     def test_audience_unicode(self):
         self.assertEquals(unicode(self.audience), self.audience.name)
@@ -77,6 +90,9 @@ class TestPortalModels(TestCase):
     def test_region_type_uni(self):
         self.assertEquals(unicode(self.region_type), self.region_type.name)
 
+    def test_rights_type_uni(self):
+        self.assertEquals(unicode(self.rights_type), self.rights_type.name)
+
     def test_tag_uni(self):
         self.assertEquals(unicode(self.tag), self.tag.name)
 
@@ -104,5 +120,23 @@ class TestPortalModels(TestCase):
 
     def test_station_uni(self):
         self.assertEquals(unicode(self.station), self.station.name)
+
+
+
+    def test_person_unicode(self):
+        self.assertEquals(unicode(self.person), "%s, %s" % (self.person.last_name, self.person.first_name))
+    
+    def test_person_name(self):
+        self.assertEquals(self.person.name(), "%s, %s" % (self.person.last_name, self.person.first_name))
+
+    def test_person_name_no_name(self):
+        self.assertEquals(self.person_no_first_name.name(), self.person_no_first_name.last_name)
+
+    def test_person_display_name(self):
+        self.assertEquals(self.person.display_name(), "%s %s" % (self.person.first_name, self.person.last_name))
+
+#    def test_photo_gallery_item_uni(self):
+#        self.assertEquals(unicode(self.photo_gallery_item), self.photo_gallery_item.title)
+
 
 
