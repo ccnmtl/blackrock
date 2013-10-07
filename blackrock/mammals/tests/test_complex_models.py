@@ -333,6 +333,14 @@ class TestMoreMammalModels(TestCase):
         end_hour_string = self.new_expedition.end_hour_string()
         self.assertIsNotNone(end_hour_string)
         self.assertEquals(end_hour_string, "%02d" % self.new_expedition.end_date_of_expedition.hour)
+    
+    def test_expedition_set_time_from_strings(self):
+        # not sure how to check actual contents of the time, keeps giving type errors
+        self.another_expedition.set_end_time_from_strings("5", "45")
+        self.assertIsNotNone(self.another_expedition.end_date_of_expedition)
+        #check_time = list(self.another_expedition.end_date_of_expedition)
+        #self.assertIn(["5", "45"], check_time)
+
 
     # Now test TrapLocation methods
     def test_points_trap_location(self):
@@ -414,6 +422,7 @@ class TestMoreMammalModels(TestCase):
         self.assertIsNotNone(self.trap_4.school_if_any())
         self.assertEquals(self.trap_4.school_if_any(), "school")
         self.assertIsNone(self.time_trap.school_if_any())
+
 
     def test_sightings_date_for_solr(self):
         self.new_sighting = Sighting(species=self.species, date=datetime.now())
