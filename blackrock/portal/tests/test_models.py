@@ -1,4 +1,4 @@
-from blackrock.portal.models import Audience, DigitalFormat, Facet, Institution, LocationSubtype, LocationType, PersonType, PublicationType, RegionType, RightsType, Tag, Url, DigitalObject, Location, Station, Person, Publication, DataSet, PhotoGalleryItem
+from blackrock.portal.models import Audience, DigitalFormat, Facet, Institution, LocationSubtype, LocationType, PersonType, PublicationType, RegionType, RightsType, Tag, Url, DigitalObject, Location, Station, Person, Publication, LearningActivity, ResearchProject, DataSet, PhotoGalleryItem, ForestStory
 from django.test import TestCase
 from datetime import datetime
 #from django.contrib.auth.models import User
@@ -51,8 +51,17 @@ class TestPortalModels(TestCase):
         self.dataset = DataSet(name="data set",description="This is a data set.",collection_start_date=datetime.now(), location=self.location)
         self.dataset.save()
         self.rights_type = RightsType(name="Rights Type Name")
-        #self.photo_gallery_item = PhotoGalleryItem(title="photo_gallery_item")
-        #self.photo_gallery_item.save()
+        self.photo_gallery_item = PhotoGalleryItem(title="photo_gallery_item", position=7)
+        self.photo_gallery_item.save()
+        self.learning_activity = LearningActivity(name="Learning Activity Name")
+        self.learning_activity.save()
+        self.research_project_normal_name = ResearchProject(name="This is normal name", start_date=datetime.now())
+        self.research_project_normal_name.save()
+        self.research_project_long_name = ResearchProject(name="This is a research project with an extrememly long name, this name is more like a description because the user did not follow the directions for entering a propername.", start_date=datetime.now())
+        self.research_project_long_name.save()
+        self.forest_story = ForestStory(name="Name of Forest Story")
+        self.forest_story.save()
+
 
     def test_audience_unicode(self):
         self.assertEquals(unicode(self.audience), self.audience.name)
@@ -135,8 +144,19 @@ class TestPortalModels(TestCase):
     def test_person_display_name(self):
         self.assertEquals(self.person.display_name(), "%s %s" % (self.person.first_name, self.person.last_name))
 
-#    def test_photo_gallery_item_uni(self):
-#        self.assertEquals(unicode(self.photo_gallery_item), self.photo_gallery_item.title)
+    def test_photo_gallery_item_uni(self):
+        self.assertEquals(unicode(self.photo_gallery_item), self.photo_gallery_item.title)
 
+    def test_research_project_regular_name(self):
+        self.assertEquals(unicode(self.research_project_normal_name), self.research_project_normal_name.name)
+
+    def test_research_project_long_name(self):
+        self.assertEquals(unicode(self.research_project_long_name), "%s..." % self.research_project_long_name.name[0:50])
+
+    def test_learning_activity_uni(self):
+        self.assertEquals(unicode(self.learning_activity), self.learning_activity.name)
+
+    def test_forest_story_uni(self):
+        self.assertEquals(unicode(self.forest_story), self.forest_story.name)
 
 
