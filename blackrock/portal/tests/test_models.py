@@ -1,4 +1,4 @@
-from blackrock.portal.models import Audience, DigitalFormat, Facet, Institution, LocationSubtype, LocationType, PersonType, PublicationType, RegionType, RightsType, Tag, Url, DigitalObject, Location, Station, Person, Publication, LearningActivity, ResearchProject, DataSet, PhotoGalleryItem, ForestStory
+from blackrock.portal.models import Audience, DigitalFormat, Facet, Institution, LocationSubtype, LocationType, PersonType, PublicationType, RegionType, RightsType, Tag, Url, DigitalObject, Location, Station, Person, Publication, LearningActivity, ResearchProject, DataSet, PhotoGalleryItem, ForestStory, Region
 from django.test import TestCase
 from datetime import datetime
 #from django.contrib.auth.models import User
@@ -61,6 +61,8 @@ class TestPortalModels(TestCase):
         self.research_project_long_name.save()
         self.forest_story = ForestStory(name="Name of Forest Story")
         self.forest_story.save()
+        self.region = Region(name="Region Name", description="This is some region of blackrock.")
+        self.region.save()
 
 
     def test_audience_unicode(self):
@@ -130,6 +132,34 @@ class TestPortalModels(TestCase):
     def test_station_uni(self):
         self.assertEquals(unicode(self.station), self.station.name)
 
+    def test_dataset_unicode(self):
+        self.assertEquals(unicode(self.dataset), self.dataset.name)
+
+
+    def test_regular_publication_uni(self):
+        self.assertEquals(unicode(self.publication), self.publication.name)
+
+    def test_long_publication_uni(self):
+        self.assertEquals(unicode(self.publication_long_name), "%s..." % self.publication_long_name.name[0:25])
+
+    def test_dataset_station_is_none(self):
+        self.new_none_data_set_location = Location(name="New Dataset Location",latitude=6.08,longitude=2.2)
+        self.new_none_data_set_location.save()
+        self.new_none_dataset = DataSet(name="data set",description="This is a data set.",collection_start_date=datetime.now(), location=self.new_none_data_set_location)
+        self.new_none_dataset.save()
+        self.assertIsNone(self.new_none_dataset.station())
+
+    def test_dataset_station_not_none(self):
+        self.data_set_location = Location(name="New Dataset Location",latitude=6.08,longitude=2.2)
+        self.data_set_location.save()
+        self.data_set_station = Station(name="New Station", description="this is a another station object", access_means="you can walk there!", activation_date=datetime.now(), location=self.location) # , audience=self.audience() has null=True in model - may be cause of problem, display_image=self.digital_object(), created_date=datetime.now(), modified_date=datetime.now() digital_object=self.digital_object, , tag=self.tag , 
+        self.data_set_station.save()
+        self.new_dataset = DataSet(name="data set",description="This is a data set.",collection_start_date=datetime.now(), location=self.location)
+        self.new_dataset.save()
+        self.data_set_location.station_set.add(self.data_set_station)
+        self.data_set_location.dataset_set.add(self.new_dataset)
+        self.data_set_location.save()
+        self.assertIsNotNone(self.dataset.station())
 
 
     def test_person_unicode(self):
@@ -158,5 +188,55 @@ class TestPortalModels(TestCase):
 
     def test_forest_story_uni(self):
         self.assertEquals(unicode(self.forest_story), self.forest_story.name)
+
+    def test_station_dataset(self):
+        ''' Make sure datasets returns dataset - there is currently one associated with the location.'''
+        self.assertIsNotNone(self.station.datasets())
+        self.assertEquals(len(self.station.datasets()), 1)
+
+    def test_station_research_project(self):
+        '''This goes over the datasets returned in the previous method and gets their research projects and returns them.'''
+        self.dataset.researchproject_set.add(self.research_project_long_name)
+        self.dataset.researchproject_set.add(self.research_project_normal_name)
+        self.dataset.save()
+        self.assertIsNotNone(self.station.research_projects())
+        self.assertEquals(len(self.station.research_projects()), 2)
+    
+    def test_region_uni(self):
+        self.assertEquals(unicode(self.region), self.region.name)
+
+    def test_region_learning_activites(self):
+        self.learning_activity_1 = LearningActivity(name="Learning Activity 1",description="This is a learning activity test.")
+        self.learning_activity_2 = LearningActivity(name="Learning Activity 2",description="This is a learning activity test.")
+        self.learning_activity_3 = LearningActivity(name="Learning Activity 3",description="This is a learning activity test.")
+        self.learning_activity_1.save()
+        self.learning_activity_2.save()
+        self.learning_activity_3.save()
+        self.location.learningactivity_set.add(self.learning_activity_1)
+        self.location.learningactivity_set.add(self.learning_activity_2)
+        self.location.learningactivity_set.add(self.learning_activity_3)
+        self.location.region_set.add(self.region)
+        self.region.save()
+        self.location.save()
+        self.assertIsNotNone(self.region.learning_activities())
+        self.assertEquals(len(self.region.learning_activities()), 3)
+
+
+    def test_region_datasets(self):
+        self.research_project_1 = ResearchProject(name="Research Project 1", description="This is a test research project.", start_date=datetime.now())
+        self.research_project_2 = ResearchProject(name="Research Project 2", description="This is a test research project.", start_date=datetime.now())
+        self.research_project_3 = ResearchProject(name="Research Project 3", description="This is a test research project.", start_date=datetime.now())
+        self.research_project_1.save()
+        self.research_project_2.save()
+        self.research_project_3.save()
+        self.location.researchproject_set.add(self.research_project_1)
+        self.location.researchproject_set.add(self.research_project_2)
+        self.location.researchproject_set.add(self.research_project_3)
+        self.location.region_set.add(self.region)
+        self.region.save()
+        self.location.save()
+        self.assertIsNotNone(self.region.research_projects())
+        self.assertEquals(len(self.region.research_projects()), 3)
+
 
 

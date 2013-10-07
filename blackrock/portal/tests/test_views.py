@@ -13,7 +13,10 @@ class TestPortalViews(TestCase):
         self.factory = RequestFactory()
 
 
-    #def test_index(self):
+    def test_nearby(self):
+        response = self.c.get('nearby/56.0/58.2')
+        self.assertTemplateUsed('portal/nearby.html')
     #    response = self.c.get('/')
     #    self.assertEqual(response.status_code, 302)
-    #    self.assertTemplateUsed('mammals/index.html')
+    #    self.assertTemplateUsed('mammals/index.html')@rendered_with('portal/nearby.html')
+
