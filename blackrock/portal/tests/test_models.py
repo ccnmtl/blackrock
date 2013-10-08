@@ -1,4 +1,4 @@
-from blackrock.portal.models import Audience, DigitalFormat, Facet, Institution, LocationSubtype, LocationType, PersonType, PublicationType, RegionType, RightsType, Tag, Url, DigitalObject, Location, Station, Person, Publication, LearningActivity, ResearchProject, DataSet, PhotoGalleryItem, ForestStory, Region
+from blackrock.portal.models import Audience, DigitalFormat, Facet, Institution, LocationSubtype, LocationType, PersonType, PublicationType, RegionType, RightsType, Tag, Url, DigitalObject, Location, Station, Person, Publication, LearningActivity, ResearchProject, DataSet, PhotoGalleryItem, ForestStory, Region, AssetList, AssetListForm
 from django.test import TestCase
 from datetime import datetime
 #from django.contrib.auth.models import User
@@ -222,7 +222,7 @@ class TestPortalModels(TestCase):
         self.assertEquals(len(self.region.learning_activities()), 3)
 
 
-    def test_region_datasets(self):
+    def test_region_research_projects_sets(self):
         self.research_project_1 = ResearchProject(name="Research Project 1", description="This is a test research project.", start_date=datetime.now())
         self.research_project_2 = ResearchProject(name="Research Project 2", description="This is a test research project.", start_date=datetime.now())
         self.research_project_3 = ResearchProject(name="Research Project 3", description="This is a test research project.", start_date=datetime.now())
@@ -238,5 +238,79 @@ class TestPortalModels(TestCase):
         self.assertIsNotNone(self.region.research_projects())
         self.assertEquals(len(self.region.research_projects()), 3)
 
+    def test_region_datasets(self):
+        self.reg_location = Location(name="region test location name",latitude=6.08,longitude=2.2)
+        self.reg_location.save()
+        self.reg_dataset_1 = DataSet(name="region test data set", description="This is a data set.", collection_start_date=datetime.now(), location=self.reg_location)
+        self.reg_dataset_1.save()
+        self.reg_dataset_2 = DataSet(name="another region test data set", description="This is a data set.", collection_start_date=datetime.now(), location=self.reg_location)
+        self.reg_dataset_2.save()
+        self.reg_region = Region(name="Region Name", description="This is some region of blackrock.")
+        self.reg_region.save()
+        self.reg_location.region_set.add(self.reg_region)
+        self.reg_location.save()
+        self.assertIsNotNone(self.reg_region.datasets())
+        self.assertEquals(len(self.reg_region.datasets()), 2)
 
+    def test_research_project_related_ex(self):
+        '''Method returns an array of datasets - create new datasets to associate with new research project, count how many'''
+        self.test_location = Location(name="location name here",latitude=6.08,longitude=2.2)
+        self.test_location.save()
+
+        self.rp_dataset_1 = DataSet(name="dataset test", description="This is a data set.", collection_start_date=datetime.now(), location=self.test_location)
+        self.rp_dataset_1.save()
+        self.rp_dataset_2 = DataSet(name="dataset test", description="This is a data set.", collection_start_date=datetime.now(), location=self.test_location)
+        self.rp_dataset_2.save()
+
+        self.research_project_dataset = ResearchProject(name="dataset test", start_date=datetime.now())
+        self.research_project_dataset.save()
+
+        self.rp_dataset_1.researchproject_set.add(self.research_project_dataset)
+        self.rp_dataset_1.save()
+        self.rp_dataset_2.researchproject_set.add(self.research_project_dataset)
+        self.rp_dataset_2.save()
+        
+        self.assertEquals(len(self.research_project_dataset.related_ex()), 2)
+
+
+    def test_learning_activity_related_ex(self):
+        '''Returns array of people and datasets'''
+        self.test_location = Location(name="location name here",latitude=6.08,longitude=2.2)
+        self.test_location.save()
+
+        self.la_dataset_1 = DataSet(name="dataset test", description="This is a data set.", collection_start_date=datetime.now(), location=self.test_location)
+        self.la_dataset_1.save()
+        self.la_dataset_2 = DataSet(name="dataset test", description="This is a data set.", collection_start_date=datetime.now(), location=self.test_location)
+        self.la_dataset_2.save()
+
+        self.learning_activity_dataset = LearningActivity(name="dataset test")
+        self.learning_activity_dataset.save()
+        
+        self.la_dataset_1.learningactivity_set.add(self.learning_activity_dataset)
+        self.la_dataset_1.save()
+        self.la_dataset_2.learningactivity_set.add(self.learning_activity_dataset)
+        self.la_dataset_2.save()
+        
+        self.assertEquals(len(self.learning_activity_dataset.related_ex()), 2)
+
+
+    def test_forest_story_related_ex(self):
+        '''Returns array of people and datasets'''
+        self.test_location = Location(name="location name here",latitude=6.08,longitude=2.2)
+        self.test_location.save()
+
+        self.fs_dataset_1 = DataSet(name="dataset test", description="This is a data set.", collection_start_date=datetime.now(), location=self.test_location)
+        self.fs_dataset_1.save()
+        self.fs_dataset_2 = DataSet(name="dataset test", description="This is a data set.", collection_start_date=datetime.now(), location=self.test_location)
+        self.fs_dataset_2.save()
+
+        self.forest_story_dataset = ForestStory(name="dataset test")
+        self.forest_story_dataset.save()
+        
+        self.fs_dataset_1.foreststory_set.add(self.forest_story_dataset)
+        self.fs_dataset_1.save()
+        self.fs_dataset_2.foreststory_set.add(self.forest_story_dataset)
+        self.fs_dataset_2.save()
+        
+        self.assertEquals(len(self.forest_story_dataset.related_ex()), 2)
 

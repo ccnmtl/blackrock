@@ -6,9 +6,11 @@ from datetime import datetime
 # class TestSearchFile(TestCase):
 
 #     def setUp(self):
-#         self.trap_locaiton_index = TrapLocationIndex(text="tests the trap_locaiton_index", habitat="habitat", school="school", observer_name="observer_name", species_label="species_label", habitat_label="habitat_label", school_label="school_label", lat="lat", lon="lon", date=datetime.now(), observed=False, camera=True, tracks_and_signs=True, unsuccessful=True, asset_type="trap door")
-#         self.trap_locaiton_index.save()
-#         self.sighting_index = SightingIndex(text="tests the sighting_index", species_id="species_id", habitat="habitat", school="school",observer_name="observer_name", species_label="species_label", habitat_label="habitat_label", school_label="school_label", lat="lat", lon="lon", date=datetime.now(), trapped_and_released=False, observed=False, camera=True, tracks_and_signs=True, unsuccessful=True, real=True, asset_type="sighting of trap door")
+#     	self.search_index = SearchIndex()
+#     	self.search_index.save()
+#         self.trap_location_index = TrapLocationIndex(self.search_index)#text="tests the trap_locaiton_index", habitat="habitat", school="school", observer_name="observer_name", species_label="species_label", habitat_label="habitat_label", school_label="school_label", lat="lat", lon="lon", date=datetime.now(), observed=False, camera=True, tracks_and_signs=True, unsuccessful=True, asset_type="trap door")
+#         self.trap_location_index.save()
+#         self.sighting_index = SightingIndex(self.search_index)#text="tests the sighting_index", species_id="species_id", habitat="habitat", school="school",observer_name="observer_name", species_label="species_label", habitat_label="habitat_label", school_label="school_label", lat="lat", lon="lon", date=datetime.now(), trapped_and_released=False, observed=False, camera=True, tracks_and_signs=True, unsuccessful=True, real=True, asset_type="sighting of trap door")
 #         self.sighting_index.save()
 
 #     def test_trap_location_get_model(self):
