@@ -1,4 +1,4 @@
-from blackrock.portal.views import process_location, process_fieldnames
+from blackrock.portal.views import process_location, process_fieldnames, nearby, process_datasets
 from django.test import TestCase, RequestFactory
 from django.test.client import Client
 from django.contrib.auth.models import User
@@ -15,8 +15,9 @@ class TestPortalViews(TestCase):
         response = self.c.get('nearby/56.0/58.2')
         self.assertTemplateUsed('portal/nearby.html')
 
+
     def test_process_location(self):
-    	pass_values = {"latitude" : "5", "longitude" : "9", "name" : "new test location"}
+        pass_values = {"latitude" : "5", "longitude" : "9", "name" : "new test location"}
         self.test_process_location = process_location(pass_values)
         self.assertIsNotNone(self.test_process_location)
         #self.assertIsInstance(self.test_process_location, Location())
@@ -25,6 +26,12 @@ class TestPortalViews(TestCase):
         new_values = {"latitude" : "5", "longitude" : "9", "name" : "new test location"}
         self.process_fieldnames = process_fieldnames(new_values)
         self.assertIsNotNone(self.process_fieldnames)
+
+
+    # def test_process_datasets(self):
+    #     self.fake_xml = '''<notag><int name="newname"></int><int name="newname"></int><notag>'''
+    #     self.test_process_datasets = process_datasets(self.fake_xml)
+    #     self.assertIsNotNone(self.test_process_datasets)
 
     # def test_get_float(self):
     # 	self.float_test = get_float()

@@ -1,9 +1,17 @@
 from blackrock.mammals.management.commands.import_traps import Command, clean_up, read_csv_data, new_expeditions, guess_habitat, guess_bait, create_points, teardown, test_points, test_expedition_ids
 from blackrock.mammals.management.commands.import_difficulty import access_difficulty_table, Command
+from django.test import TestCase
 
-# class TestCommandFunctions(TestCase):
 
-#     #def setUp(self):
+class TestCommandFunctions(TestCase):
+
+    #def setUp(self):
+    def test_difficult_access_table(self):
+        self.difficult_access_table = access_difficulty_table
+        self.assertIsNotNone(self.difficult_access_table)
+
+
+
 
 #     def test_read_csv_data(self):
 #     	self.read_csv = read_csv_data("csv_values.csv")
