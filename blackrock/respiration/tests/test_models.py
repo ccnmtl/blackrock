@@ -1,5 +1,5 @@
 from django.test import TestCase
-from blackrock.respiration.models import Temperature
+from blackrock.respiration.models import Temperature, StationMapping
 import datetime
 
 
@@ -57,3 +57,17 @@ class ModelTestCases(TestCase):
             Temperature.objects.filter(station='Ridgetop').count(), 1)
         self.assertEquals(
             Temperature.objects.filter(station='Fire Tower').count(), 1)
+
+
+    def test_station_mapping(self):
+        self.station_mapping = StationMapping(station="new station", abbreviation="ns")
+        self.assertEquals(unicode(self.station_mapping), "%s (%s)" % (self.station_mapping.station, self.station_mapping.abbreviation))
+
+    def test_temperature(self):
+        self.temperature = Temperature(station='Open Lowland', date=datetime.datetime(1997, 1, 1, 1, 00))
+        self.assertEquals(unicode(self.temperature), "%s: [No reading] at %s station" % (self.temperature.date, self.temperature.station))
+
+    def test_temperature_two(self):
+        self.temperature_2 = Temperature(station='Open Lowland', date=datetime.datetime(1997, 1, 1, 1, 00), reading=1.1)
+        self.assertEquals(unicode(self.temperature_2), u"%s: %.2f\xb0 C at %s station" % (self.temperature_2.date, self.temperature_2.reading, self.temperature_2.station))
+

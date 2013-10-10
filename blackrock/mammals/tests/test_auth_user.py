@@ -1,5 +1,5 @@
-# from django.test import TestCase, RequestFactory
-# from django.test.client import Client
+from django.test import TestCase, RequestFactory
+from django.test.client import Client
 # from django.contrib.auth.models import User, Group
 # from blackrock.mammals.views import process_login, index, grid_block
 # from django.http import HttpResponse, HttpResponseRedirect
@@ -9,8 +9,8 @@
 # class AuthUserViewTest(TestCase):
 
 #     def setUp(self):
-#         '''Set up method for testing views.'''
-#         self.factory = RequestFactory()
+# #         '''Set up method for testing views.'''
+# #         self.factory = RequestFactory()
 #         #self.group = Group.objects.get(name="mammals_module_data_entry")
 #         self.user = User.objects.create_user('new_user', 'email@email.com', 'new_user')
 #         self.user.whether_this_user_can_see_mammals_module_data_entry = 1
