@@ -1,6 +1,7 @@
 ve
 virtualenv.py
-blackrock/mammals/management
+blackrock/mammals/management/commands/import_difficulty.py
+blackrock/mammals/management/commands/import_traps.py
 blackrock/mammals/templatetags
 blackrock/paleoecology/management
 blackrock/paleoecology/templatetags
