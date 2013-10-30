@@ -1,5 +1,9 @@
 ve
 virtualenv.py
+blackrock/mammals/search_indexes.py
+blackrock/mammals/search_sites.py
+blackrock/mammals/search.py
+blackrock/mammals/management
 blackrock/mammals/management/commands/__init__.py
 blackrock/mammals/management/commands/import_difficulty.py
 blackrock/mammals/management/commands/import_traps.py
