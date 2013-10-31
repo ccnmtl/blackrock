@@ -1,7 +1,9 @@
-from blackrock.mammals.grid_math import *
+from blackrock.mammals.grid_math import degrees_to_radians
+from blackrock.mammals.grid_math import hypotenuse, positive_radians
+from blackrock.mammals.grid_math import convert_from_heading_to_trig_radians
+from blackrock.mammals.grid_math import radians_to_degrees
 from django.test import TestCase
-from django.contrib.gis.db import models
-from math import cos, sin, sqrt, atan2, pi
+from math import pi, sqrt
 
 '''
 testing remaining untested gridmath methods
@@ -13,8 +15,9 @@ test:
     radians_to_degrees
     rotate_points
 '''
-class TestGridMath(TestCase):
 
+
+class TestGridMath(TestCase):
     def test_degrees_to_radians(self):
         self.degrees_to_radians = degrees_to_radians(180)
         self.assertEquals(self.degrees_to_radians, 180 * pi / 180.0)
@@ -46,4 +49,3 @@ class TestGridMath(TestCase):
     def test_radians_to_degrees_neg(self):
         self.radians = radians_to_degrees(-35)
         self.assertEquals(self.radians, -1645.3522829578812)
-
