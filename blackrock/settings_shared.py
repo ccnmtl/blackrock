@@ -16,10 +16,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'blackrock',
-        'HOST': '',
+        'HOST': 'localhost',
         'PORT': 5432,
-        'USER': '',
-        'PASSWORD': '',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
     }
 }
 
@@ -40,6 +40,7 @@ if 'test' in sys.argv or 'jenkins' in sys.argv:
     HAYSTACK_SOLR_URL = \
         'http://wwwapp.cc.columbia.edu/ccnmtl/solr/blackrock_portal'
     CDRS_SOLR_URL = HAYSTACK_SOLR_URL
+    
     SOUTH_DATABASE_ADAPTERS = {
         'default': "south.db.sqlite3"
     }

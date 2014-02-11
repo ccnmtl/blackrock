@@ -34,6 +34,14 @@
       addLoadEvent(setActiveTab);
       //alert("base_respiration");
     </script>
+
+            <script type="text/javascript">
+            jQuery(document).ready(function() {
+            alert("javascript accessible");
+            var species_list = jQuery(".species-name");
+            alert(species_list);
+            }):
+            </script>
 {% endblock %} 
 
 {% block masthead %} 
@@ -44,6 +52,7 @@
 {% block content %}
 {% include "respiration/sharing.html" %}
         <div id="tab-bar">
+
             <div class="tab" id="tab-resources" onclick="return window.location = '/respiration/resources';">
                 Teaching Resources
             </div>

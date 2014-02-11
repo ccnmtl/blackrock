@@ -111,22 +111,25 @@
 	</div><!-- end div scenariotemp -->
 	<div class="speciesbox togglecontainer">
 	  <div class="speciesheader">
-	    <span class="button addbutton" onclick="addSpecies(this);">
-	      + Add Species 
-	    </span>
+	    <span class="button addbutton" onclick="addSpecies(this);">	      + Add Species 	    </span>
 	    <div class="toggler toggle-open"></div>
 	    Species List 
 	  </div>
 	  <div class="speciescontainer togglechild">
-	    
 	    <div class="species" id="species1">
-	      
 	      <span class="button deletebutton" onclick="delSpecies('species1');">
 		- Delete Species 
 	      </span>
-	      
 	      <input type="text" class="species-name" id="species1-name" name="species1-name" value="Your Tree #1" />
-	      
+	      <input type="button" class="species-select-predefined"></input>
+	      <div class="species-predefined-list" style="display: none;">
+	          <div class="species-predefined-choice" id="acer_rubrum">Acer rubrum</div>
+                  <div class="species-predefined-choice" id="berberis_thumbergii">Berberis thumbergii</div>
+                  <div class="species-predefined-choice" id="kalmia_latifolia">Kalmia latifolia</div>
+                  <div class="species-predefined-choice" id="quercus_prinus">Quercus prinus</div>          
+	          <div class="species-predefined-choice" id="quercus_rubra">Quercus rubra</div>
+	          <div class="species-predefined-choice" id="vaccinium_corymbosum">Vaccinium corymbosum</div>	
+</div>	  
 	      <a href="#" class="tooltip">SC=<span>Species Composition</span></a> 
 	      <input type="text" id="species1-percent" name="species1-percent" size="5" value="100" />
 	      % 
