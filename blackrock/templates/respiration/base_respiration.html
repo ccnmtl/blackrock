@@ -35,14 +35,7 @@
       //alert("base_respiration");
     </script>
 <script>
-document.onreadystatechange = function () {
-  var state = document.readyState
-  if (state == 'interactive') {
-      alert("something");//init()
-  } else if (state == 'complete') {
-      alert("something");//initOnCompleteLoad()
-  }
-}​
+$.ready(alert("alert!"););
 </script>
 {% endblock %} 
 
