@@ -34,7 +34,16 @@
       addLoadEvent(setActiveTab);
       //alert("base_respiration");
     </script>
-
+<script>
+document.onreadystatechange = function () {
+  var state = document.readyState
+  if (state == 'interactive') {
+      init()
+  } else if (state == 'complete') {
+      initOnCompleteLoad()
+  }
+}​
+</script>
 {% endblock %} 
 
 {% block masthead %} 
