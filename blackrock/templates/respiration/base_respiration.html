@@ -42,8 +42,18 @@ function get_trees()
 
       var tree_def = {"species" : "", "base_temperature" : "", "respiration_rate" : "", "energy_of_activation" : ""}
       var trees = jQuery('.species-name').map(function(index){return this.id;});
-      alert(trees.length);
-      alert(trees);
+      var number_of_trees = trees.length;
+      for (var t in number_of_trees)
+      {
+          var name = "species" + t.toString() + "-name";
+          var rr = "species" + t.toString() + "-RO";
+          var ea = "species" + t.toString() + "-EO";
+
+      }
+      alert();
+      alert(trees.species);
+      //alert(trees);
+
 
 }
 </script>
