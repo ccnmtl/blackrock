@@ -18,8 +18,8 @@ DATABASES = {
         'NAME': 'blackrock',
         'HOST': 'localhost',
         'PORT': 5432,
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'USER': '',
+        'PASSWORD': '',
     }
 }
 
