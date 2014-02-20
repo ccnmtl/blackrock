@@ -44,14 +44,16 @@ function get_trees()
       var trees = jQuery('.species-name').map(function(index){return this.id;});
       var number_of_trees = trees.length;
       alert(number_of_trees);
-      for (var t in number_of_trees)
-      {
+      //for (var t in number_of_trees)
+      for (var i=0;i<number_of_trees;i++)
+      { //alert(t);
+          t = i + 1;
           var name = "species" + t.toString() + "-name";
-alert(t);//name);
+          alert(name);
           var rr = "species" + t.toString() + "-RO";
-//alert(rr);
+          alert(rr);
           var ea = "species" + t.toString() + "-EO";
-//alert(ea);
+          alert(ea);
 
       }
       //alert(ea);
