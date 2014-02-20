@@ -48,12 +48,19 @@ function get_trees()
       for (var i=0;i<number_of_trees;i++)
       { //alert(t);
           t = i + 1;
+
           var name = "species" + t.toString() + "-name";
-          alert(name);
-          var rr = "species" + t.toString() + "-RO";
-          alert(rr);
-          var ea = "species" + t.toString() + "-EO";
-          alert(ea);
+          //alert(name);
+          var name_value = jQuery("#"+name).val();
+          //alert(name_value);
+
+          var rr = "species" + t.toString() + "-R0";
+          //alert(rr);
+          var rr_value = jQuery("#"+rr).val();
+          //alert(rr_value);
+          var ea = "species" + t.toString() + "-E0";
+          var ea_value = jQuery("#"+ea).val();
+          //alert(ea_value);
 
       }
       //alert(ea);
