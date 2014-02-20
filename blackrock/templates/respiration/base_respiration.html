@@ -39,8 +39,6 @@
 <script>
 function get_trees()
 {
-
-      var tree_def = {"species" : "", "base_temperature" : "", "respiration_rate" : "", "energy_of_activation" : ""}
       var trees = jQuery('.species-name').map(function(index){return this.id;});
       var number_of_trees = trees.length;
 
@@ -59,6 +57,20 @@ function get_trees()
           jQuery("#"+ea).val(ea_value);
 
       }
+
+
+      var scenarios = jQuery('.scenario-name').map(function(index){return this.id;});
+      var number_of_scenarios = trees.scenarios;
+
+      for (var s=0; s < number_of_scenarios; s++)
+      {
+          c = s + 1;
+          var name = "scenario" + c.toString() + "-name";
+          var name_value = jQuery("#"+name).val();
+          jQuery("#"+name).val(name_value);
+
+      }
+
 
 }
 </script>
