@@ -83,6 +83,28 @@ Use the red vertical indicator bar on the graph to view the calculated respirati
     <input type="hidden" id="scenario1-enddate" name="scenario1-enddate" value='{{scenario_options|hash:"enddate"}}' />
     <input type="hidden" id="scenario1-delta-t" name="scenario1-delta-t" value='{{scenario_options|hash:"deltat"}}' />
     
+
+
+<div id="scenariocontainer">
+  <div id="scenarioheader">
+    <span class="button addbutton" onclick="addScenario();">
+      + Add Scenario 
+    </span>
+    Scenario List 
+  </div>
+  <div id="scenariobox">
+    <form id="scenario1-form" name="scenario1-form" action="leaf" method="post">
+      <input type="hidden" name="scenario1-species" id="scenario1-species" value="" />
+      <div class="scenario" id="scenario1">
+	<div class="scenariotitle">
+	  <span class="button deletebutton" onclick="delScenario('scenario1');">
+	    - Delete Scenario 
+	  </span>
+	  <div class="colorswatch" id="scenario1-swatch">
+	    &nbsp;&nbsp;&nbsp;&nbsp;
+	  </div>
+	  <input type="text" class="scenario-name" id="scenario1-name" name="scenario1-name" value='{{ scenario_options|hash:"name"}} ' />
+	</div>
     <div class="speciesbox">
       <div class="speciesheader">
 	<span class="button addbutton" onclick="addSpecies();">
@@ -138,27 +160,20 @@ Use the red vertical indicator bar on the graph to view the calculated respirati
             <tr>
             </tr>
 	        <td>
-		    Respiration Rate 
-		    <br/>
-		    @ base temperature 
+		    Respiration Rate     <br/>	    @ base temperature 
 	        </td>
 	        <td>
-		    R<sub>0 </sub>= 
-		    <input type="text" size="5" id="species1-R0" name="species1-R0" class="r-zero arr-field" />
+		    R<sub>0 </sub>= <input type="text" size="5" id="species1-R0" name="species1-R0" class="r-zero arr-field" />
 		    umol&nbsp;m<sup>-2</sup>s<sup>-1</sup>
 	        </td>
 	    </tr>
+
 	    <tr>
 	      <td>
-		Energy of Activation 
-		<br />
-		@ base temperature 
+		Energy of Activation <br />@ base temperature 
 	      </td>
 	      <td>
-		E<sub>0 
-		</sub>
-		= 
-		<input type="text" size="5" id="species1-E0" name="species1-E0" class="e-zero arr-field" />
+		E<sub>0 </sub>	= <input type="text" size="5" id="species1-E0" name="species1-E0" class="e-zero arr-field" />
 		J mol<sup>-1</sup>
 	      </td>
 	    </tr>
@@ -167,6 +182,8 @@ Use the red vertical indicator bar on the graph to view the calculated respirati
       </div>
     </div>
   </form>
+</div>
+</div>
 {% endblock %}
 
 {% block rightlegend %}
