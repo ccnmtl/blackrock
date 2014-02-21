@@ -59,7 +59,7 @@ Use the red vertical indicator bar on the graph to view the calculated respirati
 {% endblock %} 
 
 {% block left %} 
-<!-- saved values passed back from canopy tab -->
+<!-- saved values passed back from canopy tab 
   <input type="hidden" name="leaf-base-temp" id="leaf-base-temp" class="leafdata" value="{{ basetemp }}" />
   <input type="hidden" name="leaf-numspecies" id="leaf-numspecies" class="leafdata" value="{{ numspecies }}" />
   {% for species in specieslist %}
@@ -68,7 +68,7 @@ Use the red vertical indicator bar on the graph to view the calculated respirati
   <input type="hidden" name="leaf-species{{forloop.counter}}-E0" id="leaf-species{{forloop.counter}}-E0" value='{{species|hash:"E0"}}' />
   <input type="hidden" name="leaf-species{{forloop.counter}}-R0" id="leaf-species{{forloop.counter}}-R0" value='{{species|hash:"R0"}}' />
   <input type="hidden" name="leaf-species{{forloop.counter}}-percent" id="leaf-species{{forloop.counter}}-percent" value='{{species|hash:"percent"}}' />
-  {% endfor %}
+  {% endfor %} -->
 
 
   <form id="leaf-form" name="leaf-form" action="forest" method="post">
@@ -150,12 +150,11 @@ Use the red vertical indicator bar on the graph to view the calculated respirati
 	        <td>
 	            T <sub> 0 </sub>  = 
 	            <!--good default is 15 -->
-	            <input type="text" size="5" id="species1-base-temp" name="species1-base-temp" class="t-zero arr-field" 
+	            <input type="text" size="5" id="species1-base-temp" name="species1-base-temp" class="base-temp" 
 			 value="0"
-			 onchange="javascript:calculateKelvin();" 
-			 onkeyup="javascript:calculateKelvin();" />
-		         &deg;C = 
-		         <span id="kelvin"> 273.15 </span>  K 
+			 onchange="javascript:calculateKelvin(species1-base-temp);" 
+			 onkeyup="javascript:calculateKelvin(species1-base-temp);" />
+		         &deg;C = <span id="kelvin"> 273.15 </span>  K 
 	        </td>
             <tr>
             </tr>

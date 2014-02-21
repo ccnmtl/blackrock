@@ -27,7 +27,7 @@
       var scenario;
       
       if(!elem) {
-        scenario = document;
+        scenario = document; //how does this associate the species with a scenario
         speciesList.push("species" + numSpecies);
       }
       else {
@@ -57,15 +57,6 @@
     }
     
     function initSpecies() {
-    //commenting this out - temperature is per species not per scenario
-//      if($("scenario1-base-temp")) {
-//        $("scenario1-base-temp").value = $("leaf-base-temp").value;
-//        calculateKelvin($("scenario1-base-temp"));
-//      }
-//      else {
-//        $("base-temp").value = $("leaf-base-temp").value;
-//        calculateKelvin($("base-temp"));
-//      }
       var leafSpecies = $("leaf-numspecies").value;
       speciesList = [];
       for(var i=1; i<=leafSpecies; i++) {
@@ -119,6 +110,7 @@
       }
     }
 
+// need to change this to reflect that T0 is part of tree info now
     function EquationHighlighter() {
     connect(window,'onload',this,'onLoad');
     this.vars = {"e-zero":[],
@@ -188,7 +180,7 @@
             removeElementClass(elt,'selected');
         });
     };
-
+// need to change this to reflect that T0 is part of tree info now
     function TemperatureSliders() {
         connect(window,'onload',this,'onLoad');
         this.low=null;
@@ -405,6 +397,7 @@
         }
     }
 
+
 //t0 already had default... no change needed?
     var predefinedSpecies = {
         "quercus_rubra" : {
@@ -487,7 +480,7 @@
         }
     };
 
-    //I assume base temperature is based on environment so it is not necessary to add it here?
+    // what is evt dont see where this is done
     function populateSpeciesChoice(evt) {
         var elt = evt.src();
         if (elt.id in predefinedSpecies) {
@@ -499,6 +492,9 @@
             //var eltLabel = getElementByTagAndClassName('input', 'species-name', parent=parent);
             //setNodeAttribute(eltTemp, "value", predefinedSpecies[elt.id].t0);
             
+            var eltLabel = getFirstElementByTagAndClassName('input', 'base-temp', parent=parent);
+            eltLabel.value = predefinedSpecies[elt.id].label;
+
             var eltRZero = getFirstElementByTagAndClassName('input', 'r-zero', parent=parent);
             eltRZero.value = predefinedSpecies[elt.id].r0;
             
