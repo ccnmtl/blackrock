@@ -57,14 +57,15 @@
     }
     
     function initSpecies() {
-      if($("scenario1-base-temp")) {
-        $("scenario1-base-temp").value = $("leaf-base-temp").value;
-        calculateKelvin($("scenario1-base-temp"));
-      }
-      else {
-        $("base-temp").value = $("leaf-base-temp").value;
-        calculateKelvin($("base-temp"));
-      }
+    //commenting this out - temperature is per species not per scenario
+//      if($("scenario1-base-temp")) {
+//        $("scenario1-base-temp").value = $("leaf-base-temp").value;
+//        calculateKelvin($("scenario1-base-temp"));
+//      }
+//      else {
+//        $("base-temp").value = $("leaf-base-temp").value;
+//        calculateKelvin($("base-temp"));
+//      }
       var leafSpecies = $("leaf-numspecies").value;
       speciesList = [];
       for(var i=1; i<=leafSpecies; i++) {
@@ -75,6 +76,7 @@
           speciesList.push("species"+i);
         }
         $('species'+i+'-name').value = $('leaf-species'+i+'-name').value;
+        $('species'+i+'-base-temp').value = $('leaf-species'+i+'-base-temp').value;
         $('species'+i+'-R0').value = $('leaf-species'+i+'-R0').value;
         $('species'+i+'-E0').value = $('leaf-species'+i+'-E0').value;
         if($('species'+i+'-percent')) {
@@ -84,13 +86,16 @@
       if(leafSpecies === 0) {setDefaults(); }
     }
 
+//added temperature here so it will default to 0 even though it is not really specific to the tree?
     function setDefaults() {
       $('species1-name').value = "Your Tree #1";
+      $('species1-base-temp').value = 0;
       $('species1-R0').value = 0; /*0.84*/
       $('species1-E0').value = 0; /*27210*/
 
       addSpecies();
       $('species2-name').value = "Your Tree #2";
+      $('species2-base-temp').value = 0;
       $('species2-R0').value = 0;/*0.86*/
       $('species2-E0').value = 0;/*40073*/
       
@@ -400,6 +405,7 @@
         }
     }
 
+//t0 already had default... no change needed?
     var predefinedSpecies = {
         "quercus_rubra" : {
             'label' : 'Quercus rubra',
@@ -480,7 +486,8 @@
             'e0' : 54267.7
         }
     };
-    
+
+    //I assume base temperature is based on environment so it is not necessary to add it here?
     function populateSpeciesChoice(evt) {
         var elt = evt.src();
         if (elt.id in predefinedSpecies) {

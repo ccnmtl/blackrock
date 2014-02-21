@@ -83,41 +83,6 @@ Use the red vertical indicator bar on the graph to view the calculated respirati
     <input type="hidden" id="scenario1-enddate" name="scenario1-enddate" value='{{scenario_options|hash:"enddate"}}' />
     <input type="hidden" id="scenario1-delta-t" name="scenario1-delta-t" value='{{scenario_options|hash:"deltat"}}' />
     
-    <div class="speciestemp">
-      <table>
-	<tr>
-	  <td>
-	    <table>
-	      <tr>
-		<td>
-		  <span style="font-weight: bold;">
-		    Base Temperature:
-		  </span>
-		</td>
-		<td>
-		  T<sub>0 
-		  </sub>
-		  = 
-		  <!--good default is 15 -->
-		  <input type="text" size="5" id="base-temp" name="base-temp" class="t-zero arr-field" 
-			 value="0"
-			 onchange="javascript:calculateKelvin();" 
-			 onkeyup="javascript:calculateKelvin();" />
-		  &deg;C = 
-		  <span id="kelvin">
-		    
-		    273.15 
-		    
-		  </span>
-		  K 
-		</td>
-	      </tr>
-	    </table>
-        <input style="display: none;" id="plotGraph" class="needsupdate" type="button" value="Plot &gt;&gt;" onclick="javascript:leafGraph();" />
-	  </td>
-	</tr>
-      </table>
-    </div>
     <div class="speciesbox">
       <div class="speciesheader">
 	<span class="button addbutton" onclick="addSpecies();">
@@ -156,6 +121,22 @@ Use the red vertical indicator bar on the graph to view the calculated respirati
 	  <input id="species1-R" disabled="disabled" name="species1-R" type="text" size="5" class="r-result arr-field" />
 	  <table style="margin-left:50px;width: 87%;">
 	    <tr>
+            <td>
+	    Base Temperature:
+            </td>
+	    <td>
+	    T<sub>0 
+	    </sub>
+	     = 
+	  <!--good default is 15 -->
+	  <input type="text" size="5" id="species1-base-temp" name="species1-base-temp" class="t-zero arr-field" 
+			 value="0"
+			 onchange="javascript:calculateKelvin();" 
+			 onkeyup="javascript:calculateKelvin();" />
+		  <br/>&deg;C = 
+		  <span id="kelvin"> 273.15 </span>  K 
+	    </td>
+
 	      <td>
 		Respiration Rate 
 		<br />
