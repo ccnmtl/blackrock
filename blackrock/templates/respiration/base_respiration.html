@@ -41,19 +41,22 @@ function get_trees()
 {
       var trees = jQuery('.species-name').map(function(index){return this.id;});
       var number_of_trees = trees.length;
-
+      alert(number_of_trees);
       for (var i=0;i<number_of_trees;i++)
       {
           t = i + 1;
 
           var name = "species" + t.toString() + "-name";
           var name_value = jQuery("#"+name).val();
+          alert(name_value);
           jQuery("#"+name).val(name_value);
           var rr = "species" + t.toString() + "-R0";
           var rr_value = jQuery("#"+rr).val();
+          alert(rr_value);
           jQuery("#"+rr).val(rr_value);
           var ea = "species" + t.toString() + "-E0";
           var ea_value = jQuery("#"+ea).val();
+          alert(ea_value);
           jQuery("#"+ea).val(ea_value);
 
       }

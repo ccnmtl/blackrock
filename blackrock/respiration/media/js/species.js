@@ -436,6 +436,48 @@
             't0' : 10,
             'r0' : 0.308,
             'e0' : 54940
+        },
+        "carya_glabra": {
+            'label' : 'Carya glabra',
+            't0' : 10,
+            'r0' : 0.134,
+            'e0' : 70547.5
+        },
+        "liriodendron_tulipifera": {
+            'label' : 'Liriodendron tulipifera',
+            't0' : 10,
+            'r0' : 0.187,
+            'e0' : 60620.0
+        },
+        "platanus_occidentalis": {
+            'label' : 'Platanus occidentalis',
+            't0' : 10,
+            'r0' : 0.320,
+            'e0' : 56336.7
+        },
+        "betula_papyrifera": {
+            'label' : 'Betula papyrifera',
+            't0' : 10,
+            'r0' : 0.357,
+            'e0' : 45322.0
+        },
+        "populus_tremuloides": {
+            'label' : 'Populus tremuloides',
+            't0' : 10,
+            'r0' : 0.424,
+            'e0' : 52261.3
+        },
+        "populus_grandidentata": {
+            'label' : 'Populus grandidentata',
+            't0' : 10,
+            'r0' : 0.294,
+            'e0' : 59425.5
+        },
+        "betula_lenta": {
+            'label' : 'Betula lenta',
+            't0' : 10,
+            'r0' : 0.162,
+            'e0' : 54267.7
         }
     };
     
