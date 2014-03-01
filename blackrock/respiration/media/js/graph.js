@@ -3,7 +3,7 @@ function LeafGraphData() {
 
     this.species = {};
 
-    //this.t0 = null; //base temp
+    this.t0 = null; //base temp
     this.t_a_min = 0; //celsius
     this.t_a_max = 30;
 
@@ -57,7 +57,7 @@ LeafGraphData.prototype.updateFields = function() {
         return false;
     } 
     
-    //this.t0 = Number($('kelvin').innerHTML);
+    this.t0 = Number($('kelvin').innerHTML);
     this.t_a_min = min;
     this.t_a_max = max;
     return true;
