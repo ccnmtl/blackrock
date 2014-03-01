@@ -140,8 +140,7 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
 
     // scenarios with missing information are not valid for graphing
     this.scenarios[scenario_id].valid = false;
-    if(this.scenarios[scenario_id].t0 != "" &&
-       this.scenarios[scenario_id].leafarea != "" &&
+    if(this.scenarios[scenario_id].leafarea != "" &&
        this.scenarios[scenario_id].start != "" &&
        this.scenarios[scenario_id].end != "" &&
        !dateError &&
@@ -157,11 +156,13 @@ ForestGraphData.prototype.updateSpecies = function(species_id) {
     this.species[species_id].valid = false;
 
     //this.species[species_id]['name'] = $(species_id + "-name").value;
+    this.species[species_id]['base-temp0'] = $(species_id+'-base-temp0');
     this.species[species_id]['percent'] = $(species_id + "-percent").value;
     this.species[species_id]['R0'] = $(species_id + "-R0").value;
     this.species[species_id]['E0'] = $(species_id + "-E0").value;
 
-    if(this.species[species_id]['R0'] != "" &&
+    if(this.species[species_id]['base-temp0'] != "" &&
+       this.species[species_id]['R0'] != "" &&
        this.species[species_id]['E0'] != "" &&
        this.species[species_id]['percent'] != "") {
       this.species[species_id].valid = true;
@@ -217,8 +218,8 @@ function forestGraph() {
 	   if(ForestData.scenarios[scid].valid) {
 	     scenario_count++;  // closure
 	     //log(scenario_count);
-
-	     var t0 = ForestData.scenarios[scid].t0;
+             //WHAT TO DO WITH THESE t0s...
+	     //var t0 = ForestData.scenarios[scid].t0;
 	     var station = ForestData.scenarios[scid].station;
 	     var start = ForestData.scenarios[scid].start;
 	     var end = ForestData.scenarios[scid].end;
@@ -231,10 +232,12 @@ function forestGraph() {
 	     forEach(getElementsByTagAndClassName('div', 'species', scenario), function(species) {
 	       if(ForestData.species[species.id].valid) {
 	         species_count++;
+                  var base-temp0 = ForestData.species[species.id].base-temp0;
 	         var R0 = ForestData.species[species.id].R0;
 	         var E0 = ForestData.species[species.id].E0;
                var percent = ForestData.species[species.id].percent;
-	         var params = "R0="+R0+"&E0="+E0+"&t0="+t0+"&station="+station+"&start="+start+"&end="+end+"&delta="+deltaT;
+	         var params = "R0="+R0+"&E0="+E0+"&t0="+base-temp0+"&station="+station+"&start="+start+"&end="+end+"&delta="+deltaT;
+                 //THIS PROBABLY NEEDS TO BE REDONE
 	         var http_request = doXHR("getsum", {'method':'POST', 'sendContent':params,
 	                                             'headers':[["Content-Type", 'application/x-www-form-urlencoded']]
 	                                            });
