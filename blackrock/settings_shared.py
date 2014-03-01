@@ -45,6 +45,15 @@ if 'test' in sys.argv or 'jenkins' in sys.argv:
         'default': "south.db.sqlite3"
     }
 
+
+# Not sure if this is right way to do this
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+SESSION_COOKIE_HTTPONLY = True
+LOGIN_REDIRECT_URL = "/"
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
+
+USE_TZ = True
+
 JENKINS_TASKS = (
     'django_jenkins.tasks.run_pylint',
     'django_jenkins.tasks.with_coverage',
@@ -52,6 +61,7 @@ JENKINS_TASKS = (
     'django_jenkins.tasks.run_pep8',
     'django_jenkins.tasks.run_pyflakes',
 )
+
 
 PROJECT_APPS = ['blackrock.blackrock_main',
                 'blackrock.mammals',
