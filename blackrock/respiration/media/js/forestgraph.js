@@ -82,11 +82,11 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
     $(scenario_id + "-swatch").style.backgroundColor = this.scenarios[scenario_id]['color'];
 
     //within the object we can call base-temp t0
-    var t0 = parseFloat($(scenario_id + "-base-temp").value);
-    if(isNaN(t0)) {
-      errorHighlight(scenario_id + "-base-temp");
-      t0 = 0;
-    }
+    //var t0 = parseFloat($(scenario_id + "-base-temp").value);
+   // if(isNaN(t0)) {
+   //   errorHighlight(scenario_id + "-base-temp");
+   //   t0 = 0;
+   // }
 
     // convert to Kelvin
     //now associated with species
