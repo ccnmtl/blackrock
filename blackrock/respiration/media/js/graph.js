@@ -21,7 +21,8 @@ LeafGraphData.prototype.updateSpecies = function(species_id) {
     }
 
     this.species[species_id].name = $(species_id + "-name").value;
-    this.species[species_id].t0 = $(species_id + "-base-temp").value;
+    // I'm assuming this is from the JSON JS...
+    this.species[species_id].basetemp = $(species_id + "-base-temp").value;
     this.species[species_id].R0 = $(species_id + "-R0").value;
     this.species[species_id].E0 = $(species_id + "-E0").value;
     $(species_id + "-swatch").style.backgroundColor = this.species[species_id].color;
@@ -65,20 +66,15 @@ LeafGraphData.prototype.updateFields = function() {
 //what is t_a?
 LeafGraphData.prototype.arrhenius = function(species_id, t_a) {
     var data = this.species[species_id];
-    if ((! data.base-temp) || (isNaN(data.base-temp))) {
+    // are these values based on the JSON or the html?
+    if ((! data.basetemp) || (isNaN(data.basetemp))) {
     throw "Please set a valid base temperature.";
     }
     if((! data.R0) || (! data.E0) || (isNaN(data.R0)) || (isNaN(data.E0))) {
     throw "Please set valid R0 and E0 values for "+data.name;
     }
-    var Rval = arrhenius(data.R0, data.E0, this.Rg, data.base-temp, t_a+273.15);
+    var Rval = arrhenius(data.R0, data.E0, this.Rg, data.basetemp, t_a+273.15);
 //    if ((! data.t0) || (isNaN(data.t0))) {
-//    throw "Please set a valid base temperature.";
-//    }
-//    if((! data.R0) || (! data.E0) || (isNaN(data.R0)) || (isNaN(data.E0))) {
-//    throw "Please set valid R0 and E0 values for "+data.name;
-//    }
-//    var Rval = arrhenius(data.R0, data.E0, this.Rg, data.t0, t_a+273.15);
     return Rval;
 };
 
