@@ -67,7 +67,7 @@
           speciesList.push("species"+i);
         }
         $('species'+i+'-name').value = $('leaf-species'+i+'-name').value;
-        $('species'+i+'-base-temp0').value = $('leaf-species'+i+'-base-temp0').value;
+        $('species'+i+'-base-temp').value = $('leaf-species'+i+'-base-temp').value;
         $('species'+i+'-R0').value = $('leaf-species'+i+'-R0').value;
         $('species'+i+'-E0').value = $('leaf-species'+i+'-E0').value;
         if($('species'+i+'-percent')) {
@@ -80,13 +80,13 @@
 //added temperature here so it will default to 0 even though it is not really specific to the tree?
     function setDefaults() {
       $('species1-name').value = "Your Tree #1";
-      $('species1-base-temp0').value = 0;
+      $('species1-base-temp').value = 0;
       $('species1-R0').value = 0; /*0.84*/
       $('species1-E0').value = 0; /*27210*/
 
       addSpecies();
       $('species2-name').value = "Your Tree #2";
-      $('species2-base-temp0').value = 0;
+      $('species2-base-temp').value = 0;
       $('species2-R0').value = 0;/*0.86*/
       $('species2-E0').value = 0;/*40073*/
       
@@ -113,7 +113,8 @@
 // need to change this to reflect that T0 is part of tree info now
     function EquationHighlighter() {
     connect(window,'onload',this,'onLoad');
-    this.vars = {"e-zero":[],
+    this.vars = {
+             "e-zero":[],
              "r-g":[],
              "t-zero":[],
              "t-a":[],
@@ -492,8 +493,8 @@
             //var eltLabel = getElementByTagAndClassName('input', 'species-name', parent=parent);
             //setNodeAttribute(eltTemp, "value", predefinedSpecies[elt.id].t0);
             
-            var eltLabel = getFirstElementByTagAndClassName('input', 'base-temp', parent=parent);
-            eltLabel.value = predefinedSpecies[elt.id].base-temp0;
+            var eltTLabel = getFirstElementByTagAndClassName('input', 'base-temp', parent=parent);
+            eltLabel.value = predefinedSpecies[elt.id].base-temp;
 
             var eltRZero = getFirstElementByTagAndClassName('input', 'r-zero', parent=parent);
             eltRZero.value = predefinedSpecies[elt.id].r0;

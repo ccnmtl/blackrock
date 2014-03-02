@@ -1,9 +1,8 @@
 function LeafGraphData() {
     this.Rg = 8.314;
-
     this.species = {};
-
-    this.t0 = null; //base temp
+    // This is now part of species
+    //this.t0 = null; //base temp
     this.t_a_min = 0; //celsius
     this.t_a_max = 30;
 
@@ -56,22 +55,31 @@ LeafGraphData.prototype.updateFields = function() {
         $('temp_high').value = 30;
         return false;
     } 
-    
-    this.t0 = Number($('kelvin').innerHTML);
+
+    // Temperature now associated with species
+    //this.t0 = Number($('kelvin').innerHTML);
     this.t_a_min = min;
     this.t_a_max = max;
     return true;
 };
 
+//what is t_a?
 LeafGraphData.prototype.arrhenius = function(species_id, t_a) {
     var data = this.species[species_id];
-    if ((! data.t0) || (isNaN(data.t0))) {
+    if ((! data.base-temp) || (isNaN(data.base-temp))) {
     throw "Please set a valid base temperature.";
     }
     if((! data.R0) || (! data.E0) || (isNaN(data.R0)) || (isNaN(data.E0))) {
     throw "Please set valid R0 and E0 values for "+data.name;
     }
-    var Rval = arrhenius(data.R0, data.E0, this.Rg, data.t0, t_a+273.15);
+    var Rval = arrhenius(data.R0, data.E0, this.Rg, data.base-temp, t_a+273.15);
+//    if ((! data.t0) || (isNaN(data.t0))) {
+//    throw "Please set a valid base temperature.";
+//    }
+//    if((! data.R0) || (! data.E0) || (isNaN(data.R0)) || (isNaN(data.E0))) {
+//    throw "Please set valid R0 and E0 values for "+data.name;
+//    }
+//    var Rval = arrhenius(data.R0, data.E0, this.Rg, data.t0, t_a+273.15);
     return Rval;
 };
 
@@ -124,8 +132,8 @@ function leafGraph() {
 }
 
 
-function arrhenius(R0, E0, Rg, T0, Ta) {
-    var inner = ( (1/T0) - (1/Ta));
+function arrhenius(R0, E0, Rg, base-temp, Ta) {
+    var inner = ( (1/base-temp) - (1/Ta));
     var right = (E0 / Rg) * inner;
     var Rval = R0 * Math.exp(right);
     return Math.round(Rval*1000)/1000; //3 decimals

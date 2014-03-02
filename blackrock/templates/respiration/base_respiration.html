@@ -48,19 +48,15 @@ function get_trees()
 
           var name = "species" + t.toString() + "-name";
           var name_value = jQuery("#"+name).val();
-          //alert(name_value);
           jQuery("#"+name).val(name_value);
           var base_temp = "species" + t.toString() + "-base-temp";
           var base_temp_value = jQuery("#"+base_temp).val();
-          //alert(base_temp);
           jQuery("#"+name).val(name_value);
           var rr = "species" + t.toString() + "-R0";
           var rr_value = jQuery("#"+rr).val();
-          //alert(rr_value);
           jQuery("#"+rr).val(rr_value);
           var ea = "species" + t.toString() + "-E0";
           var ea_value = jQuery("#"+ea).val();
-          //alert(ea_value);
           jQuery("#"+ea).val(ea_value);
 
       }
@@ -120,7 +116,6 @@ function get_trees()
     			<table class="equation">
     			<tr>
     			<td style="vertical-align: bottom;">
-    			
     				<div id="equation-left">
     					<span id="arr-r-result" class="arr-variable">
     						R
@@ -128,11 +123,9 @@ function get_trees()
     					= 
     					<span id="arr-r-zero" class="arr-variable">
     						R<sub>0</sub></span>e 
-    				</div>
-    				
+    				</div>	
     			</td>
     			<td style="vertical-align: top;">
-    				
     				<table id="equation-right">
     					<tr class="top">
     						<td id="arr-e-zero" class="numerator arr-variable">
