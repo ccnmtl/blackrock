@@ -63,6 +63,8 @@ function isValidMMDD(str, leapyear) {
   return true;
 }
 
+
+// where is updateScenario from? are we just creating it?
 ForestGraphData.prototype.updateScenario = function(scenario_id) {
     var obj = this;
     if (typeof(this.scenarios[scenario_id]) == 'undefined') {
@@ -71,6 +73,7 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
       if( typeof( color ) == 'undefined' ) {  // if we run out of colors, cycle them
         ForestData.colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#00c0c7', '#c070f0', '#ff8000', '#00ff00'];
         this.species[species_id]['color'] = ForestData.colors.shift();
+        // there can be more than one species for a scenario? how do we deal with that?
       }
 
     }
@@ -78,6 +81,7 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
     this.scenarios[scenario_id]['name'] = $(scenario_id + "-name").value.replace(/^\s*|\s*$/,"");  // strip whitespace
     $(scenario_id + "-swatch").style.backgroundColor = this.scenarios[scenario_id]['color'];
 
+    //within the object we can call base-temp t0
     var t0 = parseFloat($(scenario_id + "-base-temp").value);
     if(isNaN(t0)) {
       errorHighlight(scenario_id + "-base-temp");
@@ -155,12 +159,12 @@ ForestGraphData.prototype.updateSpecies = function(species_id) {
     this.species[species_id].valid = false;
 
     //this.species[species_id]['name'] = $(species_id + "-name").value;
-    this.species[species_id]['base-temp'] = $(species_id+'-base-temp');
+    this.species[species_id]['basetemp'] = $(species_id+'-base-temp');
     this.species[species_id]['percent'] = $(species_id + "-percent").value;
     this.species[species_id]['R0'] = $(species_id + "-R0").value;
     this.species[species_id]['E0'] = $(species_id + "-E0").value;
 
-    if(this.species[species_id]['base-temp'] != "" &&
+    if(this.species[species_id]['basetemp'] != "" &&
        this.species[species_id]['R0'] != "" &&
        this.species[species_id]['E0'] != "" &&
        this.species[species_id]['percent'] != "") {
@@ -231,11 +235,11 @@ function forestGraph() {
 	     forEach(getElementsByTagAndClassName('div', 'species', scenario), function(species) {
 	       if(ForestData.species[species.id].valid) {
 	         species_count++;
-                  var base-temp0 = ForestData.species[species.id].base-temp0;
+                  var basetemp = ForestData.species[species.id].basetemp;
 	         var R0 = ForestData.species[species.id].R0;
 	         var E0 = ForestData.species[species.id].E0;
                var percent = ForestData.species[species.id].percent;
-	         var params = "R0="+R0+"&E0="+E0+"&t0="+base-temp0+"&station="+station+"&start="+start+"&end="+end+"&delta="+deltaT;
+	         var params = "R0="+R0+"&E0="+E0+"&t0="+basetemp+"&station="+station+"&start="+start+"&end="+end+"&delta="+deltaT;
                  //THIS PROBABLY NEEDS TO BE REDONE
 	         var http_request = doXHR("getsum", {'method':'POST', 'sendContent':params,
 	                                             'headers':[["Content-Type", 'application/x-www-form-urlencoded']]

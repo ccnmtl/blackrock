@@ -1,7 +1,7 @@
 /* module wrapper pattern*/
 (function() {
     var global = this;
-    
+
     var numSpecies = 1;
     var speciesList = [];
     var html = "";
@@ -116,7 +116,7 @@
     this.vars = {
              "e-zero":[],
              "r-g":[],
-             "t-zero":[],
+             //"t-zero":[],
              "t-a":[],
              "r-zero":[],
              "r-result":[]
@@ -181,7 +181,8 @@
             removeElementClass(elt,'selected');
         });
     };
-// need to change this to reflect that T0 is part of tree info now
+// do I need to change this to reflect that T0 is part of tree info now?
+// how does the rest of the info fit into this picture?
     function TemperatureSliders() {
         connect(window,'onload',this,'onLoad');
         this.low=null;
@@ -331,6 +332,8 @@
         return canvas_length;
     };
 
+
+    // this may need to me modified...
     TemperatureSliders.prototype.graphCursor = function(evt,do_anyway) {
         if (this.freeze && !do_anyway) return;
     
@@ -359,10 +362,15 @@
             showElement('unfreeze');
         }
     };
-    
+
+
+    // this also needs to be changed
+    // where is leaf data coming from
     TemperatureSliders.prototype.updateCursorVals = function(evt) {
         var lf = global.LeafData;
-        var real_temp = lf.t_a_min + (lf.t_a_max-lf.t_a_min)*this.temp/this.canvas_length;
+//        var real_temp = lf.t_a_min + (lf.t_a_max-lf.t_a_min)*this.temp/this.canvas_length;
+        //temperature per species should be gotten per leaf?
+        var real_temp = lf.t_a_min + (lf.t_a_max-lf.t_a_min)*lf.temp/this.canvas_length;
         if (!isNaN(real_temp)) {
             $('temp_mouse').value = Math.round(real_temp * 10) / 10;
             for (var a in lf.species) {
@@ -384,7 +392,8 @@
     function setSpeciesList(list) {
       speciesList = list;
     }
-    
+
+
     function togglePredefinedSpeciesList(evt) {
         var elt = evt.src();
         var parent = getFirstParentByTagAndClassName(elt,
@@ -490,10 +499,7 @@
             var eltLabel = getFirstElementByTagAndClassName('input', 'species-name', parent=parent);
             eltLabel.value = predefinedSpecies[elt.id].label;
             
-            //var eltLabel = getElementByTagAndClassName('input', 'species-name', parent=parent);
-            //setNodeAttribute(eltTemp, "value", predefinedSpecies[elt.id].t0);
-            
-            var eltTLabel = getFirstElementByTagAndClassName('input', 'base-temp', parent=parent);
+            var eltTemp = getFirstElementByTagAndClassName('input', 'base-temp', parent=parent);
             eltLabel.value = predefinedSpecies[elt.id].base-temp;
 
             var eltRZero = getFirstElementByTagAndClassName('input', 'r-zero', parent=parent);
@@ -517,6 +523,10 @@
         initPredefinedSpecies();
     }
 
+
+
+    // why are we instantiating/assigning functions?
+    // does this just make them globally accessible?
     global.addSpecies = addSpecies;
     global.delSpecies = delSpecies;
     global.getNumSpecies = getNumSpecies;
