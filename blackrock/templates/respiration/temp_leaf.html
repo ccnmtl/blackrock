@@ -1,0 +1,194 @@
+{% extends "respiration/base_respiration.html" %} 
+{% load extras %}
+
+{% block tabname %}tab-leaf{% endblock %} 
+
+{% block js %} 
+  {{ block.super }} 
+
+  <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/DragAndDrop.js"></script> 
+  <script type="text/javascript" src="media/js/species.js"></script>
+
+  <script type="text/javascript">
+    function calculateKelvin() {
+      var result = parseFloat($('base-temp').value) + 273.15;
+      if(isNaN(result)) {
+        $('kelvin').innerHTML = "";
+      } else {
+        $('kelvin').innerHTML = result;
+      } 
+    }
+
+    function formSubmit() {
+      $("specieslist").value = getSpeciesList().join();
+      $("leaf-form").submit();
+    }
+    
+    function initNav() {
+      connect("tab-canopy", "onclick", formSubmit);
+    }
+    addLoadEvent(initNav);
+
+    addLoadEvent(function() {
+        initNav();
+        initSpeciesModule();
+        setup(); // graph.js
+      });
+  </script>
+
+  
+  
+{% endblock %} 
+
+{% block instructions %} 
+Plant respiration is often measured as CO<sub>2</sub> flux from the surface of a leaf, stem, soil or canopy. Highly regulated by temperature, the absolute rate of respiration and the temperature response varies among plant species. Respiration can be modeled by a modified version of the Arrhenius Function, described by Lloyd and Taylor (1994), which incorporates simple temperature coefficients to consider the impact of climate on this physiological process.
+<br /><br />
+Enter values for the parameters of the Arrhenius function to graph the respiration rate for a given tree species. 
+Use the red vertical indicator bar on the graph to view the calculated respiration rate (R) value(s) for all given tree species for your selected ambient temperature value (T<sub>a</sub>). When using the species from the drop down menu, enter 10C as the base temperature.
+
+
+{% endblock %} 
+
+{% block leftlegend %}
+<div id="forestgraph">
+  <input id="print_button" type="button" value="Print" onclick="javascript:window.print()" />      
+</div>
+<h3>
+    Set Respiration Rate Variables
+</h3>
+{% endblock %} 
+
+{% block left %} 
+<!-- why are the following values hidden? -->
+ <form id="leaf-form" name="leaf-form" action="forest" method="post">
+  <!--  <input type="hidden" id="specieslist" name="specieslist" value="" />
+    <input type="hidden" id="scenario1-year" name="scenario1-year" value='{{scenario_options|hash:"year"}}' />
+    <input type="hidden" id="scenario1-fieldstation" name="scenario1-fieldstation"
+	   value='{{scenario_options|hash:"fieldstation"}}' />
+    <input type="hidden" id="scenario1-leafarea" name="scenario1-leafarea" value='{{scenario_options|hash:"leafarea"}}' />
+    <input type="hidden" id="scenario1-startdate" name="scenario1-startdate" value='{{scenario_options|hash:"startdate"}}' />
+    <input type="hidden" id="scenario1-enddate" name="scenario1-enddate" value='{{scenario_options|hash:"enddate"}}' />
+    <input type="hidden" id="scenario1-delta-t" name="scenario1-delta-t" value='{{scenario_options|hash:"deltat"}}' />
+ -->
+
+
+<div id="scenariocontainer">
+  <div id="scenarioheader">
+    <span class="button addbutton" onclick="addScenario();">
+      + Add Scenario 
+    </span>
+    Scenario List 
+  </div>
+  <div id="scenariobox">
+    <form id="scenario1-form" name="scenario1-form" action="leaf" method="post">
+      <input type="hidden" name="scenario1-species" id="scenario1-species" value="" />
+      <div class="scenario" id="scenario1">
+	      <div class="scenariotitle">
+	  <span class="button deletebutton" onclick="delScenario('scenario1');">
+	    - Delete Scenario 
+	  </span>
+	  <div class="colorswatch" id="scenario1-swatch">
+	    &nbsp;&nbsp;&nbsp;&nbsp;
+	  </div>
+	  <input type="text" class="scenario-name" id="scenario1-name" name="scenario1-name" value='{{ scenario_options|hash:"name"}} ' />
+	</div>
+
+
+          <div class="speciesbox">
+          <div class="speciesheader">	<span class="button addbutton" onclick="addSpecies();">	  + Add Species	</span>	Species List
+          </div>
+          <div class="leafspeciescontainer">
+	      <div class="species" id="species1">
+	          <input type="hidden" name="species1-percent" id="species1-percent" value="" />
+	          <span class="button deletebutton" onclick="delSpecies('species1');">	    - Delete Species	  </span>
+	          <div class="colorswatch" id="species1-swatch">	    &nbsp;&nbsp;&nbsp;&nbsp;
+	          </div>
+
+
+	          <input type="text" class="species-name" id="species1-name" name="species1-name" value="Species 1"/>
+	          <input type="button" class="species-select-predefined"/>
+	          <div class="species-predefined-list" style="display: none;">
+        	      <div class="species-predefined-choice" id="acer_rubrum">Acer rubrum</div>
+                  <div class="species-predefined-choice" id="berberis_thumbergii">Berberis thumbergii</div>
+                  <div class="species-predefined-choice" id="betula_lenta">Betula lenta</div>
+                  <div class="species-predefined-choice" id="betula_papyrifera">Betula papyrifera</div>
+                  <div class="species-predefined-choice" id="carya_glabra">Carya glabra</div>
+                  <div class="species-predefined-choice" id="kalmia_latifolia">Kalmia latifolia</div>
+                  <div class="species-predefined-choice" id="liriodendron_tulipifera">Liriodendron tulipifera</div>
+                  <div class="species-predefined-choice" id="platanus_occidentalis">Platanus occidentalis</div>
+                  <div class="species-predefined-choice" id="populus_tremuloides">Populus tremuloides</div>
+                  <div class="species-predefined-choice" id="populus_grandidentata">Populus grandidentata</div>
+                  <div class="species-predefined-choice" id="quercus_prinus">Quercus prinus</div>
+	              <div class="species-predefined-choice" id="quercus_rubra">Quercus rubra</div>
+	              <div class="species-predefined-choice" id="vaccinium_corymbosum">Vaccinium corymbosum</div>
+              </div>
+
+              R= 	  <input id="species1-R" disabled="disabled" name="species1-R" type="text" size="5" class="r-result arr-field" />
+
+	  <table style="margin-left:50px;width: 87%;">
+	      <tr>
+              <td>
+	              Base Temperature:
+              </td>
+	          <td>
+	            T <sub> 0 </sub>  = 
+	            <!--good default is 15 -->
+	            <input type="text" size="5" id="species1-base-temp" name="species1-base-temp" class="base-temp" 
+			 value="0"
+			 onchange="javascript:calculateKelvin(species1-base-temp);" 
+			 onkeyup="javascript:calculateKelvin(species1-base-temp);" />
+		         &deg;C = <span id="kelvin"> 273.15 </span>  K 
+	          </td>
+          </tr>
+          <tr>
+              <td>Respiration Rate<br/>	    @ base temperature
+              </td>
+	          <td>
+		        R<sub>0 </sub>= <input type="text" size="5" id="species1-R0" name="species1-R0" class="r-zero arr-field" />
+		        umol&nbsp;m<sup>-2</sup>s<sup>-1</sup>
+	          </td>
+	      </tr>
+	      <tr>	      <td>		Energy of Activation <br />@ base temperature
+                      </td>
+	          <td>
+		          E<sub>0 </sub>	= <input type="text" size="5" id="species1-E0" name="species1-E0" class="e-zero arr-field" />
+		          J mol<sup>-1</sup>
+	          </td>
+	      </tr>
+	  </table>
+	</div>
+          </div>
+          </div>
+          </div>
+    </form>
+</div>
+</div>
+{% endblock %}
+
+{% block rightlegend %}
+Respiration Rate Graph
+{% endblock %}
+
+
+{% block right %} 
+    <div id="y-grid-leaf"></div>
+    <div id="temperature_adjustment">
+      <div id="temp_label">
+	       Adjust Ambient Temperature (T<sub>a</sub>) Range: 
+    	<div id="temp_manual_controls">
+    	  <input id="temp_low" class="t-a arr-field" name="temp_low" type="text" value="0" size="3" maxlength="3"/>
+    	  &deg;C to 
+    	  <input id="temp_high" class="t-a arr-field" name="temp_high" type="text" value="30" size="3" maxlength="3" />
+    	  &deg;C &nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight: bold;">T<sub>a</sub>=</span> 
+    	  <input id="temp_mouse" disabled="disabled" class="t-a arr-field" name="temp_mouse" type="text" value="" size="3" maxlength="3" />
+    	  &deg;C 
+    	</div>
+      </div>
+    
+    <div id="temp-slider">
+	   <img id="leftslider" class="slider" src="media/images/l-thumb-round.gif" alt="leftslider" />
+	   <img id="rightslider" class="slider" src="media/images/r-thumb-round.gif" alt="rightslider" />
+	   <span class="slider range"></span>
+    </div>
+    </div>
+{% endblock %}

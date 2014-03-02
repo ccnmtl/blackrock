@@ -5,7 +5,6 @@ function LeafGraphData() {
     //this.t0 = null; //base temp
     this.t_a_min = 0; //celsius
     this.t_a_max = 30;
-
     this.colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#00c0c7', '#c070f0', '#ff8000', '#00ff00'];
 }
 
@@ -132,8 +131,8 @@ function leafGraph() {
 }
 
 
-function arrhenius(R0, E0, Rg, base-temp, Ta) {
-    var inner = ( (1/base-temp) - (1/Ta));
+function arrhenius(R0, E0, Rg, basetemp, Ta) {
+    var inner = ( (1/basetemp) - (1/Ta));
     var right = (E0 / Rg) * inner;
     var Rval = R0 * Math.exp(right);
     return Math.round(Rval*1000)/1000; //3 decimals
