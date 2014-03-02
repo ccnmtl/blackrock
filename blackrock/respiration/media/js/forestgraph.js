@@ -1,6 +1,4 @@
 function ForestGraphData() {
-    //this.Rg = 8.314;  // not used (the database knows this constant)
-
     this.scenarios = {};
     this.species = {};
     this.colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#00c0c7', '#c070f0', '#ff8000', '#00ff00'];
@@ -87,7 +85,8 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
     }
 
     // convert to Kelvin
-    this.scenarios[scenario_id].t0 = parseFloat(t0) + 273.15;
+    //now associated with species
+    //this.scenarios[scenario_id].t0 = parseFloat(t0) + 273.15;
 
     var leafarea = $(scenario_id + "-leafarea").value;
     if(leafarea == "" || isNaN(leafarea)) {
@@ -156,12 +155,12 @@ ForestGraphData.prototype.updateSpecies = function(species_id) {
     this.species[species_id].valid = false;
 
     //this.species[species_id]['name'] = $(species_id + "-name").value;
-    this.species[species_id]['base-temp0'] = $(species_id+'-base-temp0');
+    this.species[species_id]['base-temp'] = $(species_id+'-base-temp');
     this.species[species_id]['percent'] = $(species_id + "-percent").value;
     this.species[species_id]['R0'] = $(species_id + "-R0").value;
     this.species[species_id]['E0'] = $(species_id + "-E0").value;
 
-    if(this.species[species_id]['base-temp0'] != "" &&
+    if(this.species[species_id]['base-temp'] != "" &&
        this.species[species_id]['R0'] != "" &&
        this.species[species_id]['E0'] != "" &&
        this.species[species_id]['percent'] != "") {
@@ -245,17 +244,15 @@ function forestGraph() {
 
 	         function my_callback(scenario_num,scid,percent,http_request) {
   	           var answer = evalJSON(http_request.responseText);
-  	           //log(data[scenario_num-1]);
 	           data[scenario_num-1] += answer.total * (percent/100.0);
 	           species_count--;
-	           //log(data[scenario_num-1],answer.total);
+
                  if(species_count == 0) {  // got all species totals for this scenario
 	                 data[scenario_num-1] = data[scenario_num-1] * leafarea;
 	                 var calculated_value = Math.round(data[scenario_num-1] * 100) / 100;
 	                 data[scenario_num-1] = calculated_value;
 	                 scids[scenario_num-1] = scid;
 	             scenario_count--;
-	             //log(scenario_count);
 
 	             if(scenario_count == 0) {   // that's all, folks
 	               for(var i=0; i<data.length; i++) {
