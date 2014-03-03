@@ -19,13 +19,15 @@
    //    }
    //  }
 
-   function calculateKelvin(elem) {
+   function calculateKelvin(elem, id) {
        var temperature = elem;
        console.log("calculateKelvin temperature:" + temperature);
-       var kelvin = getFirstElementByTagAndClassName("span", "kelvin");
-       console.log("calculateKelvin kelvn:" + kelvin);
+       var k = id.split("-");//getFirstElementByTagAndClassName("span", "kelvin");
+       var kl = k[0] + "-kelvin";
+       console.log("calculateKelvin kl:" + kl);
        var result = parseFloat(elem) + 273.15;
        console.log("calculateKelvin result:" + result);
+       var kelvin = document.getElementById(kl);
        if(isNaN(result)) {
            kelvin.innerHTML = "";
        }
@@ -155,10 +157,10 @@ Use the red vertical indicator bar on the graph to view the calculated respirati
                      <!--good default is 15 -->
                      <input type="text" size="5" id="species1-base-temp" name="species1-base-temp" class="t-zero arr-field"
                           value="0"
-                          onchange="javascript:calculateKelvin(value);"
-                          onkeyup="javascript:calculateKelvin(value);" />
+                          onchange="javascript:calculateKelvin(value, id);"
+                          onkeyup="javascript:calculateKelvin(value, id);" />
                           &deg;C =
-                          <span class="kelvin" id="kelvin"> 273.15 </span>  K
+                          <span class="kelvin" id="species1-kelvin"> 273.15 </span>  K
                  </td>
              </tr>
              <tr>
