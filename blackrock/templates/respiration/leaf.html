@@ -10,14 +10,29 @@
    <script type="text/javascript" src="media/js/species.js"></script>
 
    <script type="text/javascript">
-     function calculateKelvin() {
-       var result = parseFloat($('base-temp').value) + 273.15;
+   //  function calculateKelvin() {
+   //    var result = parseFloat($('base-temp').value) + 273.15;
+   //    if(isNaN(result)) {
+   //      $('kelvin').innerHTML = "";
+   //    } else {
+   //      $('kelvin').innerHTML = result;
+   //    }
+   //  }
+
+   function calculateKelvin(elem) {
+       var temperature = elem;
+       console.log("calculateKelvin temperature:" + temperature);
+       var kelvin = getFirstElementByTagAndClassName("span", "kelvin");
+       console.log("calculateKelvin kelvn:" + kelvin);
+       var result = parseFloat(elem) + 273.15;
+       console.log("calculateKelvin result:" + result);
        if(isNaN(result)) {
-         $('kelvin').innerHTML = "";
-       } else {
-         $('kelvin').innerHTML = result;
+           kelvin.innerHTML = "";
        }
-     }
+       else {
+           kelvin.innerHTML = result;
+       }
+   }
 
      function formSubmit() {
        $("specieslist").value = getSpeciesList().join();
@@ -140,13 +155,13 @@ Use the red vertical indicator bar on the graph to view the calculated respirati
                      <!--good default is 15 -->
                      <input type="text" size="5" id="species1-base-temp" name="species1-base-temp" class="t-zero arr-field"
                           value="0"
-                          onchange="javascript:calculateKelvin();"
-                          onkeyup="javascript:calculateKelvin();" />
+                          onchange="javascript:calculateKelvin(value);"
+                          onkeyup="javascript:calculateKelvin(value);" />
                           &deg;C =
-                          <span id="kelvin"> 273.15 </span>  K
+                          <span class="kelvin" id="kelvin"> 273.15 </span>  K
                  </td>
-             <tr>
              </tr>
+             <tr>
                  <td>
                      Respiration Rate     <br/>      @ base temperature
                  </td>
