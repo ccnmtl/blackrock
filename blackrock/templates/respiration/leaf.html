@@ -32,7 +32,7 @@
      addLoadEvent(function() {
          initNav();
          initSpeciesModule();
-         setup(); // graph.js
+         setup();
        });
    </script>
 
@@ -52,6 +52,7 @@ Use the red vertical indicator bar on the graph to view the calculated respirati
  {% block leftlegend %}
  <div id="forestgraph">
    <input id="print_button" type="button" value="Print" onclick="javascript:window.print()" />
+     <input style="display: none;" id="plotGraph" class="needsupdate" type="button" value="Plot &gt;&gt;" onclick="javascript:leafGraph();" />
  </div>
  <h3>
      Set Respiration Rate Variables
@@ -70,20 +71,6 @@ Use the red vertical indicator bar on the graph to view the calculated respirati
    <input type="hidden" name="leaf-species{{forloop.counter}}-R0" id="leaf-species{{forloop.counter}}-R0" value='{{species|hash:"R0"}}' />
    <input type="hidden" name="leaf-species{{forloop.counter}}-percent" id="leaf-species{{forloop.counter}}-percent" value='{{species|hash:"percent"}}' />
    {% endfor %}
-
-
-   <!-- <form id="leaf-form" name="leaf-form" action="forest" method="post">
-     <input type="hidden" id="specieslist" name="specieslist" value="" />
-
-     <input type="hidden" id="scenario1-name" name="scenario1-name" value='{{scenario_options|hash:"name"}}' />
-     <input type="hidden" id="scenario1-year" name="scenario1-year" value='{{scenario_options|hash:"year"}}' />
-     <input type="hidden" id="scenario1-fieldstation" name="scenario1-fieldstation"
-            value='{{scenario_options|hash:"fieldstation"}}' />
-     <input type="hidden" id="scenario1-leafarea" name="scenario1-leafarea" value='{{scenario_options|hash:"leafarea"}}' />
-     <input type="hidden" id="scenario1-startdate" name="scenario1-startdate" value='{{scenario_options|hash:"startdate"}}' />
-     <input type="hidden" id="scenario1-enddate" name="scenario1-enddate" value='{{scenario_options|hash:"enddate"}}' />
-     <input type="hidden" id="scenario1-delta-t" name="scenario1-delta-t" value='{{scenario_options|hash:"deltat"}}' /> -->
-
 
 
  <div id="scenariocontainer">

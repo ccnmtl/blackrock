@@ -2,12 +2,13 @@
 function LeafGraphData() {
     this.Rg = 8.314;
     this.species = {};
-    // This is now part of species
     //this.t0 = null; //base temp
     this.t_a_min = 0;
     this.t_a_max = 30;
     this.colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#00c0c7', '#c070f0', '#ff8000', '#00ff00'];
-    //alert("LeafGraphData" + this.species + this.t_a_min + this.t_a_max);
+    //console.log("LeafGraphData" + this.t_a_min + this.t_a_max);
+    //species is currently {}
+
 }
 
 var LeafData = new LeafGraphData();
@@ -26,11 +27,14 @@ LeafGraphData.prototype.updateSpecies = function(species_id) {
     }
 
     this.species[species_id].name = $(species_id + "-name").value;
-    this.species[species_id].basetemp = $(species_id + "-base-temp").value;
+    this.species[species_id].basetemp = Number($('kelvin').innerHTML);//$(species_id + "-base-temp").value;
     this.species[species_id].R0 = $(species_id + "-R0").value;
     this.species[species_id].E0 = $(species_id + "-E0").value;
     $(species_id + "-swatch").style.backgroundColor = this.species[species_id].color;
-    //alert("updateSpecies" + this.species[species_id].basetemp + this.species[species_id].R0 +this.species[species_id].E0 );
+    //console.log("updateSpecies " + this.species[species_id]);
+    //console.log("basetemp " + this.species[species_id].basetemp);
+    //console.log("R0 " + this.species[species_id].R0 );
+    //console.log("E0 " + this.species[species_id].E0);
     //works as advertised
 };
 
@@ -43,7 +47,7 @@ function updateColors() {
 
 // this also does not appear to run
 LeafGraphData.prototype.updateFields = function() {
-    alert("updateFields");
+    //console.log("updateFields");
     var min = ($('temp_low')) ? Math.round($('temp_low').value * 100) / 100 : 0;
     var max = ($('temp_high')) ? Math.round($('temp_high').value * 100) / 100 : 30;
     
@@ -65,18 +69,18 @@ LeafGraphData.prototype.updateFields = function() {
         return false;
     } 
 
-    // Temperature now associated with species
     //this.t0 = Number($('kelvin').innerHTML);
+    // THESE ARE FINE
     this.t_a_min = min;
+    //console.log(this.t_a_min);
     this.t_a_max = max;
+    //console.log(this.t_a_max);
     return true;
 };
 
-//this also does not appear to run
-//what is t_a?
 //basetemp is from updateSpecies funct above
 LeafGraphData.prototype.arrhenius = function(species_id, t_a) {
-    alert("arrhenius");
+    //console.log("LeafGraphData.arrhenius");
     var data = this.species[species_id];
 
     if ((! data.basetemp) || (isNaN(data.basetemp))) {
@@ -93,38 +97,44 @@ LeafGraphData.prototype.arrhenius = function(species_id, t_a) {
 
 //RUNS
 function leafGraph() {
-    //this does run
-    //alert("leafGraph");
+    //console.log("leafGraph function");
     // have to re-init, because g.clear() doesn't reset legend
     if ($("plotGraph") === null) {
+        //console.log("plotgraph");
         return false; 
     }
+    // possible this is never called - also possible it is malfunctioning
     if (!LeafData.updateFields()) {
+        //console.log("leafdata");
         return false;
     }
+    //console.log("after leafdata");
     removeElementClass('plotGraph', 'needsupdate');
-    alert("prior to g - initGraph()");
-    //IS THIS AN INSANCE OF THE GRAPH FUNCTION BELOW?
+    //console.log("prior to g - initGraph()");
+
     g = initGraph();
-    alert("g graph instantiated");
+    //console.log("after g - initGraph()");
 
 
     forEach(getElementsByTagAndClassName('div', 'species'),
        function(species) {
        var spid = species.id;
-           alert(spid);
+           //console.log(species.id + species.label +species.t0 + species.e0 + species.r0);
        var data = [];
-           alert(data);
+           //console.log(data);
        //var color = colors.shift();
+           //for each species tag - updateSpecies()
        LeafData.updateSpecies(spid);
 
        g.labels = {};
-       //#54006 (LEAF) Remove x-axis labels...
-       //g.labels[LeafData.t_a_min] = LeafData.t_a_min;
-       //g.labels[LeafData.t_a_max] = LeafData.t_a_max;
+
        for(var i=LeafData.t_a_min; i<=LeafData.t_a_max; i++) {
+           //console.log(i);
+           //does indeed go up to 30...
            try {
-           var Rval = LeafData.arrhenius(spid, i);
+               //console.log(species.id);
+               //on last tree it dies
+               var Rval = LeafData.arrhenius(spid, i);
            if (!isNaN(Rval)) {
                data.push(Rval);
                //if(Rval > 0) { g.left_margin = 0; }
@@ -149,7 +159,7 @@ function leafGraph() {
 
 
 function arrhenius(R0, E0, Rg, basetemp, Ta) {
-    alert("arrhenius");
+    //console.log("outer arrhenius function R0: " + R0 + " E0: "+ E0 + " basetemp: " + basetemp + " Ta: " + Ta);
     var inner = ( (1/basetemp) - (1/Ta));
     var right = (E0 / Rg) * inner;
     var Rval = R0 * Math.exp(right);
@@ -159,7 +169,7 @@ function arrhenius(R0, E0, Rg, basetemp, Ta) {
 
 //RUNS
 function initGraph() {
-//    alert("initGraph");
+//    console.log("initGraph");
   var g = new Bluff.Line('graph', "460x345");
   g.set_theme({
     marker_color: '#aea9a9',
@@ -169,10 +179,6 @@ function initGraph() {
   g.hide_dots = true;
   g.hide_title = true;
   g.x_axis_label = "Ambient Temperature (Ta)";
-
-  //g.labels = {0: '0', 30: '30'};
-  //g.hide_legend = true;  // breaks IE
-  //g.hide_line_markers = true;
   g.set_margins(0);
   g.left_margin = 30;
   g.top_margin = 10;
@@ -185,8 +191,9 @@ function initGraph() {
 
 function setup() {
   var g = initGraph();
-  //  alert("setup");
+  //console.log("var g = initGraph");
   g.draw();
+  //console.log("g.draw()");
 }
 
 //working backwards - should be:

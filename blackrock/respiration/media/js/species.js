@@ -54,7 +54,8 @@
       
       initPredefinedSpecies();
     }
-    
+
+    //why leaf-num-species???
     function initSpecies() {
       var leafSpecies = $("leaf-numspecies").value;
       speciesList = [];
@@ -112,6 +113,8 @@
 
 // need to change this to reflect that T0 is part of tree info now
     function EquationHighlighter() {
+        // inner object to species module?
+        alert("EquationHighlighter");
     connect(window,'onload',this,'onLoad');
     this.vars = { //not sure is t-zero should be here or not
              "e-zero":[],
@@ -131,7 +134,7 @@
     this.arrhenius_vars = getElementsByTagAndClassName(null,'arr-variable','equation');
         //alert(self.arrhenius_vars); //it thinks it knows what these are ...
 
-    for (var a in self.vars) {
+    for (var a in self.vars) { //accessing the this.vars from function EquationHighlighter
         //alert(a);// e-zero r-g t-zero t-a r-zero r-result
         connect('arr-'+a,'onmouseenter',bind(self.hiliteFields,self,a));
         connect('arr-'+a,'onmouseleave',bind(self.unHiliteFields,self,a));
@@ -146,6 +149,7 @@
     };
     
     EquationHighlighter.prototype.needsUpdate = function() {
+        // accessing outer TemperatureSliders
         if (leafGraph()) {
             global.TemperatureSliders.updateGraphDimensions();
         }
@@ -187,8 +191,7 @@
             removeElementClass(elt,'selected');
         });
     };
-// do I need to change this to reflect that T0 is part of tree info now?
-// how does the rest of the info fit into this picture?
+
     function TemperatureSliders() {
         connect(window,'onload',this,'onLoad');
         this.low=null;
@@ -339,7 +342,7 @@
     };
 
 
-    // this may need to me modified...
+
     TemperatureSliders.prototype.graphCursor = function(evt,do_anyway) {
         if (this.freeze && !do_anyway) return;
     
@@ -369,14 +372,10 @@
         }
     };
 
-
-    // this also needs to be changed
-    // where is leaf data coming from
     TemperatureSliders.prototype.updateCursorVals = function(evt) {
         var lf = global.LeafData;
         var real_temp = lf.t_a_min + (lf.t_a_max-lf.t_a_min)*this.temp/this.canvas_length;
-        //temperature per species should be gotten per leaf?
-        //var real_temp = lf.t_a_min + (lf.t_a_max-lf.t_a_min)*lf.basetemp/this.canvas_length;
+
         if (!isNaN(real_temp)) {
             $('temp_mouse').value = Math.round(real_temp * 10) / 10;
             for (var a in lf.species) {
@@ -413,8 +412,6 @@
         }
     }
 
-
-//t0 already had default... no change needed?
     var predefinedSpecies = {
         "quercus_rubra" : {
             'label' : 'Quercus rubra',
@@ -496,7 +493,6 @@
         }
     };
 
-    // what is evt dont see where this is done
     function populateSpeciesChoice(evt) {
         var elt = evt.src();
         if (elt.id in predefinedSpecies) {
@@ -530,9 +526,6 @@
     }
 
 
-
-    // why are we instantiating/assigning functions?
-    // does this just make them globally accessible?
     global.addSpecies = addSpecies;
     global.delSpecies = delSpecies;
     global.getNumSpecies = getNumSpecies;
@@ -542,5 +535,6 @@
     global.EquationHighlighter = new EquationHighlighter();
     global.TemperatureSliders = new TemperatureSliders();
     global.initSpeciesModule = initSpeciesModule;
+    //console.log();
 
 })();
