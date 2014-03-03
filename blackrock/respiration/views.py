@@ -27,14 +27,14 @@ def index(request, admin_msg=""):
 
 def leaf(request):
     # get passed-in defaults
-    basetemp = 0
-    try:
-        basetemp = request.POST['scenario1-base-temp']
-    except:
-        pass
+    #basetemp = 0
+    #try:
+    #    basetemp = request.POST['scenario1-base-temp']
+    #except:
+    #    pass
 
     scenario_options = {
-        'basetemp': 0,
+        #'basetemp': 0,
         'name': 'Scenario 1',
         'leafarea': 1,
         'startdate': '1/1',
@@ -65,13 +65,14 @@ def leaf(request):
         if(s != ""):
             species = {}
             species['name'] = request.POST[s + '-name']
+            species['basetemp'] = request.POST[s + '-base-temp']
             species['E0'] = request.POST[s + '-E0']
             species['R0'] = request.POST[s + '-R0']
             species['percent'] = request.POST[s + '-percent']
             myspecies.append(species)
 
     return render_to_response(
-        'respiration/leaf.html', {'basetemp': basetemp,
+        'respiration/leaf.html', {#'basetemp': basetemp,
                                   'numspecies': len(myspecies),
                                   'specieslist': myspecies,
                                   'scenario_options': scenario_options})
@@ -90,7 +91,7 @@ def forest(request):
 
     # get passed-in defaults
     scenario_options = {
-        'basetemp': 0,
+        #'basetemp': 0,
         'name': 'Scenario 1',
         'leafarea': 1,
         'startdate': '1/1',
@@ -98,7 +99,7 @@ def forest(request):
         'deltat': '0',
         'fieldstation': '', 'year': ''}
     try:
-        scenario_options['basetemp'] = request.POST['base-temp']
+        # scenario_options['basetemp'] = request.POST['base-temp']
         scenario_options['name'] = request.POST['scenario1-name']
         scenario_options['year'] = request.POST['scenario1-year']
         scenario_options['fieldstation'] = request.POST[
@@ -141,9 +142,10 @@ def forest(request):
 def getsum(request):
     if request.method != 'POST':
         return HttpResponseRedirect("/respiration/")
+    #print request
     R0 = float(request.REQUEST['R0'])
     E0 = float(request.REQUEST['E0'])
-    T0 = float(request.REQUEST['t0'])
+    T0 = float(request.REQUEST['basetemp'])
     deltaT = 0.0
     try:
         deltaT = float(request.REQUEST['delta'])

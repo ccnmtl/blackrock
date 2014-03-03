@@ -65,14 +65,14 @@ Use the red vertical indicator bar on the graph to view the calculated respirati
 {% for species in specieslist %}
 <!-- Perhaps these stopped workng because they are uppercase and in java var for predefined list the are lowercase-->
    <input type="hidden" name="leaf-species{{forloop.counter}}-name" id="leaf-species{{forloop.counter}}-name" value='{{species|hash:"name"}}' />
-   <input type="hidden" name="leaf-species{{forloop.counter}}-base-temp" id="leaf-species{{forloop.counter}}-base-temp" value='{{species|hash:"t0"}}' />
+   <input type="hidden" name="leaf-species{{forloop.counter}}-base-temp" id="leaf-species{{forloop.counter}}-base-temp" value='{{species|hash:"basetemp"}}' />
    <input type="hidden" name="leaf-species{{forloop.counter}}-E0" id="leaf-species{{forloop.counter}}-E0" value='{{species|hash:"E0"}}' />
    <input type="hidden" name="leaf-species{{forloop.counter}}-R0" id="leaf-species{{forloop.counter}}-R0" value='{{species|hash:"R0"}}' />
    <input type="hidden" name="leaf-species{{forloop.counter}}-percent" id="leaf-species{{forloop.counter}}-percent" value='{{species|hash:"percent"}}' />
    {% endfor %}
 
 
-   <form id="leaf-form" name="leaf-form" action="forest" method="post">
+   <!-- <form id="leaf-form" name="leaf-form" action="forest" method="post">
      <input type="hidden" id="specieslist" name="specieslist" value="" />
 
      <input type="hidden" id="scenario1-name" name="scenario1-name" value='{{scenario_options|hash:"name"}}' />
@@ -82,7 +82,7 @@ Use the red vertical indicator bar on the graph to view the calculated respirati
      <input type="hidden" id="scenario1-leafarea" name="scenario1-leafarea" value='{{scenario_options|hash:"leafarea"}}' />
      <input type="hidden" id="scenario1-startdate" name="scenario1-startdate" value='{{scenario_options|hash:"startdate"}}' />
      <input type="hidden" id="scenario1-enddate" name="scenario1-enddate" value='{{scenario_options|hash:"enddate"}}' />
-     <input type="hidden" id="scenario1-delta-t" name="scenario1-delta-t" value='{{scenario_options|hash:"deltat"}}' />
+     <input type="hidden" id="scenario1-delta-t" name="scenario1-delta-t" value='{{scenario_options|hash:"deltat"}}' /> -->
 
 
 
@@ -122,8 +122,8 @@ Use the red vertical indicator bar on the graph to view the calculated respirati
            <div class="colorswatch" id="species1-swatch">
              &nbsp;&nbsp;&nbsp;&nbsp;
            </div>
-           <input type="text" class="species-name" id="species1-name" name="species1-name" value="Species 1"></input>
-           <input type="button" class="species-select-predefined"></input>
+           <input type="text" class="species-name" id="species1-name" name="species1-name" value="Species 1"/>
+           <input type="button" class="species-select-predefined"/>
                <div class="species-predefined-list" style="display: none;">
                    <div class="species-predefined-choice" id="acer_rubrum">Acer rubrum</div>
                    <div class="species-predefined-choice" id="berberis_thumbergii">Berberis thumbergii</div>
@@ -182,7 +182,7 @@ Use the red vertical indicator bar on the graph to view the calculated respirati
          </div>
        </div>
      </div>
-   </form>
+   </div></form>
  </div>
  </div>
  {% endblock %}

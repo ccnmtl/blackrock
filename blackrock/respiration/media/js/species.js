@@ -1,11 +1,10 @@
 /* module wrapper pattern*/
 (function() {
     var global = this;
-
     var numSpecies = 1;
     var speciesList = [];
     var html = "";
-    
+    //alert("in global species space");
     function initSpeciesCloner() {
         html = $('species1').innerHTML;
     }
@@ -59,6 +58,7 @@
     function initSpecies() {
       var leafSpecies = $("leaf-numspecies").value;
       speciesList = [];
+      //alert("initSpecies");
       for(var i=1; i<=leafSpecies; i++) {
         if(i > 1) {
           addSpecies();
@@ -113,20 +113,26 @@
 // need to change this to reflect that T0 is part of tree info now
     function EquationHighlighter() {
     connect(window,'onload',this,'onLoad');
-    this.vars = {
+    this.vars = { //not sure is t-zero should be here or not
              "e-zero":[],
              "r-g":[],
-             //"t-zero":[],
+             "t-zero":[],
              "t-a":[],
              "r-zero":[],
              "r-result":[]
             };
-    this.current = [];
+    this.current = []; // current?
     }
+
     EquationHighlighter.prototype.onLoad = function() {
-    var self = this;
+       // alert("onLoad");
+    var self = this; // why do we need to assign self it we can just use this?
+
     this.arrhenius_vars = getElementsByTagAndClassName(null,'arr-variable','equation');
+        //alert(self.arrhenius_vars); //it thinks it knows what these are ...
+
     for (var a in self.vars) {
+        //alert(a);// e-zero r-g t-zero t-a r-zero r-result
         connect('arr-'+a,'onmouseenter',bind(self.hiliteFields,self,a));
         connect('arr-'+a,'onmouseleave',bind(self.unHiliteFields,self,a));
         forEach(getElementsByTagAndClassName(null,a),function(elt) {
@@ -151,7 +157,7 @@
         r_zero = getFirstElementByTagAndClassName(null,"r-zero",elt);
         connect(e_zero,'onfocus',function(){self.hiliteVar("e-zero");});
         connect(r_zero,'onfocus',function(){self.hiliteVar("r-zero");});
-        if($("plotGraph") !== null) {
+        if($("plotGraph") !== null) {//do I need to add t-zero?
           connect(e_zero,'onchange',self.needsUpdate);
           connect(r_zero,'onchange',self.needsUpdate);
         }
@@ -368,9 +374,9 @@
     // where is leaf data coming from
     TemperatureSliders.prototype.updateCursorVals = function(evt) {
         var lf = global.LeafData;
-//        var real_temp = lf.t_a_min + (lf.t_a_max-lf.t_a_min)*this.temp/this.canvas_length;
+        var real_temp = lf.t_a_min + (lf.t_a_max-lf.t_a_min)*this.temp/this.canvas_length;
         //temperature per species should be gotten per leaf?
-        var real_temp = lf.t_a_min + (lf.t_a_max-lf.t_a_min)*lf.temp/this.canvas_length;
+        //var real_temp = lf.t_a_min + (lf.t_a_max-lf.t_a_min)*lf.basetemp/this.canvas_length;
         if (!isNaN(real_temp)) {
             $('temp_mouse').value = Math.round(real_temp * 10) / 10;
             for (var a in lf.species) {
@@ -499,8 +505,8 @@
             var eltLabel = getFirstElementByTagAndClassName('input', 'species-name', parent=parent);
             eltLabel.value = predefinedSpecies[elt.id].label;
             
-            var eltTemp = getFirstElementByTagAndClassName('input', 'base-temp', parent=parent);
-            eltLabel.value = predefinedSpecies[elt.id].base-temp;
+            var eltTemp = getFirstElementByTagAndClassName('input', 't-zero', parent=parent);
+            eltTemp.value = predefinedSpecies[elt.id].t0;//using t0 because it is the var in the json funct above
 
             var eltRZero = getFirstElementByTagAndClassName('input', 'r-zero', parent=parent);
             eltRZero.value = predefinedSpecies[elt.id].r0;

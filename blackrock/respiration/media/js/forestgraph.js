@@ -73,7 +73,6 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
       if( typeof( color ) == 'undefined' ) {  // if we run out of colors, cycle them
         ForestData.colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#00c0c7', '#c070f0', '#ff8000', '#00ff00'];
         this.species[species_id]['color'] = ForestData.colors.shift();
-        // there can be more than one species for a scenario? how do we deal with that?
       }
 
     }

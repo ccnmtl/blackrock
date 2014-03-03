@@ -1,15 +1,19 @@
+//RUNS
 function LeafGraphData() {
     this.Rg = 8.314;
     this.species = {};
     // This is now part of species
     //this.t0 = null; //base temp
-    this.t_a_min = 0; //celsius
+    this.t_a_min = 0;
     this.t_a_max = 30;
     this.colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#00c0c7', '#c070f0', '#ff8000', '#00ff00'];
+    //alert("LeafGraphData" + this.species + this.t_a_min + this.t_a_max);
 }
 
 var LeafData = new LeafGraphData();
 
+
+//Runs when ever a new species is added - once for each species
 LeafGraphData.prototype.updateSpecies = function(species_id) {
     if (typeof(this.species[species_id]) == 'undefined') {
       this.species[species_id] = {};
@@ -18,14 +22,16 @@ LeafGraphData.prototype.updateSpecies = function(species_id) {
         LeafData.colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#00c0c7', '#c070f0', '#ff8000', '#00ff00'];
         this.species[species_id].color = LeafData.colors.shift();
       }
+
     }
 
     this.species[species_id].name = $(species_id + "-name").value;
-    // I'm assuming this is from the JSON JS...
     this.species[species_id].basetemp = $(species_id + "-base-temp").value;
     this.species[species_id].R0 = $(species_id + "-R0").value;
     this.species[species_id].E0 = $(species_id + "-E0").value;
     $(species_id + "-swatch").style.backgroundColor = this.species[species_id].color;
+    //alert("updateSpecies" + this.species[species_id].basetemp + this.species[species_id].R0 +this.species[species_id].E0 );
+    //works as advertised
 };
 
 function updateColors() {
@@ -34,7 +40,10 @@ function updateColors() {
   });
 }
 
+
+// this also does not appear to run
 LeafGraphData.prototype.updateFields = function() {
+    alert("updateFields");
     var min = ($('temp_low')) ? Math.round($('temp_low').value * 100) / 100 : 0;
     var max = ($('temp_high')) ? Math.round($('temp_high').value * 100) / 100 : 30;
     
@@ -63,10 +72,13 @@ LeafGraphData.prototype.updateFields = function() {
     return true;
 };
 
+//this also does not appear to run
 //what is t_a?
+//basetemp is from updateSpecies funct above
 LeafGraphData.prototype.arrhenius = function(species_id, t_a) {
+    alert("arrhenius");
     var data = this.species[species_id];
-    // are these values based on the JSON or the html?
+
     if ((! data.basetemp) || (isNaN(data.basetemp))) {
     throw "Please set a valid base temperature.";
     }
@@ -74,11 +86,15 @@ LeafGraphData.prototype.arrhenius = function(species_id, t_a) {
     throw "Please set valid R0 and E0 values for "+data.name;
     }
     var Rval = arrhenius(data.R0, data.E0, this.Rg, data.basetemp, t_a+273.15);
-//    if ((! data.t0) || (isNaN(data.t0))) {
+
     return Rval;
 };
 
+
+//RUNS
 function leafGraph() {
+    //this does run
+    //alert("leafGraph");
     // have to re-init, because g.clear() doesn't reset legend
     if ($("plotGraph") === null) {
         return false; 
@@ -87,13 +103,18 @@ function leafGraph() {
         return false;
     }
     removeElementClass('plotGraph', 'needsupdate');
+    alert("prior to g - initGraph()");
+    //IS THIS AN INSANCE OF THE GRAPH FUNCTION BELOW?
     g = initGraph();
-    
+    alert("g graph instantiated");
+
 
     forEach(getElementsByTagAndClassName('div', 'species'),
        function(species) {
        var spid = species.id;
+           alert(spid);
        var data = [];
+           alert(data);
        //var color = colors.shift();
        LeafData.updateSpecies(spid);
 
@@ -128,13 +149,17 @@ function leafGraph() {
 
 
 function arrhenius(R0, E0, Rg, basetemp, Ta) {
+    alert("arrhenius");
     var inner = ( (1/basetemp) - (1/Ta));
     var right = (E0 / Rg) * inner;
     var Rval = R0 * Math.exp(right);
     return Math.round(Rval*1000)/1000; //3 decimals
 }
 
+
+//RUNS
 function initGraph() {
+//    alert("initGraph");
   var g = new Bluff.Line('graph', "460x345");
   g.set_theme({
     marker_color: '#aea9a9',
@@ -160,6 +185,9 @@ function initGraph() {
 
 function setup() {
   var g = initGraph();
+  //  alert("setup");
   g.draw();
 }
 
+//working backwards - should be:
+//setup --> initGraph() -->
