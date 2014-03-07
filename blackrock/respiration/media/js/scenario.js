@@ -41,12 +41,6 @@
        }
    }
    
-   function loadSpeciesData() {
-      // load data from leaf mode
-      
-      // adjust percentages
-   }
-   
    function initScenarioModule() {
        initScenarioCloner();
    }

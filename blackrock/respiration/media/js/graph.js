@@ -1,4 +1,3 @@
-//RUNS
 function LeafGraphData() {
     this.Rg = 8.314;
     this.species = {};
@@ -8,18 +7,17 @@ function LeafGraphData() {
     this.colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#00c0c7', '#c070f0', '#ff8000', '#00ff00'];
     //console.log("LeafGraphData" + this.t_a_min + this.t_a_max);
     //species is currently {}
-
 }
 
 var LeafData = new LeafGraphData();
-
 
 //Runs when ever a new species is added - once for each species
 LeafGraphData.prototype.updateSpecies = function(species_id) {
     if (typeof(this.species[species_id]) == 'undefined') {
       this.species[species_id] = {};
       var color = this.species[species_id].color = LeafData.colors.shift();
-      if( typeof( color ) == 'undefined' ) {  // if we run out of colors, cycle them
+      if( typeof( color ) == 'undefined' ) {
+        // why is this here a second time?
         LeafData.colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#00c0c7', '#c070f0', '#ff8000', '#00ff00'];
         this.species[species_id].color = LeafData.colors.shift();
       }
@@ -45,7 +43,6 @@ function updateColors() {
 }
 
 
-// this also does not appear to run
 LeafGraphData.prototype.updateFields = function() {
     //console.log("updateFields");
     var min = ($('temp_low')) ? Math.round($('temp_low').value * 100) / 100 : 0;
@@ -69,12 +66,8 @@ LeafGraphData.prototype.updateFields = function() {
         return false;
     } 
 
-    //this.t0 = Number($('kelvin').innerHTML);
-    // THESE ARE FINE
     this.t_a_min = min;
-    //console.log(this.t_a_min);
     this.t_a_max = max;
-    //console.log(this.t_a_max);
     return true;
 };
 
@@ -147,10 +140,10 @@ function leafGraph() {
            }
        }
 
-
        g.data(LeafData.species[spid].name, data, LeafData.species[spid].color);
 
        });
+
   //g.data('Oaks', [1, 2, 3, 4, 4, 3]);
   //g.data('Maples', [4, 8, 7, 9, 8, 9]);
   g.draw();
@@ -167,9 +160,7 @@ function arrhenius(R0, E0, Rg, basetemp, Ta) {
 }
 
 
-//RUNS
 function initGraph() {
-//    console.log("initGraph");
   var g = new Bluff.Line('graph', "460x345");
   g.set_theme({
     marker_color: '#aea9a9',
@@ -191,10 +182,5 @@ function initGraph() {
 
 function setup() {
   var g = initGraph();
-  //console.log("var g = initGraph");
   g.draw();
-  //console.log("g.draw()");
 }
-
-//working backwards - should be:
-//setup --> initGraph() -->
