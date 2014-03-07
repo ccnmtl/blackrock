@@ -4,7 +4,7 @@
     var numSpecies = 1;
     var speciesList = [];
     var html = "";
-    //alert("in global species space");
+
     function initSpeciesCloner() {
         html = $('species1').innerHTML;
     }
@@ -78,7 +78,6 @@
       if(leafSpecies === 0) {setDefaults(); }
     }
 
-//added temperature here so it will default to 0 even though it is not really specific to the tree?
     function setDefaults() {
       $('species1-name').value = "Your Tree #1";
       $('species1-base-temp').value = 0;
@@ -102,21 +101,17 @@
     }
     
     function delSpecies(id) {
-      //numSpecies--;  // do not reuse species IDs
       removeElement(id);
-      // remove from scenario1 array if it exists
       if(speciesList.indexOf(id) != -1) { 
         speciesList.splice(speciesList.indexOf(id), 1);
         leafGraph();
       }
     }
 
-// need to change this to reflect that T0 is part of tree info now
     function EquationHighlighter() {
-        // inner object to species module?
-        alert("EquationHighlighter");
+
     connect(window,'onload',this,'onLoad');
-    this.vars = { //not sure is t-zero should be here or not
+    this.vars = {
              "e-zero":[],
              "r-g":[],
              "t-zero":[],
@@ -124,15 +119,16 @@
              "r-zero":[],
              "r-result":[]
             };
-    this.current = []; // current?
+    this.current = [];
     }
 
+
+    //why are the graphical functions inside the species mod?
     EquationHighlighter.prototype.onLoad = function() {
-       // alert("onLoad");
-    var self = this; // why do we need to assign self it we can just use this?
+
+    var self = this;
 
     this.arrhenius_vars = getElementsByTagAndClassName(null,'arr-variable','equation');
-        //alert(self.arrhenius_vars); //it thinks it knows what these are ...
 
     for (var a in self.vars) { //accessing the this.vars from function EquationHighlighter
         //alert(a);// e-zero r-g t-zero t-a r-zero r-result
@@ -154,14 +150,15 @@
             global.TemperatureSliders.updateGraphDimensions();
         }
     };
-    
+
+    // no t-zero involved
     EquationHighlighter.prototype.initSpecies = function(elt) {
         var self = this;
         e_zero = getFirstElementByTagAndClassName(null,"e-zero",elt);
         r_zero = getFirstElementByTagAndClassName(null,"r-zero",elt);
         connect(e_zero,'onfocus',function(){self.hiliteVar("e-zero");});
         connect(r_zero,'onfocus',function(){self.hiliteVar("r-zero");});
-        if($("plotGraph") !== null) {//do I need to add t-zero?
+        if($("plotGraph") !== null) {
           connect(e_zero,'onchange',self.needsUpdate);
           connect(r_zero,'onchange',self.needsUpdate);
         }
@@ -192,6 +189,8 @@
         });
     };
 
+
+    //why are the graphical functions inside the species module?
     function TemperatureSliders() {
         connect(window,'onload',this,'onLoad');
         this.low=null;
@@ -202,6 +201,8 @@
         this.margin = 25;
         this.freeze = false;
     }
+
+
     TemperatureSliders.prototype.onLoad = function() {
         var self = this;
         if(!$('temp-slider')) {
@@ -256,20 +257,21 @@
         this.update('do all of them');
         global.EquationHighlighter.needsUpdate();
     };
-    
+
+    //no t-zero involved.... in TemperatureSliders, except perhaps graphCursor, and updateCursorVals
     TemperatureSliders.prototype.lowSnap = function(x,y) {
         x = Math.min(x,this.length-this.MIN_WIDTH);
         x = Math.max(x,0);
-        this.low = x/this.conv; //math
-        this.high = Math.max(this.high,(x+this.MIN_WIDTH)/this.conv); //math
+        this.low = x/this.conv;
+        this.high = Math.max(this.high,(x+this.MIN_WIDTH)/this.conv);
         return [x,0];
     };
     
     TemperatureSliders.prototype.highSnap = function(x,y) {
         x = Math.min(x,this.length);
         x = Math.max(x,this.MIN_WIDTH);
-        this.low = Math.min(this.low,(x-this.MIN_WIDTH)/this.conv); //math
-        this.high = x/this.conv; //math
+        this.low = Math.min(this.low,(x-this.MIN_WIDTH)/this.conv);
+        this.high = x/this.conv;
         return [x,0];
     };
     
@@ -341,8 +343,6 @@
         return canvas_length;
     };
 
-
-
     TemperatureSliders.prototype.graphCursor = function(evt,do_anyway) {
         if (this.freeze && !do_anyway) return;
     
@@ -393,7 +393,6 @@
     function getSpeciesList() {
       return speciesList;
     }
-    
     function setSpeciesList(list) {
       speciesList = list;
     }
