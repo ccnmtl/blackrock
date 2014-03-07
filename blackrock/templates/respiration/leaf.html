@@ -10,6 +10,7 @@
    <script type="text/javascript" src="media/js/species.js"></script>
 
    <script type="text/javascript">
+<<<<<<< HEAD
   //   function calculateKelvin() {
   //     var result = parseFloat($('base-temp').value) + 273.15;
   //     if(isNaN(result)) {
@@ -56,6 +57,33 @@
 
 
 
+=======
+   //  function calculateKelvin() {
+   //    var result = parseFloat($('base-temp').value) + 273.15;
+   //    if(isNaN(result)) {
+   //      $('kelvin').innerHTML = "";
+   //    } else {
+   //      $('kelvin').innerHTML = result;
+   //    }
+   //  }
+
+   function calculateKelvin(elem, id) {
+       var temperature = elem;
+       console.log("calculateKelvin temperature:" + temperature);
+       var k = id.split("-");//getFirstElementByTagAndClassName("span", "kelvin");
+       var kl = k[0] + "-kelvin";
+       console.log("calculateKelvin kl:" + kl);
+       var result = parseFloat(elem) + 273.15;
+       console.log("calculateKelvin result:" + result);
+       var kelvin = document.getElementById(kl);
+       if(isNaN(result)) {
+           kelvin.innerHTML = "";
+       }
+       else {
+           kelvin.innerHTML = result;
+       }
+   }
+>>>>>>> dcde96bb15486db3a2161b03e44c46075d10e4d9
 
      function formSubmit() {
        $("specieslist").value = getSpeciesList().join();
@@ -178,9 +206,10 @@ Use the red vertical indicator bar on the graph to view the calculated respirati
                      <!--good default is 15 -->
                      <input type="text" size="5" id="species1-base-temp" name="species1-base-temp" class="t-zero arr-field"
                           value="0"
-                          onchange="javascript:calculateKelvin();"
-                          onkeyup="javascript:calculateKelvin();" />
+                          onchange="javascript:calculateKelvin(value, id);"
+                          onkeyup="javascript:calculateKelvin(value, id);" />
                           &deg;C =
+
                           <span id="kelvin"> 273.15 </span>  K
 
                      <!--<input type="text" size="5" id="species1-base-temp" name="species1-base-temp" class="t-zero arr-field"
@@ -191,9 +220,10 @@ Use the red vertical indicator bar on the graph to view the calculated respirati
                      <span class="kelvin" id="species1-kelvin"> 273.15 </span>  K-->
 
 
+
                  </td>
-             <tr>
              </tr>
+             <tr>
                  <td>
                      Respiration Rate     <br/>      @ base temperature
                  </td>
