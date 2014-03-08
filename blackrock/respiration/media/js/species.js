@@ -1,5 +1,8 @@
 /* module wrapper pattern*/
 (function() {
+
+    //Currently Removes Duplicate Trees of Same Species - need to change that
+
     var global = this;
     var numSpecies = 1;
     var speciesList = [];
@@ -59,7 +62,7 @@
     function initSpecies() {
       var leafSpecies = $("leaf-numspecies").value;
       speciesList = [];
-      //alert("initSpecies");
+
       for(var i=1; i<=leafSpecies; i++) {
         if(i > 1) {
           addSpecies();
@@ -82,12 +85,14 @@
     function setDefaults() {
       $('species1-name').value = "Your Tree #1";
       $('species1-base-temp').value = 0;
+      $('species1-kelvin').value = 0;
       $('species1-R0').value = 0; /*0.84*/
       $('species1-E0').value = 0; /*27210*/
 
       addSpecies();
       $('species2-name').value = "Your Tree #2";
       $('species2-base-temp').value = 0;
+      $('species2-kelvin').value = 0;
       $('species2-R0').value = 0;/*0.86*/
       $('species2-E0').value = 0;/*40073*/
       
@@ -124,6 +129,7 @@
     }
 
 
+    //CHANGE
     //why are the graphical functions inside the species mod?
     EquationHighlighter.prototype.onLoad = function() {
 
@@ -133,6 +139,7 @@
 
     for (var a in self.vars) { //accessing the this.vars from function EquationHighlighter
         //alert(a);// e-zero r-g t-zero t-a r-zero r-result
+        //instead of t zero we now have k and basetemp
         connect('arr-'+a,'onmouseenter',bind(self.hiliteFields,self,a));
         connect('arr-'+a,'onmouseleave',bind(self.unHiliteFields,self,a));
         forEach(getElementsByTagAndClassName(null,a),function(elt) {
@@ -416,78 +423,91 @@
         "quercus_rubra" : {
             'label' : 'Quercus rubra',
             't0' : 10,
+            'k' : 10,
             'r0' : 0.602,
             'e0' : 43140
         },
         "quercus_prinus" : {
             'label' : 'Quercus prinus',
             't0' : 10,
+            'k' : 10,
             'r0' : 0.670,
             'e0' : 37005
         },
         "acer_rubrum" : {
             'label' : 'Acer rubrum',
             't0' : 10,
+            'k' : 10,
             'r0' : 0.680,
             'e0' : 27210
         },
         "vaccinium_corymbosum" : {
             'label' : 'Vaccinium corymbosum',
             't0' : 10,
+            'k' : 10,
             'r0' : 0.091,
             'e0' : 62967
         },
         "berberis_thumbergii" : {
             'label' : 'Berberis thumbergii',
             't0' : 10,
+            'k' : 10,
             'r0' : 0.203,
             'e0' : 81950
         },
         "kalmia_latifolia" : {
             'label' : 'Kalmia latifolia',
             't0' : 10,
+            'k' : 10,
             'r0' : 0.308,
             'e0' : 54940
         },
         "carya_glabra": {
             'label' : 'Carya glabra',
             't0' : 10,
+            'k' : 10,
             'r0' : 0.134,
             'e0' : 70547.5
         },
         "liriodendron_tulipifera": {
             'label' : 'Liriodendron tulipifera',
             't0' : 10,
+            'k' : 10,
             'r0' : 0.187,
             'e0' : 60620.0
         },
         "platanus_occidentalis": {
             'label' : 'Platanus occidentalis',
             't0' : 10,
+            'k' : 10,
             'r0' : 0.320,
             'e0' : 56336.7
         },
         "betula_papyrifera": {
             'label' : 'Betula papyrifera',
             't0' : 10,
+            'k' : 10,
             'r0' : 0.357,
             'e0' : 45322.0
         },
         "populus_tremuloides": {
             'label' : 'Populus tremuloides',
             't0' : 10,
+            'k' : 10,
             'r0' : 0.424,
             'e0' : 52261.3
         },
         "populus_grandidentata": {
             'label' : 'Populus grandidentata',
             't0' : 10,
+            'k' : 10,
             'r0' : 0.294,
             'e0' : 59425.5
         },
         "betula_lenta": {
             'label' : 'Betula lenta',
             't0' : 10,
+            'k' : 10,
             'r0' : 0.162,
             'e0' : 54267.7
         }
@@ -503,6 +523,9 @@
             
             var eltTemp = getFirstElementByTagAndClassName('input', 't-zero', parent=parent);
             eltTemp.value = predefinedSpecies[elt.id].t0;//using t0 because it is the var in the json funct above
+
+            var eltKelvin = getFirstElementByTagAndClassName('input', 'k-zero', parent=parent);
+            eltKelvin.value = predefinedSpecies[elt.id].k;//using t0 because it is the var in the json funct above
 
             var eltRZero = getFirstElementByTagAndClassName('input', 'r-zero', parent=parent);
             eltRZero.value = predefinedSpecies[elt.id].r0;
