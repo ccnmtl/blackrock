@@ -25,7 +25,10 @@ LeafGraphData.prototype.updateSpecies = function(species_id) {
     }
 
     this.species[species_id].name = $(species_id + "-name").value;
-    this.species[species_id].basetemp = Number($('kelvin').innerHTML);//$(species_id + "-base-temp").value;
+    //this.species[species_id].basetemp = Number($('kelvin').innerHTML);//$(species_id + "-base-temp").value;
+    //this.species[species_id].kelvin = Number($('kelvin').innerHTML);//$(species_id + "-kelvin").value;
+    this.species[species_id].basetemp = $(species_id + "-base-temp").value;
+    this.species[species_id].kelvin = $(species_id + "-kelvin").value;
     this.species[species_id].R0 = $(species_id + "-R0").value;
     this.species[species_id].E0 = $(species_id + "-E0").value;
     $(species_id + "-swatch").style.backgroundColor = this.species[species_id].color;
