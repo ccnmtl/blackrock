@@ -25,17 +25,11 @@ LeafGraphData.prototype.updateSpecies = function(species_id) {
     }
 
     this.species[species_id].name = $(species_id + "-name").value;
-    //this.species[species_id].basetemp = Number($('kelvin').innerHTML);//$(species_id + "-base-temp").value;
-    //this.species[species_id].kelvin = Number($('kelvin').innerHTML);//$(species_id + "-kelvin").value;
     this.species[species_id].basetemp = $(species_id + "-base-temp").value;
     this.species[species_id].kelvin = $(species_id + "-kelvin").value;
     this.species[species_id].R0 = $(species_id + "-R0").value;
     this.species[species_id].E0 = $(species_id + "-E0").value;
     $(species_id + "-swatch").style.backgroundColor = this.species[species_id].color;
-    //console.log("updateSpecies " + this.species[species_id]);
-    //console.log("basetemp " + this.species[species_id].basetemp);
-    //console.log("R0 " + this.species[species_id].R0 );
-    //console.log("E0 " + this.species[species_id].E0);
     //works as advertised
 };
 
@@ -74,18 +68,20 @@ LeafGraphData.prototype.updateFields = function() {
     return true;
 };
 
-//basetemp is from updateSpecies funct above
+
 LeafGraphData.prototype.arrhenius = function(species_id, t_a) {
     //console.log("LeafGraphData.arrhenius");
     var data = this.species[species_id];
 
+    //simply checks that a value was entered
     if ((! data.basetemp) || (isNaN(data.basetemp))) {
     throw "Please set a valid base temperature.";
     }
     if((! data.R0) || (! data.E0) || (isNaN(data.R0)) || (isNaN(data.E0))) {
     throw "Please set valid R0 and E0 values for "+data.name;
     }
-    var Rval = arrhenius(data.R0, data.E0, this.Rg, data.basetemp, t_a+273.15);
+    var Rval = arrhenius(data.R0, data.E0, this.Rg, data.basetemp+273.15, t_a+273.15);
+    //the temperature conversion for ambient temperature is here so use kelvin
 
     return Rval;
 };
@@ -115,11 +111,10 @@ function leafGraph() {
     forEach(getElementsByTagAndClassName('div', 'species'),
        function(species) {
        var spid = species.id;
-           //console.log(species.id + species.label +species.t0 + species.e0 + species.r0);
+       //console.log(species.id + species.label +species.t0 + species.e0 + species.r0);
        var data = [];
-           //console.log(data);
        //var color = colors.shift();
-           //for each species tag - updateSpecies()
+       //for each species tag - updateSpecies()
        LeafData.updateSpecies(spid);
 
        g.labels = {};
@@ -153,7 +148,7 @@ function leafGraph() {
   return true;
 }
 
-
+// should this mbe cel or basetemp?
 function arrhenius(R0, E0, Rg, basetemp, Ta) {
     //console.log("outer arrhenius function R0: " + R0 + " E0: "+ E0 + " basetemp: " + basetemp + " Ta: " + Ta);
     var inner = ( (1/basetemp) - (1/Ta));
