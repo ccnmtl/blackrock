@@ -26,9 +26,7 @@ def index(request, admin_msg=""):
 
 
 def leaf(request):
-    print "inside leaf"
     scenario_options = {
-        #'basetemp': 0,
         'name': 'Scenario 1',
         'leafarea': 1,
         'startdate': '1/1',
@@ -66,14 +64,12 @@ def leaf(request):
             myspecies.append(species)
 
     return render_to_response(
-        'respiration/leaf.html', {'basetemp': basetemp,
-                                  'numspecies': len(myspecies),
+        'respiration/leaf.html', {'numspecies': len(myspecies),
                                   'specieslist': myspecies,
                                   'scenario_options': scenario_options})
 
 
 def forest(request):
-    #print "inside forest"
     # why is query dict empty?
     #print request.POST
     stations = Temperature.objects.values(
