@@ -1,12 +1,9 @@
 function LeafGraphData() {
     this.Rg = 8.314;
     this.species = {};
-    //this.t0 = null; //base temp
     this.t_a_min = 0;
     this.t_a_max = 30;
     this.colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#00c0c7', '#c070f0', '#ff8000', '#00ff00'];
-    //console.log("LeafGraphData" + this.t_a_min + this.t_a_max);
-    //species is currently {}
 }
 
 var LeafData = new LeafGraphData();
@@ -17,11 +14,9 @@ LeafGraphData.prototype.updateSpecies = function(species_id) {
       this.species[species_id] = {};
       var color = this.species[species_id].color = LeafData.colors.shift();
       if( typeof( color ) == 'undefined' ) {
-        // why is this here a second time?
         LeafData.colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#00c0c7', '#c070f0', '#ff8000', '#00ff00'];
         this.species[species_id].color = LeafData.colors.shift();
       }
-
     }
 
     this.species[species_id].name = $(species_id + "-name").value;
@@ -41,7 +36,6 @@ function updateColors() {
 
 
 LeafGraphData.prototype.updateFields = function() {
-    //console.log("updateFields");
     var min = ($('temp_low')) ? Math.round($('temp_low').value * 100) / 100 : 0;
     var max = ($('temp_high')) ? Math.round($('temp_high').value * 100) / 100 : 30;
     
@@ -73,7 +67,6 @@ LeafGraphData.prototype.arrhenius = function(species_id, t_a) {
     //console.log("LeafGraphData.arrhenius");
     var data = this.species[species_id];
 
-    //simply checks that a value was entered
     if ((! data.basetemp) || (isNaN(data.basetemp))) {
     throw "Please set a valid base temperature.";
     }
@@ -81,32 +74,23 @@ LeafGraphData.prototype.arrhenius = function(species_id, t_a) {
     throw "Please set valid R0 and E0 values for "+data.name;
     }
     var Rval = arrhenius(data.R0, data.E0, this.Rg, data.basetemp+273.15, t_a+273.15);
-    //the temperature conversion for ambient temperature is here so use kelvin
 
     return Rval;
 };
 
 
-//RUNS
 function leafGraph() {
-    //console.log("leafGraph function");
     // have to re-init, because g.clear() doesn't reset legend
     if ($("plotGraph") === null) {
-        //console.log("plotgraph");
-        return false; 
-    }
-    // possible this is never called - also possible it is malfunctioning
-    if (!LeafData.updateFields()) {
-        //console.log("leafdata");
         return false;
     }
-    //console.log("after leafdata");
+
+    if (!LeafData.updateFields()) {
+        return false;
+    }
     removeElementClass('plotGraph', 'needsupdate');
-    //console.log("prior to g - initGraph()");
 
     g = initGraph();
-    //console.log("after g - initGraph()");
-
 
     forEach(getElementsByTagAndClassName('div', 'species'),
        function(species) {
@@ -120,15 +104,10 @@ function leafGraph() {
        g.labels = {};
 
        for(var i=LeafData.t_a_min; i<=LeafData.t_a_max; i++) {
-           //console.log(i);
-           //does indeed go up to 30...
            try {
-               //console.log(species.id);
-               //on last tree it dies
                var Rval = LeafData.arrhenius(spid, i);
            if (!isNaN(Rval)) {
                data.push(Rval);
-               //if(Rval > 0) { g.left_margin = 0; }
            }
            } catch(e) {
            g = initGraph();//re-init in case we already added data
@@ -148,7 +127,6 @@ function leafGraph() {
   return true;
 }
 
-// should this mbe cel or basetemp?
 function arrhenius(R0, E0, Rg, basetemp, Ta) {
     //console.log("outer arrhenius function R0: " + R0 + " E0: "+ E0 + " basetemp: " + basetemp + " Ta: " + Ta);
     var inner = ( (1/basetemp) - (1/Ta));

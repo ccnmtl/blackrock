@@ -11,14 +11,14 @@
 
    <script type="text/javascript">
 
-     function calculateKelvin() {
-       var result = parseFloat($('base-temp').value) + 273.15;
-       if(isNaN(result)) {
-         $('kelvin').innerHTML = "";
-       } else {
-         $('kelvin').innerHTML = result;
-       }
-     }
+//     function calculateKelvin() {
+//       var result = parseFloat($('base-temp').value) + 273.15;
+//       if(isNaN(result)) {
+//         $('kelvin').innerHTML = "";
+//       } else {
+//         $('kelvin').innerHTML = result;
+//       }
+//     }
 
 
 //     function calculateKelvin(elem) {
@@ -34,22 +34,22 @@
 //     }
 
 
-//  function calculateKelvin(elem, id) {
-//      var temperature = elem;
-//      console.log("calculateKelvin temperature:" + temperature);
-//      var k = id.split("-");//getFirstElementByTagAndClassName("span", "kelvin");
-//              var kl = k[0] + "-kelvin";
-//              console.log("calculateKelvin kl:" + kl);
-//              var result = parseFloat(elem) + 273.15;
-//              console.log("calculateKelvin result:" + result);
-//              var kelvin = document.getElementById(kl);
-//              if(isNaN(result)) {
-//                      kelvin.innerHTML = "";
-//                  }
-//              else {
-//                      kelvin.innerHTML = result;
-//                  }
-//          }
+function calculateKelvin(elem, id) {
+     var temperature = elem;
+     console.log("calculateKelvin temperature:" + temperature);
+     var k = id.split("-");//getFirstElementByTagAndClassName("span", "kelvin");
+             var kl = k[0] + "-kelvin";
+             console.log("calculateKelvin kl:" + kl);
+             var result = parseFloat(elem) + 273.15;
+             console.log("calculateKelvin result:" + result);
+             var kelvin = document.getElementById(kl);
+             if(isNaN(result)) {
+                     kelvin.innerHTML = "";
+                 }
+             else {
+                      kelvin.innerHTML = result;
+                 }
+          }
 
         function formSubmit() {
        $("specieslist").value = getSpeciesList().join();
@@ -99,7 +99,7 @@ Use the red vertical indicator bar on the graph to view the calculated respirati
 <!-- Perhaps these stopped workng because they are uppercase and in java var for predefined list the are lowercase-->
    <input type="hidden" name="leaf-species{{forloop.counter}}-name" id="leaf-species{{forloop.counter}}-name" value='{{species|hash:"name"}}' />
    <input type="hidden" name="leaf-species{{forloop.counter}}-base-temp" id="leaf-species{{forloop.counter}}-base-temp" value='{{species|hash:"basetemp"}}' />
-<!--<input type="hidden" name="leaf-species{{forloop.counter}}-kelvin" id="leaf-species{{forloop.counter}}-kelvin" value='{{species|hash:"kelvin"}}' />-->
+<!--<input type="hidden" name="leaf-species{{forloop.counter}}-kelvin0" id="leaf-species{{forloop.counter}}-kelvin0" value='{{species|hash:"kelvin"}}' />-->
 <input type="hidden" name="leaf-species{{forloop.counter}}-E0" id="leaf-species{{forloop.counter}}-E0" value='{{species|hash:"E0"}}' />
 <input type="hidden" name="leaf-species{{forloop.counter}}-R0" id="leaf-species{{forloop.counter}}-R0" value='{{species|hash:"R0"}}' />
 <input type="hidden" name="leaf-species{{forloop.counter}}-percent" id="leaf-species{{forloop.counter}}-percent" value='{{species|hash:"percent"}}' />
@@ -177,7 +177,7 @@ Use the red vertical indicator bar on the graph to view the calculated respirati
                           onkeyup="javascript:calculateKelvin(value, id);" />
                           &deg;C =
 
-                  <span id="species1-kelvin"  name="species1-kelvin" class="k-zero arr-field"> 273.15 </span>  K
+                  <span id="species1-kelvin"  name="species1-kelvin" class="k-zero"> 273.15 </span>  K
 
                      <!--<input type="text" size="5" id="species1-base-temp" name="species1-base-temp" class="t-zero arr-field"
                            value="0"

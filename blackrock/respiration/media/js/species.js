@@ -58,7 +58,6 @@
       initPredefinedSpecies();
     }
 
-    //why leaf-num-species???
     function initSpecies() {
       var leafSpecies = $("leaf-numspecies").value;
       speciesList = [];
@@ -423,91 +422,91 @@
         "quercus_rubra" : {
             'label' : 'Quercus rubra',
             't0' : 10,
-            'k' : 10,
+            'k' :  283.15,
             'r0' : 0.602,
             'e0' : 43140
         },
         "quercus_prinus" : {
             'label' : 'Quercus prinus',
             't0' : 10,
-            'k' : 10,
+            'k' :  283.15,
             'r0' : 0.670,
             'e0' : 37005
         },
         "acer_rubrum" : {
             'label' : 'Acer rubrum',
             't0' : 10,
-            'k' : 10,
+            'k' :  283.15,
             'r0' : 0.680,
             'e0' : 27210
         },
         "vaccinium_corymbosum" : {
             'label' : 'Vaccinium corymbosum',
             't0' : 10,
-            'k' : 10,
+            'k' :  283.15,
             'r0' : 0.091,
             'e0' : 62967
         },
         "berberis_thumbergii" : {
             'label' : 'Berberis thumbergii',
             't0' : 10,
-            'k' : 10,
+            'k' :  283.15,
             'r0' : 0.203,
             'e0' : 81950
         },
         "kalmia_latifolia" : {
             'label' : 'Kalmia latifolia',
             't0' : 10,
-            'k' : 10,
+            'k' :  283.15,
             'r0' : 0.308,
             'e0' : 54940
         },
         "carya_glabra": {
             'label' : 'Carya glabra',
             't0' : 10,
-            'k' : 10,
+            'k' :  283.15,
             'r0' : 0.134,
             'e0' : 70547.5
         },
         "liriodendron_tulipifera": {
             'label' : 'Liriodendron tulipifera',
             't0' : 10,
-            'k' : 10,
+            'k' :  283.15,
             'r0' : 0.187,
             'e0' : 60620.0
         },
         "platanus_occidentalis": {
             'label' : 'Platanus occidentalis',
             't0' : 10,
-            'k' : 10,
+            'k' :  283.15,
             'r0' : 0.320,
             'e0' : 56336.7
         },
         "betula_papyrifera": {
             'label' : 'Betula papyrifera',
             't0' : 10,
-            'k' : 10,
+            'k' :  283.15,
             'r0' : 0.357,
             'e0' : 45322.0
         },
         "populus_tremuloides": {
             'label' : 'Populus tremuloides',
             't0' : 10,
-            'k' : 10,
+            'k' :  283.15,
             'r0' : 0.424,
             'e0' : 52261.3
         },
         "populus_grandidentata": {
             'label' : 'Populus grandidentata',
             't0' : 10,
-            'k' : 10,
+            'k' :  283.15,
             'r0' : 0.294,
             'e0' : 59425.5
         },
         "betula_lenta": {
             'label' : 'Betula lenta',
             't0' : 10,
-            'k' : 10,
+            'k' :  283.15,
             'r0' : 0.162,
             'e0' : 54267.7
         }
@@ -520,12 +519,16 @@
             
             var eltLabel = getFirstElementByTagAndClassName('input', 'species-name', parent=parent);
             eltLabel.value = predefinedSpecies[elt.id].label;
-            
+
             var eltTemp = getFirstElementByTagAndClassName('input', 't-zero', parent=parent);
             eltTemp.value = predefinedSpecies[elt.id].t0;//using t0 because it is the var in the json funct above
 
-            var eltKelvin = getFirstElementByTagAndClassName('input', 'k-zero', parent=parent);
-            eltKelvin.value = predefinedSpecies[elt.id].k;//using t0 because it is the var in the json funct above
+            console.log("populateSpeciesChoice");
+            console.log("elt.id" + elt.id);
+            var eltKelvin = document.getElementById(elt.id);
+            console.log("eltKelvin " + eltKelvin);
+            eltKelvin.innerHTML = predefinedSpecies[elt.id].k;
+            console.log("innerHTML " + eltKelvin.innerHTML);
 
             var eltRZero = getFirstElementByTagAndClassName('input', 'r-zero', parent=parent);
             eltRZero.value = predefinedSpecies[elt.id].r0;
