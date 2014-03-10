@@ -415,78 +415,91 @@
         "quercus_rubra" : {
             'label' : 'Quercus rubra',
             't0' : 10,
+            'k' :  283.15,
             'r0' : 0.602,
             'e0' : 43140
         },
         "quercus_prinus" : {
             'label' : 'Quercus prinus',
             't0' : 10,
+            'k' :  283.15,
             'r0' : 0.670,
             'e0' : 37005
         },
         "acer_rubrum" : {
             'label' : 'Acer rubrum',
             't0' : 10,
+            'k' :  283.15,
             'r0' : 0.680,
             'e0' : 27210
         },
         "vaccinium_corymbosum" : {
             'label' : 'Vaccinium corymbosum',
             't0' : 10,
+            'k' :  283.15,
             'r0' : 0.091,
             'e0' : 62967
         },
         "berberis_thumbergii" : {
             'label' : 'Berberis thumbergii',
             't0' : 10,
+            'k' :  283.15,
             'r0' : 0.203,
             'e0' : 81950
         },
         "kalmia_latifolia" : {
             'label' : 'Kalmia latifolia',
             't0' : 10,
+            'k' :  283.15,
             'r0' : 0.308,
             'e0' : 54940
         },
         "carya_glabra": {
             'label' : 'Carya glabra',
             't0' : 10,
+            'k' :  283.15,
             'r0' : 0.134,
             'e0' : 70547.5
         },
         "liriodendron_tulipifera": {
             'label' : 'Liriodendron tulipifera',
             't0' : 10,
+            'k' :  283.15,
             'r0' : 0.187,
             'e0' : 60620.0
         },
         "platanus_occidentalis": {
             'label' : 'Platanus occidentalis',
             't0' : 10,
+            'k' :  283.15,
             'r0' : 0.320,
             'e0' : 56336.7
         },
         "betula_papyrifera": {
             'label' : 'Betula papyrifera',
             't0' : 10,
+            'k' :  283.15,
             'r0' : 0.357,
             'e0' : 45322.0
         },
         "populus_tremuloides": {
             'label' : 'Populus tremuloides',
             't0' : 10,
+            'k' :  283.15,
             'r0' : 0.424,
             'e0' : 52261.3
         },
         "populus_grandidentata": {
             'label' : 'Populus grandidentata',
             't0' : 10,
+            'k' :  283.15,
             'r0' : 0.294,
             'e0' : 59425.5
         },
         "betula_lenta": {
             'label' : 'Betula lenta',
             't0' : 10,
+            'k' :  283.15,
             'r0' : 0.162,
             'e0' : 54267.7
         }
@@ -503,10 +516,8 @@
             var eltTemp = getFirstElementByTagAndClassName('input', 't-zero', parent=parent);
             eltTemp.value = predefinedSpecies[elt.id].t0;//using t0 because it is the var in the json funct above
 
-            //removed k: from predefined species list - however it does have he advantage that when the page is refreshed the K does not change back to 0
-            // for consistency should reset or all information on all trees should be maintained
-            //var eltKelvin = getFirstElementByTagAndClassName('span', 'k-zero', parent=parent);
-            //eltKelvin.innerHTML = predefinedSpecies[elt.id].k;
+            var eltKelvin = getFirstElementByTagAndClassName('span', 'k-zero', parent=parent);
+            eltKelvin.innerHTML = predefinedSpecies[elt.id].k;
 
             var eltRZero = getFirstElementByTagAndClassName('input', 'r-zero', parent=parent);
             eltRZero.value = predefinedSpecies[elt.id].r0;
