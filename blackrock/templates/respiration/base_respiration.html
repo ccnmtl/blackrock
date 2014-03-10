@@ -32,8 +32,6 @@
           }
       }
       addLoadEvent(setActiveTab);
-
-      //alert("base_respiration");
       
     </script>
 <script>
@@ -41,22 +39,33 @@ function get_trees()
 {
       var trees = jQuery('.species-name').map(function(index){return this.id;});
       var number_of_trees = trees.length;
-      //alert(number_of_trees);
       for (var i=0;i<number_of_trees;i++)
       {
           t = i + 1;
-
           var name = "species" + t.toString() + "-name";
           var name_value = jQuery("#"+name).val();
           jQuery("#"+name).val(name_value);
-          var base_temp = "species" + t.toString() + "-base-temp";
-          var base_temp_value = jQuery("#"+base_temp).val();
-          jQuery("#"+name).val(name_value);
+          //console.log(name);
+          //console.log(name_value);
+          var tem = "species" + t.toString() + "-base-temp";
+          var tf = jQuery("#"+tem).val();
+          jQuery("#"+tf).val(tf);
+          //console.log(tem);
+          //console.log(tf);
+          var kelvin = "species" + t.toString() + "-kelvin";
+          console.log(kelvin);
+          var kelvin_value = jQuery("#"+kelvin).html();
+          console.log(kelvin_value);
+          //console.log(kelvin_value);
+          jQuery("#"+kelvin).text(kelvin_value);// = kelvin_value;
+          //the above we must test on the tabs
           var rr = "species" + t.toString() + "-R0";
           var rr_value = jQuery("#"+rr).val();
+          console.log(rr_value);
           jQuery("#"+rr).val(rr_value);
           var ea = "species" + t.toString() + "-E0";
           var ea_value = jQuery("#"+ea).val();
+          console.log(ea_value);
           jQuery("#"+ea).val(ea_value);
 
       }
