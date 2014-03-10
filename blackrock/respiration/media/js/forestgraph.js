@@ -63,6 +63,7 @@ function isValidMMDD(str, leapyear) {
 
 ForestGraphData.prototype.updateScenario = function(scenario_id) {
     var obj = this;
+
     if (typeof(this.scenarios[scenario_id]) == 'undefined') {
       this.scenarios[scenario_id] = {};
       var color = this.scenarios[scenario_id]['color'] = ForestData.colors.shift();
@@ -76,24 +77,12 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
     this.scenarios[scenario_id]['name'] = $(scenario_id + "-name").value.replace(/^\s*|\s*$/,"");  // strip whitespace
     $(scenario_id + "-swatch").style.backgroundColor = this.scenarios[scenario_id]['color'];
 
-    //within the object we can call base-temp t0
-   //var t0 = parseFloat($(scenario_id + "-base-temp").value);
-   //if(isNaN(t0)) {
-   //  errorHighlight(scenario_id + "-base-temp");
-   //  t0 = 0;
-   //}
-
-    // convert to Kelvin
-    //now associated with species
-    //this.scenarios[scenario_id].t0 = parseFloat(t0) + 273.15;
-
     var leafarea = $(scenario_id + "-leafarea").value;
     if(leafarea == "" || isNaN(leafarea)) {
       errorHighlight(scenario_id + "-leafarea");
       leafarea = 1;
     }
     this.scenarios[scenario_id].leafarea = leafarea;
-
     this.scenarios[scenario_id].station = $(scenario_id + "-fieldstation").value;
 
     var year = $(scenario_id + "-year").value;
@@ -149,7 +138,7 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
 
 ForestGraphData.prototype.updateSpecies = function(species_id) {
     if (typeof(this.species[species_id]) == 'undefined')
-      this.species[species_id] = {};
+        this.species[species_id] = {};
     this.species[species_id].valid = false;
     this.species[species_id]['name'] = $(species_id + "-name").value;
     this.species[species_id]['basetemp'] = $(species_id+'-base-temp').value;
@@ -158,11 +147,11 @@ ForestGraphData.prototype.updateSpecies = function(species_id) {
     this.species[species_id]['E0'] = $(species_id + "-E0").value;
 
     if(this.species[species_id]['name'] != "" &&
-       this.species[species_id]['basetemp'] != "" &&
-       this.species[species_id]['R0'] != "" &&
-       this.species[species_id]['E0'] != "" &&
-       this.species[species_id]['percent'] != "") {
-      this.species[species_id].valid = true;
+        this.species[species_id]['basetemp'] != "" &&
+        this.species[species_id]['R0'] != "" &&
+        this.species[species_id]['E0'] != "" &&
+        this.species[species_id]['percent'] != "") {
+        this.species[species_id].valid = true;
     }
 }
 
@@ -202,74 +191,76 @@ function updateColors() {
 
 function forestGraph() {
     // have to re-init, because g.clear() doesn't reset legend
-    g = initGraph(); //console.log("g=initGraph");
+    g = initGraph();
     var scenario_count = 0;
     var data = [];
     var scids = [];
 
     forEach(getElementsByTagAndClassName('div', 'scenario'),
-       function(scenario) {
-	   var scid = scenario.id; //console.log("scid: " + scid);
+        function(scenario) {
+	    var scid = scenario.id;
 
-	   ForestData.updateScenario(scid);  //console.log("updatescenario: ");
+	    ForestData.updateScenario(scid);
 
-	   if(ForestData.scenarios[scid].valid) {
-           scenario_count++;
-	       var station = ForestData.scenarios[scid].station;
-	       var start = ForestData.scenarios[scid].start;
-	       var end = ForestData.scenarios[scid].end;
-	       var deltaT = ForestData.scenarios[scid].deltaT;
-           var leafarea = ForestData.scenarios[scid].leafarea;
-           //console.log("station, start, end, deltaT, leafarea " + " " + station + " " + start + " " + end + " " + deltaT + " " + leafarea);
-	       data[scenario_count-1] = 0;
-           var species_count = 0;
+	    if(ForestData.scenarios[scid].valid) {
+            scenario_count++;
+	        var station = ForestData.scenarios[scid].station;
+	        var start = ForestData.scenarios[scid].start;
+	        var end = ForestData.scenarios[scid].end;
+	        var deltaT = ForestData.scenarios[scid].deltaT;
+            var leafarea = ForestData.scenarios[scid].leafarea;
+	        data[scenario_count-1] = 0;
+            var species_count = 0;
 
-	       forEach(getElementsByTagAndClassName('div', 'species', scenario), function(species) {
-	           if(ForestData.species[species.id].valid) {
-	               species_count++;
-                   var base_temp = parseInt(ForestData.species[species.id].basetemp);
-                   var basetemp = parseInt(base_temp) + 273.15
-	               var R0 = ForestData.species[species.id].R0;
-                   //console.log(R0);
-	               var E0 = ForestData.species[species.id].E0;
-                   //console.log(E0);
-                   var percent = ForestData.species[species.id].percent;
-	               var params = "R0="+R0+"&E0="+E0+"&t0="+basetemp+"&station="+station+"&start="+start+"&end="+end+"&delta="+deltaT;
-                   //console.log("basetemp, R0, E0, percent, params: " + basetemp + " " + R0 + " " + E0 + " " + percent + " " + params);
-                   console.log(params);
-	               var http_request = doXHR("getsum", {'method':'POST', 'sendContent':params,
+	        forEach(getElementsByTagAndClassName('div', 'species', scenario), function(species) {
+	            if(ForestData.species[species.id].valid) {
+	                species_count++;
+                    var base_temp = parseInt(ForestData.species[species.id].basetemp);
+                    var basetemp = parseInt(base_temp) + 273.15;
+	                var R0 = ForestData.species[species.id].R0;
+	                var E0 = ForestData.species[species.id].E0;
+                    var percent = ForestData.species[species.id].percent;
+	                var params = "R0="+R0+"&E0="+E0+"&t0="+basetemp+"&station="+station+"&start="+start+"&end="+end+"&delta="+deltaT;
+                    //console.log("basetemp, R0, E0, percent, params: " + basetemp + " " + R0 + " " + E0 + " " + percent + " " + params);
+                    console.log(params);
+	                var http_request = doXHR("getsum", {'method':'POST', 'sendContent':params,
 	                                             'headers':[["Content-Type", 'application/x-www-form-urlencoded']]
 	                                            });
 
-                   console.log("after http request");
+	                function my_callback(scenario_num,scid,percent,http_request) {
 
+                        console.log("inside callback");
+  	                    var answer = evalJSON(http_request.responseText);
+                        console.log(http_request.responseText);
+                        console.log(answer);
+	                    data[scenario_num-1] += answer.total * (percent/100.0);
+	                    species_count--;
 
-	               function my_callback(scenario_num,scid,percent,http_request) {
-                       console.log("inside callback");
-  	                   var answer = evalJSON(http_request.responseText);
-                       console.log(answer);
-	                   data[scenario_num-1] += answer.total * (percent/100.0);
-	                   species_count--;
+                        if(species_count == 0) {  // got all species totals for this scenario
+	                        data[scenario_num-1] = data[scenario_num-1] * leafarea;
+	                        var calculated_value = Math.round(data[scenario_num-1] * 100) / 100;
+	                        data[scenario_num-1] = calculated_value;
+	                        scids[scenario_num-1] = scid;
+	                        scenario_count--;
 
-                       if(species_count == 0) {  // got all species totals for this scenario
-	                       data[scenario_num-1] = data[scenario_num-1] * leafarea;
-	                       var calculated_value = Math.round(data[scenario_num-1] * 100) / 100;
-	                       data[scenario_num-1] = calculated_value;
-	                       scids[scenario_num-1] = scid;
-	                       scenario_count--;
-
-	                           if(scenario_count == 0) {   // that's all, folks
-	                               for(var i=0; i<data.length; i++) {
-	                                   var label = ForestData.scenarios[scids[i]].name + " (" + data[i]  + ")";
-	                                   g.data(label, data[i], ForestData.scenarios[scids[i]]['color'] );
-	                               }
+	                            if(scenario_count == 0) {
+	                                for(var i=0; i<data.length; i++) {
+	                                    var label = ForestData.scenarios[scids[i]].name + " (" + data[i]  + ")";
+	                                    g.data(label, data[i], ForestData.scenarios[scids[i]]['color'] );
+	                                }
 	               
-	                               g.minimum_value = 0;
-	                               g.draw();
-	                           }
-	                   }
-	               }
+	                                g.minimum_value = 0;
+	                                g.draw();
+	                            }
+	                    }
+	                }
+                    console.log("before addCallback");
+                    console.log("scenario_count: " + scenario_count + " scid: " + scid + " percent: " + percent);
+                    //okay... so we are telling addCallback which is an asycn req
+                    //to accept a possibly pratial list or arguments?
 	         http_request.addCallback(partial(my_callback,scenario_count,scid,percent));
+                    console.log("after addCallback");
+                    console.log(http_request);
 	       }
 	     });
 	   }

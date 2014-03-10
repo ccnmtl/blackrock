@@ -26,13 +26,7 @@ def index(request, admin_msg=""):
 
 
 def leaf(request):
-    # get passed-in defaults
-    #basetemp = 0
-    #try:
-    #    basetemp = request.POST['scenario1-base-temp']
-    #except:
-    #    pass
-
+    print "inside leaf"
     scenario_options = {
         #'basetemp': 0,
         'name': 'Scenario 1',
@@ -72,13 +66,16 @@ def leaf(request):
             myspecies.append(species)
 
     return render_to_response(
-        'respiration/leaf.html', {#'basetemp': basetemp,
+        'respiration/leaf.html', {'basetemp': basetemp,
                                   'numspecies': len(myspecies),
                                   'specieslist': myspecies,
                                   'scenario_options': scenario_options})
 
 
 def forest(request):
+    //print "inside forest"
+    // why is query dict empty?
+    print request.POST
     stations = Temperature.objects.values(
         'station').order_by('station').distinct()
     station_names = [item['station'] for item in stations]
@@ -91,7 +88,6 @@ def forest(request):
 
     # get passed-in defaults
     scenario_options = {
-        #'basetemp': 0,
         'name': 'Scenario 1',
         'leafarea': 1,
         'startdate': '1/1',
@@ -99,7 +95,7 @@ def forest(request):
         'deltat': '0',
         'fieldstation': '', 'year': ''}
     try:
-        # scenario_options['basetemp'] = request.POST['base-temp']
+        #scenario_options['basetemp'] = request.POST['species1-base-temp']
         scenario_options['name'] = request.POST['scenario1-name']
         scenario_options['year'] = request.POST['scenario1-year']
         scenario_options['fieldstation'] = request.POST[
@@ -121,6 +117,7 @@ def forest(request):
     for s in specieslist:
         if(s != ""):
             species = {}
+            species['basetemp'] = request.POST[s + '-base-temp']
             species['name'] = request.POST[s + '-name']
             species['E0'] = request.POST[s + '-E0']
             species['R0'] = request.POST[s + '-R0']
@@ -145,7 +142,7 @@ def getsum(request):
     #print request
     R0 = float(request.REQUEST['R0'])
     E0 = float(request.REQUEST['E0'])
-    T0 = float(request.REQUEST['basetemp'])
+    T0 = float(request.REQUEST['t0'])
     deltaT = 0.0
     try:
         deltaT = float(request.REQUEST['delta'])
