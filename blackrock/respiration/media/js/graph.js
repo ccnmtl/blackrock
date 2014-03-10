@@ -8,7 +8,6 @@ function LeafGraphData() {
 
 var LeafData = new LeafGraphData();
 
-//Runs when ever a new species is added - once for each species
 LeafGraphData.prototype.updateSpecies = function(species_id) {
     if (typeof(this.species[species_id]) == 'undefined') {
       this.species[species_id] = {};
@@ -64,7 +63,6 @@ LeafGraphData.prototype.updateFields = function() {
 
 
 LeafGraphData.prototype.arrhenius = function(species_id, t_a) {
-    //console.log("LeafGraphData.arrhenius");
     var data = this.species[species_id];
 
     if ((! data.basetemp) || (isNaN(data.basetemp))) {
@@ -73,6 +71,8 @@ LeafGraphData.prototype.arrhenius = function(species_id, t_a) {
     if((! data.R0) || (! data.E0) || (isNaN(data.R0)) || (isNaN(data.E0))) {
     throw "Please set valid R0 and E0 values for "+data.name;
     }
+
+    data.basetemp = parseInt(data.basetemp, 10);
     var Rval = arrhenius(data.R0, data.E0, this.Rg, data.basetemp+273.15, t_a+273.15);
 
     return Rval;
@@ -95,26 +95,29 @@ function leafGraph() {
     forEach(getElementsByTagAndClassName('div', 'species'),
        function(species) {
        var spid = species.id;
-       //console.log(species.id + species.label +species.t0 + species.e0 + species.r0);
        var data = [];
-       //var color = colors.shift();
-       //for each species tag - updateSpecies()
        LeafData.updateSpecies(spid);
 
        g.labels = {};
 
        for(var i=LeafData.t_a_min; i<=LeafData.t_a_max; i++) {
-           try {
-               var Rval = LeafData.arrhenius(spid, i);
+           var Rval = LeafData.arrhenius(spid, i)
            if (!isNaN(Rval)) {
                data.push(Rval);
            }
-           } catch(e) {
-           g = initGraph();//re-init in case we already added data
-           g.no_data_message = e;
-           g.draw();
-           throw "non valid data";
-           }
+
+
+           //try {
+           //    var Rval = LeafData.arrhenius(spid, i);
+           //if (!isNaN(Rval)) {
+           //    data.push(Rval);
+           //}
+           //} catch(e) {
+           //g = initGraph();//re-init in case we already added data
+           //g.no_data_message = e;
+           //g.draw();
+           //throw "non valid data";
+           //}
        }
 
        g.data(LeafData.species[spid].name, data, LeafData.species[spid].color);
@@ -128,11 +131,10 @@ function leafGraph() {
 }
 
 function arrhenius(R0, E0, Rg, basetemp, Ta) {
-    //console.log("outer arrhenius function R0: " + R0 + " E0: "+ E0 + " basetemp: " + basetemp + " Ta: " + Ta);
     var inner = ( (1/basetemp) - (1/Ta));
     var right = (E0 / Rg) * inner;
     var Rval = R0 * Math.exp(right);
-    return Math.round(Rval*1000)/1000; //3 decimals
+    return Math.round(Rval*1000)/1000;
 }
 
 
