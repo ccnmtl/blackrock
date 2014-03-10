@@ -8,7 +8,29 @@
   <script type="text/javascript" src="media/js/foresthelpers.js"></script> 
   <script type="text/javascript" src="media/js/scenario.js"></script> 
   <script type="text/javascript" src="media/js/species.js"></script> 
-  <script type="text/javascript" src="media/js/forestgraph.js"></script> 
+  <script type="text/javascript" src="media/js/forestgraph.js"></script>
+
+<script type="text/javascript">
+
+
+    function calculateKelvin(elem, id) {
+        var temperature = elem;
+        console.log("calculateKelvin temperature:" + temperature);
+        var k = id.split("-");//getFirstElementByTagAndClassName("span", "kelvin");
+        var kl = k[0] + "-kelvin";
+        console.log("calculateKelvin kl:" + kl);
+        var result = parseFloat(elem) + 273.15;
+        console.log("calculateKelvin result:" + result);
+        var kelvin = document.getElementById(kl);
+        if(isNaN(result)) {
+            kelvin.innerHTML = "";
+        }
+        else {
+            kelvin.innerHTML = result;
+        }
+    }
+
+  </script>
 
   <script type="text/javascript">
     addLoadEvent(function() {
@@ -57,7 +79,6 @@
 <div id="error">Some errors occurred while graphing.  You might want to double-check the boxes highlighted in red.</div>
 
 <form id="leaf-form" name="leaf-form" action="leaf" method="post">
-  <input type="hidden" name="leaf-base-temp" id="leaf-base-temp" class="leafdata" value='{{ scenario_options|hash:"basetemp" }}' />
   <input type="hidden" name="leaf-numspecies" id="leaf-numspecies" class="leafdata" value="{{ numspecies }}" />
   {% for species in specieslist %}
     <input type="hidden" name="leaf-species{{forloop.counter}}-name" id="leaf-species{{forloop.counter}}-name" value='{{species|hash:"name"}}' />
@@ -130,13 +151,14 @@
                    <td>
                       <a href="#" class="tooltip">Base Temperature:</a>
 	                  T <sub> 0 </sub>  =
-	                  <!--good default is 15 -->
-	                  <input type="text" size="5" id="species1-base-temp" name="species1-base-temp" class="t-zero arr-field"
-			          value="0"
-			          onchange="javascript:calculateKelvin();"
-			          onkeyup="javascript:calculateKelvin();" />
-		              &deg;C =
-		              <span id="kelvin"> 273.15 </span>  K
+                       <!--good default is 15 -->
+                       <input type="text" size="5" id="species1-base-temp" name="species1-base-temp" class="t-zero arr-field"
+                              value="0"
+                              onchange="javascript:calculateKelvin(value, id);"
+                              onkeyup="javascript:calculateKelvin(value, id);" />
+                       &deg;C =
+
+                       <span id="species1-kelvin"  name="species1-kelvin" class="k-zero"> 273.15 </span>  K
 	               </td>
 		           <td>
 		               <a href="#" class="tooltip">R<sub>0</sub>=<span>Respiration Rate @ base temperature</span></a>

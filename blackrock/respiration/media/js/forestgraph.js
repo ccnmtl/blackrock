@@ -2,8 +2,6 @@ function ForestGraphData() {
     this.scenarios = {};
     this.species = {};
     this.colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#00c0c7', '#c070f0', '#ff8000', '#00ff00'];
-    //this.t_a_min = 0; //celsius
-    //this.t_a_max = 30;
 }
 
 var ForestData = new ForestGraphData();
@@ -63,8 +61,6 @@ function isValidMMDD(str, leapyear) {
   return true;
 }
 
-
-// where is updateScenario from? are we just creating it?
 ForestGraphData.prototype.updateScenario = function(scenario_id) {
     var obj = this;
     if (typeof(this.scenarios[scenario_id]) == 'undefined') {
@@ -81,11 +77,11 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
     $(scenario_id + "-swatch").style.backgroundColor = this.scenarios[scenario_id]['color'];
 
     //within the object we can call base-temp t0
-    //var t0 = parseFloat($(scenario_id + "-base-temp").value);
-   // if(isNaN(t0)) {
-   //   errorHighlight(scenario_id + "-base-temp");
-   //   t0 = 0;
-   // }
+   //var t0 = parseFloat($(scenario_id + "-base-temp").value);
+   //if(isNaN(t0)) {
+   //  errorHighlight(scenario_id + "-base-temp");
+   //  t0 = 0;
+   //}
 
     // convert to Kelvin
     //now associated with species
@@ -154,16 +150,15 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
 ForestGraphData.prototype.updateSpecies = function(species_id) {
     if (typeof(this.species[species_id]) == 'undefined')
       this.species[species_id] = {};
-
     this.species[species_id].valid = false;
-
-    //this.species[species_id]['name'] = $(species_id + "-name").value;
-    this.species[species_id]['basetemp'] = $(species_id+'-base-temp');
+    this.species[species_id]['name'] = $(species_id + "-name").value;
+    this.species[species_id]['basetemp'] = $(species_id+'-base-temp').value;
     this.species[species_id]['percent'] = $(species_id + "-percent").value;
     this.species[species_id]['R0'] = $(species_id + "-R0").value;
     this.species[species_id]['E0'] = $(species_id + "-E0").value;
 
-    if(this.species[species_id]['basetemp'] != "" &&
+    if(this.species[species_id]['name'] != "" &&
+       this.species[species_id]['basetemp'] != "" &&
        this.species[species_id]['R0'] != "" &&
        this.species[species_id]['E0'] != "" &&
        this.species[species_id]['percent'] != "") {
@@ -207,67 +202,73 @@ function updateColors() {
 
 function forestGraph() {
     // have to re-init, because g.clear() doesn't reset legend
-    g = initGraph();
+    g = initGraph(); //console.log("g=initGraph");
     var scenario_count = 0;
     var data = [];
     var scids = [];
 
     forEach(getElementsByTagAndClassName('div', 'scenario'),
        function(scenario) {
-	   var scid = scenario.id;
-	   ForestData.updateScenario(scid);
+	   var scid = scenario.id; //console.log("scid: " + scid);
+
+	   ForestData.updateScenario(scid);  //console.log("updatescenario: ");
 
 	   if(ForestData.scenarios[scid].valid) {
-	     scenario_count++;  // closure
-	     //log(scenario_count);
-             //WHAT TO DO WITH THESE t0s...
-	     //var t0 = ForestData.scenarios[scid].t0;
-	     var station = ForestData.scenarios[scid].station;
-	     var start = ForestData.scenarios[scid].start;
-	     var end = ForestData.scenarios[scid].end;
-	     var deltaT = ForestData.scenarios[scid].deltaT;
+           scenario_count++;
+	       var station = ForestData.scenarios[scid].station;
+	       var start = ForestData.scenarios[scid].start;
+	       var end = ForestData.scenarios[scid].end;
+	       var deltaT = ForestData.scenarios[scid].deltaT;
            var leafarea = ForestData.scenarios[scid].leafarea;
+           //console.log("station, start, end, deltaT, leafarea " + " " + station + " " + start + " " + end + " " + deltaT + " " + leafarea);
+	       data[scenario_count-1] = 0;
+           var species_count = 0;
 
-	     data[scenario_count-1] = 0;
-           var species_count = 0; // closure
-
-	     forEach(getElementsByTagAndClassName('div', 'species', scenario), function(species) {
-	       if(ForestData.species[species.id].valid) {
-	         species_count++;
-                  var basetemp = ForestData.species[species.id].basetemp;
-	         var R0 = ForestData.species[species.id].R0;
-	         var E0 = ForestData.species[species.id].E0;
-               var percent = ForestData.species[species.id].percent;
-	         var params = "R0="+R0+"&E0="+E0+"&t0="+basetemp+"&station="+station+"&start="+start+"&end="+end+"&delta="+deltaT;
-                 //THIS PROBABLY NEEDS TO BE REDONE
-	         var http_request = doXHR("getsum", {'method':'POST', 'sendContent':params,
+	       forEach(getElementsByTagAndClassName('div', 'species', scenario), function(species) {
+	           if(ForestData.species[species.id].valid) {
+	               species_count++;
+                   var base_temp = parseInt(ForestData.species[species.id].basetemp);
+                   var basetemp = parseInt(base_temp) + 273.15
+	               var R0 = ForestData.species[species.id].R0;
+                   //console.log(R0);
+	               var E0 = ForestData.species[species.id].E0;
+                   //console.log(E0);
+                   var percent = ForestData.species[species.id].percent;
+	               var params = "R0="+R0+"&E0="+E0+"&t0="+basetemp+"&station="+station+"&start="+start+"&end="+end+"&delta="+deltaT;
+                   //console.log("basetemp, R0, E0, percent, params: " + basetemp + " " + R0 + " " + E0 + " " + percent + " " + params);
+                   console.log(params);
+	               var http_request = doXHR("getsum", {'method':'POST', 'sendContent':params,
 	                                             'headers':[["Content-Type", 'application/x-www-form-urlencoded']]
 	                                            });
 
+                   console.log("after http request");
 
-	         function my_callback(scenario_num,scid,percent,http_request) {
-  	           var answer = evalJSON(http_request.responseText);
-	           data[scenario_num-1] += answer.total * (percent/100.0);
-	           species_count--;
 
-                 if(species_count == 0) {  // got all species totals for this scenario
-	                 data[scenario_num-1] = data[scenario_num-1] * leafarea;
-	                 var calculated_value = Math.round(data[scenario_num-1] * 100) / 100;
-	                 data[scenario_num-1] = calculated_value;
-	                 scids[scenario_num-1] = scid;
-	             scenario_count--;
+	               function my_callback(scenario_num,scid,percent,http_request) {
+                       console.log("inside callback");
+  	                   var answer = evalJSON(http_request.responseText);
+                       console.log(answer);
+	                   data[scenario_num-1] += answer.total * (percent/100.0);
+	                   species_count--;
 
-	             if(scenario_count == 0) {   // that's all, folks
-	               for(var i=0; i<data.length; i++) {
-	                 var label = ForestData.scenarios[scids[i]].name + " (" + data[i]  + ")";
-	                 g.data(label, data[i], ForestData.scenarios[scids[i]]['color'] );
-	               }
+                       if(species_count == 0) {  // got all species totals for this scenario
+	                       data[scenario_num-1] = data[scenario_num-1] * leafarea;
+	                       var calculated_value = Math.round(data[scenario_num-1] * 100) / 100;
+	                       data[scenario_num-1] = calculated_value;
+	                       scids[scenario_num-1] = scid;
+	                       scenario_count--;
+
+	                           if(scenario_count == 0) {   // that's all, folks
+	                               for(var i=0; i<data.length; i++) {
+	                                   var label = ForestData.scenarios[scids[i]].name + " (" + data[i]  + ")";
+	                                   g.data(label, data[i], ForestData.scenarios[scids[i]]['color'] );
+	                               }
 	               
-	               g.minimum_value = 0;
-	               g.draw();
-	             }
-	           }
-	         }
+	                               g.minimum_value = 0;
+	                               g.draw();
+	                           }
+	                   }
+	               }
 	         http_request.addCallback(partial(my_callback,scenario_count,scid,percent));
 	       }
 	     });
