@@ -523,12 +523,8 @@
             var eltTemp = getFirstElementByTagAndClassName('input', 't-zero', parent=parent);
             eltTemp.value = predefinedSpecies[elt.id].t0;//using t0 because it is the var in the json funct above
 
-            console.log("populateSpeciesChoice");
-            console.log("elt.id" + elt.id);
-            var eltKelvin = document.getElementById(elt.id);
-            console.log("eltKelvin " + eltKelvin);
+            var eltKelvin = getFirstElementByTagAndClassName('span', 'k-zero', parent=parent);
             eltKelvin.innerHTML = predefinedSpecies[elt.id].k;
-            console.log("innerHTML " + eltKelvin.innerHTML);
 
             var eltRZero = getFirstElementByTagAndClassName('input', 'r-zero', parent=parent);
             eltRZero.value = predefinedSpecies[elt.id].r0;
