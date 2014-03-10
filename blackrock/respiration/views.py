@@ -73,9 +73,9 @@ def leaf(request):
 
 
 def forest(request):
-    //print "inside forest"
-    // why is query dict empty?
-    print request.POST
+    #print "inside forest"
+    # why is query dict empty?
+    #print request.POST
     stations = Temperature.objects.values(
         'station').order_by('station').distinct()
     station_names = [item['station'] for item in stations]
