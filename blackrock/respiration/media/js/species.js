@@ -128,8 +128,6 @@
     }
 
 
-    //CHANGE
-    //why are the graphical functions inside the species mod?
     EquationHighlighter.prototype.onLoad = function() {
 
     var self = this;
@@ -137,8 +135,6 @@
     this.arrhenius_vars = getElementsByTagAndClassName(null,'arr-variable','equation');
 
     for (var a in self.vars) { //accessing the this.vars from function EquationHighlighter
-        //alert(a);// e-zero r-g t-zero t-a r-zero r-result
-        //instead of t zero we now have k and basetemp
         connect('arr-'+a,'onmouseenter',bind(self.hiliteFields,self,a));
         connect('arr-'+a,'onmouseleave',bind(self.unHiliteFields,self,a));
         forEach(getElementsByTagAndClassName(null,a),function(elt) {
@@ -158,7 +154,6 @@
         }
     };
 
-    // no t-zero involved
     EquationHighlighter.prototype.initSpecies = function(elt) {
         var self = this;
         e_zero = getFirstElementByTagAndClassName(null,"e-zero",elt);
@@ -197,7 +192,6 @@
     };
 
 
-    //why are the graphical functions inside the species module?
     function TemperatureSliders() {
         connect(window,'onload',this,'onLoad');
         this.low=null;
@@ -265,7 +259,6 @@
         global.EquationHighlighter.needsUpdate();
     };
 
-    //no t-zero involved.... in TemperatureSliders, except perhaps graphCursor, and updateCursorVals
     TemperatureSliders.prototype.lowSnap = function(x,y) {
         x = Math.min(x,this.length-this.MIN_WIDTH);
         x = Math.max(x,0);
@@ -422,91 +415,78 @@
         "quercus_rubra" : {
             'label' : 'Quercus rubra',
             't0' : 10,
-            'k' :  283.15,
             'r0' : 0.602,
             'e0' : 43140
         },
         "quercus_prinus" : {
             'label' : 'Quercus prinus',
             't0' : 10,
-            'k' :  283.15,
             'r0' : 0.670,
             'e0' : 37005
         },
         "acer_rubrum" : {
             'label' : 'Acer rubrum',
             't0' : 10,
-            'k' :  283.15,
             'r0' : 0.680,
             'e0' : 27210
         },
         "vaccinium_corymbosum" : {
             'label' : 'Vaccinium corymbosum',
             't0' : 10,
-            'k' :  283.15,
             'r0' : 0.091,
             'e0' : 62967
         },
         "berberis_thumbergii" : {
             'label' : 'Berberis thumbergii',
             't0' : 10,
-            'k' :  283.15,
             'r0' : 0.203,
             'e0' : 81950
         },
         "kalmia_latifolia" : {
             'label' : 'Kalmia latifolia',
             't0' : 10,
-            'k' :  283.15,
             'r0' : 0.308,
             'e0' : 54940
         },
         "carya_glabra": {
             'label' : 'Carya glabra',
             't0' : 10,
-            'k' :  283.15,
             'r0' : 0.134,
             'e0' : 70547.5
         },
         "liriodendron_tulipifera": {
             'label' : 'Liriodendron tulipifera',
             't0' : 10,
-            'k' :  283.15,
             'r0' : 0.187,
             'e0' : 60620.0
         },
         "platanus_occidentalis": {
             'label' : 'Platanus occidentalis',
             't0' : 10,
-            'k' :  283.15,
             'r0' : 0.320,
             'e0' : 56336.7
         },
         "betula_papyrifera": {
             'label' : 'Betula papyrifera',
             't0' : 10,
-            'k' :  283.15,
             'r0' : 0.357,
             'e0' : 45322.0
         },
         "populus_tremuloides": {
             'label' : 'Populus tremuloides',
             't0' : 10,
-            'k' :  283.15,
             'r0' : 0.424,
             'e0' : 52261.3
         },
         "populus_grandidentata": {
             'label' : 'Populus grandidentata',
             't0' : 10,
-            'k' :  283.15,
             'r0' : 0.294,
             'e0' : 59425.5
         },
         "betula_lenta": {
             'label' : 'Betula lenta',
             't0' : 10,
-            'k' :  283.15,
             'r0' : 0.162,
             'e0' : 54267.7
         }
@@ -523,8 +503,10 @@
             var eltTemp = getFirstElementByTagAndClassName('input', 't-zero', parent=parent);
             eltTemp.value = predefinedSpecies[elt.id].t0;//using t0 because it is the var in the json funct above
 
-            var eltKelvin = getFirstElementByTagAndClassName('span', 'k-zero', parent=parent);
-            eltKelvin.innerHTML = predefinedSpecies[elt.id].k;
+            //removed k: from predefined species list - however it does have he advantage that when the page is refreshed the K does not change back to 0
+            // for consistency should reset or all information on all trees should be maintained
+            //var eltKelvin = getFirstElementByTagAndClassName('span', 'k-zero', parent=parent);
+            //eltKelvin.innerHTML = predefinedSpecies[elt.id].k;
 
             var eltRZero = getFirstElementByTagAndClassName('input', 'r-zero', parent=parent);
             eltRZero.value = predefinedSpecies[elt.id].r0;
@@ -557,6 +539,5 @@
     global.EquationHighlighter = new EquationHighlighter();
     global.TemperatureSliders = new TemperatureSliders();
     global.initSpeciesModule = initSpeciesModule;
-    //console.log();
 
 })();
