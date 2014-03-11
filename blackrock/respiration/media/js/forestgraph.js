@@ -84,13 +84,10 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
     }
     this.scenarios[scenario_id].leafarea = leafarea;
     this.scenarios[scenario_id].station = $(scenario_id + "-fieldstation").value;
-    console.log(this.scenarios[scenario_id].station);
     var year = $(scenario_id + "-year").value;
     var start = $(scenario_id + "-startdate").value;
     var end = $(scenario_id + "-enddate").value;
-    console.log("This should print the year " + year);
-    console.log("This should print the year " + start);
-    console.log("This should print the year " + end);
+
 
     // we'll be nice and allow dashes as well as slashes, even though we say to use "mm/dd".
     start = start.replace("-","/");
