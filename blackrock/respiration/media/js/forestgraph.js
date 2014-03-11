@@ -159,7 +159,7 @@ ForestGraphData.prototype.updateSpecies = function(species_id) {
 function initGraph() {
   clearError();
   var g = new Bluff.Bar('graph', "460x345");
-  
+  console.log("inside initGraph");
   g.set_theme({
       ///note: not used since we do this in leafGraph() now.
     marker_color: '#aea9a9',
@@ -185,10 +185,12 @@ function updateColors() {
 
 function forestGraph() {
     // have to re-init, because g.clear() doesn't reset legend
+    //console.log("before g = initGraph()");
     g = initGraph();
     var scenario_count = 0;
     var data = [];
     var scids = [];
+    //console.log("after g = initGraph()");
 
     forEach(getElementsByTagAndClassName('div', 'scenario'),
         function(scenario) {
@@ -248,14 +250,12 @@ function forestGraph() {
 	                            }
 	                    }
 	                }
-                    console.log("before addCallback");
-                    console.log("scenario_count: " + scenario_count + " scid: " + scid + " percent: " + percent);
                     //okay... so we are telling addCallback which is an asycn req
                     //to accept a possibly pratial list or arguments?
-	         http_request.addCallback(partial(my_callback,scenario_count,scid,percent));
-                    console.log("after addCallback");
-                    console.log(http_request);
-	       }
+                    //why is it sending a request for EVERY species when it already has the information and can send it at once???
+	                http_request.addCallback(partial(my_callback,scenario_count,scid,percent));
+                    //console.log("inside if   " + species_count);
+	            }//console.log("inside loop outside if" + species_count);
 	     });
 	   }
     });

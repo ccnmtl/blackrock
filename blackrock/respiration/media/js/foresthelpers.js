@@ -40,7 +40,6 @@ function initYearHelper() {
 }
 
 function calculateKelvin(elem) {
-    console.log("calculateKelvin elem:" + elem);
   var parent = getFirstParentByTagAndClassName(elem, "td", null);
   var kelvin = getFirstElementByTagAndClassName("span", "kelvin", parent);
   var result = parseFloat(elem.value) + 273.15;

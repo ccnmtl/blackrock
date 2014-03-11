@@ -14,12 +14,9 @@
 
   function calculateKelvin(elem, id) {
      var temperature = elem;
-     //console.log("calculateKelvin temperature:" + temperature);
      var k = id.split("-");//getFirstElementByTagAndClassName("span", "kelvin");
              var kl = k[0] + "-kelvin";
-             //console.log("calculateKelvin kl:" + kl);
              var result = parseFloat(elem) + 273.15;
-             //console.log("calculateKelvin result:" + result);
              var kelvin = document.getElementById(kl);
              if(isNaN(result)) {
                      kelvin.innerHTML = "";
@@ -32,9 +29,6 @@
         function formSubmit() {
            $("specieslist").value = getSpeciesList().join();
 
-           //alert($("specieslist").value);
-           //alert(getSpeciesList().length);
-           //alert(getSpeciesList().join()); //species2
        $("leaf-form").submit();
      }
 
