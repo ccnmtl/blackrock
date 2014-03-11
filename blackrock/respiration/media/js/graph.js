@@ -80,6 +80,7 @@ LeafGraphData.prototype.arrhenius = function(species_id, t_a) {
 
 
 function leafGraph() {
+    console.log("inside leaf graph");
     // have to re-init, because g.clear() doesn't reset legend
     if ($("plotGraph") === null) {
         return false;
@@ -101,23 +102,23 @@ function leafGraph() {
        g.labels = {};
 
        for(var i=LeafData.t_a_min; i<=LeafData.t_a_max; i++) {
-           var Rval = LeafData.arrhenius(spid, i)
-           if (!isNaN(Rval)) {
-               data.push(Rval);
-           }
-
-
-           //try {
-           //    var Rval = LeafData.arrhenius(spid, i);
+           //var Rval = LeafData.arrhenius(spid, i)
            //if (!isNaN(Rval)) {
            //    data.push(Rval);
            //}
-           //} catch(e) {
-           //g = initGraph();//re-init in case we already added data
-           //g.no_data_message = e;
-           //g.draw();
-           //throw "non valid data";
-           //}
+
+
+           try {
+               var Rval = LeafData.arrhenius(spid, i);
+           if (!isNaN(Rval)) {
+               data.push(Rval);
+           }
+           } catch(e) {
+           g = initGraph();//re-init in case we already added data
+           g.no_data_message = e;
+           g.draw();
+           throw "non valid data";
+           }
        }
 
        g.data(LeafData.species[spid].name, data, LeafData.species[spid].color);

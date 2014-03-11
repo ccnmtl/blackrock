@@ -35,10 +35,11 @@
       
     </script>
 <script>
-function get_trees()
-{
-      var trees = jQuery('.species-name').map(function(index){return this.id;});
-      var number_of_trees = trees.length;
+//function get_trees()
+//{
+//      var trees = jQuery('.species-name').map(function(index){return this.id;});
+//      var number_of_trees = trees.length;
+/*      console.log(number_of_trees);
       for (var i=0;i<number_of_trees;i++)
       {
           t = i + 1;
@@ -82,7 +83,7 @@ function get_trees()
           jQuery("#"+name).val(name_value);
       }
 
-}
+}*/
 </script>
 {% endblock %} 
 
@@ -98,10 +99,10 @@ function get_trees()
             <div class="tab" id="tab-resources" onclick="return window.location = '/respiration/resources';">
                 Teaching Resources
             </div>
-            <div class="tab" id="tab-canopy" onclick="get_trees()">
+            <div class="tab" id="tab-canopy">
                 Canopy Level
             </div>          
-            <div class="tab" id="tab-leaf" onclick="get_trees()">
+            <div class="tab" id="tab-leaf">
                 Leaf Level
             </div>          
         </div>

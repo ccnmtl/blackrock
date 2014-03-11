@@ -30,7 +30,11 @@
           }
 
         function formSubmit() {
-       $("specieslist").value = getSpeciesList().join();
+           $("specieslist").value = getSpeciesList().join();
+
+           //alert($("specieslist").value);
+           //alert(getSpeciesList().length);
+           //alert(getSpeciesList().join()); //species2
        $("leaf-form").submit();
      }
 
@@ -74,24 +78,22 @@ Use the red vertical indicator bar on the graph to view the calculated respirati
 <!-- <input type="hidden" name="leaf-base-temp" id="leaf-base-temp" class="leafdata" value="{{ basetemp }}" /> -->
 <input type="hidden" name="leaf-numspecies" id="leaf-numspecies" class="leafdata" value="{{ numspecies }}" />
 {% for species in specieslist %}
-<!-- Perhaps these stopped workng because they are uppercase and in java var for predefined list the are lowercase-->
-    <input type="hidden" name="leaf-species{{forloop.counter}}-name" id="leaf-species{{forloop.counter}}-name" value='{{species|hash:"name"}}' />
-    <input type="hidden" name="leaf-species{{forloop.counter}}-base-temp" id="leaf-species{{forloop.counter}}-base-temp" value='{{species|hash:"basetemp"}}' />
-{% comment %}<input type="hidden" name="leaf-species{{forloop.counter}}-kelvin" id="leaf-species{{forloop.counter}}-kelvin" value='{{species|hash:"kelvin"}}' />{% endcomment %}
+<input type="hidden" name="leaf-species{{forloop.counter}}-name" id="leaf-species{{forloop.counter}}-name" value='{{species|hash:"name"}}' />
+<input type="hidden" name="leaf-species{{forloop.counter}}-base-temp" id="leaf-species{{forloop.counter}}-base-temp" value='{{species|hash:"basetemp"}}' />
 <input type="hidden" name="leaf-species{{forloop.counter}}-E0" id="leaf-species{{forloop.counter}}-E0" value='{{species|hash:"E0"}}' />
 <input type="hidden" name="leaf-species{{forloop.counter}}-R0" id="leaf-species{{forloop.counter}}-R0" value='{{species|hash:"R0"}}' />
 <input type="hidden" name="leaf-species{{forloop.counter}}-percent" id="leaf-species{{forloop.counter}}-percent" value='{{species|hash:"percent"}}' />
 {% endfor %}
 
 <form id="leaf-form" name="leaf-form" action="forest" method="post">
-<input type="hidden" id="specieslist" name="specieslist" value="" />
-<input type="hidden" id="scenario1-name" name="scenario1-name" value='{{scenario_options|hash:"name"}}' />
-<input type="hidden" id="scenario1-year" name="scenario1-year" value='{{scenario_options|hash:"year"}}' />
-<input type="hidden" id="scenario1-fieldstation" name="scenario1-fieldstation" value='{{scenario_options|hash:"fieldstation"}}' />
-<input type="hidden" id="scenario1-leafarea" name="scenario1-leafarea" value='{{scenario_options|hash:"leafarea"}}' />
-<input type="hidden" id="scenario1-startdate" name="scenario1-startdate" value='{{scenario_options|hash:"startdate"}}' />
-<input type="hidden" id="scenario1-enddate" name="scenario1-enddate" value='{{scenario_options|hash:"enddate"}}' />
-<input type="hidden" id="scenario1-delta-t" name="scenario1-delta-t" value='{{scenario_options|hash:"deltat"}}' />
+    <input type="hidden" id="specieslist" name="specieslist" value="" />
+    <input type="hidden" id="scenario1-name" name="scenario1-name" value='{{scenario_options|hash:"name"}}' />
+    <input type="hidden" id="scenario1-year" name="scenario1-year" value='{{scenario_options|hash:"year"}}' />
+    <input type="hidden" id="scenario1-fieldstation" name="scenario1-fieldstation" value='{{scenario_options|hash:"fieldstation"}}' />
+    <input type="hidden" id="scenario1-leafarea" name="scenario1-leafarea" value='{{scenario_options|hash:"leafarea"}}' />
+    <input type="hidden" id="scenario1-startdate" name="scenario1-startdate" value='{{scenario_options|hash:"startdate"}}' />
+    <input type="hidden" id="scenario1-enddate" name="scenario1-enddate" value='{{scenario_options|hash:"enddate"}}' />
+    <input type="hidden" id="scenario1-delta-t" name="scenario1-delta-t" value='{{scenario_options|hash:"deltat"}}' />
 
 
 
