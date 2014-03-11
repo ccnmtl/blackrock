@@ -26,6 +26,7 @@ def index(request, admin_msg=""):
 
 
 def leaf(request):
+    print request
     scenario_options = {
         'name': 'Scenario 1',
         'leafarea': 1,

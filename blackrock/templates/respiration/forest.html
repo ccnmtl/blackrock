@@ -43,7 +43,6 @@
   </script>
 
   <script type="text/javascript">
-  <!--
     makeExportLink = function(a) {
       var id = a.id;
       id = id.split('-')[0];
@@ -53,7 +52,6 @@
       var station = document.getElementById(id+'-fieldstation').value;
       a.href = "/respiration/getcsv?year="+year+"&start="+start+"&end="+end+"&station="+station;
     };
-    //-->
   </script>
 
 {% endblock %}
