@@ -84,10 +84,13 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
     }
     this.scenarios[scenario_id].leafarea = leafarea;
     this.scenarios[scenario_id].station = $(scenario_id + "-fieldstation").value;
-
+    console.log(this.scenarios[scenario_id].station);
     var year = $(scenario_id + "-year").value;
     var start = $(scenario_id + "-startdate").value;
     var end = $(scenario_id + "-enddate").value;
+    console.log("This should print the year " + year);
+    console.log("This should print the year " + start);
+    console.log("This should print the year " + end);
 
     // we'll be nice and allow dashes as well as slashes, even though we say to use "mm/dd".
     start = start.replace("-","/");
@@ -217,7 +220,6 @@ function forestGraph() {
 	                var E0 = ForestData.species[species.id].E0;
                     var percent = ForestData.species[species.id].percent;
 	                var params = "R0="+R0+"&E0="+E0+"&t0="+basetemp+"&station="+station+"&start="+start+"&end="+end+"&delta="+deltaT;
-                    //console.log("basetemp, R0, E0, percent, params: " + basetemp + " " + R0 + " " + E0 + " " + percent + " " + params);
                     console.log(params);
 	                var http_request = doXHR("getsum", {'method':'POST', 'sendContent':params,
 	                                             'headers':[["Content-Type", 'application/x-www-form-urlencoded']]
