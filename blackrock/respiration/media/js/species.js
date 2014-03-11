@@ -71,7 +71,7 @@
         }
         $('species'+i+'-name').value = $('leaf-species'+i+'-name').value;
         $('species'+i+'-base-temp').value = $('leaf-species'+i+'-base-temp').value;
-        $('species'+i+'-kelvin').value = $('leaf-species'+i+'-kelvin').value;
+        //$('species'+i+'-kelvin').value = $('leaf-species'+i+'-kelvin').value;
         $('species'+i+'-R0').value = $('leaf-species'+i+'-R0').value;
         $('species'+i+'-E0').value = $('leaf-species'+i+'-E0').value;
         if($('species'+i+'-percent')) {
@@ -550,5 +550,6 @@
     global.EquationHighlighter = new EquationHighlighter();
     global.TemperatureSliders = new TemperatureSliders();
     global.initSpeciesModule = initSpeciesModule;
+
 
 })();
