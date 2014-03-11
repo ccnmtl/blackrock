@@ -25,7 +25,6 @@
     }
     
     function addSpecies(elem) {
-        console.log("inside add species");
       numSpecies++;
       var scenario;
       
@@ -80,7 +79,7 @@
           $('species'+i+'-percent').value = $('leaf-species'+i+'-percent').value;
         }
       }
-        if(leafSpecies == 0) {setDefaults(); }// if(leafSpecies === 0) {setDefaults(); }
+        if(leafSpecies == 0) {setDefaults(); }
     }
 
     function setDefaults() {

@@ -80,7 +80,6 @@ LeafGraphData.prototype.arrhenius = function(species_id, t_a) {
 
 
 function leafGraph() {
-    console.log("inside leaf graph");
     // have to re-init, because g.clear() doesn't reset legend
     if ($("plotGraph") === null) {
         return false;
@@ -106,7 +105,6 @@ function leafGraph() {
            //if (!isNaN(Rval)) {
            //    data.push(Rval);
            //}
-
 
            try {
                var Rval = LeafData.arrhenius(spid, i);

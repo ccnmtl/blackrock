@@ -30,7 +30,6 @@
            connect(elem, "onclick", toggle);
     });
     initYearHelper();
-    //connect(newDiv.id + "-fieldstation", "onchange", updateYears);
     updateColors();
    }
    
