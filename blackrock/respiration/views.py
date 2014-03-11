@@ -36,6 +36,7 @@ def leaf(request):
         'year': ''}
     try:
         scenario_options['name'] = request.POST['scenario1-name']
+        print "leaf: " + scenario_options['name']
         scenario_options['year'] = request.POST['scenario1-year']
         scenario_options['fieldstation'] = request.POST[
             'scenario1-fieldstation']
@@ -43,6 +44,10 @@ def leaf(request):
         scenario_options['startdate'] = request.POST['scenario1-startdate']
         scenario_options['enddate'] = request.POST['scenario1-enddate']
         scenario_options['deltat'] = request.POST['scenario1-delta-t']
+        print scenario_options['name'] + " " + scenario_options['year'] \
+            + " " + scenario_options['fieldstation'] + " " \
+            + scenario_options['leafarea'] + " " + scenario_options['startdate'] \
+            + " " + scenario_options['enddate'] + " " + scenario_options['deltat']
     except:
         pass
 
@@ -57,10 +62,12 @@ def leaf(request):
         if(s != ""):
             species = {}
             species['name'] = request.POST[s + '-name']
+            print "leaf: " + species['name']
             species['basetemp'] = request.POST[s + '-base-temp']
             species['E0'] = request.POST[s + '-E0']
             species['R0'] = request.POST[s + '-R0']
             species['percent'] = request.POST[s + '-percent']
+            print species['name']
             myspecies.append(species)
 
     return render_to_response(
@@ -70,12 +77,12 @@ def leaf(request):
 
 
 def forest(request):
-    # why is query dict empty?
-    #print request.POST
+    #print request.POST # all trees are in the request
+    print "specieslist: " + request.POST['specieslist'] # is missing first tree
+    #print "specieslist split(): " + request.POST['specieslist'].split(",")
     stations = Temperature.objects.values(
         'station').order_by('station').distinct()
     station_names = [item['station'] for item in stations]
-    # get valid years for each station
     year_options = {}
     for station in station_names:
         years = [item.year for item in Temperature.objects.filter(
@@ -91,7 +98,6 @@ def forest(request):
         'deltat': '0',
         'fieldstation': '', 'year': ''}
     try:
-        #scenario_options['basetemp'] = request.POST['species1-base-temp']
         scenario_options['name'] = request.POST['scenario1-name']
         scenario_options['year'] = request.POST['scenario1-year']
         scenario_options['fieldstation'] = request.POST[
@@ -106,6 +112,10 @@ def forest(request):
     specieslist = []
     try:
         specieslist = request.POST['specieslist'].split(",")
+        #skips species1
+        #print "specieslist" # --> prints number of species --> speciesX
+        for s in specieslist:
+            print "inside species loop: " + s
     except:
         pass
 
@@ -114,7 +124,9 @@ def forest(request):
         if(s != ""):
             species = {}
             species['basetemp'] = request.POST[s + '-base-temp']
+            print species['basetemp']
             species['name'] = request.POST[s + '-name']
+            print "forest: " + species['name']
             species['E0'] = request.POST[s + '-E0']
             species['R0'] = request.POST[s + '-R0']
             try:

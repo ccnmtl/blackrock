@@ -169,14 +169,8 @@ function initGraph() {
   g.hide_title = true;
   g.x_axis_label = "Scenarios";
   g.sort = false;
-
-  //g.labels = {0: '0', 30: '30'};
-  //g.hide_legend = true;  // breaks IE
-  //g.hide_line_markers = true;
   g.set_margins(10);
   g.left_margin = 25;
-  //g.top_margin = 10;
-  //g.bottom_margin = 10;
   g.no_data_message = "Press 'Graph' to graph data.";
   g.no_data_font_size = '21';
   return g;

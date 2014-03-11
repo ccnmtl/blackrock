@@ -1,7 +1,7 @@
 /* module wrapper pattern*/
 (function() {
 
-    //Currently Removes Duplicate Trees of Same Species - need to change that
+//Currently Removes Duplicate Trees of Same Species - need to change that
 
     var global = this;
     var numSpecies = 1;
@@ -25,6 +25,7 @@
     }
     
     function addSpecies(elem) {
+        console.log("inside add species");
       numSpecies++;
       var scenario;
       
@@ -58,6 +59,7 @@
       initPredefinedSpecies();
     }
 
+
     function initSpecies() {
       var leafSpecies = $("leaf-numspecies").value;
       speciesList = [];
@@ -78,20 +80,18 @@
           $('species'+i+'-percent').value = $('leaf-species'+i+'-percent').value;
         }
       }
-      if(leafSpecies === 0) {setDefaults(); }
+        if(leafSpecies == 0) {setDefaults(); }// if(leafSpecies === 0) {setDefaults(); }
     }
 
     function setDefaults() {
       $('species1-name').value = "Your Tree #1";
       $('species1-base-temp').value = 0;
-      $('species1-kelvin').value = 0;
       $('species1-R0').value = 0; /*0.84*/
       $('species1-E0').value = 0; /*27210*/
 
       addSpecies();
       $('species2-name').value = "Your Tree #2";
       $('species2-base-temp').value = 0;
-      $('species2-kelvin').value = 0;
       $('species2-R0').value = 0;/*0.86*/
       $('species2-E0').value = 0;/*40073*/
       
@@ -105,6 +105,7 @@
       }
     }
     
+
     function delSpecies(id) {
       removeElement(id);
       if(speciesList.indexOf(id) != -1) { 
