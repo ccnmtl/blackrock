@@ -73,18 +73,6 @@
 {% block left %}
 
 
-{% for scenario in scenario_options %}
-<input type="hidden" id="specieslist" name="specieslist" value="" />
-<input type="hidden" id="scenario1-name" name="scenario1-name" value='{{scenario_options|hash:"name"}}' />
-<input type="hidden" id="scenario1-year" name="scenario1-year" value='{{scenario_options|hash:"year"}}' />
-<input type="hidden" id="scenario1-fieldstation" name="scenario1-fieldstation" value='{{scenario_options|hash:"fieldstation"}}' />
-<input type="hidden" id="scenario1-leafarea" name="scenario1-leafarea" value='{{scenario_options|hash:"leafarea"}}' />
-<input type="hidden" id="scenario1-startdate" name="scenario1-startdate" value='{{scenario_options|hash:"startdate"}}' />
-<input type="hidden" id="scenario1-enddate" name="scenario1-enddate" value='{{scenario_options|hash:"enddate"}}' />
-<input type="hidden" id="scenario1-delta-t" name="scenario1-delta-t" value='{{scenario_options|hash:"deltat"}}' />
-{% endfor %}
-
-
 
 <div id="error">Some errors occurred while graphing.  You might want to double-check the boxes highlighted in red.</div>
 
