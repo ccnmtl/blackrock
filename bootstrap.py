@@ -1,4 +1,3 @@
-# flake8: noqa
 #!/usr/bin/env python
 import glob
 import os
