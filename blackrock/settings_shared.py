@@ -16,7 +16,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'blackrock',
-        'HOST': 'localhost',
+        'HOST': '',
         'PORT': 5432,
         'USER': '',
         'PASSWORD': '',
@@ -40,19 +40,11 @@ if 'test' in sys.argv or 'jenkins' in sys.argv:
     HAYSTACK_SOLR_URL = \
         'http://wwwapp.cc.columbia.edu/ccnmtl/solr/blackrock_portal'
     CDRS_SOLR_URL = HAYSTACK_SOLR_URL
-    
+
     SOUTH_DATABASE_ADAPTERS = {
         'default': "south.db.sqlite3"
     }
 
-
-# Not sure if this is right way to do this
-SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
-SESSION_COOKIE_HTTPONLY = True
-LOGIN_REDIRECT_URL = "/"
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
-
-USE_TZ = True
 
 JENKINS_TASKS = (
     'django_jenkins.tasks.run_pylint',
