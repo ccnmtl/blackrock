@@ -85,15 +85,15 @@
     function setDefaults() {
       $('species1-name').value = "Your Tree #1";
       $('species1-base-temp').value = 0;
-      $('species1-R0').value = 0; /*0.84*/
-      $('species1-E0').value = 0; /*27210*/
+      $('species1-R0').value = ""; /*0.84*/
+      $('species1-E0').value = ""; /*27210*/
 
       addSpecies();
       
       speciesList = ["species1"];
 
       if($('species1-percent')) {
-        $('species1-percent').value = 0;/*50*/
+        $('species1-percent').value = "100";/*50*/
       }
 
     }
