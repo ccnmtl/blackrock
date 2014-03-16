@@ -101,10 +101,6 @@ function leafGraph() {
        g.labels = {};
 
        for(var i=LeafData.t_a_min; i<=LeafData.t_a_max; i++) {
-           //var Rval = LeafData.arrhenius(spid, i)
-           //if (!isNaN(Rval)) {
-           //    data.push(Rval);
-           //}
 
            try {
                var Rval = LeafData.arrhenius(spid, i);
@@ -123,8 +119,6 @@ function leafGraph() {
 
        });
 
-  //g.data('Oaks', [1, 2, 3, 4, 4, 3]);
-  //g.data('Maples', [4, 8, 7, 9, 8, 9]);
   g.draw();
   return true;
 }
