@@ -62,7 +62,7 @@
     function initSpecies() {
       var leafSpecies = $("leaf-numspecies").value;
       speciesList = [];
-
+      // change to see if jenkins will build
       for(var i=1; i<=leafSpecies; i++) {
         if(i > 1) {
           addSpecies();
