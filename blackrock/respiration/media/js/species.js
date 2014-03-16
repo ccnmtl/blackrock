@@ -89,19 +89,13 @@
       $('species1-E0').value = 0; /*27210*/
 
       addSpecies();
-      $('species2-name').value = "Your Tree #2";
-      $('species2-base-temp').value = 0;
-      $('species2-R0').value = 0;/*0.86*/
-      $('species2-E0').value = 0;/*40073*/
       
-      speciesList = ["species1", "species2"];
+      speciesList = ["species1"];
 
       if($('species1-percent')) {
         $('species1-percent').value = 0;/*50*/
       }
-      if($('species2-percent')) {
-        $('species2-percent').value = 0;/*50*/
-      }
+
     }
     
 
