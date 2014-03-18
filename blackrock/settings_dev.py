@@ -3,6 +3,7 @@ from settings_shared import *
 
 DATABASE_ENGINE = 'postgresql_psycopg2'
 
+
 TEMPLATE_DIRS = (
     "/var/www/blackrock/blackrock/blackrock/templates",
 )
