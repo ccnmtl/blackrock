@@ -14,7 +14,8 @@
 
   function calculateKelvin(elem, id) {
      var temperature = elem;
-     var k = id.split("-");//getFirstElementByTagAndClassName("span", "kelvin");
+     var k = id.split("-");
+
              var kl = k[0] + "-kelvin";
              var result = parseFloat(elem) + 273.15;
              var kelvin = document.getElementById(kl);
@@ -40,11 +41,47 @@
      addLoadEvent(function() {
          initNav();
          initSpeciesModule();
+
+
+//jQuery(document).click(function(event) { 
+//    if(jQuery(event.target).parents().index(jQuery('.species-select-predefined')) == -1) {
+//        if(jQuery(".species-predefined-list").is(":visible")) {
+//            jQuery(".species-predefined-list").hide()
+//        }
+//    }        
+//})
+//jQuery(".species-select-predefined").focusin(function() { jQuery(".species-predefined-list").css( "display", "inline" );});
+
+
+//jQuery(".species-select-predefined").focusout(function(event){
+//    event.stopPropagation();
+//});
+
+//       jQuery(".species-select-predefined").focusout(function() { jQuery(".species-predefined-list").css( "display", "none" );});
+
          setup();
        });
    </script>
 
+<script>
 
+jQuery(".species-select-predefined").blur(function(){jQuery(".species-predefined-list").css( "display", "none" );});
+
+jQuery(".species-select-predefined").click(function(event){
+    event.stopPropagation();
+});
+
+
+
+
+//jQuery(".species-select-predefined").focusin(function() { jQuery(".species-predefined-list").css( "display", "inline" );});
+
+//jQuery(".species-select-predefined").focusout(function() { jQuery(".species-predefined-list").css( "display", "none" );});
+
+function blury(){
+    jQuery(".species-predefined-list").css( "display", "none" );
+}
+</script>
 
  {% endblock %}
 
