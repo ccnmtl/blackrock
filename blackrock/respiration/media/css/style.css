@@ -272,7 +272,7 @@ legend
 	border-left: 1px solid #999;
 }
 
-.species, .species td { font-size: 11px; background-image:url(../images/background_panel.jpg);}
+.species, .species td { font-size: 11px; background-image:url(../images/background_panel.jpg); position: relative;}
 
 .speciestemp
 {
