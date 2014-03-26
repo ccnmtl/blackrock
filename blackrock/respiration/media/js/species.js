@@ -156,10 +156,14 @@
           connect(r_zero,'onchange',self.needsUpdate);
         }
         
-        var input_predefined = getFirstElementByTagAndClassName("input", "species-select-predefined", elt);
+        var input_predefined = getFirstElementByTagAndClassName("input", "species-select-predefined", parent=elt);
         connect(input_predefined, "onclick", togglePredefinedSpeciesList);
-        var div_predefined = getFirstElementByTagAndClassName("div", "species-predefined-choice", elt);
-        connect(div_predefined, "onclick", populateSpeciesChoice);
+        
+        
+        forEach(getElementsByTagAndClassName("div", "species-predefined-choice", parent=elt), function(elem) {
+            disconnectAll(elem);
+            connect(elem, "onclick", this, populateSpeciesChoice);
+        });
     };
     
     EquationHighlighter.prototype.hiliteVar = function(arr_var,select_func) {
