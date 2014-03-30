@@ -13,8 +13,7 @@
       var newDiv = DIV();
       addElementClass(newDiv, "scenario");
        appendChildNodes("scenariobox", newDiv);
-       numScenarios++;
-       incNumSpecies();
+       numScenarios++;       
        newDiv.innerHTML = html.replace(/scenario1/g, "scenario" + numScenarios);
        newDiv.innerHTML = newDiv.innerHTML.replace(/species1/g, "species" + getNumSpecies());
        newDiv.innerHTML = newDiv.innerHTML.replace(/Your Tree \#1/g, "Your Tree #" + getNumSpecies());
@@ -23,6 +22,10 @@
        namediv.value = "Scenario " + numScenarios;
        forEach(getElementsByTagAndClassName("div", "species", newDiv), function(elem) {
           global.EquationHighlighter.initSpecies(elem);
+          
+          incNumSpecies();
+          var inputElt = getFirstElementByTagAndClassName(null,"species-name",elem);
+          inputElt.value = "Your Tree #" + getNumSpecies();          
        });
        
        // add handlers for the collapsing sections

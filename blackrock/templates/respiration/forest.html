@@ -4,22 +4,20 @@
 {% block tabname %}tab-canopy{% endblock %}
 
 {% block js %}
-  {{ block.super }}
-  <script type="text/javascript" src="media/js/foresthelpers.js"></script> 
-  <script type="text/javascript" src="media/js/scenario.js"></script> 
-  <script type="text/javascript" src="media/js/species.js"></script> 
-  <script type="text/javascript" src="media/js/forestgraph.js"></script>
+    {{ block.super }}
+    <script type="text/javascript" src="media/js/foresthelpers.js"></script> 
+    <script type="text/javascript" src="media/js/scenario.js"></script> 
+    <script type="text/javascript" src="media/js/species.js"></script> 
+    <script type="text/javascript" src="media/js/forestgraph.js"></script>
 
-<script type="text/javascript">
-
+    <script type="text/javascript">
 
     function calculateKelvin(elem, id) {
-        var temperature = elem;
         var k = id.split("-");
         var kl = k[0] + "-kelvin";
         var result = parseFloat(elem) + 273.15;
         var kelvin = document.getElementById(kl);
-        if(isNaN(result)) {
+        if (isNaN(result)) {
             kelvin.innerHTML = "";
         }
         else {
@@ -27,9 +25,6 @@
         }
     }
 
-  </script>
-
-  <script type="text/javascript">
     addLoadEvent(function() {
         {% for station in stations %}
             addYears("{{station}}", {{years|hash:station}});
@@ -40,9 +35,7 @@
         initScenarioModule(); // scenario.js
         setup(); // graph.js        
       });
-  </script>
 
-  <script type="text/javascript">
     makeExportLink = function(a) {
       var id = a.id;
       id = id.split('-')[0];
