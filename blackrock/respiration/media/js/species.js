@@ -147,14 +147,19 @@
 
     EquationHighlighter.prototype.initSpecies = function(elt) {
         var self = this;
-        e_zero = getFirstElementByTagAndClassName(null,"e-zero",elt);
-        r_zero = getFirstElementByTagAndClassName(null,"r-zero",elt);
+        var e_zero = getFirstElementByTagAndClassName(null,"e-zero",elt);
+        var r_zero = getFirstElementByTagAndClassName(null,"r-zero",elt);
         connect(e_zero,'onfocus',function(){self.hiliteVar("e-zero");});
         connect(r_zero,'onfocus',function(){self.hiliteVar("r-zero");});
         if($("plotGraph") !== null) {
           connect(e_zero,'onchange',self.needsUpdate);
           connect(r_zero,'onchange',self.needsUpdate);
         }
+        
+        var input_predefined = getFirstElementByTagAndClassName("input", "species-select-predefined", elt);
+        connect(input_predefined, "onclick", togglePredefinedSpeciesList);
+        var div_predefined = getFirstElementByTagAndClassName("div", "species-predefined-choice", elt);
+        connect(div_predefined, "onclick", populateSpeciesChoice);
     };
     
     EquationHighlighter.prototype.hiliteVar = function(arr_var,select_func) {
