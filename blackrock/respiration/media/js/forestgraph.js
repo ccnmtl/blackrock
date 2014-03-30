@@ -159,7 +159,6 @@ ForestGraphData.prototype.updateSpecies = function(species_id) {
 function initGraph() {
   clearError();
   var g = new Bluff.Bar('graph', "460x345");
-  console.log("inside initGraph");
   g.set_theme({
       ///note: not used since we do this in leafGraph() now.
     marker_color: '#aea9a9',
@@ -185,12 +184,10 @@ function updateColors() {
 
 function forestGraph() {
     // have to re-init, because g.clear() doesn't reset legend
-    //console.log("before g = initGraph()");
     g = initGraph();
     var scenario_count = 0;
     var data = [];
     var scids = [];
-    //console.log("after g = initGraph()");
 
     forEach(getElementsByTagAndClassName('div', 'scenario'),
         function(scenario) {
@@ -217,17 +214,13 @@ function forestGraph() {
 	                var E0 = ForestData.species[species.id].E0;
                     var percent = ForestData.species[species.id].percent;
 	                var params = "R0="+R0+"&E0="+E0+"&t0="+basetemp+"&station="+station+"&start="+start+"&end="+end+"&delta="+deltaT;
-                    console.log(params);
 	                var http_request = doXHR("getsum", {'method':'POST', 'sendContent':params,
 	                                             'headers':[["Content-Type", 'application/x-www-form-urlencoded']]
 	                                            });
 
 	                function my_callback(scenario_num,scid,percent,http_request) {
 
-                        console.log("inside callback");
   	                    var answer = evalJSON(http_request.responseText);
-                        console.log(http_request.responseText);
-                        console.log(answer);
 	                    data[scenario_num-1] += answer.total * (percent/100.0);
 	                    species_count--;
 
@@ -253,8 +246,7 @@ function forestGraph() {
                     //to accept a possibly pratial list or arguments?
                     //why is it sending a request for EVERY species when it already has the information and can send it at once???
 	                http_request.addCallback(partial(my_callback,scenario_count,scid,percent));
-                    //console.log("inside if   " + species_count);
-	            }//console.log("inside loop outside if" + species_count);
+	            }
 	     });
 	   }
     });
