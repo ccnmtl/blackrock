@@ -25,14 +25,24 @@
     <script type="text/javascript" src="/site_media/js/bluff/bluff-src.js"></script> 
     <script type="text/javascript" src="/respiration/media/js/graph.js"></script> 
     <script type="text/javascript">
+      function closePredefinedSpecies() {
+          var elts = getElementsByTagAndClassName("div", "species-predefined-list");
+          forEach(elts, function(elt) {
+              if (getStyle(elt, 'display') === 'block') {
+                  hideElement(elt);
+              }
+          });
+      }
+
       function setActiveTab() {
           var tabname = "{% block tabname %}tab-leaf{% endblock %}";
           if (document.getElementById(tabname) != null) { 
               addElementClass(tabname, "tab-selected");
           }
+          connect(document.body, "onclick", closePredefinedSpecies);    
       }
-      addLoadEvent(setActiveTab);
-      
+
+      addLoadEvent(setActiveTab);      
     </script>
 {% endblock %} 
 

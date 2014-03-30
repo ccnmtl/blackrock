@@ -395,12 +395,16 @@
 
 
     function togglePredefinedSpeciesList(evt) {
+        evt.stopPropagation();
+        
         var elt = evt.src();
         var parent = getFirstParentByTagAndClassName(elt,
                 tagName='div', className='species');     
         var list = getFirstElementByTagAndClassName(tagName="div",
                 className="species-predefined-list", parent=parent);
         if (getStyle(list, 'display') == 'none') {
+            // close other lists first
+            closePredefinedSpecies();
             setStyle(list, {'display': 'block'});
         } else {
             setStyle(list, {'display': 'none'});
