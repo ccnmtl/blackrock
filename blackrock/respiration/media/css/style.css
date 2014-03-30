@@ -587,6 +587,12 @@ div.species-predefined-list {
 	border: 1px solid #eee;
 	line-height: 16px;
 	margin-top: -2px;
+    height: 120px;
+    overflow-y: auto;	
+}
+
+div#scenariocontainer div.species-predefined-list {
+    margin-left: 0px;
 }
 
 div.species-predefined-choice {
