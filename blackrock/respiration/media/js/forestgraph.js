@@ -117,24 +117,26 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
       this.scenarios[scenario_id].deltaT = 0;
     }
 
-    var validSpecies = false;  // make sure the scenario contains at least one valid species
+    var species_composition = 0;
+    var species_valid = true;
     forEach(getElementsByTagAndClassName("div", "species", scenario_id), function(elem) {
-      obj.updateSpecies(elem.id);
-      if(ForestData.species[elem.id].valid) {
-        validSpecies = true;
-      }
+        obj.updateSpecies(elem.id);
+        if (!ForestData.species[elem.id].valid) {
+            species_valid = false;
+        } else {
+            species_composition += parseInt(ForestData.species[elem.id].percent, 10);
+        }
     });
-
+    
     // scenarios with missing information are not valid for graphing
-    this.scenarios[scenario_id].valid = false;
-    if(this.scenarios[scenario_id].leafarea != "" &&
-       this.scenarios[scenario_id].start != "" &&
-       this.scenarios[scenario_id].end != "" &&
-       !dateError &&
-       validSpecies){
-         this.scenarios[scenario_id].valid = true;
-    }
-}
+    this.scenarios[scenario_id].valid = 
+        this.scenarios[scenario_id].leafarea != "" &&
+        this.scenarios[scenario_id].start != "" &&
+        this.scenarios[scenario_id].end != "" &&
+        !dateError &&
+        species_valid &&
+        species_composition === 100;
+};
 
 ForestGraphData.prototype.updateSpecies = function(species_id) {
     if (typeof(this.species[species_id]) == 'undefined')
@@ -187,68 +189,80 @@ function forestGraph() {
     g = initGraph();
     var scenario_count = 0;
     var data = [];
-    var scids = [];
+    var scids = [];    
+    var all_valid = true;
 
-    forEach(getElementsByTagAndClassName('div', 'scenario'),
-        function(scenario) {
-	    var scid = scenario.id;
+    forEach(getElementsByTagAndClassName('div', 'scenario'), function(scenario) {
+        var scid = scenario.id;
+        ForestData.updateScenario(scid);
+        
+        if (!ForestData.scenarios[scid].valid) {
+            alert(ForestData.scenarios[scid].name + " cannot be graphed. Please enter valid values for all species and advanced options. Species compositions must add up to 100% in a single scenario.");
+            all_valid = false;
+            return;
+        }
+    });
+    
+    if (!all_valid) {
+        return;
+    }
 
-	    ForestData.updateScenario(scid);
-
-	    if(ForestData.scenarios[scid].valid) {
+    forEach(getElementsByTagAndClassName('div', 'scenario'), function(scenario) {
+        var scid = scenario.id;
+        if(ForestData.scenarios[scid].valid) {
             scenario_count++;
-	        var station = ForestData.scenarios[scid].station;
-	        var start = ForestData.scenarios[scid].start;
-	        var end = ForestData.scenarios[scid].end;
-	        var deltaT = ForestData.scenarios[scid].deltaT;
+            var station = ForestData.scenarios[scid].station;
+            var start = ForestData.scenarios[scid].start;
+            var end = ForestData.scenarios[scid].end;
+            var deltaT = ForestData.scenarios[scid].deltaT;
             var leafarea = ForestData.scenarios[scid].leafarea;
-	        data[scenario_count-1] = 0;
+            data[scenario_count-1] = 0;
             var species_count = 0;
 
-	        forEach(getElementsByTagAndClassName('div', 'species', scenario), function(species) {
-	            if(ForestData.species[species.id].valid) {
-	                species_count++;
-                    var base_temp = parseInt(ForestData.species[species.id].basetemp);
-                    var basetemp = parseInt(base_temp) + 273.15;
-	                var R0 = ForestData.species[species.id].R0;
-	                var E0 = ForestData.species[species.id].E0;
+            forEach(getElementsByTagAndClassName('div', 'species', scenario), function(species) {
+                if(ForestData.species[species.id].valid) {
+                    species_count++;
+                    var base_temp = parseInt(ForestData.species[species.id].basetemp, 10);
+                    var basetemp = parseInt(base_temp, 10) + 273.15;
+                    var R0 = ForestData.species[species.id].R0;
+                    var E0 = ForestData.species[species.id].E0;
                     var percent = ForestData.species[species.id].percent;
-	                var params = "R0="+R0+"&E0="+E0+"&t0="+basetemp+"&station="+station+"&start="+start+"&end="+end+"&delta="+deltaT;
-	                var http_request = doXHR("getsum", {'method':'POST', 'sendContent':params,
-	                                             'headers':[["Content-Type", 'application/x-www-form-urlencoded']]
-	                                            });
+                    var params = "R0="+R0+"&E0="+E0+"&t0="+basetemp+"&station="+station+"&start="+start+"&end="+end+"&delta="+deltaT;
+                    var http_request = doXHR("getsum", {'method':'POST', 'sendContent':params,
+                                                 'headers':[["Content-Type", 'application/x-www-form-urlencoded']]
+                                                });
 
-	                function my_callback(scenario_num,scid,percent,http_request) {
+                    function my_callback(scenario_num,scid,percent,http_request) {
 
-  	                    var answer = evalJSON(http_request.responseText);
-	                    data[scenario_num-1] += answer.total * (percent/100.0);
-	                    species_count--;
+                        var answer = evalJSON(http_request.responseText);
+                        data[scenario_num-1] += answer.total * (percent/100.0);
+                        species_count--;
 
-                        if(species_count == 0) {  // got all species totals for this scenario
-	                        data[scenario_num-1] = data[scenario_num-1] * leafarea;
-	                        var calculated_value = Math.round(data[scenario_num-1] * 100) / 100;
-	                        data[scenario_num-1] = calculated_value;
-	                        scids[scenario_num-1] = scid;
-	                        scenario_count--;
+                        if (species_count == 0) {  // got all species totals for this scenario
+                            data[scenario_num-1] = data[scenario_num-1] * leafarea;
+                            var calculated_value = Math.round(data[scenario_num-1] * 100) / 100;
+                            data[scenario_num-1] = calculated_value;
+                            scids[scenario_num-1] = scid;
+                            scenario_count--;
 
-	                            if(scenario_count == 0) {
-	                                for(var i=0; i<data.length; i++) {
-	                                    var label = ForestData.scenarios[scids[i]].name + " (" + data[i]  + ")";
-	                                    g.data(label, data[i], ForestData.scenarios[scids[i]]['color'] );
-	                                }
-	               
-	                                g.minimum_value = 0;
-	                                g.draw();
-	                            }
-	                    }
-	                }
+                                if(scenario_count == 0) {
+                                    for(var i=0; i<data.length; i++) {
+                                        var label = ForestData.scenarios[scids[i]].name + " (" + data[i]  + ")";
+                                        g.data(label, data[i], ForestData.scenarios[scids[i]]['color'] );
+                                    }
+                   
+                                    g.minimum_value = 0;
+                                    g.draw();
+                                }
+                        }
+                    }
                     //okay... so we are telling addCallback which is an asycn req
                     //to accept a possibly pratial list or arguments?
                     //why is it sending a request for EVERY species when it already has the information and can send it at once???
-	                http_request.addCallback(partial(my_callback,scenario_count,scid,percent));
-	            }
-	     });
-	   }
+                    http_request.addCallback(partial(my_callback,scenario_count,scid,percent));
+                }
+         });
+       }
     });
 }
 
@@ -256,4 +270,4 @@ function forestGraph() {
 // overrides function in graph.js
 LeafGraphData.prototype.updateFields = function() {
     return;
-}
+};

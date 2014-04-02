@@ -74,9 +74,6 @@
         $('species'+i+'-base-temp').value = $('leaf-species'+i+'-base-temp').value;
         $('species'+i+'-R0').value = $('leaf-species'+i+'-R0').value;
         $('species'+i+'-E0').value = $('leaf-species'+i+'-E0').value;
-        if($('species'+i+'-percent')) {
-          $('species'+i+'-percent').value = $('leaf-species'+i+'-percent').value;
-        }
       }
         if(leafSpecies == 0) {setDefaults(); }
     }
@@ -88,11 +85,6 @@
       $('species1-E0').value = ""; /*27210*/
 
       speciesList = ["species1"];
-
-      if($('species1-percent')) {
-        $('species1-percent').value = "100";/*50*/
-      }
-
     }
     
 
