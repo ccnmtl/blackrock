@@ -60,8 +60,12 @@ function toggle(e) {
 }
 
 function submitForm() {
-  $('scenario1-species').value = getSpeciesList().join();
-  $('scenario1-form').submit();
+    if (confirm('Navigating to the leaf level may cause you to lose scenario data. Do you want to continue?')) {
+        $('scenario1-species').value = getSpeciesList().join();
+        $('scenario1-form').submit();
+        return true;
+    }
+    return false;
 }
 
 function initNav() {

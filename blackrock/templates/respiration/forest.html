@@ -77,7 +77,6 @@
     <input type="hidden" name="leaf-species{{forloop.counter}}-base-temp" id="leaf-species{{forloop.counter}}-base-temp" value='{{species|hash:"basetemp"}}' />
     <input type="hidden" name="leaf-species{{forloop.counter}}-E0" id="leaf-species{{forloop.counter}}-E0" value='{{species|hash:"E0"}}' />
     <input type="hidden" name="leaf-species{{forloop.counter}}-R0" id="leaf-species{{forloop.counter}}-R0" value='{{species|hash:"R0"}}' />
-    <input type="hidden" name="leaf-species{{forloop.counter}}-percent" id="leaf-species{{forloop.counter}}-percent" value='{{species|hash:"percent"}}' />
   {% endfor %}
 </form>
 
@@ -132,7 +131,7 @@
               </div>
 
 	          <a href="#" class="tooltip">SC=<span>Species Composition</span></a>
-	          <input id="species1-percent" name="species1-percent" type="text" size="5" value="100" /> %
+	          <input id="species1-percent" name="species1-percent" type="text" size="5" /> %
 	      
 	          <table cellspacing="0" class="temptable">
               <tr>

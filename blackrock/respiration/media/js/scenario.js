@@ -10,22 +10,21 @@
    }
 
    function addScenario() {
-      var newDiv = DIV();
-      addElementClass(newDiv, "scenario");
+       var newDiv = DIV();
+       addElementClass(newDiv, "scenario");
        appendChildNodes("scenariobox", newDiv);
-       numScenarios++;       
+       numScenarios++;
        newDiv.innerHTML = html.replace(/scenario1/g, "scenario" + numScenarios);
-       newDiv.innerHTML = newDiv.innerHTML.replace(/species1/g, "species" + getNumSpecies());
-       newDiv.innerHTML = newDiv.innerHTML.replace(/Your Tree \#1/g, "Your Tree #" + getNumSpecies());
        newDiv.id = "scenario" + numScenarios;
        var namediv = getFirstElementByTagAndClassName("input", "scenario-name", newDiv);
        namediv.value = "Scenario " + numScenarios;
        forEach(getElementsByTagAndClassName("div", "species", newDiv), function(elem) {
-          global.EquationHighlighter.initSpecies(elem);
-          
           incNumSpecies();
-          var inputElt = getFirstElementByTagAndClassName(null,"species-name",elem);
-          inputElt.value = "Your Tree #" + getNumSpecies();          
+          var n = getNumSpecies();
+          elem.id = "species" + n;
+          elem.innerHTML = elem.innerHTML.replace(/species\d/g, elem.id);
+          elem.innerHTML = elem.innerHTML.replace(/Your Tree \#\d/g, "Your Tree #" + n);
+          global.EquationHighlighter.initSpecies(elem);
        });
        
        // add handlers for the collapsing sections
@@ -47,7 +46,12 @@
        initScenarioCloner();
    }
    
+   function getNumScenarios() {
+       return numScenarios;
+   }
+   
    global.addScenario = addScenario;
    global.delScenario = delScenario;
    global.initScenarioModule = initScenarioModule;
+   global.getNumScenarios = getNumScenarios;
 })();
