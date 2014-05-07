@@ -157,14 +157,14 @@ INSTALLED_APPS = [
 # Pageblocks/Pagetree settings
 PAGEBLOCKS = ['pageblocks.HTMLBlockWYSIWYG',
               'pageblocks.ImageBlock',
-              'blackrock.portal.AssetList',
-              'blackrock.portal.FeaturedAsset',
               'pageblocks.TextBlock',
-              'blackrock.portal.PhotoGallery',
-              'blackrock.portal.Webcam',
-              'blackrock.portal.Weather',
-              'blackrock.portal.InteractiveMap',
-              'pageblocks.HTMLBlock']
+              'pageblocks.HTMLBlock',
+              'portal.AssetList',
+              'portal.FeaturedAsset',
+              'portal.PhotoGallery',
+              'portal.Webcam',
+              'portal.Weather',
+              'portal.InteractiveMap']
 
 THUMBNAIL_SUBDIR = "thumbs"
 # THUMBNAIL_DEBUG = "True"
