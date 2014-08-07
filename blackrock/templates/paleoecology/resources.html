@@ -1,0 +1,25 @@
+{% extends "paleoecology/base_paleoecology.html" %} 
+{% load extras %}
+
+{% block pagetitle %}Teaching Resources{% endblock %}
+
+{% block tabname %}tab-resources{% endblock %} 
+
+{% block js %} 
+{{ block.super }} 
+
+  <script type="text/javascript">
+    function initNav() {
+      connect("tab-coresample", "onclick", function() { location.href='explore'; });
+      connect("tab-identification", "onclick", function() { location.href='identification'; });
+    }
+    addLoadEvent(initNav);
+  </script>
+  
+  <script type="text/javascript" src="media/js/interactive_key.js"></script>
+  <script type="text/javascript" src="media/js/pollen_identification.js"></script>
+{% endblock %}
+
+{% block container %}
+<h3>Teaching Resources</h3>
+{% endblock %}
