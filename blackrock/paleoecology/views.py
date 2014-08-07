@@ -17,10 +17,6 @@ def index(request, admin_msg=""):
     return render_to_response('paleoecology/index.html', context_instance=ctx)
 
 
-def identification(request):
-    return render_to_response('paleoecology/identification.html')
-
-
 def explore(request):
     samples = CoreSample.objects.all().order_by('depth')
     # TODO figure out from data
