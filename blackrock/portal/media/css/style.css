@@ -217,7 +217,7 @@ div#home_banner {
 	overflow: hidden;
 }
 
-div#weather-widget 
+#weather-widget 
 {
     background: none;
     position: relative;
@@ -231,7 +231,7 @@ div#weather-widget
 	margin: 0 13px 0 0;
 }
 
-div#weather-widget-tab {
+#weather-widget-tab {
     padding: 5px 0px 0px 8px;
     height: 25px;
     outline:none;
@@ -243,7 +243,7 @@ div#weather-widget-tab {
 }
 
 
-div#weather-widget-content {
+#weather-widget-content {
     height: 205px;
     display: none;
     position: absolute;
@@ -252,18 +252,18 @@ div#weather-widget-content {
     * right: -130px;
 }
 
-div#weather-widget-tab img:hover {
+#weather-widget-tab img:hover {
     cursor: pointer;
     cursor: hand;
 }
 
-div#weather-widget .weather-widget-title 
+#weather-widget .weather-widget-title 
 {
     margin: 0 0 5px 0;
     font-weight: bold;
 }
 
-div#weather-widget div.action
+#weather-widget div.action
 {
     border: 1px solid #ccc;
     padding: 5px;
@@ -273,7 +273,7 @@ div#weather-widget div.action
     float: right;
 }
 
-div#weather-widget div.action a
+#weather-widget div.action a
 {
     color: #fff;
     text-decoration: none;
@@ -637,7 +637,7 @@ a.callout-display-name:hover, a.callout-summary-link:hover {
 
 
 
-.clear {
+.clear, .clearfix {
 
 	clear: both;
 	margin: 0;
@@ -770,70 +770,162 @@ div.asset-types {
 
 /*Weather Page*/
 
-div#weather {
-	padding: 0 10px;
-	font-weight: bold;
+#weather {
+	padding: 10px;
 }
 
-div#weather h3,
-div#forestcam h3 {
-	color: #297643;
-}
-
-div#weather h3 {
-    border: 1px solid darkGray;
-    padding: 5px;
-    width: 400px;
+#weather .page-metadata {
+    float: right;
     display: block;
-    margin: 0;
+    font-size: 0.83em;
 }
 
-div#weather h5,
-div#forestcam h5 {
-    margin: 0;
+#weather .station-select-container {
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+#weather label {
+    display: block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+#weather .form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.arrow {
+    padding:10px;
+    background-color:#fff;
+    z-index:2
+}
+
+#leftArr {
+    float: left;
+}
+
+#rightArr {
+    float: right;
+}
+
+#weather .weather-image {
+    cursor: default;
+    margin-left: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+#weather .weather-image img {
+    width: 990px;
+}
+
+#weather .nav-container {
+    z-index: 10000;
+    bottom: 0px;
+    position: relative;
+    height: 42px;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#weather .nav-container .prev_nav,
+#weather .nav-container .next_nav {
+    position: absolute;
+    top: 10px;
+    cursor: pointer;
+    z-index: 1000;
+    outline: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;    
+}
+
+#weather .nav-container .prev_nav {
+    left: 5px;
+}
+
+#weather .nav-container .next_nav {
+    right: 5px;
+}
+
+#weather .nav-container ul {
+    position: absolute; 
+    width: 96%;
+    margin: 0 0 20px 28px;
     padding: 0;
-    text-decoration: none;
-    margin-left: 5px;
+    overflow: hidden;
 }
 
-div#weather div.header-row,
-div#forestcam div.header-row {
-	background-color: #297643;
-	border: 1px solid #a9a9a9;
-	-webkit-border-top-left-radius: 10px;
-    -webkit-border-top-right-radius: 10px;
-    -moz-border-radius-topleft: 10px;
-    -moz-border-radius-topright: 10px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    color: #fff;
-    padding: 5px;
+#weather .nav-container ul li {
+    display: inline-block;
+    list-style: none;
+}
+#weather .nav-container ul li a { }
+#weather .nav-container ul li.activeSlide a {}
+#weather .nav-container ul a:focus { outline: none; }
+
+#weather .nav-container ul > li > a {
+  margin-right: 2px;
+  line-height: 1.428571429;
+  border-radius: 4px;
+  padding: 10px; 
+  display: block;
+  cursor: pointer;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  width: 142px;
+  text-align: center;
+}
+
+#weather .nav-container ul > li > a:hover,
+#weather .nav-container ul > li > a:focus {
+  text-decoration: underline;
+  background-color: #eeeeee;
+}
+
+#weather .nav-container ul > li.active > a,
+#weather .nav-container ul > li.active > a:hover,
+#weather .nav-container ul > li.active > a:focus {
+    background-color: #eeeeee;
+    border-width: 2px;
+    text-decoration: none;
 }
 
 form.weatherformrt {
-	
-display: inline;
-margin: 15px;
-float: right;
-
+    display: inline;
+    margin: 15px;
+    float: right;
 }
 
 form.weatherform {
-	
-display: inline;
-margin: 15px;
-
+    display: inline;
+    margin: 15px;
 }
 
 form.weatherform input {
-	
-display: inline;
-margin-right: 10px;
-
-}
-
-div.station-id {
-    padding: 5px;
+    display: inline;
+    margin-right: 10px;
 }
 
 div#time-slider {
@@ -862,106 +954,13 @@ div#slider {
     margin-left: 10px;
 }
 
-div.weather-image {
-    padding: 0px;
-}
 
-
-div.station-id, div.weather-image {
-	background-color: #fff;
-	border: 1px solid #a9a9a9;
-	border-top: none;
-}
-
-div.weather-image img {
-    width: 990px;
-}
-
-div#weather ul {
-	list-style: none;
-    margin: 0;
-    height: 45px;
-    padding: 0;
-    border-left: 1px solid #a9a9a9;
-	border-right: 1px solid #a9a9a9;
-}
-
-div#weather ul li {
-	display: block;
-	float: left;
-	border-right: 1px solid #a9a9a9;
-}
-
-div#weather ul li.aag {
-	background-color: #fff;
-	width: 265px;
-	color: #000;
-	padding: 13px 10px 7px;
-	height: 25px;
-}
-
-div#weather ul li a {
-    display: block; /* required for FF & Safari */
-    #display: inline; /* required for IE */
-	padding: 13px 10px 7px;
-	height: 25px;
-	text-decoration: none;
-	color: #000;
-	background: #D9D9D9; /* old browsers */
-    background: -moz-linear-gradient(top, #D9D9D9 0%, #959595 100%); /* firefox */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#D9D9D9), color-stop(100%,#959595)); /* webkit */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#D9D9D9', endColorstr='#959595',GradientType=0 ); /* ie */
-    cursor: pointer;
-    cursor: hand;
-}
-
-div#weather ul li a.selected {
-   	background: #D9D9D9; /* old browsers */
-    background: -moz-linear-gradient(top, #D9D9D9 0%, #fff 100%); /* firefox */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#D9D9D9), color-stop(100%,#fff)); /* webkit */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#D9D9D9', endColorstr='#ffffff',GradientType=0 ); /* ie */
-}
 
 a#rawdata, a#historicdata {
-	background: url("/site_media/js/jquery-ui-1.8.11.custom/css/smoothness/images/ui-bg_glass_75_dadada_1x400.png") repeat-x scroll 50% 50% #DADADA;
-    border: 1px solid #999999;
-    color: #212121;
-	display: block;
-	padding: 2px 6px;
-	margin: -3px 3px 3px 3px;
-	border-radius: 10px;
-	-webkit-border-radius: 10px;
-	text-decoration: none;
 	float: right;
-	font-weight: normal;
+	margin: 20px 0 0 10px;
 }
 
-img#weather-station-selector {
-    float: right;
-}
-
-div#weather-station-list { 
-    position: absolute;
-    background-color: white;
-    left: 10px;
-    border-left: 1px solid darkGray;
-    border-right: 1px solid darkGray;
-    border-bottom: 1px solid darkGray;
-    width: 416px;
-}
-
-div#weather-station-list h4 {
-    margin: 0;
-    padding: 10px;
-}
-
-div#weather-station-list h4:hover {
-    background-color: #e4dbcc;
-}
-
-div#weather-station-list h4 a {
-    text-decoration: none;
-}
 
 
 /* Forestcam Page */
@@ -974,19 +973,38 @@ div#forestcam {
     color: black;
 }
 
+div#forestcam h3 {
+    color: #297643;
+}
+
+div#forestcam h5 {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+div#forestcam div.header-row {
+    background-color: #297643;
+    border: 1px solid #a9a9a9;
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-topright: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    color: #fff;
+    padding: 5px;
+}
+
 
 div#forestcam div#left,
-div#forestcam div#right
-
-{
+div#forestcam div#right {
     float: left;
     font-weight: normal;
 }
 
-div.box-content
-
-{
-   
+div.box-content {
     border: 1px solid #a9a9a9;
 	border-top: none;
     vertical-align: top;
@@ -1154,3 +1172,4 @@ ul#standard-elements li a {
   float: right;
   width: 100px;
 }
+

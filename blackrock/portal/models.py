@@ -804,44 +804,6 @@ class WebcamForm(forms.ModelForm):
         model = Webcam
 
 
-class Weather(models.Model):
-    pageblocks = generic.GenericRelation(
-        PageBlock, related_name="weather_pageblock")
-    template_file = "portal/weather.html"
-    display_name = "Weather"
-
-    def pageblock(self):
-        return self.pageblocks.all()[0]
-
-    def __unicode__(self):
-        return unicode(self.pageblock())
-
-    def needs_submit(self):
-        return False
-
-    @classmethod
-    def add_form(self):
-        return WeatherForm()
-
-    def edit_form(self):
-        return WeatherForm(instance=self)
-
-    @classmethod
-    def create(self, request):
-        form = WeatherForm(request.POST)
-        return form.save()
-
-    def edit(self, vals, files):
-        form = WeatherForm(data=vals, files=files, instance=self)
-        if form.is_valid():
-            form.save()
-
-
-class WeatherForm(forms.ModelForm):
-    class Meta:
-        model = Weather
-
-
 class InteractiveMap(models.Model):
     pageblocks = generic.GenericRelation(
         PageBlock, related_name="interactive_map_pageblock")

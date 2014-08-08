@@ -1,7 +1,8 @@
-from django.conf.urls.defaults import patterns, url
-import os.path
-from django.contrib import databrowse
 from blackrock.portal.search import PortalSearchView, PortalSearchForm
+from django.conf.urls.defaults import patterns, url
+from django.contrib import databrowse
+from django.views.generic.simple import direct_to_template
+import os.path
 
 media_root = os.path.join(os.path.dirname(__file__), "media")
 
@@ -21,5 +22,8 @@ urlpatterns = patterns(
     url(r'^nearby/(?P<latitude>-?\d+\.\d+)/(?P<longitude>-?\d+\.\d+)/$',
         'blackrock.portal.views.nearby'),
 
-    (r'^(?P<path>.*)$', 'blackrock.portal.views.page'),
+    url(r'^weather/$', direct_to_template,
+     {'template': 'portal/weather.html'}),
+
+    (r'^(?P<path>.*)$', 'blackrock.portal.views.page')
 )
