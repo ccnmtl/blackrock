@@ -23,7 +23,7 @@ urlpatterns = patterns(
         'blackrock.portal.views.nearby'),
 
     url(r'^weather/$', direct_to_template,
-     {'template': 'portal/weather.html'}),
+        {'template': 'portal/weather.html'}),
 
     (r'^(?P<path>.*)$', 'blackrock.portal.views.page')
 )
