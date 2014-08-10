@@ -771,7 +771,7 @@ div.asset-types {
 /*Weather Page*/
 
 #weather {
-	padding: 10px;
+	padding: 0 10px;
 }
 
 #weather .page-metadata {
@@ -781,20 +781,23 @@ div.asset-types {
 }
 
 #weather .station-select-container {
-    margin-top: 20px;
-    margin-left: 10px;
+    margin: 20px 0;
 }
 
-#weather label {
-    display: block;
-    max-width: 100%;
-    margin-bottom: 5px;
-    font-weight: 700;
+#weather .station-select-container img {
+    float: left;
+    margin-right: 5px;
+}
+
+#weather .station-select-container h3 {
+    float: left;
+    margin: 5px 10px 0 0;
 }
 
 #weather .form-control {
+    float: left;
     display: block;
-    width: 100%;
+    width: 350px;
     height: 34px;
     padding: 6px 12px;
     font-size: 14px;
@@ -808,6 +811,7 @@ div.asset-types {
     -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
     -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    margin-top: -2px;
 }
 
 .arrow {
@@ -824,11 +828,19 @@ div.asset-types {
     float: right;
 }
 
+
+#weather h2.datapoint-timespan {
+    position: relative;
+    margin-left: 220px;
+    padding-top: 20px;
+}
+
 #weather .weather-image {
     cursor: default;
     margin-left: 10px;
     width: 100%;
     text-align: center;
+    margin-top: -20px;
 }
 
 #weather .weather-image img {
@@ -929,12 +941,10 @@ form.weatherform input {
 }
 
 div#time-slider {
-    position: absolute;
-    left: 710px;
-    width: 280px;
+    width: 30%;
     display: block;
     height: 30px;
-    margin-top: 20px;
+    margin: 20px auto;
     padding: 5px;
 }
 
@@ -942,19 +952,29 @@ div#time-slider .legend {
     margin-bottom: 25px;
 }
 
-div#time-slider .label {
-    font-size: .9em;
+div#time-slider .label-24hours {
     float: left;
-    width: 91px;
-    text-decoration: none;
+}
+
+div#time-slider .label-7days {
+    float: left;
+    margin-left: 32%;
+}
+
+div#time-slider .label-30days {
+    float: right;
 }
 
 div#slider {
-    width: 200px;
-    margin-left: 10px;
+    background-color: white;
 }
 
-
+div#slider a {
+    border: 1px solid #d3d3d3;
+    background: #e6e6e6 url("images/ui-bg_glass_75_e6e6e6_1x400.png") 50% 50% repeat-x;
+    font-weight: normal;
+    color: #555555;
+}
 
 a#rawdata, a#historicdata {
 	float: right;
