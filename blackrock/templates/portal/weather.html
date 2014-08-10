@@ -6,11 +6,6 @@
     Weather
 {% endblock %}
 
-{% block css %}
-
-
-{% endblock %}
-
 {% block js %}
     <script type="text/javascript">
     var stations = {
@@ -24,6 +19,12 @@
             'prefix': 'RT_', 
             'ozone': false,
             'co2': false,
+            'snow-depth': false,
+            'soil-depth': false,
+            'uv-radiation': false,
+            'wave-radiation': false,
+            'net-wave-radiation': false,
+            'total-radiation': false,            
             'rawdata': '{% value_from_settings BLACK_ROCK_FEED %}data/current/Ridgetop.csv',
             'historicdata': '/portal/browse/portal/dataset/objects/19/'
         }
@@ -40,21 +41,36 @@
             increment = ".thirtydays";
         return increment;
     }
+    
+    function timelabel(value) {
+        var label = "24 hours";
+        if (value == 1)
+            increment = "7 days";
+        else if (value == 2)
+            increment = "30 days";
+        return increment;
+    }
 
     jQuery(document).ready(function() {
-        jQuery("#weather-station-selector").change(function(evt) {
+        jQuery(".weather-station-selector").change(function(evt) {
             var srcElement = evt.srcElement || evt.target || evt.originalTarget;
             
-            var newStation = jQuery(srcElement).children('a').html();
+            var newStation = jQuery(srcElement).val();
             if (currentStation != newStation) {
 
-                jQuery("a.weather-category-selector").each(function(idx, elt) {
+                var reset_selector;
+
+                jQuery("#weather .nav-container ul li a").each(function(idx, elt) {
                    // does this station support this category?
                    var property = jQuery(elt).attr('id');
                    if (stations[newStation].hasOwnProperty(property) && !stations[newStation][property]) {
-                       jQuery(elt).parent().hide();
+                       jQuery(elt).hide();
+                       if (jQuery(elt).parent().hasClass('active')) {
+                           jQuery(elt).parent().removeClass('active');
+                           reset_selector = true;
+                       }
                    } else {
-                       jQuery(elt).parent().show();
+                       jQuery(elt).show();
                    }
                 });
                 
@@ -73,6 +89,11 @@
                 } else {
                     jQuery("#historicdata").hide();
                 }
+
+                if (reset_selector) {
+                    jQuery("#weather .nav-container ul").scrollLeft(0);
+                    jQuery("#air-soil").trigger("click");
+                }
                     
                 currentStation = newStation;
             }
@@ -84,17 +105,23 @@
             var category = "." + jQuery(this).attr("id");
             var value = jQuery("#slider").slider( "option", "value" );
             jQuery(category+timerange(value)).show();
+            
+            jQuery("h2 span.datapoint").html(jQuery(this).html());
         });
 
-        jQuery( "#slider" ).slider({
+        jQuery("#slider").slider({
             max: 2,
             step: 1,
-            slide: function( event, ui ) {
-                var category = "." + jQuery(".weather-category-selector.selected").attr("id");
-                jQuery(category+timerange(ui.value)).show();
+            slide: function(event, ui) {
+                var category = "." + jQuery(".nav-container li.active a").attr("id");
+                var range = timerange(ui.value);
+                var label = timelabel(ui.value);
+                jQuery(category + range).show();
+                jQuery("h2 span.timespan").html(label);
             }
         });
 
+        // button bar slider for various weather elements
         var scrollWidth = jQuery("#weather .nav-container ul li").width();
         jQuery('#weather .nav-container .next_nav').click(function () {
             jQuery("#weather .nav-container ul").animate({
@@ -114,24 +141,18 @@
 {% block container %}
 
 <div id="weather">
-    <div class="page-metadata">Data as of {% now "g a" %} on {% now "m/d/Y" %} (Updated Hourly)</div>
-    <div class="clearfix"></div>
-    
-    <div class="pagetitle">
-        <h3>
-            <img src="/portal/media/images/nonmapicon_environmentalmonitoringstations.png" alt="record type icon" />
-            <span class="station-name">Station Sensor Data</span>
-        </h3>
-   </div>
-           
     <div class="station-select-container">
-        <label>Stations:</label>
+        <img src="/portal/media/images/nonmapicon_environmentalmonitoringstations.png" alt="record type icon" />
+        <h3>
+            <span class="station-name">Select Station</span>
+        </h3>
         <select class="form-control weather-station-selector">
             <option value="Open Lowland Station">Open Lowland Station: Elevation 270 feet</option>
             <option value="Ridgetop Station">Ridgetop Station: Elevation 1400 feet</option>
         </select>
+        <div class="page-metadata">Data as of {% now "g a" %} on {% now "m/d/Y" %} (Updated Hourly)</div>
     </div>
-  
+    <div class="clearfix"></div>
     <div class="nav-container">
         <div class="ui-state-default ui-corner-all next_nav">
             <span class="ui-icon ui-icon-carat-1-e"></span>
@@ -146,47 +167,27 @@
             <li><a id="baro">Barometric Pressure</a></li>
             <li><a id="ozone">Ozone</a></li>
             <li><a id="co2">Carbon Dioxide</a></li>
+            <li><a id="soil-depth">Soil Depth</a></li>
+            <li><a id="snow-depth">Snow Depth</a></li>
+            <li><a id="uv-radiation">UV Radiation</a></li>
             <li><a id="wave-radiation">Wave Radiation</a></li>
             <li><a id="net-wave-radiation">Net Wave Radiation</a></li>
-            <li><a id="net-radiation">Total Net Radiation</a></li>
-            <li><a id="co2">Snow Depth</a></li>
-            <li><a id="co2">Soil Depth</a></li>
-            <li><a id="uv-radiation">UV Radiation</a></li>
+            <li><a id="total-radiation">Total Net Radiation</a></li>
         </ul>
     </div>
 
-
-{% comment %}        
-OL_NetRadA-7Day.png = Wave Radiation
-
-OL_NetRadB-7Day.png = Net Wave Radiation
-
-OL_NetRadC-7Day.png = Total Net Radiation
-
-OL_Snow-7Day.png = Snow Depth
-
-OL_SoilVWC-7Day.png = Soil Depth
-
-OL_UVRad-7Day.png = UV Radiation
-        
-{% endcomment %}    
-    <div class="header-row">
-        <a href="/portal/browse/portal/dataset/objects/20" id="historicdata">View Historic Data</a>
-        <a href="{% value_from_settings BLACK_ROCK_FEED %}data/current/Lowland.csv" id="rawdata">Download Raw Data (YTD)</a>
-    </div>
-    <div class="clearfix"></div>
-
-
     <div id="time-slider">
         <div class="legend">
-            <div class="label">24 hours</div>
-            <div class="label">&nbsp;7 days</div>
-            <div class="label">30 days</div>
+            <div class="label-24hours">24 hours</div>
+            <div class="label-7days">7 days</div>
+            <div class="label-30days">30 days</div>
         </div>
-        <div class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" id="slider">
+        <div class="ui-slider ui-slider-horizontal ui-widget ui-widget-content" id="slider">
             <a style="left: 50%;" class="ui-slider-handle ui-state-default ui-corner-all ui-state-focus" href="#"></a>
         </div>
     </div>
+    
+    <h2 class="datapoint-timespan"><span class="datapoint">Air & Soil Temperature</span> <span class="timespan">24 hours</span></h2>
         
     <!-- Air Soil -->
 	<div class="weather-image air-soil twentyfourhours"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Air-Soil-24Hr.png' alt="Air &amp; Soil 24 hours"/></div>
@@ -217,5 +218,43 @@ OL_UVRad-7Day.png = UV Radiation
     <div class="weather-image co2 twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_CO2-24Hr.png' alt="Carbon Dioxide 24 hours" /></div>
     <div class="weather-image co2 sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_CO2-7Day.png' alt="Carbon Dioxide 7 Days" /></div>
     <div class="weather-image co2 thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_CO2-30Day.png' alt="Carbon Dioxide 30 Days" /></div>
+    
+    <!-- Wave Radiation -->
+    <div class="weather-image wave-radiation twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_NetRadA-24Hr.png' alt="Wave Radiation 24 hours" /></div>
+    <div class="weather-image wave-radiation sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_NetRadA-7Day.png' alt="Wave Radiation 7 Days" /></div>
+    <div class="weather-image wave-radiation thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_NetRadA-30Day.png' alt="Wave Radiation 30 Days" /></div>
+    
+    <!-- Net Wave Radiation -->
+    <div class="weather-image net-wave-radiation twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_NetRadB-24Hr.png' alt="Net Wave Radiation 24 hours" /></div>
+    <div class="weather-image net-wave-radiation sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_NetRadB-7Day.png' alt="Net Wave Radiation 7 Days" /></div>
+    <div class="weather-image net-wave-radiation thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_NetRadB-30Day.png' alt="Net Wave Radiation 30 Days" /></div>
+    
+    <!-- Total Radiation -->
+    <div class="weather-image total-radiation twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_NetRadC-24Hr.png' alt="Total Net Radiation 24 hours" /></div>
+    <div class="weather-image total-radiation sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_NetRadC-7Day.png' alt="Total Net Radiation 7 Days" /></div>
+    <div class="weather-image total-radiation thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_NetRadC-30Day.png' alt="Total Net Radiation 30 Days" /></div>
+
+    <!-- Snow Depth -->
+    <div class="weather-image snow-depth twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Snow-24Hr.png' alt="Snow Depth 24 hours" /></div>
+    <div class="weather-image snow-depth sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Snow-7Day.png' alt="Snow Depth 7 Days" /></div>
+    <div class="weather-image snow-depth thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Snow-30Day.png' alt="Snow Depth 30 Days" /></div>
+
+    <!-- Soil Depth -->
+    <div class="weather-image soil-depth twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_SoilVWC-24Hr.png' alt="Soil Depth 24 hours" /></div>
+    <div class="weather-image soil-depth sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_SoilVWC-7Day.png' alt="Soil Depth 7 Days" /></div>
+    <div class="weather-image soil-depth thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_SoilVWC-30Day.png' alt="Soil Depth 30 Days" /></div>
+
+    <!-- UV Radiation -->
+    <div class="weather-image uv-radiation twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_UVRad-24Hr.png' alt="Ultraviolet Radiation 24 hours" /></div>
+    <div class="weather-image uv-radiation sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_UVRad-7Day.png' alt="Ultraviolet Radiation 7 Days" /></div>
+    <div class="weather-image uv-radiation thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_UVRad-30Day.png' alt="Ultraviolet Radiation 30 Days" /></div>
+    
+  
+    <div class="header-row">
+        <a href="/portal/browse/portal/dataset/objects/20" id="historicdata">View Historic Data</a>
+        <a href="{% value_from_settings BLACK_ROCK_FEED %}data/current/Lowland.csv" id="rawdata">Download Raw Data (YTD)</a>
+    </div>
+    <div class="clearfix"></div>
+    
 </div>
 {% endblock %}
