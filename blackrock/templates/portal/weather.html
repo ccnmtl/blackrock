@@ -44,11 +44,12 @@
     
     function timelabel(value) {
         var label = "24 hours";
-        if (value == 1)
-            increment = "7 days";
-        else if (value == 2)
-            increment = "30 days";
-        return increment;
+        if (value == 1) {
+            label = "7 days";
+        } else if (value == 2) {
+            label = "30 days";
+        }
+        return label;
     }
 
     jQuery(document).ready(function() {

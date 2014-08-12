@@ -830,9 +830,9 @@ div.asset-types {
 
 
 #weather h2.datapoint-timespan {
-    position: relative;
-    margin-left: 220px;
-    padding-top: 20px;
+    width: 990px;
+    margin: 20px auto;
+    padding-left: 15px;
 }
 
 #weather .weather-image {
