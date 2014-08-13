@@ -883,8 +883,8 @@ div.asset-types {
 
 #weather .nav-container ul {
     position: absolute; 
-    width: 96%;
-    margin: 0 0 20px 28px;
+    width: 94%;
+    margin: 0 0 20px 42px;
     padding: 0;
     overflow: hidden;
 }
@@ -901,7 +901,7 @@ div.asset-types {
   margin-right: 2px;
   line-height: 1.428571429;
   border-radius: 4px;
-  padding: 10px; 
+  padding: 10px 5px; 
   display: block;
   cursor: pointer;
   background-color: #ffffff;
