@@ -10,7 +10,6 @@ requirements/src/django-pagetree-0.11.1.tar.gz
 requirements/src/django-treebeard-1.61.tar.gz
 requirements/src/django-indexer-0.2.1.tar.gz
 requirements/src/django-templatetag-sugar-0.1.tar.gz
-requirements/src/django-statsd-mozilla-0.3.3.tar.gz
 requirements/src/django-paging-0.2.2.tar.gz
 requirements/src/django-appconf-0.4.1.tar.gz
 requirements/src/django_compressor-1.1.1.tar.gz
