@@ -6,26 +6,28 @@ from haystack.forms import SearchForm
 from haystack.views import SearchView
 from blackrock.portal.models import Facet
 from types import ListType
-import haystack
+
+
+def default_type_choices(site=None):
+    return [('DataSet', 'Data Set'),
+            ('ForestStory', 'Forest Story'),
+            ('LearningActivity', 'Learning Activity'),
+            ('Person', 'Person'),
+            ('ResearchProject', 'Research Project'),
+            ('Sighting', 'Sighting'),
+            ('Station', 'Station'),
+            ('TrapLocation', 'Trap Location')]
+
+
+def default_facet_choices(facet):
+
+    choices = [(f.name, f.display_name)
+               for f in Facet.objects.filter(facet=facet)]
+    choices.sort()
+    return choices
 
 
 class PortalSearchForm(SearchForm):
-
-    def default_type_choices(site=None):
-        if site is None:
-            site = haystack.site
-
-        choices = [(m._meta.object_name, m._meta.verbose_name)
-                   for m in site.get_indexed_models()]
-        choices.sort()
-        return choices
-
-    def default_facet_choices(facet):
-
-        choices = [(f.name, f.display_name)
-                   for f in Facet.objects.filter(facet=facet)]
-        choices.sort()
-        return choices
 
     asset_type = forms.MultipleChoiceField(
         required=False, label=_('Record Type'),

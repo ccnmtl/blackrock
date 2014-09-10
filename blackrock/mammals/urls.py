@@ -92,6 +92,4 @@ urlpatterns = patterns(
 
     url(r'^ajax_search/$',
         'blackrock.mammals.search.ajax_search'),
-
-    #(r'^selenium/(?P<task>\w+)/$', 'family_info.views.selenium'),
 )

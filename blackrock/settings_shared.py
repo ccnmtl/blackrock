@@ -4,13 +4,14 @@ import sys
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-ADMINS = (
-    ('admin', 'sysadmin@example.com'),
-)
+ADMINS = ()
 
 MANAGERS = ADMINS
 
 ALLOWED_HOSTS = ['.ccnmtl.columbia.edu', 'localhost']
+
+# fake. overriden in local_settings.py
+SECRET_KEY = ')ng#)ef_u@_^zvvu@dxm7ql-yb^_!a6%v3v^j3b(mp+)l+5%@h'
 
 DATABASES = {
     'default': {
@@ -35,11 +36,15 @@ if 'test' in sys.argv or 'jenkins' in sys.argv:
         }
     }
 
-    HAYSTACK_SITECONF = 'blackrock.portal.search_sites'
-    HAYSTACK_SEARCH_ENGINE = 'solr'
-    HAYSTACK_SOLR_URL = \
-        'http://wwwapp.cc.columbia.edu/ccnmtl/solr/blackrock_portal'
-    CDRS_SOLR_URL = HAYSTACK_SOLR_URL
+    HAYSTACK_CONNECTIONS = {
+        'default': {
+            'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+            'URL': 'http://wwwappdev.cc.columbia.edu/ccnmtl/solr/blackrock_portal',
+            'TIMEOUT': 60 * 5,
+            'INCLUDE_SPELLING': True,
+            'BATCH_SIZE': 10,
+        },
+    }
 
     SOUTH_DATABASE_ADAPTERS = {
         'default': "south.db.sqlite3"
@@ -94,9 +99,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'stagingcontext.staging_processor',
 )
 
-MIDDLEWARE_CLASSES = (
-#    'django_statsd.middleware.GraphiteRequestTimingMiddleware',
-#    'django_statsd.middleware.GraphiteMiddleware',
+MIDDLEWARE_CLASSES = [
+    'django_statsd.middleware.GraphiteRequestTimingMiddleware',
+    'django_statsd.middleware.GraphiteMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -104,7 +109,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.transaction.TransactionMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'blackrock.portal.middleware.ValueErrorMiddleware',
-)
+]
 
 ROOT_URLCONF = 'blackrock.urls'
 
@@ -127,7 +132,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'sorl.thumbnail',
     'compressor',
-    # 'django_statsd',
+    'django_statsd',
     'django.contrib.gis',
     'django.contrib.admin',
     'blackrock.sampler',
@@ -136,8 +141,9 @@ INSTALLED_APPS = [
     'blackrock.paleoecology',
     'blackrock.blackrock_main',
     'blackrock.portal',
-    'django.contrib.databrowse',
+    'django_databrowse',
     'gspreadsheet_importer',
+    'googlecharts',
     'haystack',
     'smartif',
     'tinymce',
@@ -145,13 +151,12 @@ INSTALLED_APPS = [
     'pageblocks',
     'template_utils',
     'blackrock.waterquality',
-    'googlecharts',
     'blackrock.mammals',
     'south',
     'django_nose',
     'django_jenkins',
     'smoketest',
-    'annoying',
+    'annoying'
 ]
 
 # Pageblocks/Pagetree settings
@@ -167,11 +172,30 @@ PAGEBLOCKS = ['pageblocks.HTMLBlockWYSIWYG',
               'portal.InteractiveMap']
 
 THUMBNAIL_SUBDIR = "thumbs"
-# THUMBNAIL_DEBUG = "True"
+
+EMAIL_SUBJECT_PREFIX = "[blackrock] "
+EMAIL_HOST = 'localhost'
+SERVER_EMAIL = "blackrock@ccnmtl.columbia.edu"
+
 
 LOGIN_URL = "/admin/login"
 
 COMPRESS_ROOT = "/var/www/blackrock/blackrock/media/"
+
+AUTHENTICATION_BACKENDS = ('djangowind.auth.WindAuthBackend',
+                           'django.contrib.auth.backends.ModelBackend')
+
+WIND_BASE = "https://wind.columbia.edu/"
+WIND_SERVICE = "cnmtl_full_np"
+WIND_PROFILE_HANDLERS = ['djangowind.auth.CDAPProfileHandler']
+WIND_AFFIL_HANDLERS = ['djangowind.auth.AffilGroupMapper',
+                       'djangowind.auth.StaffMapper',
+                       'djangowind.auth.SuperuserMapper']
+WIND_STAFF_MAPPER_GROUPS = ['tlc.cunix.local:columbia.edu']
+WIND_SUPERUSER_MAPPER_GROUPS = [
+    'anp8', 'jb2410', 'zm4', 'cld2156',
+    'sld2131', 'amm8', 'mar227', 'jed2161', 'lrw2128']
+
 
 # put any static media here to override app served static media
 STATICMEDIA_MOUNTS = (
@@ -203,10 +227,3 @@ SESSION_SAVE_EVERY_REQUEST = True
 SESSION_COOKIE_AGE = FIVE_HOURS
 
 MAX_DATA_COUNT = 12000
-
-# if you add a 'deploy_specific' directory
-# then you can put a settings.py file and templates/ overrides there
-try:
-    from blackrock.deploy_specific.settings import *
-except ImportError:
-    pass

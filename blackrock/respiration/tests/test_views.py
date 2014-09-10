@@ -10,11 +10,11 @@ from django.core.cache import cache
 class ImportTestCases(TestCase):
     # fixtures = ["test_data.json"]
 
-    def _login(self, client, uname, pwd):
-            # Do a fake login via the handy client login fixture
-        self.assert_(client.login(username=uname, password=pwd))
+    def _login(self, uname, pwd):
+        # Do a fake login via the handy client login fixture
+        self.assertTrue(self.client.login(username=uname, password=pwd))
 
-        response = client.get('/admin/respiration/')
+        response = self.client.get('/admin/')
         self.assertContains(response, 'Respiration', status_code=200)
 
     def setUp(self):
@@ -23,7 +23,6 @@ class ImportTestCases(TestCase):
         user.save()
 
     def tearDown(self):
-        User.objects.get(username="testuser").delete()
         Temperature.objects.all().delete()
 
     def test_csv_import(self):
@@ -44,7 +43,7 @@ class ImportTestCases(TestCase):
             date=datetime.datetime(2008, 8, 1, 1, 00),
             reading=1.1)
 
-        self._login(self.client, 'testuser', 'test')
+        self._login('testuser', 'test')
 
         response = self.client.get('/admin/respiration/')
         self.assertContains(response,
@@ -142,7 +141,7 @@ class ImportTestCases(TestCase):
         StationMapping.objects.get_or_create(
             station="Fire Tower", abbreviation="FT")
 
-        self._login(self.client, 'testuser', 'test')
+        self._login('testuser', 'test')
 
         response = self.client.get('/admin/respiration/')
         self.assertContains(

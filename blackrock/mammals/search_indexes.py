@@ -1,11 +1,9 @@
-from haystack import site
-from haystack.indexes import SearchIndex
+from haystack import indexes
 from haystack.fields import CharField, BooleanField, DateTimeField
 from blackrock.mammals.models import TrapLocation, Sighting
 
 
-class TrapLocationIndex(SearchIndex):
-    #not used, but apparently mandatory.
+class TrapLocationIndex(indexes.SearchIndex, indexes.Indexable):
     text = CharField(document=True, use_template=True)
 
     species_id = CharField(faceted=True)
@@ -110,11 +108,7 @@ class TrapLocationIndex(SearchIndex):
         return obj._meta.object_name
 
 
-site.register(TrapLocation, TrapLocationIndex)
-
-
-class SightingIndex(SearchIndex):
-    #not used, but apparently mandatory.
+class SightingIndex(indexes.SearchIndex, indexes.Indexable):
     text = CharField(document=True, use_template=True)
 
     species_id = CharField(faceted=True)
@@ -219,6 +213,3 @@ class SightingIndex(SearchIndex):
 
     def prepare_observer_name(self, obj):
         return "Black Rock Forest staff"
-
-
-site.register(Sighting, SightingIndex)

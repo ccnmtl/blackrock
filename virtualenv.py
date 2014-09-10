@@ -1,4 +1,3 @@
-# flake8: noqa
 #!/usr/bin/env python
 """Create a "virtual" Python installation
 """
