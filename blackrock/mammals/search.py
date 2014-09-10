@@ -241,7 +241,7 @@ def ajax_search(request):
         return HttpResponseRedirect('/mammals/search/')
 
 
-    # TODO what happens if lat or long is NULL?
+# TODO what happens if lat or long is NULL?
 def search_map_repr(obj):
 
     result = {}

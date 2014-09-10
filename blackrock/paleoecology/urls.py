@@ -1,6 +1,7 @@
-from django.conf.urls.defaults import patterns
-from django.views.generic.simple import direct_to_template
 import os.path
+
+from django.conf.urls import patterns
+from django.views.generic.base import TemplateView
 
 media_root = os.path.join(os.path.dirname(__file__), "media")
 data_root = os.path.join(os.path.dirname(__file__), "data")
@@ -8,11 +9,11 @@ data_root = os.path.join(os.path.dirname(__file__), "data")
 urlpatterns = patterns(
     '',
     (r'^$', 'blackrock.paleoecology.views.index'),
-    (r'^identification$', direct_to_template,
-     {'template': 'paleoecology/identification.html'}),
+    (r'^identification$',
+     TemplateView.as_view(template_name='paleoecology/identification.html')),
     (r'^explore$', 'blackrock.paleoecology.views.explore'),
-    (r'^resources$', direct_to_template,
-     {'template': 'paleoecology/resources.html'}),
+    (r'^resources$',
+     TemplateView.as_view(template_name='paleoecology/resources.html')),
     (r'^getpercents$', 'blackrock.paleoecology.views.getpercents'),
     (r'^media/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': media_root}),

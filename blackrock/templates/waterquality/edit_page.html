@@ -86,10 +86,10 @@ var saveOrderOfPageBlocks = function() {
 {% for block in section.pageblock_set.all %}
 <div class="block-edit draggable" id="pageblock-{{block.id}}">
 <table width="100%" border="0"><tr><td><span title="drag to reorder pageblocks" class="draghandle ui-icon ui-icon-arrowthick-2-n-s"></span></td>
-<td align="right"><form action="{% url delete-pageblock block.id %}" method="post">
+<td align="right"><form action="{% url 'delete-pageblock' block.id %}" method="post">
 <input type="submit" value="delete block {{block.ordinality}}" />
 </form></td></tr></table>
-<form action="{% url edit-pageblock block.id %}" method="post"
+<form action="{% url 'edit-pageblock' block.id %}" method="post"
 {% if block.edit_form.is_multipart %}enctype="multipart/form-data"{% endif %}>
 <table width="100%">
 {{ block.default_edit_form.as_table }}
@@ -118,7 +118,7 @@ var saveOrderOfPageBlocks = function() {
 {% endfor %}
 </ul>
 
-<form action="{% url add-child-section section.id %}" method="post">
+<form action="{% url 'add-child-section' section.id %}" method="post">
 <table>
 {{ section.add_child_section_form.as_table }}
 </table>
@@ -131,7 +131,7 @@ var saveOrderOfPageBlocks = function() {
 
 {% for blocktype in section.available_pageblocks %}
 {% if blocktype %}
-<form action="{% url add-pageblock section.id %}"
+<form action="{% url 'add-pageblock' section.id %}"
 {% if blocktype.add_form.is_multipart %}
 enctype="multipart/form-data"
 {% endif %}
@@ -151,11 +151,11 @@ method="post">
 </div>
 
 <div id="edit-page-tab">
-<form action="{% url delete-section section.id %}" method="post">
+<form action="{% url 'delete-section' section.id %}" method="post">
 <input type="submit" value="delete this page" />
 </form>
 
-<form action="{% url edit-section section.id %}" method="post">
+<form action="{% url 'edit-section' section.id %}" method="post">
 <fieldset><legend>Edit Page</legend>
 <table>
 {{ section.edit_form.as_table }}
