@@ -70,7 +70,11 @@ class PortalSearchForm(SearchForm):
 
         if self.is_valid():
             q = self.cleaned_data['q'].lower()
-            sqs = self.searchqueryset.auto_query(q, fieldname="text")
+
+            if len(q) == 0:
+                sqs = self.searchqueryset.all()
+            else:
+                sqs = self.searchqueryset.auto_query(q, fieldname="text")
 
             if self.load_all:
                 sqs = sqs.load_all()

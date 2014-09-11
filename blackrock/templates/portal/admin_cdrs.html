@@ -1,12 +1,12 @@
 {% extends "admin/index.html" %} 
-{% load i18n %}
+{% load i18n admin_static%}
 {% load extras %}
 
 {% block title %}CDRS Data Importer | {% trans "Django Admin" %}{% endblock %}
  
 {% block extrastyle %}
     {{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{% load adminmedia %}{% admin_media_prefix %}css/forms.css"></link>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/forms.css' %}"></link>
     <link rel="stylesheet" type="text/css" href="/site_media/css/admin.css"></link>
 {% endblock %}
 
