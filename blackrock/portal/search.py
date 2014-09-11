@@ -70,7 +70,7 @@ class PortalSearchForm(SearchForm):
 
         if self.is_valid():
             q = self.cleaned_data['q'].lower()
-            sqs = self.searchqueryset.auto_query(q)
+            sqs = self.searchqueryset.auto_query(q, fieldname="text")
 
             if self.load_all:
                 sqs = sqs.load_all()
@@ -112,11 +112,6 @@ class PortalSearchForm(SearchForm):
 
 
 class PortalSearchView(SearchView):
-    def __name__(self):
-        return "PortalSearchView"
-
-    def get_results(self):
-        return self.form.search()
 
     def extra_context(self):
         extra = super(PortalSearchView, self).extra_context()
@@ -125,8 +120,6 @@ class PortalSearchView(SearchView):
                 extra["count"] = -1
             else:
                 extra["count"] = len(self.results)
-
-        # @todo -- add latitude/longitude into the context. self.request.
 
         # Send down our current parameters minus page number
         query = ''

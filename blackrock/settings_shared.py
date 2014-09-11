@@ -154,6 +154,7 @@ INSTALLED_APPS = [
     'blackrock.mammals',
     'south',
     'django_nose',
+    'bootstrapform',
     'django_jenkins',
     'smoketest',
     'annoying'

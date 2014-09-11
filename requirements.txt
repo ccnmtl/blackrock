@@ -35,9 +35,11 @@ sorl==3.1
 tagging==0.3-pre
 template_utils==0.4p2
 django-staticmedia==0.2
-django-pageblocks==0.5.3
-django-pagetree==0.11.1
-django-treebeard==1.61
+django-bootstrap-form==2.0.3
+django-markwhat==1.0
+django-treebeard==2.0b2
+django-pagetree==0.14.5
+django-pageblocks==0.5.11
 django-indexer==0.2.1
 django-templatetag-sugar==0.1
 django-paging==0.2.2
