@@ -1,7 +1,3 @@
-from blackrock.mammals.models import Bait, GradeLevel, Species, Animal
-from blackrock.mammals.models import LabelMenu, Trap, Habitat, School
-from django.test import TestCase
-
 '''
 testing simpler classes
 test:
@@ -14,6 +10,12 @@ test:
     Habitat - uni and dir
     School - uni
 '''
+
+from django.db.utils import DatabaseError
+from django.test import TestCase
+
+from blackrock.mammals.models import Bait, GradeLevel, Species, Animal
+from blackrock.mammals.models import LabelMenu, Trap, Habitat, School
 
 
 class TestMammalModels(TestCase):
@@ -69,8 +71,14 @@ class TestMammalModels(TestCase):
         self.assertEquals(unicode(self.new_grade_level), "value of label")
         self.another_grade_level = GradeLevel()
         self.assertEquals(self.another_grade_level.label, "")
-        self.another_grade_level.label = "a" * 267
-        self.failUnlessRaises(Warning, self.another_grade_level.save())
+
+        try:
+            self.another_grade_level.label = "a" * 267
+            self.another_grade_level.save()
+            self.fail()
+        except DatabaseError:
+            pass  # expected
+
         self.assertIn("label", self.new_grade_level.dir())
 
     def test_grade_level_no_self(self):
@@ -83,8 +91,14 @@ class TestMammalModels(TestCase):
         self.assertEquals(unicode(new_grade_level), "value of label")
         another_grade_level = GradeLevel()
         self.assertEquals(another_grade_level.label, "")
-        another_grade_level.label = "a" * 267
-        self.failUnlessRaises(Warning, another_grade_level.save())
+
+        try:
+            another_grade_level.label = "a" * 267
+            another_grade_level.save()
+            self.fail()
+        except DatabaseError:
+            pass  # expected
+
         self.assertIn("label", new_grade_level.dir())
 
     def test_grade_level_dir(self):
@@ -155,13 +169,3 @@ class TestMammalModels(TestCase):
         self.new_school = School()
         self.new_school.name = "new school"
         self.assertEquals(unicode(self.new_school), "new school")
-
-    def tearDown(self):
-        self.grade_level.delete()
-        self.species.delete()
-        self.trap.delete()
-        self.bait.delete()
-        self.label_menu.delete()
-        self.school.delete()
-        self.animal.delete()
-        self.habitat.delete()

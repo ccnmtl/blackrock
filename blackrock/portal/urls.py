@@ -3,7 +3,6 @@ import os.path
 from django.conf.urls import patterns, url
 from django.views.generic.base import TemplateView
 import django_databrowse
-from pagetree.generic.views import EditView
 
 from blackrock.portal.search import PortalSearchView, PortalSearchForm
 
@@ -27,9 +26,6 @@ urlpatterns = patterns(
 
     url(r'^weather/$',
         TemplateView.as_view(template_name='portal/weather.html')),
-
-    (r'^edit/(?P<path>.*)$', EditView.as_view(
-        hierarchy_name="main", hierarchy_base="/")),
 
     (r'^(?P<path>.*)$', 'blackrock.portal.views.page')
 )

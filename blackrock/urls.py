@@ -1,8 +1,12 @@
-from django.conf.urls import patterns, include
-from django.contrib.gis import admin
-from django.conf import settings
 import os.path
+
+from django.conf import settings
+from django.conf.urls import patterns, include
+from django.contrib.auth.decorators import login_required
+from django.contrib.gis import admin
+from pagetree.generic.views import EditView
 import staticmedia
+
 
 admin.autodiscover()
 
@@ -30,6 +34,10 @@ urlpatterns = patterns(
     (r'^waterchemistry/', include('blackrock.waterquality.urls')),
     (r'^waterquality/', include('blackrock.waterquality.urls')),
     (r'^blackrock_main/', include('blackrock.blackrock_main.urls')),
+
+    # portal pagetree content
+    (r'^edit/(?P<path>.*)$', login_required(EditView.as_view(
+        hierarchy_name="main", hierarchy_base="/"))),
     (r'^portal/', include('blackrock.portal.urls')),
     (r'^mammals/', include('blackrock.mammals.urls')),
     (r'^$', 'blackrock.views.index')

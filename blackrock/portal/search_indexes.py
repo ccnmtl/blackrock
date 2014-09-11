@@ -1,7 +1,7 @@
 from haystack import indexes
 from haystack.fields import MultiValueField, CharField
 from blackrock.portal.models import Station, Person, DataSet, ForestStory, \
-    Facet, Tag, ResearchProject, LearningActivity
+    ResearchProject, LearningActivity
 
 
 class AssetIndex(indexes.SearchIndex):
@@ -71,15 +71,3 @@ class PersonIndex(AssetIndex, indexes.Indexable):
 
     def get_model(self):
         return Person
-
-import django_databrowse
-
-django_databrowse.site.register(Station)
-django_databrowse.site.register(Person)
-django_databrowse.site.register(DataSet)
-django_databrowse.site.register(ResearchProject)
-django_databrowse.site.register(LearningActivity)
-django_databrowse.site.register(ForestStory)
-
-django_databrowse.site.register(Facet)
-django_databrowse.site.register(Tag)
