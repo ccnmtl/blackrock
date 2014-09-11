@@ -36,17 +36,6 @@ if 'test' in sys.argv or 'jenkins' in sys.argv:
         }
     }
 
-    HAYSTACK_CONNECTIONS = {
-        'default': {
-            'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-            'URL': 'http://wwwappdev.cc.columbia.edu/ccnmtl/solr/blackrock_portal',
-            'TIMEOUT': 60 * 5,
-            'INCLUDE_SPELLING': True,
-            'BATCH_SIZE': 100,
-        },
-    }
-    HAYSTACK_SEARCH_RESULTS_PER_PAGE = 50
-
     SOUTH_DATABASE_ADAPTERS = {
         'default': "south.db.sqlite3"
     }
@@ -229,3 +218,18 @@ SESSION_SAVE_EVERY_REQUEST = True
 SESSION_COOKIE_AGE = FIVE_HOURS
 
 MAX_DATA_COUNT = 12000
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://wwwappdev.cc.columbia.edu/ccnmtl/solr/blackrock_portal',
+        'TIMEOUT': 60 * 5,
+        'INCLUDE_SPELLING': True,
+        'BATCH_SIZE': 10,
+    },
+}
+
+CDRS_SOLR_URL = 'http://solrdev.cul.columbia.edu:8080/solr/blackrock'
+CDRS_SOLR_FILEURL = 'http://solrdev.cul.columbia.edu:8080/solr/blackrock/files/'
+
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
