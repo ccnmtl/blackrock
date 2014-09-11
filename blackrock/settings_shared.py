@@ -42,9 +42,10 @@ if 'test' in sys.argv or 'jenkins' in sys.argv:
             'URL': 'http://wwwappdev.cc.columbia.edu/ccnmtl/solr/blackrock_portal',
             'TIMEOUT': 60 * 5,
             'INCLUDE_SPELLING': True,
-            'BATCH_SIZE': 10,
+            'BATCH_SIZE': 100,
         },
     }
+    HAYSTACK_SEARCH_RESULTS_PER_PAGE = 50
 
     SOUTH_DATABASE_ADAPTERS = {
         'default': "south.db.sqlite3"

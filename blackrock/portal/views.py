@@ -173,8 +173,8 @@ def process_metadata(result):
     dataset = None
 
     try:
-        id = result['dataset_id']
-        dataset = DataSet.objects.get(blackrock_id=id)
+        the_id = result['dataset_id']
+        dataset = DataSet.objects.get(blackrock_id=the_id)
     except DataSet.DoesNotExist:
         dataset = DataSet()
         created = True
@@ -280,7 +280,7 @@ def admin_cdrs_import(request):
 
 @user_passes_test(lambda u: u.is_staff)
 def admin_rebuild_index(request):
-    ctx = Context({'server': settings.HAYSTACK_SOLR_URL})
+    ctx = Context({'server': settings.HAYSTACK_CONNECTIONS['default']['URL']})
 
     if (request.method == 'POST'):
         sys.stdout = the_buffer = StringIO.StringIO()
@@ -292,10 +292,11 @@ def admin_rebuild_index(request):
 
 
 def admin_readercycle(request):
+    solr_url = settings.HAYSTACK_CONNECTIONS['default']['URL']
     try:
-        solr = Solr(settings.HAYSTACK_SOLR_URL)
+        solr = Solr(solr_url)
         solr.readercycle()
         return HttpResponse("Cycled")
     except (IOError, SolrError), e:
-        msg = "Failed to cycle Solr %s %s" % (settings.HAYSTACK_SOLR_URL, e)
+        msg = "Failed to cycle Solr %s %s" % (solr_url, e)
         return HttpResponse(msg)
