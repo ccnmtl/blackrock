@@ -180,19 +180,11 @@ class MammalSearchForm(SearchForm):
 
 
 class MammalSearchView(SearchView):
-    # print 'SEARCHVIEW'
 
     def __init__(self, *args, **kwargs):
         hella_many = 5000000000
         super(MammalSearchView, self).__init__(*args, **kwargs)
         self.results_per_page = hella_many
-        # print "SEARCHVIEW INIT"
-
-    def __name__(self):
-        return "MammalSearchView"
-
-    def get_results(self):
-        return self.form.search()
 
     def extra_context(self):
         """ this only gets run the first time we load the page."""
@@ -227,7 +219,6 @@ class MammalSearchView(SearchView):
 
 
 def ajax_search(request):
-    # print 'AJAX REQUEST'
     if request.method == 'POST':
         my_new_form = MammalSearchForm(request.POST)
         search_results = my_new_form.search()

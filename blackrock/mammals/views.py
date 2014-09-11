@@ -188,7 +188,6 @@ def sandbox_grid_block(request):
     block_height, block_width = to_lat_long(
         block_size_in_m, block_size_in_m)
 
-    transects = []
     transects = pick_transects(
         block_center, block_size_in_m, num_transects,
         points_per_transect, magnetic_declination)
@@ -241,7 +240,7 @@ def grid(request):
             id=selected_block_database_id)
 
     return {
-        #TODO: remove
+        # TODO: remove
         'grid_json': simplejson.dumps(grid),
         'grid_center_y': 41.400,
         'grid_center_x': -74.0305,
@@ -283,7 +282,7 @@ def grid_block(request):
     width_in_blocks = get_int(request, 'width_in_blocks', 27)
     block_center = selected_block_center_y, selected_block_center_x
     block_height, block_width = to_lat_long(block_size_in_m, block_size_in_m)
-    transects = []
+
     transects = pick_transects(
         block_center, block_size_in_m, num_transects,
         points_per_transect, magnetic_declination)
@@ -308,7 +307,7 @@ def grid_block(request):
         # degrees
         # meters
         # degrees
-        #TODO: remove; replace with the id of the selcted block.
+        # TODO: remove; replace with the id of the selcted block.
         # TODO: remove
         'block_json': simplejson.dumps(block),
         'show_save_button': can_enter_data,
@@ -404,13 +403,13 @@ def pick_transects(center, side_of_square, number_of_transects,
 # CSV export:
 def header_row():
     return [
-        #, 'Bearing (true north)'
-        #, 'Bearing (magnetic north)'
+        # , 'Bearing (true north)'
+        # , 'Bearing (magnetic north)'
         # this is magnetig north only.
-        #, 'Trap ID'
+        # , 'Trap ID'
         'Team name', 'Trap number',
         'Bearing', 'Distance (m) from center', 'Latitude', 'Longitude'
-        #, 'Location ID'
+        # , 'Location ID'
     ]
 
 
@@ -420,7 +419,7 @@ def row_to_output(point, transect):
         point['point_index_2'],
         # , transect['heading']
         # , transect['heading_wrt_magnetic_north']
-        #, "%s%d" % (transect['team_letter'] , point['point_index_2'] )
+        # , "%s%d" % (transect['team_letter'] , point['point_index_2'] )
         transect['heading_wrt_magnetic_north'],
         point['distance'],
         point['point'][0],
@@ -552,7 +551,7 @@ def new_expedition_ajax(request):
         the_new_expedition.grid_square = GridSquare.objects.get(
             id=grid_square_id)
         the_new_expedition.start_date_of_expedition = datetime.now()
-        #TODO add timedelta (1 day) to the end.
+        # TODO add timedelta (1 day) to the end.
         the_new_expedition.end_date_of_expedition = datetime.now()
         the_new_expedition.save()
     msg = '%d' % the_new_expedition.id
@@ -817,9 +816,9 @@ def process_save_team_form(request):
 
         correcting_lat_lon = True
 
-        if correcting_lat_lon and not lat_key in rp:
+        if correcting_lat_lon and lat_key not in rp:
             correcting_lat_lon = False
-        if correcting_lat_lon and not lon_key in rp:
+        if correcting_lat_lon and lon_key not in rp:
             correcting_lat_lon = False
         if correcting_lat_lon and match(match_string, rp[lat_key]) is None:
             correcting_lat_lon = False

@@ -283,10 +283,10 @@ def admin_rebuild_index(request):
     ctx = Context({'server': settings.HAYSTACK_SOLR_URL})
 
     if (request.method == 'POST'):
-        sys.stdout = buffer = StringIO.StringIO()
+        sys.stdout = the_buffer = StringIO.StringIO()
         management.call_command('rebuild_index', interactive=False)
         sys.stdout = sys.__stdout__
-        ctx['results'] = buffer.getvalue().split('\n')[1:-2]
+        ctx['results'] = the_buffer.getvalue().split('\n')[1:-2]
 
     return render_to_response('portal/admin_solr.html', context_instance=ctx)
 
