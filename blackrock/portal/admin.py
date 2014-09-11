@@ -97,3 +97,16 @@ class ForestStoryAdmin(admin.ModelAdmin):
 
 admin.site.register(ForestStory, ForestStoryAdmin)
 admin.site.register(PhotoGalleryItem)
+
+
+import django_databrowse
+
+django_databrowse.site.register(Station)
+django_databrowse.site.register(Person)
+django_databrowse.site.register(DataSet)
+django_databrowse.site.register(ResearchProject)
+django_databrowse.site.register(LearningActivity)
+django_databrowse.site.register(ForestStory)
+
+django_databrowse.site.register(Facet)
+django_databrowse.site.register(Tag)
