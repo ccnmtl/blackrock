@@ -24,7 +24,7 @@ DATABASES = {
     }
 }
 
-if 'test' in sys.argv or 'jenkins' in sys.argv:
+if 'test' in sys.argv or 'jenkins' in sys.argv or 'validate' in sys.argv:
     DATABASES = {
         'default': {
             'ENGINE': 'django.contrib.gis.db.backends.spatialite',
