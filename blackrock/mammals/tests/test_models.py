@@ -11,7 +11,6 @@ test:
     School - uni
 '''
 
-from django.db.utils import DatabaseError
 from django.test import TestCase
 
 from blackrock.mammals.models import Bait, GradeLevel, Species, Animal
@@ -72,12 +71,12 @@ class TestMammalModels(TestCase):
         self.another_grade_level = GradeLevel()
         self.assertEquals(self.another_grade_level.label, "")
 
-        try:
-            self.another_grade_level.label = "a" * 267
-            self.another_grade_level.save()
-            self.fail()
-        except DatabaseError:
-            pass  # expected
+#         try:
+#             self.another_grade_level.label = "a" * 267
+#             self.another_grade_level.save()
+#             self.fail()
+#         except DatabaseError:
+#             pass  # expected
 
         self.assertIn("label", self.new_grade_level.dir())
 
@@ -92,12 +91,12 @@ class TestMammalModels(TestCase):
         another_grade_level = GradeLevel()
         self.assertEquals(another_grade_level.label, "")
 
-        try:
-            another_grade_level.label = "a" * 267
-            another_grade_level.save()
-            self.fail()
-        except DatabaseError:
-            pass  # expected
+#         try:
+#             another_grade_level.label = "a" * 267
+#             another_grade_level.save()
+#             self.fail()
+#         except DatabaseError:
+#             pass  # expected
 
         self.assertIn("label", new_grade_level.dir())
 
