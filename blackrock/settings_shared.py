@@ -87,6 +87,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'blackrock.blackrock_main.views.django_settings',
     'stagingcontext.staging_processor',
+    'djangowind.context.context_processor',
 )
 
 MIDDLEWARE_CLASSES = [
@@ -173,11 +174,10 @@ LOGIN_URL = "/admin/login"
 
 COMPRESS_ROOT = "/var/www/blackrock/blackrock/media/"
 
-AUTHENTICATION_BACKENDS = ('djangowind.auth.WindAuthBackend',
+AUTHENTICATION_BACKENDS = ('djangowind.auth.SAMLAuthBackend',
                            'django.contrib.auth.backends.ModelBackend')
 
-WIND_BASE = "https://wind.columbia.edu/"
-WIND_SERVICE = "cnmtl_full_np"
+CAS_BASE = "https://cas.columbia.edu/"
 WIND_PROFILE_HANDLERS = ['djangowind.auth.CDAPProfileHandler']
 WIND_AFFIL_HANDLERS = ['djangowind.auth.AffilGroupMapper',
                        'djangowind.auth.StaffMapper',
