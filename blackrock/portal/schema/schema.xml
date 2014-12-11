@@ -78,33 +78,97 @@
     <dynamicField name="*_dt" type="date"    indexed="true"  stored="true"/>
     
 
+    <field name="habitat" type="text" indexed="true" stored="true" multiValued="false" />
+
+    <field name="habitat_exact" type="string" indexed="true" stored="true" multiValued="false" />
+
+    <field name="text" type="text" indexed="true" stored="true" multiValued="false" />
+
+    <field name="habitat_label" type="text" indexed="true" stored="true" multiValued="false" />
+
+    <field name="habitat_label_exact" type="string" indexed="true" stored="true" multiValued="false" />
+
+    <field name="observed" type="boolean" indexed="true" stored="true" multiValued="false" />
+
+    <field name="observed_exact" type="boolean" indexed="true" stored="true" multiValued="false" />
+
+    <field name="date" type="date" indexed="true" stored="true" multiValued="false" />
+
+    <field name="date_exact" type="date" indexed="true" stored="true" multiValued="false" />
+
+    <field name="featured" type="text" indexed="true" stored="true" multiValued="true" />
+
+    <field name="featured_exact" type="string" indexed="true" stored="true" multiValued="true" />
+
+    <field name="unsuccessful" type="boolean" indexed="true" stored="true" multiValued="false" />
+
+    <field name="unsuccessful_exact" type="boolean" indexed="true" stored="true" multiValued="false" />
+
+    <field name="observer_name" type="text" indexed="true" stored="true" multiValued="false" />
+
+    <field name="observer_name_exact" type="string" indexed="true" stored="true" multiValued="false" />
+
+    <field name="species" type="text" indexed="true" stored="true" multiValued="true" />
+
+    <field name="species_exact" type="string" indexed="true" stored="true" multiValued="true" />
+
     <field name="discipline" type="text" indexed="true" stored="true" multiValued="true" />
 
     <field name="discipline_exact" type="string" indexed="true" stored="true" multiValued="true" />
+
+    <field name="school_label" type="text" indexed="true" stored="true" multiValued="false" />
+
+    <field name="school_label_exact" type="string" indexed="true" stored="true" multiValued="false" />
+
+    <field name="lon" type="text" indexed="true" stored="true" multiValued="false" />
+
+    <field name="lon_exact" type="string" indexed="true" stored="true" multiValued="false" />
+
+    <field name="trapped_and_released" type="boolean" indexed="true" stored="true" multiValued="false" />
+
+    <field name="trapped_and_released_exact" type="boolean" indexed="true" stored="true" multiValued="false" />
+
+    <field name="camera" type="boolean" indexed="true" stored="true" multiValued="false" />
+
+    <field name="camera_exact" type="boolean" indexed="true" stored="true" multiValued="false" />
+
+    <field name="real" type="boolean" indexed="true" stored="true" multiValued="false" />
+
+    <field name="real_exact" type="boolean" indexed="true" stored="true" multiValued="false" />
+
+    <field name="species_id" type="text" indexed="true" stored="true" multiValued="false" />
+
+    <field name="species_id_exact" type="string" indexed="true" stored="true" multiValued="false" />
 
     <field name="infrastructure" type="text" indexed="true" stored="true" multiValued="true" />
 
     <field name="infrastructure_exact" type="string" indexed="true" stored="true" multiValued="true" />
 
-    <field name="name" type="string" indexed="true" stored="false" multiValued="false" />
-
     <field name="study_type" type="text" indexed="true" stored="true" multiValued="true" />
 
     <field name="study_type_exact" type="string" indexed="true" stored="true" multiValued="true" />
 
-    <field name="text" type="text" indexed="true" stored="true" multiValued="false" />
+    <field name="tracks_and_signs" type="boolean" indexed="true" stored="true" multiValued="false" />
+
+    <field name="tracks_and_signs_exact" type="boolean" indexed="true" stored="true" multiValued="false" />
+
+    <field name="species_label" type="text" indexed="true" stored="true" multiValued="false" />
+
+    <field name="species_label_exact" type="string" indexed="true" stored="true" multiValued="false" />
+
+    <field name="lat" type="text" indexed="true" stored="true" multiValued="false" />
+
+    <field name="lat_exact" type="string" indexed="true" stored="true" multiValued="false" />
 
     <field name="asset_type" type="text" indexed="true" stored="true" multiValued="false" />
 
     <field name="asset_type_exact" type="string" indexed="true" stored="true" multiValued="false" />
 
-    <field name="species" type="text" indexed="true" stored="true" multiValued="true" />
+    <field name="school" type="text" indexed="true" stored="true" multiValued="false" />
 
-    <field name="species_exact" type="string" indexed="true" stored="true" multiValued="true" />
-    
-    <field name="featured" type="text" indexed="true" stored="true" multiValued="true" />
+    <field name="school_exact" type="string" indexed="true" stored="true" multiValued="false" />
 
-    <field name="featured_exact" type="string" indexed="true" stored="true" multiValued="true" />
+    <field name="name" type="text" indexed="true" stored="true" multiValued="false" />
 
   </fields>
 
