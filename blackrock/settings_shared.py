@@ -119,7 +119,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.flatpages',
-    'django.contrib.markup',
+     # 'django.contrib.markup',
     'django.contrib.humanize',
     'sorl.thumbnail',
     'compressor',
@@ -133,7 +133,6 @@ INSTALLED_APPS = [
     'blackrock.blackrock_main',
     'blackrock.portal',
     'django_databrowse',
-    'gspreadsheet_importer',
     'googlecharts',
     'haystack',
     'smartif',
@@ -172,7 +171,8 @@ SERVER_EMAIL = "blackrock@ccnmtl.columbia.edu"
 
 LOGIN_URL = "/admin/login"
 
-COMPRESS_ROOT = "/var/www/blackrock/blackrock/media/"
+COMPRESS_URL = "/media/"
+# COMPRESS_ROOT = "/var/www/blackrock/blackrock/media/"
 
 AUTHENTICATION_BACKENDS = ('djangowind.auth.SAMLAuthBackend',
                            'django.contrib.auth.backends.ModelBackend')
