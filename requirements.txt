@@ -48,7 +48,7 @@ raven==5.0.0
 django-googlecharts==1.0-alpha-1
 South==0.7.5
 django-nose==1.2
-django-jenkins==0.14.0
+django-jenkins==0.16.3
 django-stagingcontext==0.1.0
 django-smoketest==0.2.2
 django-annoying==0.7.6
