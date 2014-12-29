@@ -4,8 +4,8 @@ from blackrock.mammals.models import TrapLocation, ObservationType, School
 from blackrock.mammals.models import GridSquare
 from django.test import TestCase
 from datetime import datetime
- 
- 
+
+
 class TestMoreMammalModels(TestCase):
     def setUp(self):
         ''' trying to create sighting leaving out attibtutes whic are
@@ -16,13 +16,14 @@ class TestMoreMammalModels(TestCase):
         self.expedition = Expedition()
         self.expedition.save()
         # objects = models.GeoManager()
-        self.trap_location = TrapLocation(expedition=self.expedition,
-                                          notes_about_location="Notes about the location",
-                                          team_letter='C',
-                                          whether_a_trap_was_set_here=True,
-                                          bait_still_there=False,
-                                          notes_about_outcome='This is a good place for a trap.',
-                                          student_names='Student 1, Student 2, Student 3')
+        self.trap_location = TrapLocation(
+            expedition=self.expedition,
+            notes_about_location="Notes about the location",
+            team_letter='C',
+            whether_a_trap_was_set_here=True,
+            bait_still_there=False,
+            notes_about_outcome='This is a good place for a trap.',
+            student_names='Student 1, Student 2, Student 3')
         self.trap_location.save()
         self.species = Species(latin_name="official_mouse_name",
                                common_name="blackrock_mouse",
@@ -121,7 +122,7 @@ class TestMoreMammalModels(TestCase):
             access_difficulty=3,
             terrain_difficulty=4)
         self.grid_square.save()
- 
+
     def test_sighting_methods(self):
         self.new_sighting.set_lat_long([5.0, 8.0])
         self.assertIsNotNone(self.new_sighting.location)
@@ -131,7 +132,7 @@ class TestMoreMammalModels(TestCase):
         self.assertEquals(self.new_sighting.lon(), 8.0)
         self.assertEquals(self.sighting.lon(), None)
         self.assertIsNotNone(self.new_sighting.date_for_solr())
- 
+
     def test_species_has_attributes(self):
         species_attributes = self.species.dir()
         self.assertIn("latin_name", species_attributes)
@@ -151,7 +152,7 @@ class TestMoreMammalModels(TestCase):
                           "blackrock")
         self.assertEquals(self.other_species.about_this_species,
                           "too smart for traps")
- 
+
     def test_grid_point_assignments_dir_and_uni(self):
         self.grid_point_nw.set_lat_long([4, 5])
         gp_dir = self.grid_point_nw.dir()
@@ -181,14 +182,14 @@ class TestMoreMammalModels(TestCase):
                           self.grid_point_se.geo_point.coords[0])
         self.assertEquals(self.grid_point_se.lon(),
                           self.grid_point_se.geo_point.coords[1])
- 
+
     def test_sighting_has_attributes(self):
         contains = dir(self.sighting)
         self.assertIn("set_lat_long", contains)
         self.assertIn("lat", contains)
         self.assertIn("lon", contains)
         self.assertIn("date_for_solr", contains)
- 
+
     def test_expedition_has_attributes(self):
         contains = dir(self.expedition)
         self.assertIn("get_absolute_url", contains)
@@ -199,7 +200,7 @@ class TestMoreMammalModels(TestCase):
         self.assertIn("end_hour_string", contains)
         self.assertIn("set_end_time_from_strings", contains)
         self.assertIn("transects_json", contains)
- 
+
     def test_expedition_dir(self):
         contains = self.expedition.dir()
         self.assertIn("get_absolute_url", contains)
@@ -210,7 +211,7 @@ class TestMoreMammalModels(TestCase):
         self.assertIn("end_hour_string", contains)
         self.assertIn("set_end_time_from_strings", contains)
         self.assertIn("transects_json", contains)
- 
+
     def test_trap_location_has_attributes(self):
         contains = dir(self.trap_location)
         self.assertIn("create_from_obj", contains)
@@ -223,60 +224,60 @@ class TestMoreMammalModels(TestCase):
         self.assertIn("transect_bearing_wrt_magnetic_north", contains)
         self.assertIn("set_suggested_lat_long", contains)
         self.assertIn("set_actual_lat_long", contains)
- 
+
     def test_trap_location_date_none(self):
         the_date = self.trap_location.date()
         self.assertIsNotNone(the_date)
         the_date_solr = self.trap_location.date_for_solr()
         self.assertIsNotNone(the_date_solr)
- 
+
     def test_trap_location_date_exists(self):
         date = self.time_trap.date()
         self.assertIsNotNone(date)
         date_solr = self.time_trap.date_for_solr()
         self.assertIsNotNone(date_solr)
- 
+
     def test_trap_location_nickname(self):
         team_nickname = self.time_trap.trap_nickname()
         self.assertEquals(team_nickname,
                           (self.time_trap.team_letter
                            + str(self.time_trap.team_number)))
- 
+
     def test_trap_location_species(self):
         species_does_not_exist = self.trap_location.species_if_any()
         self.assertIsNone(species_does_not_exist)
         has_species = self.time_trap.species_if_any()
         self.assertIsNotNone(has_species)
         self.assertEquals(has_species, "blackrock_mouse")
- 
+
     def test_trap_location_habitat(self):
         no_habitat = self.trap_location.habitat_if_any()
         self.assertIsNone(no_habitat)
         has_habitat = self.time_trap.habitat_if_any()
         self.assertIsNotNone(has_habitat)
         self.assertEquals(has_habitat, "habitat label")
- 
+
     def test_habitat_id(self):
         no_habitat_id = self.trap_location.habitat_id_if_any()
         self.assertIsNone(no_habitat_id)
         has_habitat_id = self.time_trap.habitat_id_if_any()
         self.assertIsNotNone(has_habitat_id)
- 
+
     def test_trap_location_dir(self):
         dir_test = self.time_trap.dir()
         self.assertIn("habitat_if_any", dir_test)
         self.assertIn("habitat_id_if_any", dir_test)
         self.assertIn("species_if_any", dir_test)
- 
+
     def test_create_observation_type(self):
         observation = ObservationType()
         self.failUnlessEqual(type(ObservationType()), type(observation))
- 
+
     def test_create_observation_self(self):
         self.observation = ObservationType()
         self.observation.save()
         self.failUnlessEqual(type(ObservationType()), type(self.observation))
- 
+
     def test_grid_square_uni_dir(self):
         self.assertEquals(unicode(self.grid_square),
                           "Row %d, column %d" % (self.grid_square.row,
@@ -291,13 +292,13 @@ class TestMoreMammalModels(TestCase):
         self.assertIn("corner_obj_json", dir_test)
         self.assertIn("info_for_display", dir_test)
         self.assertIn("block_json", dir_test)
- 
+
     def test_grid_square_corner_names_method(self):
         corner_names = self.grid_square.corner_names()
         self.assertEquals(
             ['SW_corner', 'NW_corner', 'NE_corner', 'SE_corner', 'center'],
             corner_names)
- 
+
     '''There may be a typo in the actual program says for
     corner_name may be supposed to be corner_names'''
     # def test_grid_square_corners(self):
@@ -305,7 +306,7 @@ class TestMoreMammalModels(TestCase):
     #     corners = self.grid_square.corners()
     #     self.assertIn( "SW_corner", corners)
     #     self.assertIn( type(GridPoint()), corners)
- 
+
     def test_corner_obj(self):
         self.grid_point_nw.set_lat_long([4, 5])
         self.grid_point_se.set_lat_long([-8, -9])
@@ -315,7 +316,7 @@ class TestMoreMammalModels(TestCase):
         corner_objects = self.grid_square.corner_obj()
         self.assertEquals([[-8.0, -9.0], [4.0, 5.0], [-8.0, -9.0],
                            [-8.0, -9.0], [-8.0, -9.0]], corner_objects)
- 
+
     def test_corner_obj_json(self):
         self.grid_point_nw.set_lat_long([4, 5])
         self.grid_point_se.set_lat_long([-8, -9])
@@ -326,11 +327,11 @@ class TestMoreMammalModels(TestCase):
         self.assertIn("[4.0, 5.0]", corner_obj_json)
         self.assertEquals(('[[-8.0, -9.0], [4.0, 5.0], [-8.0, -9.0], '
                            '[-8.0, -9.0], [-8.0, -9.0]]'), corner_obj_json)
- 
+
     def test_battleship_coords(self):
         battleship_coordinates = self.grid_square.battleship_coords()
         self.assertIsNotNone(battleship_coordinates)
- 
+
     # Test More Expedition Methods
     def test_trap_locations(self):
         '''Test methods requiring TrapLocations, Animals, and Teams'''
@@ -347,7 +348,7 @@ class TestMoreMammalModels(TestCase):
         self.assertEquals('C', trap_location_team[2].team_letter)
         self.assertEquals(4, trap_location_team[3].team_number)
         self.assertEquals('D', trap_location_team[3].team_letter)
- 
+
     def test_mammals(self):
         '''Only return trap locations which have caught an animal.
         In this case the first three as in above method test_trap_locations.
@@ -361,7 +362,7 @@ class TestMoreMammalModels(TestCase):
         self.assertEquals('B', animals_trapped[1].team_letter)
         self.assertEquals(3, animals_trapped[2].team_number)
         self.assertEquals('C', animals_trapped[2].team_letter)
- 
+
     def test_expedition_unicode(self):
         self.assertEquals(
             unicode(self.another_expedition),
@@ -369,16 +370,16 @@ class TestMoreMammalModels(TestCase):
                 self.another_expedition.id,
                 self.another_expedition.start_date_of_expedition.strftime(
                     "%m/%d/%y")))
- 
+
     def test_expedition_absolute_url(self):
         self.assertEquals(
             self.another_expedition.get_absolute_url(),
             "/mammals/expedition/%i/" % self.another_expedition.id)
- 
+
     def test_number_of_mammals(self):
         number_of_mammals = self.another_expedition.how_many_mammals_caught()
         self.assertEquals(number_of_mammals, 3)
- 
+
     def test_team_points(self):
         '''Takes a team_letter and returns matching trap locations
         with letter'''
@@ -388,7 +389,7 @@ class TestMoreMammalModels(TestCase):
         self.assertEquals(team_b[0].team_letter, 'B')
         team_c = self.another_expedition.team_points('C')
         self.assertEquals(team_c[0].team_letter, 'C')
- 
+
     def test_end_minute_string(self):
         self.new_expedition = Expedition(field_notes="some field notes here")
         self.new_expedition.save()
@@ -397,7 +398,7 @@ class TestMoreMammalModels(TestCase):
         self.assertEquals(
             end_minute_string,
             "%02d" % self.new_expedition.end_date_of_expedition.minute)
- 
+
     def test_end_hour_string(self):
         self.new_expedition = Expedition(field_notes="some field notes here")
         self.new_expedition.save()
@@ -406,50 +407,50 @@ class TestMoreMammalModels(TestCase):
         self.assertEquals(
             end_hour_string,
             "%02d" % self.new_expedition.end_date_of_expedition.hour)
- 
+
     def test_expedition_set_time_from_strings(self):
         # not sure how to check actual contents of the time,
         # keeps giving type errors
         self.another_expedition.set_end_time_from_strings("5", "45")
         self.assertIsNotNone(self.another_expedition.end_date_of_expedition)
- 
+
     # Now test TrapLocation methods
     def test_points_trap_location(self):
         self.trap_4.set_suggested_lat_long([4, 5])
         self.trap_4.set_actual_lat_long([6, 7])
         self.trap_4.save()
- 
+
         actual_lat = self.trap_4.actual_lat()
         actual_lon = self.trap_4.actual_lon()
         self.assertEquals(actual_lat, 6)
         self.assertEquals(actual_lon, 7)
- 
+
         suggested_lon = self.trap_4.suggested_lon()
         suggested_lat = self.trap_4.suggested_lat()
         self.assertEquals(suggested_lat, 4)
         self.assertEquals(suggested_lon, 5)
- 
+
     def test_points_trap_location_when_none(self):
         self.assertIsNone(self.time_trap.suggested_lat())
         self.assertIsNone(self.time_trap.suggested_lon())
         self.assertIsNone(self.time_trap.actual_lat())
         self.assertIsNone(self.time_trap.actual_lon())
- 
+
     def test_trap_location_unicode(self):
         self.assertEquals(unicode(self.trap_4), self.trap_4.gps_coords())
- 
+
     def test_trap_location_suggested_gps_coords(self):
         self.assertEquals(
             self.trap_4.suggested_gps_coords(),
             "%s, %s" % (self.trap_4.suggested_NSlat(),
                         self.trap_4.suggested_EWlon()))
- 
+
     def test_trap_location_actual_gps_coords(self):
         self.assertEquals(
             self.trap_4.actual_gps_coords(),
             "%s, %s" % (self.trap_4.actual_NSlat(),
                         self.trap_4.actual_EWlon()))
- 
+
     def test_trap_location_suggested_NSlat_EWlon_positive_values(self):
         self.trap_4.set_suggested_lat_long([4, 5])
         self.trap_4.save()
@@ -459,22 +460,22 @@ class TestMoreMammalModels(TestCase):
         self.assertEquals(
             self.trap_4.suggested_EWlon(),
             '%0.5F E' % abs(self.trap_4.suggested_lon()))
- 
+
     def test_trap_location_suggested_NSlat_EWlon_negative_values(self):
         self.trap_4.set_suggested_lat_long([-3, -4])
         self.trap_4.save()
- 
+
         self.assertEquals(
             self.trap_4.suggested_NSlat(),
             '%0.5F S' % abs(self.trap_4.suggested_lat()))
         self.assertEquals(
             self.trap_4.suggested_EWlon(),
             '%0.5F W' % abs(self.trap_4.suggested_lon()))
- 
+
     def test_trap_location_suggested_NSlat_EWlon_None(self):
         self.assertIsNone(self.time_trap.suggested_lat())
         self.assertIsNone(self.time_trap.suggested_lon())
- 
+
     def test_trap_location_actual_NSlat_EWlon_positve_values(self):
         self.trap_4.set_actual_lat_long([4, 5])
         self.trap_4.save()
@@ -484,22 +485,22 @@ class TestMoreMammalModels(TestCase):
         self.assertEquals(
             self.trap_4.actual_EWlon(),
             '%0.5F E' % abs(self.trap_4.actual_lon()))
- 
+
     def test_trap_location_actual_NSlat_EWlon_negative_values(self):
         self.trap_4.set_actual_lat_long([-3, -4])
         self.trap_4.save()
- 
+
         self.assertEquals(
             self.trap_4.actual_NSlat(),
             '%0.5F S' % abs(self.trap_4.actual_lat()))
         self.assertEquals(
             self.trap_4.actual_EWlon(),
             '%0.5F W' % abs(self.trap_4.actual_lon()))
- 
+
     def test_trap_location_actual_NSlat_EWlon_None(self):
         self.assertIsNone(self.time_trap.actual_lat())
         self.assertIsNone(self.time_trap.actual_lon())
- 
+
     def test_trap_location_school(self):
         self.school = School(name="school",
                              address="school address",
@@ -515,12 +516,12 @@ class TestMoreMammalModels(TestCase):
         self.assertIsNotNone(self.trap_4.school_if_any())
         self.assertEquals(self.trap_4.school_if_any(), "school")
         self.assertIsNone(self.time_trap.school_if_any())
- 
+
     def test_sightings_date_for_solr(self):
         self.new_sighting = Sighting(species=self.species, date=datetime.now())
         self.new_sighting.save()
         self.assertIsNotNone(self.new_sighting.date_for_solr())
- 
+
     def tearDown(self):
         self.sighting.delete()
         self.expedition.delete()

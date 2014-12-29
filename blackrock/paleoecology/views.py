@@ -56,7 +56,8 @@ def getpercents(request):
     results = {'depth': depth, 'pollen': names, 'percents': percents,
                'counts': counts, 'other': otherpct}
 
-    return HttpResponse(json.dumps(results), content_type="application/javascript")
+    return HttpResponse(json.dumps(results),
+                        content_type="application/javascript")
 
 
 @user_passes_test(lambda u: u.is_staff)
