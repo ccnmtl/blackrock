@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
 from django.core.cache import cache
 from django.http import HttpResponse
-from django.utils import simplejson
+import json
 import urllib
 
 
@@ -46,7 +46,7 @@ def loadsolr_poll(request):
             cache.delete('solr_import_time')
 
     http_response = HttpResponse(
-        simplejson.dumps(response), mimetype='application/json')
+        json.dumps(response), content_type='application/json')
     http_response['Cache-Control'] = 'max-age=0,no-cache,no-store'
     return http_response
 
@@ -71,6 +71,6 @@ def previewsolr(request):
         response['last_import_time'] = last_import_date.strftime('%H:%M:%S')
 
     http_response = HttpResponse(
-        simplejson.dumps(response), mimetype='application/json')
+        json.dumps(response), content_type='application/json')
     http_response['Cache-Control'] = 'max-age=0,no-cache,no-store'
     return http_response

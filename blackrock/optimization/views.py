@@ -7,7 +7,7 @@ import csv
 import math
 import random
 import sets
-import simplejson as json
+import json
 from django.db.models import Q
 import re
 
