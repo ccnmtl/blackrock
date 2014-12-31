@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from blackrock.respiration.models import Temperature, StationMapping
 import datetime
 import os.path
-from django.utils import simplejson
+import json
 from django.core.cache import cache
 
 
@@ -154,7 +154,7 @@ class ImportTestCases(TestCase):
 
         response = self.client.post('/respiration/loadsolr', data)
 
-        json = simplejson.loads(response.content)
-        self.assertEquals(json['complete'], True)
+        new_json = json.loads(response.content)
+        self.assertEquals(new_json['complete'], True)
 
         self.assertTrue('solr_complete' in cache)

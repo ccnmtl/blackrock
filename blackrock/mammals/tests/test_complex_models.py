@@ -15,7 +15,15 @@ class TestMoreMammalModels(TestCase):
         self.sighting.save()
         self.expedition = Expedition()
         self.expedition.save()
-        self.trap_location = TrapLocation()
+        # objects = models.GeoManager()
+        self.trap_location = TrapLocation(
+            expedition=self.expedition,
+            notes_about_location="Notes about the location",
+            team_letter='C',
+            whether_a_trap_was_set_here=True,
+            bait_still_there=False,
+            notes_about_outcome='This is a good place for a trap.',
+            student_names='Student 1, Student 2, Student 3')
         self.trap_location.save()
         self.species = Species(latin_name="official_mouse_name",
                                common_name="blackrock_mouse",
@@ -53,21 +61,29 @@ class TestMoreMammalModels(TestCase):
         self.habitat.save()
         self.trap_1 = TrapLocation(expedition=self.another_expedition,
                                    team_letter="A", team_number=1,
+                                   whether_a_trap_was_set_here=True,
+                                   bait_still_there=False,
                                    habitat=self.habitat,
                                    animal=self.animal_1)
         self.trap_1.save()
         self.trap_2 = TrapLocation(expedition=self.another_expedition,
                                    team_letter="B", team_number=2,
+                                   whether_a_trap_was_set_here=True,
+                                   bait_still_there=False,
                                    habitat=self.habitat,
                                    animal=self.animal_2)
         self.trap_2.save()
         self.trap_3 = TrapLocation(expedition=self.another_expedition,
                                    team_letter="C", team_number=3,
+                                   whether_a_trap_was_set_here=True,
+                                   bait_still_there=False,
                                    habitat=self.habitat,
                                    animal=self.animal_3)
         self.trap_3.save()
         self.trap_4 = TrapLocation(expedition=self.another_expedition,
                                    team_letter="D", team_number=4,
+                                   whether_a_trap_was_set_here=True,
+                                   bait_still_there=False,
                                    habitat=self.habitat)
         self.trap_4.save()
         self.another_expedition.save()
@@ -77,6 +93,8 @@ class TestMoreMammalModels(TestCase):
         self.time_trap = TrapLocation(expedition=self.timed_expedition,
                                       team_letter="team name here",
                                       team_number=6, habitat=self.habitat,
+                                      whether_a_trap_was_set_here=True,
+                                      bait_still_there=False,
                                       animal=self.animal_1)
         self.time_trap.save()
         self.new_sighting = Sighting(species=self.species,
@@ -208,10 +226,10 @@ class TestMoreMammalModels(TestCase):
         self.assertIn("set_actual_lat_long", contains)
 
     def test_trap_location_date_none(self):
-        no_date = self.trap_location.date()
-        self.assertIsNone(no_date)
-        no_date_solr = self.trap_location.date_for_solr()
-        self.assertIsNone(no_date_solr)
+        the_date = self.trap_location.date()
+        self.assertIsNotNone(the_date)
+        the_date_solr = self.trap_location.date_for_solr()
+        self.assertIsNotNone(the_date_solr)
 
     def test_trap_location_date_exists(self):
         date = self.time_trap.date()

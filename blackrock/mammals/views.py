@@ -21,7 +21,7 @@ from re import match
 from string import uppercase
 import csv
 from datetime import datetime
-import simplejson
+import json
 
 
 def get_float(request, name, default):
@@ -134,7 +134,7 @@ def sandbox_grid(request):
             grid_json.append(block)
 
     return {
-        'grid_json': simplejson.dumps(grid_json),
+        'grid_json': json.dumps(grid_json),
         'grid_center_y': grid_center_y,
         'grid_center_x': grid_center_x,
         'height_in_blocks': height_in_blocks,
@@ -200,7 +200,7 @@ def sandbox_grid_block(request):
         # degrees
         # meters
         # degrees
-        'block_json': simplejson.dumps(block),
+        'block_json': json.dumps(block),
         'magnetic_declination': magnetic_declination,
         'points_per_transect': points_per_transect,
         'num_transects': num_transects,
@@ -211,7 +211,7 @@ def sandbox_grid_block(request):
         'grid_center_x': grid_center_x,
         'height_in_blocks': height_in_blocks,
         'width_in_blocks': width_in_blocks,
-        'transects_json': simplejson.dumps(transects),
+        'transects_json': json.dumps(transects),
         'sandbox': True,
         'transects': transects,
         'show_save_button': False
@@ -241,7 +241,7 @@ def grid(request):
 
     return {
         # TODO: remove
-        'grid_json': simplejson.dumps(grid),
+        'grid_json': json.dumps(grid),
         'grid_center_y': 41.400,
         'grid_center_x': -74.0305,
         'height_in_blocks': 22,
@@ -309,7 +309,7 @@ def grid_block(request):
         # degrees
         # TODO: remove; replace with the id of the selcted block.
         # TODO: remove
-        'block_json': simplejson.dumps(block),
+        'block_json': json.dumps(block),
         'show_save_button': can_enter_data,
         'sandbox': False,
         'selected_block_database_id': selected_block_database_id,
@@ -320,7 +320,7 @@ def grid_block(request):
         'selected_block_center_y': selected_block_center_y,
         'selected_block_center_x': selected_block_center_x,
         'selected_block': selected_block,
-        'transects_json': simplejson.dumps(transects),
+        'transects_json': json.dumps(transects),
         'transects': transects,
         'block_size_in_m': block_size_in_m,
         'grid_center_y': grid_center_y,
@@ -431,7 +431,7 @@ def row_to_output(point, transect):
 @csrf_protect
 def grid_square_csv(request):
     transects_json = request.POST.get('transects_json')
-    obj = simplejson.loads(transects_json)
+    obj = json.loads(transects_json)
     response = HttpResponse(mimetype='text/csv')
     response['Content-Disposition'] = \
         'attachment; filename=blackrock_transect_table.csv'
@@ -546,7 +546,7 @@ def new_expedition_ajax(request):
             request.POST['transects_json'] != 'None'):
         transects_json = request.POST.get('transects_json')
         grid_square_id = request.POST.get('grid_square_id')
-        obj = simplejson.loads(transects_json)
+        obj = json.loads(transects_json)
         the_new_expedition = Expedition.create_from_obj(obj, request.user)
         the_new_expedition.grid_square = GridSquare.objects.get(
             id=grid_square_id)
@@ -929,7 +929,7 @@ def grid_square_print(request):
 
     result = {
         'transects_json': transects_json,
-        'transects': simplejson.loads(transects_json),
+        'transects': json.loads(transects_json),
         'selected_block_center_y': request.POST.get('selected_block_center_y'),
         'selected_block_center_x': request.POST.get('selected_block_center_x')
     }

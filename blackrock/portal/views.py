@@ -12,7 +12,7 @@ from django.db.models import get_model, DateField
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext, Context
-from django.utils import simplejson
+import json
 from django.utils.tzinfo import FixedOffset
 from pagetree.models import Hierarchy
 from pysolr import Solr, SolrError
@@ -273,7 +273,7 @@ def admin_cdrs_import(request):
 
     response = {'complete': True}
     http_response = HttpResponse(
-        simplejson.dumps(response), mimetype='application/json')
+        json.dumps(response), mimetype='application/json')
     http_response['Cache-Control'] = 'max-age=0,no-cache,no-store'
     return http_response
 

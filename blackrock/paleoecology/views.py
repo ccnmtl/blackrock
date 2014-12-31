@@ -9,7 +9,7 @@ from pysolr import Solr
 import csv
 import re
 import unicodedata
-import simplejson as json
+import json
 
 
 def index(request, admin_msg=""):
@@ -56,12 +56,13 @@ def getpercents(request):
     results = {'depth': depth, 'pollen': names, 'percents': percents,
                'counts': counts, 'other': otherpct}
 
-    return HttpResponse(json.dumps(results), mimetype="application/javascript")
+    return HttpResponse(json.dumps(results),
+                        content_type="application/javascript")
 
 
 @user_passes_test(lambda u: u.is_staff)
 def getcsv(request):
-    response = HttpResponse(mimetype='text/csv')
+    response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename=coresamples.csv'
     csv.writer(response)
     return response
@@ -212,7 +213,7 @@ def loadsolr(request):
 
     response = {'complete': True}
     http_response = HttpResponse(json.dumps(response),
-                                 mimetype='application/json')
+                                 content_type='application/json')
     http_response['Cache-Control'] = 'max-age=0,no-cache,no-store'
     return http_response
 

@@ -3,7 +3,7 @@ from blackrock.mammals.grid_math import to_lat_long, set_up_block, \
 from datetime import datetime
 from django.contrib.auth.models import User
 from django.contrib.gis.db import models
-from django.utils import simplejson
+import json
 
 
 class GridPoint(models.Model):
@@ -278,7 +278,7 @@ class GridSquare (models.Model):
 
     def corner_obj_json(self):
         """ just the lat long coordinates for the corners. (json)"""
-        return simplejson.dumps(self.corner_obj())
+        return json.dumps(self.corner_obj())
 
     def info_for_display(self):
         result = {}
@@ -300,7 +300,7 @@ class GridSquare (models.Model):
             block_size_in_m, block_size_in_m)
         bottom_left = self.SW_corner.lat(), self.SW_corner.lon()
         block = set_up_block(bottom_left, block_height, block_width)
-        block_json = simplejson.dumps(block)
+        block_json = json.dumps(block)
         return block_json
 
 
@@ -528,7 +528,7 @@ class Expedition (models.Model):
         return result
 
     def transects_json(self):
-        return simplejson.dumps(self.transects())
+        return json.dumps(self.transects())
 
 
 class TrapLocation(models.Model):

@@ -5,7 +5,6 @@ from django.conf.urls import patterns, include
 from django.contrib.auth.decorators import login_required
 from django.contrib.gis import admin
 from pagetree.generic.views import EditView
-import staticmedia
 
 
 admin.autodiscover()
@@ -17,7 +16,6 @@ urlpatterns = patterns(
     ('^accounts/', include('djangowind.urls')),
     (r'^smoketest/', include('smoketest.urls')),
     (r'^pagetree/', include('pagetree.urls')),
-    (r'^admin/portal/', include('gspreadsheet_importer.urls')),
     (r'^admin/portal/rebuild_index',
      'blackrock.portal.views.admin_rebuild_index'),
     (r'^admin/portal/import_cdrs', 'blackrock.portal.views.admin_cdrs_import'),
@@ -40,5 +38,7 @@ urlpatterns = patterns(
         hierarchy_name="main", hierarchy_base="/"))),
     (r'^portal/', include('blackrock.portal.urls')),
     (r'^mammals/', include('blackrock.mammals.urls')),
-    (r'^$', 'blackrock.views.index')
-) + staticmedia.serve()
+    (r'^$', 'blackrock.views.index'),
+    (r'^uploads/(?P<path>.*)$',
+     'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+)
