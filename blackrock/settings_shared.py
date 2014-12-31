@@ -44,7 +44,6 @@ if 'test' in sys.argv or 'jenkins' in sys.argv or 'validate' in sys.argv:
 JENKINS_TASKS = (
     'django_jenkins.tasks.run_pylint',
     'django_jenkins.tasks.with_coverage',
-     # 'django_jenkins.tasks.django_tests',
     'django_jenkins.tasks.run_pep8',
     'django_jenkins.tasks.run_pyflakes',
 )
@@ -119,7 +118,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.flatpages',
-     # 'django.contrib.markup',
     'django.contrib.humanize',
     'sorl.thumbnail',
     'compressor',
@@ -172,7 +170,6 @@ SERVER_EMAIL = "blackrock@ccnmtl.columbia.edu"
 LOGIN_URL = "/admin/login"
 
 COMPRESS_URL = "/media/"
-# COMPRESS_ROOT = "/var/www/blackrock/blackrock/media/"
 
 AUTHENTICATION_BACKENDS = ('djangowind.auth.SAMLAuthBackend',
                            'django.contrib.auth.backends.ModelBackend')
@@ -192,12 +189,6 @@ WIND_SUPERUSER_MAPPER_GROUPS = [
 STATICMEDIA_MOUNTS = (
     ('/sitemedia', 'sitemedia'),
 )
-
-# STATSD_CLIENT = 'statsd.client'
-# STATSD_PREFIX = 'blackrock'
-# STATSD_HOST = '127.0.0.1'
-# STATSD_PORT = 8125
-# STATSD_PATCHES = ['django_statsd.patches.db', ]
 
 # TinyMCE settings
 TINYMCE_JS_URL = '/site_media/js/tiny_mce/tiny_mce.js'
