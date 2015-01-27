@@ -3,7 +3,7 @@ from collections import defaultdict
 from datetime import datetime
 from django import forms
 from django.http import HttpResponse, HttpResponseRedirect
-from django.utils import simplejson
+from json import dumps
 from haystack.forms import SearchForm
 from haystack.views import SearchView
 from types import ListType
@@ -175,7 +175,7 @@ class MammalSearchForm(SearchForm):
         else:
             sqs = self.basic_results()
 
-        self.breakdown = simplejson.dumps(self.calculate_breakdown(sqs))
+        self.breakdown = dumps(self.calculate_breakdown(sqs))
         return sqs
 
 
@@ -202,18 +202,18 @@ class MammalSearchView(SearchView):
 
         grid = [gs.info_for_display()
                 for gs in GridSquare.objects.all() if gs.display_this_square]
-        extra['grid_json'] = simplejson.dumps(grid)
+        extra['grid_json'] = dumps(grid)
         extra['query'] = query
-        extra['little_habitat_disks_json'] = simplejson.dumps(
+        extra['little_habitat_disks_json'] = dumps(
             dict((a.id, a.image_path_for_legend)
                  for a in Habitat.objects.all()))
-        extra['habitat_colors_json'] = simplejson.dumps(
+        extra['habitat_colors_json'] = dumps(
             dict((a.id, a.color_for_map) for a in Habitat.objects.all()))
 
         if not hasattr(self.form, 'breakdown'):
             self.form.breakdown = {}
 
-        extra['results_json'] = simplejson.dumps(
+        extra['results_json'] = dumps(
             [search_map_repr(tl) for tl in self.results])
         return extra
 
@@ -227,7 +227,7 @@ def ajax_search(request):
             search_map_repr(tl) for tl in search_results]
         result_obj['breakdown_object'] = my_new_form.calculate_breakdown(
             search_results)
-        return HttpResponse(simplejson.dumps(result_obj))
+        return HttpResponse(dumps(result_obj))
     else:
         return HttpResponseRedirect('/mammals/search/')
 

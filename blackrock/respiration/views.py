@@ -9,7 +9,7 @@ from django.http import HttpResponse, HttpResponseRedirect, \
     HttpResponseForbidden
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.utils import simplejson
+from json import dumps
 from django.utils.tzinfo import FixedOffset
 from pysolr import Solr
 from blackrock.respiration.models import Temperature, StationMapping
@@ -470,6 +470,6 @@ def loadsolr(request):
 
     response = {'complete': True}
     http_response = HttpResponse(
-        simplejson.dumps(response), mimetype='application/json')
+        dumps(response), mimetype='application/json')
     http_response['Cache-Control'] = 'max-age=0,no-cache,no-store'
     return http_response
