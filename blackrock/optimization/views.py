@@ -6,7 +6,6 @@ from blackrock.optimization.models import Tree, Plot
 import csv
 import math
 import random
-import sets
 import json
 from django.db.models import Q
 import re
@@ -87,7 +86,7 @@ def calculate(request):
 
     plot_results = []
     total_time = 0
-    species_list = sets.Set()
+    species_list = set()
     results['sample-area'] = 0
     results['sample-count'] = 0
     results['sample-dbh'] = 0
@@ -366,7 +365,7 @@ def sample_plot(sample, point, p_index):
     results['count'] = int(trees.count())
 
     ## unique species ##
-    species_list_intermed = sets.Set(
+    species_list_intermed = set(
         [str(tree.species).lower()
          for tree in trees])
 
