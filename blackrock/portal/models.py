@@ -532,7 +532,7 @@ class ForestStory(models.Model):
 
 class AssetList(models.Model):
     pageblocks = generic.GenericRelation(
-        PageBlock, related_name="assetlist_pageblock")
+        PageBlock)
     search_criteria = models.TextField()
     template_file = "portal/assetlist.html"
     display_name = "Asset List"
@@ -606,9 +606,9 @@ class AssetList(models.Model):
 
 class FeaturedAsset(models.Model):
     pageblocks = generic.GenericRelation(
-        PageBlock, related_name="featuredassetlist_pageblock")
+        PageBlock)
     audience = models.ForeignKey(Audience)
-    detailed_display = models.BooleanField()
+    detailed_display = models.BooleanField(default=False)
 
     # pick one
     asset_location = models.ForeignKey(Location, null=True, blank=True)
@@ -682,11 +682,13 @@ class FeaturedAsset(models.Model):
 class AssetListForm(forms.ModelForm):
     class Meta:
         model = AssetList
+        exclude = ()
 
 
 class FeaturedAssetForm(forms.ModelForm):
     class Meta:
         model = FeaturedAsset
+        exclude = ()
 
     def clean(self):
         from django.core.exceptions import ValidationError
@@ -723,7 +725,7 @@ class PhotoGalleryItem(models.Model):
 
 class PhotoGallery(models.Model):
     pageblocks = generic.GenericRelation(
-        PageBlock, related_name="photogallery_pageblock")
+        PageBlock)
     template_file = "portal/photogallery.html"
     display_name = "Photo Gallery"
     item = models.ManyToManyField(PhotoGalleryItem, null=True, blank=True)
@@ -764,11 +766,12 @@ class PhotoGallery(models.Model):
 class PhotoGalleryForm(forms.ModelForm):
     class Meta:
         model = PhotoGallery
+        exclude = ()
 
 
 class Webcam(models.Model):
     pageblocks = generic.GenericRelation(
-        PageBlock, related_name="webcam_pageblock")
+        PageBlock)
     template_file = "portal/webcam.html"
     display_name = "Webcam"
 
@@ -802,11 +805,12 @@ class Webcam(models.Model):
 class WebcamForm(forms.ModelForm):
     class Meta:
         model = Webcam
+        exclude = ()
 
 
 class InteractiveMap(models.Model):
     pageblocks = generic.GenericRelation(
-        PageBlock, related_name="interactive_map_pageblock")
+        PageBlock)
     template_file = "portal/interactive_map.html"
     display_name = "Interactive Map"
 
@@ -840,3 +844,4 @@ class InteractiveMap(models.Model):
 class InteractiveMapForm(forms.ModelForm):
     class Meta:
         model = InteractiveMap
+        exclude = ()

@@ -156,7 +156,7 @@ def getsum(request):
         E0, R0, T0, deltaT, startfinal, endfinal, station)
     total_mol = total / 1000000
     json = '{"total": %s}' % round(total_mol, 2)
-    return HttpResponse(json, mimetype="application/javascript")
+    return HttpResponse(json, content_type="application/javascript")
 
 _filters = 'station start end year'.split()
 
@@ -184,7 +184,7 @@ def getcsv(request):
         temperatures = Temperature.objects.filter(station=filters['station'],
                                                   date__range=(start, end))
 
-    response = HttpResponse(mimetype='text/csv')
+    response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = \
         'attachment; filename=temperature_readings.csv'
     writer = csv.writer(response)
@@ -201,12 +201,6 @@ def getcsv(request):
             year=t.date.year, month=1, day=1)).days + 1
         hour = (t.date.hour + 1) * 100
         year = t.date.year
-#    if(hour == 0):
-#      hour = 2400
-#      newdate = t.date - datetime.timedelta(days=1)
-#      year = newdate.year
-# julian_day = (newdate - datetime.datetime(year=year, month=1,
-# day=1)).days + 1
         row = [t.station, year, julian_day, hour, t.reading, t.data_source]
         writer.writerow(row)
 
@@ -214,7 +208,7 @@ def getcsv(request):
 
 
 @user_passes_test(lambda u: u.is_staff)
-@transaction.commit_on_success
+@transaction.atomic
 def loadcsv(request):
     cursor = connection.cursor()
 
@@ -370,8 +364,8 @@ def _utc_to_est(date_string):
         t = time.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
         utc = datetime.datetime(
             t[0], t[1], t[2], t[3], t[4], t[5], tzinfo=FixedOffset(0))
-          # UTC -5 hours. Solr dates are always EST
-          # and do not take dst into account
+        # UTC -5 hours. Solr dates are always EST
+        # and do not take dst into account
         est = utc.astimezone(FixedOffset(-300))
         return est
     except:
@@ -379,7 +373,7 @@ def _utc_to_est(date_string):
 
 
 @user_passes_test(lambda u: u.is_staff)
-@transaction.commit_on_success
+@transaction.atomic
 def loadsolr(request):
     application = request.POST.get('application', '')
     collection_id = request.POST.get('collection_id', '')
@@ -470,6 +464,6 @@ def loadsolr(request):
 
     response = {'complete': True}
     http_response = HttpResponse(
-        dumps(response), mimetype='application/json')
+        dumps(response), content_type='application/json')
     http_response['Cache-Control'] = 'max-age=0,no-cache,no-store'
     return http_response

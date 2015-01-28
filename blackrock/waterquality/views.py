@@ -23,38 +23,45 @@ def parse_date(s):
     return datetime(int(year), int(month), int(day))
 
 
+def get_start_or_error(start):
+    if not start:
+        return get_default_start(), None
+    try:
+        return parse_date(start), None
+    except:
+        return None, "invalid start date: %s" % start
+
+
+def get_end_or_error(end):
+    if not end:
+        return get_default_end(), None
+    try:
+        return parse_date(end), None
+    except:
+        return None, "invalid end date: %s" % end
+
+
 @render_to('waterquality/graphing_tool.html')
 def graphing_tool(request):
     data = dict()
-    start = request.GET.get('start', None)
-    end = request.GET.get('end', None)
-
     graph_type = request.GET.get('type', None)
 
-    if not start:
-        start = get_default_start()
-    else:
-        try:
-            start = parse_date(start)
-        except:
-            data['error'] = "invalid start date: %s" % start
-            return data
+    start, err = get_start_or_error(request.GET.get('start', None))
+    if err:
+        data['error'] = err
+        return data
 
-    if not end:
-        end = get_default_end()
-    else:
-        try:
-            end = parse_date(end)
-        except:
-            data['error'] = "invalid end date: %s" % end
-            return data
+    end, err = get_end_or_error(request.GET.get('end', None))
+    if err:
+        data['error'] = err
+        return data
 
     data["start"] = start
     data["end"] = end
 
     if graph_type == 'time-series' or graph_type == 'scatter-plot':
         lines = []
-        #iterating over QueryDict for keys starting with line_value
+        # iterating over QueryDict for keys starting with line_value
         # and using v to get value
         for k in request.GET.keys():
             if k.startswith("line_value_"):

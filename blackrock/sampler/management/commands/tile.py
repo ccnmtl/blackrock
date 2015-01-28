@@ -59,7 +59,7 @@ class Command(BaseCommand):
                     adjusted_id = int("%d%s" % (plot, padded_id))
 
                     # verify this adjusted_id is not going to be a duplicate
-                    if (not adjusted_id in idmap):
+                    if (adjusted_id not in idmap):
                         idmap[adjusted_id] = 1
                     else:
                         print "YOUR MOM ERROR: id overlap: %s. \

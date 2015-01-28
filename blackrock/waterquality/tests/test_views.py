@@ -110,7 +110,9 @@ class TestGraph(TestCase):
             dict(
                 type='scatter-plot',
                 independent=self.s.id,
-                dependent=self.s2.id))
+                dependent=self.s2.id,
+                end="2100-01-01",
+            ))
         self.assertEqual(r.status_code, 200)
 
     def test_scatter_plot_skip_zeroes(self):
@@ -120,7 +122,9 @@ class TestGraph(TestCase):
                 type='scatter-plot',
                 skip_zeroes="1",
                 independent=self.s.id,
-                dependent=self.s2.id))
+                dependent=self.s2.id,
+                end="2100-01-01",
+            ))
         self.assertEqual(r.status_code, 200)
 
     def test_box_plot(self):
@@ -128,5 +132,7 @@ class TestGraph(TestCase):
             "/waterquality/graph/",
             dict(
                 type='box-plot',
-                series=self.s.id))
+                series=self.s.id,
+                end="2100-01-01",
+            ))
         self.assertEqual(r.status_code, 200)

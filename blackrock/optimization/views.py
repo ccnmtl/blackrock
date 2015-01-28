@@ -32,7 +32,6 @@ class Species:
         'bb': ['Betula lenta', 'black birch'],
         'be': ['Fagus grandifolia', 'beech'],
         'bg': ['Nyssa sylvatica', 'black gum'],
-        #'bm':'bm',
         'bo': ['Quercus velutina', 'black oak'],
         'ch': ['Castanea dentata', 'chestnut'],
         'co': ['Quercus prinus', 'chestnut oak'],
@@ -103,7 +102,7 @@ def calculate(request):
         return HttpResponseBadRequest(
             json.dumps(
                 {"error": "Plot size and/or plot count is too big"}),
-            mimetype="application/javascript")
+            content_type="application/javascript")
     for plot, point in enumerate(sample):
         sub = sample_plot(sample, point, plot)
 
@@ -144,27 +143,27 @@ def calculate(request):
 
     results['sample-area'] = round2(results['sample-area'])
 
-    ## sample mean dbh ##
+    # sample mean dbh ##
     if results['sample-count'] > 0:
         results['sample-dbh'] = round2(intermed_dbh / results['sample-count'])
     else:
         results['sample-dbh'] = 0
 
-    ## sample mean basal area ##
+    # sample mean basal area ##
     results['sample-basal'] = round2(results['sample-basal'] / num_plots)
 
-    ## sample mean density ##
+    # sample mean density ##
     results['sample-density'] = round2(results['sample-density'] / num_plots)
 
-    ## sample variance dbh ##
+    # sample variance dbh ##
     results['sample-variance-dbh'] = round2(
         variance(dbh_list, results['sample-dbh'], results['sample-count'] - 1))
 
-    ## sample variance density ##
+    # sample variance density ##
     results['sample-variance-density'] = round2(
         variance(density_list, results['sample-density'], num_plots - 1))
 
-    ## sample variance basal area ##
+    # sample variance basal area ##
     results['sample-variance-basal'] = round2(
         variance(basal_list, results['sample-basal'], num_plots - 1))
 
@@ -205,7 +204,8 @@ def calculate(request):
     results['comparison-basal'] = comparison(
         results['sample-basal'], results['actual-basal'])
 
-    return HttpResponse(json.dumps(results), mimetype="application/javascript")
+    return HttpResponse(json.dumps(results),
+                        content_type="application/javascript")
 
 
 class RandomSample:
@@ -249,13 +249,13 @@ class RandomSample:
             w -= (w % size)
             h = float(self.parent.height)
             h -= (h % size)
-            #this is sloppy-- a fractional size might not fit within
+            # this is sloppy-- a fractional size might not fit within
 
             plots_avail = w*h / ((size+delta)**2)
 
             assert plots_avail > num_plots
 
-            #floor cuts the remainder--maybe we should be using it somehow
+            # floor cuts the remainder--maybe we should be using it somehow
             plots_across = math.floor(w/(size+delta))
 
             self.choices = random.sample(xrange(int(plots_avail)), num_plots)
@@ -350,7 +350,7 @@ def sample_plot(sample, point, p_index):
     "Calculates detailed statistics for a plot sample around a point"
     results = {}
 
-    ## determine plot ##
+    # determine plot ##
     # terrible, awful, ugly hack for now
     trees = None
 
@@ -361,10 +361,10 @@ def sample_plot(sample, point, p_index):
 
     results['trees'] = trees
 
-    ## number of trees in plot ##
+    # number of trees in plot ##
     results['count'] = int(trees.count())
 
-    ## unique species ##
+    # unique species ##
     species_list_intermed = set(
         [str(tree.species).lower()
          for tree in trees])
@@ -374,7 +374,7 @@ def sample_plot(sample, point, p_index):
 
     results['num-species'] = len(results['species-list'])
 
-    ## mean dbh ##
+    # mean dbh ##
     dbhs = [float(tree.dbh) for tree in trees]
     dbh_sum = sum(dbhs)
     if trees.count() > 0:
@@ -382,21 +382,21 @@ def sample_plot(sample, point, p_index):
     else:
         results['dbh'] = 0
 
-    ## dbh variance ##
+    # dbh variance ##
     results['variance-dbh'] = round2(
         variance(dbhs, results['dbh'], results['count']-1))
 
-    ## area ##
+    # area ##
     results['area'] = sample.area(point)
 
-    ## basal area ##
+    # basal area ##
     results['basal'] = round2(
         (float(dbh_sum) * 0.785398) / float(results['area']))
 
-    ## density ##
+    # density ##
     results['density'] = round2((trees.count() * 10000) / results['area'])
 
-    ## time penalty ##
+    # time penalty ##
 
     results['time-travel'] = sample.travel_time(point)
 
@@ -413,7 +413,7 @@ def sample_plot(sample, point, p_index):
         results['time-travel'] + results['time-locate']
         + results['time-establish'] + results['time-measure'])
 
-    ## species results
+    # species results
     species_totals = {}
     i = 0
     for species in species_list_intermed:
@@ -450,7 +450,7 @@ def sample_plot(sample, point, p_index):
 
 
 def json2csv(request):
-    response = HttpResponse(mimetype='text/csv')
+    response = HttpResponse(content_type='text/csv')
     filename = re.split('\W', request.POST.get('filename', 'results'), 1)[0]
     response['Content-Disposition'] = 'attachment; filename=%s.csv' % filename
 
@@ -466,7 +466,7 @@ def json2csv(request):
 
 
 def trees_csv(request):
-    response = HttpResponse(mimetype='text/csv')
+    response = HttpResponse(content_type='text/csv')
     sample_num = re.split('\W', request.POST.get('sample_num', '0'), 1)[0]
     response['Content-Disposition'] = (
         'attachment; filename=trees_sample_%s.csv' % sample_num)
@@ -518,7 +518,7 @@ def export_csv(request):
     sample_num = re.split('\W', request.POST.get('sample_num', '0'), 1)[0]
     type = re.split('\W', type, 1)[0]
 
-    response = HttpResponse(mimetype='text/csv')
+    response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = (
         'attachment; filename=%s_%s.csv' % (type, sample_num))
     writer = csv.writer(response)
@@ -566,11 +566,6 @@ def export_csv(request):
     for plot, plotinfo in enumerate(plots):
         row = [int(plot) + 1, plotinfo['area'], plotinfo['count'],
                plotinfo['time-total']]
-        #id = request.POST['%s-id' % i]
-        #if(id):
-        #  tree = Tree.objects.get(id=id)
-        #  distance = request.POST['%s-distance' % i]
-        #  row = [i, id, tree.species, distance, tree.dbh]
         writer.writerow(row)
 
     if type == "details":
@@ -601,7 +596,7 @@ def csv_details(writer, plots):
         writer.writerow([])
 
 
-## helper functions ##
+# helper functions ##
 def round2(value):
     # shortcut to round to 2 decimal places
     return round(value * 100) / 100
@@ -710,7 +705,7 @@ def tree_png(request):
     for t in trees:
         im.putpixel((int((t.location.x - c.x) / MULTIPLIER),
                      int((c.y - t.location.y) / MULTIPLIER)), (00, 204, 00))
-    response = HttpResponse(mimetype="image/png")
+    response = HttpResponse(content_type="image/png")
     im.crop([0, 0, int(parent.width),
              int(parent.height)]).save(response, "PNG")
 

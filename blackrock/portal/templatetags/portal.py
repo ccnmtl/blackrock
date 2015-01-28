@@ -33,7 +33,7 @@ def facet(obj, facetName):
 
 @register.filter('facet_assets')
 def facet_assets(obj, facetName):
-      # Get all assets with valid "infrastructure" facets
+    # Get all assets with valid "infrastructure" facets
     sqs = SearchQuerySet()
     sqs = sqs.facet(facetName)
     sqs = sqs.narrow(facetName + ":[* TO *]")
