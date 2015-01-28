@@ -229,7 +229,8 @@ class GridSquare (models.Model):
         GridPoint, null=False, blank=False, related_name="square_i_am_in",
         verbose_name="Center point")
 
-    display_this_square = models.BooleanField()  # don't show all the squares
+    # don't show all the squares
+    display_this_square = models.BooleanField(default=False)
 
     def __unicode__(self):
         return "Row %d, column %d" % (self.row, self.column)
@@ -601,6 +602,7 @@ class TrapLocation(models.Model):
 
     # info about the outcome:
     whether_a_trap_was_set_here = models.BooleanField(
+        default=False,
         help_text='''We typically won't use all the locations suggested by the
         randomization recipe; this denotes that a trap was actually placed at
         or near this point.''')
@@ -611,6 +613,7 @@ class TrapLocation(models.Model):
                                help_text="Any animals caught",
                                on_delete=models.SET_NULL)
     bait_still_there = models.BooleanField(
+        default=False,
         help_text='''Was the bait you left in the trap still there
         when you came back?''')
 

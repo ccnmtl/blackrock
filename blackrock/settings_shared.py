@@ -36,10 +36,6 @@ if 'test' in sys.argv or 'jenkins' in sys.argv or 'validate' in sys.argv:
         }
     }
 
-    SOUTH_DATABASE_ADAPTERS = {
-        'default': "south.db.sqlite3"
-    }
-
 
 JENKINS_TASKS = (
     'django_jenkins.tasks.run_pep8',
@@ -63,7 +59,6 @@ NOSE_ARGS = [
     "--exclude-dir-file=nose_exclude.txt",
     '--cover-package=blackrock.respiration,blackrock.blackrock_main,blackrock.mammals,blackrock.waterquality,blackrock.portal,blackrock.sampler,blackrock.optimization',
 ]
-SOUTH_TESTS_MIGRATE = False
 
 TIME_ZONE = 'America/New_York'
 LANGUAGE_CODE = 'en-us'
@@ -94,7 +89,6 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-    'django.middleware.transaction.TransactionMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'blackrock.portal.middleware.ValueErrorMiddleware',
 ]
@@ -138,7 +132,6 @@ INSTALLED_APPS = [
     'template_utils',
     'blackrock.waterquality',
     'blackrock.mammals',
-    'south',
     'django_nose',
     'bootstrapform',
     'django_jenkins',
@@ -168,6 +161,7 @@ SERVER_EMAIL = "blackrock@ccnmtl.columbia.edu"
 LOGIN_URL = "/admin/login"
 
 COMPRESS_URL = "/media/"
+COMPRESS_ROOT = "media/"
 
 AUTHENTICATION_BACKENDS = ('djangowind.auth.SAMLAuthBackend',
                            'django.contrib.auth.backends.ModelBackend')
@@ -182,11 +176,6 @@ WIND_SUPERUSER_MAPPER_GROUPS = [
     'anp8', 'jb2410', 'zm4', 'cld2156',
     'sld2131', 'amm8', 'mar227', 'jed2161', 'lrw2128']
 
-
-# put any static media here to override app served static media
-STATICMEDIA_MOUNTS = (
-    ('/sitemedia', 'sitemedia'),
-)
 
 # TinyMCE settings
 TINYMCE_JS_URL = '/site_media/js/tiny_mce/tiny_mce.js'

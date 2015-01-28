@@ -273,7 +273,7 @@ def admin_cdrs_import(request):
 
     response = {'complete': True}
     http_response = HttpResponse(
-        json.dumps(response), mimetype='application/json')
+        json.dumps(response), content_type='application/json')
     http_response['Cache-Control'] = 'max-age=0,no-cache,no-store'
     return http_response
 

@@ -60,15 +60,12 @@ def plot(request):
     # forms)
     arglist = {}
     try:
-        #view_height = request.POST['view-height']
-        #view_width = request.POST['view-width']
         arglist = {'x_offset': request.POST['x-offset'],
                    'y_offset': request.POST['y-offset'],
                    'scale': request.POST['scale'],
                    'plot_h': request.POST['plot-h'],
                    'plot_w': request.POST['plot-w'],
                    }
-        # print arglist
     except:
         pass
 
@@ -96,9 +93,6 @@ def transect(request):
     except:
         # need to display error: "Please choose a plot area first."
         return HttpResponseRedirect("plot")
-
-    # print "%s, %s, %s, %s, %s, %s" % (x_offset, y_offset, scale,
-    # view_height, view_width, plot_h)
 
     # get transect data if provided (from later form)
     transect_start_x = ""
@@ -134,7 +128,6 @@ def transect(request):
         new_y = float(tree.location.y) - \
             (float(plot_h) - float(view_height)
              + float(y_offset)) / float(scale)
-        #new_y = float(tree.location.y) - float(y_offset) / float(scale)
         xlocs[tree.id] = new_x
         ylocs[tree.id] = new_y
 
@@ -179,7 +172,6 @@ def worksheet(request):
     Location.objects.filter(
         x__range=(str(visible_x_min), str(visible_x_max)),
         y__range=(str(visible_y_min), str(visible_y_max)))
-    #tree_list = Tree.objects.filter(location__in=valid_locations)
     tree_list = Tree.objects.all()
 
     # rotate trees so transect is vertical
@@ -188,12 +180,10 @@ def worksheet(request):
     x2 = float(request.POST['transect-end-x'])
     y2 = float(request.POST['transect-end-y'])
 
-    # print "got transect (%s,%s) to (%s,%s)" % (x1,y1,x2,y2)
     b = x2 - x1
     c = y2 - y1
     a = math.hypot(b, c)
 
-    # print "trying with a=%s, b=%s, c=%s" % (a, b, c)
     if b == 0:
         if y2 > y1:
             theta = 0
@@ -219,7 +209,6 @@ def worksheet(request):
         else:
             theta = theta - 90
 
-    # print "adjusted theta is %s" % theta
     theta = math.radians(theta)
 
     xlocs = {}
@@ -229,8 +218,6 @@ def worksheet(request):
             math.sin(theta) * (float(tree.location.y) - y1) + x1
         new_y = -1 * math.sin(theta) * (float(tree.location.x) - x1) + \
             math.cos(theta) * (float(tree.location.y) - y1) + y1
-        # print "moving %s (%s,%s) to (%s,%s)" % (tree.id, tree.location.x,
-        # tree.location.y, new_x, new_y)
         new_x = new_x + float(x_offset) / float(scale)
         new_y = new_y - \
             (float(plot_h) - float(view_height)
@@ -258,7 +245,7 @@ def worksheet(request):
 
 
 def export_csv(request):
-    response = HttpResponse(mimetype='text/csv')
+    response = HttpResponse(content_type='text/csv')
     response[
         'Content-Disposition'] = 'attachment; filename=sampler-worksheet.csv'
     writer = csv.writer(response)

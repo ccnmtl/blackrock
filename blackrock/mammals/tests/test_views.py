@@ -40,7 +40,6 @@ class BasicViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
         redirect = "mammals/login/"
         self.assertRedirects(response, redirect)
-        #self.assertTemplateUsed('mammals/teaching_resources.html')
 
     # (r'^process_login/$',     'blackrock.mammals.views.process_login'),
     def test_process_login_post_fail(self):
@@ -62,15 +61,17 @@ class BasicViewTest(TestCase):
         response = self.c.get('/mammals/grid_square/')
         self.assertEqual(response.status_code, 200)
 
-    #(r'^grid/$', 'blackrock.mammals.views.grid'),
+    # (r'^grid/$', 'blackrock.mammals.views.grid'),
     def test_grid_get(self):
-        #only has code to deal with post... dont think that will matter much...
+        # only has code to deal with post...
+        # dont think that will matter much...
         response = self.c.get('/mammals/grid/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('mammals/grid.html')
 
     def test_grid_post(self):
-        #only has code to deal with post... dont think that will matter much...
+        # only has code to deal with post...
+        # dont think that will matter much...
         response = self.c.post('/mammals/grid/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('mammals/grid.html')

@@ -432,7 +432,7 @@ def row_to_output(point, transect):
 def grid_square_csv(request):
     transects_json = request.POST.get('transects_json')
     obj = json.loads(transects_json)
-    response = HttpResponse(mimetype='text/csv')
+    response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = \
         'attachment; filename=blackrock_transect_table.csv'
     writer = csv.writer(response)

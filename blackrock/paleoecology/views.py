@@ -360,6 +360,6 @@ def _normalize_pollen_name(pollen_name):
         pollen_name = pollen_name.replace('/', '_')
         pollen_name = unicode(pollen_name)
         pollen_name = unicodedata.normalize('NFKD', pollen_name)
-          # remove any special characters
+        # remove any special characters
         pollen_name = pollen_name.encode('ascii', 'ignore')
         return pollen_name
