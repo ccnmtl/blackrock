@@ -12,7 +12,7 @@ cdap==1.0
 httplib2==0.8
 restclient==0.11.0
 feedparser==4.1
-Markdown==2.5.1
+Markdown==2.6.1
 pyenchant==1.5.1
 uuid==1.30
 psycopg2==2.5.4
