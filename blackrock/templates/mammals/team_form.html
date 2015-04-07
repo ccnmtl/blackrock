@@ -2,10 +2,10 @@
 {% load smartif %}
 {% block title %}Team Form{% endblock %}
 {% block js %}
+    {{ block.super }}
     <script type="text/javascript" src="/mammals/media/js/map_colors.js"></script>
     <script type="text/javascript" src="/mammals/media/js/grid_and_block.js"></script>
     <script type="text/javascript" src="/mammals/media/js/block.js"></script>
-    {{ block.super }}
     <script type="text/javascript" src="/mammals/media/js/team_form.js"></script>
     <script type="text/javascript">jQuery (add_team_form_maps);</script>
 {% endblock %}

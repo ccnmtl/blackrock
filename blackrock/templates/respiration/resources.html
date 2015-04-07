@@ -1,12 +1,9 @@
 {% extends "respiration/base_respiration.html" %} 
-{% load extras %}
+
 {% block tabname %}tab-resources{% endblock %} 
 
 {% block js %} 
     {{ block.super }} 
-
-    
-    <script type="text/javascript" src="/respiration/media/js/foresthelpers.js"></script>  
     <script type="text/javascript">
       function initNav() {
           connect("tab-leaf", "onclick", function() {

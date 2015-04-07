@@ -12,12 +12,11 @@
 
 
 {% block js %}
+  {{block.super}}
 <script  type="text/javascript" src="/site_media/js/jquery-ui-1.8.11.custom/js/jquery-1.4.4.min.js"></script>
 <script  type="text/javascript" src="/site_media/js/jquery-ui-1.8.11.custom/js/jquery-ui-1.8.11.custom.min.js"></script>
 <script type="text/javascript" src="/portal/media/js/jquery.sharing/jquery.sharing.js"></script>
 <script type="text/javascript" src="/portal/media/js/sharing.js"></script>
-<script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script>
-<script type="text/javascript" src="/site_media/js/mochikit/MochiKit/Signal.js"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{settings.GOOGLE_MAP_API}}&sensor=false"></script>
 <script type="text/javascript" src="/mammals/media/js/maps.js"></script>
 {% endblock %}

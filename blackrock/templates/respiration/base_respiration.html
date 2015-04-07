@@ -1,5 +1,6 @@
 {% extends "base.html" %} 
 {% load render %}
+{% load extras %}
 {% block title %}Tree Respiration{% endblock %}
 
 {% block css %} 
@@ -14,16 +15,17 @@
 {% endblock %} 
 
 {% block js %} 
+  {{block.super}}
     <script type="text/javascript" src="/site_media/js/libraries/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="/site_media/js/libraries/jquery-ui-1.11.4.min.js"></script>    
     <script type="text/javascript" src="/site_media/js/libraries/jquery.sharing/jquery.sharing.js"></script>
     <script type="text/javascript" src="/site_media/js/libraries/sharing.js"></script>
-    <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script> 
-    <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/Signal.js"></script> 
     <script type="text/javascript" src="/site_media/js/bluff/js-class.js"></script> 
     <script type="text/javascript" src="/site_media/js/bluff/excanvas.js"></script> 
-    <script type="text/javascript" src="/site_media/js/bluff/bluff-src.js"></script> 
+    <script type="text/javascript" src="/site_media/js/bluff/bluff-src.js"></script>
+    <script type="text/javascript" src="media/js/species.js"></script> 
     <script type="text/javascript" src="/respiration/media/js/graph.js"></script> 
+    <script type="text/javascript" src="media/js/foresthelpers.js"></script>
     <script type="text/javascript">
       function closePredefinedSpecies() {
           var elts = getElementsByTagAndClassName("div", "species-predefined-list");

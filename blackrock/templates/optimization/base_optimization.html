@@ -16,8 +16,7 @@ Forest Sampling Optimization Tool
 {% endblock %} 
 
 {% block js %} 
-<script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script> 
-<script type="text/javascript" src="/site_media/js/mochikit/MochiKit/Signal.js"></script> 
+  {{block.super}}
 <!--script type="text/javascript">
   function setActiveTab() { addElementClass("{% block tabname %}tab-run{% endblock %}", "tab-selected"); }
   addLoadEvent(setActiveTab);
