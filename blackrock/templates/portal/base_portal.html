@@ -1,8 +1,8 @@
 {% load portal %}
 {% load cache %}
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.6"/>
     <title>
@@ -20,19 +20,21 @@
       @import "/site_media/css/shield.css";
     </style>
     
-    <script  type="text/javascript" src="/site_media/js/jquery-ui-1.8.11.custom/js/jquery-1.4.4.min.js"></script>
-    <script  type="text/javascript" src="/site_media/js/jquery-ui-1.8.11.custom/js/jquery-ui-1.8.11.custom.min.js"></script>
-    <script type="text/javascript" src="/portal/media/js/jcarousel/lib/jquery.jcarousel.js"></script>
+    <script type="text/javascript" src="/site_media/js/jquery-ui-1.8.11.custom/js/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="/site_media/js/jquery-ui-1.8.11.custom/js/jquery-ui-1.8.11.custom.min.js"></script>
+    <script type="text/javascript" src="/site_media/js/flowplayer-3.1.4.min.js"></script>
     <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script>
     <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/Signal.js"></script>
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key={{settings.GOOGLE_MAP_API}}&sensor=false"></script>
-    <script type="text/javascript" src="/portal/media/js/maps.js"></script>
-    <script type="text/javascript" src="/site_media/js/flowplayer-3.1.4.min.js"></script>
-    <script type="text/javascript" src="/portal/media/js/jquery.sharing/jquery.sharing.js"></script>
-    <script type="text/javascript" src="/portal/media/js/sharing.js"></script>
-    <script type="text/javascript" src="/portal/media/js/portal.js"></script>
+    <script type="text/javascript" src="/site_media/js/libraries/jquery.sharing/jquery.sharing.js"></script>
+    <script type="text/javascript" src="/site_media/js/libraries/sharing.js"></script>
     <script src="/site_media/js/browserdetect.js" type="text/javascript" language="javascript"></script>
     <script src="/site_media/js/shield.js" type="text/javascript" language="javascript"></script>
+    <script type="text/javascript" src="/portal/media/js/jcarousel/lib/jquery.jcarousel.js"></script>
+    <script type="text/javascript" src="/portal/media/js/maps.js"></script>
+    <script type="text/javascript" src="/portal/media/js/portal.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{settings.GOOGLE_MAP_API}}&sensor=false"></script>
+    
+    
     
     {% block js %}
     {% endblock %}
@@ -44,7 +46,7 @@
 <body>
     <div id="shieldbox"></div>
     <div id="masthead_top">
-        <a href="http://ccnmtl.columbia.edu/"><span id="ccnmtl"></span></a>
+        <a href="https://ccnmtl.columbia.edu/"><span id="ccnmtl"></span></a>
         {% block search_tab %}
             <div id="search">
                 <form id="search_form" method="get" action="/portal/search/">
