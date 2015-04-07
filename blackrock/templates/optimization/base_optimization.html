@@ -1,22 +1,23 @@
 {% extends "base.html" %} 
 
 {% block title %}
-Forest Sampling Optimization Tool 
+  Forest Sampling Optimization Tool 
 {% endblock %} 
 
 {% block css %} 
-<style type='text/css'>
-  @import "media/css/style.css";
-</style> 
-<!--[if IE]>
-<style type='text/css'>
-  @import "media/css/style_ie7.css";
-</style> 
-<![endif]-->
+	<style type='text/css'>
+	  @import "media/css/style.css";
+	</style> 
+	<!--[if IE]>
+	<style type='text/css'>
+	  @import "media/css/style_ie7.css";
+	</style> 
+	<![endif]-->
 {% endblock %} 
 
 {% block js %} 
   {{block.super}}
+  <script type="text/javascript" src="/site_media/js/libraries/OpenLayers-2.9.js"></script>
 <!--script type="text/javascript">
   function setActiveTab() { addElementClass("{% block tabname %}tab-run{% endblock %}", "tab-selected"); }
   addLoadEvent(setActiveTab);
