@@ -1,19 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'base_waterquality.html' %}
 {% load cycle from future %}
 
-{% block title %}Water Chemistry{% endblock %}
-
 {% block js %}
+   {{block.super}}
     <!--original style version here was 1.8.11  -->
 	<link rel="stylesheet" href="/site_media/js/libraries/jquery-ui-themes-1.8.12/themes/base/jquery-ui.css" type="text/css" media="all" /> 
-	
-	<script type="text/javascript" src="/site_media/js/libraries/jquery-1.6.min.js"></script>
-	<script type="text/javascript" src="/site_media/js/libraries/jquery-ui-1.8.12.min.js"></script>
-	<script type="text/javascript" src="/site_media/js/libraries/jquery.sharing/jquery.sharing.js"></script>
-    <script type="text/javascript" src="/site_media/js/libraries/sharing.js"></script>
-	<script type="text/javascript" src="/site_media/js/facebox.js"></script>
-	<script type="text/javascript" src="/site_media/js/highcharts.js"></script>
-	<script type="text/javascript" src="/site_media/js/modules/exporting.js"></script>
 
 	{% if not show_graph %}
 	<script type="text/javascript">
@@ -29,32 +20,6 @@
 
 {% endblock %}
 
-{% block css %}
-
-	<style type="text/css">
-	@import "/site_media/css/waterquality/waterquality.css" ;
-	</style>
-	
-	<!--[if IE 8]>
-	<style>
-	@import "/site_media/css/waterquality/waterquality_ie.css" ;
-    </style>
-	<![endif]-->	
-
-{% endblock %}
-
-{% block masthead %}
-	<a href="/waterchemistry/">Water Chemistry</a>
-{% endblock %}
-
-{% block breadcrumbs %}
-	<ul class="breadcrumbs">
-	<li><a href="/waterchemistry/">Home</a></li>
-	<li><a href="/waterchemistry/graph/">Graphing Tool</a></li>
-	<li><a href="/waterchemistry/browse/" class="active">Data Browser</a></li>
-	<li><a id="teachlink" href="/waterchemistry/teaching/">Teaching Resources</a></li>
-	</ul>
-{% endblock %}
 
 {% block content %}
 
@@ -99,15 +64,4 @@
 	
 	</div>
 	
-{% endblock %}
-
-{% block footer %}
-    <div id="footer">
-        <ul id="standard-elements">
-            <li><a href="/portal/about/">About</a></li>
-            <li><a href="/portal/credits/">Credits</a></li>
-            <li><a href="/portal/help/">Help</a></li>
-            <li><a href="mailto:ccnmtl-blackrock@columbia.edu">Contact</a></li>
-        </ul>
-    </div>
 {% endblock %}
