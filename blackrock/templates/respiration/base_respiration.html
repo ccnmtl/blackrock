@@ -56,7 +56,7 @@
 {% endblock %} 
 
 {% block content %}
-{% include "respiration/sharing.html" %}
+    {% include "respiration/sharing.html" %}
         <div id="tab-bar">
 
             <div class="tab" id="tab-resources" onclick="return window.location = '/respiration/resources';">
@@ -79,61 +79,8 @@
         		{% endblock %}
         	</div>
     		
-    		<div id="equation">
-    			<div class="caption">
-    				Arrhenius Function
-    			</div>
-    			
-    			<table class="equation">
-    			<tr>
-    			<td style="vertical-align: bottom;">
-    				<div id="equation-left">
-    					<span id="arr-r-result" class="arr-variable">
-    						R
-    					</span>
-    					= 
-    					<span id="arr-r-zero" class="arr-variable">
-    						R<sub>0</sub></span>e 
-    				</div>	
-    			</td>
-    			<td style="vertical-align: top;">
-    				<table id="equation-right">
-    					<tr class="top">
-    						<td id="arr-e-zero" class="numerator arr-variable">
-    							E<sub>0</sub>
-    						</td>
-    						<td class="eq-big" rowspan="2">
-    							( 
-    						</td>
-    						<td class="numerator">
-    							1
-    						</td>
-    						<td rowspan="2">
-    							&minus; 
-    						</td>
-    						<td class="numerator">
-    							1
-    						</td>
-    						<td class="eq-big" rowspan="2">
-    							) 
-    						</td>
-    					</tr>
-    					<tr>
-    						<td id="arr-r-g" class="arr-variable">
-    							R<sub>g</sub>
-    						</td>
-    						<td id="arr-t-zero" class="arr-variable">
-    							T<sub>0</sub>
-    						</td>
-    						<td id="arr-t-a" class="arr-variable">
-    							T<sub>a</sub>
-    						</td>
-    					</tr>
-    				</table>
-    		       </td>
-    	       </tr>
-    	   </table>				
-        </div> <!--  end equation -->        	
+    		{% include "respiration/arrhenius_function.html" %}
+    		    	
     </div> <!-- end respiration content -->
     {% endblock %}  
     
