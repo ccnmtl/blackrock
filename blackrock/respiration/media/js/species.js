@@ -1,7 +1,7 @@
 /* module wrapper pattern*/
 (function() {
 
-//Currently Removes Duplicate Trees of Same Species - need to change that
+    //Currently Removes Duplicate Trees of Same Species - need to change that
 
     var global = this;
     var numSpecies = 1;
