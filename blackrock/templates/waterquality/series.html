@@ -2,7 +2,7 @@
 {% load charts %}
 
 {% block js %}
-   {{block.super}}
+   {{ block.super }}
 	{% if not show_graph %}
 	<script type="text/javascript">
 	$(document).ready(function() {
@@ -15,6 +15,15 @@
 	</script>
 	{% endif %}
 
+{% endblock %}
+
+{% block breadcrumbs %}
+	<ul class="breadcrumbs">
+	<li><a href="/waterchemistry/">Home</a></li>
+	<li><a href="/waterchemistry/graph">Graphing Tool</a></li>
+	<li><a href="/waterchemistry/browse/" class="active">Data Browser</a></li>
+	<li><a id="teachlink" href="/waterchemistry/teaching/">Teaching Resources</a></li>
+	</ul>
 {% endblock %}
 
 

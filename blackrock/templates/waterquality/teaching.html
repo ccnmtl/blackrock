@@ -2,7 +2,7 @@
 {% load render %}
 
 {% block css %}
-   {{block.super}}
+   {{ block.super}}
     <style type="text/css">
         .waterchemslideshow { height: 332px; width: 432px; float: right; }
         .waterchemslideshow img { padding: 0 0 0 20px; border: none; background-color: transparent; }
@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block js %}
-   {{block.super}}
+   {{ block.super }}
       <script type="text/javascript" src="/site_media/js/jquery.cycle.lite.js"></script>
       <script type="text/javascript" type="text/javascript">
       $(document).ready(function() {
@@ -31,6 +31,16 @@ $(document).ready(function() {
 </script>
 {% endif %}
 {% endblock %}
+
+{% block breadcrumbs %}
+	<ul class="breadcrumbs">
+	<li><a href="/waterchemistry/">Home</a></li>
+	<li><a href="/waterchemistry/graph/">Graphing Tool</a></li>
+	<li><a href="/waterchemistry/browse/">Data Browser</a></li>
+	<li><a href="/waterchemistry/teaching/"class="active">Teaching Resources</a></li>
+	</ul>
+{% endblock %}
+
 
 {% block content %}
 

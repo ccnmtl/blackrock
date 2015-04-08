@@ -2,7 +2,7 @@
 {% load cycle from future %}
 
 {% block js %}
-   {{block.super}}
+   {{ block.super }}
     <!--original style version here was 1.8.11  -->
 	<link rel="stylesheet" href="/site_media/js/libraries/jquery-ui-themes-1.8.12/themes/base/jquery-ui.css" type="text/css" media="all" /> 
 
@@ -18,6 +18,15 @@
 	</script>
 	{% endif %}
 
+{% endblock %}
+
+{% block breadcrumbs %}
+	<ul class="breadcrumbs">
+	<li><a href="/waterchemistry/">Home</a></li>
+	<li><a href="/waterchemistry/graph/">Graphing Tool</a></li>
+	<li><a href="/waterchemistry/browse/" class="active">Data Browser</a></li>
+	<li><a id="teachlink" href="/waterchemistry/teaching/">Teaching Resources</a></li>
+	</ul>
 {% endblock %}
 
 

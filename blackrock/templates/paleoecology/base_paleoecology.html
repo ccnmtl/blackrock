@@ -16,7 +16,12 @@ Paleoecology: {% block pagetitle %}{% endblock %}
 {% endblock %} 
 
 {% block js %} 
-  {{block.super}}
+      <script src="/site_media/js/libraries/jquery-1.6.min.js" type="text/javascript"></script>
+    <script src="/site_media/js/mochikit/MochiKit/MochiKit.js" type="text/javascript"></script> 
+    <script src="/site_media/js/mochikit/MochiKit/Signal.js" type="text/javascript"></script> 
+    <!-- Moving JavaScript here, used in almost every module to the base template -->
+    <script src="/site_media/js/browserdetect.js" type="text/javascript" language="javascript"></script>
+    <script src="/site_media/js/shield.js" type="text/javascript" language="javascript"></script>
     <script type="text/javascript">
       function setActiveTab() { addElementClass("{% block tabname %}tab-identification{% endblock %}", "tab-selected"); }
       addLoadEvent(setActiveTab);
