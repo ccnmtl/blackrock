@@ -51,7 +51,7 @@
     </script>
     
     
-        <script type="text/javascript">
+    <script type="text/javascript">
       function initNav() {
           connect("tab-leaf", "onclick", function() {
               window.location = '/respiration/leaf';
@@ -61,10 +61,47 @@
           });
        }
        addLoadEvent(initNav);
-       //alert("resources");
     </script>
-    
-    
+    <script type="text/javascript">
+      function showResources() {
+    	  /* this is ugly but want to get everything
+    	  on one page before doing complete cleanup and adding things like bootstrap */
+    	  console.log("showresources");
+    	  //get whatever tab is currently active, remove active class, make resource tab active
+    	  jQuery('#tab-leaf').removeClass('active');
+    	  jQuery('#tab-canopy').removeClass('active');
+    	  jQuery('#tab-leaf').removeClass('tab-selected');
+    	  jQuery('#tab-canopy').removeClass('tab-selected');
+    	  jQuery('#tab-resources').addClass('active');
+    	  jQuery('#tab-resources').addClass('tab-selected');
+    	  //empty the module header
+    	  jQuery('#respiration_content').html("");
+    	  //replace the current content with the resources content
+    	  jQuery('#container').html(jQuery('#resources-template').html());
+      }
+    </script>
+    <script type="text/template" id="resources-template">
+  <div id="resource-contents">
+    <h3>Teaching Resources</h3>
+    <ul>
+      <li>
+	<a href="/respiration/media/pdf/Respiration_Lab_Presentation.pdf" target="_blank">
+	  Tree Respiration Lab Presentation
+	</a>
+      </li>
+      <li>
+	<a href="/respiration/media/pdf/Respiration_Lab_Protocol.pdf" target="_blank">
+	  Tree Repiration Lab Protocol
+	</a>
+      </li>
+      <li>
+	<a href="/respiration/media/pdf/Respiration_Lab_Spreadsheet.pdf" target="_blank">
+	  Tree Respiration Lab Spreadsheet
+	</a>
+      </li>
+    </ul>
+  </div>
+</script>
 {% endblock %} 
 
 {% block masthead %} 
@@ -72,11 +109,13 @@
 
 {% endblock %} 
 
+
+
 {% block content %}
     {% include "respiration/sharing.html" %}
         <div id="tab-bar">
 
-            <div class="tab" id="tab-resources" onclick="return window.location = '/respiration/resources';">
+            <div class="tab" id="tab-resources" onclick="showResources();">
                 Teaching Resources
             </div>
             <div class="tab" id="tab-canopy">
@@ -88,17 +127,14 @@
         </div>
     
     {% block moduleheader %}
-    <div id="respiration_content">
-        	
-        	<div id="instructions">
-        		<strong>Instructions:</strong>
-        		{% block instructions %}
-        		{% endblock %}
-        	</div>
-    		
-    		{% include "respiration/arrhenius_function.html" %}
-    		    	
-    </div> <!-- end respiration content -->
+	    <div id="respiration_content">
+	       	<div id="instructions">
+	        	<strong>Instructions:</strong>
+	        	{% block instructions %}
+	        	{% endblock %}
+	       	</div>
+	    	{% include "respiration/arrhenius_function.html" %}
+	    </div> <!-- end respiration content -->
     {% endblock %}  
     
     <div id="container">
