@@ -40,7 +40,6 @@
 
       function setActiveTab() {
           var tabname = "{% block tabname %}tab-leaf{% endblock %}";
-          console.log("inside active tab");
           if (document.getElementById(tabname) != null) { 
               addElementClass(tabname, "tab-selected");
           }
