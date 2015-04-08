@@ -47,7 +47,24 @@
       }
 
       addLoadEvent(setActiveTab);      
+      
     </script>
+    
+    
+        <script type="text/javascript">
+      function initNav() {
+          connect("tab-leaf", "onclick", function() {
+              window.location = '/respiration/leaf';
+          });
+          connect("tab-canopy", "onclick", function() {
+              window.location = '/respiration/forest';
+          });
+       }
+       addLoadEvent(initNav);
+       //alert("resources");
+    </script>
+    
+    
 {% endblock %} 
 
 {% block masthead %} 
