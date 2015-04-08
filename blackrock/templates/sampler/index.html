@@ -1,29 +1,11 @@
-{% extends "base.html" %}
-
-{% block title %}Forest Sampling {% endblock %}
-
-{% block masthead %}
-<a href="/sampler/" title="Return to 'Forest Sampling' home">Forest Sampling</a>
-{% endblock %}
+{% extends "sampler/base_sampler.html" %}
 
 {% block content %}
-
-<div id="content">
-
-<h3>Welcome to the Blackrock Forest Sampling Simulation</h3>
-
-<p>This tool will allow you to sample real data from one of Blackrock Forest's long term plots.
-You can use it to learn how to sample any area, or to get a sense of how this area of Blackrock
-Forest has changed over time.</p>
-
-<p><a href="plot">Start Simulation</a></p>
-
-</div>
+  <div id="content">
+    <h3>Welcome to the Blackrock Forest Sampling Simulation</h3>
+	<p>This tool will allow you to sample real data from one of Blackrock Forest's long term plots.
+	You can use it to learn how to sample any area, or to get a sense of how this area of Blackrock
+	Forest has changed over time.</p>
+    <p><a href="plot">Start Simulation</a></p>
+  </div>
 {% endblock %}
-
-{% block script_footer %}    
-    <script type="text/javascript">
-        /* Select from list: Chrome, Firefox, Safari, MSIE */
-        shieldbrowser({"Chrome": 1, "Firefox": 3.6, "Safari": 4, "MSIE": 8 });
-    </script>
-{% endblock %} 

@@ -4,15 +4,13 @@
 
 {% block js %}
   {{ block.super }}
-
-        <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
       <script type="text/javascript">
             var map;
 
             function init(){
                 map = new OpenLayers.Map('map');
                 var layer = new OpenLayers.Layer.WMS( "OpenLayers WMS",
-                        "http://labs.metacarta.com/wms/vmap0", {layers: 'basic'} );
+                        "https://labs.metacarta.com/wms/vmap0", {layers: 'basic'} );
                 map.addLayer(layer);
 
                 /*

@@ -3,38 +3,26 @@
 {% block title %}Sighting{% endblock %}
 {% block js %}
     {{ block.super }}
-<script type="text/javascript">   
-  jQuery(function() {
-  
+    <script type="text/javascript">   
+    jQuery(function() {
     function go_back() {
         //alert ('kthxbye');
         jQuery('#go_back')[0].value = 'True'
         jQuery('#sighting_form').submit();
     }
-    
-
     jQuery( "#date" ).datepicker();
-
-
     jQuery( "#go_back_button" ).click(go_back);
-  });
- </script>
+    });
+   </script>
 {% endblock %}
-
-  
-
 
 {% block css %} 
-
     <style type='text/css'>
-      @import "/mammals/media/css/jquery-ui.css";
+      @import "/site_media/css/mammals/jquery-ui.css";
     </style> 
-
-
     {{ block.super }}
-    
-    
 {% endblock %}
+
 {% block container %}
 
     <form action ="/mammals/edit_sighting/" method ="post" id = "sighting_form"> 

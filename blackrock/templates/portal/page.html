@@ -9,6 +9,10 @@
     {% endifequal %}
 {% endblock %}
 
+{% block js %}
+    {{block.super}}
+{% endblock %}
+
 {% block container %}
     {% if error %}
         {% include "portal/error.html" %}

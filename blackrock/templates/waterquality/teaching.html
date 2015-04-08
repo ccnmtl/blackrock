@@ -1,38 +1,19 @@
-{% extends 'base.html' %}
-
+{% extends 'waterquality/base_waterquality.html' %}
 {% load render %}
 
-{% block title %}Water Chemistry{% endblock %}
-
 {% block css %}
-
-	<style type="text/css">
-	@import "/site_media/css/waterquality/waterquality.css";
-	</style>
-	
- <style type="text/css">
-.waterchemslideshow { height: 332px; width: 432px; float: right; }
-.waterchemslideshow img { padding: 0 0 0 20px; border: none; background-color: transparent; }
-</style>
-	<!--[if IE 8]>
-	<style>
-	@import "/site_media/css/waterquality/waterquality_ie.css" ;
+   {{ block.super}}
+    <style type="text/css">
+        .waterchemslideshow { height: 332px; width: 432px; float: right; }
+        .waterchemslideshow img { padding: 0 0 0 20px; border: none; background-color: transparent; }
     </style>
-	<![endif]-->	
-
 {% endblock %}
 
 {% block js %}
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="/portal/media/js/jquery.sharing/jquery.sharing.js"></script>
-<script type="text/javascript" src="/portal/media/js/sharing.js"></script>
-<script src="/site_media/js/facebox.js" type="text/javascript"></script>
-<script src="/site_media/js/highcharts.js" type="text/javascript"></script>
-<script src="/site_media/js/modules/exporting.js" type="text/javascript"></script>
-<script src="/site_media/js/jquery.cycle.lite.js" type="text/javascript"></script>
-<script type="text/javascript">
-$(document).ready(function() {
+   {{ block.super }}
+      <script type="text/javascript" src="/site_media/js/jquery.cycle.lite.js"></script>
+      <script type="text/javascript" type="text/javascript">
+      $(document).ready(function() {
     $('.waterchemslideshow').cycle({
 		fx: 'fade' // choose your transition type, ex: fade, scrollUp, shuffle, etc...
 	});
@@ -51,11 +32,6 @@ $(document).ready(function() {
 {% endif %}
 {% endblock %}
 
-{% block masthead %}
-	<a href="/waterchemistry/">Water Chemistry</a>
-	{% include "waterquality/sharing.html" %}
-{% endblock %}
-
 {% block breadcrumbs %}
 	<ul class="breadcrumbs">
 	<li><a href="/waterchemistry/">Home</a></li>
@@ -64,6 +40,7 @@ $(document).ready(function() {
 	<li><a href="/waterchemistry/teaching/"class="active">Teaching Resources</a></li>
 	</ul>
 {% endblock %}
+
 
 {% block content %}
 
@@ -132,7 +109,7 @@ $(document).ready(function() {
 			</h4>
 			
 			<p>
-			<a href="mailto:commsci@ptmsc.org">Libby Palmer</a> and <a href="mailto:judydamore@gmail.com">Judy D'Amore</a>, <a href="http://www.ptmsc.org/" target="_blank">Port Townsend Marine Science Center, Washington</a> 
+			<a href="mailto:commsci@ptmsc.org">Libby Palmer</a> and <a href="mailto:judydamore@gmail.com">Judy D'Amore</a>, <a href="https://www.ptmsc.org/" target="_blank">Port Townsend Marine Science Center, Washington</a> 
 			</p>
 			
 			<h4>
@@ -146,21 +123,21 @@ $(document).ready(function() {
 			<ul>
 				<li>
 				Teacher Guide:
-				<a href="http://ccnmtl.columbia.edu/projects/blackrock/waterquality/teachingresources/Water_Chemistry_Palmer_Teacher_Guides.pdf" target="_blank">PDF</a>
+				<a href="https://ccnmtl.columbia.edu/projects/blackrock/waterquality/teachingresources/Water_Chemistry_Palmer_Teacher_Guides.pdf" target="_blank">PDF</a>
 				|
-				<a href="http://ccnmtl.columbia.edu/projects/blackrock/waterquality/teachingresources/Water_Chemistry_Palmer_Teacher_Guides.zip">ZIP</a>
+				<a href="https://ccnmtl.columbia.edu/projects/blackrock/waterquality/teachingresources/Water_Chemistry_Palmer_Teacher_Guides.zip">ZIP</a>
 				</li>
 				<li>
 				Student Guide:
-				<a href="http://ccnmtl.columbia.edu/projects/blackrock/waterquality/teachingresources/Water_Chemistry_Palmer_Student_Guides.pdf" target="_blank">PDF</a>
+				<a href="https://ccnmtl.columbia.edu/projects/blackrock/waterquality/teachingresources/Water_Chemistry_Palmer_Student_Guides.pdf" target="_blank">PDF</a>
 				|
-				<a href="http://ccnmtl.columbia.edu/projects/blackrock/waterquality/teachingresources/Water_Chemistry_Palmer_Student_Guides.zip">ZIP</a>
+				<a href="https://ccnmtl.columbia.edu/projects/blackrock/waterquality/teachingresources/Water_Chemistry_Palmer_Student_Guides.zip">ZIP</a>
 				</li>
 				<li>
 				Student Journal:
-				<a href="http://ccnmtl.columbia.edu/projects/blackrock/waterquality/teachingresources/Water_Chemistry_Palmer_Student_Journals.pdf" target="_blank">PDF</a>
+				<a href="https://ccnmtl.columbia.edu/projects/blackrock/waterquality/teachingresources/Water_Chemistry_Palmer_Student_Journals.pdf" target="_blank">PDF</a>
 				|
-				<a href="http://ccnmtl.columbia.edu/projects/blackrock/waterquality/teachingresources/Water_Chemistry_Palmer_Student_Journals.zip">ZIP</a>
+				<a href="https://ccnmtl.columbia.edu/projects/blackrock/waterquality/teachingresources/Water_Chemistry_Palmer_Student_Journals.zip">ZIP</a>
 				</li>
 			</ul>
 			
@@ -179,7 +156,7 @@ $(document).ready(function() {
 			
 			<ul>
 			<li>Depending on the browser you are using, the ZIP documents will download in one ZIP file or will automatically be unzipped in one folder.</li>
-			<li>To install an unzip application on your computer, <a href="http://www.downloadbin.com/?page=7zip&amp;kw=download+unzip+software&amp;gclid=CNjKl9nDlLECFUFV4AodmWWheg" target="_blank">download 7-Zip</a>, a free open-source one. </li>
+			<li>To install an unzip application on your computer, <a href="https://www.downloadbin.com/?page=7zip&amp;kw=download+unzip+software&amp;gclid=CNjKl9nDlLECFUFV4AodmWWheg" target="_blank">download 7-Zip</a>, a free open-source one. </li>
 			</ul>
 			
 	
@@ -202,15 +179,4 @@ $(document).ready(function() {
 
 {% endblock %}
 
-
-{% block footer %}
-    <div id="footer">
-        <ul id="standard-elements">
-            <li><a href="/portal/about/">About</a></li>
-            <li><a href="/portal/credits/">Credits</a></li>
-            <li><a href="/portal/help/">Help</a></li>
-            <li><a href="mailto:ccnmtl-blackrock@columbia.edu">Contact</a></li>
-        </ul>
-    </div>
-{% endblock %}
 

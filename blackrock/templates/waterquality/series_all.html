@@ -1,19 +1,7 @@
-{% extends 'base.html' %}
-{% block title %}Water Chemistry{% endblock %}
-
+{% extends 'waterquality/base_waterquality.html' %}
 {% load charts %}
 {% block js %}
-
-	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/base/jquery-ui.css" type="text/css" media="all" /> 
-	
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript"></script>
-	<script type="text/javascript" src="/portal/media/js/jquery.sharing/jquery.sharing.js"></script>
-    <script type="text/javascript" src="/portal/media/js/sharing.js"></script>
-	<script src="/site_media/js/facebox.js" type="text/javascript"></script>
-	<script src="/site_media/js/highcharts.js" type="text/javascript"></script>
-	<script src="/site_media/js/modules/exporting.js" type="text/javascript"></script>
-
+   {{ block.super }}
 	{% if not show_graph %}
 	<script type="text/javascript">
 	$(document).ready(function() {
@@ -25,40 +13,13 @@
 	})
 	</script>
 	{% endif %}
-	
-{% endblock %}
-{% block css %}
-
-    <style type="text/css">
-    @import "/site_media/css/waterquality/waterquality.css" ;
-    </style>
-    
-    <!--[if IE 8]>
-    <style>
-    @import "/site_media/css/waterquality/waterquality_ie.css" ;
-    </style>
-    <![endif]-->    	
-
-{% endblock %}
-
-{% block masthead %}
-	<a href="/waterchemistry/">Water Chemistry</a>
-{% endblock %}
-{% block breadcrumbs %}
-	<ul class="breadcrumbs">
-	<li><a href="/waterchemistry/">Home</a></li>
-	<li><a href="/waterchemistry/graph">Graphing Tool</a></li>
-	<li><a href="/waterchemistry/browse/" class="active">Data Browser</a></li>
-	<li><a id="teachlink" href="/waterchemistry/teaching/">Teaching Resources</a></li>
-	</ul>
 {% endblock %}
 
 {% block content %}
 	<div id="contentcontainer">
-		<p>
+	  <p>
 		<input type=button onClick="parent.location='javascript:history.go(-1)'" value='&laquo; Back to Charts'>		
-		</p>
-			
+	  </p>
 	<table>
 	
 	{% for row in series.row_set.all %}
@@ -71,16 +32,4 @@
 	</table>
 
 </div>
-{% endblock %}
-
-
-{% block footer %}
-    <div id="footer">
-        <ul id="standard-elements">
-            <li><a href="/portal/about/">About</a></li>
-            <li><a href="/portal/credits/">Credits</a></li>
-            <li><a href="/portal/help/">Help</a></li>
-            <li><a href="mailto:ccnmtl-blackrock@columbia.edu">Contact</a></li>
-        </ul>
-    </div>
 {% endblock %}
