@@ -2,6 +2,12 @@ function ForestGraphData() {
     this.scenarios = {};
     this.species = {};
     this.colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#00c0c7', '#c070f0', '#ff8000', '#00ff00'];
+    /* adding things here to experiment */
+    this.showError
+    this.clearError
+    this.errorHighlight
+    this.clearHighlight
+
 }
 
 var ForestData = new ForestGraphData();
