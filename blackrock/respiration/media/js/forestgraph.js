@@ -157,8 +157,15 @@ ForestGraphData.prototype.updateSpecies = function(species_id) {
     }
 }
 
+function updateColors() {
+  clearError();
+  forEach(getElementsByTagAndClassName('div', 'scenario'), function(scenario) {
+    ForestData.updateScenario(scenario.id);
+  });
+}
+
 // overrides function in graph.js
-function initGraph() {
+function initForestGraph() {
   clearError();
   var g = new Bluff.Bar('graph', "460x345");
   g.set_theme({
@@ -177,16 +184,9 @@ function initGraph() {
   return g;
 }
 
-function updateColors() {
-  clearError();
-  forEach(getElementsByTagAndClassName('div', 'scenario'), function(scenario) {
-    ForestData.updateScenario(scenario.id);
-  });
-}
-
 function forestGraph() {
     // have to re-init, because g.clear() doesn't reset legend
-    g = initGraph();
+    g = new initForestGraph();//initGraph();
     var scenario_count = 0;
     var data = [];
     var scids = [];    
@@ -264,6 +264,11 @@ function forestGraph() {
          });
        }
     });
+}
+
+function setupForest() {
+  var g = initGraph();
+  g.draw();
 }
 
 
