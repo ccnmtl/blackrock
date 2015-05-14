@@ -52,13 +52,7 @@ PROJECT_APPS = ['blackrock.blackrock_main',
                 'blackrock.sampler',
                 'blackrock.waterquality']
 
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-
-NOSE_ARGS = [
-    '--with-coverage',
-    "--exclude-dir-file=nose_exclude.txt",
-    '--cover-package=blackrock.respiration,blackrock.blackrock_main,blackrock.mammals,blackrock.waterquality,blackrock.portal,blackrock.sampler,blackrock.optimization',
-]
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 TIME_ZONE = 'America/New_York'
 LANGUAGE_CODE = 'en-us'
@@ -132,7 +126,6 @@ INSTALLED_APPS = [
     'template_utils',
     'blackrock.waterquality',
     'blackrock.mammals',
-    'django_nose',
     'bootstrapform',
     'django_jenkins',
     'smoketest',
