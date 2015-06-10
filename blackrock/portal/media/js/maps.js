@@ -152,25 +152,25 @@ if (!Portal.MapMarker) {
                 var infraIcon = infrastructure[0];
                 infraIcon = infraIcon.replace(/ /g, "");
                 infraIcon = infraIcon.replace("-", "");
-                iconUrl = 'http://' + location.hostname + ':' + location.port +
+                iconUrl = 'https://' + location.hostname + ':' + location.port +
                     "/portal/media/images/mapicon_" +
                     infraIcon.toLowerCase() + '.png';
             } else if (featured && featured.length) {
                 var featuredIcon = featured[0];
                 featuredIcon = featuredIcon.replace("Featured ", "");
-                iconUrl = 'http://' + location.hostname + ':' + location.port +
+                iconUrl = 'https://' + location.hostname + ':' + location.port +
                         "/portal/media/images/mapicon_" +
                         featuredIcon.toLowerCase() + '.png';
             } else if (iconName) {
-                if (iconName.indexOf("http:") === 0) {
+                if (iconName.indexOf("https:") === 0) {
                     iconUrl = iconName;
                 } else {
-                    iconUrl = 'http://' + location.hostname + ':' +
+                    iconUrl = 'https://' + location.hostname + ':' +
                         location.port + "/portal/media/images/" +
                         iconName;
                 }
             } else {
-                iconUrl = 'http://' + location.hostname + ':' +
+                iconUrl = 'https://' + location.hostname + ':' +
                     location.port + "/portal/media/images/mapicon_main.png";
             }
 
