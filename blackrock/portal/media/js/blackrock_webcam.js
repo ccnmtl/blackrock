@@ -20,7 +20,7 @@ function getParameterByName(name) {
 function get_webcam_image_array(start_date, start_month, start_year,
         start_hour, start_minute) {
     var BASE_IMAGE_URL =
-        "http://ccnmtl.columbia.edu/projects/blackrock/forestdata/webcam";
+        "https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/webcam";
     var viewer;
     var now = new Date();
     var interval = 10; // minutes
