@@ -5,12 +5,12 @@
 {% block title %}{{ object }}{% endblock %}
 
 {% block css %}
-    <link href="/portal/media/js/jcarousel/skins/blackrock-detail/skin.css" media="screen" rel="stylesheet" type="text/css"/>
+    <link href="/site_media/js/portal/jcarousel/skins/blackrock-detail/skin.css" media="screen" rel="stylesheet" type="text/css"/>
 {% endblock %}
 
 {% block js %}
     {{block.super}}
-    <script type="text/javascript" src="/portal/media/js/object_detail.js"></script>
+    <script type="text/javascript" src="/site_media/js/portal/object_detail.js"></script>
 {% endblock %}
 
 {% block container %}
@@ -24,7 +24,7 @@
 <td id="left">
     <div id="asset-details">
         <div class="pagetitle">
-            <img src="/portal/media/images/nonmapicon_{{asset_klass|lower}}.png" alt="record type icon" /><h3>{{current_object|display_name}}</h3>
+            <img src="/site_media/images/portal/nonmapicon_{{asset_klass|lower}}.png" alt="record type icon" /><h3>{{current_object|display_name}}</h3>
         </div>
         
         {% with current_object|gallery as images %}
