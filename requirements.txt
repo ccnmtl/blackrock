@@ -5,7 +5,7 @@ Django==1.7.7
 pytz==2014.7
 resolver==0.2.1
 selector==0.10.1
-Paste==1.7.5.1
+Paste==2.0.2
 PasteDeploy==1.5.0
 PasteScript==2.0.2
 cdap==1.0
