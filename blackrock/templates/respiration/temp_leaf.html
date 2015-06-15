@@ -4,6 +4,7 @@
 
   <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/DragAndDrop.js"></script> 
   <script type="text/javascript" src="/site_media/js/respiration/species.js"></script>
+  <script type="text/javascript" src="/site_media/js/respiration/leaf-temp-leaf.js"></script>
   <script type="text/javascript">
     function calculateKelvin() {
       var result = parseFloat($('base-temp').value) + 273.15;
@@ -13,47 +14,29 @@
         $('kelvin').innerHTML = result;
       } 
     }
-
-    function formSubmit() {
-      $("specieslist").value = getSpeciesList().join();
-      $("leaf-form").submit();
-    }
-    
-    function initNav() {
-      connect("tab-canopy", "onclick", formSubmit);
-    }
-    addLoadEvent(initNav);
-
-    addLoadEvent(function() {
-        initNav();
-        initSpeciesModule();
-        setup(); // graph.js
-      });
   </script>
 
 
 {% block instructions %} 
-Plant respiration is often measured as CO<sub>2</sub> flux from the surface of a leaf, stem, soil or canopy. Highly regulated by temperature, the absolute rate of respiration and the temperature response varies among plant species. Respiration can be modeled by a modified version of the Arrhenius Function, described by Lloyd and Taylor (1994), which incorporates simple temperature coefficients to consider the impact of climate on this physiological process.
-<br /><br />
-Enter values for the parameters of the Arrhenius function to graph the respiration rate for a given tree species. 
-Use the red vertical indicator bar on the graph to view the calculated respiration rate (R) value(s) for all given tree species for your selected ambient temperature value (T<sub>a</sub>). When using the species from the drop down menu, enter 10C as the base temperature.
-
-
+    Plant respiration is often measured as CO<sub>2</sub> flux from the surface of a leaf, stem, soil or canopy. Highly regulated by temperature, the absolute rate of respiration and the temperature response varies among plant species. Respiration can be modeled by a modified version of the Arrhenius Function, described by Lloyd and Taylor (1994), which incorporates simple temperature coefficients to consider the impact of climate on this physiological process.
+    <br /><br />
+    Enter values for the parameters of the Arrhenius function to graph the respiration rate for a given tree species. 
+    Use the red vertical indicator bar on the graph to view the calculated respiration rate (R) value(s) for all given tree species for your selected ambient temperature value (T<sub>a</sub>). When using the species from the drop down menu, enter 10C as the base temperature.
 {% endblock %} 
 
 {% block leftlegend %}
-<div id="forestgraph">
-  <input id="print_button" type="button" value="Print" onclick="javascript:window.print()" />      
-</div>
-<h3>
-    Set Respiration Rate Variables
-</h3>
+    <div id="forestgraph">
+    <input id="print_button" type="button" value="Print" onclick="javascript:window.print()" />      
+    </div>
+    <h3>
+      Set Respiration Rate Variables
+    </h3>
 {% endblock %} 
 
 {% block left %} 
-<!-- why are the following values hidden? -->
- <form id="leaf-form" name="leaf-form" action="forest" method="post">
-  <!--  <input type="hidden" id="specieslist" name="specieslist" value="" />
+    <!-- why are the following values hidden? -->
+    <form id="leaf-form" name="leaf-form" action="forest" method="post">
+    <!--  <input type="hidden" id="specieslist" name="specieslist" value="" />
     <input type="hidden" id="scenario1-year" name="scenario1-year" value='{{scenario_options|hash:"year"}}' />
     <input type="hidden" id="scenario1-fieldstation" name="scenario1-fieldstation"
 	   value='{{scenario_options|hash:"fieldstation"}}' />
@@ -61,7 +44,7 @@ Use the red vertical indicator bar on the graph to view the calculated respirati
     <input type="hidden" id="scenario1-startdate" name="scenario1-startdate" value='{{scenario_options|hash:"startdate"}}' />
     <input type="hidden" id="scenario1-enddate" name="scenario1-enddate" value='{{scenario_options|hash:"enddate"}}' />
     <input type="hidden" id="scenario1-delta-t" name="scenario1-delta-t" value='{{scenario_options|hash:"deltat"}}' />
- -->
+    -->
 
 
 <div id="scenariocontainer">
@@ -184,3 +167,4 @@ Respiration Rate Graph
     </div>
     </div>
 {% endblock %}
+
