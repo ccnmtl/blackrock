@@ -8,7 +8,9 @@
 
 .jcarousel-clip  {position: absolute;}
 
-.jcarousel-clip .dl_navigation li.prev, .jcarousel-clip .dl_navigation li.next {
+.jcarousel-clip .dl_navigation li.prev,
+.jcarousel-clip .dl_navigation li.next 
+{
     display: none !important;
 }
 
@@ -29,7 +31,8 @@
 }
 
 
-.xy_navigation a.jcarousel-selector:hover, .xy_navigation a.jcarousel-selected {
+.xy_navigation a.jcarousel-selector:hover,
+.xy_navigation a.jcarousel-selected {
     color: yellow;
 
 }

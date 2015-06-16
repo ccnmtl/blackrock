@@ -53,7 +53,8 @@
 
 }
 
-.jcarousel-clip ol, .jcarousel-clip ul {
+.jcarousel-clip ol,
+.jcarousel-clip ul {
     list-style: none outside none;
     margin: 18px;
     padding: 0;
@@ -66,7 +67,9 @@
     width: 19px;
 }
 
-.jcarousel-clip .dl_navigation li.prev, .jcarousel-clip .dl_navigation li.next {
+.jcarousel-clip .dl_navigation li.prev,
+.jcarousel-clip .dl_navigation li.next 
+{
     display: none !important;
 }
 
@@ -76,7 +79,9 @@
 	border-radius: 15px;
 }
 
-.jcarousel-clip .dl_navigation li.jcarousel-selector:hover, .jcarousel-clip .dl_navigation li.jcarousel-selected {
+.jcarousel-clip .dl_navigation li.jcarousel-selector:hover,
+.jcarousel-clip .dl_navigation li.jcarousel-selected 
+{
     background-color: yellow;
 }
 
@@ -88,11 +93,11 @@
 }
 
 .jcarousel-clip .dl_navigation li a.jcarousel-pause {
-    background: url("/portal/media/images/pause.png") no-repeat transparent;
+    background: url("/site_media/images/portal/pause.png") no-repeat transparent;
 }
 
 .jcarousel-clip .dl_navigation li a.jcarousel-play {
-    background: url("/portal/media/images/play.png") no-repeat transparent;
+    background: url("/site_media/images/portal/play.png") no-repeat transparent;
 }
 
 .jcarousel-clip .nav li {
