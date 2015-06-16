@@ -153,25 +153,25 @@ if (!Portal.MapMarker) {
                 infraIcon = infraIcon.replace(/ /g, "");
                 infraIcon = infraIcon.replace("-", "");
                 iconUrl = 'https://' + location.hostname + ':' + location.port +
-                    "/portal/media/images/mapicon_" +
+                    "/site_media/images/portal/mapicon_" +
                     infraIcon.toLowerCase() + '.png';
             } else if (featured && featured.length) {
                 var featuredIcon = featured[0];
                 featuredIcon = featuredIcon.replace("Featured ", "");
                 iconUrl = 'https://' + location.hostname + ':' + location.port +
-                        "/portal/media/images/mapicon_" +
+                        "/site_media/images/portal/mapicon_" +
                         featuredIcon.toLowerCase() + '.png';
             } else if (iconName) {
                 if (iconName.indexOf("https:") === 0) {
                     iconUrl = iconName;
                 } else {
                     iconUrl = 'https://' + location.hostname + ':' +
-                        location.port + "/portal/media/images/" +
+                        location.port + "/site_media/images/portal/" +
                         iconName;
                 }
             } else {
                 iconUrl = 'https://' + location.hostname + ':' +
-                    location.port + "/portal/media/images/mapicon_main.png";
+                    location.port + "/site_media/images/portal/mapicon_main.png";
             }
 
             self.latlng = new google.maps.LatLng(lat, lng);
@@ -508,7 +508,7 @@ if (!Portal.Map) {
             var options = getElementsByTagAndClassName("input", "layer");
             forEach(options, function (option) {
                 var kmllayer = new Portal.Layer(option.id,
-                    "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/" +
+                    "http://blackrock.ccnmtl.columbia.edu/site_media/kml/portal/" +
                     option.id + ".kml?version=" + randomnumber, true);
                 self.layers[option.id] = kmllayer;
 
@@ -546,8 +546,8 @@ if (!Portal.Map) {
                         });
             }
 
-            var url_base = "http://blackrock.ccnmtl.columbia.edu/portal" +
-                           "/media/kml/brfboundary.kml?newcachebuster=";
+            var url_base = "http://blackrock.ccnmtl.columbia.edu" +
+                           "/site_media/kml/portal/brfboundary.kml?newcachebuster=";
             
             var boundary = new Portal.Layer(
                 "brfboundary", url_base + randomnumber, false);
