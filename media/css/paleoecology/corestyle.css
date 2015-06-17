@@ -368,22 +368,18 @@ margin-top:-2px;
 }
 
 div#yardstick .bottomlevel {
-
-display: block;
-margin-top:582px;
-position:relative;
-
-
+  display: block;
+  margin-top:582px;
+  position:relative;
 }
 
 div#core-unzoomed {
-  
   height: 606px;
   width: 60px;
-     float: left;
-       	background-image: url(../images/coresample/wholecore.png);
-	background-repeat: no-repeat;
-	background-position: center bottom;
+  float: left;
+  background-image: url(/site_media/images/paleoecology/coresample/wholecore.png);
+  background-repeat: no-repeat;
+  background-position: center bottom;
 }
 
 div#core-zoomed {
@@ -402,7 +398,6 @@ div.core-slice {
   color: #fff;
   background-color: #cdcdcd;
   height: 18px;
-
 }
 
 div.core-slice.core-slice-mud {
@@ -421,7 +416,7 @@ div.core-slice.core-slice-clay {
 div.core-slice.core-slice-blank
 {
 	background-color: #cdcdcd;
-	background-image: url(../images/coresample/blank_slice.png);
+	background-image: url(/site_media/images/paleoecology/coresample/blank_slice.png);
 	background-repeat: no-repeat;
 	background-position: center center;
 }
