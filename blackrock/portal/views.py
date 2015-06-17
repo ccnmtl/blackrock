@@ -1,6 +1,10 @@
-from blackrock.portal.models import Location, DataSet, Audience
-from blackrock.blackrock_main.models import LastImportDate
-from blackrock.blackrock_main.solr import SolrUtilities
+import json
+import re
+import StringIO
+import sys
+import urllib
+from pysolr import Solr, SolrError
+from time import strptime
 from datetime import date
 from decimal import Decimal
 from django.conf import settings
@@ -12,16 +16,12 @@ from django.db.models import get_model, DateField
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext, Context
-import json
 from django.utils.tzinfo import FixedOffset
-from pagetree.models import Hierarchy
-from pysolr import Solr, SolrError
-from time import strptime
-import StringIO
-import sys
-import urllib
 from django.contrib.gis.geos import fromstr
-import re
+from pagetree.models import Hierarchy
+from blackrock.portal.models import Location, DataSet, Audience
+from blackrock.blackrock_main.models import LastImportDate
+from blackrock.blackrock_main.solr import SolrUtilities
 
 
 class rendered_with(object):

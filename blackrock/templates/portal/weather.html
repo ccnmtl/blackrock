@@ -12,7 +12,7 @@
     var stations = {
         'Open Lowland Station': { 
             'prefix': 'OL_',
-            'rawdata': '{% value_from_settings BLACK_ROCK_FEED %}data/current/Lowland.csv',
+            'rawdata': 'https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/Lowland.csv',
             'historicdata': '/portal/browse/portal/dataset/objects/20/'
             
         },
@@ -26,7 +26,7 @@
             'wave-radiation': false,
             'net-wave-radiation': false,
             'total-radiation': false,            
-            'rawdata': '{% value_from_settings BLACK_ROCK_FEED %}data/current/Ridgetop.csv',
+            'rawdata': 'https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/Ridgetop.csv',
             'historicdata': '/portal/browse/portal/dataset/objects/19/'
         }
     };
@@ -144,7 +144,7 @@
 
 <div id="weather">
     <div class="station-select-container">
-        <img src="/portal/media/images/nonmapicon_environmentalmonitoringstations.png" alt="record type icon" />
+        <img src="/site_media/images/portal/nonmapicon_environmentalmonitoringstations.png" alt="record type icon" />
         <h3>
             <span class="station-name">Select Station</span>
         </h3>
@@ -192,69 +192,71 @@
     <h2 class="datapoint-timespan"><span class="datapoint">Air & Soil Temperature</span> <span class="timespan">24 hours</span></h2>
         
     <!-- Air Soil -->
-	<div class="weather-image air-soil twentyfourhours"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Air-Soil-24Hr.png' alt="Air &amp; Soil 24 hours"/></div>
-    <div class="weather-image air-soil sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Air-Soil-7Day.png' alt="Air &amp; 7 Days"/></div>
-    <div class="weather-image air-soil thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Air-Soil-30Day.png' alt="Air &amp; Soil 30 Days"/></div>
+	<div class="weather-image air-soil twentyfourhours">
+	  <img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_Air-Soil-24Hr.png' alt="Air &amp; Soil 24 hours"/>
+	</div>
+    <div class="weather-image air-soil sevendays" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_Air-Soil-7Day.png' alt="Air &amp; 7 Days"/></div>
+    <div class="weather-image air-soil thirtydays" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_Air-Soil-30Day.png' alt="Air &amp; Soil 30 Days"/></div>
 
     <!-- Precipitation -->
-    <div class="weather-image precip twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Precip-24Hr.png' alt="Precipitation 24 hours"/></div>
-    <div class="weather-image precip sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Precip-7Day.png' alt="Precipitation 7 Days"/></div>
-    <div class="weather-image precip thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Precip-30Day.png' alt="Precipitation 30 days"/></div>
+    <div class="weather-image precip twentyfourhours" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_Precip-24Hr.png' alt="Precipitation 24 hours"/></div>
+    <div class="weather-image precip sevendays" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_Precip-7Day.png' alt="Precipitation 7 Days"/></div>
+    <div class="weather-image precip thirtydays" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_Precip-30Day.png' alt="Precipitation 30 days"/></div>
     
     <!-- Wind -->
-    <div class="weather-image wind twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Wind-24Hr.png' alt="Wind 24 hours" /></div>
-    <div class="weather-image wind sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Wind-7Day.png' alt = "Wind 7 Days" /></div>
-    <div class="weather-image wind thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Wind-30Day.png' alt="Wind 30 Days" /></div>
+    <div class="weather-image wind twentyfourhours" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_Wind-24Hr.png' alt="Wind 24 hours" /></div>
+    <div class="weather-image wind sevendays" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_Wind-7Day.png' alt = "Wind 7 Days" /></div>
+    <div class="weather-image wind thirtydays" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_Wind-30Day.png' alt="Wind 30 Days" /></div>
     
     <!-- Baro -->
-    <div class="weather-image baro twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Baro-24Hr.png' alt="Barometric Pressure 24 hours" /></div>
-    <div class="weather-image baro sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Baro-7Day.png' alt="Barometric Pressure 7 Days" /></div>
-    <div class="weather-image baro thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Baro-30Day.png' alt="Barometric Pressure 30 Days" /></div>
+    <div class="weather-image baro twentyfourhours" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_Baro-24Hr.png' alt="Barometric Pressure 24 hours" /></div>
+    <div class="weather-image baro sevendays" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_Baro-7Day.png' alt="Barometric Pressure 7 Days" /></div>
+    <div class="weather-image baro thirtydays" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_Baro-30Day.png' alt="Barometric Pressure 30 Days" /></div>
     
     <!-- Ozone -->
-    <div class="weather-image ozone twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Ozone-24Hr.png' alt="Ozone Levels 24 hours" /></div>
-    <div class="weather-image ozone sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Ozone-7Day.png' alt="Ozone Levels 7 Days" /></div>
-    <div class="weather-image ozone thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Ozone-30Day.png' alt="Ozone Levels 30 Days" /></div>
+    <div class="weather-image ozone twentyfourhours" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_Ozone-24Hr.png' alt="Ozone Levels 24 hours" /></div>
+    <div class="weather-image ozone sevendays" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_Ozone-7Day.png' alt="Ozone Levels 7 Days" /></div>
+    <div class="weather-image ozone thirtydays" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_Ozone-30Day.png' alt="Ozone Levels 30 Days" /></div>
 
     <!-- CO2 -->
-    <div class="weather-image co2 twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_CO2-24Hr.png' alt="Carbon Dioxide 24 hours" /></div>
-    <div class="weather-image co2 sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_CO2-7Day.png' alt="Carbon Dioxide 7 Days" /></div>
-    <div class="weather-image co2 thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_CO2-30Day.png' alt="Carbon Dioxide 30 Days" /></div>
+    <div class="weather-image co2 twentyfourhours" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_CO2-24Hr.png' alt="Carbon Dioxide 24 hours" /></div>
+    <div class="weather-image co2 sevendays" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_CO2-7Day.png' alt="Carbon Dioxide 7 Days" /></div>
+    <div class="weather-image co2 thirtydays" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_CO2-30Day.png' alt="Carbon Dioxide 30 Days" /></div>
     
     <!-- Wave Radiation -->
-    <div class="weather-image wave-radiation twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_NetRadA-24Hr.png' alt="Wave Radiation 24 hours" /></div>
-    <div class="weather-image wave-radiation sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_NetRadA-7Day.png' alt="Wave Radiation 7 Days" /></div>
-    <div class="weather-image wave-radiation thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_NetRadA-30Day.png' alt="Wave Radiation 30 Days" /></div>
+    <div class="weather-image wave-radiation twentyfourhours" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_NetRadA-24Hr.png' alt="Wave Radiation 24 hours" /></div>
+    <div class="weather-image wave-radiation sevendays" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_NetRadA-7Day.png' alt="Wave Radiation 7 Days" /></div>
+    <div class="weather-image wave-radiation thirtydays" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_NetRadA-30Day.png' alt="Wave Radiation 30 Days" /></div>
     
     <!-- Net Wave Radiation -->
-    <div class="weather-image net-wave-radiation twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_NetRadB-24Hr.png' alt="Net Wave Radiation 24 hours" /></div>
-    <div class="weather-image net-wave-radiation sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_NetRadB-7Day.png' alt="Net Wave Radiation 7 Days" /></div>
-    <div class="weather-image net-wave-radiation thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_NetRadB-30Day.png' alt="Net Wave Radiation 30 Days" /></div>
+    <div class="weather-image net-wave-radiation twentyfourhours" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_NetRadB-24Hr.png' alt="Net Wave Radiation 24 hours" /></div>
+    <div class="weather-image net-wave-radiation sevendays" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_NetRadB-7Day.png' alt="Net Wave Radiation 7 Days" /></div>
+    <div class="weather-image net-wave-radiation thirtydays" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_NetRadB-30Day.png' alt="Net Wave Radiation 30 Days" /></div>
     
     <!-- Total Radiation -->
-    <div class="weather-image total-radiation twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_NetRadC-24Hr.png' alt="Total Net Radiation 24 hours" /></div>
-    <div class="weather-image total-radiation sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_NetRadC-7Day.png' alt="Total Net Radiation 7 Days" /></div>
-    <div class="weather-image total-radiation thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_NetRadC-30Day.png' alt="Total Net Radiation 30 Days" /></div>
+    <div class="weather-image total-radiation twentyfourhours" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_NetRadC-24Hr.png' alt="Total Net Radiation 24 hours" /></div>
+    <div class="weather-image total-radiation sevendays" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_NetRadC-7Day.png' alt="Total Net Radiation 7 Days" /></div>
+    <div class="weather-image total-radiation thirtydays" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_NetRadC-30Day.png' alt="Total Net Radiation 30 Days" /></div>
 
     <!-- Snow Depth -->
-    <div class="weather-image snow-depth twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Snow-24Hr.png' alt="Snow Depth 24 hours" /></div>
-    <div class="weather-image snow-depth sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Snow-7Day.png' alt="Snow Depth 7 Days" /></div>
-    <div class="weather-image snow-depth thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_Snow-30Day.png' alt="Snow Depth 30 Days" /></div>
+    <div class="weather-image snow-depth twentyfourhours" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_Snow-24Hr.png' alt="Snow Depth 24 hours" /></div>
+    <div class="weather-image snow-depth sevendays" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_Snow-7Day.png' alt="Snow Depth 7 Days" /></div>
+    <div class="weather-image snow-depth thirtydays" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_Snow-30Day.png' alt="Snow Depth 30 Days" /></div>
 
     <!-- Soil Depth -->
-    <div class="weather-image soil-depth twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_SoilVWC-24Hr.png' alt="Soil Depth 24 hours" /></div>
-    <div class="weather-image soil-depth sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_SoilVWC-7Day.png' alt="Soil Depth 7 Days" /></div>
-    <div class="weather-image soil-depth thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_SoilVWC-30Day.png' alt="Soil Depth 30 Days" /></div>
+    <div class="weather-image soil-depth twentyfourhours" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_SoilVWC-24Hr.png' alt="Soil Depth 24 hours" /></div>
+    <div class="weather-image soil-depth sevendays" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_SoilVWC-7Day.png' alt="Soil Depth 7 Days" /></div>
+    <div class="weather-image soil-depth thirtydays" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_SoilVWC-30Day.png' alt="Soil Depth 30 Days" /></div>
 
     <!-- UV Radiation -->
-    <div class="weather-image uv-radiation twentyfourhours" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_UVRad-24Hr.png' alt="Ultraviolet Radiation 24 hours" /></div>
-    <div class="weather-image uv-radiation sevendays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_UVRad-7Day.png' alt="Ultraviolet Radiation 7 Days" /></div>
-    <div class="weather-image uv-radiation thirtydays" style="display: none"><img src='{% value_from_settings BLACK_ROCK_FEED %}data/current/OL_UVRad-30Day.png' alt="Ultraviolet Radiation 30 Days" /></div>
+    <div class="weather-image uv-radiation twentyfourhours" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_UVRad-24Hr.png' alt="Ultraviolet Radiation 24 hours" /></div>
+    <div class="weather-image uv-radiation sevendays" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_UVRad-7Day.png' alt="Ultraviolet Radiation 7 Days" /></div>
+    <div class="weather-image uv-radiation thirtydays" style="display: none"><img src='https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/OL_UVRad-30Day.png' alt="Ultraviolet Radiation 30 Days" /></div>
     
   
     <div class="header-row">
         <a href="/portal/browse/portal/dataset/objects/20" id="historicdata">View Historic Data</a>
-        <a href="{% value_from_settings BLACK_ROCK_FEED %}data/current/Lowland.csv" id="rawdata">Download Raw Data (YTD)</a>
+        <a href="https://www1.columbia.edu/sec/ccnmtl/projects/blackrock/forestdata/data/current/Lowland.csv" id="rawdata">Download Raw Data (YTD)</a>
     </div>
     <div class="clearfix"></div>
     
