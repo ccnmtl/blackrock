@@ -67,14 +67,14 @@ div#mainnav ul li {
 
 
 div#mainnav ul li.search {
-	background-image: url("../../images/portal/searchicon.png") ;
+	background-image: url("/site_media/images/portal/searchicon.png") ;
 	background-position: 4px 0px;
 	background-repeat: no-repeat;
 }
 
 div#mainnav ul li.home
 
-{background-image: url("../../images/portal/homeicon.png");
+{background-image: url("/site_media/images/portal/homeicon.png");
 background-repeat: no-repeat;
 background-position: 4px 0px;
 margin-right:10px;
@@ -121,19 +121,19 @@ div#mainnav ul li:hover {
 }
 
 div#mainnav ul li.search:hover {
-    background-image: url("../../images/portal/searchicon_hover.png");
+    background-image: url("/site_media/images/portal/searchicon_hover.png");
 }
 
 div#mainnav ul li.search.selected:hover
-{background-image: url("../../images/portal/searchicon.png");}
+{background-image: url("/site_media/images/portal/searchicon.png");}
 
 div#mainnav ul li.home:hover
 
-{background-image: url("../../images/portal/homeicon_hover.png");
+{background-image: url("/site_media/images/portal/homeicon_hover.png");
 }
 
 div#mainnav ul li.home.selected:hover
-{background-image: url("../../images/portal/homeicon.png");}
+{background-image: url("/site_media/images/portal/homeicon.png");}
 
 
 div#mainnav ul li a:hover {

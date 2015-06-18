@@ -5,7 +5,6 @@ div#plot
 	/*border: 2px black solid;*/
 	margin: 10px;
 	background-color: #84a383;
-	/*background: url('../images/grid2.jpg');*/
 	position: absolute;
 	top: 0px;
 	left: 0px;
@@ -43,7 +42,6 @@ div.tree_info
 	text-align: right;
 	padding: 5px;
 	z-index: 10;
-	/*background-image: url('../images/closebox.gif');*/
 	background-repeat: no-repeat;
 	background-position: 99% 2%;
 }
@@ -59,7 +57,7 @@ div.tree_info_inner
 
 .img_tree {
    /* fallback in case we don't have an image for that species */
-	background-image: url('../images/trees/tree2.jpg');
+	background-image: url('/site_media/images/sampler/trees/tree2.jpg');
 	width: 100px;
 	height: 100px;
 	border: 1px black solid;
@@ -67,61 +65,67 @@ div.tree_info_inner
 
 /* specific tree species */
 .img_bb {
-	background-image: url('../images/trees/bb.jpg') !important;
+	background-image: url('/site_media/images/sampler/trees/bb.jpg') !important;
 }
 
 .img_be {
-	background-image: url('../images/trees/be.jpg') !important;
+	background-image: url('/site_media/images/sampler/trees/be.jpg') !important;
 }
 
 .img_bg {
-	background-image: url('../images/trees/bg.jpg') !important;
+	background-image: url('/site_media/images/sampler/trees/bg.jpg') !important;
 }
 
 .img_co {
-	background-image: url('../images/trees/co.jpg') !important;
+	background-image: url('/site_media/images/sampler/trees/co.jpg') !important;
 }
 
 .img_hm {
-	background-image: url('../images/trees/hm.jpg') !important;
+	background-image: url('/site_media/images/sampler/trees/hm.jpg') !important;
 }
 
 .img_mw {
-	background-image: url('../images/trees/mw.jpg') !important;
+	background-image: url('/site_media/images/sampler/trees/mw.jpg') !important;
 }
 
 .img_rm {
-	background-image: url('../images/trees/rm.jpg') !important;
+	background-image: url('/site_media/images/sampler/trees/rm.jpg') !important;
 }
 
 .img_ro {
-	background-image: url('../images/trees/ro.jpg') !important;
+	background-image: url('/site_media/images/sampler/trees/ro.jpg') !important;
 }
 
 .img_sh {
-	background-image: url('../images/trees/sh.jpg') !important;
+	background-image: url('/site_media/images/sampler/trees/sh.jpg') !important;
 }
 
 .img_sm {
-	background-image: url('../images/trees/sm.jpg') !important;
+	background-image: url('/site_media/images/sampler/trees/sm.jpg') !important;
 }
 
 .img_wo {
-	background-image: url('../images/trees/wo.jpg') !important;
+	background-image: url('/site_media/images/sampler/trees/wo.jpg') !important;
 }
 
 div.tree
 {
 	clip: inherit;
-	background-image: url('../images/tree_icon_sm.png');
+	background-image: url('/site_media/images/sampler/tree_icon_sm.png');
 	width: 32px;
 	height: 32px;
 	position: absolute;
 }
 
-div.tree-selected { background-image: url('../images/tree_icon_sel.png'); }
+div.tree-selected 
+{
+	background-image: url('/site_media/images/sampler/tree_icon_sel.png'); 
+}
 
-.invisible { display: none; }
+.invisible 
+{ 
+	display: none;
+}
 
 div.controlbox
 {
@@ -148,17 +152,18 @@ div#transect-start
 {
   width: 24px;
   height: 24px;
-  background-image: url('../images/circle.png');
+  background-image: url('/site_media/images/sampler/circle.png');
   background-repeat: no-repeat;
   position: absolute;
   top: -24px;
   left: -24px;
 }
+
 div#transect-end
 {
   width: 24px;
   height: 24px;
-  background-image: url('../images/diamond.png');
+  background-image: url('/site_media/images/sampler/diamond.png');
   background-repeat: no-repeat;
   position: absolute;
   top: -24px;
