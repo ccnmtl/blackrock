@@ -9,22 +9,8 @@
     <script type="text/javascript" src="/site_media/js/respiration/species.js"></script>
     <script type="text/javascript" src="/site_media/js/respiration/forestgraph.js"></script>
     <script type="text/javascript">
-
-
-    function calculateKelvin(elem, id) {
-        var k = id.split("-");
-        var kl = k[0] + "-kelvin";
-        var result = parseFloat(elem) + 273.15;
-        var kelvin = document.getElementById(kl);
-        if (isNaN(result)) {
-            kelvin.innerHTML = "";
-        }
-        else {
-            kelvin.innerHTML = result;
-        }
-    }
-
-    addLoadEvent(function() {
+    
+        addLoadEvent(function() {
         {% for station in stations %}
             addYears("{{station}}", {{years|hash:station}});
         {% endfor %}
@@ -34,16 +20,7 @@
         initScenarioModule(); // scenario.js
         setupForest();      
       });
-
-    makeExportLink = function(a) {
-      var id = a.id;
-      id = id.split('-')[0];
-      var year = document.getElementById(id+'-year').value;
-      var start = document.getElementById(id+'-startdate').value;
-      var end = document.getElementById(id+'-enddate').value;
-      var station = document.getElementById(id+'-fieldstation').value;
-      a.href = "/respiration/getcsv?year="+year+"&start="+start+"&end="+end+"&station="+station;
-    };    
+    
   </script>
 
 {% endblock %}
