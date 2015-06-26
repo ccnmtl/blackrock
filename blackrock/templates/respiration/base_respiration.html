@@ -19,8 +19,8 @@
     <script type="text/javascript" src="/site_media/js/shield.js"></script>
     <script type="text/javascript" src="/site_media/js/libraries/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="/site_media/js/libraries/jquery-ui-1.11.4.min.js"></script>  
-    <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script> 
-    <!-- <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/Signal.js"></script> -->
+    <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script>
+    <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/Signal.js"></script>
     <script type="text/javascript" src="/site_media/js/libraries/jquery.sharing/jquery.sharing.js"></script>
     <script type="text/javascript" src="/site_media/js/libraries/sharing.js"></script>
     <script type="text/javascript" src="/site_media/js/bluff/js-class.js"></script> 
@@ -30,37 +30,39 @@
 
     <script type="text/javascript">
       function closePredefinedSpecies() {
-          var elts = getElementsByTagAndClassName("div", "species-predefined-list");
+
+          var elts = jQuery("div .species-predefined-list");
+          
           forEach(elts, function(elt) {
               if (getStyle(elt, 'display') === 'block') {
                   hideElement(elt);
               }
           });
+          jQuery(document.body).on('click', closePredefinedSpecies);
       }
 
       function setActiveTab() {
           var tabname = "{% block tabname %}tab-leaf{% endblock %}";
-          if (document.getElementById(tabname) != null) { 
-              addElementClass(tabname, "tab-selected");
+          if (tabname === "tab-leaf") { 
+            jQuery('#tab-leaf').addClass("tab-selected");
           }
-          connect(document.body, "onclick", closePredefinedSpecies);    
+          if (tabname === "tab-canopy") { 
+              jQuery('#tab-canopy').addClass("tab-selected");
+          }
       }
 
-      addLoadEvent(setActiveTab);      
-      
-    </script>
-    
-    
-    <script type="text/javascript">
       function initNav() {
-          connect("tab-leaf", "onclick", function() {
+        jQuery('#tab-leaf').on('click', function() {
               window.location = '/respiration/leaf';
-          });
-          connect("tab-canopy", "onclick", function() {
+        }); 
+        jQuery('#tab-canopy').on('click', function() {    
               window.location = '/respiration/forest';
-          });
+        });
        }
-       addLoadEvent(initNav);
+
+       jQuery(window).on('load', closePredefinedSpecies);
+       jQuery(window).on('load', setActiveTab);
+       jQuery(window).on('load', initNav);
     </script>
     <script type="text/javascript">
       function showResources() {
