@@ -3,10 +3,10 @@ function ForestGraphData() {
     this.species = {};
     this.colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#00c0c7', '#c070f0', '#ff8000', '#00ff00'];
     /* adding things here to experiment */
-    this.showError
-    this.clearError
-    this.errorHighlight
-    this.clearHighlight
+    this.showError;
+    this.clearError;
+    this.errorHighlight;
+    this.clearHighlight;
 
 }
 
@@ -27,9 +27,9 @@ function clearHighlight(e) {
 }
 
 function isLeapYear(year) {
-  if(year % 4 == 0) {
-    if(year % 100 == 0) {
-      if(year % 400 == 0) {
+  if(year % 4 === 0) {
+    if(year % 100 === 0) {
+      if(year % 400 === 0) {
         return true;
       }
       return false;
@@ -44,7 +44,7 @@ function isValidMMDD(str, leapyear) {
   if(bits.length != 2) { return false; }
   var month = bits[0];
   var day = bits[1];
-  if(month == "" || day == "") {
+  if(month === "" || day === "") {
     return false;
   }
   if(isNaN(month) || isNaN(day)) {
@@ -57,7 +57,7 @@ function isValidMMDD(str, leapyear) {
   if(month in {4:'', 6:'', 9:'', 11:''}) {
      maxday = 30;
   }
-  if(month == 2) {
+  if(month === 2) {
     maxday = 28;   // need to check for leapyears
     if(leapyear) { maxday = 29; }
   }
@@ -84,7 +84,7 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
     $(scenario_id + "-swatch").style.backgroundColor = this.scenarios[scenario_id]['color'];
 
     var leafarea = $(scenario_id + "-leafarea").value;
-    if(leafarea == "" || isNaN(leafarea)) {
+    if(leafarea === "" || isNaN(leafarea)) {
       errorHighlight(scenario_id + "-leafarea");
       leafarea = 1;
     }
@@ -116,7 +116,7 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
 
     /* delta-t is optional */
     this.scenarios[scenario_id].deltaT = $(scenario_id + "-delta-t").value;
-    if(this.scenarios[scenario_id].deltaT == "" || isNaN(this.scenarios[scenario_id].deltaT)) {
+    if(this.scenarios[scenario_id].deltaT === "" || isNaN(this.scenarios[scenario_id].deltaT)) {
       // NaN still does indicates an error, since the user tried to enter something
       if(isNaN(this.scenarios[scenario_id].deltaT)) { errorHighlight(scenario_id + "-delta-t"); }
       // but either way, we use 0 for it
@@ -136,9 +136,9 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
     
     // scenarios with missing information are not valid for graphing
     this.scenarios[scenario_id].valid = 
-        this.scenarios[scenario_id].leafarea != "" &&
-        this.scenarios[scenario_id].start != "" &&
-        this.scenarios[scenario_id].end != "" &&
+        this.scenarios[scenario_id].leafarea !== "" &&
+        this.scenarios[scenario_id].start !== "" &&
+        this.scenarios[scenario_id].end !== "" &&
         !dateError &&
         species_valid &&
         species_composition === 100;
@@ -154,14 +154,14 @@ ForestGraphData.prototype.updateSpecies = function(species_id) {
     this.species[species_id]['R0'] = $(species_id + "-R0").value;
     this.species[species_id]['E0'] = $(species_id + "-E0").value;
 
-    if(this.species[species_id]['name'] != "" &&
-        this.species[species_id]['basetemp'] != "" &&
-        this.species[species_id]['R0'] != "" &&
-        this.species[species_id]['E0'] != "" &&
-        this.species[species_id]['percent'] != "") {
+    if(this.species[species_id]['name'] !== "" &&
+        this.species[species_id]['basetemp'] !== "" &&
+        this.species[species_id]['R0'] !== "" &&
+        this.species[species_id]['E0'] !== "" &&
+        this.species[species_id]['percent'] !== "") {
         this.species[species_id].valid = true;
     }
-}
+};
 
 function updateColors() {
   clearError();
@@ -244,14 +244,14 @@ function forestGraph() {
                         data[scenario_num-1] += answer.total * (percent/100.0);
                         species_count--;
 
-                        if (species_count == 0) {  // got all species totals for this scenario
+                        if (species_count === 0) {  // got all species totals for this scenario
                             data[scenario_num-1] = data[scenario_num-1] * leafarea;
                             var calculated_value = Math.round(data[scenario_num-1] * 100) / 100;
                             data[scenario_num-1] = calculated_value;
                             scids[scenario_num-1] = scid;
                             scenario_count--;
 
-                                if(scenario_count == 0) {
+                                if(scenario_count === 0) {
                                     for(var i=0; i<data.length; i++) {
                                         var label = ForestData.scenarios[scids[i]].name + " (" + data[i]  + ")";
                                         g.data(label, data[i], ForestData.scenarios[scids[i]]['color'] );
@@ -272,6 +272,7 @@ function forestGraph() {
     });
 }
 
+
 function setupForest() {
   var g = initGraph();
   g.draw();
@@ -282,3 +283,31 @@ function setupForest() {
 LeafGraphData.prototype.updateFields = function() {
     return;
 };
+
+
+function calculateKelvin(elem, id) {
+  var k = id.split("-");
+  var kl = k[0] + "-kelvin";
+  var result = parseFloat(elem) + 273.15;
+  var kelvin = document.getElementById(kl);
+  if (isNaN(result)) {
+    kelvin.innerHTML = "";
+  }
+  else {
+    kelvin.innerHTML = result;
+  }
+}
+
+
+
+
+
+makeExportLink = function(a) {
+    var id = a.id;
+    id = id.split('-')[0];
+    var year = document.getElementById(id+'-year').value;
+    var start = document.getElementById(id+'-startdate').value;
+    var end = document.getElementById(id+'-enddate').value;
+    var station = document.getElementById(id+'-fieldstation').value;
+    a.href = "/respiration/getcsv?year="+year+"&start="+start+"&end="+end+"&station="+station;
+};    

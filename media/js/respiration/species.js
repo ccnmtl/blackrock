@@ -75,7 +75,7 @@
         $('species'+i+'-R0').value = $('leaf-species'+i+'-R0').value;
         $('species'+i+'-E0').value = $('leaf-species'+i+'-E0').value;
       }
-        if(leafSpecies == 0) {setDefaults(); }
+        if(leafSpecies === 0) {setDefaults(); }
     }
 
     function setDefaults() {
