@@ -25,7 +25,7 @@ function updateYears(e) {
     var year = yrs[i];
     var options = {'value':year};
     if(year == selectedYear) {
-      options['selected'] = '';
+      options.selected = '';
    }
     appendChildNodes(sel, OPTION(options, year));
   }
