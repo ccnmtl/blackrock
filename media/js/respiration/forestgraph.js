@@ -72,16 +72,16 @@ ForestGraphData.prototype.updateScenario = function(scenario_id) {
 
     if (typeof(this.scenarios[scenario_id]) == 'undefined') {
       this.scenarios[scenario_id] = {};
-      var color = this.scenarios[scenario_id]['color'] = ForestData.colors.shift();
+      var color = this.scenarios[scenario_id].color = ForestData.colors.shift();
       if( typeof( color ) == 'undefined' ) {  // if we run out of colors, cycle them
         ForestData.colors = ['#ff1f81', '#a21764', '#8ab438', '#999999', '#3a5b87', '#00c0c7', '#c070f0', '#ff8000', '#00ff00'];
-        this.species[species_id]['color'] = ForestData.colors.shift();
+        this.species[species_id].color = ForestData.colors.shift();
       }
 
     }
 
-    this.scenarios[scenario_id]['name'] = $(scenario_id + "-name").value.replace(/^\s*|\s*$/,"");  // strip whitespace
-    $(scenario_id + "-swatch").style.backgroundColor = this.scenarios[scenario_id]['color'];
+    this.scenarios[scenario_id].name = $(scenario_id + "-name").value.replace(/^\s*|\s*$/,"");  // strip whitespace
+    $(scenario_id + "-swatch").style.backgroundColor = this.scenarios[scenario_id].color;
 
     var leafarea = $(scenario_id + "-leafarea").value;
     if(leafarea === "" || isNaN(leafarea)) {
@@ -148,17 +148,17 @@ ForestGraphData.prototype.updateSpecies = function(species_id) {
     if (typeof(this.species[species_id]) == 'undefined')
         this.species[species_id] = {};
     this.species[species_id].valid = false;
-    this.species[species_id]['name'] = $(species_id + "-name").value;
-    this.species[species_id]['basetemp'] = $(species_id+'-base-temp').value;
-    this.species[species_id]['percent'] = $(species_id + "-percent").value;
-    this.species[species_id]['R0'] = $(species_id + "-R0").value;
-    this.species[species_id]['E0'] = $(species_id + "-E0").value;
+    this.species[species_id].name = $(species_id + "-name").value;
+    this.species[species_id].basetemp = $(species_id+'-base-temp').value;
+    this.species[species_id].percent = $(species_id + "-percent").value;
+    this.species[species_id].R0 = $(species_id + "-R0").value;
+    this.species[species_id].E0 = $(species_id + "-E0").value;
 
-    if(this.species[species_id]['name'] !== "" &&
-        this.species[species_id]['basetemp'] !== "" &&
-        this.species[species_id]['R0'] !== "" &&
-        this.species[species_id]['E0'] !== "" &&
-        this.species[species_id]['percent'] !== "") {
+    if(this.species[species_id].name !== "" &&
+        this.species[species_id].basetemp !== "" &&
+        this.species[species_id].R0 !== "" &&
+        this.species[species_id].E0 !== "" &&
+        this.species[species_id].percent !== "") {
         this.species[species_id].valid = true;
     }
 };
@@ -254,7 +254,7 @@ function forestGraph() {
                                 if(scenario_count === 0) {
                                     for(var i=0; i<data.length; i++) {
                                         var label = ForestData.scenarios[scids[i]].name + " (" + data[i]  + ")";
-                                        g.data(label, data[i], ForestData.scenarios[scids[i]]['color'] );
+                                        g.data(label, data[i], ForestData.scenarios[scids[i]].color );
                                     }
                    
                                     g.minimum_value = 0;
