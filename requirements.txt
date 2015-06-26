@@ -40,7 +40,7 @@ template_utils==0.4p2
 django-indexer==0.3.0
 django-templatetag-sugar==1.0
 django-statsd-mozilla==0.3.14
-django-paging==0.2.2
+django-paging==0.2.5
 django-appconf==0.6
 django-compressor==1.5
 raven==5.2.0
