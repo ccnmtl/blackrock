@@ -102,10 +102,13 @@ class PortalSearchForm(SearchForm):
                                 x = Facet.objects.get(name=key)
                                 display_name = x.display_name
                             except:
-                                model = get_model("portal", key)
-                                if model:
-                                    display_name = capfirst(
-                                        model._meta.verbose_name)
+                                try:
+                                    model = get_model("portal", key)
+                                    if model:
+                                        display_name = capfirst(
+                                            model._meta.verbose_name)
+                                except LookupError:
+                                    pass
 
                             choice = (key, "%s (%s)" % (display_name, value))
                             self.fields[facet].choices.append(choice)
