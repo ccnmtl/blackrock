@@ -113,21 +113,22 @@
 
     EquationHighlighter.prototype.onLoad = function() {
 
-    var self = this;
+        var self = this;
 
-    this.arrhenius_vars = getElementsByTagAndClassName(null,'arr-variable','equation');
-
-    for (var a in self.vars) { //accessing the this.vars from function EquationHighlighter
-        connect('arr-'+a,'onmouseenter',bind(self.hiliteFields,self,a));
-        connect('arr-'+a,'onmouseleave',bind(self.unHiliteFields,self,a));
-        forEach(getElementsByTagAndClassName(null,a),function(elt) {
-        connect(elt,'onfocus',bind(self.hiliteVar,self,a,addElementClass));
-        connect(elt,'onblur',bind(self.hiliteVar,self,a,removeElementClass));
-        if($("plotGraph") !== null) {
-          connect(elt,'onchange',self.needsUpdate);
+        this.arrhenius_vars = getElementsByTagAndClassName(null,'arr-variable','equation');
+        this.inner_function = function(elt) {
+            connect(elt,'onfocus',bind(self.hiliteVar,self,a,addElementClass));
+            connect(elt,'onblur',bind(self.hiliteVar,self,a,removeElementClass));
+            if($("plotGraph") !== null) {
+                connect(elt,'onchange',self.needsUpdate);
+            }
+        };
+        
+        for (var a in self.vars) { //accessing the this.vars from function EquationHighlighter
+            connect('arr-'+a,'onmouseenter',bind(self.hiliteFields,self,a));
+            connect('arr-'+a,'onmouseleave',bind(self.unHiliteFields,self,a));
+            forEach(getElementsByTagAndClassName(null,a),this.inner_function);
         }
-        });
-    }
     };
     
     EquationHighlighter.prototype.needsUpdate = function() {
