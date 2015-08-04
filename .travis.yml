@@ -1,7 +1,10 @@
 language: python
+sudo: false
 python:
   - "2.7"
 install:
   - ./bootstrap.py
 script:
   - make
+notifications:
+  slack: ccnmtl:GizSNscLWJLldjQrffB8mwgm
