@@ -15,8 +15,7 @@ def default_type_choices(site=None):
             ('Person', 'Person'),
             ('ResearchProject', 'Research Project'),
             ('Sighting', 'Sighting'),
-            ('Station', 'Station'),
-            ('TrapLocation', 'Trap Location')]
+            ('Station', 'Station')]
 
 
 def default_facet_choices(facet):
