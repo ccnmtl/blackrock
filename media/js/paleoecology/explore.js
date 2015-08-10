@@ -43,7 +43,7 @@ function showResults(http_request) {
     var divPercents = $('sample-percents-' + depth);
 
     // use Google charts API to create pie chart
-    var baseURL = "http://chart.apis.google.com/chart?cht=p";
+    var baseURL = "http://chart.googleapis.com/chart?cht=p";
     var chartSize = "chs=" + "260x400" + "&chdlp=bv";
     var chartLabels = "chdl=";
 
@@ -60,7 +60,7 @@ function showResults(http_request) {
 
     var countString = "<br />";
     for (var i = 0; i < pollen.length; i++) {
-        var imgString = "<div class='pollen-zoo-image core'><div id='pollen-image'><img src='media/images/pollen/" + getImage(pollen[i]) + "'/></div>";
+        var imgString = "<div class='pollen-zoo-image core'><div id='pollen-image'><img src='/site_media/images/paleoecology/pollen/" + getImage(pollen[i]) + "'/></div>";
         countString += imgString + "<div class='imagename'><b>" + pollen[i] + ":</b><br /> " + counts[i] + " grains <br /></div></div>";
         chartLabels += escape(pollen[i]) + " (" + percents[i] + "%)|";
     }
