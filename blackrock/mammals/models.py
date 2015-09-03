@@ -422,7 +422,7 @@ class Expedition (models.Model):
         help_text="How many students participated", default=0)
     grade_level = models.ForeignKey(GradeLevel, null=True, blank=True)
     grid_square = models.ForeignKey(
-        GridSquare, null=True, blank=True, related_name="Grid Square",
+        GridSquare, null=True, blank=True, related_name="Grid Square+",
         verbose_name="Grid Square used for this expedition")
 
     field_notes = models.CharField(blank=True, null=True, max_length=1024)

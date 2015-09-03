@@ -4,7 +4,7 @@ from decimal import Decimal, ROUND_HALF_UP
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
 from django.core.cache import cache
-from django.db import connection, transaction
+from django.db import connection
 from django.http import HttpResponse, HttpResponseRedirect, \
     HttpResponseForbidden
 from django.shortcuts import render_to_response
@@ -208,7 +208,6 @@ def getcsv(request):
 
 
 @user_passes_test(lambda u: u.is_staff)
-@transaction.atomic
 def loadcsv(request):
     cursor = connection.cursor()
 
@@ -279,7 +278,6 @@ def loadcsv(request):
                                          next_expected_timestamp,
                                          last_valid_temp, prev_station)
 
-    transaction.set_dirty()
     return HttpResponseRedirect('/admin/respiration/temperature')
 
 
@@ -373,7 +371,6 @@ def _utc_to_est(date_string):
 
 
 @user_passes_test(lambda u: u.is_staff)
-@transaction.atomic
 def loadsolr(request):
     application = request.POST.get('application', '')
     collection_id = request.POST.get('collection_id', '')
@@ -457,8 +454,6 @@ def loadsolr(request):
 
     except Exception, e:
         cache.set('solr_error', str(e))
-
-    transaction.set_dirty()
 
     cache.set('solr_complete', True)
 
