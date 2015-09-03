@@ -145,10 +145,10 @@ def display_name(obj):
         return obj.display_name()
     elif display_name:
         return obj.display_name
-    elif name and isinstance(obj.name, types.MethodType):
-        return obj.name()
+    elif name and isinstance(name, types.MethodType):
+        return name()
     else:
-        return obj.name
+        return name
 
 
 @register.filter('search_name')
