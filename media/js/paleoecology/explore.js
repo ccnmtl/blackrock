@@ -43,7 +43,7 @@ function showResults(http_request) {
     var divPercents = $('sample-percents-' + depth);
 
     // use Google charts API to create pie chart
-    var baseURL = "http://chart.googleapis.com/chart?cht=p";
+    var baseURL = "https://chart.googleapis.com/chart?cht=p";
     var chartSize = "chs=" + "260x400" + "&chdlp=bv";
     var chartLabels = "chdl=";
 
