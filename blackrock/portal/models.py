@@ -663,8 +663,8 @@ class FeaturedAsset(models.Model):
                 if attr:
                     return attr
 
-    def save(self):
-        super(FeaturedAsset, self).save()  # Call the "real" save() method.
+    def save(self, *args, **kwargs):
+        super(FeaturedAsset, self).save(*args, **kwargs)
         facet = Facet.objects.get(name="Featured " + self.audience.name)
         self.asset().facet.add(facet)
         self.asset().save()

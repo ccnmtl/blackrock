@@ -59,3 +59,4 @@ django-markwhat==1.4
 django-pagetree==1.1.7
 django-pageblocks==1.0.3
 django-databrowse==1.2
+factory-boy==2.5.2

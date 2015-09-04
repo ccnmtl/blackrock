@@ -1,13 +1,13 @@
 import factory
 
-from blackrock.portal.models import Audience, FeaturedAsset, Facet, Person
+from blackrock.portal.models import Audience, Facet, Person, Region
 
 
 class AudienceFactory(factory.DjangoModelFactory):
     class Meta:
         model = Audience
 
-    name = "Sample Audience"
+    name = factory.Sequence(lambda n: "audience%03d" % n)
 
 
 class FacetFactory(factory.DjangoModelFactory):
@@ -19,11 +19,9 @@ class FacetFactory(factory.DjangoModelFactory):
     facet = "a facet"
 
 
-class FeaturedAssetFactory(factory.DjangoModelFactory):
+class RegionFactory(factory.DjangoModelFactory):
     class Meta:
-        model = FeaturedAsset
-
-    audience = factory.SubFactory(AudienceFactory)
+        model = Region
 
 
 class PersonFactory(factory.DjangoModelFactory):
