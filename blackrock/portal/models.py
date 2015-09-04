@@ -162,9 +162,9 @@ class DigitalObject(models.Model):
     url = models.URLField(null=True, blank=True)
     source = models.CharField(max_length=500, null=True, blank=True)
 
-    audience = models.ManyToManyField(Audience, null=True, blank=True)
+    audience = models.ManyToManyField(Audience, blank=True)
     facet = models.ManyToManyField(Facet)
-    tag = models.ManyToManyField(Tag, null=True, blank=True)
+    tag = models.ManyToManyField(Tag, blank=True)
 
     created_date = models.DateTimeField('created_date', default=datetime.now)
     modified_date = models.DateTimeField('modified_date', default=datetime.now)
@@ -182,18 +182,18 @@ class DigitalObject(models.Model):
 class Location(models.Model):
     name = models.CharField(max_length=500)
     description = models.TextField(null=True, blank=True)
-    location_type = models.ManyToManyField(LocationType, null=True, blank=True)
+    location_type = models.ManyToManyField(LocationType, blank=True)
     location_subtype = models.ManyToManyField(
-        LocationSubtype, null=True, blank=True)
+        LocationSubtype, blank=True)
     latitude = models.DecimalField(max_digits=18, decimal_places=10)
     longitude = models.DecimalField(max_digits=18, decimal_places=10)
     latlong = models.PointField(null=True, blank=True)
     objects = models.GeoManager()
 
-    audience = models.ManyToManyField(Audience, null=True, blank=True)
+    audience = models.ManyToManyField(Audience, blank=True)
     display_image = models.ForeignKey(DigitalObject, null=True, blank=True)
     facet = models.ManyToManyField(Facet)
-    tag = models.ManyToManyField(Tag, null=True, blank=True)
+    tag = models.ManyToManyField(Tag, blank=True)
 
     created_date = models.DateTimeField('created_date', default=datetime.now)
     modified_date = models.DateTimeField('modified_date', default=datetime.now)
@@ -219,13 +219,13 @@ class Station(models.Model):
     activation_date = models.DateField('activation_date')
     location = models.ForeignKey(Location)
 
-    audience = models.ManyToManyField(Audience, null=True, blank=True)
+    audience = models.ManyToManyField(Audience, blank=True)
     display_image = models.ForeignKey(DigitalObject, null=True, blank=True)
     digital_object = models.ManyToManyField(
-        DigitalObject, null=True, blank=True,
+        DigitalObject, blank=True,
         related_name="station_digital_object")  # for extra images & resources
     facet = models.ManyToManyField(Facet)
-    tag = models.ManyToManyField(Tag, null=True, blank=True)
+    tag = models.ManyToManyField(Tag, blank=True)
 
     created_date = models.DateTimeField('created_date', default=datetime.now)
     modified_date = models.DateTimeField('modified_date', default=datetime.now)
@@ -262,13 +262,13 @@ class Station(models.Model):
 class Region(models.Model):
     name = models.CharField(max_length=500)
     description = models.TextField(null=True, blank=True)
-    location = models.ManyToManyField(Location, null=True, blank=True)
+    location = models.ManyToManyField(Location, blank=True)
     region_type = models.ManyToManyField(RegionType)
 
-    audience = models.ManyToManyField(Audience, null=True, blank=True)
+    audience = models.ManyToManyField(Audience, blank=True)
     display_image = models.ForeignKey(DigitalObject, null=True, blank=True)
     facet = models.ManyToManyField(Facet)
-    tag = models.ManyToManyField(Tag, null=True, blank=True)
+    tag = models.ManyToManyField(Tag, blank=True)
 
     created_date = models.DateTimeField('created_date', default=datetime.now)
     modified_date = models.DateTimeField('modified_date', default=datetime.now)
@@ -315,10 +315,10 @@ class Person(models.Model):
     email = models.EmailField(null=True, blank=True)
     url = models.URLField(null=True, blank=True)
 
-    audience = models.ManyToManyField(Audience, null=True, blank=True)
+    audience = models.ManyToManyField(Audience, blank=True)
     display_image = models.ForeignKey(DigitalObject, null=True, blank=True)
     facet = models.ManyToManyField(Facet)
-    tag = models.ManyToManyField(Tag, null=True, blank=True)
+    tag = models.ManyToManyField(Tag, blank=True)
 
     created_date = models.DateTimeField('created_date', default=datetime.now)
     modified_date = models.DateTimeField('modified_date', default=datetime.now)
@@ -328,9 +328,9 @@ class Person(models.Model):
 
     def name(self):
         if len(self.first_name) > 0:
-                return "%s, %s" % (self.last_name, self.first_name)
+            return "%s, %s" % (self.last_name, self.first_name)
         else:
-                return self.last_name
+            return self.last_name
 
     def display_name(self):
         return "%s %s" % (self.first_name, self.last_name)
@@ -347,17 +347,17 @@ class DataSet(models.Model):
     collection_start_date = models.DateField()
     collection_end_date = models.DateField(null=True, blank=True)
     rights_type = models.TextField(default="open")
-    url = models.ManyToManyField(Url, null=True, blank=True)
+    url = models.ManyToManyField(Url, blank=True)
     spatial_explicit = models.BooleanField(default=False)
     blackrock_id = models.CharField(
         max_length=50, unique=True, null=True, blank=True)
 
-    audience = models.ManyToManyField(Audience, null=True, blank=True)
+    audience = models.ManyToManyField(Audience, blank=True)
     display_image = models.ForeignKey(DigitalObject, null=True, blank=True)
     facet = models.ManyToManyField(Facet)
     location = models.ForeignKey(Location)
-    person = models.ManyToManyField(Person, null=True, blank=True)
-    tag = models.ManyToManyField(Tag, null=True, blank=True)
+    person = models.ManyToManyField(Person, blank=True)
+    tag = models.ManyToManyField(Tag, blank=True)
 
     created_date = models.DateTimeField('created_date', default=datetime.now)
     modified_date = models.DateTimeField('modified_date', default=datetime.now)
@@ -382,16 +382,16 @@ class Publication(models.Model):
     description = models.TextField(null=True, blank=True)
     publication_date = models.DateField(null=True, blank=True)
     publication_type = models.ManyToManyField(
-        PublicationType, null=True, blank=True)
+        PublicationType, blank=True)
     rights_type = models.ManyToManyField(RightsType)
     url = models.URLField(null=True, blank=True)
     doi_citation = models.TextField(null=True, blank=True)
 
-    audience = models.ManyToManyField(Audience, null=True, blank=True)
+    audience = models.ManyToManyField(Audience, blank=True)
     display_image = models.ForeignKey(DigitalObject, null=True, blank=True)
     facet = models.ManyToManyField(Facet)
-    person = models.ManyToManyField(Person, null=True, blank=True)
-    tag = models.ManyToManyField(Tag, null=True, blank=True)
+    person = models.ManyToManyField(Person, blank=True)
+    tag = models.ManyToManyField(Tag, blank=True)
 
     created_date = models.DateTimeField('created_date', default=datetime.now)
     modified_date = models.DateTimeField('modified_date', default=datetime.now)
@@ -413,18 +413,18 @@ class ResearchProject(models.Model):
     end_date = models.DateField(null=True, blank=True)
     url = models.URLField(null=True, blank=True)
 
-    audience = models.ManyToManyField(Audience, null=True, blank=True)
-    dataset = models.ManyToManyField(DataSet, null=True, blank=True)
+    audience = models.ManyToManyField(Audience, blank=True)
+    dataset = models.ManyToManyField(DataSet, blank=True)
     digital_object = models.ManyToManyField(
-        DigitalObject, null=True, blank=True)
+        DigitalObject, blank=True)
     display_image = models.ForeignKey(
         DigitalObject, null=True, blank=True,
         related_name="researchproject_display_image")
     facet = models.ManyToManyField(Facet)
     location = models.ForeignKey(Location, null=True, blank=True)
-    person = models.ManyToManyField(Person, null=True, blank=True)
-    publication = models.ManyToManyField(Publication, null=True, blank=True)
-    tag = models.ManyToManyField(Tag, null=True, blank=True)
+    person = models.ManyToManyField(Person, blank=True)
+    publication = models.ManyToManyField(Publication, blank=True)
+    tag = models.ManyToManyField(Tag, blank=True)
 
     created_date = models.DateTimeField('created_date', default=datetime.now)
     modified_date = models.DateTimeField('modified_date', default=datetime.now)
@@ -450,19 +450,19 @@ class LearningActivity(models.Model):
     description = models.TextField(null=True, blank=True)
     author = models.ManyToManyField(Person, related_name="author")
     digital_format = models.ManyToManyField(DigitalFormat)
-    url = models.ManyToManyField(Url, null=True, blank=True)
+    url = models.ManyToManyField(Url, blank=True)
 
-    audience = models.ManyToManyField(Audience, null=True, blank=True)
-    dataset = models.ManyToManyField(DataSet, null=True, blank=True)
+    audience = models.ManyToManyField(Audience, blank=True)
+    dataset = models.ManyToManyField(DataSet, blank=True)
     digital_object = models.ManyToManyField(
-        DigitalObject, null=True, blank=True)
+        DigitalObject, blank=True)
     display_image = models.ForeignKey(
         DigitalObject, null=True, blank=True,
         related_name="learningactivity_display_image")
     facet = models.ManyToManyField(Facet)
     location = models.ForeignKey(Location, null=True, blank=True)
-    person = models.ManyToManyField(Person, null=True, blank=True)
-    tag = models.ManyToManyField(Tag, null=True, blank=True)
+    person = models.ManyToManyField(Person, blank=True)
+    tag = models.ManyToManyField(Tag, blank=True)
 
     created_date = models.DateTimeField('created_date', default=datetime.now)
     modified_date = models.DateTimeField('modified_date', default=datetime.now)
@@ -488,27 +488,27 @@ class ForestStory(models.Model):
     description = models.TextField(null=True, blank=True)
     file = models.FileField(
         upload_to="portal/%Y/%m/%d/", null=True, blank=True)
-    url = models.ManyToManyField(Url, null=True, blank=True)
+    url = models.ManyToManyField(Url, blank=True)
 
-    audience = models.ManyToManyField(Audience, null=True, blank=True)
-    dataset = models.ManyToManyField(DataSet, null=True, blank=True)
+    audience = models.ManyToManyField(Audience, blank=True)
+    dataset = models.ManyToManyField(DataSet, blank=True)
     digital_object = models.ManyToManyField(
-        DigitalObject, null=True, blank=True)
+        DigitalObject, blank=True)
     display_image = models.ForeignKey(
         DigitalObject, null=True, blank=True,
         related_name="foreststory_display_image")
     facet = models.ManyToManyField(Facet)
     learning_activity = models.ManyToManyField(
-        LearningActivity, null=True, blank=True)
+        LearningActivity, blank=True)
     location = models.ForeignKey(Location, null=True, blank=True)
-    person = models.ManyToManyField(Person, null=True, blank=True)
-    publication = models.ManyToManyField(Publication, null=True, blank=True)
+    person = models.ManyToManyField(Person, blank=True)
+    publication = models.ManyToManyField(Publication, blank=True)
     research_project = models.ManyToManyField(
-        ResearchProject, null=True, blank=True)
+        ResearchProject, blank=True)
     station = models.ManyToManyField(
-        Station, null=True, blank=True,
+        Station, blank=True,
         related_name="foreststory_related_station")
-    tag = models.ManyToManyField(Tag, null=True, blank=True)
+    tag = models.ManyToManyField(Tag, blank=True)
 
     created_date = models.DateTimeField('created_date', default=datetime.now)
     modified_date = models.DateTimeField('modified_date', default=datetime.now)
@@ -728,7 +728,7 @@ class PhotoGallery(models.Model):
         PageBlock)
     template_file = "portal/photogallery.html"
     display_name = "Photo Gallery"
-    item = models.ManyToManyField(PhotoGalleryItem, null=True, blank=True)
+    item = models.ManyToManyField(PhotoGalleryItem, blank=True)
 
     def pageblock(self):
         return self.pageblocks.all()[0]
