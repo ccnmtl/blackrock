@@ -1,6 +1,8 @@
 import factory
 
-from blackrock.portal.models import Audience, Facet, Person, Region
+from blackrock.portal.models import (
+    Audience, Facet, Person, Region, AssetList, FeaturedAsset,
+    PhotoGallery, Webcam, InteractiveMap, ForestStory)
 
 
 class AudienceFactory(factory.DjangoModelFactory):
@@ -31,3 +33,33 @@ class PersonFactory(factory.DjangoModelFactory):
     full_name = "John S. Doe"
     first_name = "John"
     last_name = "Doe"
+
+
+class AssetListFactory(factory.DjangoModelFactory):
+    class Meta:
+        model = AssetList
+
+
+class FeaturedAssetFactory(factory.DjangoModelFactory):
+    class Meta:
+        model = FeaturedAsset
+
+
+class PhotoGalleryFactory(factory.DjangoModelFactory):
+    class Meta:
+        model = PhotoGallery
+
+
+class WebCamFactory(factory.DjangoModelFactory):
+    class Meta:
+        model = Webcam
+
+
+class InteractiveMapFactory(factory.DjangoModelFactory):
+    class Meta:
+        model = InteractiveMap
+
+
+class ForestStoryFactory(factory.DjangoModelFactory):
+    class Meta:
+        model = ForestStory

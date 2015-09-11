@@ -65,9 +65,6 @@ class TestHelperFunctions(TestCase):
     def test_tree_png(self):
         pass
 
-    def test_test(self):
-        pass
-
 
 class TestRandomSample(TestCase):
     pass

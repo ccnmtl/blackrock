@@ -1,13 +1,14 @@
-from blackrock.portal.models import Audience, DigitalFormat, Facet
-from blackrock.portal.models import Institution, LocationSubtype
-from blackrock.portal.models import LocationType, PersonType, PublicationType
-from blackrock.portal.models import RegionType, RightsType, Tag, Url
-from blackrock.portal.models import DigitalObject, Location, Station
-from blackrock.portal.models import Person, Publication, LearningActivity
-from blackrock.portal.models import ResearchProject, DataSet, PhotoGalleryItem
-from blackrock.portal.models import ForestStory, Region
-from django.test import TestCase
 from datetime import datetime
+from django.test import TestCase
+from blackrock.portal.models import (
+    Audience, DigitalFormat, Facet, Institution, LocationSubtype,
+    LocationType, PersonType, PublicationType, RegionType, RightsType, Tag,
+    Url, DigitalObject, Location, Station, Person, Publication,
+    LearningActivity, ResearchProject, DataSet, PhotoGalleryItem, ForestStory,
+    Region, AssetList, FeaturedAsset, PhotoGallery, Webcam, InteractiveMap)
+from blackrock.portal.tests.factories import (
+    AssetListFactory, FeaturedAssetFactory, PhotoGalleryFactory,
+    WebCamFactory, InteractiveMapFactory, AudienceFactory, ForestStoryFactory)
 
 
 class TestPortalModels(TestCase):
@@ -442,3 +443,100 @@ class TestPortalModels(TestCase):
         self.fs_dataset_2.foreststory_set.add(self.forest_story_dataset)
         self.fs_dataset_2.save()
         self.assertEquals(len(self.forest_story_dataset.related_ex()), 2)
+
+
+class AssetListTest(TestCase):
+    def setUp(self):
+        self.alf = AssetListFactory()
+
+    def test_add_form(self):
+        f = AssetList.add_form()
+        self.assertEqual(None, f.full_clean())
+
+    def test_edit_form(self):
+        f = self.alf.edit_form()
+        self.assertEqual(None, f.full_clean())
+
+    def test_edit(self):
+        self.alf.edit(None, None)
+
+    def test_needs_submit(self):
+        self.assertFalse(self.alf.needs_submit())
+
+
+# class FeaturedAssetTest(TestCase):
+#     def setUp(self):
+#         self.faf = FeaturedAssetFactory(
+#             audience=AudienceFactory(),
+#             asset_forest_story=ForestStoryFactory(name="asset_forest_story"))
+# 
+#     def test_add_form(self):
+#         f = FeaturedAsset.add_form()
+#         self.assertEqual(None, f.full_clean())
+# 
+#     def test_edit_form(self):
+#         f = self.faf.edit_form()
+#         self.assertEqual(None, f.full_clean())
+# 
+#     def test_edit(self):
+#         self.faf.edit(None, None)
+# 
+#     def test_needs_submit(self):
+#         self.assertFalse(self.faf.needs_submit())
+
+
+class PhotoGalleryTest(TestCase):
+    def setUp(self):
+        self.pgf = PhotoGalleryFactory()
+
+    def test_add_form(self):
+        f = PhotoGallery.add_form()
+        self.assertEqual(None, f.full_clean())
+
+    def test_edit_form(self):
+        f = self.pgf.edit_form()
+        self.assertEqual(None, f.full_clean())
+
+    def test_edit(self):
+        self.pgf.edit(None, None)
+
+    def test_needs_submit(self):
+        self.assertFalse(self.pgf.needs_submit())
+
+
+class WebCamTest(TestCase):
+    def setUp(self):
+        self.wcf = WebCamFactory()
+
+    def test_add_form(self):
+        f = Webcam.add_form()
+        self.assertEqual(None, f.full_clean())
+
+    def test_edit_form(self):
+        f = self.wcf.edit_form()
+        self.assertEqual(None, f.full_clean())
+
+    def test_edit(self):
+        self.wcf.edit(None, None)
+
+    def test_needs_submit(self):
+        self.assertFalse(self.wcf.needs_submit())
+
+
+class InteractiveMapTest(TestCase):
+    def setUp(self):
+        self.imf = InteractiveMapFactory()
+
+    def test_add_form(self):
+        f = InteractiveMap.add_form()
+        self.assertEqual(None, f.full_clean())
+
+    def test_edit_form(self):
+        f = self.imf.edit_form()
+        self.assertEqual(None, f.full_clean())
+
+    def test_edit(self):
+        self.imf.edit(None, None)
+
+    def test_needs_submit(self):
+        self.assertFalse(self.imf.needs_submit())
