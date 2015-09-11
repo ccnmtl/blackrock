@@ -5,10 +5,15 @@ from blackrock.portal.models import (
     LocationType, PersonType, PublicationType, RegionType, RightsType, Tag,
     Url, DigitalObject, Location, Station, Person, Publication,
     LearningActivity, ResearchProject, DataSet, PhotoGalleryItem, ForestStory,
-    Region, AssetList, FeaturedAsset, PhotoGallery, Webcam, InteractiveMap)
+    Region, AssetList, PhotoGallery, Webcam, InteractiveMap)
 from blackrock.portal.tests.factories import (
-    AssetListFactory, FeaturedAssetFactory, PhotoGalleryFactory,
-    WebCamFactory, InteractiveMapFactory, AudienceFactory, ForestStoryFactory)
+    AssetListFactory, PhotoGalleryFactory,
+    WebCamFactory, InteractiveMapFactory)
+
+
+class FakeReq(object):
+    def __init__(self):
+        self.POST = dict()
 
 
 class TestPortalModels(TestCase):
@@ -462,27 +467,6 @@ class AssetListTest(TestCase):
 
     def test_needs_submit(self):
         self.assertFalse(self.alf.needs_submit())
-
-
-# class FeaturedAssetTest(TestCase):
-#     def setUp(self):
-#         self.faf = FeaturedAssetFactory(
-#             audience=AudienceFactory(),
-#             asset_forest_story=ForestStoryFactory(name="asset_forest_story"))
-# 
-#     def test_add_form(self):
-#         f = FeaturedAsset.add_form()
-#         self.assertEqual(None, f.full_clean())
-# 
-#     def test_edit_form(self):
-#         f = self.faf.edit_form()
-#         self.assertEqual(None, f.full_clean())
-# 
-#     def test_edit(self):
-#         self.faf.edit(None, None)
-# 
-#     def test_needs_submit(self):
-#         self.assertFalse(self.faf.needs_submit())
 
 
 class PhotoGalleryTest(TestCase):
