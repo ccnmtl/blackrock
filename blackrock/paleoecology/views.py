@@ -257,7 +257,7 @@ def _process_samples(results, fieldname):
         subj = result['record_subject']
         core_sample, created = _get_or_create_core_sample(subj)
         for name, value in result.items():
-            if name not in exceptions and type(value) == type(float()):
+            if name not in exceptions and isinstance(value, float):
                 # solr names for count/percentages come in lowercase
                 # with underscores replacing spaces
                 pollen_name = _normalize_pollen_name(name)
