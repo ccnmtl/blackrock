@@ -4,6 +4,7 @@ from blackrock.portal.models import Audience, DigitalFormat, Facet, \
     Region, Person, DataSet, Publication, ResearchProject, LearningActivity, \
     ForestStory, PhotoGalleryItem
 from django.contrib import admin
+import django_databrowse
 
 
 class GenericAdmin(admin.ModelAdmin):
@@ -97,9 +98,6 @@ class ForestStoryAdmin(admin.ModelAdmin):
 
 admin.site.register(ForestStory, ForestStoryAdmin)
 admin.site.register(PhotoGalleryItem)
-
-
-import django_databrowse
 
 django_databrowse.site.register(Station)
 django_databrowse.site.register(Person)

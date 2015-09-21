@@ -262,8 +262,8 @@ class RandomSample:
             self.points = [
                 {
                     'x': (p % plots_across * (size + delta)) + delta,
-                    'y': ((math.floor(p / plots_across) * (size + delta))
-                          + delta)
+                    'y': ((math.floor(p / plots_across) * (size + delta)) +
+                          delta)
                 }
                 for p in self.choices]
 
@@ -410,8 +410,8 @@ def sample_plot(sample, point, p_index):
     results['time-measure'] = .5 * results['count']
 
     results['time-total'] = (
-        results['time-travel'] + results['time-locate']
-        + results['time-establish'] + results['time-measure'])
+        results['time-travel'] + results['time-locate'] +
+        results['time-establish'] + results['time-measure'])
 
     # species results
     species_totals = {}

@@ -125,9 +125,9 @@ def transect(request):
     ylocs = {}
     for tree in tree_list:
         new_x = float(tree.location.x) + float(x_offset) / float(scale)
-        new_y = float(tree.location.y) - \
-            (float(plot_h) - float(view_height)
-             + float(y_offset)) / float(scale)
+        new_y = (float(tree.location.y) -
+                 (float(plot_h) - float(view_height) +
+                  float(y_offset)) / float(scale))
         xlocs[tree.id] = new_x
         ylocs[tree.id] = new_y
 
@@ -219,9 +219,9 @@ def worksheet(request):
         new_y = -1 * math.sin(theta) * (float(tree.location.x) - x1) + \
             math.cos(theta) * (float(tree.location.y) - y1) + y1
         new_x = new_x + float(x_offset) / float(scale)
-        new_y = new_y - \
-            (float(plot_h) - float(view_height)
-             + float(y_offset)) / float(scale)
+        new_y = (new_y -
+                 (float(plot_h) - float(view_height) +
+                  float(y_offset)) / float(scale))
         xlocs[tree.id] = new_x  # + 30
         ylocs[tree.id] = new_y  # + 16
 

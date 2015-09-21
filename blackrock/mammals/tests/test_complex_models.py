@@ -240,8 +240,8 @@ class TestMoreMammalModels(TestCase):
     def test_trap_location_nickname(self):
         team_nickname = self.time_trap.trap_nickname()
         self.assertEquals(team_nickname,
-                          (self.time_trap.team_letter
-                           + str(self.time_trap.team_number)))
+                          (self.time_trap.team_letter +
+                           str(self.time_trap.team_number)))
 
     def test_trap_location_species(self):
         species_does_not_exist = self.trap_location.species_if_any()
