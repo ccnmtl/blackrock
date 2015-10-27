@@ -34,6 +34,7 @@ pyflakes==0.9.2
 flake8==2.4.1
 statsd==3.1
 six==1.9.0
+fake-factory==0.5.3
 
 django-smartif==0.1
 djangowind==0.14.1
@@ -59,4 +60,4 @@ django-markwhat==1.4
 django-pagetree==1.1.7
 django-pageblocks==1.0.3
 django-databrowse==1.2
-factory-boy==2.5.2
+factory-boy==2.6.0
