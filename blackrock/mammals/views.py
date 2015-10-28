@@ -612,54 +612,53 @@ def process_edit_expedition(request, expedition_id):
     exp = Expedition.objects.get(id=expedition_id)
     rp = request.POST
 
-    if rp:
-        if 'school' in rp and rp['school'] != 'None':
-            exp.school_id = int(rp['school'])
-        if 'school_contact_1_name' in rp:
-            exp.school_contact_1_name = rp['school_contact_1_name']
-        if 'school_contact_1_phone' in rp:
-            exp.school_contact_1_phone = rp['school_contact_1_phone']
-        if 'school_contact_1_email' in rp:
-            exp.school_contact_1_email = rp['school_contact_1_email']
+    if 'school' in rp and rp['school'] != 'None':
+        exp.school_id = int(rp['school'])
+    if 'school_contact_1_name' in rp:
+        exp.school_contact_1_name = rp['school_contact_1_name']
+    if 'school_contact_1_phone' in rp:
+        exp.school_contact_1_phone = rp['school_contact_1_phone']
+    if 'school_contact_1_email' in rp:
+        exp.school_contact_1_email = rp['school_contact_1_email']
 
-        if 'school_contact_1_email' in rp:
-            exp.school_contact_1_email = rp['school_contact_1_email']
+    if 'school_contact_1_email' in rp:
+        exp.school_contact_1_email = rp['school_contact_1_email']
 
-        if ('expedition_hour_string' in rp and
-                'expedition_minute_string' in rp):
-            exp.set_end_time_from_strings(
-                rp['expedition_hour_string'], rp['expedition_minute_string'])
+    if ('expedition_hour_string' in rp and
+            'expedition_minute_string' in rp):
+        exp.set_end_time_from_strings(
+            rp['expedition_hour_string'], rp['expedition_minute_string'])
 
-        if 'grade' in rp:
-            exp.grade_level_id = int(rp['grade'])
+    if 'grade' in rp:
+        exp.grade_level_id = int(rp['grade'])
 
-        if 'number_of_students' in rp:
-            try:
-                exp.number_of_students = int(rp['number_of_students'])
-            except ValueError:
-                exp.number_of_students = 0
+    if 'number_of_students' in rp:
+        try:
+            exp.number_of_students = int(rp['number_of_students'])
+        except ValueError:
+            exp.number_of_students = 0
 
-        if 'overnight_temperature_int' in rp:
-            try:
-                exp.overnight_temperature_int = int(
-                    rp['overnight_temperature_int'])
-            except ValueError:
-                exp.overnight_temperature_int = 0
+    if 'overnight_temperature_int' in rp:
+        try:
+            exp.overnight_temperature_int = int(
+                rp['overnight_temperature_int'])
+        except ValueError:
+            exp.overnight_temperature_int = 0
 
-        exp.save()
+    exp.save()
 
-        form_map_environment = {
-            'moon_phase': 'moon_phase_id',
-            'cloud_cover': 'cloud_cover_id',
-            'overnight_temperature': 'overnight_temperature_id',
-            'overnight_precipitation': 'overnight_precipitation_id',
-            'overnight_precipitation_type': 'overnight_precipitation_type_id'
-        }
+    form_map_environment = {
+        'moon_phase': 'moon_phase_id',
+        'cloud_cover': 'cloud_cover_id',
+        'overnight_temperature': 'overnight_temperature_id',
+        'overnight_precipitation': 'overnight_precipitation_id',
+        'overnight_precipitation_type': 'overnight_precipitation_type_id'
+    }
 
-        for the_key, thing_to_update in form_map_environment.iteritems():
-            if the_key in rp:
-                setattr(exp, thing_to_update, int(rp[the_key]))
-                exp.save()
+    for the_key, thing_to_update in form_map_environment.iteritems():
+        if the_key in rp:
+            setattr(exp, thing_to_update, int(rp[the_key]))
+            exp.save()
 
 
 @csrf_protect
