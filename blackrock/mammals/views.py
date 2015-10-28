@@ -810,72 +810,76 @@ def process_save_team_form(request):
     }
 
     for point in the_team_points:
-        if 'student_names' in rp:
-            point.student_names = rp['student_names']
-            point.save()
+        process_point(point, rp, form_map, form_map_booleans)
 
-        for the_key, thing_to_update in form_map.iteritems():
-            rp_key = '%s_%d' % (the_key, point.id)
-            if rp_key in rp and rp[rp_key] != 'None':
-                setattr(point, '%s' % thing_to_update, rp[rp_key])
-                point.save()
-        for the_key, thing_to_update in form_map_booleans.iteritems():
-            rp_key = '%s_%d' % (the_key, point.id)
-            if rp_key in rp and rp[rp_key] != 'None':
-                setattr(point, '%s' %
-                        thing_to_update, (rp[rp_key] == 'True'))
-                point.save()
 
-        rp_key = '%s_%d' % ('understory', point.id)
+def process_point(point, rp, form_map, form_map_booleans):
+    if 'student_names' in rp:
+        point.student_names = rp['student_names']
+        point.save()
+
+    for the_key, thing_to_update in form_map.iteritems():
+        rp_key = '%s_%d' % (the_key, point.id)
         if rp_key in rp and rp[rp_key] != 'None':
-            point.understory = rp[rp_key]
+            setattr(point, '%s' % thing_to_update, rp[rp_key])
             point.save()
-
-        rp_key = '%s_%d' % ('notes_about_location', point.id)
+    for the_key, thing_to_update in form_map_booleans.iteritems():
+        rp_key = '%s_%d' % (the_key, point.id)
         if rp_key in rp and rp[rp_key] != 'None':
-            point.notes_about_location = rp[rp_key]
+            setattr(point, '%s' %
+                    thing_to_update, (rp[rp_key] == 'True'))
             point.save()
 
-        deal_with_animals(point, rp)
+    rp_key = '%s_%d' % ('understory', point.id)
+    if rp_key in rp and rp[rp_key] != 'None':
+        point.understory = rp[rp_key]
+        point.save()
 
-        # Deal with actual latitude and longitude:
-        # The burden of providing good data here rests on the front end.
-        # If the actual lat and lon don't meet our data standards, we're simply
-        # not going to use them.
-        # 1) Do they both exist?
-        # 2) Are they both accurate to 5 decimals?
-        # 3) Are they within a certain distance of the original lat and lon (no
-        # interest in points in another country.
-        correcting_lat_lon = False
-        match_string = '(\-)?(\d){2}\.(\d){5}'
+    rp_key = '%s_%d' % ('notes_about_location', point.id)
+    if rp_key in rp and rp[rp_key] != 'None':
+        point.notes_about_location = rp[rp_key]
+        point.save()
 
-        # if your coordinate string doesn't match the above, you have a nice
-        # day.
-        lat_key = 'actual_lat_%d' % point.id
-        lon_key = 'actual_lon_%d' % point.id
+    deal_with_animals(point, rp)
 
-        max_diff = 250.0  # meters
-        min_diff = 1.0  # meters
+    # Deal with actual latitude and longitude:
+    # The burden of providing good data here rests on the front end.
+    # If the actual lat and lon don't meet our data standards, we're simply
+    # not going to use them.
+    # 1) Do they both exist?
+    # 2) Are they both accurate to 5 decimals?
+    # 3) Are they within a certain distance of the original lat and lon (no
+    # interest in points in another country.
+    correcting_lat_lon = False
+    match_string = '(\-)?(\d){2}\.(\d){5}'
 
-        correcting_lat_lon = need_to_correct_lat_lon(rp, lat_key, lon_key,
-                                                     match_string)
+    # if your coordinate string doesn't match the above, you have a nice
+    # day.
+    lat_key = 'actual_lat_%d' % point.id
+    lon_key = 'actual_lon_%d' % point.id
 
-        if correcting_lat_lon:
-            diff_lat = point.actual_lat() - float(rp[lat_key])
-            diff_lon = point.actual_lon() - float(rp[lon_key])
-            distance_to_corrected_point_in_meters = hypotenuse(
-                *to_meters(diff_lat, diff_lon))
-            if distance_to_corrected_point_in_meters > max_diff:
-                correcting_lat_lon = False
-                # distance_to_corrected_point_in_meters
-        if (correcting_lat_lon and
-                distance_to_corrected_point_in_meters < min_diff):
+    max_diff = 250.0  # meters
+    min_diff = 1.0  # meters
+
+    correcting_lat_lon = need_to_correct_lat_lon(rp, lat_key, lon_key,
+                                                 match_string)
+
+    if correcting_lat_lon:
+        diff_lat = point.actual_lat() - float(rp[lat_key])
+        diff_lon = point.actual_lon() - float(rp[lon_key])
+        distance_to_corrected_point_in_meters = hypotenuse(
+            *to_meters(diff_lat, diff_lon))
+        if distance_to_corrected_point_in_meters > max_diff:
             correcting_lat_lon = False
             # distance_to_corrected_point_in_meters
-        if correcting_lat_lon:
-            point.set_actual_lat_long(
-                [float(rp[lat_key]), float(rp[lon_key])])
-            point.save()
+    if (correcting_lat_lon and
+            distance_to_corrected_point_in_meters < min_diff):
+        correcting_lat_lon = False
+        # distance_to_corrected_point_in_meters
+    if correcting_lat_lon:
+        point.set_actual_lat_long(
+            [float(rp[lat_key]), float(rp[lon_key])])
+        point.save()
 
 
 @csrf_protect
