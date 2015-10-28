@@ -749,6 +749,20 @@ def deal_with_animals(point, rp):
         animal.save()
 
 
+def need_to_correct_lat_lon(rp, lat_key, lon_key, match_string):
+    correcting_lat_lon = True
+
+    if correcting_lat_lon and lat_key not in rp:
+        correcting_lat_lon = False
+    if correcting_lat_lon and lon_key not in rp:
+        correcting_lat_lon = False
+    if correcting_lat_lon and match(match_string, rp[lat_key]) is None:
+        correcting_lat_lon = False
+    if correcting_lat_lon and match(match_string, rp[lon_key]) is None:
+        correcting_lat_lon = False
+    return correcting_lat_lon
+
+
 def process_save_team_form(request):
     if request.method != 'POST':
         return HttpResponseRedirect('/mammals/all_expeditions/')
@@ -815,16 +829,8 @@ def process_save_team_form(request):
         max_diff = 250.0  # meters
         min_diff = 1.0  # meters
 
-        correcting_lat_lon = True
-
-        if correcting_lat_lon and lat_key not in rp:
-            correcting_lat_lon = False
-        if correcting_lat_lon and lon_key not in rp:
-            correcting_lat_lon = False
-        if correcting_lat_lon and match(match_string, rp[lat_key]) is None:
-            correcting_lat_lon = False
-        if correcting_lat_lon and match(match_string, rp[lon_key]) is None:
-            correcting_lat_lon = False
+        correcting_lat_lon = need_to_correct_lat_lon(rp, lat_key, lon_key,
+                                                     match_string)
 
         if correcting_lat_lon:
             diff_lat = point.actual_lat() - float(rp[lat_key])
