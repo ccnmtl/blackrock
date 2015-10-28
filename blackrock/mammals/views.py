@@ -529,6 +529,13 @@ def update_sighting_observers(the_sighting, rp):
         pass
 
 
+def update_sighting_notes(the_sighting, rp):
+    try:
+        the_sighting.notes = rp['notes']
+    except:
+        pass
+
+
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry,
                   login_url='/mammals/login/')
 def edit_sighting(request):
@@ -543,11 +550,7 @@ def edit_sighting(request):
     update_sighting_habitat(the_sighting, rp)
     update_sighting_observation_type(the_sighting, rp)
     update_sighting_observers(the_sighting, rp)
-
-    try:
-        the_sighting.notes = rp['notes']
-    except:
-        pass
+    update_sighting_notes(the_sighting, rp)
 
     the_sighting.save()
     return redirect_to_sighting(rp, the_sighting)
