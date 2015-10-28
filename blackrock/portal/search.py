@@ -93,32 +93,32 @@ class PortalSearchForm(SearchForm):
         sqs = self._get_sqs()
 
         # facet counts based on result set
-        if len(sqs) > 0:  # ## this is broken
-            counts = sqs.facet_counts()
-            for facet in counts['fields']:
-                if facet in self.fields:
-                    for key, value in counts['fields'][facet]:
-                        if value > 0:
-                            # Look up the display name for this facet
-                            display_name = key
+        if len(sqs) <= 0:
+            return sqs
+
+        counts = sqs.facet_counts()
+        for facet in counts['fields']:
+            if facet in self.fields:
+                for key, value in counts['fields'][facet]:
+                    if value > 0:
+                        # Look up the display name for this facet
+                        display_name = key
+                        try:
+                            x = Facet.objects.get(name=key)
+                            display_name = x.display_name
+                        except:
                             try:
-                                x = Facet.objects.get(name=key)
-                                display_name = x.display_name
-                            except:
-                                try:
-                                    model = get_model("portal", key)
-                                    if model:
-                                        display_name = capfirst(
-                                            model._meta.verbose_name)
-                                except LookupError:
-                                    pass
+                                model = get_model("portal", key)
+                                if model:
+                                    display_name = capfirst(
+                                        model._meta.verbose_name)
+                            except LookupError:
+                                pass
 
-                            choice = (key, "%s (%s)" % (display_name, value))
-                            self.fields[facet].choices.append(choice)
+                        choice = (key, "%s (%s)" % (display_name, value))
+                        self.fields[facet].choices.append(choice)
 
-                    self.fields[facet].choices.sort()
-
-        return sqs
+                self.fields[facet].choices.sort()
 
 
 class PortalSearchView(SearchView):
