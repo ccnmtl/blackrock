@@ -64,6 +64,17 @@ def get_all_series(series_ids):
     return all_series
 
 
+def get_all_scatterplot_series(independent, dependent):
+    all_series = []
+    for series in Series.objects.all():
+        if str(series.id) == independent:
+            series.independent = True
+        if str(series.id) == dependent:
+            series.dependent = True
+        all_series.append(series)
+    return all_series
+
+
 def remove_zeroes(data):
     newdata = []
     for d in data["data"]:
@@ -181,15 +192,8 @@ def graphing_tool(request):
             data["dependent"] = dep_series
             data["skip_zeroes"] = skip_zeroes
 
-        all_series = []
-        for series in Series.objects.all():
-            if str(series.id) == independent:
-                series.independent = True
-            if str(series.id) == dependent:
-                series.dependent = True
-            all_series.append(series)
         data['show_graph'] = True
-        data['all_series'] = all_series
+        data['all_series'] = get_all_scatterplot_series(independent, dependent)
 
     t = end - start
     data['seconds'] = t.seconds
