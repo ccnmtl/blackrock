@@ -605,13 +605,7 @@ def edit_expedition_ajax(request):
     return HttpResponse(msg)
 
 
-@user_passes_test(whether_this_user_can_see_mammals_module_data_entry,
-                  login_url='/mammals/login/')
-def process_edit_expedition(request, expedition_id):
-
-    exp = Expedition.objects.get(id=expedition_id)
-    rp = request.POST
-
+def update_school_info(rp, exp):
     if 'school' in rp and rp['school'] != 'None':
         exp.school_id = int(rp['school'])
     if 'school_contact_1_name' in rp:
@@ -623,6 +617,15 @@ def process_edit_expedition(request, expedition_id):
 
     if 'school_contact_1_email' in rp:
         exp.school_contact_1_email = rp['school_contact_1_email']
+    return exp
+
+
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry,
+                  login_url='/mammals/login/')
+def process_edit_expedition(request, expedition_id):
+    exp = Expedition.objects.get(id=expedition_id)
+    rp = request.POST
+    exp = update_school_info(rp, exp)
 
     if ('expedition_hour_string' in rp and
             'expedition_minute_string' in rp):
