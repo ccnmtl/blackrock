@@ -103,24 +103,28 @@ class PortalSearchForm(SearchForm):
 
             for key, value in counts['fields'][facet]:
                 if value > 0:
-                    # Look up the display name for this facet
-                    display_name = key
-                    try:
-                        x = Facet.objects.get(name=key)
-                        display_name = x.display_name
-                    except:
-                        try:
-                            model = get_model("portal", key)
-                            if model:
-                                display_name = capfirst(
-                                    model._meta.verbose_name)
-                        except LookupError:
-                            pass
-
+                    display_name = get_facet_display_name(key)
                     choice = (key, "%s (%s)" % (display_name, value))
                     self.fields[facet].choices.append(choice)
 
             self.fields[facet].choices.sort()
+
+
+def get_facet_display_name(key):
+    # Look up the display name for this facet
+    display_name = key
+    try:
+        x = Facet.objects.get(name=key)
+        display_name = x.display_name
+    except:
+        try:
+            model = get_model("portal", key)
+            if model:
+                display_name = capfirst(
+                    model._meta.verbose_name)
+        except LookupError:
+            pass
+    return display_name
 
 
 class PortalSearchView(SearchView):
