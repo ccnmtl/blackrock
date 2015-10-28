@@ -78,6 +78,34 @@ def loadpercents(request):
     return loadcsv(request, "percents")
 
 
+def fix_counts(type, pollen_name, pines, core, row, i, asteraceae):
+    # hack to fix Pinus and Asteraceae counts
+    if type == "counts":
+        if pollen_name in pines:
+            (second, created) = \
+                PollenType.objects.get_or_create(name="Pinus")
+            (p, created) = \
+                PollenSample.objects.get_or_create(
+                    core_sample=core,
+                    pollen=second)
+            if created:
+                p.display_name = "Pinus (Pine)"
+            p.count = (p.count or 0) + int(row[i])
+            p.save()
+
+        if pollen_name in asteraceae:
+            (second, created) = \
+                PollenType.objects.get_or_create(name="Asteraceae")
+            (p, created) = \
+                PollenSample.objects.get_or_create(
+                    core_sample=core,
+                    pollen=second)
+            if created:
+                p.display_name = 'Asteraceae (Ragweed & herbs)'
+            p.count = (p.count or 0) + int(row[i])
+            p.save()
+
+
 @user_passes_test(lambda u: u.is_staff)
 def loadcsv(request, type):
     # if csv file provided, load
@@ -126,30 +154,7 @@ def loadcsv(request, type):
             p.save()
 
             # hack to fix Pinus and Asteraceae counts
-            if type == "counts":
-                if pollen_name in pines:
-                    (second, created) = \
-                        PollenType.objects.get_or_create(name="Pinus")
-                    (p, created) = \
-                        PollenSample.objects.get_or_create(
-                            core_sample=core,
-                            pollen=second)
-                    if created:
-                        p.display_name = "Pinus (Pine)"
-                    p.count = (p.count or 0) + int(row[i])
-                    p.save()
-
-                if pollen_name in asteraceae:
-                    (second, created) = \
-                        PollenType.objects.get_or_create(name="Asteraceae")
-                    (p, created) = \
-                        PollenSample.objects.get_or_create(
-                            core_sample=core,
-                            pollen=second)
-                    if created:
-                        p.display_name = 'Asteraceae (Ragweed & herbs)'
-                    p.count = (p.count or 0) + int(row[i])
-                    p.save()
+            fix_counts(type, pollen_name, pines, core, row, i, asteraceae)
 
     admin_msg = "Successfully imported data."
 
