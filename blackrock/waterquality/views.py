@@ -55,6 +55,15 @@ def get_lines(request):
     return lines
 
 
+def get_all_series(series_ids):
+    all_series = []
+    for series in Series.objects.all():
+        if str(series.id) in series_ids:
+            series.selected = True
+        all_series.append(series)
+    return all_series
+
+
 @render_to('waterquality/graphing_tool.html')
 def graphing_tool(request):
     data = dict()
@@ -96,12 +105,7 @@ def graphing_tool(request):
                 data['too_much_data'] = True
 
         data["datasets"] = datasets
-        all_series = []
-        for series in Series.objects.all():
-            if str(series.id) in series_ids:
-                series.selected = True
-            all_series.append(series)
-        data['all_series'] = all_series
+        data['all_series'] = get_all_series(series_ids)
         data['show_graph'] = True
 
     if graph_type == 'box-plot':
@@ -114,12 +118,7 @@ def graphing_tool(request):
 
         data["datasets"] = datasets
         data["lsg"] = LimitedSeriesGroup(series=datasets)
-        all_series = []
-        for series in Series.objects.all():
-            if str(series.id) in series_ids:
-                series.selected = True
-            all_series.append(series)
-        data['all_series'] = all_series
+        data['all_series'] = get_all_series(series_ids)
         data['show_graph'] = False
         data['show_box_plot'] = len(datasets) > 0
 
