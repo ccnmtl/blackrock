@@ -507,6 +507,13 @@ def update_sighting_location(the_sighting, rp):
         pass  # if it's empty  we don't care .
 
 
+def update_sighting_habitat(the_sighting, rp):
+    try:
+        the_sighting.habitat = Habitat.objects.get(pk=rp['habitat_id'])
+    except:
+        pass
+
+
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry,
                   login_url='/mammals/login/')
 def edit_sighting(request):
@@ -518,11 +525,7 @@ def edit_sighting(request):
     update_sighting_location(the_sighting, rp)
     update_sighting_date(the_sighting, rp)
     update_sighting_species(the_sighting, rp)
-
-    try:
-        the_sighting.habitat = Habitat.objects.get(pk=rp['habitat_id'])
-    except:
-        pass
+    update_sighting_habitat(the_sighting, rp)
 
     try:
         the_sighting.observation_type = ObservationType.objects.get(
