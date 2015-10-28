@@ -63,7 +63,7 @@ class PortalSearchForm(SearchForm):
                     query += "%s:%s" % (name, a)
         return query
 
-    def search(self):
+    def _get_sqs(self):
         sqs = []
         self.hidden = []
 
@@ -87,6 +87,10 @@ class PortalSearchForm(SearchForm):
                 query = self.get_multiplechoicefield(facet)
                 if len(query):
                     sqs = sqs.narrow(query)
+        return sqs
+
+    def search(self):
+        sqs = self._get_sqs()
 
         # facet counts based on result set
         if len(sqs) > 0:  # ## this is broken

@@ -11,7 +11,7 @@ test: ./ve/bin/python
 	$(MANAGE) jenkins --pep8-exclude=migrations --enable-coverage --coverage-rcfile=.coveragerc
 
 flake8: ./ve/bin/python
-	$(FLAKE8) $(APP) --max-complexity=18
+	$(FLAKE8) $(APP) --max-complexity=17
 
 runserver: ./ve/bin/python check
 	$(MANAGE) runserver
