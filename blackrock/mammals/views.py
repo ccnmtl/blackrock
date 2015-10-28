@@ -500,6 +500,13 @@ def update_sighting_species(the_sighting, rp):
         pass
 
 
+def update_sighting_location(the_sighting, rp):
+    try:
+        the_sighting.set_lat_long([float(rp['lat']), float(rp['lon'])])
+    except ValueError:
+        pass  # if it's empty  we don't care .
+
+
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry,
                   login_url='/mammals/login/')
 def edit_sighting(request):
@@ -508,11 +515,7 @@ def edit_sighting(request):
     rp = request.POST
     the_sighting = Sighting.objects.get(pk=rp['sighting_id'])
 
-    try:
-        the_sighting.set_lat_long([float(rp['lat']), float(rp['lon'])])
-    except ValueError:
-        pass  # if it's empty  we don't care .
-
+    update_sighting_location(the_sighting, rp)
     update_sighting_date(the_sighting, rp)
     update_sighting_species(the_sighting, rp)
 
