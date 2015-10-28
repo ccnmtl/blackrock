@@ -531,6 +531,10 @@ def edit_sighting(request):
         pass
 
     the_sighting.save()
+    return redirect_to_sighting(rp, the_sighting)
+
+
+def redirect_to_sighting(rp, the_sighting):
     if rp['go_back'] == '':
         return HttpResponseRedirect('/mammals/sighting/%d' % the_sighting.id)
     else:
