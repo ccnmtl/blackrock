@@ -778,18 +778,15 @@ def process_save_team_form(request):
 
             # TODO (icing ) here we assume that the animal has never been
             # trapped before.
-            animal_never_trapped_before = True
-            if animal_never_trapped_before:
-                animal = Animal()
-                animal.species = species
-                animal.save()
-            else:
-                # Note, would be nice to have a foreign key to another Animal
-                # denoting that this Animal is the same actual organism as the
-                # other Animal, but recaptured at a later date and
-                # aidentified by the same tag.
-                # animal = find_already_tagged_animal_in_the_database_somehow()
-                pass
+            animal = Animal()
+            animal.species = species
+            animal.save()
+
+            # Note, would be nice to have a foreign key to another Animal
+            # denoting that this Animal is the same actual organism as the
+            # other Animal, but recaptured at a later date and
+            # aidentified by the same tag.
+            # animal = find_already_tagged_animal_in_the_database_somehow()
 
             point.animal = animal
             point.save()
