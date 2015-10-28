@@ -4,6 +4,21 @@ from datetime import timedelta
 from decimal import Decimal
 
 
+def make_rows(series, step_date, end_date, d):
+    missing = 0
+    found = 0
+    while step_date < end_date:
+        r = series.row_set.filter(timestamp=step_date)
+        if r.count() == 0:
+            missing += 1
+            r = Row.objects.create(series=series,
+                                   timestamp=step_date, value="0.0")
+        else:
+            found += 1
+        step_date = step_date + d
+    return (missing, found)
+
+
 class Command(BaseCommand):
     args = ''
     help = ''
@@ -14,17 +29,7 @@ class Command(BaseCommand):
         end_date = series.row_set.all().order_by("-timestamp")[0].timestamp
         step_date = start_date
         d = timedelta(hours=1)
-        missing = 0
-        found = 0
-        while step_date < end_date:
-            r = series.row_set.filter(timestamp=step_date)
-            if r.count() == 0:
-                missing += 1
-                r = Row.objects.create(series=series,
-                                       timestamp=step_date, value="0.0")
-            else:
-                found += 1
-            step_date = step_date + d
+        (missing, found) = make_rows(series, step_date, end_date, d)
 
         print "filled in %d" % missing
         print "total: %d" % series.row_set.all().count()

@@ -63,7 +63,7 @@ class PortalSearchForm(SearchForm):
                     query += "%s:%s" % (name, a)
         return query
 
-    def search(self):
+    def _get_sqs(self):
         sqs = []
         self.hidden = []
 
@@ -87,34 +87,47 @@ class PortalSearchForm(SearchForm):
                 query = self.get_multiplechoicefield(facet)
                 if len(query):
                     sqs = sqs.narrow(query)
+        return sqs
+
+    def search(self):
+        sqs = self._get_sqs()
 
         # facet counts based on result set
-        if len(sqs) > 0:  # ## this is broken
-            counts = sqs.facet_counts()
-            for facet in counts['fields']:
-                if facet in self.fields:
-                    for key, value in counts['fields'][facet]:
-                        if value > 0:
-                            # Look up the display name for this facet
-                            display_name = key
-                            try:
-                                x = Facet.objects.get(name=key)
-                                display_name = x.display_name
-                            except:
-                                try:
-                                    model = get_model("portal", key)
-                                    if model:
-                                        display_name = capfirst(
-                                            model._meta.verbose_name)
-                                except LookupError:
-                                    pass
+        if len(sqs) <= 0:
+            return sqs
 
-                            choice = (key, "%s (%s)" % (display_name, value))
-                            self.fields[facet].choices.append(choice)
+        self.update_facets(sqs)
 
-                    self.fields[facet].choices.sort()
+    def update_facets(self, sqs):
+        counts = sqs.facet_counts()
+        for facet in counts['fields']:
+            if facet not in self.fields:
+                continue
 
-        return sqs
+            for key, value in counts['fields'][facet]:
+                if value > 0:
+                    display_name = get_facet_display_name(key)
+                    choice = (key, "%s (%s)" % (display_name, value))
+                    self.fields[facet].choices.append(choice)
+
+            self.fields[facet].choices.sort()
+
+
+def get_facet_display_name(key):
+    # Look up the display name for this facet
+    display_name = key
+    try:
+        x = Facet.objects.get(name=key)
+        display_name = x.display_name
+    except:
+        try:
+            model = get_model("portal", key)
+            if model:
+                display_name = capfirst(
+                    model._meta.verbose_name)
+        except LookupError:
+            pass
+    return display_name
 
 
 class PortalSearchView(SearchView):

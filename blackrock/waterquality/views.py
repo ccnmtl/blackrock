@@ -41,6 +41,49 @@ def get_end_or_error(end):
         return None, "invalid end date: %s" % end
 
 
+def get_lines(request):
+    lines = []
+    # iterating over QueryDict for keys starting with line_value
+    # and using v to get value
+    for k in request.GET.keys():
+        if k.startswith("line_value_"):
+            v = request.GET.get(k, '')  # why ''?
+            if v:
+                n = k[len("line_value_"):]
+                l = request.GET.get("line_label_%s" % n)
+                lines.append(dict(label=l, value=v, n=int(n)))
+    return lines
+
+
+def get_all_series(series_ids):
+    all_series = []
+    for series in Series.objects.all():
+        if str(series.id) in series_ids:
+            series.selected = True
+        all_series.append(series)
+    return all_series
+
+
+def get_all_scatterplot_series(independent, dependent):
+    all_series = []
+    for series in Series.objects.all():
+        if str(series.id) == independent:
+            series.independent = True
+        if str(series.id) == dependent:
+            series.dependent = True
+        all_series.append(series)
+    return all_series
+
+
+def remove_zeroes(data):
+    newdata = []
+    for d in data["data"]:
+        if d[0] == 0 or d[1] == 0 or d[0] == 0.0 or d[1] == 0.0:
+            continue
+        newdata.append(d)
+    return newdata
+
+
 @render_to('waterquality/graphing_tool.html')
 def graphing_tool(request):
     data = dict()
@@ -60,17 +103,7 @@ def graphing_tool(request):
     data["end"] = end
 
     if graph_type == 'time-series' or graph_type == 'scatter-plot':
-        lines = []
-        # iterating over QueryDict for keys starting with line_value
-        # and using v to get value
-        for k in request.GET.keys():
-            if k.startswith("line_value_"):
-                v = request.GET.get(k, '')  # why ''?
-                if v:
-                    n = k[len("line_value_"):]
-                    l = request.GET.get("line_label_%s" % n)
-                    lines.append(dict(label=l, value=v, n=int(n)))
-        data["lines"] = lines
+        data["lines"] = get_lines(request)
 
     if graph_type == 'time-series':
         series_ids = request.GET.getlist('series')
@@ -92,12 +125,7 @@ def graphing_tool(request):
                 data['too_much_data'] = True
 
         data["datasets"] = datasets
-        all_series = []
-        for series in Series.objects.all():
-            if str(series.id) in series_ids:
-                series.selected = True
-            all_series.append(series)
-        data['all_series'] = all_series
+        data['all_series'] = get_all_series(series_ids)
         data['show_graph'] = True
 
     if graph_type == 'box-plot':
@@ -110,12 +138,7 @@ def graphing_tool(request):
 
         data["datasets"] = datasets
         data["lsg"] = LimitedSeriesGroup(series=datasets)
-        all_series = []
-        for series in Series.objects.all():
-            if str(series.id) in series_ids:
-                series.selected = True
-            all_series.append(series)
-        data['all_series'] = all_series
+        data['all_series'] = get_all_series(series_ids)
         data['show_graph'] = False
         data['show_box_plot'] = len(datasets) > 0
 
@@ -137,52 +160,7 @@ def graphing_tool(request):
             data['show_ttest'] = True
 
     if graph_type == 'scatter-plot':
-        independent = request.GET.get('independent', None)
-        dependent = request.GET.get('dependent', None)
-        skip_zeroes = request.GET.get('skip_zeroes', None)
-
-        if independent and dependent:
-            ind_series = get_object_or_404(Series, id=independent)
-            dep_series = get_object_or_404(Series, id=dependent)
-
-            data["datasets"] = [
-                dict(
-                    series=ind_series,
-                    lseries=LimitedSeries(
-                        series=ind_series, start=start, end=end)),
-                dict(
-                    series=dep_series,
-                    lseries=LimitedSeries(
-                        series=dep_series, start=start, end=end))
-            ]
-            ind_data = ind_series.range_data(start, end, max_points=50000)
-            dep_data = dep_series.range_data(start, end, max_points=50000)
-            data['lseriesp'] = LimitedSeriesPair(independent=ind_series,
-                                                 dependent=dep_series,
-                                                 start=start,
-                                                 end=end,
-                                                 skip_zeroes=skip_zeroes)
-            data["data"] = zip(ind_data, dep_data)
-            if skip_zeroes:
-                newdata = []
-                for d in data["data"]:
-                    if d[0] == 0 or d[1] == 0 or d[0] == 0.0 or d[1] == 0.0:
-                        continue
-                    newdata.append(d)
-                data["data"] = newdata
-            data["independent"] = ind_series
-            data["dependent"] = dep_series
-            data["skip_zeroes"] = skip_zeroes
-
-        all_series = []
-        for series in Series.objects.all():
-            if str(series.id) == independent:
-                series.independent = True
-            if str(series.id) == dependent:
-                series.dependent = True
-            all_series.append(series)
-        data['show_graph'] = True
-        data['all_series'] = all_series
+        data = scatterplot_data(data, request, start, end)
 
     t = end - start
     data['seconds'] = t.seconds
@@ -191,6 +169,44 @@ def graphing_tool(request):
     data['graph_title'] = request.GET.get('title', "")[:50]
     p = re.compile(r'\W+')
     data['filename_base'] = p.sub('_', data['graph_title'])
+    return data
+
+
+def scatterplot_data(data, request, start, end):
+    independent = request.GET.get('independent', None)
+    dependent = request.GET.get('dependent', None)
+    skip_zeroes = request.GET.get('skip_zeroes', None)
+
+    if independent and dependent:
+        ind_series = get_object_or_404(Series, id=independent)
+        dep_series = get_object_or_404(Series, id=dependent)
+
+        data["datasets"] = [
+            dict(
+                series=ind_series,
+                lseries=LimitedSeries(
+                    series=ind_series, start=start, end=end)),
+            dict(
+                series=dep_series,
+                lseries=LimitedSeries(
+                    series=dep_series, start=start, end=end))
+        ]
+        ind_data = ind_series.range_data(start, end, max_points=50000)
+        dep_data = dep_series.range_data(start, end, max_points=50000)
+        data['lseriesp'] = LimitedSeriesPair(independent=ind_series,
+                                             dependent=dep_series,
+                                             start=start,
+                                             end=end,
+                                             skip_zeroes=skip_zeroes)
+        data["data"] = zip(ind_data, dep_data)
+        if skip_zeroes:
+            data["data"] = remove_zeroes(data)
+        data["independent"] = ind_series
+        data["dependent"] = dep_series
+        data["skip_zeroes"] = skip_zeroes
+
+    data['show_graph'] = True
+    data['all_series'] = get_all_scatterplot_series(independent, dependent)
     return data
 
 

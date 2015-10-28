@@ -144,38 +144,39 @@ class MammalSearchForm(SearchForm):
                 sqs = sqs.narrow(
                     'date:[%sT00:00:00.000Z TO %sT23:59:59.999Z]' % when)
 
-            # trap success:
-            show_unsuccessful = 'unsuccessful' in self.cleaned_data[
-                'success']
-            show_successful = 'trapped_and_released' in self.cleaned_data[
-                'success']
-            observed = 'observed' in self.cleaned_data[
-                'signs']
-            camera = 'camera' in self.cleaned_data[
-                'signs']
-            tracks_and_signs = 'tracks_and_signs' in self.cleaned_data[
-                'signs']
-
-            if (observed or camera or tracks_and_signs or
-                    show_unsuccessful or show_successful):
-                tmp = []
-                if observed:
-                    tmp.append('observed:True')
-                if camera:
-                    tmp.append('camera:True')
-                if tracks_and_signs:
-                    tmp.append('tracks_and_signs:True')
-                if show_unsuccessful:
-                    tmp.append('unsuccessful:True')
-                if show_successful:
-                    tmp.append('trapped_and_released:True')
-                sqs = sqs.narrow(' OR '.join(tmp))
-            else:
-                pass  # ignore.
+            sqs = self.trap_success(sqs)
         else:
             sqs = self.basic_results()
 
         self.breakdown = dumps(self.calculate_breakdown(sqs))
+        return sqs
+
+    def trap_success(self, sqs):
+        # trap success:
+        show_unsuccessful = 'unsuccessful' in self.cleaned_data[
+            'success']
+        show_successful = 'trapped_and_released' in self.cleaned_data[
+            'success']
+        observed = 'observed' in self.cleaned_data[
+            'signs']
+        camera = 'camera' in self.cleaned_data[
+            'signs']
+        tracks_and_signs = 'tracks_and_signs' in self.cleaned_data[
+            'signs']
+        if (observed or camera or tracks_and_signs or
+                show_unsuccessful or show_successful):
+            tmp = []
+            if observed:
+                tmp.append('observed:True')
+            if camera:
+                tmp.append('camera:True')
+            if tracks_and_signs:
+                tmp.append('tracks_and_signs:True')
+            if show_unsuccessful:
+                tmp.append('unsuccessful:True')
+            if show_successful:
+                tmp.append('trapped_and_released:True')
+            return sqs.narrow(' OR '.join(tmp))
         return sqs
 
 

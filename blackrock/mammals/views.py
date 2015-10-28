@@ -484,6 +484,58 @@ def sighting(request, sighting_id):
     }
 
 
+def update_sighting_date(the_sighting, rp):
+    try:
+        date_list = [int(i) for i in rp['date'].split('/')]
+        the_sighting.date = datetime(
+            date_list[2], date_list[0], date_list[1])
+    except:
+        pass
+
+
+def update_sighting_species(the_sighting, rp):
+    try:
+        the_sighting.species = Species.objects.get(pk=rp['species_id'])
+    except:
+        pass
+
+
+def update_sighting_location(the_sighting, rp):
+    try:
+        the_sighting.set_lat_long([float(rp['lat']), float(rp['lon'])])
+    except ValueError:
+        pass  # if it's empty  we don't care .
+
+
+def update_sighting_habitat(the_sighting, rp):
+    try:
+        the_sighting.habitat = Habitat.objects.get(pk=rp['habitat_id'])
+    except:
+        pass
+
+
+def update_sighting_observation_type(the_sighting, rp):
+    try:
+        the_sighting.observation_type = ObservationType.objects.get(
+            pk=rp['observation_type_id'])
+    except:
+        pass
+
+
+def update_sighting_observers(the_sighting, rp):
+    try:
+        the_sighting.observers = rp['observers']
+    except:
+        pass
+
+
+def update_sighting_notes(the_sighting, rp):
+    try:
+        the_sighting.notes = rp['notes']
+    except:
+        pass
+
+
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry,
                   login_url='/mammals/login/')
 def edit_sighting(request):
@@ -492,45 +544,19 @@ def edit_sighting(request):
     rp = request.POST
     the_sighting = Sighting.objects.get(pk=rp['sighting_id'])
 
-    try:
-        the_sighting.set_lat_long([float(rp['lat']), float(rp['lon'])])
-    except ValueError:
-        pass  # if it's empty  we don't care .
-
-    try:
-        date_list = [int(i) for i in rp['date'].split('/')]
-        the_sighting.date = datetime(
-            date_list[2], date_list[0], date_list[1])
-    except:
-        pass
-
-    try:
-        the_sighting.species = Species.objects.get(pk=rp['species_id'])
-    except:
-        pass
-
-    try:
-        the_sighting.habitat = Habitat.objects.get(pk=rp['habitat_id'])
-    except:
-        pass
-
-    try:
-        the_sighting.observation_type = ObservationType.objects.get(
-            pk=rp['observation_type_id'])
-    except:
-        pass
-
-    try:
-        the_sighting.observers = rp['observers']
-    except:
-        pass
-
-    try:
-        the_sighting.notes = rp['notes']
-    except:
-        pass
+    update_sighting_location(the_sighting, rp)
+    update_sighting_date(the_sighting, rp)
+    update_sighting_species(the_sighting, rp)
+    update_sighting_habitat(the_sighting, rp)
+    update_sighting_observation_type(the_sighting, rp)
+    update_sighting_observers(the_sighting, rp)
+    update_sighting_notes(the_sighting, rp)
 
     the_sighting.save()
+    return redirect_to_sighting(rp, the_sighting)
+
+
+def redirect_to_sighting(rp, the_sighting):
     if rp['go_back'] == '':
         return HttpResponseRedirect('/mammals/sighting/%d' % the_sighting.id)
     else:
@@ -601,61 +627,63 @@ def edit_expedition_ajax(request):
     return HttpResponse(msg)
 
 
+def update_school_info(rp, exp):
+    if 'school' in rp and rp['school'] != 'None':
+        exp.school_id = int(rp['school'])
+    if 'school_contact_1_name' in rp:
+        exp.school_contact_1_name = rp['school_contact_1_name']
+    if 'school_contact_1_phone' in rp:
+        exp.school_contact_1_phone = rp['school_contact_1_phone']
+    if 'school_contact_1_email' in rp:
+        exp.school_contact_1_email = rp['school_contact_1_email']
+
+    if 'school_contact_1_email' in rp:
+        exp.school_contact_1_email = rp['school_contact_1_email']
+    return exp
+
+
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry,
                   login_url='/mammals/login/')
 def process_edit_expedition(request, expedition_id):
-
     exp = Expedition.objects.get(id=expedition_id)
     rp = request.POST
+    exp = update_school_info(rp, exp)
 
-    if rp:
-        if 'school' in rp and rp['school'] != 'None':
-            exp.school_id = int(rp['school'])
-        if 'school_contact_1_name' in rp:
-            exp.school_contact_1_name = rp['school_contact_1_name']
-        if 'school_contact_1_phone' in rp:
-            exp.school_contact_1_phone = rp['school_contact_1_phone']
-        if 'school_contact_1_email' in rp:
-            exp.school_contact_1_email = rp['school_contact_1_email']
+    if ('expedition_hour_string' in rp and
+            'expedition_minute_string' in rp):
+        exp.set_end_time_from_strings(
+            rp['expedition_hour_string'], rp['expedition_minute_string'])
 
-        if 'school_contact_1_email' in rp:
-            exp.school_contact_1_email = rp['school_contact_1_email']
+    if 'grade' in rp:
+        exp.grade_level_id = int(rp['grade'])
 
-        if ('expedition_hour_string' in rp and
-                'expedition_minute_string' in rp):
-            exp.set_end_time_from_strings(
-                rp['expedition_hour_string'], rp['expedition_minute_string'])
+    if 'number_of_students' in rp:
+        try:
+            exp.number_of_students = int(rp['number_of_students'])
+        except ValueError:
+            exp.number_of_students = 0
 
-        if 'grade' in rp:
-            exp.grade_level_id = int(rp['grade'])
+    if 'overnight_temperature_int' in rp:
+        try:
+            exp.overnight_temperature_int = int(
+                rp['overnight_temperature_int'])
+        except ValueError:
+            exp.overnight_temperature_int = 0
 
-        if 'number_of_students' in rp:
-            try:
-                exp.number_of_students = int(rp['number_of_students'])
-            except ValueError:
-                exp.number_of_students = 0
+    exp.save()
 
-        if 'overnight_temperature_int' in rp:
-            try:
-                exp.overnight_temperature_int = int(
-                    rp['overnight_temperature_int'])
-            except ValueError:
-                exp.overnight_temperature_int = 0
+    form_map_environment = {
+        'moon_phase': 'moon_phase_id',
+        'cloud_cover': 'cloud_cover_id',
+        'overnight_temperature': 'overnight_temperature_id',
+        'overnight_precipitation': 'overnight_precipitation_id',
+        'overnight_precipitation_type': 'overnight_precipitation_type_id'
+    }
 
-        exp.save()
-
-        form_map_environment = {
-            'moon_phase': 'moon_phase_id',
-            'cloud_cover': 'cloud_cover_id',
-            'overnight_temperature': 'overnight_temperature_id',
-            'overnight_precipitation': 'overnight_precipitation_id',
-            'overnight_precipitation_type': 'overnight_precipitation_type_id'
-        }
-
-        for the_key, thing_to_update in form_map_environment.iteritems():
-            if the_key in rp:
-                setattr(exp, thing_to_update, int(rp[the_key]))
-                exp.save()
+    for the_key, thing_to_update in form_map_environment.iteritems():
+        if the_key in rp:
+            setattr(exp, thing_to_update, int(rp[the_key]))
+            exp.save()
 
 
 @csrf_protect
@@ -725,6 +753,44 @@ def team_form(request, expedition_id, team_letter):
     }
 
 
+def deal_with_animals(point, rp):
+    # Deal with animals:
+    animal_key = 'animal_%d' % (point.id)
+    if animal_key in rp and rp[animal_key] != 'None':
+        species_id = int(rp[animal_key])
+        species = Species.objects.get(id=species_id)
+
+        # TODO (icing ) here we assume that the animal has never been
+        # trapped before.
+        animal = Animal()
+        animal.species = species
+        animal.save()
+
+        # Note, would be nice to have a foreign key to another Animal
+        # denoting that this Animal is the same actual organism as the
+        # other Animal, but recaptured at a later date and
+        # aidentified by the same tag.
+        # animal = find_already_tagged_animal_in_the_database_somehow()
+
+        point.animal = animal
+        point.save()
+        animal.save()
+
+
+def need_to_correct_lat_lon(rp, lat_key, lon_key, match_string):
+    correcting_lat_lon = True
+
+    if correcting_lat_lon and lat_key not in rp:
+        correcting_lat_lon = False
+    if correcting_lat_lon and lon_key not in rp:
+        correcting_lat_lon = False
+    if correcting_lat_lon and match(match_string, rp[lat_key]) is None:
+        correcting_lat_lon = False
+    if correcting_lat_lon and match(match_string, rp[lon_key]) is None:
+        correcting_lat_lon = False
+    return correcting_lat_lon
+
+
 def process_save_team_form(request):
     if request.method != 'POST':
         return HttpResponseRedirect('/mammals/all_expeditions/')
@@ -744,103 +810,76 @@ def process_save_team_form(request):
     }
 
     for point in the_team_points:
-        if 'student_names' in rp:
-            point.student_names = rp['student_names']
-            point.save()
+        process_point(point, rp, form_map, form_map_booleans)
 
-        for the_key, thing_to_update in form_map.iteritems():
-            rp_key = '%s_%d' % (the_key, point.id)
-            if rp_key in rp and rp[rp_key] != 'None':
-                setattr(point, '%s' % thing_to_update, rp[rp_key])
-                point.save()
-        for the_key, thing_to_update in form_map_booleans.iteritems():
-            rp_key = '%s_%d' % (the_key, point.id)
-            if rp_key in rp and rp[rp_key] != 'None':
-                setattr(point, '%s' %
-                        thing_to_update, (rp[rp_key] == 'True'))
-                point.save()
 
-        rp_key = '%s_%d' % ('understory', point.id)
+def process_point(point, rp, form_map, form_map_booleans):
+    if 'student_names' in rp:
+        point.student_names = rp['student_names']
+        point.save()
+
+    for the_key, thing_to_update in form_map.iteritems():
+        rp_key = '%s_%d' % (the_key, point.id)
         if rp_key in rp and rp[rp_key] != 'None':
-            point.understory = rp[rp_key]
+            setattr(point, '%s' % thing_to_update, rp[rp_key])
             point.save()
-
-        rp_key = '%s_%d' % ('notes_about_location', point.id)
+    for the_key, thing_to_update in form_map_booleans.iteritems():
+        rp_key = '%s_%d' % (the_key, point.id)
         if rp_key in rp and rp[rp_key] != 'None':
-            point.notes_about_location = rp[rp_key]
+            setattr(point, '%s' %
+                    thing_to_update, (rp[rp_key] == 'True'))
             point.save()
 
-        # Deal with animals:
-        animal_key = 'animal_%d' % (point.id)
-        if animal_key in rp and rp[animal_key] != 'None':
-            species_id = int(rp[animal_key])
-            species = Species.objects.get(id=species_id)
+    rp_key = '%s_%d' % ('understory', point.id)
+    if rp_key in rp and rp[rp_key] != 'None':
+        point.understory = rp[rp_key]
+        point.save()
 
-            # TODO (icing ) here we assume that the animal has never been
-            # trapped before.
-            animal_never_trapped_before = True
-            if animal_never_trapped_before:
-                animal = Animal()
-                animal.species = species
-                animal.save()
-            else:
-                # Note, would be nice to have a foreign key to another Animal
-                # denoting that this Animal is the same actual organism as the
-                # other Animal, but recaptured at a later date and
-                # aidentified by the same tag.
-                # animal = find_already_tagged_animal_in_the_database_somehow()
-                pass
+    rp_key = '%s_%d' % ('notes_about_location', point.id)
+    if rp_key in rp and rp[rp_key] != 'None':
+        point.notes_about_location = rp[rp_key]
+        point.save()
 
-            point.animal = animal
-            point.save()
-            animal.save()
+    deal_with_animals(point, rp)
 
-        # Deal with actual latitude and longitude:
-        # The burden of providing good data here rests on the front end.
-        # If the actual lat and lon don't meet our data standards, we're simply
-        # not going to use them.
-        # 1) Do they both exist?
-        # 2) Are they both accurate to 5 decimals?
-        # 3) Are they within a certain distance of the original lat and lon (no
-        # interest in points in another country.
-        correcting_lat_lon = False
-        match_string = '(\-)?(\d){2}\.(\d){5}'
+    # Deal with actual latitude and longitude:
+    # The burden of providing good data here rests on the front end.
+    # If the actual lat and lon don't meet our data standards, we're simply
+    # not going to use them.
+    # 1) Do they both exist?
+    # 2) Are they both accurate to 5 decimals?
+    # 3) Are they within a certain distance of the original lat and lon (no
+    # interest in points in another country.
+    correcting_lat_lon = False
+    match_string = '(\-)?(\d){2}\.(\d){5}'
 
-        # if your coordinate string doesn't match the above, you have a nice
-        # day.
-        lat_key = 'actual_lat_%d' % point.id
-        lon_key = 'actual_lon_%d' % point.id
+    # if your coordinate string doesn't match the above, you have a nice
+    # day.
+    lat_key = 'actual_lat_%d' % point.id
+    lon_key = 'actual_lon_%d' % point.id
 
-        max_diff = 250.0  # meters
-        min_diff = 1.0  # meters
+    max_diff = 250.0  # meters
+    min_diff = 1.0  # meters
 
-        correcting_lat_lon = True
+    correcting_lat_lon = need_to_correct_lat_lon(rp, lat_key, lon_key,
+                                                 match_string)
 
-        if correcting_lat_lon and lat_key not in rp:
-            correcting_lat_lon = False
-        if correcting_lat_lon and lon_key not in rp:
-            correcting_lat_lon = False
-        if correcting_lat_lon and match(match_string, rp[lat_key]) is None:
-            correcting_lat_lon = False
-        if correcting_lat_lon and match(match_string, rp[lon_key]) is None:
-            correcting_lat_lon = False
-
-        if correcting_lat_lon:
-            diff_lat = point.actual_lat() - float(rp[lat_key])
-            diff_lon = point.actual_lon() - float(rp[lon_key])
-            distance_to_corrected_point_in_meters = hypotenuse(
-                *to_meters(diff_lat, diff_lon))
-            if distance_to_corrected_point_in_meters > max_diff:
-                correcting_lat_lon = False
-                # distance_to_corrected_point_in_meters
-        if (correcting_lat_lon and
-                distance_to_corrected_point_in_meters < min_diff):
+    if correcting_lat_lon:
+        diff_lat = point.actual_lat() - float(rp[lat_key])
+        diff_lon = point.actual_lon() - float(rp[lon_key])
+        distance_to_corrected_point_in_meters = hypotenuse(
+            *to_meters(diff_lat, diff_lon))
+        if distance_to_corrected_point_in_meters > max_diff:
             correcting_lat_lon = False
             # distance_to_corrected_point_in_meters
-        if correcting_lat_lon:
-            point.set_actual_lat_long(
-                [float(rp[lat_key]), float(rp[lon_key])])
-            point.save()
+    if (correcting_lat_lon and
+            distance_to_corrected_point_in_meters < min_diff):
+        correcting_lat_lon = False
+        # distance_to_corrected_point_in_meters
+    if correcting_lat_lon:
+        point.set_actual_lat_long(
+            [float(rp[lat_key]), float(rp[lon_key])])
+        point.save()
 
 
 @csrf_protect
@@ -883,40 +922,43 @@ def save_expedition_animals(request):
     menus = ['sex', 'age', 'scale_used']  # these are
 
     for point in exp.animal_locations():
-        for b in booleans:
-            rp_key = '%s_%d' % (b, point.id)
-            if rp_key in rp and rp[rp_key] == 'True':
-                setattr(point.animal, b, True)
-            else:
-                setattr(point.animal, b, False)
-
-        for m in menus:
-            rp_key = '%s_%d' % (m, point.id)
-            if rp_key in rp and rp[rp_key] is not None:
-                setattr(point.animal, '%s_id' % m, rp[rp_key])
-
-        rp_key = 'health_%d' % point.id
-        if rp_key in rp and rp[rp_key] != '':
-            setattr(point.animal, 'health', rp[rp_key])
-
-        rp_key = 'weight_in_grams_%d' % point.id
-        if rp_key in rp and rp[rp_key] != '':
-            try:
-                setattr(
-                    point.animal, 'weight_in_grams', int(float(rp[rp_key])))
-            except ValueError:
-                pass  # not throwing a 500 for this, sorry.
-
-        rp_key = 'tag_number_%d' % point.id
-        if rp_key in rp and rp[rp_key] != '':
-            setattr(point.animal, 'tag_number', rp[rp_key])
-        point.animal.save()
-
-        rp_key = 'delete_%d' % point.id
-        if rp_key in rp and rp[rp_key] == 'delete':
-            point.animal.delete()
-
+        process_animal_point(point, booleans, rp, menus)
     return expedition(request, expedition_id)
+
+
+def process_animal_point(point, booleans, rp, menus):
+    for b in booleans:
+        rp_key = '%s_%d' % (b, point.id)
+        if rp_key in rp and rp[rp_key] == 'True':
+            setattr(point.animal, b, True)
+        else:
+            setattr(point.animal, b, False)
+
+    for m in menus:
+        rp_key = '%s_%d' % (m, point.id)
+        if rp_key in rp and rp[rp_key] is not None:
+            setattr(point.animal, '%s_id' % m, rp[rp_key])
+
+    rp_key = 'health_%d' % point.id
+    if rp_key in rp and rp[rp_key] != '':
+        setattr(point.animal, 'health', rp[rp_key])
+
+    rp_key = 'weight_in_grams_%d' % point.id
+    if rp_key in rp and rp[rp_key] != '':
+        try:
+            setattr(
+                point.animal, 'weight_in_grams', int(float(rp[rp_key])))
+        except ValueError:
+            pass  # not throwing a 500 for this, sorry.
+
+    rp_key = 'tag_number_%d' % point.id
+    if rp_key in rp and rp[rp_key] != '':
+        setattr(point.animal, 'tag_number', rp[rp_key])
+    point.animal.save()
+
+    rp_key = 'delete_%d' % point.id
+    if rp_key in rp and rp[rp_key] == 'delete':
+        point.animal.delete()
 
 
 @csrf_protect
