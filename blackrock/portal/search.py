@@ -96,6 +96,9 @@ class PortalSearchForm(SearchForm):
         if len(sqs) <= 0:
             return sqs
 
+        self.update_facets(sqs)
+
+    def update_facets(self, sqs):
         counts = sqs.facet_counts()
         for facet in counts['fields']:
             if facet not in self.fields:
