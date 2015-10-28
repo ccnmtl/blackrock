@@ -484,6 +484,15 @@ def sighting(request, sighting_id):
     }
 
 
+def update_sighting_date(the_sighting, rp):
+    try:
+        date_list = [int(i) for i in rp['date'].split('/')]
+        the_sighting.date = datetime(
+            date_list[2], date_list[0], date_list[1])
+    except:
+        pass
+
+
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry,
                   login_url='/mammals/login/')
 def edit_sighting(request):
@@ -497,12 +506,7 @@ def edit_sighting(request):
     except ValueError:
         pass  # if it's empty  we don't care .
 
-    try:
-        date_list = [int(i) for i in rp['date'].split('/')]
-        the_sighting.date = datetime(
-            date_list[2], date_list[0], date_list[1])
-    except:
-        pass
+    update_sighting_date(the_sighting, rp)
 
     try:
         the_sighting.species = Species.objects.get(pk=rp['species_id'])
