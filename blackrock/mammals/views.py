@@ -493,6 +493,13 @@ def update_sighting_date(the_sighting, rp):
         pass
 
 
+def update_sighting_species(the_sighting, rp):
+    try:
+        the_sighting.species = Species.objects.get(pk=rp['species_id'])
+    except:
+        pass
+
+
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry,
                   login_url='/mammals/login/')
 def edit_sighting(request):
@@ -507,11 +514,7 @@ def edit_sighting(request):
         pass  # if it's empty  we don't care .
 
     update_sighting_date(the_sighting, rp)
-
-    try:
-        the_sighting.species = Species.objects.get(pk=rp['species_id'])
-    except:
-        pass
+    update_sighting_species(the_sighting, rp)
 
     try:
         the_sighting.habitat = Habitat.objects.get(pk=rp['habitat_id'])
