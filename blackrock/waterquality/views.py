@@ -41,6 +41,20 @@ def get_end_or_error(end):
         return None, "invalid end date: %s" % end
 
 
+def get_lines(request):
+    lines = []
+    # iterating over QueryDict for keys starting with line_value
+    # and using v to get value
+    for k in request.GET.keys():
+        if k.startswith("line_value_"):
+            v = request.GET.get(k, '')  # why ''?
+            if v:
+                n = k[len("line_value_"):]
+                l = request.GET.get("line_label_%s" % n)
+                lines.append(dict(label=l, value=v, n=int(n)))
+    return lines
+
+
 @render_to('waterquality/graphing_tool.html')
 def graphing_tool(request):
     data = dict()
@@ -60,17 +74,7 @@ def graphing_tool(request):
     data["end"] = end
 
     if graph_type == 'time-series' or graph_type == 'scatter-plot':
-        lines = []
-        # iterating over QueryDict for keys starting with line_value
-        # and using v to get value
-        for k in request.GET.keys():
-            if k.startswith("line_value_"):
-                v = request.GET.get(k, '')  # why ''?
-                if v:
-                    n = k[len("line_value_"):]
-                    l = request.GET.get("line_label_%s" % n)
-                    lines.append(dict(label=l, value=v, n=int(n)))
-        data["lines"] = lines
+        data["lines"] = get_lines(request)
 
     if graph_type == 'time-series':
         series_ids = request.GET.getlist('series')
