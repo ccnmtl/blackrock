@@ -725,6 +725,30 @@ def team_form(request, expedition_id, team_letter):
     }
 
 
+def deal_with_animals(point, rp):
+    # Deal with animals:
+    animal_key = 'animal_%d' % (point.id)
+    if animal_key in rp and rp[animal_key] != 'None':
+        species_id = int(rp[animal_key])
+        species = Species.objects.get(id=species_id)
+
+        # TODO (icing ) here we assume that the animal has never been
+        # trapped before.
+        animal = Animal()
+        animal.species = species
+        animal.save()
+
+        # Note, would be nice to have a foreign key to another Animal
+        # denoting that this Animal is the same actual organism as the
+        # other Animal, but recaptured at a later date and
+        # aidentified by the same tag.
+        # animal = find_already_tagged_animal_in_the_database_somehow()
+
+        point.animal = animal
+        point.save()
+        animal.save()
+
+
 def process_save_team_form(request):
     if request.method != 'POST':
         return HttpResponseRedirect('/mammals/all_expeditions/')
@@ -770,27 +794,7 @@ def process_save_team_form(request):
             point.notes_about_location = rp[rp_key]
             point.save()
 
-        # Deal with animals:
-        animal_key = 'animal_%d' % (point.id)
-        if animal_key in rp and rp[animal_key] != 'None':
-            species_id = int(rp[animal_key])
-            species = Species.objects.get(id=species_id)
-
-            # TODO (icing ) here we assume that the animal has never been
-            # trapped before.
-            animal = Animal()
-            animal.species = species
-            animal.save()
-
-            # Note, would be nice to have a foreign key to another Animal
-            # denoting that this Animal is the same actual organism as the
-            # other Animal, but recaptured at a later date and
-            # aidentified by the same tag.
-            # animal = find_already_tagged_animal_in_the_database_somehow()
-
-            point.animal = animal
-            point.save()
-            animal.save()
+        deal_with_animals(point, rp)
 
         # Deal with actual latitude and longitude:
         # The burden of providing good data here rests on the front end.
