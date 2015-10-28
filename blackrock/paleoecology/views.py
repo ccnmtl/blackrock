@@ -81,81 +81,80 @@ def loadpercents(request):
 @user_passes_test(lambda u: u.is_staff)
 def loadcsv(request, type):
     # if csv file provided, load
-    if request.method == 'POST':
+    if request.method != 'POST':
+        return HttpResponseRedirect("/paleoecology/")
+    try:
+        fh = request.FILES['csvfile']
+    except:
+        return HttpResponseRedirect("/paleoecology/")
 
-        try:
-            fh = request.FILES['csvfile']
-        except:
-            return HttpResponseRedirect("/paleoecology/")
+    if file == '':
+        # TODO: error checking (correct file type, etc.)
+        return HttpResponseRedirect("/paleoecology/")
 
-        if file == '':
-            # TODO: error checking (correct file type, etc.)
-            return HttpResponseRedirect("/paleoecology/")
+    table = csv.reader(fh)
+    headers = table.next()
 
-        table = csv.reader(fh)
-        headers = table.next()
+    pines = ["Pinus subg. Pinus", "Pinus subg. Strobus", "Pinus undiff."]
+    asteraceae = ["Asteraceae subf. Asteroideae undiff.",
+                  "Asteraceae subf. Cichorioideae",
+                  "Ambrosia", "Artemisia"]
 
-        pines = ["Pinus subg. Pinus", "Pinus subg. Strobus", "Pinus undiff."]
-        asteraceae = ["Asteraceae subf. Asteroideae undiff.",
-                      "Asteraceae subf. Cichorioideae",
-                      "Ambrosia", "Artemisia"]
+    for row in table:
+        depth = row[0]
+        (core, created) = CoreSample.objects.get_or_create(depth=depth)
 
-        for row in table:
-            depth = row[0]
-            (core, created) = CoreSample.objects.get_or_create(depth=depth)
+        for i in range(len(row)):
+            if i == 0:
+                continue  # skip row[0], which is the depth
 
-            for i in range(len(row)):
-                if i == 0:
-                    continue  # skip row[0], which is the depth
+            # skip row[1] in percentages, which is the carbon age
+            if i == 1 and type == "percents":
+                continue
 
-                # skip row[1] in percentages, which is the carbon age
-                if i == 1 and type == "percents":
-                    continue
+            pollen_name = headers[i].strip()
+            (t, created) = \
+                PollenType.objects.get_or_create(name=pollen_name)
+            (p, created) = \
+                PollenSample.objects.get_or_create(core_sample=core,
+                                                   pollen=t)
 
-                pollen_name = headers[i].strip()
-                (t, created) = \
-                    PollenType.objects.get_or_create(name=pollen_name)
-                (p, created) = \
-                    PollenSample.objects.get_or_create(core_sample=core,
-                                                       pollen=t)
+            if type == "counts":
+                p.count = row[i]
+            else:
+                p.percentage = row[i]
+            p.save()
 
-                if type == "counts":
-                    p.count = row[i]
-                else:
-                    p.percentage = row[i]
-                p.save()
+            # hack to fix Pinus and Asteraceae counts
+            if type == "counts":
+                if pollen_name in pines:
+                    (second, created) = \
+                        PollenType.objects.get_or_create(name="Pinus")
+                    (p, created) = \
+                        PollenSample.objects.get_or_create(
+                            core_sample=core,
+                            pollen=second)
+                    if created:
+                        p.display_name = "Pinus (Pine)"
+                    p.count = (p.count or 0) + int(row[i])
+                    p.save()
 
-                # hack to fix Pinus and Asteraceae counts
-                if type == "counts":
-                    if pollen_name in pines:
-                        (second, created) = \
-                            PollenType.objects.get_or_create(name="Pinus")
-                        (p, created) = \
-                            PollenSample.objects.get_or_create(
-                                core_sample=core,
-                                pollen=second)
-                        if created:
-                            p.display_name = "Pinus (Pine)"
-                        p.count = (p.count or 0) + int(row[i])
-                        p.save()
+                if pollen_name in asteraceae:
+                    (second, created) = \
+                        PollenType.objects.get_or_create(name="Asteraceae")
+                    (p, created) = \
+                        PollenSample.objects.get_or_create(
+                            core_sample=core,
+                            pollen=second)
+                    if created:
+                        p.display_name = 'Asteraceae (Ragweed & herbs)'
+                    p.count = (p.count or 0) + int(row[i])
+                    p.save()
 
-                    if pollen_name in asteraceae:
-                        (second, created) = \
-                            PollenType.objects.get_or_create(name="Asteraceae")
-                        (p, created) = \
-                            PollenSample.objects.get_or_create(
-                                core_sample=core,
-                                pollen=second)
-                        if created:
-                            p.display_name = 'Asteraceae (Ragweed & herbs)'
-                        p.count = (p.count or 0) + int(row[i])
-                        p.save()
+    admin_msg = "Successfully imported data."
 
-        admin_msg = "Successfully imported data."
+    return index(request, admin_msg)
 
-        return index(request, admin_msg)
-
-    return HttpResponseRedirect("/paleoecology/")
 
 _sets = ['Pollen Types',
          'Raw Counts of 65 Pollen Types',
