@@ -170,8 +170,6 @@ class MammalSearchForm(SearchForm):
                 if show_successful:
                     tmp.append('trapped_and_released:True')
                 sqs = sqs.narrow(' OR '.join(tmp))
-            else:
-                pass  # ignore.
         else:
             sqs = self.basic_results()
 
