@@ -922,40 +922,43 @@ def save_expedition_animals(request):
     menus = ['sex', 'age', 'scale_used']  # these are
 
     for point in exp.animal_locations():
-        for b in booleans:
-            rp_key = '%s_%d' % (b, point.id)
-            if rp_key in rp and rp[rp_key] == 'True':
-                setattr(point.animal, b, True)
-            else:
-                setattr(point.animal, b, False)
-
-        for m in menus:
-            rp_key = '%s_%d' % (m, point.id)
-            if rp_key in rp and rp[rp_key] is not None:
-                setattr(point.animal, '%s_id' % m, rp[rp_key])
-
-        rp_key = 'health_%d' % point.id
-        if rp_key in rp and rp[rp_key] != '':
-            setattr(point.animal, 'health', rp[rp_key])
-
-        rp_key = 'weight_in_grams_%d' % point.id
-        if rp_key in rp and rp[rp_key] != '':
-            try:
-                setattr(
-                    point.animal, 'weight_in_grams', int(float(rp[rp_key])))
-            except ValueError:
-                pass  # not throwing a 500 for this, sorry.
-
-        rp_key = 'tag_number_%d' % point.id
-        if rp_key in rp and rp[rp_key] != '':
-            setattr(point.animal, 'tag_number', rp[rp_key])
-        point.animal.save()
-
-        rp_key = 'delete_%d' % point.id
-        if rp_key in rp and rp[rp_key] == 'delete':
-            point.animal.delete()
-
+        process_animal_point(point, booleans, rp, menus)
     return expedition(request, expedition_id)
+
+
+def process_animal_point(point, booleans, rp, menus):
+    for b in booleans:
+        rp_key = '%s_%d' % (b, point.id)
+        if rp_key in rp and rp[rp_key] == 'True':
+            setattr(point.animal, b, True)
+        else:
+            setattr(point.animal, b, False)
+
+    for m in menus:
+        rp_key = '%s_%d' % (m, point.id)
+        if rp_key in rp and rp[rp_key] is not None:
+            setattr(point.animal, '%s_id' % m, rp[rp_key])
+
+    rp_key = 'health_%d' % point.id
+    if rp_key in rp and rp[rp_key] != '':
+        setattr(point.animal, 'health', rp[rp_key])
+
+    rp_key = 'weight_in_grams_%d' % point.id
+    if rp_key in rp and rp[rp_key] != '':
+        try:
+            setattr(
+                point.animal, 'weight_in_grams', int(float(rp[rp_key])))
+        except ValueError:
+            pass  # not throwing a 500 for this, sorry.
+
+    rp_key = 'tag_number_%d' % point.id
+    if rp_key in rp and rp[rp_key] != '':
+        setattr(point.animal, 'tag_number', rp[rp_key])
+    point.animal.save()
+
+    rp_key = 'delete_%d' % point.id
+    if rp_key in rp and rp[rp_key] == 'delete':
+        point.animal.delete()
 
 
 @csrf_protect
