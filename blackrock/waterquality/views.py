@@ -64,6 +64,15 @@ def get_all_series(series_ids):
     return all_series
 
 
+def remove_zeroes(data):
+    newdata = []
+    for d in data["data"]:
+        if d[0] == 0 or d[1] == 0 or d[0] == 0.0 or d[1] == 0.0:
+            continue
+        newdata.append(d)
+    return newdata
+
+
 @render_to('waterquality/graphing_tool.html')
 def graphing_tool(request):
     data = dict()
@@ -167,12 +176,7 @@ def graphing_tool(request):
                                                  skip_zeroes=skip_zeroes)
             data["data"] = zip(ind_data, dep_data)
             if skip_zeroes:
-                newdata = []
-                for d in data["data"]:
-                    if d[0] == 0 or d[1] == 0 or d[0] == 0.0 or d[1] == 0.0:
-                        continue
-                    newdata.append(d)
-                data["data"] = newdata
+                data["data"] = remove_zeroes(data)
             data["independent"] = ind_series
             data["dependent"] = dep_series
             data["skip_zeroes"] = skip_zeroes
