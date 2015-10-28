@@ -160,40 +160,7 @@ def graphing_tool(request):
             data['show_ttest'] = True
 
     if graph_type == 'scatter-plot':
-        independent = request.GET.get('independent', None)
-        dependent = request.GET.get('dependent', None)
-        skip_zeroes = request.GET.get('skip_zeroes', None)
-
-        if independent and dependent:
-            ind_series = get_object_or_404(Series, id=independent)
-            dep_series = get_object_or_404(Series, id=dependent)
-
-            data["datasets"] = [
-                dict(
-                    series=ind_series,
-                    lseries=LimitedSeries(
-                        series=ind_series, start=start, end=end)),
-                dict(
-                    series=dep_series,
-                    lseries=LimitedSeries(
-                        series=dep_series, start=start, end=end))
-            ]
-            ind_data = ind_series.range_data(start, end, max_points=50000)
-            dep_data = dep_series.range_data(start, end, max_points=50000)
-            data['lseriesp'] = LimitedSeriesPair(independent=ind_series,
-                                                 dependent=dep_series,
-                                                 start=start,
-                                                 end=end,
-                                                 skip_zeroes=skip_zeroes)
-            data["data"] = zip(ind_data, dep_data)
-            if skip_zeroes:
-                data["data"] = remove_zeroes(data)
-            data["independent"] = ind_series
-            data["dependent"] = dep_series
-            data["skip_zeroes"] = skip_zeroes
-
-        data['show_graph'] = True
-        data['all_series'] = get_all_scatterplot_series(independent, dependent)
+        data = scatterplot_data(data, request, start, end)
 
     t = end - start
     data['seconds'] = t.seconds
@@ -202,6 +169,44 @@ def graphing_tool(request):
     data['graph_title'] = request.GET.get('title', "")[:50]
     p = re.compile(r'\W+')
     data['filename_base'] = p.sub('_', data['graph_title'])
+    return data
+
+
+def scatterplot_data(data, request, start, end):
+    independent = request.GET.get('independent', None)
+    dependent = request.GET.get('dependent', None)
+    skip_zeroes = request.GET.get('skip_zeroes', None)
+
+    if independent and dependent:
+        ind_series = get_object_or_404(Series, id=independent)
+        dep_series = get_object_or_404(Series, id=dependent)
+
+        data["datasets"] = [
+            dict(
+                series=ind_series,
+                lseries=LimitedSeries(
+                    series=ind_series, start=start, end=end)),
+            dict(
+                series=dep_series,
+                lseries=LimitedSeries(
+                    series=dep_series, start=start, end=end))
+        ]
+        ind_data = ind_series.range_data(start, end, max_points=50000)
+        dep_data = dep_series.range_data(start, end, max_points=50000)
+        data['lseriesp'] = LimitedSeriesPair(independent=ind_series,
+                                             dependent=dep_series,
+                                             start=start,
+                                             end=end,
+                                             skip_zeroes=skip_zeroes)
+        data["data"] = zip(ind_data, dep_data)
+        if skip_zeroes:
+            data["data"] = remove_zeroes(data)
+        data["independent"] = ind_series
+        data["dependent"] = dep_series
+        data["skip_zeroes"] = skip_zeroes
+
+    data['show_graph'] = True
+    data['all_series'] = get_all_scatterplot_series(independent, dependent)
     return data
 
 
