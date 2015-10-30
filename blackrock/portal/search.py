@@ -98,6 +98,8 @@ class PortalSearchForm(SearchForm):
 
         self.update_facets(sqs)
 
+        return sqs
+
     def update_facets(self, sqs):
         counts = sqs.facet_counts()
         for facet in counts['fields']:
