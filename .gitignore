@@ -17,4 +17,4 @@ uploads/
 blackrock.db
 reports
 .idea
-
+node_modules
