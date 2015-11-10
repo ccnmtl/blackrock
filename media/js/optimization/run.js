@@ -31,7 +31,7 @@ var SampleHistory = new (function() {
             }
             var frm = button.form.elements;
             frm['results'].value = JSON.stringify(results);
-            frm['filename'].value = 'Sample_History_Summary'
+            frm['filename'].value = 'Sample_History_Summary';
         },
         details:function(button) {
             var frm = button.form.elements;
@@ -60,12 +60,12 @@ var SampleHistory = new (function() {
                             ,p['time-locate'],p['time-measure'],p['time-travel'],
                             */
                             
-                        ])
+                        ]);
                     }
                 }
             }
             frm['results'].value = JSON.stringify(results);
-            frm['filename'].value = 'Sample_History_Details'
+            frm['filename'].value = 'Sample_History_Details';
         },
         trees:function(button, run_num) {
             var frm = $('trees_csv_form');
@@ -73,7 +73,7 @@ var SampleHistory = new (function() {
             frm.elements['results'].value = SampleStorage.getSampleRaw(run_num-1);
             frm.submit();//here, since it might not be attached to element
         }
-    }
+    };
 })();
 
 function showResults(http_request) {
@@ -126,7 +126,7 @@ function showResultsInfo(results, new_row, run_num) {
         addElementClass(new_row,'sample-enabled');
         cur_results = new_row;
     }
-    if (!results) {return};
+    if (!results) {return;}
     ///Summary table deprecated
     //$('results-time').innerHTML = results['sample-time'];
     //$('results-avg-time').innerHTML = results['avg-time'];

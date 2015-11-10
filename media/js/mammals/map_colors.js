@@ -61,7 +61,7 @@ square_styles = {
         }
     }
     
-}
+};
 
 
 initial_circle_style = {
@@ -72,19 +72,19 @@ initial_circle_style = {
       strokeColor : 'lightgreen',
       strokeOpacity : 1,
       zIndex: 1
-}
+};
 
 circle_on_style = {
     fillColor : "blue",
     radius: 5,
     zIndex: 1
-}
+};
 
 circle_off_style = {
     fillColor : "lightgreen",
     radius: 2,
     zIndex: 2
-}
+};
 
 
 // These 3 styles are used in the minimaps in the team form page.
@@ -96,7 +96,7 @@ mini_map_center_style = {
       strokeColor : 'lightgreen',
       strokeOpacity : 1,
       zIndex: 1
-}
+};
 
 mini_map_suggested_point_style = {
       radius: 2, // this is the radius in meters on the surface of the planet.
@@ -106,7 +106,7 @@ mini_map_suggested_point_style = {
       strokeColor : 'yellow',
       strokeOpacity : 0.5,
       zIndex: 1
-}
+};
 
 mini_map_actual_point_style = {
       radius: 2, // this is the radius in meters on the surface of the planet.
@@ -116,7 +116,7 @@ mini_map_actual_point_style = {
       strokeColor : 'red',
       strokeOpacity : 1,
       zIndex: 1
-}
+};
 
 
 mini_map_actual_point_style = {
@@ -127,40 +127,31 @@ mini_map_actual_point_style = {
       strokeColor : 'red',
       strokeOpacity : 1,
       zIndex: 1
-}
-
-
-
-
-
-
+};
 
 initial_transect_style = {
     strokeColor : 'yellow',
     strokeOpacity : 0.5, 
     zIndex: -3
-}
+};
 
 transect_off_style =  {
     strokeOpacity : 0.3
-}
+};
 
 transect_on_style = {
     strokeOpacity : 1
-}
-
-
-
+};
 
 mini_map_transect_1_style = {
     strokeColor : 'yellow',
     strokeOpacity : 0.8,
     zIndex: -3
-}
+};
 
 
 mini_map_transect_2_style = {
     strokeColor : 'yellow',
     strokeOpacity : 0.3,
     zIndex: -3
-}
+};

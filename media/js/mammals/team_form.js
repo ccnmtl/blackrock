@@ -1,15 +1,15 @@
 
-actual_location_circles  = {}
+actual_location_circles  = {};
 
 function add_trails_to_mini_map (map) {
     map_options = {
         preserveViewport : true
         , clickable       : true
-    }
+    };
 
-    buildings_map = new google.maps.KmlLayer("http://blackrock.ccnmtl.columbia.edu/portal/media/kml/buildings.kml", map_options)
-    trail_map = new google.maps.KmlLayer("http://blackrock.ccnmtl.columbia.edu/portal/media/kml/trails.kml", map_options)
-    road_map = new google.maps.KmlLayer("http://blackrock.ccnmtl.columbia.edu/portal/media/kml/roads.kml", map_options)
+    buildings_map = new google.maps.KmlLayer("http://blackrock.ccnmtl.columbia.edu/portal/media/kml/buildings.kml", map_options);
+    trail_map = new google.maps.KmlLayer("http://blackrock.ccnmtl.columbia.edu/portal/media/kml/trails.kml", map_options);
+    road_map = new google.maps.KmlLayer("http://blackrock.ccnmtl.columbia.edu/portal/media/kml/roads.kml", map_options);
     
     trail_map.setMap (map);
     road_map.setMap (map);
@@ -21,15 +21,15 @@ function add_team_form_maps() {
     the_divs  = jQuery ('.team_form_map');
     
     console.log (the_divs);
-    maps = {}
+    maps = {};
     for (var i = 0; i < the_divs.length; i++) {
       the_div = the_divs [i];
       console.log (the_div);
       point_id = parseInt(the_div.id.split("_")[1]);
       
       //center coordinates for map (the coordinates of the suggested location of the point):
-      lat = jQuery ('#lat_' + point_id).html()
-      lon = jQuery ('#lon_' + point_id).html()
+        lat = jQuery ('#lat_' + point_id).html();
+        lon = jQuery ('#lon_' + point_id).html();
       
        var myOptions = {
           center: new google.maps.LatLng(lat, lon)
@@ -47,36 +47,36 @@ function add_team_form_maps() {
         maps [i] = new google.maps.Map(the_div, myOptions);
         console.log (maps[i]);
         add_trails_to_mini_map(maps[i]);
-        team_form_circle ([lat, lon], mini_map_suggested_point_style, maps[i])
+        team_form_circle ([lat, lon], mini_map_suggested_point_style, maps[i]);
         transect_center = [
             parseFloat(jQuery ('#transect_center_lat_' + point_id).html())
            ,parseFloat(jQuery ('#transect_center_lon_' + point_id).html())
-        ]
+        ];
         suggested_location = [
             parseFloat(jQuery ('#lat_' + point_id).html())
            ,parseFloat(jQuery ('#lon_' + point_id).html())
-        ]
+        ];
         actual_location = [
             parseFloat(jQuery ('#actual_lat_' + point_id)[0].value)
            ,parseFloat(jQuery ('#actual_lon_' + point_id)[0].value)
-        ]
+        ];
         transect_edge = [
             parseFloat(jQuery ('#transect_edge_lat_'   + point_id).html())
            ,parseFloat(jQuery ('#transect_edge_lon_'   + point_id).html())
-        ]
+        ];
         //team_form_circle (transect_center, mini_map_center_style, maps[i])
         actual_location_circles[point_id] = team_form_circle (actual_location, mini_map_actual_point_style, maps[i]);
-        jQuery ('.coord_input').focusout (point_id, actual_location_adjusted)
+        jQuery ('.coord_input').focusout (point_id, actual_location_adjusted);
         // draw the grid square itself.
-        corners_of_square = JSON.parse(jQuery('#corner_obj')[0].innerHTML)
+        corners_of_square = JSON.parse(jQuery('#corner_obj')[0].innerHTML);
         make_grid_rectangle (bounds (corners_of_square),  maps[i]);
-        mini_map_transect (lat_lng_from_point(transect_center), lat_lng_from_point(suggested_location), maps[i], mini_map_transect_1_style)
-        mini_map_transect (lat_lng_from_point(suggested_location), lat_lng_from_point(transect_edge), maps[i], mini_map_transect_2_style)
+        mini_map_transect (lat_lng_from_point(transect_center), lat_lng_from_point(suggested_location), maps[i], mini_map_transect_1_style);
+        mini_map_transect (lat_lng_from_point(suggested_location), lat_lng_from_point(transect_edge), maps[i], mini_map_transect_2_style);
     
     }
 }
 function is_valid_coordinate ( str) {
-    return (str.match (/^(\-)?(\d){2}\.(\d){5}$/g) != null)
+    return (str.match (/^(\-)?(\d){2}\.(\d){5}$/g) != null);
 }
 
 
@@ -87,7 +87,7 @@ function mini_map_transect (center, edge, map, style) {
         map : map,
     });
     pl.setOptions ( style );
-    return pl
+    return pl;
     
 }
 
@@ -96,7 +96,7 @@ function hide_trap_info_if_not_used() {
     for (var i = 0; i < the_divs.length; i++) {
         the_div = the_divs [i];
         point_id = parseInt(the_div.id.split("_")[1]);
-        switch_id_string = '#whether_a_trap_was_set_here_' + point_id
+        switch_id_string = '#whether_a_trap_was_set_here_' + point_id;
         detail_select_ids = [
             '#trap_type_' +  point_id,
             '#bait_' +  point_id,
@@ -149,7 +149,7 @@ function not_too_far_away (point_id) {
     //twenty_meters =  0.02 // kilometers
     //five_meters =  0.005 // kilometers
     
-    two_hundred_fifty_meters =  0.25 // kilometers
+    two_hundred_fifty_meters =  0.25; // kilometers
     
     
     suggested_location = lat_lng_from_point([
@@ -160,7 +160,7 @@ function not_too_far_away (point_id) {
         parseFloat(jQuery ('#actual_lat_' + point_id)[0].value)
         ,parseFloat(jQuery ('#actual_lon_' + point_id)[0].value)
     ]);
-    return (distHaversine ( suggested_location, actual_location) < two_hundred_fifty_meters)
+    return (distHaversine ( suggested_location, actual_location) < two_hundred_fifty_meters);
     
 }
 
@@ -168,7 +168,7 @@ function redraw_actual_location_point (point_id) {
     actual_location = [
         parseFloat(jQuery ('#actual_lat_' + point_id)[0].value)
         ,parseFloat(jQuery ('#actual_lon_' + point_id)[0].value)
-    ]
+    ];
     actual_location_circles[point_id].setCenter(lat_lng_from_point(actual_location));
 
 }
@@ -177,9 +177,9 @@ function reset_actual_location (point_id) {
    suggested_location = [
         parseFloat(jQuery ('#lat_'   + point_id).html()).toFixed(5)
        ,parseFloat(jQuery ('#lon_'   + point_id).html()).toFixed(5)
-    ]
-    jQuery ('#actual_lat_' + point_id)[0].value = suggested_location[0]
-    jQuery ('#actual_lon_' + point_id)[0].value = suggested_location[1]
+   ];
+    jQuery ('#actual_lat_' + point_id)[0].value = suggested_location[0];
+    jQuery ('#actual_lon_' + point_id)[0].value = suggested_location[1];
 
 }
 

@@ -64,7 +64,7 @@ function toggle_selected_tree(e) {
 
   // event source was a tree (new selection)
   if ($("info-" + e.src().id) != null) {
-    var treeID = e.src().id
+      var treeID = e.src().id;
     toggleElementClass("tree-selected", treeID);
 
     toggleElementClass("invisible", "info-" + treeID);
