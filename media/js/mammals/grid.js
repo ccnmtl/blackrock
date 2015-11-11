@@ -1,12 +1,12 @@
 var grid_json;
-var terrain_difficulty_map = {}
-var access_difficulty_map = {}
+var terrain_difficulty_map = {};
+var access_difficulty_map = {};
 
 
 function addGrid(mapInstance) {
 
     var map_bounds = new google.maps.LatLngBounds();
-    grid_json = JSON.parse(jQuery('#grid_json')[0].innerHTML)
+    grid_json = JSON.parse(jQuery('#grid_json')[0].innerHTML);
     
     for (var i = 0; i < grid_json.length; i++) {
         var box = grid_json[i]['corner_obj'];
@@ -93,7 +93,7 @@ function show_squares () {
 }
 
 function random_index (an_array) {
-    return Math.floor(Math.random() * an_array.length)
+    return Math.floor(Math.random() * an_array.length);
 }
 
 function random_item (an_array) {
@@ -116,7 +116,7 @@ function decorate_suggested_square (sq) {
     undecorate_suggested_square = function () {
         sq['grid_rectangle'].setOptions (square_styles['regular']['unselected']);
         attach_info(sq);
-    }
+    };
 }
 
 
@@ -163,7 +163,7 @@ function make_square_clickable (rect) {
 }
 
 function attach_info(sq) {
-    rect = sq['grid_rectangle']
+    rect = sq['grid_rectangle'];
     add_regular_mouseover (rect);
     add_regular_mouseout (rect);
     google.maps.event.addListener(rect, 'mouseover', function() {
@@ -203,9 +203,6 @@ function display_info_about_square (info) {
     jQuery('#block_difficulty') [0].innerHTML =  '<br/> <b>Access difficulty level:</b> '+ info['access_difficulty'] 
     + ' <br/> <b>Terrain difficulty level:</b> ' + info['terrain_difficulty'] ;
     
-    
-    
-    ;
     jQuery('.grid_border_coords_table').show();
 }
 

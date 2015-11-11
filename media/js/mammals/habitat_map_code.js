@@ -1,4 +1,4 @@
-var markers = []
+var markers = [];
 var the_map;
 
 var recalculate_every_time = false; // recalculate the numbers in parenthesis every time an ajax request is made
@@ -72,8 +72,8 @@ function wipe_markers() {
 
 
 function draw_the_grid(the_map) {
-    var grid_obj = []
-    grid_json = JSON.parse(jQuery('#grid_json')[0].innerHTML)
+    var grid_obj = [];
+    grid_json = JSON.parse(jQuery('#grid_json')[0].innerHTML);
     for (var i = 0; i < grid_json.length; i++) {
         var box = grid_json[i]['corner_obj'];
         var rect = make_grid_rectangle (bounds (box), the_map);
@@ -87,7 +87,7 @@ function draw_the_grid(the_map) {
 
 function show_the_grid(the_map) {
     for (var i = 0; i < the_map.grid_obj.length; i++) {
-        the_map.grid_obj[i].setVisible(true)
+        the_map.grid_obj[i].setVisible(true);
         
     }
 }
@@ -95,7 +95,7 @@ function show_the_grid(the_map) {
 
 function hide_the_grid(the_map) {
     for (var i = 0; i < the_map.grid_obj.length; i++) {
-        the_map.grid_obj[i].setVisible(false)
+        the_map.grid_obj[i].setVisible(false);
     }
 }
 
@@ -103,16 +103,16 @@ function hide_the_grid(the_map) {
 function show_or_hide_the_grid (the_map) {
     // show or hide the grid:
     if (jQuery('#id_gridOn').attr('checked')) {
-        show_the_grid(the_map)
+        show_the_grid(the_map);
     }
     else {
-        hide_the_grid(the_map)
+        hide_the_grid(the_map);
     }   
 }
 
 function contains_checked_boxes (facet_box) {    
     var how_many_are_checked = jQuery (facet_box).next().find('input:checkbox:checked').length;
-    return (how_many_are_checked > 0)
+    return (how_many_are_checked > 0);
 
 }
 
@@ -234,7 +234,7 @@ function refresh_map (mapInstance, breakdown_object, map_data) {
         c.setOptions (style);
         function show_info_window (event) {
             if (the_map.currently_open_infowindow != undefined) {
-                the_map.currently_open_infowindow.close()
+                the_map.currently_open_infowindow.close();
             }
             the_infowindow = new google.maps.InfoWindow();
             the_infowindow.setContent( name );
@@ -285,7 +285,7 @@ function show_breakdown_numbers (breakdown_object) {
         ,'school'  :       jQuery ('input[name="school"  ]')
         ,'success'  :      jQuery ('input[name="success" ]')
         ,'signs'  :        jQuery ('input[name="signs"   ]')
-    }
+    };
     
     
     res = [];
@@ -301,7 +301,7 @@ function show_breakdown_numbers (breakdown_object) {
             var the_checkbox = the_checkboxes[i];
             //console.log (the_checkbox);
             //console.log (JSON.stringify (breakdown_object[the_facet]));
-            var how_many = breakdown_object[the_facet] [the_checkbox.value]
+            var how_many = breakdown_object[the_facet] [the_checkbox.value];
             //console.log (how_many);
             if ( how_many ) {
                 say_how_many (the_checkbox, how_many);

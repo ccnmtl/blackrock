@@ -1,6 +1,6 @@
 function is_sandbox() {
     // this is just a placeholder, ok? don't sue me.
-    return (location.href.match(/sandbox/) != null)
+    return (location.href.match(/sandbox/) != null);
 }
 
 function back_to_grid_from_square () {
@@ -106,7 +106,7 @@ function addTrails (mapObj) {
     
 }
 
-rad = function(x) {return x*Math.PI/180;}
+rad = function(x) {return x*Math.PI/180;};
 
 distHaversine = function(p1, p2) {
   var R = 6371; // earth's mean radius in km
@@ -119,5 +119,5 @@ distHaversine = function(p1, p2) {
   var d = R * c;
 
   return d;
-}
+};
 

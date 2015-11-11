@@ -7,7 +7,7 @@ habitat_disk_style = {
       strokeColor : 'black',
       strokeOpacity : 0.6,
       zIndex: 1
-}
+};
 
 square_styles = {
     'regular': {
@@ -29,7 +29,4 @@ square_styles = {
             ,strokeWeight    : 1
         }
     }
-}
-
-
-
+};

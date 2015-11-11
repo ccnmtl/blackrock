@@ -17,7 +17,7 @@ function addBlock(mapInstance) {
 
     
     var dot_radius;
-    var side_of_square =  distHaversine (lat_lng_from_point(box[0]) , lat_lng_from_point(box[1] )) * 1000 //meters.
+    var side_of_square =  distHaversine (lat_lng_from_point(box[0]) , lat_lng_from_point(box[1] )) * 1000; //meters.
     var really_small_square =(side_of_square < 150 );
     if ( really_small_square ) {
         dot_radius = side_of_square / 50;
@@ -33,7 +33,7 @@ function addBlock(mapInstance) {
     center = lat_lng_from_point(box[4]);
     for (var i = 0; i < transects.length; i++) {
         transect_obj = transects[i];
-        new_transect = transect (center, lat_lng_from_point(transect_obj['edge']), mapInstance)
+        new_transect = transect (center, lat_lng_from_point(transect_obj['edge']), mapInstance);
         for (var j = 0; j < transects[i]['points'].length; j++) {
             next_point = transects[i]['points'][j];
             circle = x_meter_circle (next_point['point'], mapInstance);
@@ -49,14 +49,14 @@ function addBlock(mapInstance) {
 
 function hide_square_coords_table () {
     jQuery ('.square_coords_table_div').hide();
-    jQuery ('#hide_square_coords_table_button').hide()
-    jQuery ('#show_square_coords_table_button').show()
+    jQuery ('#hide_square_coords_table_button').hide();
+    jQuery ('#show_square_coords_table_button').show();
 }
 
 function show_square_coords_table () {
     jQuery ('.square_coords_table_div').show();
-    jQuery ('#hide_square_coords_table_button').show()
-    jQuery ('#show_square_coords_table_button').hide()
+    jQuery ('#hide_square_coords_table_button').show();
+    jQuery ('#show_square_coords_table_button').hide();
 }
 
 function hide_all_except_printer_friendly_table() {
@@ -156,8 +156,8 @@ function transect (center, edge, map) {
         path: [center, edge],
         map : map,
     });
-    pl.setOptions ( initial_transect_style )
-    return pl
+    pl.setOptions ( initial_transect_style );
+    return pl;
     
 }
 
@@ -189,7 +189,7 @@ function new_expedition_ajax (){
         type: 'POST',
         url: '/mammals/new_expedition_ajax/',
         success: function(response) {
-            jQuery(jQuery('#save_square_via_ajax')[0]).hide()
+            jQuery(jQuery('#save_square_via_ajax')[0]).hide();
             //jQuery('#save_square_via_ajax').hide();
             alert ('This information has been saved as Expedition #' + response + '.');
         }

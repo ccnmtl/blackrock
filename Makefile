@@ -22,6 +22,19 @@ migrate: ./ve/bin/python check jenkins
 check: ./ve/bin/python
 	$(MANAGE) check
 
+jshint: node_modules/jshint/bin/jshint
+	./node_modules/jshint/bin/jshint --config=.jshintrc media/js/admin.js media/js/local_session.js media/js/mammals media/js/optimization media/js/paleoecology media/js/respiration media/js/sampler
+
+jscs: node_modules/jscs/bin/jscs
+	./node_modules/jscs/bin/jscs media/js/admin.js media/js/local_session.js media/js/mammals media/js/optimization media/js/paleoecology media/js/respiration media/js/sampler
+
+node_modules/jshint/bin/jshint:
+	npm install jshint --prefix .
+
+node_modules/jscs/bin/jscs:
+	npm install jscs --prefix .
+
+
 shell: ./ve/bin/python
 	$(MANAGE) shell_plus
 

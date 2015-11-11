@@ -14,7 +14,7 @@ function SampleMap(options) {
 	    options.image = options.image || $('results-map-bg');
 	    self.createMap(options);
 	}
-    }
+    };
 
     this.addPlot = function(plot, plotname) {
 	if (plot.coordinates) {
@@ -26,7 +26,7 @@ function SampleMap(options) {
 	    feature.plot = plot;
 	    this.vectors.addFeatures( [ feature ]);
 	}
-    }
+    };
 
     this.createMap = function(options) {
        try {
@@ -92,7 +92,7 @@ function SampleMap(options) {
 	   }
        }
     
-    }//end SampleMap.createMap()
+    };//end SampleMap.createMap()
 
     this.init();
 }//end SampleMap

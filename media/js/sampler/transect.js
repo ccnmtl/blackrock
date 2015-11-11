@@ -61,7 +61,7 @@ function snapTransect(x,y) {
   var x1 = centerPos.x;
   var y1 = centerPos.y;
 
-  var adj = MetersToPx($("transect-start-x").value, $("transect-start-y").value)
+    var adj = MetersToPx($("transect-start-x").value, $("transect-start-y").value);
   var x1 = adj.x;
   var y1 = adj.y;
   

@@ -109,7 +109,7 @@ function submitForm() {
   $('plot-w').value = getElementDimensions("plot_inner").w;
   $('plot-h').value = getElementDimensions("plot_inner").h;
 
-  $('view-form').submit()
+    $('view-form').submit();
 }
 
 function setView(x_offset, y_offset, scale_factor, plot_w, plot_h) {
