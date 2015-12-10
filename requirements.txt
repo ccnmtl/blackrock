@@ -47,7 +47,7 @@ django-templatetag-sugar==1.0
 django-statsd-mozilla==0.3.16
 django-paging==0.2.5
 django-appconf==1.0.1
-django-compressor==1.5
+django-compressor==1.6
 raven==5.8.1
 django-googlecharts==1.0-alpha-1
 django-jenkins==0.17.0
