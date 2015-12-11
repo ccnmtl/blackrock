@@ -5,7 +5,7 @@
     var global = this;
     function hasAttr(obj,key) {
 	try {
-	    return (typeof(obj[key]) != 'undefined');
+	    return (typeof(obj[key]) !== 'undefined');
 	} catch(e) {return false;}
     }
 
@@ -17,7 +17,7 @@
 
 	this.KEYS_KEY = 'KEYS';
 	this.hasKey = function(key) {
-	    return (stor.getItem(key) != null);
+	    return (stor.getItem(key) !== null);
 	};
 	this.get = function(key,default_val) {
 	    return (this.hasKey(key) ? stor.getItem(key) : default_val);
@@ -39,7 +39,7 @@
 	    stor.setItem(this.KEYS_KEY,JSON.stringify(key_dict));
 	};
 	this.deleteEveryFuckingThing = function() {
-	    for (a in key_dict)  {
+	    for (var a in key_dict)  {
 		      this.del(a);
       }
 	};
