@@ -122,25 +122,25 @@ function decorate_suggested_square (sq) {
 
 function unsuggest_square() {
     jQuery ('.randomize_again_hint').hide();
-    if (typeof(undecorate_suggested_square) == "function") {
+    if (typeof(undecorate_suggested_square) === "function") {
         undecorate_suggested_square();
     }
 }
 
 
 function deal_with_just_visited_block () {
-    if (jQuery('#selected_block').length == 0) { // don't bother doing this  on sandbox
+    if (jQuery('#selected_block').length === 0) { // don't bother doing this  on sandbox
         return;
     }
     selected_block_id = jQuery ('#selected_block')[0].innerHTML;
-    if ( selected_block_id == '') {
+    if ( selected_block_id === '') {
         return;
     }
 
 
     for (var i = 0; i < grid_json.length; i++) {
         sq = grid_json [i];
-        if (sq['database_id'] == selected_block_id) {
+        if (sq['database_id'] === selected_block_id) {
            sq['grid_rectangle'].setOptions (square_styles['just_visited']['unselected']);
            add_just_visited_mouseout  (sq['grid_rectangle']);
            add_just_visited_mouseover (sq['grid_rectangle'], sq);

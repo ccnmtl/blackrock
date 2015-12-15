@@ -1,7 +1,7 @@
 function addBlock(mapInstance) {
     var map_bounds = new google.maps.LatLngBounds();
-    block_json = JSON.parse(jQuery('#block_json')[0].innerHTML);
-    transects   =JSON.parse(jQuery('#transects_json')[0].innerHTML);
+    var block_json = JSON.parse(jQuery('#block_json')[0].innerHTML);
+    var transects   =JSON.parse(jQuery('#transects_json')[0].innerHTML);
     var box = block_json;
     var rect = make_grid_rectangle (bounds (block_json), mapInstance);
     
@@ -21,22 +21,22 @@ function addBlock(mapInstance) {
     var really_small_square =(side_of_square < 150 );
     if ( really_small_square ) {
         dot_radius = side_of_square / 50;
-        initial_circle_style['radius'] = dot_radius;
-        circle_off_style    ['radius'] = dot_radius;
-        circle_on_style     ['radius'] = dot_radius * 2;
+        initial_circle_style.radius = dot_radius;
+        circle_off_style.radius = dot_radius;
+        circle_on_style.radius = dot_radius * 2;
     
     }
     else {
         dot_radius = 2.0;
     }
     
-    center = lat_lng_from_point(box[4]);
+    var center = lat_lng_from_point(box[4]);
     for (var i = 0; i < transects.length; i++) {
-        transect_obj = transects[i];
-        new_transect = transect (center, lat_lng_from_point(transect_obj['edge']), mapInstance);
+        var transect_obj = transects[i];
+        var new_transect = transect (center, lat_lng_from_point(transect_obj.edge), mapInstance);
         for (var j = 0; j < transects[i]['points'].length; j++) {
-            next_point = transects[i]['points'][j];
-            circle = x_meter_circle (next_point['point'], mapInstance);
+            var next_point = transects[i]['points'][j];
+            var circle = x_meter_circle (next_point['point'], mapInstance);
             attach_marker_info (circle, next_point, new_transect, transect_obj);
         }
     }
@@ -86,14 +86,14 @@ function attach_marker_info (the_circle, point_info, the_transect, transect_info
 
     // When the mouse is over a circle or its corresponding row in the table,
     // highlight both the circle and its table row.
-    table = jQuery ('#transect_table_overflow_div');
-    transect_row = table.find( '.transect_'    + point_info['transect_id']);
+    var table = jQuery ('#transect_table_overflow_div');
+    var transect_row = table.find( '.transect_'    + point_info['transect_id']);
     //transect_top = transect_row.position().top
-    transect_top = 100;
-    point_id_row = jQuery ('.top_px_number.point_' + point_info['point_id']);
+    var transect_top = 100;
+    var point_id_row = jQuery ('.top_px_number.point_' + point_info['point_id']);
     
     
-    row_top = jQuery ('.get_row_top_from_here.point_' + point_info['point_id']).position().top;
+    var row_top = jQuery ('.get_row_top_from_here.point_' + point_info['point_id']).position().top;
     
     // this is the hidden column that contains the "top" value we want to scroll to:
     point_id_row.html(row_top);
@@ -105,8 +105,8 @@ function attach_marker_info (the_circle, point_info, the_transect, transect_info
         jQuery ('.transect_' + point_info['transect_id']).addClass("highlighted");
         point_id_row = jQuery ('.top_px_number.point_' + point_info['point_id']);
         if (scroll_into_view) {
-            offset = 194;
-            goal = Number(point_id_row.html()) - jQuery ('#transect_table_overflow_div').position().top - offset;
+            var offset = 194;
+            var goal = Number(point_id_row.html()) - jQuery ('#transect_table_overflow_div').position().top - offset;
             jQuery ('#transect_table_overflow_div').animate({scrollTop: goal}, { duration: 500, queue: false });
         }    
         // change the decoration of the circle and transect
@@ -140,10 +140,9 @@ function attach_marker_info (the_circle, point_info, the_transect, transect_info
 }
 
 function x_meter_circle (center, map) {
-  c = new google.maps.Circle({
-      center:  lat_lng_from_point(  center  ),
-      map: map,
-
+    var c = new google.maps.Circle({
+        center:  lat_lng_from_point(  center  ),
+        map: map,
    });
     c.setOptions (initial_circle_style);
 
@@ -151,7 +150,7 @@ function x_meter_circle (center, map) {
 }
 
 function transect (center, edge, map) {
-    pl=  new google.maps.Polyline(
+    var pl =  new google.maps.Polyline(
     {
         path: [center, edge],
         map : map,
