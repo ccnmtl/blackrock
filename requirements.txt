@@ -59,7 +59,7 @@ django-haystack==2.3.1
 django-treebeard==3.0
 django-bootstrap-form==3.2
 django-markwhat==1.4
-django-pagetree==1.1.7
+django-pagetree==1.1.9
 django-pageblocks==1.0.3
 django-databrowse==1.2
 factory-boy==2.6.0
