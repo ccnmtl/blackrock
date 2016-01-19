@@ -32,18 +32,7 @@ class Command(BaseCommand):
 
         print '"ID","SPECIES","x","y","dbh"'
 
-        for i in range(len(header)):
-            h = header[i].lower()
-            if h == 'id':
-                id_idx = i
-            if h == 'species':
-                species_idx = i
-            if h == 'x':
-                x_idx = i
-            if h == 'y':
-                y_idx = i
-            if h == 'dbh':
-                dbh_idx = i
+        (id_idx, species_idx, x_idx, y_idx, dbh_idx) = header_indices(header)
 
         trees = list(table)
         idmap = {}
@@ -79,3 +68,19 @@ class Command(BaseCommand):
                 # this.
                 plot += 1
             y += 1
+
+
+def header_indices(header):
+    for i in range(len(header)):
+        h = header[i].lower()
+        if h == 'id':
+            id_idx = i
+        if h == 'species':
+            species_idx = i
+        if h == 'x':
+            x_idx = i
+        if h == 'y':
+            y_idx = i
+        if h == 'dbh':
+            dbh_idx = i
+    return (id_idx, species_idx, x_idx, y_idx, dbh_idx)
