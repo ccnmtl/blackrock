@@ -63,8 +63,11 @@ class Command(BaseCommand):
                                 remaining = remaining - 1
                     if remaining > 1:
                         # more than one non-zero
-                        # delete everything but the first
-                        for row in r[1:]:
-                            row.delete()
+                        delete_everything_but_the_first(r)
             step_date = step_date + d
         print "duplicates found: %d" % duplicates
+
+
+def delete_everything_but_the_first(r):
+    for row in r[1:]:
+        row.delete()
