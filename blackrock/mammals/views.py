@@ -850,7 +850,6 @@ def process_point(point, rp, form_map, form_map_booleans):
     # 2) Are they both accurate to 5 decimals?
     # 3) Are they within a certain distance of the original lat and lon (no
     # interest in points in another country.
-    correcting_lat_lon = False
     match_string = '(\-)?(\d){2}\.(\d){5}'
 
     # if your coordinate string doesn't match the above, you have a nice
@@ -858,6 +857,10 @@ def process_point(point, rp, form_map, form_map_booleans):
     lat_key = 'actual_lat_%d' % point.id
     lon_key = 'actual_lon_%d' % point.id
 
+    correct_lat_lon_if_needed(rp, lat_key, lon_key, match_string, point)
+
+
+def correct_lat_lon_if_needed(rp, lat_key, lon_key, match_string, point):
     max_diff = 250.0  # meters
     min_diff = 1.0  # meters
 

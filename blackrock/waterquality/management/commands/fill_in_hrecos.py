@@ -54,17 +54,23 @@ class Command(BaseCommand):
                     for row in r[1:]:
                         row.delete()
                 else:
-                    # clear out any zero values
-                    remaining = r.count()
-                    for row in r:
-                        if remaining > 1:
-                            if row.value == zero:
-                                row.delete()
-                                remaining = remaining - 1
-                    if remaining > 1:
-                        # more than one non-zero
-                        # delete everything but the first
-                        for row in r[1:]:
-                            row.delete()
+                    clear_out_any_zero_values(r, zero)
             step_date = step_date + d
         print "duplicates found: %d" % duplicates
+
+
+def clear_out_any_zero_values(r, zero):
+    remaining = r.count()
+    for row in r:
+        if remaining > 1:
+            if row.value == zero:
+                row.delete()
+                remaining = remaining - 1
+    if remaining > 1:
+        # more than one non-zero
+        delete_everything_but_the_first(r)
+
+
+def delete_everything_but_the_first(r):
+    for row in r[1:]:
+        row.delete()

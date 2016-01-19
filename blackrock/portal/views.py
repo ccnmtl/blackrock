@@ -183,13 +183,7 @@ def process_metadata(result):
 
     values = process_fieldnames(result)
 
-    for field in dataset._meta.fields:
-        if field.name in values.keys():
-            if isinstance(field, DateField):
-                value = process_date(values[field.name][0])
-            else:
-                value = values[field.name][0]
-            dataset.__setattr__(field.name, value)
+    dataset = process_dataset_meta_fields(dataset, values)
 
     dataset.location = process_location(values)
     if created:
@@ -211,6 +205,17 @@ def process_metadata(result):
         dataset.save()
 
     return created
+
+
+def process_dataset_meta_fields(dataset, values):
+    for field in dataset._meta.fields:
+        if field.name in values.keys():
+            if isinstance(field, DateField):
+                value = process_date(values[field.name][0])
+            else:
+                value = values[field.name][0]
+            dataset.__setattr__(field.name, value)
+    return dataset
 
 
 @user_passes_test(lambda u: u.is_staff)
