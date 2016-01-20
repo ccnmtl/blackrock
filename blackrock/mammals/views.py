@@ -961,6 +961,14 @@ def process_animal_point(point, booleans, rp, menus):
     if rp_key in rp and rp[rp_key] != '':
         setattr(point.animal, 'health', rp[rp_key])
 
+    point.animal = update_point_animal_weight(point, rp)
+    point.animal = update_point_animal_tag_number(point, rp)
+    point.animal.save()
+
+    delete_point_animal_if_needed(point, rp)
+
+
+def update_point_animal_weight(point, rp):
     rp_key = 'weight_in_grams_%d' % point.id
     if rp_key in rp and rp[rp_key] != '':
         try:
@@ -969,10 +977,7 @@ def process_animal_point(point, booleans, rp, menus):
         except ValueError:
             pass  # not throwing a 500 for this, sorry.
 
-    point.animal = update_point_animal_tag_number(point, rp)
-    point.animal.save()
-
-    delete_point_animal_if_needed(point, rp)
+    return point.animal
 
 
 def update_point_animal_tag_number(point, rp):
