@@ -957,15 +957,19 @@ def process_animal_point(point, booleans, rp, menus):
         if rp_key in rp and rp[rp_key] is not None:
             setattr(point.animal, '%s_id' % m, rp[rp_key])
 
-    rp_key = 'health_%d' % point.id
-    if rp_key in rp and rp[rp_key] != '':
-        setattr(point.animal, 'health', rp[rp_key])
-
+    point.animal = update_point_animal_health(point, rp)
     point.animal = update_point_animal_weight(point, rp)
     point.animal = update_point_animal_tag_number(point, rp)
     point.animal.save()
 
     delete_point_animal_if_needed(point, rp)
+
+
+def update_point_animal_health(point, rp):
+    rp_key = 'health_%d' % point.id
+    if rp_key in rp and rp[rp_key] != '':
+        setattr(point.animal, 'health', rp[rp_key])
+    return point.animal
 
 
 def update_point_animal_weight(point, rp):
