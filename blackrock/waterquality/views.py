@@ -128,6 +128,20 @@ def graphing_tool(request):
         data['all_series'] = get_all_series(series_ids)
         data['show_graph'] = True
 
+    data = handle_boxplot(graph_type, data, request, start, end)
+    data = handle_scatterplot(graph_type, data, request, start, end)
+
+    t = end - start
+    data['seconds'] = t.seconds
+    data['days'] = t.days
+    data['type'] = graph_type
+    data['graph_title'] = request.GET.get('title', "")[:50]
+    p = re.compile(r'\W+')
+    data['filename_base'] = p.sub('_', data['graph_title'])
+    return data
+
+
+def handle_boxplot(graph_type, data, request, start, end):
     if graph_type == 'box-plot':
         series_ids = request.GET.getlist('series')
         datasets = []
@@ -158,16 +172,6 @@ def graphing_tool(request):
             denominator = math.sqrt((sd1 / float(n1)) + (sd2 / float(n2)))
             data['ttest'] = float(numerator) / float(denominator)
             data['show_ttest'] = True
-
-    data = handle_scatterplot(graph_type, data, request, start, end)
-
-    t = end - start
-    data['seconds'] = t.seconds
-    data['days'] = t.days
-    data['type'] = graph_type
-    data['graph_title'] = request.GET.get('title', "")[:50]
-    p = re.compile(r'\W+')
-    data['filename_base'] = p.sub('_', data['graph_title'])
     return data
 
 
