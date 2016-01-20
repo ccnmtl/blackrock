@@ -386,10 +386,7 @@ def loadsolr(request):
 
     solr = Solr(settings.CDRS_SOLR_URL)
 
-    # stash the station mappings into a python map
-    stations = {}
-    for sm in StationMapping.objects.all():
-        stations[sm.abbreviation] = sm.station
+    stations = station_mappings_dict()
 
     created_count = 0
     updated_count = 0
@@ -467,3 +464,11 @@ def loadsolr(request):
         dumps(response), content_type='application/json')
     http_response['Cache-Control'] = 'max-age=0,no-cache,no-store'
     return http_response
+
+
+def station_mappings_dict():
+    # stash the station mappings into a python map
+    stations = {}
+    for sm in StationMapping.objects.all():
+        stations[sm.abbreviation] = sm.station
+    return stations
