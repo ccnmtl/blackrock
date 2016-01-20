@@ -969,12 +969,17 @@ def process_animal_point(point, booleans, rp, menus):
         except ValueError:
             pass  # not throwing a 500 for this, sorry.
 
-    rp_key = 'tag_number_%d' % point.id
-    if rp_key in rp and rp[rp_key] != '':
-        setattr(point.animal, 'tag_number', rp[rp_key])
+    point.animal = update_point_animal_tag_number(point, rp)
     point.animal.save()
 
     delete_point_animal_if_needed(point, rp)
+
+
+def update_point_animal_tag_number(point, rp):
+    rp_key = 'tag_number_%d' % point.id
+    if rp_key in rp and rp[rp_key] != '':
+        setattr(point.animal, 'tag_number', rp[rp_key])
+    return point.animal
 
 
 def delete_point_animal_if_needed(point, rp):
