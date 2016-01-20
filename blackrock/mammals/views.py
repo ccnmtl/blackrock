@@ -665,6 +665,16 @@ def update_number_of_students(rp, exp):
     return exp
 
 
+def update_overnight_temperature(rp, exp):
+    if 'overnight_temperature_int' in rp:
+        try:
+            exp.overnight_temperature_int = int(
+                rp['overnight_temperature_int'])
+        except ValueError:
+            exp.overnight_temperature_int = 0
+    return exp
+
+
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry,
                   login_url='/mammals/login/')
 def process_edit_expedition(request, expedition_id):
@@ -674,14 +684,7 @@ def process_edit_expedition(request, expedition_id):
     exp = update_expedition_strings(rp, exp)
     exp = update_grade_info(rp, exp)
     exp = update_number_of_students(rp, exp)
-
-    if 'overnight_temperature_int' in rp:
-        try:
-            exp.overnight_temperature_int = int(
-                rp['overnight_temperature_int'])
-        except ValueError:
-            exp.overnight_temperature_int = 0
-
+    exp = update_overnight_temperature(rp, exp)
     exp.save()
 
     form_map_environment = {
