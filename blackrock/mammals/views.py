@@ -974,6 +974,10 @@ def process_animal_point(point, booleans, rp, menus):
         setattr(point.animal, 'tag_number', rp[rp_key])
     point.animal.save()
 
+    delete_point_animal_if_needed(point, rp)
+
+
+def delete_point_animal_if_needed(point, rp):
     rp_key = 'delete_%d' % point.id
     if rp_key in rp and rp[rp_key] == 'delete':
         point.animal.delete()
