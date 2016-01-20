@@ -198,16 +198,7 @@ def worksheet(request):
         theta = math.degrees(
             math.acos((a ** 2 + b ** 2 - c ** 2) / (2 * a * b)))
 
-        # adjust theta depending on the quadrant
-        # (always rotating clockwise, just to keep things simple)
-        if x2 > x1 and y2 > y1:
-            theta = 360 - 90 - theta
-        elif x2 > x1 and y2 < y1:
-            theta = 360 - (90 + theta)
-        elif x2 < x1 and y2 < y1:
-            theta = 180 - (theta - 90)
-        else:
-            theta = theta - 90
+        theta = adjust_theta_by_quadrant(theta, x1, x2, y1, y2)
 
     theta = math.radians(theta)
 
@@ -242,6 +233,20 @@ def worksheet(request):
                               'view_height': view_height,
                               'view_width': view_width,
                               })
+
+
+def adjust_theta_by_quadrant(theta, x1, x2, y1, y2):
+    # adjust theta depending on the quadrant
+    # (always rotating clockwise, just to keep things simple)
+    if x2 > x1 and y2 > y1:
+        theta = 360 - 90 - theta
+    elif x2 > x1 and y2 < y1:
+        theta = 360 - (90 + theta)
+    elif x2 < x1 and y2 < y1:
+        theta = 180 - (theta - 90)
+    else:
+        theta = theta - 90
+    return theta
 
 
 def export_csv(request):
