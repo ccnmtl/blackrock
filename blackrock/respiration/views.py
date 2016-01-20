@@ -214,69 +214,69 @@ def loadcsv(request):
     # if csv file provided, loadcsv
     if request.method != 'POST' or 'csvfile' not in request.FILES:
         return HttpResponse('No csv file specified')
+
+    fh = request.FILES['csvfile']
+
+    # TODO: error checking (correct file type, etc.)
+
+    table = csv.reader(fh)
+
+    headers = table.next()
+    for i in range(0, len(headers)):
+        header = headers[i].lower()
+        if header == "station":
+            station_idx = i
+        elif header == "year":
+            year_idx = i
+        elif header == "julian day":
+            day_idx = i
+        elif header == "hour":
+            hour_idx = i
+        elif header == "avg temp deg c":
+            temp_idx = i
+
+    # make sure all headers are defined
+    if not ('station_idx' in vars() and 'year_idx' in vars() and
+            'day_idx' in vars() and 'hour_idx' in vars() and
+            'temp_idx' in vars()):
+        expected = "station, year, julian day, hour, avg temp deg C"
+        msg = "Error: Missing header.  We expect: %s" % expected
+        return HttpResponse(msg)
     else:
-        fh = request.FILES['csvfile']
+        if request.POST.get('delete') == 'on':
+            qs = Temperature.objects.all()
+            qs.delete()
 
-        # TODO: error checking (correct file type, etc.)
+        next_expected_timestamp = None
+        last_valid_temp = None
+        prev_station = None
 
-        table = csv.reader(fh)
+        for row in table:
+            station = row[station_idx]
+            year = row[year_idx]
+            julian_days = row[day_idx]
+            hour = row[hour_idx]
+            temp = row[temp_idx]
 
-        headers = table.next()
-        for i in range(0, len(headers)):
-            header = headers[i].lower()
-            if header == "station":
-                station_idx = i
-            elif header == "year":
-                year_idx = i
-            elif header == "julian day":
-                day_idx = i
-            elif header == "hour":
-                hour_idx = i
-            elif header == "avg temp deg c":
-                temp_idx = i
+            # adjust hour from "military" to 0-23, and 2400 becomes 0 of
+            # the next day
+            normalized_hour = int(hour) / 100 - 1
+            # if normalized_hour == 24:
+            #  normalized_hour = 0
+            # julian_days = int(julian_days) + 1
 
-        # make sure all headers are defined
-        if not ('station_idx' in vars() and 'year_idx' in vars() and
-                'day_idx' in vars() and 'hour_idx' in vars() and
-                'temp_idx' in vars()):
-            expected = "station, year, julian day, hour, avg temp deg C"
-            msg = "Error: Missing header.  We expect: %s" % expected
-            return HttpResponse(msg)
-        else:
-            if request.POST.get('delete') == 'on':
-                qs = Temperature.objects.all()
-                qs.delete()
+            delta = datetime.timedelta(days=int(julian_days) - 1)
+            dt = datetime.datetime(
+                year=int(year), month=1, day=1, hour=normalized_hour)
+            dt = dt + delta
 
-            next_expected_timestamp = None
-            last_valid_temp = None
-            prev_station = None
-
-            for row in table:
-                station = row[station_idx]
-                year = row[year_idx]
-                julian_days = row[day_idx]
-                hour = row[hour_idx]
-                temp = row[temp_idx]
-
-                # adjust hour from "military" to 0-23, and 2400 becomes 0 of
-                # the next day
-                normalized_hour = int(hour) / 100 - 1
-                # if normalized_hour == 24:
-                #  normalized_hour = 0
-                # julian_days = int(julian_days) + 1
-
-                delta = datetime.timedelta(days=int(julian_days) - 1)
-                dt = datetime.datetime(
-                    year=int(year), month=1, day=1, hour=normalized_hour)
-                dt = dt + delta
-
-                (next_expected_timestamp,
-                 last_valid_temp,
-                 prev_station,
-                 created,
-                 updated) = _process_row(cursor, dt, station, temp,
-                                         next_expected_timestamp,
-                                         last_valid_temp, prev_station)
+            (next_expected_timestamp,
+             last_valid_temp,
+             prev_station,
+             created,
+             updated) = _process_row(cursor, dt, station, temp,
+                                     next_expected_timestamp,
+                                     last_valid_temp, prev_station)
 
     return HttpResponseRedirect('/admin/respiration/temperature')
 
