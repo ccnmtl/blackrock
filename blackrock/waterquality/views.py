@@ -159,8 +159,7 @@ def graphing_tool(request):
             data['ttest'] = float(numerator) / float(denominator)
             data['show_ttest'] = True
 
-    if graph_type == 'scatter-plot':
-        data = scatterplot_data(data, request, start, end)
+    data = handle_scatterplot(graph_type, data, request, start, end)
 
     t = end - start
     data['seconds'] = t.seconds
@@ -169,6 +168,12 @@ def graphing_tool(request):
     data['graph_title'] = request.GET.get('title', "")[:50]
     p = re.compile(r'\W+')
     data['filename_base'] = p.sub('_', data['graph_title'])
+    return data
+
+
+def handle_scatterplot(graph_type, data, request, start, end):
+    if graph_type == 'scatter-plot':
+        data = scatterplot_data(data, request, start, end)
     return data
 
 
