@@ -946,11 +946,7 @@ def save_expedition_animals(request):
 
 def process_animal_point(point, booleans, rp, menus):
     for b in booleans:
-        rp_key = '%s_%d' % (b, point.id)
-        if rp_key in rp and rp[rp_key] == 'True':
-            setattr(point.animal, b, True)
-        else:
-            setattr(point.animal, b, False)
+        point.animal = update_point_animal_boolean(point, rp, b)
 
     for m in menus:
         point.animal = update_point_animal_menu_item(point, rp, m)
@@ -961,6 +957,15 @@ def process_animal_point(point, booleans, rp, menus):
     point.animal.save()
 
     delete_point_animal_if_needed(point, rp)
+
+
+def update_point_animal_boolean(point, rp, b):
+    rp_key = '%s_%d' % (b, point.id)
+    if rp_key in rp and rp[rp_key] == 'True':
+        setattr(point.animal, b, True)
+    else:
+        setattr(point.animal, b, False)
+    return point.animal
 
 
 def update_point_animal_menu_item(point, rp, m):
