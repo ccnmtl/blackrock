@@ -242,41 +242,41 @@ def loadcsv(request):
         expected = "station, year, julian day, hour, avg temp deg C"
         msg = "Error: Missing header.  We expect: %s" % expected
         return HttpResponse(msg)
-    else:
-        if request.POST.get('delete') == 'on':
-            qs = Temperature.objects.all()
-            qs.delete()
 
-        next_expected_timestamp = None
-        last_valid_temp = None
-        prev_station = None
+    if request.POST.get('delete') == 'on':
+        qs = Temperature.objects.all()
+        qs.delete()
 
-        for row in table:
-            station = row[station_idx]
-            year = row[year_idx]
-            julian_days = row[day_idx]
-            hour = row[hour_idx]
-            temp = row[temp_idx]
+    next_expected_timestamp = None
+    last_valid_temp = None
+    prev_station = None
 
-            # adjust hour from "military" to 0-23, and 2400 becomes 0 of
-            # the next day
-            normalized_hour = int(hour) / 100 - 1
-            # if normalized_hour == 24:
-            #  normalized_hour = 0
-            # julian_days = int(julian_days) + 1
+    for row in table:
+        station = row[station_idx]
+        year = row[year_idx]
+        julian_days = row[day_idx]
+        hour = row[hour_idx]
+        temp = row[temp_idx]
 
-            delta = datetime.timedelta(days=int(julian_days) - 1)
-            dt = datetime.datetime(
-                year=int(year), month=1, day=1, hour=normalized_hour)
-            dt = dt + delta
+        # adjust hour from "military" to 0-23, and 2400 becomes 0 of
+        # the next day
+        normalized_hour = int(hour) / 100 - 1
+        # if normalized_hour == 24:
+        #  normalized_hour = 0
+        # julian_days = int(julian_days) + 1
 
-            (next_expected_timestamp,
-             last_valid_temp,
-             prev_station,
-             created,
-             updated) = _process_row(cursor, dt, station, temp,
-                                     next_expected_timestamp,
-                                     last_valid_temp, prev_station)
+        delta = datetime.timedelta(days=int(julian_days) - 1)
+        dt = datetime.datetime(
+            year=int(year), month=1, day=1, hour=normalized_hour)
+        dt = dt + delta
+
+        (next_expected_timestamp,
+         last_valid_temp,
+         prev_station,
+         created,
+         updated) = _process_row(cursor, dt, station, temp,
+                                 next_expected_timestamp,
+                                 last_valid_temp, prev_station)
 
     return HttpResponseRedirect('/admin/respiration/temperature')
 
