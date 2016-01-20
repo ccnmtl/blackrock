@@ -247,6 +247,13 @@ def loadcsv(request):
         qs = Temperature.objects.all()
         qs.delete()
 
+    load_table(table, station_idx, year_idx, day_idx, hour_idx, temp_idx,
+               cursor)
+    return HttpResponseRedirect('/admin/respiration/temperature')
+
+
+def load_table(table, station_idx, year_idx, day_idx, hour_idx, temp_idx,
+               cursor):
     next_expected_timestamp = None
     last_valid_temp = None
     prev_station = None
@@ -277,8 +284,6 @@ def loadcsv(request):
          updated) = _process_row(cursor, dt, station, temp,
                                  next_expected_timestamp,
                                  last_valid_temp, prev_station)
-
-    return HttpResponseRedirect('/admin/respiration/temperature')
 
 
 def _update_or_insert(cursor, record_datetime, station, temp, data_source):
