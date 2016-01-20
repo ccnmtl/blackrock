@@ -642,6 +642,12 @@ def update_school_info(rp, exp):
     return exp
 
 
+def update_grade_info(rp, exp):
+    if 'grade' in rp:
+        exp.grade_level_id = int(rp['grade'])
+    return exp
+
+
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry,
                   login_url='/mammals/login/')
 def process_edit_expedition(request, expedition_id):
@@ -654,8 +660,7 @@ def process_edit_expedition(request, expedition_id):
         exp.set_end_time_from_strings(
             rp['expedition_hour_string'], rp['expedition_minute_string'])
 
-    if 'grade' in rp:
-        exp.grade_level_id = int(rp['grade'])
+    exp = update_grade_info(rp, exp)
 
     if 'number_of_students' in rp:
         try:
