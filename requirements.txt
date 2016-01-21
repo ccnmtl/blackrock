@@ -22,7 +22,7 @@ pysolr==3.3.2
 gdata==2.0.14
 django-tinymce==1.5.3
 BeautifulSoup==3.2.1
-coverage==3.7.1
+coverage==4.0.3
 pyasn1==0.1.9
 pyOpenSSL==0.15.1
 ndg-httpsclient==0.4.0
@@ -51,7 +51,7 @@ django-appconf==1.0.1
 django-compressor==1.6
 raven==5.8.1
 django-googlecharts==1.0-alpha-1
-django-jenkins==0.17.0
+django-jenkins==0.18.1
 django-stagingcontext==0.1.0
 django-smoketest==0.3.0
 django-annoying==0.8.5
