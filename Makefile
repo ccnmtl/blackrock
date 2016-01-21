@@ -5,7 +5,7 @@ APP=blackrock
 # want to run against something.
 JS_FILES=media/js/paleoecology/explore.js
 
-MAX_COMPLEXITY=11
+MAX_COMPLEXITY=10
 
 all: jenkins
 

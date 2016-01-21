@@ -642,34 +642,49 @@ def update_school_info(rp, exp):
     return exp
 
 
-@user_passes_test(whether_this_user_can_see_mammals_module_data_entry,
-                  login_url='/mammals/login/')
-def process_edit_expedition(request, expedition_id):
-    exp = Expedition.objects.get(id=expedition_id)
-    rp = request.POST
-    exp = update_school_info(rp, exp)
+def update_grade_info(rp, exp):
+    if 'grade' in rp:
+        exp.grade_level_id = int(rp['grade'])
+    return exp
 
+
+def update_expedition_strings(rp, exp):
     if ('expedition_hour_string' in rp and
             'expedition_minute_string' in rp):
         exp.set_end_time_from_strings(
             rp['expedition_hour_string'], rp['expedition_minute_string'])
+    return exp
 
-    if 'grade' in rp:
-        exp.grade_level_id = int(rp['grade'])
 
+def update_number_of_students(rp, exp):
     if 'number_of_students' in rp:
         try:
             exp.number_of_students = int(rp['number_of_students'])
         except ValueError:
             exp.number_of_students = 0
+    return exp
 
+
+def update_overnight_temperature(rp, exp):
     if 'overnight_temperature_int' in rp:
         try:
             exp.overnight_temperature_int = int(
                 rp['overnight_temperature_int'])
         except ValueError:
             exp.overnight_temperature_int = 0
+    return exp
 
+
+@user_passes_test(whether_this_user_can_see_mammals_module_data_entry,
+                  login_url='/mammals/login/')
+def process_edit_expedition(request, expedition_id):
+    exp = Expedition.objects.get(id=expedition_id)
+    rp = request.POST
+    exp = update_school_info(rp, exp)
+    exp = update_expedition_strings(rp, exp)
+    exp = update_grade_info(rp, exp)
+    exp = update_number_of_students(rp, exp)
+    exp = update_overnight_temperature(rp, exp)
     exp.save()
 
     form_map_environment = {
@@ -931,21 +946,43 @@ def save_expedition_animals(request):
 
 def process_animal_point(point, booleans, rp, menus):
     for b in booleans:
-        rp_key = '%s_%d' % (b, point.id)
-        if rp_key in rp and rp[rp_key] == 'True':
-            setattr(point.animal, b, True)
-        else:
-            setattr(point.animal, b, False)
+        point.animal = update_point_animal_boolean(point, rp, b)
 
     for m in menus:
-        rp_key = '%s_%d' % (m, point.id)
-        if rp_key in rp and rp[rp_key] is not None:
-            setattr(point.animal, '%s_id' % m, rp[rp_key])
+        point.animal = update_point_animal_menu_item(point, rp, m)
 
+    point.animal = update_point_animal_health(point, rp)
+    point.animal = update_point_animal_weight(point, rp)
+    point.animal = update_point_animal_tag_number(point, rp)
+    point.animal.save()
+
+    delete_point_animal_if_needed(point, rp)
+
+
+def update_point_animal_boolean(point, rp, b):
+    rp_key = '%s_%d' % (b, point.id)
+    if rp_key in rp and rp[rp_key] == 'True':
+        setattr(point.animal, b, True)
+    else:
+        setattr(point.animal, b, False)
+    return point.animal
+
+
+def update_point_animal_menu_item(point, rp, m):
+    rp_key = '%s_%d' % (m, point.id)
+    if rp_key in rp and rp[rp_key] is not None:
+        setattr(point.animal, '%s_id' % m, rp[rp_key])
+    return point.animal
+
+
+def update_point_animal_health(point, rp):
     rp_key = 'health_%d' % point.id
     if rp_key in rp and rp[rp_key] != '':
         setattr(point.animal, 'health', rp[rp_key])
+    return point.animal
 
+
+def update_point_animal_weight(point, rp):
     rp_key = 'weight_in_grams_%d' % point.id
     if rp_key in rp and rp[rp_key] != '':
         try:
@@ -954,11 +991,17 @@ def process_animal_point(point, booleans, rp, menus):
         except ValueError:
             pass  # not throwing a 500 for this, sorry.
 
+    return point.animal
+
+
+def update_point_animal_tag_number(point, rp):
     rp_key = 'tag_number_%d' % point.id
     if rp_key in rp and rp[rp_key] != '':
         setattr(point.animal, 'tag_number', rp[rp_key])
-    point.animal.save()
+    return point.animal
 
+
+def delete_point_animal_if_needed(point, rp):
     rp_key = 'delete_%d' % point.id
     if rp_key in rp and rp[rp_key] == 'delete':
         point.animal.delete()

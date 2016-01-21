@@ -214,71 +214,76 @@ def loadcsv(request):
     # if csv file provided, loadcsv
     if request.method != 'POST' or 'csvfile' not in request.FILES:
         return HttpResponse('No csv file specified')
-    else:
-        fh = request.FILES['csvfile']
 
-        # TODO: error checking (correct file type, etc.)
+    fh = request.FILES['csvfile']
 
-        table = csv.reader(fh)
+    # TODO: error checking (correct file type, etc.)
 
-        headers = table.next()
-        for i in range(0, len(headers)):
-            header = headers[i].lower()
-            if header == "station":
-                station_idx = i
-            elif header == "year":
-                year_idx = i
-            elif header == "julian day":
-                day_idx = i
-            elif header == "hour":
-                hour_idx = i
-            elif header == "avg temp deg c":
-                temp_idx = i
+    table = csv.reader(fh)
 
-        # make sure all headers are defined
-        if not ('station_idx' in vars() and 'year_idx' in vars() and
-                'day_idx' in vars() and 'hour_idx' in vars() and
-                'temp_idx' in vars()):
-            expected = "station, year, julian day, hour, avg temp deg C"
-            msg = "Error: Missing header.  We expect: %s" % expected
-            return HttpResponse(msg)
-        else:
-            if request.POST.get('delete') == 'on':
-                qs = Temperature.objects.all()
-                qs.delete()
+    headers = table.next()
+    for i in range(0, len(headers)):
+        header = headers[i].lower()
+        if header == "station":
+            station_idx = i
+        elif header == "year":
+            year_idx = i
+        elif header == "julian day":
+            day_idx = i
+        elif header == "hour":
+            hour_idx = i
+        elif header == "avg temp deg c":
+            temp_idx = i
 
-            next_expected_timestamp = None
-            last_valid_temp = None
-            prev_station = None
+    # make sure all headers are defined
+    if not ('station_idx' in vars() and 'year_idx' in vars() and
+            'day_idx' in vars() and 'hour_idx' in vars() and
+            'temp_idx' in vars()):
+        expected = "station, year, julian day, hour, avg temp deg C"
+        msg = "Error: Missing header.  We expect: %s" % expected
+        return HttpResponse(msg)
 
-            for row in table:
-                station = row[station_idx]
-                year = row[year_idx]
-                julian_days = row[day_idx]
-                hour = row[hour_idx]
-                temp = row[temp_idx]
+    if request.POST.get('delete') == 'on':
+        qs = Temperature.objects.all()
+        qs.delete()
 
-                # adjust hour from "military" to 0-23, and 2400 becomes 0 of
-                # the next day
-                normalized_hour = int(hour) / 100 - 1
-                # if normalized_hour == 24:
-                #  normalized_hour = 0
-                # julian_days = int(julian_days) + 1
-
-                delta = datetime.timedelta(days=int(julian_days) - 1)
-                dt = datetime.datetime(
-                    year=int(year), month=1, day=1, hour=normalized_hour)
-                dt = dt + delta
-
-                (next_expected_timestamp,
-                 last_valid_temp,
-                 prev_station,
-                 created,
-                 updated) = _process_row(cursor, dt, station, temp,
-                                         next_expected_timestamp,
-                                         last_valid_temp, prev_station)
-
+    load_table(table, station_idx, year_idx, day_idx, hour_idx, temp_idx,
+               cursor)
     return HttpResponseRedirect('/admin/respiration/temperature')
+
+
+def load_table(table, station_idx, year_idx, day_idx, hour_idx, temp_idx,
+               cursor):
+    next_expected_timestamp = None
+    last_valid_temp = None
+    prev_station = None
+
+    for row in table:
+        station = row[station_idx]
+        year = row[year_idx]
+        julian_days = row[day_idx]
+        hour = row[hour_idx]
+        temp = row[temp_idx]
+
+        # adjust hour from "military" to 0-23, and 2400 becomes 0 of
+        # the next day
+        normalized_hour = int(hour) / 100 - 1
+        # if normalized_hour == 24:
+        #  normalized_hour = 0
+        # julian_days = int(julian_days) + 1
+
+        delta = datetime.timedelta(days=int(julian_days) - 1)
+        dt = datetime.datetime(
+            year=int(year), month=1, day=1, hour=normalized_hour)
+        dt = dt + delta
+
+        (next_expected_timestamp,
+         last_valid_temp,
+         prev_station,
+         created,
+         updated) = _process_row(cursor, dt, station, temp,
+                                 next_expected_timestamp,
+                                 last_valid_temp, prev_station)
 
 
 def _update_or_insert(cursor, record_datetime, station, temp, data_source):
@@ -381,10 +386,7 @@ def loadsolr(request):
 
     solr = Solr(settings.CDRS_SOLR_URL)
 
-    # stash the station mappings into a python map
-    stations = {}
-    for sm in StationMapping.objects.all():
-        stations[sm.abbreviation] = sm.station
+    stations = station_mappings_dict()
 
     created_count = 0
     updated_count = 0
@@ -462,3 +464,11 @@ def loadsolr(request):
         dumps(response), content_type='application/json')
     http_response['Cache-Control'] = 'max-age=0,no-cache,no-store'
     return http_response
+
+
+def station_mappings_dict():
+    # stash the station mappings into a python map
+    stations = {}
+    for sm in StationMapping.objects.all():
+        stations[sm.abbreviation] = sm.station
+    return stations
