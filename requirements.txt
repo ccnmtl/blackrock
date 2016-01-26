@@ -37,6 +37,7 @@ flake8==2.5.0
 statsd==3.2.1
 six==1.10.0
 fake-factory==0.5.3
+contextlib2==0.5.1
 
 django-smartif==0.1
 djangowind==0.14.3
@@ -49,7 +50,7 @@ django-statsd-mozilla==0.3.16
 django-paging==0.2.5
 django-appconf==1.0.1
 django-compressor==1.6
-raven==5.8.1
+raven==5.10.1
 django-googlecharts==1.0-alpha-1
 django-jenkins==0.18.1
 django-stagingcontext==0.1.0
