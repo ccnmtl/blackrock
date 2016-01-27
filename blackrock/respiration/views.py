@@ -410,19 +410,13 @@ def loadsolr(request):
         prev_station = None
         retrieved = 0
 
-        q = 'import_classifications:"' + import_classification + \
-            '" AND (record_subject:"Array ID 60" ' + \
-            'OR record_subject:"Array ID 101")'
+        last_import_date = LastImportDate.get_last_import_date(
+            dt, tm, application)
         options = {'qt': 'forest-data',
                    'collection_id': collection_id,
                    'sort': 'latitude asc,record_datetime asc'}
-
-        last_import_date = LastImportDate.get_last_import_date(
-            dt, tm, application)
-        if last_import_date:
-            utc = last_import_date.astimezone(FixedOffset(0))
-            q += ' AND last_modified:[' + utc.strftime(
-                '%Y-%m-%dT%H:%M:%SZ') + ' TO NOW]'
+        q = import_classifications_query(import_classification,
+                                         last_import_date)
 
         record_count = SolrUtilities().get_count_by_lastmodified(
             collection_id, import_classification, last_import_date)
@@ -477,6 +471,18 @@ def loadsolr(request):
         dumps(response), content_type='application/json')
     http_response['Cache-Control'] = 'max-age=0,no-cache,no-store'
     return http_response
+
+
+def import_classifications_query(import_classification, last_import_date):
+    q = 'import_classifications:"' + import_classification + \
+        '" AND (record_subject:"Array ID 60" ' + \
+        'OR record_subject:"Array ID 101")'
+
+    if last_import_date:
+        utc = last_import_date.astimezone(FixedOffset(0))
+        q += ' AND last_modified:[' + utc.strftime(
+            '%Y-%m-%dT%H:%M:%SZ') + ' TO NOW]'
+    return q
 
 
 def station_mappings_dict():
