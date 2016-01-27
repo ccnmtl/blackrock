@@ -248,13 +248,17 @@ def loadcsv(request):
         msg = "Error: Missing header.  We expect: %s" % expected
         return HttpResponse(msg)
 
-    if request.POST.get('delete') == 'on':
-        qs = Temperature.objects.all()
-        qs.delete()
+    delete_all_temperatures_if_needed(request)
 
     load_table(table, station_idx, year_idx, day_idx, hour_idx, temp_idx,
                cursor)
     return HttpResponseRedirect('/admin/respiration/temperature')
+
+
+def delete_all_temperatures_if_needed(request):
+    if request.POST.get('delete') == 'on':
+        qs = Temperature.objects.all()
+        qs.delete()
 
 
 def load_table(table, station_idx, year_idx, day_idx, hour_idx, temp_idx,
