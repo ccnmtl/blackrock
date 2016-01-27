@@ -105,6 +105,18 @@ def forest(request):
     except:
         pass
 
+    myspecies = get_myspecies(specieslist, request)
+
+    return render_to_response('respiration/forest.html', {
+        'stations': station_names,
+        'years': year_options,
+        'numspecies': len(myspecies),
+        'specieslist': myspecies,
+        'scenario_options': scenario_options,
+    })
+
+
+def get_myspecies(specieslist, request):
     myspecies = []
     for s in specieslist:
         if(s != ""):
@@ -118,14 +130,7 @@ def forest(request):
             except:
                 species['percent'] = ''
             myspecies.append(species)
-
-    return render_to_response('respiration/forest.html', {
-        'stations': station_names,
-        'years': year_options,
-        'numspecies': len(myspecies),
-        'specieslist': myspecies,
-        'scenario_options': scenario_options,
-    })
+    return myspecies
 
 
 def getsum(request):
