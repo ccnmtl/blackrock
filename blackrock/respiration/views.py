@@ -316,12 +316,7 @@ def _update_or_insert(cursor, record_datetime, station, temp, data_source):
 def _process_row(cursor, record_datetime, station, temp,
                  next_expected_timestamp, last_valid_temp, prev_station):
 
-    if temp == "" or float(temp) < -100 or float(temp) > 100:
-        if last_valid_temp is not None and station == prev_station:
-            temp = last_valid_temp
-        else:
-            temp = 0
-
+    temp = ensure_valid_temp(temp, last_valid_temp, station, prev_station)
     created_count = 0
     updated_count = 0
 
@@ -369,6 +364,15 @@ def _process_row(cursor, record_datetime, station, temp,
             station,
             created_count,
             updated_count)
+
+
+def ensure_valid_temp(temp, last_valid_temp, station, prev_station):
+    if temp == "" or float(temp) < -100 or float(temp) > 100:
+        if last_valid_temp is not None and station == prev_station:
+            temp = last_valid_temp
+        else:
+            temp = 0
+    return temp
 
 
 def _utc_to_est(date_string):
