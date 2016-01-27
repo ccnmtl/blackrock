@@ -665,6 +665,13 @@ def loadcsv(request):
         elif h == 'dbh':
             dbh_idx = i
 
+    import_csv_table(table, id_idx, species_idx, x_idx, y_idx, dbh_idx, p)
+
+    p.precalc()
+    return HttpResponseRedirect("/optimization/")
+
+
+def import_csv_table(table, id_idx, species_idx, x_idx, y_idx, dbh_idx, p):
     for row in table:
         id = row[id_idx]
         species = row[species_idx].lower()
@@ -676,9 +683,6 @@ def loadcsv(request):
         loc = 'POINT(%f %f)' % (xloc, yloc)  # TODO real location data
         Tree.objects.get_or_create(
             id=id, location=loc, species=species, dbh=dbh, plot=p)
-
-    p.precalc()
-    return HttpResponseRedirect("/optimization/")
 
 
 def tree_png(request):
