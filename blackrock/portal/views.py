@@ -232,15 +232,10 @@ def admin_cdrs_import(request):
     import_classification = request.POST.get('import_classification', '')
     dt = request.POST.get('last_import_date', '')
     tm = urllib.unquote(request.POST.get('last_import_time', '00:00'))
-
-    q = 'import_classifications:"' + import_classification + '"'
     options = {'qt': 'forest-data'}
-
     last_import_date = LastImportDate.get_last_import_date(dt, tm, application)
-    if last_import_date:
-        utc = last_import_date.astimezone(FixedOffset(0))
-        q += ' AND last_modified:[' + utc.strftime(
-            '%Y-%m-%dT%H:%M:%SZ') + ' TO NOW]'
+
+    q = import_classification_query(import_classification, last_import_date)
 
     try:
         collections = urllib.unquote(collection_id).split(",")
@@ -281,6 +276,16 @@ def admin_cdrs_import(request):
         json.dumps(response), content_type='application/json')
     http_response['Cache-Control'] = 'max-age=0,no-cache,no-store'
     return http_response
+
+
+def import_classification_query(import_classification, last_import_date):
+    q = 'import_classifications:"' + import_classification + '"'
+
+    if last_import_date:
+        utc = last_import_date.astimezone(FixedOffset(0))
+        q += ' AND last_modified:[' + utc.strftime(
+            '%Y-%m-%dT%H:%M:%SZ') + ' TO NOW]'
+    return q
 
 
 @user_passes_test(lambda u: u.is_staff)
