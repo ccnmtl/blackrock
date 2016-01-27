@@ -39,6 +39,12 @@ def import_csv(request):
             url = request.build_absolute_uri("../admin/sampler/")
             return HttpResponseRedirect(url)
 
+    import_csv_table(table, id_idx, species_idx, x_idx, y_idx, dbh_idx)
+    url = request.build_absolute_uri("../admin/sampler/tree")
+    return HttpResponseRedirect(url)
+
+
+def import_csv_table(table, id_idx, species_idx, x_idx, y_idx, dbh_idx):
     for row in table:
         id = row[id_idx]
         species = row[species_idx]
@@ -48,9 +54,6 @@ def import_csv(request):
         loc, created = Location.objects.get_or_create(x=x, y=y)
         Tree.objects.get_or_create(
             id=id, location=loc, species=species, dbh=dbh)
-
-    url = request.build_absolute_uri("../admin/sampler/tree")
-    return HttpResponseRedirect(url)
 
 
 def index(request):
