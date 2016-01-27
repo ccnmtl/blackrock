@@ -147,11 +147,7 @@ def loadcsv(request, type):
                 PollenSample.objects.get_or_create(core_sample=core,
                                                    pollen=t)
 
-            if type == "counts":
-                p.count = row[i]
-            else:
-                p.percentage = row[i]
-            p.save()
+            increment_count_or_percentage(type, p, row[i])
 
             # hack to fix Pinus and Asteraceae counts
             fix_counts(type, pollen_name, pines, core, row, i, asteraceae)
@@ -159,6 +155,14 @@ def loadcsv(request, type):
     admin_msg = "Successfully imported data."
 
     return index(request, admin_msg)
+
+
+def increment_count_or_percentage(type, p, amount):
+    if type == "counts":
+        p.count = amount
+    else:
+        p.percentage = amount
+    p.save()
 
 
 _sets = ['Pollen Types',
