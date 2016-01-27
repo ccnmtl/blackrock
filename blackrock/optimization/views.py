@@ -632,50 +632,53 @@ def variance(values, mean, population_size):
 
 
 def loadcsv(request):
-    if request.method == 'POST':
-        fh = request.FILES['csvfile']
-        if file == '':
-            # TODO: error checking (correct file type, etc.)
-            return HttpResponse('No csv file specified')
+    if request.method != 'POST':
+        # TODO: this is a 500 error waiting to happen. views must
+        # return an HttpResponse of some sort
+        return
+    fh = request.FILES['csvfile']
+    if file == '':
+        # TODO: error checking (correct file type, etc.)
+        return HttpResponse('No csv file specified')
 
-        # delete existing
-        Plot.objects.all().delete()
-        Tree.objects.all().delete()
+    # delete existing
+    Plot.objects.all().delete()
+    Tree.objects.all().delete()
 
-        p = Plot(name="Mount Misery Plot", NW_corner=NW_corner,
-                 area=67500, width=300, height=225)
-        p.save()
+    p = Plot(name="Mount Misery Plot", NW_corner=NW_corner,
+             area=67500, width=300, height=225)
+    p.save()
 
-        table = csv.reader(fh)
-        header = table.next()
+    table = csv.reader(fh)
+    header = table.next()
 
-        for i in range(len(header)):
-            h = header[i].lower()
-            if h == 'id':
-                id_idx = i
-            elif h == 'species':
-                species_idx = i
-            elif h == 'x':
-                x_idx = i
-            elif h == 'y':
-                y_idx = i
-            elif h == 'dbh':
-                dbh_idx = i
+    for i in range(len(header)):
+        h = header[i].lower()
+        if h == 'id':
+            id_idx = i
+        elif h == 'species':
+            species_idx = i
+        elif h == 'x':
+            x_idx = i
+        elif h == 'y':
+            y_idx = i
+        elif h == 'dbh':
+            dbh_idx = i
 
-        for row in table:
-            id = row[id_idx]
-            species = row[species_idx].lower()
-            x = float(row[x_idx])
-            y = float(row[y_idx])
-            dbh = row[dbh_idx]
-            xloc = p.NW_corner.x + (MULTIPLIER * x)
-            yloc = p.NW_corner.y - (MULTIPLIER * y)
-            loc = 'POINT(%f %f)' % (xloc, yloc)  # TODO real location data
-            Tree.objects.get_or_create(
-                id=id, location=loc, species=species, dbh=dbh, plot=p)
+    for row in table:
+        id = row[id_idx]
+        species = row[species_idx].lower()
+        x = float(row[x_idx])
+        y = float(row[y_idx])
+        dbh = row[dbh_idx]
+        xloc = p.NW_corner.x + (MULTIPLIER * x)
+        yloc = p.NW_corner.y - (MULTIPLIER * y)
+        loc = 'POINT(%f %f)' % (xloc, yloc)  # TODO real location data
+        Tree.objects.get_or_create(
+            id=id, location=loc, species=species, dbh=dbh, plot=p)
 
-        p.precalc()
-        return HttpResponseRedirect("/optimization/")
+    p.precalc()
+    return HttpResponseRedirect("/optimization/")
 
 
 def tree_png(request):
