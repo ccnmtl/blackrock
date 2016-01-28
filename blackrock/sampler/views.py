@@ -6,49 +6,54 @@ import math
 
 
 def import_csv(request):
-    if request.method == 'POST':
+    if request.method != 'POST':
+        # TODO: this is a 500 error waiting to happen. views need to return
+        # *something*
+        return
+    fh = request.FILES['csvfile']
+    if file == '':
+        # TODO: error checking (correct file type, etc.)
+        url = request.build_absolute_uri("../admin/sampler/")
+        return HttpResponseRedirect(url)
 
-        fh = request.FILES['csvfile']
-        if file == '':
-            # TODO: error checking (correct file type, etc.)
+    # delete existing trees
+    Location.objects.all().delete()
+    Tree.objects.all().delete()
+
+    table = csv.reader(fh)
+    header = table.next()
+
+    for i in range(len(header)):
+        h = header[i].lower()
+        if h == 'id':
+            id_idx = i
+        elif h == 'species':
+            species_idx = i
+        elif h == 'x':
+            x_idx = i
+        elif h == 'y':
+            y_idx = i
+        elif h == 'dbh':
+            dbh_idx = i
+        else:
             url = request.build_absolute_uri("../admin/sampler/")
             return HttpResponseRedirect(url)
 
-        # delete existing trees
-        Location.objects.all().delete()
-        Tree.objects.all().delete()
+    import_csv_table(table, id_idx, species_idx, x_idx, y_idx, dbh_idx)
+    url = request.build_absolute_uri("../admin/sampler/tree")
+    return HttpResponseRedirect(url)
 
-        table = csv.reader(fh)
-        header = table.next()
 
-        for i in range(len(header)):
-            h = header[i].lower()
-            if h == 'id':
-                id_idx = i
-            elif h == 'species':
-                species_idx = i
-            elif h == 'x':
-                x_idx = i
-            elif h == 'y':
-                y_idx = i
-            elif h == 'dbh':
-                dbh_idx = i
-            else:
-                url = request.build_absolute_uri("../admin/sampler/")
-                return HttpResponseRedirect(url)
-
-        for row in table:
-            id = row[id_idx]
-            species = row[species_idx]
-            x = row[x_idx]
-            y = row[y_idx]
-            dbh = row[dbh_idx]
-            loc, created = Location.objects.get_or_create(x=x, y=y)
-            Tree.objects.get_or_create(
-                id=id, location=loc, species=species, dbh=dbh)
-
-        url = request.build_absolute_uri("../admin/sampler/tree")
-        return HttpResponseRedirect(url)
+def import_csv_table(table, id_idx, species_idx, x_idx, y_idx, dbh_idx):
+    for row in table:
+        id = row[id_idx]
+        species = row[species_idx]
+        x = row[x_idx]
+        y = row[y_idx]
+        dbh = row[dbh_idx]
+        loc, created = Location.objects.get_or_create(x=x, y=y)
+        Tree.objects.get_or_create(
+            id=id, location=loc, species=species, dbh=dbh)
 
 
 def index(request):

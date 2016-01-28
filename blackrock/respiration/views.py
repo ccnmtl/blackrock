@@ -105,6 +105,18 @@ def forest(request):
     except:
         pass
 
+    myspecies = get_myspecies(specieslist, request)
+
+    return render_to_response('respiration/forest.html', {
+        'stations': station_names,
+        'years': year_options,
+        'numspecies': len(myspecies),
+        'specieslist': myspecies,
+        'scenario_options': scenario_options,
+    })
+
+
+def get_myspecies(specieslist, request):
     myspecies = []
     for s in specieslist:
         if(s != ""):
@@ -118,14 +130,7 @@ def forest(request):
             except:
                 species['percent'] = ''
             myspecies.append(species)
-
-    return render_to_response('respiration/forest.html', {
-        'stations': station_names,
-        'years': year_options,
-        'numspecies': len(myspecies),
-        'specieslist': myspecies,
-        'scenario_options': scenario_options,
-    })
+    return myspecies
 
 
 def getsum(request):
@@ -243,13 +248,17 @@ def loadcsv(request):
         msg = "Error: Missing header.  We expect: %s" % expected
         return HttpResponse(msg)
 
-    if request.POST.get('delete') == 'on':
-        qs = Temperature.objects.all()
-        qs.delete()
+    delete_all_temperatures_if_needed(request)
 
     load_table(table, station_idx, year_idx, day_idx, hour_idx, temp_idx,
                cursor)
     return HttpResponseRedirect('/admin/respiration/temperature')
+
+
+def delete_all_temperatures_if_needed(request):
+    if request.POST.get('delete') == 'on':
+        qs = Temperature.objects.all()
+        qs.delete()
 
 
 def load_table(table, station_idx, year_idx, day_idx, hour_idx, temp_idx,
@@ -307,12 +316,7 @@ def _update_or_insert(cursor, record_datetime, station, temp, data_source):
 def _process_row(cursor, record_datetime, station, temp,
                  next_expected_timestamp, last_valid_temp, prev_station):
 
-    if temp == "" or float(temp) < -100 or float(temp) > 100:
-        if last_valid_temp is not None and station == prev_station:
-            temp = last_valid_temp
-        else:
-            temp = 0
-
+    temp = ensure_valid_temp(temp, last_valid_temp, station, prev_station)
     created_count = 0
     updated_count = 0
 
@@ -362,6 +366,15 @@ def _process_row(cursor, record_datetime, station, temp,
             updated_count)
 
 
+def ensure_valid_temp(temp, last_valid_temp, station, prev_station):
+    if temp == "" or float(temp) < -100 or float(temp) > 100:
+        if last_valid_temp is not None and station == prev_station:
+            temp = last_valid_temp
+        else:
+            temp = 0
+    return temp
+
+
 def _utc_to_est(date_string):
     try:
         t = time.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
@@ -397,19 +410,13 @@ def loadsolr(request):
         prev_station = None
         retrieved = 0
 
-        q = 'import_classifications:"' + import_classification + \
-            '" AND (record_subject:"Array ID 60" ' + \
-            'OR record_subject:"Array ID 101")'
+        last_import_date = LastImportDate.get_last_import_date(
+            dt, tm, application)
         options = {'qt': 'forest-data',
                    'collection_id': collection_id,
                    'sort': 'latitude asc,record_datetime asc'}
-
-        last_import_date = LastImportDate.get_last_import_date(
-            dt, tm, application)
-        if last_import_date:
-            utc = last_import_date.astimezone(FixedOffset(0))
-            q += ' AND last_modified:[' + utc.strftime(
-                '%Y-%m-%dT%H:%M:%SZ') + ' TO NOW]'
+        q = import_classifications_query(import_classification,
+                                         last_import_date)
 
         record_count = SolrUtilities().get_count_by_lastmodified(
             collection_id, import_classification, last_import_date)
@@ -464,6 +471,18 @@ def loadsolr(request):
         dumps(response), content_type='application/json')
     http_response['Cache-Control'] = 'max-age=0,no-cache,no-store'
     return http_response
+
+
+def import_classifications_query(import_classification, last_import_date):
+    q = 'import_classifications:"' + import_classification + \
+        '" AND (record_subject:"Array ID 60" ' + \
+        'OR record_subject:"Array ID 101")'
+
+    if last_import_date:
+        utc = last_import_date.astimezone(FixedOffset(0))
+        q += ' AND last_modified:[' + utc.strftime(
+            '%Y-%m-%dT%H:%M:%SZ') + ' TO NOW]'
+    return q
 
 
 def station_mappings_dict():
