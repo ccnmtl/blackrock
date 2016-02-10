@@ -245,24 +245,9 @@ def admin_cdrs_import(request):
         collections = urllib.unquote(collection_id).split(",")
         for c in collections:
             # Get list of datasets in each collection id
-            record_count = SolrUtilities().get_count_by_lastmodified(
-                c, import_classification, last_import_date)
-            retrieved = 0
-            while (retrieved < record_count):
-                to_retrieve = min(1000, record_count - retrieved)
-                options['collection_id'] = c
-                options['start'] = str(retrieved)
-                options['rows'] = str(to_retrieve)
-
-                results = solr.search(q, **options)
-                for result in results:
-                    if 'dataset_id' in result:
-                        if process_metadata(result):
-                            created += 1
-                        else:
-                            updated += 1
-
-                retrieved = retrieved + to_retrieve
+            created, updated = get_collection_datasets(
+                c, solr, options, q, import_classification, last_import_date,
+                created, updated)
 
         # Update the last import date
         lid = LastImportDate.update_last_import_date(application)
@@ -280,6 +265,29 @@ def admin_cdrs_import(request):
         json.dumps(response), content_type='application/json')
     http_response['Cache-Control'] = 'max-age=0,no-cache,no-store'
     return http_response
+
+
+def get_collection_datasets(c, solr, options, q, import_classification,
+                            last_import_date, created, updated):
+    record_count = SolrUtilities().get_count_by_lastmodified(
+        c, import_classification, last_import_date)
+    retrieved = 0
+    while (retrieved < record_count):
+        to_retrieve = min(1000, record_count - retrieved)
+        options['collection_id'] = c
+        options['start'] = str(retrieved)
+        options['rows'] = str(to_retrieve)
+
+        results = solr.search(q, **options)
+        for result in results:
+            if 'dataset_id' in result:
+                if process_metadata(result):
+                    created += 1
+                else:
+                    updated += 1
+
+        retrieved = retrieved + to_retrieve
+    return created, updated
 
 
 def import_classification_query(import_classification, last_import_date):
