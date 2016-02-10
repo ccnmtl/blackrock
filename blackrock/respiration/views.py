@@ -426,10 +426,8 @@ def loadsolr(request):
         q = import_classifications_query(import_classification,
                                          last_import_date)
 
-        record_count = SolrUtilities().get_count_by_lastmodified(
-            collection_id, import_classification, last_import_date)
-        if limit_records > 0:
-            record_count = limit_records
+        record_count = get_record_count(collection_id, import_classification,
+                                        last_import_date, limit_records)
 
         while (retrieved < record_count):
             to_retrieve = min(1000, record_count - retrieved)
@@ -479,6 +477,15 @@ def loadsolr(request):
         dumps(response), content_type='application/json')
     http_response['Cache-Control'] = 'max-age=0,no-cache,no-store'
     return http_response
+
+
+def get_record_count(collection_id, import_classification, last_import_date,
+                     limit_records):
+    record_count = SolrUtilities().get_count_by_lastmodified(
+        collection_id, import_classification, last_import_date)
+    if limit_records > 0:
+        record_count = limit_records
+    return record_count
 
 
 def import_classifications_query(import_classification, last_import_date):
