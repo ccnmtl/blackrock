@@ -227,32 +227,40 @@ def loadcsv(request):
     table = csv.reader(fh)
 
     headers = table.next()
-    for i in range(0, len(headers)):
-        header = headers[i].lower()
-        if header == "station":
-            station_idx = i
-        elif header == "year":
-            year_idx = i
-        elif header == "julian day":
-            day_idx = i
-        elif header == "hour":
-            hour_idx = i
-        elif header == "avg temp deg c":
-            temp_idx = i
 
-    # make sure all headers are defined
-    if not ('station_idx' in vars() and 'year_idx' in vars() and
-            'day_idx' in vars() and 'hour_idx' in vars() and
-            'temp_idx' in vars()):
-        expected = "station, year, julian day, hour, avg temp deg C"
-        msg = "Error: Missing header.  We expect: %s" % expected
-        return HttpResponse(msg)
+    (station_idx, year_idx, day_idx, hour_idx, temp_idx,
+     response) = header_indices(headers)
+    if response is not None:
+        return response
 
     delete_all_temperatures_if_needed(request)
 
     load_table(table, station_idx, year_idx, day_idx, hour_idx, temp_idx,
                cursor)
     return HttpResponseRedirect('/admin/respiration/temperature')
+
+
+def header_indices(header):
+    for i in range(len(header)):
+        h = header[i].lower()
+        if h == "station":
+            station_idx = i
+        elif h == "year":
+            year_idx = i
+        elif h == "julian day":
+            day_idx = i
+        elif h == "hour":
+            hour_idx = i
+        elif h == "avg temp deg c":
+            temp_idx = i
+    # make sure all headers are defined
+    if not ('station_idx' in vars() and 'year_idx' in vars() and
+            'day_idx' in vars() and 'hour_idx' in vars() and
+            'temp_idx' in vars()):
+        expected = "station, year, julian day, hour, avg temp deg C"
+        msg = "Error: Missing header.  We expect: %s" % expected
+        return (None, None, None, None, None, HttpResponse(msg))
+    return (station_idx, year_idx, day_idx, hour_idx, temp_idx, None)
 
 
 def delete_all_temperatures_if_needed(request):
