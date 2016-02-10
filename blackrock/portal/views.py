@@ -201,10 +201,14 @@ def process_metadata(result):
 
     dataset.audience.add(Audience.objects.get(name='Research'))
 
-    if _is_dirty(original_state, dict(dataset.__dict__)):
-        dataset.save()
+    save_if_dirty(original_state, dataset)
 
     return created
+
+
+def save_if_dirty(original_state, dataset):
+    if _is_dirty(original_state, dict(dataset.__dict__)):
+        dataset.save()
 
 
 def process_dataset_meta_fields(dataset, values):
