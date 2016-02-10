@@ -23,6 +23,18 @@ def import_csv(request):
     table = csv.reader(fh)
     header = table.next()
 
+    (id_idx, species_idx, x_idx, y_idx, dbh_idx,
+     redirect_url) = header_indices(request, header)
+
+    if redirect_url is not None:
+        return HttpResponseRedirect(redirect_url)
+
+    import_csv_table(table, id_idx, species_idx, x_idx, y_idx, dbh_idx)
+    url = request.build_absolute_uri("../admin/sampler/tree")
+    return HttpResponseRedirect(url)
+
+
+def header_indices(request, header):
     for i in range(len(header)):
         h = header[i].lower()
         if h == 'id':
@@ -37,11 +49,8 @@ def import_csv(request):
             dbh_idx = i
         else:
             url = request.build_absolute_uri("../admin/sampler/")
-            return HttpResponseRedirect(url)
-
-    import_csv_table(table, id_idx, species_idx, x_idx, y_idx, dbh_idx)
-    url = request.build_absolute_uri("../admin/sampler/tree")
-    return HttpResponseRedirect(url)
+            return (None, None, None, None, url)
+    return (id_idx, species_idx, x_idx, y_idx, dbh_idx, None)
 
 
 def import_csv_table(table, id_idx, species_idx, x_idx, y_idx, dbh_idx):
