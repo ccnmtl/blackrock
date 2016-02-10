@@ -129,32 +129,36 @@ def loadcsv(request, type):
                   "Ambrosia", "Artemisia"]
 
     for row in table:
-        depth = row[0]
-        (core, created) = CoreSample.objects.get_or_create(depth=depth)
-
-        for i in range(len(row)):
-            if i == 0:
-                continue  # skip row[0], which is the depth
-
-            # skip row[1] in percentages, which is the carbon age
-            if i == 1 and type == "percents":
-                continue
-
-            pollen_name = headers[i].strip()
-            (t, created) = \
-                PollenType.objects.get_or_create(name=pollen_name)
-            (p, created) = \
-                PollenSample.objects.get_or_create(core_sample=core,
-                                                   pollen=t)
-
-            increment_count_or_percentage(type, p, row[i])
-
-            # hack to fix Pinus and Asteraceae counts
-            fix_counts(type, pollen_name, pines, core, row, i, asteraceae)
+        load_table_row(row, headers, pines, asteraceae)
 
     admin_msg = "Successfully imported data."
 
     return index(request, admin_msg)
+
+
+def load_table_row(row, headers, pines, asteraceae):
+    depth = row[0]
+    (core, created) = CoreSample.objects.get_or_create(depth=depth)
+
+    for i in range(len(row)):
+        if i == 0:
+            return  # skip row[0], which is the depth
+
+        # skip row[1] in percentages, which is the carbon age
+        if i == 1 and type == "percents":
+            return
+
+        pollen_name = headers[i].strip()
+        (t, created) = \
+            PollenType.objects.get_or_create(name=pollen_name)
+        (p, created) = \
+            PollenSample.objects.get_or_create(core_sample=core,
+                                               pollen=t)
+
+        increment_count_or_percentage(type, p, row[i])
+
+        # hack to fix Pinus and Asteraceae counts
+        fix_counts(type, pollen_name, pines, core, row, i, asteraceae)
 
 
 def increment_count_or_percentage(type, p, amount):
