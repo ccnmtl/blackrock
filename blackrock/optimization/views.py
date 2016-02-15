@@ -652,6 +652,15 @@ def loadcsv(request):
     table = csv.reader(fh)
     header = table.next()
 
+    (id_idx, species_idx, x_idx, y_idx, dbh_idx) = header_indices(header)
+
+    import_csv_table(table, id_idx, species_idx, x_idx, y_idx, dbh_idx, p)
+
+    p.precalc()
+    return HttpResponseRedirect("/optimization/")
+
+
+def header_indices(header):
     for i in range(len(header)):
         h = header[i].lower()
         if h == 'id':
@@ -664,11 +673,7 @@ def loadcsv(request):
             y_idx = i
         elif h == 'dbh':
             dbh_idx = i
-
-    import_csv_table(table, id_idx, species_idx, x_idx, y_idx, dbh_idx, p)
-
-    p.precalc()
-    return HttpResponseRedirect("/optimization/")
+    return (id_idx, species_idx, x_idx, y_idx, dbh_idx)
 
 
 def import_csv_table(table, id_idx, species_idx, x_idx, y_idx, dbh_idx, p):

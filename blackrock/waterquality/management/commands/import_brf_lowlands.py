@@ -17,6 +17,19 @@ def fixdatetime(year, jul_day, hour):
     return "%d-%02d-%02d %02d:00:00" % (d.year, d.month, d.day, d.hour)
 
 
+def prep_the_series(columns, units, names, location):
+    series_objects = dict()
+    for (column, unit, name) in zip(columns, units, names):
+        (series, created) = Series.objects.get_or_create(
+            name=name, location=location, units=unit)
+        if not created:
+            print "clearing out %s" % name
+            series.row_set.all().delete()
+
+        series_objects[column] = series
+    return series_objects
+
+
 class Command(BaseCommand):
     args = ''
     help = ''
@@ -43,16 +56,7 @@ class Command(BaseCommand):
         names = ["BRF Lowlands Temp", "BRF Lowlands Rainfall"]
         units = ["Celsius", "mm"]
 
-        # prep the series
-        series_objects = dict()
-        for (column, unit, name) in zip(columns, units, names):
-            (series, created) = Series.objects.get_or_create(
-                name=name, location=location, units=unit)
-            if not created:
-                print "clearing out %s" % name
-                series.row_set.all().delete()
-
-            series_objects[column] = series
+        series_objects = prep_the_series(columns, units, names, location)
 
         for row in reader:
             datetime = fixdatetime(row[1], row[2], row[3])
