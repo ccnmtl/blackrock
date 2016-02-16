@@ -77,8 +77,7 @@ class PortalSearchForm(SearchForm):
         else:
             sqs = self.searchqueryset.auto_query(q, fieldname="text")
 
-        if self.load_all:
-            sqs = sqs.load_all()
+        sqs = self.sqs_load_all(sqs)
 
         for facet in Facet.asset_facets:
             sqs = sqs.facet(facet)
@@ -89,6 +88,11 @@ class PortalSearchForm(SearchForm):
             query = self.get_multiplechoicefield(facet)
             if len(query):
                 sqs = sqs.narrow(query)
+        return sqs
+
+    def sqs_load_all(self, sqs):
+        if self.load_all:
+            return sqs.load_all()
         return sqs
 
     def search(self):
