@@ -399,6 +399,25 @@ def _utc_to_est(date_string):
         return None
 
 
+def process_station_row(cursor, station, dt, temp, created_count,
+                        updated_count, next_expected_timestamp,
+                        last_valid_temp, prev_station):
+    if (station and dt and temp is not None):
+        (next_expected_timestamp,
+         last_valid_temp,
+         prev_station,
+         created,
+         updated) = _process_row(cursor, dt, station,
+                                 float(temp),
+                                 next_expected_timestamp,
+                                 last_valid_temp,
+                                 prev_station)
+        created_count = created_count + created
+        updated_count = updated_count + updated
+    return (created_count, updated_count, next_expected_timestamp,
+            last_valid_temp, prev_station)
+
+
 @user_passes_test(lambda u: u.is_staff)
 def loadsolr(request):
     application = request.POST.get('application', '')
@@ -448,18 +467,10 @@ def loadsolr(request):
                         station = stations[x]
                         break
 
-                if (station and dt and temp is not None):
-                    (next_expected_timestamp,
-                     last_valid_temp,
-                     prev_station,
-                     created,
-                     updated) = _process_row(cursor, dt, station,
-                                             float(temp),
-                                             next_expected_timestamp,
-                                             last_valid_temp,
-                                             prev_station)
-                    created_count = created_count + created
-                    updated_count = updated_count + updated
+                (created_count, updated_count, next_expected_timestamp,
+                 last_valid_temp, prev_station) = process_station_row(
+                     cursor, station, dt, temp, created_count, updated_count,
+                     next_expected_timestamp, last_valid_temp, prev_station)
 
             retrieved = retrieved + to_retrieve
 
