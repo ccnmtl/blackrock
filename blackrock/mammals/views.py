@@ -828,10 +828,28 @@ def process_save_team_form(request):
         process_point(point, rp, form_map, form_map_booleans)
 
 
-def process_point(point, rp, form_map, form_map_booleans):
+def process_student_names(rp, point):
     if 'student_names' in rp:
         point.student_names = rp['student_names']
         point.save()
+
+
+def process_understory(rp, point):
+    rp_key = '%s_%d' % ('understory', point.id)
+    if rp_key in rp and rp[rp_key] != 'None':
+        point.understory = rp[rp_key]
+        point.save()
+
+
+def process_notes_about_location(rp, point):
+    rp_key = '%s_%d' % ('notes_about_location', point.id)
+    if rp_key in rp and rp[rp_key] != 'None':
+        point.notes_about_location = rp[rp_key]
+        point.save()
+
+
+def process_point(point, rp, form_map, form_map_booleans):
+    process_student_names(rp, point)
 
     for the_key, thing_to_update in form_map.iteritems():
         rp_key = '%s_%d' % (the_key, point.id)
@@ -845,15 +863,8 @@ def process_point(point, rp, form_map, form_map_booleans):
                     thing_to_update, (rp[rp_key] == 'True'))
             point.save()
 
-    rp_key = '%s_%d' % ('understory', point.id)
-    if rp_key in rp and rp[rp_key] != 'None':
-        point.understory = rp[rp_key]
-        point.save()
-
-    rp_key = '%s_%d' % ('notes_about_location', point.id)
-    if rp_key in rp and rp[rp_key] != 'None':
-        point.notes_about_location = rp[rp_key]
-        point.save()
+    process_understory(rp, point)
+    process_notes_about_location(rp, point)
 
     deal_with_animals(point, rp)
 
