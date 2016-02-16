@@ -241,26 +241,24 @@ def loadcsv(request):
 
 
 def header_indices(header):
+    indices = dict()
     for i in range(len(header)):
         h = header[i].lower()
-        if h == "station":
-            station_idx = i
-        elif h == "year":
-            year_idx = i
-        elif h == "julian day":
-            day_idx = i
-        elif h == "hour":
-            hour_idx = i
-        elif h == "avg temp deg c":
-            temp_idx = i
-    # make sure all headers are defined
-    if not ('station_idx' in vars() and 'year_idx' in vars() and
-            'day_idx' in vars() and 'hour_idx' in vars() and
-            'temp_idx' in vars()):
-        expected = "station, year, julian day, hour, avg temp deg C"
-        msg = "Error: Missing header.  We expect: %s" % expected
-        return (None, None, None, None, None, HttpResponse(msg))
-    return (station_idx, year_idx, day_idx, hour_idx, temp_idx, None)
+        indices[h + "_idx"] = i
+        if h == "julian day":
+            indices['day_idx'] = i
+        if h == "avg temp deg c":
+            indices['temp_idx'] = i
+
+    expected = ['station_idx', 'year_idx', 'day_idx', 'hour_idx', 'temp_idx']
+
+    for e in expected:
+        if e not in indices:
+            expected_str = "station, year, julian day, hour, avg temp deg C"
+            msg = "Error: Missing header.  We expect: %s" % expected_str
+            return (None, None, None, None, None, HttpResponse(msg))
+    return (indices['station_idx'], indices['year_idx'], indices['day_idx'],
+            indices['hour_idx'], indices['temp_idx'], None)
 
 
 def delete_all_temperatures_if_needed(request):
