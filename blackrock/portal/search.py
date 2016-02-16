@@ -67,26 +67,28 @@ class PortalSearchForm(SearchForm):
         sqs = []
         self.hidden = []
 
-        if self.is_valid():
-            q = self.cleaned_data['q'].lower()
+        if not self.is_valid():
+            return sqs
 
-            if len(q) == 0:
-                sqs = self.searchqueryset.all()
-            else:
-                sqs = self.searchqueryset.auto_query(q, fieldname="text")
+        q = self.cleaned_data['q'].lower()
 
-            if self.load_all:
-                sqs = sqs.load_all()
+        if len(q) == 0:
+            sqs = self.searchqueryset.all()
+        else:
+            sqs = self.searchqueryset.auto_query(q, fieldname="text")
 
-            for facet in Facet.asset_facets:
-                sqs = sqs.facet(facet)
-                if facet in self.fields:
-                    self.fields[facet].choices = []
+        if self.load_all:
+            sqs = sqs.load_all()
 
-            for facet in Facet.asset_facets:
-                query = self.get_multiplechoicefield(facet)
-                if len(query):
-                    sqs = sqs.narrow(query)
+        for facet in Facet.asset_facets:
+            sqs = sqs.facet(facet)
+            if facet in self.fields:
+                self.fields[facet].choices = []
+
+        for facet in Facet.asset_facets:
+            query = self.get_multiplechoicefield(facet)
+            if len(query):
+                sqs = sqs.narrow(query)
         return sqs
 
     def search(self):
