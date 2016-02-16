@@ -321,6 +321,13 @@ def _update_or_insert(cursor, record_datetime, station, temp, data_source):
     return created
 
 
+def reading_from_temp(last_valid_temp, temp):
+    if last_valid_temp is not None:
+        return float(last_valid_temp)
+    else:
+        return float(temp)
+
+
 def _process_row(cursor, record_datetime, station, temp,
                  next_expected_timestamp, last_valid_temp, prev_station):
 
@@ -335,11 +342,7 @@ def _process_row(cursor, record_datetime, station, temp,
         # have
         while (record_datetime > next_expected_timestamp and
                record_datetime.year == next_expected_timestamp.year):
-            if last_valid_temp is not None:
-                reading = float(last_valid_temp)
-            else:
-                reading = float(temp)
-
+            reading = reading_from_temp(last_valid_temp, temp)
             created = _update_or_insert(
                 cursor, next_expected_timestamp, station, reading, 'mock')
             next_expected_timestamp = next_expected_timestamp + \
