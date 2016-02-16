@@ -24,6 +24,23 @@ for (m, days) in BLACKOUT_DATES:
         blackout_dates_strings[s] = 1
 
 
+def process_row(row, columns, series_objects):
+    datetime = get_datetime(row)
+    for c in columns:
+        series = series_objects[c]
+        datum = row[c] or "0.0"
+        if datetime[:10] in blackout_dates_strings:
+            datum = "0.0"
+        try:
+            Row.objects.create(
+                series=series,
+                timestamp=datetime,
+                value=datum)
+        except Exception, e:
+            print "error with %s" % datum
+            print str(e)
+
+
 class Command(BaseCommand):
     args = ''
     help = ''
@@ -60,17 +77,4 @@ class Command(BaseCommand):
             series_objects[column] = series
 
         for row in reader:
-            datetime = get_datetime(row)
-            for c in columns:
-                series = series_objects[c]
-                datum = row[c] or "0.0"
-                if datetime[:10] in blackout_dates_strings:
-                    datum = "0.0"
-                try:
-                    Row.objects.create(
-                        series=series,
-                        timestamp=datetime,
-                        value=datum)
-                except Exception, e:
-                    print "error with %s" % datum
-                    print str(e)
+            process_row(row, columns, series_objects)
