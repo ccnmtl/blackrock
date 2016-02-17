@@ -163,6 +163,31 @@ def transect(request):
                               })
 
 
+def calculate_theta(x1, x2, y1, y2):
+    b = x2 - x1
+    c = y2 - y1
+    a = math.hypot(b, c)
+
+    if b == 0:
+        if y2 > y1:
+            theta = 0
+        else:
+            theta = 180
+    elif c == 0:
+        if x2 > x1:
+            theta = 270
+        else:
+            theta = 90
+    else:
+        theta = math.degrees(
+            math.acos((a ** 2 + b ** 2 - c ** 2) / (2 * a * b)))
+
+        theta = adjust_theta_by_quadrant(theta, x1, x2, y1, y2)
+
+    theta = math.radians(theta)
+    return theta
+
+
 def worksheet(request):
     try:
         x_offset = request.POST['x-offset']
@@ -194,27 +219,7 @@ def worksheet(request):
     x2 = float(request.POST['transect-end-x'])
     y2 = float(request.POST['transect-end-y'])
 
-    b = x2 - x1
-    c = y2 - y1
-    a = math.hypot(b, c)
-
-    if b == 0:
-        if y2 > y1:
-            theta = 0
-        else:
-            theta = 180
-    elif c == 0:
-        if x2 > x1:
-            theta = 270
-        else:
-            theta = 90
-    else:
-        theta = math.degrees(
-            math.acos((a ** 2 + b ** 2 - c ** 2) / (2 * a * b)))
-
-        theta = adjust_theta_by_quadrant(theta, x1, x2, y1, y2)
-
-    theta = math.radians(theta)
+    theta = calculate_theta(x1, x2, y1, y2)
 
     xlocs = {}
     ylocs = {}

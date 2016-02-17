@@ -168,6 +168,11 @@ def process_fieldnames(result):
     return values
 
 
+def save_if_created(created, dataset):
+    if created:
+        dataset.save()
+
+
 def process_metadata(result):
     created = False
     dataset = None
@@ -186,8 +191,7 @@ def process_metadata(result):
     dataset = process_dataset_meta_fields(dataset, values)
 
     dataset.location = process_location(values)
-    if created:
-        dataset.save()
+    save_if_created(created, dataset)
 
     for field in dataset._meta.many_to_many:
         if field.name in values.keys():

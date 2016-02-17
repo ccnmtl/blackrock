@@ -11,6 +11,21 @@ def fixdatetime(date, time):
     return "%d-%02d-%02d %s" % (int(y), int(m), int(d), time)
 
 
+def process_row(row, columns, series_objects):
+    datetime = fixdatetime(row[0], row[1])
+    for c in columns:
+        series = series_objects[c]
+        datum = row[c]
+        if datum:
+            try:
+                Row.objects.create(series=series,
+                                   timestamp=datetime,
+                                   value=datum)
+            except Exception, e:
+                print "error with %s" % datum
+                print str(e)
+
+
 class Command(BaseCommand):
     args = ''
     help = ''
@@ -47,15 +62,4 @@ class Command(BaseCommand):
             series_objects[column] = series
 
         for row in reader:
-            datetime = fixdatetime(row[0], row[1])
-            for c in columns:
-                series = series_objects[c]
-                datum = row[c]
-                if datum:
-                    try:
-                        Row.objects.create(series=series,
-                                           timestamp=datetime,
-                                           value=datum)
-                    except Exception, e:
-                        print "error with %s" % datum
-                        print str(e)
+            process_row(row, columns, series_objects)

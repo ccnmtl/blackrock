@@ -286,21 +286,21 @@ def _process_samples(results, fieldname):
                 else:
                     updated_count += 1
 
-                if fieldname == 'count':
-                    if pollen_name.lower() in pines:
-                        _update_or_create_pollen_sample(pinus_pollen,
-                                                        core_sample,
-                                                        fieldname,
-                                                        value,
-                                                        summarize=True)
-                    elif pollen_name.lower() in asteraceae:
-                        _update_or_create_pollen_sample(asteraceae_pollen,
-                                                        core_sample,
-                                                        fieldname,
-                                                        value,
-                                                        summarize=True)
-
+                process_result_count(fieldname, pollen_name, pines,
+                                     pinus_pollen, asteraceae_pollen,
+                                     asteraceae, core_sample, value)
     return created_count, updated_count
+
+
+def process_result_count(fieldname, pollen_name, pines, pinus_pollen,
+                         asteraceae_pollen, asteraceae, core_sample, value):
+    if fieldname == 'count':
+        if pollen_name.lower() in pines:
+            _update_or_create_pollen_sample(pinus_pollen, core_sample,
+                                            fieldname, value, summarize=True)
+        elif pollen_name.lower() in asteraceae:
+            _update_or_create_pollen_sample(asteraceae_pollen, core_sample,
+                                            fieldname, value, summarize=True)
 
 
 def _get_or_create_pollen_type(name, type, display_name=""):

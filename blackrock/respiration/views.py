@@ -241,26 +241,24 @@ def loadcsv(request):
 
 
 def header_indices(header):
+    indices = dict()
     for i in range(len(header)):
         h = header[i].lower()
-        if h == "station":
-            station_idx = i
-        elif h == "year":
-            year_idx = i
-        elif h == "julian day":
-            day_idx = i
-        elif h == "hour":
-            hour_idx = i
-        elif h == "avg temp deg c":
-            temp_idx = i
-    # make sure all headers are defined
-    if not ('station_idx' in vars() and 'year_idx' in vars() and
-            'day_idx' in vars() and 'hour_idx' in vars() and
-            'temp_idx' in vars()):
-        expected = "station, year, julian day, hour, avg temp deg C"
-        msg = "Error: Missing header.  We expect: %s" % expected
-        return (None, None, None, None, None, HttpResponse(msg))
-    return (station_idx, year_idx, day_idx, hour_idx, temp_idx, None)
+        indices[h + "_idx"] = i
+        if h == "julian day":
+            indices['day_idx'] = i
+        if h == "avg temp deg c":
+            indices['temp_idx'] = i
+
+    expected = ['station_idx', 'year_idx', 'day_idx', 'hour_idx', 'temp_idx']
+
+    for e in expected:
+        if e not in indices:
+            expected_str = "station, year, julian day, hour, avg temp deg C"
+            msg = "Error: Missing header.  We expect: %s" % expected_str
+            return (None, None, None, None, None, HttpResponse(msg))
+    return (indices['station_idx'], indices['year_idx'], indices['day_idx'],
+            indices['hour_idx'], indices['temp_idx'], None)
 
 
 def delete_all_temperatures_if_needed(request):
@@ -321,6 +319,13 @@ def _update_or_insert(cursor, record_datetime, station, temp, data_source):
     return created
 
 
+def reading_from_temp(last_valid_temp, temp):
+    if last_valid_temp is not None:
+        return float(last_valid_temp)
+    else:
+        return float(temp)
+
+
 def _process_row(cursor, record_datetime, station, temp,
                  next_expected_timestamp, last_valid_temp, prev_station):
 
@@ -335,11 +340,7 @@ def _process_row(cursor, record_datetime, station, temp,
         # have
         while (record_datetime > next_expected_timestamp and
                record_datetime.year == next_expected_timestamp.year):
-            if last_valid_temp is not None:
-                reading = float(last_valid_temp)
-            else:
-                reading = float(temp)
-
+            reading = reading_from_temp(last_valid_temp, temp)
             created = _update_or_insert(
                 cursor, next_expected_timestamp, station, reading, 'mock')
             next_expected_timestamp = next_expected_timestamp + \
@@ -396,6 +397,25 @@ def _utc_to_est(date_string):
         return None
 
 
+def process_station_row(cursor, station, dt, temp, created_count,
+                        updated_count, next_expected_timestamp,
+                        last_valid_temp, prev_station):
+    if (station and dt and temp is not None):
+        (next_expected_timestamp,
+         last_valid_temp,
+         prev_station,
+         created,
+         updated) = _process_row(cursor, dt, station,
+                                 float(temp),
+                                 next_expected_timestamp,
+                                 last_valid_temp,
+                                 prev_station)
+        created_count = created_count + created
+        updated_count = updated_count + updated
+    return (created_count, updated_count, next_expected_timestamp,
+            last_valid_temp, prev_station)
+
+
 @user_passes_test(lambda u: u.is_staff)
 def loadsolr(request):
     application = request.POST.get('application', '')
@@ -445,18 +465,10 @@ def loadsolr(request):
                         station = stations[x]
                         break
 
-                if (station and dt and temp is not None):
-                    (next_expected_timestamp,
-                     last_valid_temp,
-                     prev_station,
-                     created,
-                     updated) = _process_row(cursor, dt, station,
-                                             float(temp),
-                                             next_expected_timestamp,
-                                             last_valid_temp,
-                                             prev_station)
-                    created_count = created_count + created
-                    updated_count = updated_count + updated
+                (created_count, updated_count, next_expected_timestamp,
+                 last_valid_temp, prev_station) = process_station_row(
+                     cursor, station, dt, temp, created_count, updated_count,
+                     next_expected_timestamp, last_valid_temp, prev_station)
 
             retrieved = retrieved + to_retrieve
 
