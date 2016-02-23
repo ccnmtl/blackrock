@@ -30,15 +30,7 @@
 
     <script type="text/javascript">
       function closePredefinedSpecies() {
-
-          var elts = jQuery("div .species-predefined-list");
-          
-          forEach(elts, function(elt) {
-              if (getStyle(elt, 'display') === 'block') {
-                  hideElement(elt);
-              }
-          });
-          jQuery(document.body).on('click', closePredefinedSpecies);
+          jQuery('.species-predefined-list:visible').hide();
       }
 
       function setActiveTab() {
@@ -52,20 +44,22 @@
       }
 
       function initNav() {
-        jQuery('#tab-leaf').on('click', function() {
+          jQuery('#tab-leaf').on('click', function() {
               window.location = '/respiration/leaf';
-        }); 
-        jQuery('#tab-canopy').on('click', function() {    
+          }); 
+          jQuery('#tab-canopy').on('click', function() {    
               window.location = '/respiration/forest';
-        });
+          });
        }
 
-       jQuery(window).on('load', closePredefinedSpecies);
-       jQuery(window).on('load', setActiveTab);
-       jQuery(window).on('load', initNav);
-    </script>
-    <script type="text/javascript">
-      function showResources() {
+       jQuery(document).ready(function() {
+           setActiveTab();
+           initNav();
+          
+           jQuery('body').on('click', closePredefinedSpecies);
+       });
+
+       function showResources() {
     	  jQuery('#tab-leaf').removeClass('active');
     	  jQuery('#tab-canopy').removeClass('active');
     	  jQuery('#tab-leaf').removeClass('tab-selected');
@@ -78,6 +72,7 @@
     	  jQuery('#container').html(jQuery('#resources-template').html());
       }
     </script>
+
     <script type="text/template" id="resources-template">
     <div id="resource-contents">
       <h3>Teaching Resources</h3>
@@ -103,11 +98,8 @@
 {% endblock %} 
 
 {% block masthead %} 
-<a href="/respiration/" title="Return to 'Tree Respiration' home">Tree Respiration</a>
-
+    <a href="/respiration/" title="Return to 'Tree Respiration' home">Tree Respiration</a>
 {% endblock %} 
-
-
 
 {% block content %}
     {% include "respiration/sharing.html" %}
