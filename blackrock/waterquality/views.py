@@ -1,21 +1,18 @@
-from annoying.decorators import render_to
 from .models import Series, LimitedSeries, LimitedSeriesPair
 from .models import LimitedSeriesGroup
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from datetime import datetime, timedelta
 import math
 from django.conf import settings
 import re
 
 
-@render_to('waterquality/index.html')
 def index(request):
-    return dict()
+    return render(request, 'waterquality/index.html', dict())
 
 
-@render_to('waterquality/teaching.html')
 def teaching(request):
-    return dict()
+    return render(request, 'waterquality/teaching.html', dict())
 
 
 def parse_date(s):
@@ -84,20 +81,20 @@ def remove_zeroes(data):
     return newdata
 
 
-@render_to('waterquality/graphing_tool.html')
 def graphing_tool(request):
+    template_name = 'waterquality/graphing_tool.html'
     data = dict()
     graph_type = request.GET.get('type', None)
 
     start, err = get_start_or_error(request.GET.get('start', None))
     if err:
         data['error'] = err
-        return data
+        return render(request, template_name, data)
 
     end, err = get_end_or_error(request.GET.get('end', None))
     if err:
         data['error'] = err
-        return data
+        return render(request, template_name, data)
 
     data["start"] = start
     data["end"] = end
@@ -116,7 +113,7 @@ def graphing_tool(request):
     data['graph_title'] = request.GET.get('title', "")[:50]
     p = re.compile(r'\W+')
     data['filename_base'] = p.sub('_', data['graph_title'])
-    return data
+    return render(request, template_name, data)
 
 
 def handle_timeseries(graph_type, data, request, start, end):
@@ -223,12 +220,11 @@ def scatterplot_data(data, request, start, end):
     return data
 
 
-@render_to('waterquality/browse.html')
 def browse(request):
-    return dict(series=Series.objects.all())
+    return render(request, 'waterquality/browse.html',
+                  dict(series=Series.objects.all()))
 
 
-@render_to('waterquality/series.html')
 def series(request, id):
     series = get_object_or_404(Series, id=id)
     start = request.GET.get('start', False)
@@ -240,16 +236,16 @@ def series(request, id):
 
     lseries = LimitedSeries(series=series, start=start, end=end)
 
-    return dict(series=series, lseries=lseries)
+    return render(request, 'waterquality/series.html',
+                  dict(series=series, lseries=lseries))
 
 
-@render_to('waterquality/series_all.html')
 def series_all(request, id):
     series = get_object_or_404(Series, id=id)
-    return dict(series=series)
+    return render(request, 'waterquality/series_all.html',
+                  dict(series=series))
 
 
-@render_to('waterquality/series_verify.html')
 def series_verify(request, id):
     series = get_object_or_404(Series, id=id)
     start_date = series.row_set.all()[0].timestamp
@@ -266,9 +262,10 @@ def series_verify(request, id):
             found += 1
         step_date = step_date + d
 
-    return dict(
-        missing=missing, found=found,
-        total=series.row_set.all().count())
+    return render(request, 'waterquality/series_verify.html',
+                  dict(
+                      missing=missing, found=found,
+                      total=series.row_set.all().count()))
 
 
 def get_default_start():

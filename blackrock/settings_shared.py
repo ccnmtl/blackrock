@@ -133,7 +133,6 @@ INSTALLED_APPS = [
     'bootstrapform',
     'django_jenkins',
     'smoketest',
-    'annoying'
 ]
 
 # Pageblocks/Pagetree settings
