@@ -123,7 +123,6 @@ INSTALLED_APPS = [
     'django_databrowse',
     'googlecharts',
     'haystack',
-    'smartif',
     'tinymce',
     'pagetree',
     'pageblocks',
