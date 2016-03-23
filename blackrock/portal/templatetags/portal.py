@@ -1,8 +1,13 @@
+import types
+
 from django import template
 from django.conf import settings
 from django.utils.text import capfirst
 from haystack.query import SearchQuerySet
-import types
+
+from blackrock.portal.models import FeaturedAsset
+
+
 register = template.Library()
 
 
@@ -198,7 +203,8 @@ def related(object):
     related = []
     for related_object in object.related_objects():
         for wrapper in related_object['object_list']:
-            related.append(wrapper.instance)
+            if not isinstance(wrapper.instance, FeaturedAsset):
+                related.append(wrapper.instance)
 
     if hasattr(object.instance, 'related_ex'):
         related.extend(object.instance.related_ex())
