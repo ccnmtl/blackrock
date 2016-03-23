@@ -408,6 +408,19 @@ if (!Portal.Map) {
             });
 
             if (!bounds.isEmpty() && fitBounds) {
+                // Don't zoom in too far on only one marker
+                // http://stackoverflow.com/questions/3334729/
+                // google-maps-v3-fitbounds-zoom-too-close-for-single-marker
+                if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+                   var extendPoint1 = new google.maps.LatLng(
+                       bounds.getNorthEast().lat() + 0.01,
+                       bounds.getNorthEast().lng() + 0.01);
+                   var extendPoint2 = new google.maps.LatLng(
+                       bounds.getNorthEast().lat() - 0.01,
+                       bounds.getNorthEast().lng() - 0.01);
+                   bounds.extend(extendPoint1);
+                   bounds.extend(extendPoint2);
+                }
                 self.mapInstance.fitBounds(bounds);
             }
 
@@ -547,7 +560,7 @@ if (!Portal.Map) {
             }
 
             var url_base = "http://blackrock.ccnmtl.columbia.edu" +
-                           "/site_media/kml/portal/brfboundary.kml?newcachebuster=";
+                "/site_media/kml/portal/brfboundary.kml?newcachebuster=";
             
             var boundary = new Portal.Layer(
                 "brfboundary", url_base + randomnumber, false);
