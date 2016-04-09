@@ -48,7 +48,7 @@ class PortalSearchForm(SearchForm):
 
     def __init__(self, *args, **kwargs):
         super(PortalSearchForm, self).__init__(*args, **kwargs)
-        self.fields['study_choice'].choices = default_facet_choices(
+        self.fields['study_type'].choices = default_facet_choices(
             "Study Type")
         self.fields['species'].choices = default_facet_choices("Species")
         self.fields['discipline'].choices = default_facet_choices("Discipline")
