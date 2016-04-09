@@ -34,23 +34,24 @@ class PortalSearchForm(SearchForm):
 
     study_type = forms.MultipleChoiceField(
         required=False, label=_('Study Type'),
-        widget=forms.CheckboxSelectMultiple,
-        choices=default_facet_choices("Study Type"))
+        widget=forms.CheckboxSelectMultiple)
 
     species = forms.MultipleChoiceField(
         required=False,
         label=_('Species'),
-        widget=forms.CheckboxSelectMultiple,
-        choices=default_facet_choices("Species"))
+        widget=forms.CheckboxSelectMultiple)
 
     discipline = forms.MultipleChoiceField(
         required=False,
         label=_('Discipline'),
-        widget=forms.CheckboxSelectMultiple,
-        choices=default_facet_choices("Discipline"))
+        widget=forms.CheckboxSelectMultiple)
 
     def __init__(self, *args, **kwargs):
         super(PortalSearchForm, self).__init__(*args, **kwargs)
+        self.fields['study_type'].choices = default_facet_choices(
+            "Study Type")
+        self.fields['species'].choices = default_facet_choices("Species")
+        self.fields['discipline'].choices = default_facet_choices("Discipline")
 
     def get_multiplechoicefield(self, name):
         query = ""

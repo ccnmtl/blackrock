@@ -29,10 +29,6 @@ class MammalSearchForm(SearchForm):
         ('tracks_and_signs', 'Tracks and signs')
     ]
 
-    habitat_list = [(h.id, h.label) for h in Habitat.objects.all()]
-    species_list = [(s.id, s.common_name) for s in Species.objects.all()]
-    school_list = [(s.id, s.name) for s in School.objects.all()]
-
     csm = forms.CheckboxSelectMultiple
     # note: the order in which these are defined... affects the order in which
     # they are displayed in the template. This sucks but it's what I get for
@@ -43,11 +39,11 @@ class MammalSearchForm(SearchForm):
     signs = forms.MultipleChoiceField(
         required=False, label='', widget=csm, choices=signs_list)
     habitat = forms.MultipleChoiceField(
-        required=False, label='Habitat', widget=csm, choices=habitat_list)
+        required=False, label='Habitat', widget=csm)
     species = forms.MultipleChoiceField(
-        required=False, label='Species', widget=csm, choices=species_list)
+        required=False, label='Species', widget=csm)
     school = forms.MultipleChoiceField(
-        required=False, label='School', widget=csm, choices=school_list)
+        required=False, label='School', widget=csm)
 
     from_date = forms.CharField(
         required=False, initial="start date", max_length=10,
@@ -58,8 +54,12 @@ class MammalSearchForm(SearchForm):
 
     def __init__(self, *args, **kwargs):
         super(MammalSearchForm, self).__init__(*args, **kwargs)
-        # print "new thing."
-        # self.search()
+        habitat_list = [(h.id, h.label) for h in Habitat.objects.all()]
+        species_list = [(s.id, s.common_name) for s in Species.objects.all()]
+        school_list = [(s.id, s.name) for s in School.objects.all()]
+        self.fields['habitat'].choices = habitat_list
+        self.fields['species'].choices = species_list
+        self.fields['school'].choices = school_list
 
     def checkboxes_or(self, form_key):
         """" note: this returns a blank string if nothing is checked."""

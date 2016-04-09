@@ -1,39 +1,24 @@
 # flake8: noqa
 from settings_shared import *
+from ccnmtlsettings.staging import common
 
-DATABASE_ENGINE = 'postgresql_psycopg2'
-
-TEMPLATE_DIRS = (
-    "/var/www/blackrock/blackrock/blackrock/templates",
-)
-
-MEDIA_ROOT = '/var/www/blackrock/uploads/'
-
-# put any static media here to override app served static media
-STATICMEDIA_MOUNTS = (
-    ('/sitemedia', '/var/www/blackrock/blackrock/sitemedia'),
-)
+locals().update(
+    common(
+        project=project,
+        base=base,
+        s3static=False,
+    ))
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'blackrock',
         'HOST': '',
-        'PORT': 6432,  # see /etc/pgbouncer/pgbouncer.ini
+        'PORT': 6432,
         'USER': '',
         'PASSWORD': '',
     }
 }
-
-DEBUG = False
-TEMPLATE_DEBUG = DEBUG
-
-SENTRY_SITE = 'blackrock'
-SENTRY_SERVERS = ['http://sentry.ccnmtl.columbia.edu/sentry/store/']
-
-
-if 'migrate' not in sys.argv:
-    INSTALLED_APPS.append('raven.contrib.django.raven_compat')
 
 try:
     from local_settings import *
