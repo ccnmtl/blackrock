@@ -69,6 +69,7 @@ INSTALLED_APPS += [  # noqa
     'blackrock.waterquality',
     'blackrock.mammals',
     'bootstrapform',
+    'django.contrib.humanize'
 ]
 
 # Pageblocks/Pagetree settings
