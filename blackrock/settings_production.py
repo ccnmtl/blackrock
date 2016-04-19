@@ -1,6 +1,6 @@
 # flake8: noqa
 from settings_shared import *
-from ccnmtlsettings.staging import common
+from ccnmtlsettings.production import common
 
 locals().update(
     common(
