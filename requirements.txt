@@ -24,7 +24,7 @@ django-tinymce==1.5.3
 BeautifulSoup==3.2.1
 coverage==4.0.3
 pyasn1==0.1.9
-pyOpenSSL==0.15.1
+pyOpenSSL==16.0.0
 ndg-httpsclient==0.4.0
 djangohelpers==0.18.1
 logilab-common==1.1.0
