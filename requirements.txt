@@ -20,7 +20,7 @@ Pillow==3.2.0
 requests==2.10.0
 pysolr==3.4.0
 gdata==2.0.14
-django-tinymce==1.5.3
+django-tinymce==2.3.0
 BeautifulSoup==3.2.1
 coverage==4.0.3
 pyasn1==0.1.9
