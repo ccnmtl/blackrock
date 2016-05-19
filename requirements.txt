@@ -75,7 +75,7 @@ django-bootstrap-form==3.2.1
 django-markwhat==1.5
 django-pagetree==1.1.14
 django-pageblocks==1.0.4
-django-databrowse==1.2
+django-databrowse==2014.9.26
 factory_boy==2.6.1
 django-debug-toolbar==1.4
 gunicorn==19.5.0
