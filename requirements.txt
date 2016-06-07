@@ -55,7 +55,7 @@ rcssmin==1.0.6
 rjsmin==1.0.12
 sqlparse==0.1.19
 
-djangowind==0.14.3
+djangowind==0.15.0
 sorl==3.1
 tagging==0.3-pre
 template_utils==0.4p2
