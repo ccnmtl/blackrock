@@ -10,7 +10,7 @@ from django.http import HttpResponse, HttpResponseRedirect, \
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from json import dumps
-from django.utils.tzinfo import FixedOffset
+from django.utils.timezone import FixedOffset
 from pysolr import Solr
 from blackrock.respiration.models import Temperature, StationMapping
 import csv
