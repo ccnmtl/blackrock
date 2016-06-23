@@ -24,16 +24,16 @@
 
 {% block css %}
 <style type='text/css'>
-  @import "/site_media/css/sampler/plot.css";
-  @import "/site_media/css/sampler/style.css";
+  @import "{{STATIC_URL}}css/sampler/plot.css";
+  @import "{{STATIC_URL}}css/sampler/style.css";
 </style>
 {% endblock %}
 
 {% block js %}
   {{block.super}}
-  <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/Visual.js"></script>
-  <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/DragAndDrop.js"></script>
-  <script type="text/javascript" src="/site_media/js/sampler/shared.js"></script>
+  <script type="text/javascript" src="{{STATIC_URL}}js/mochikit/MochiKit/Visual.js"></script>
+  <script type="text/javascript" src="{{STATIC_URL}}js/mochikit/MochiKit/DragAndDrop.js"></script>
+  <script type="text/javascript" src="{{STATIC_URL}}js/sampler/shared.js"></script>
   
 {% endblock %}
 

@@ -28,23 +28,23 @@ html, body {
 }
 
 #navbar_locate_me .ui-icon { 
-	background:  url(/site_media/images/portal/glyphish-icons/71-compass.png/) 50% 50% no-repeat; 
+	background:  url(/media/images/portal/glyphish-icons/71-compass.png/) 50% 50% no-repeat; 
 }
 
 #navbar_trails .ui-icon { 
-	background:  url(/site_media/images/portal/glyphish-icons/102-walk.png/) 50% 50% no-repeat; background-size: 14px 27px; 
+	background:  url(/media/images/portal/glyphish-icons/102-walk.png/) 50% 50% no-repeat; background-size: 14px 27px; 
 }
 
 #navbar_weather .ui-icon { 
-	background:  url(/site_media/images/portal/glyphish-icons/25-weather.png/) 50% 50% no-repeat; 
+	background:  url(/media/images/portal/glyphish-icons/25-weather.png/) 50% 50% no-repeat; 
 }
 
 #navbar_options .ui-icon { 
-	background:  url(/site_media/images/portal/glyphish-icons/103-map.png/) 50% 50% no-repeat; 
+	background:  url(/media/images/portal/glyphish-icons/103-map.png/) 50% 50% no-repeat; 
 }
 
 #navbar_settings .ui-icon { 
-	background:  url(/site_media/images/portal/glyphish-icons/19-gear.png/) 50% 50% no-repeat; 
+	background:  url(/media/images/portal/glyphish-icons/19-gear.png/) 50% 50% no-repeat; 
 }
 
 #map_canvas { height: 100%; }

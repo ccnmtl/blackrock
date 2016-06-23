@@ -5,7 +5,7 @@
 {% block extrastyle %}
     {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />
-    <link rel="stylesheet" type="text/css" href="/site_media/css/admin.css"></link>
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/admin.css"></link>
 {% endblock %}
 
 {% block extrahead %}
@@ -16,8 +16,8 @@
     <script type="text/javascript" src="/media/js/admin/CollapsedFieldsets.js"></script>
     <script type="text/javascript" src="/media/js/calendar.js"></script>
     <script type="text/javascript" src="/media/js/admin/DateTimeShortcuts.js"></script>
-    <script type="text/javascript" src="/site_media/js/json2.js"></script>
-    <script type="text/javascript" src="/site_media/js/admin.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/json2.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/admin.js"></script>
 {% endblock extrahead %}
 
 {% block branding %}

@@ -7,8 +7,8 @@
   {{ block.super }}
   
   <style type="text/css">
-    @import '/site_media/css/sampler/transect.css';
-    @import '/site_media/css/sampler/worksheet.css';
+    @import '{{STATIC_URL}}css/sampler/transect.css';
+    @import '{{STATIC_URL}}css/sampler/worksheet.css';
   </style>
   
 {% endblock %}
@@ -32,7 +32,7 @@
   //addLoadEvent(adjustTrees);
 
   </script>
-  <script type="text/javascript" src="/site_media/js/sampler/worksheet.js"></script>
+  <script type="text/javascript" src="{{STATIC_URL}}js/sampler/worksheet.js"></script>
   <script type="text/javascript">
     xOffset = {{x_offset}};
     yOffset = {{y_offset}};

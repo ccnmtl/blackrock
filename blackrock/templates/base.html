@@ -4,9 +4,9 @@
     <title>The Virtual Forest Initiative: {% block title %}MY PAGE TITLE{% endblock %}</title>
     
     <style media="screen" type="text/css">
-        @import "/site_media/css/site.css" ;
-        @import "/site_media/css/style.css" ;
-        @import "/site_media/css/shield.css";
+        @import "{{STATIC_URL}}css/site.css" ;
+        @import "{{STATIC_URL}}css/style.css" ;
+        @import "{{STATIC_URL}}css/shield.css";
     </style>
 
     
@@ -17,16 +17,16 @@
         <!-- Altough most modules will use 1.6, some, such as tree respiration have been upgraded and
         I believe one module (can't recall which) is using 1.4 so override block in the other templates
         as needed -->
-        <script src="/site_media/js/libraries/jquery-1.6.min.js" type="text/javascript"></script>
+        <script src="{{STATIC_URL}}js/libraries/jquery-1.6.min.js" type="text/javascript"></script>
     {% endblock jquery %}
 
     
     {% block js %}
     <!-- Moving JavaScript here, used in almost every module to the base template -->
-    <script src="/site_media/js/mochikit/MochiKit/MochiKit.js" type="text/javascript"></script> 
-    <script src="/site_media/js/mochikit/MochiKit/Signal.js" type="text/javascript"></script> 
-    <script src="/site_media/js/browserdetect.js" type="text/javascript" language="javascript"></script>
-    <script src="/site_media/js/shield.js" type="text/javascript" language="javascript"></script>
+    <script src="{{STATIC_URL}}js/mochikit/MochiKit/MochiKit.js" type="text/javascript"></script> 
+    <script src="{{STATIC_URL}}js/mochikit/MochiKit/Signal.js" type="text/javascript"></script> 
+    <script src="{{STATIC_URL}}js/browserdetect.js" type="text/javascript" language="javascript"></script>
+    <script src="{{STATIC_URL}}js/shield.js" type="text/javascript" language="javascript"></script>
     {% endblock %}
     
     {% block feeds %}{% endblock %}

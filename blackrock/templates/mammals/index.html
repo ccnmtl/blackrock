@@ -4,8 +4,8 @@
 
 {% block js %}
     {{ block.super }}
-    <script src="/site_media/js/libraries/jquery-1.6.min.js" type="text/javascript"></script>
-    <!-- <script src="/site_media/js/jquery.cycle.lite.js" type="text/javascript"></script>
+    <script src="{{STATIC_URL}}js/libraries/jquery-1.6.min.js" type="text/javascript"></script>
+    <!-- <script src="{{STATIC_URL}}js/jquery.cycle.lite.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function() {
         $('.landingSlideshow').cycle({
@@ -23,12 +23,12 @@
     <h3>Welcome to the Mammals and Habitats Module!</h3>
 
 <!--    <div class="landingSlideshow"> 
-        <img src="/site_media/images/slideshow/mammals/mammals01.jpg" /> 
-        <img src="/site_media/images/slideshow/mammals/mammals02.jpg" /> 
-        <img src="/site_media/images/slideshow/mammals/mammals03.jpg" /> 
-        <img src="/site_media/images/slideshow/mammals/mammals04.jpg" /> 
-        <img src="/site_media/images/slideshow/mammals/mammals05.jpg" /> 
-        <img src="/site_media/images/slideshow/mammals/mammals06.jpg" /> 
+        <img src="{{STATIC_URL}}images/slideshow/mammals/mammals01.jpg" /> 
+        <img src="{{STATIC_URL}}images/slideshow/mammals/mammals02.jpg" /> 
+        <img src="{{STATIC_URL}}images/slideshow/mammals/mammals03.jpg" /> 
+        <img src="{{STATIC_URL}}images/slideshow/mammals/mammals04.jpg" /> 
+        <img src="{{STATIC_URL}}images/slideshow/mammals/mammals05.jpg" /> 
+        <img src="{{STATIC_URL}}images/slideshow/mammals/mammals06.jpg" /> 
    </div> -->
    <div class="landingSlideshow">
    <object width="500" height="375"> <param name="flashvars" value="offsite=true&lang=en-us&page_show_url=%2Fphotos%2Fblackrockforestconsortium%2Fsets%2F72157632762771848%2Fshow%2F&page_show_back_url=%2Fphotos%2Fblackrockforestconsortium%2Fsets%2F72157632762771848%2F&set_id=72157632762771848&jump_to="></param> <param name="movie" value="https://www.flickr.com/apps/slideshow/show.swf?v=124984"></param> <param name="allowFullScreen" value="true"></param><embed type="application/x-shockwave-flash" src="https://www.flickr.com/apps/slideshow/show.swf?v=124984" allowFullScreen="true" flashvars="offsite=true&lang=en-us&page_show_url=%2Fphotos%2Fblackrockforestconsortium%2Fsets%2F72157632762771848%2Fshow%2F&page_show_back_url=%2Fphotos%2Fblackrockforestconsortium%2Fsets%2F72157632762771848%2F&set_id=72157632762771848&jump_to=" width="500" height="375"></embed></object>
@@ -43,7 +43,7 @@
     <p><b>Students:</b> Go to the <a href="/mammals/search/">Map</a> to see species and habitat data collected by students who have participated in the <a href="/mammals/grid/">Research Grid</a> activity at Black Rock Forest. If you've already done the activity, you can search for the data you collected.</p>
     
     <br clear="all" />
-<p class="funder_logo"><span><img src="/site_media/images/logo_toyota_foundation.jpg" width="85" height="67" /></span><br style="height: 15px">The Virtual Forest Partnership with New York City Schools<br />is made possible with support from the Toyota USA Foundation</p>
+<p class="funder_logo"><span><img src="{{STATIC_URL}}images/logo_toyota_foundation.jpg" width="85" height="67" /></span><br style="height: 15px">The Virtual Forest Partnership with New York City Schools<br />is made possible with support from the Toyota USA Foundation</p>
 
     <br clear="all" />
 

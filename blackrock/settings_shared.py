@@ -89,7 +89,7 @@ PAGEBLOCKS = [
 LOGIN_URL = "/admin/login"
 
 # TinyMCE settings
-TINYMCE_JS_URL = '/site_media/js/tiny_mce/tiny_mce.js'
+TINYMCE_JS_URL = '/media/js/tiny_mce/tiny_mce.js'
 TINYMCE_JS_ROOT = 'media/js/tiny_mce'
 
 # if you set this to True, you may have to

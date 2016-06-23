@@ -66,7 +66,7 @@ div#equation {
 	top: 170px;
 	height: 100px;
 	background-color: #ccc;
-	background-image: url(/site_media/images/respiration/background_panel.jpg);
+	background-image: url(/media/images/respiration/background_panel.jpg);
 	background-repeat: repeat-x;
 	background-position: -50px -50px;
 }
@@ -135,7 +135,7 @@ div#container
 div#left, div#right
 {
     background-color: #ccc;
-    background-image: url(/site_media/images/respiration/background_panel.jpg);
+    background-image: url(/media/images/respiration/background_panel.jpg);
     background-repeat: repeat-x;
     border: 1px gray solid;
     margin-bottom: 25px;
@@ -181,8 +181,8 @@ canvas
 	top: 100px;
 }
 
-#y-grid-leaf { background-image: url(/site_media/images/respiration/ygridleaf.gif); }
-#y-grid-canopy { background-image: url(/site_media/images/respiration/ygridcanopy.gif); }
+#y-grid-leaf { background-image: url(/media/images/respiration/ygridleaf.gif); }
+#y-grid-canopy { background-image: url(/media/images/respiration/ygridcanopy.gif); }
 form#leaf-form, form#leaf-form table { font-size: 11px; }
 form#leaf-form fieldset { margin-bottom: 10px; }
 
@@ -190,7 +190,7 @@ legend
 {
 	padding: 6px;
 	border: 1px gray solid;
-	background-image: url(/site_media/images/respiration/background_panel.jpg);
+	background-image: url(/media/images/respiration/background_panel.jpg);
 	background-repeat: repeat-x;
 }
 
@@ -250,14 +250,14 @@ legend
 
 .speciescontainer
 {
-	background-image: url(/site_media/images/respiration/background_panel.jpg);
+	background-image: url(/media/images/respiration/background_panel.jpg);
 	background-repeat: repeat-x;
     overflow: visible;
 }
 
 .leafspeciescontainer
 {
-    background-image: url(/site_media/images/respiration/background_panel.jpg);
+    background-image: url(/media/images/respiration/background_panel.jpg);
     background-repeat: repeat-x;
     overflow: auto;
     max-height: 341px;
@@ -272,7 +272,7 @@ legend
 	border-left: 1px solid #999;
 }
 
-.species, .species td { font-size: 11px; background-image:url(/site_media/images/respiration/background_panel.jpg); position: relative;}
+.species, .species td { font-size: 11px; background-image:url(/media/images/respiration/background_panel.jpg); position: relative;}
 
 .speciestemp
 {
@@ -294,7 +294,7 @@ legend
 	border-right: 1px solid gray;
 	border-left: 1px solid gray;
 	padding: 0;
-	background-image: url(/site_media/images/respiration/background_panel.jpg);
+	background-image: url(/media/images/respiration/background_panel.jpg);
 	background-repeat: repeat-x;
 }
 
@@ -349,7 +349,7 @@ table.advancedoptionstable tr
 	width: 500px;
 	position: relative;
 	/*PUT BACKGROUND IMAGE FOR SLIDER HERE */
-	background-image: url(/site_media/images/respiration/background_slider.gif);
+	background-image: url(/media/images/respiration/background_slider.gif);
 	background-repeat: repeat-x;
 	background-position: center center;
 	margin-top: 10px;
@@ -361,7 +361,7 @@ table.advancedoptionstable tr
 {
 	position: absolute;
 	top: 8px;
-	background-image: url(/site_media/images/respiration/slider.gif);
+	background-image: url(/media/images/respiration/slider.gif);
 	background-repeat: repeat-x;
 	height: 10px;
 	margin-left: 12px;
@@ -424,7 +424,7 @@ input#plotGraph.needsupdate
 	left: -5px;
 	border: 1px solid red;
 	background-color: #CCC;
-	background-image: url(/site_media/images/respiration/cursorswitch.gif);
+	background-image: url(/media/images/respiration/cursorswitch.gif);
 	background-repeat: no-repeat;
 	background-position: center center;
 	z-index: 10000;
@@ -460,8 +460,8 @@ div.toggler
 	margin-right: 10px;
 }
 
-div.toggle-open { background-image: url(/site_media/images/respiration/toggle_open.gif); }
-div.toggle-closed { background-image: url(/site_media/images/respiration/toggle_closed.gif); }
+div.toggle-open { background-image: url(/media/images/respiration/toggle_open.gif); }
+div.toggle-closed { background-image: url(/media/images/respiration/toggle_closed.gif); }
 
 /* start - tooltip css */
 a.tooltip
@@ -605,7 +605,7 @@ div.species-predefined-choice:hover {
 }
 
 input.species-select-predefined {
-	background-image: url("/site_media/images/respiration/down-arrow.png");
+	background-image: url("/media/images/respiration/down-arrow.png");
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-color: white;
