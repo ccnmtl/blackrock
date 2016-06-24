@@ -1,15 +1,16 @@
 {% extends "portal/base_portal.html" %}
 {% load portal %}
+{% load staticfiles %}
 
 {% block title %}{{ object }}{% endblock %}
 
 {% block css %}
-    <link href="{{STATIC_URL}}js/portal/jcarousel/skins/blackrock-detail/skin.css" media="screen" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'js/portal/jcarousel/skins/blackrock-detail/skin.css' %}" media="screen" rel="stylesheet" type="text/css"/>
 {% endblock %}
 
 {% block js %}
     {{block.super}}
-    <script src="{{STATIC_URL}}js/portal/object_detail.js" type="text/javascript"></script>
+    <script src="{% static 'js/portal/object_detail.js' %}" type="text/javascript"></script>
 {% endblock %}
 
 {% block container %}
