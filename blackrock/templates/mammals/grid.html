@@ -6,9 +6,9 @@
 {% block bodyclass %}research_grid{% endblock %}
 
 {% block js %}
-	<script type="text/javascript" src="/site_media/js/mammals/map_colors.js"></script>
-	<script type="text/javascript" src="/site_media/js/mammals/grid_and_block.js"></script>
-	<script type="text/javascript" src="/site_media/js/mammals/grid.js"></script>
+	<script type="text/javascript" src="{{STATIC_URL}}js/mammals/map_colors.js"></script>
+	<script type="text/javascript" src="{{STATIC_URL}}js/mammals/grid_and_block.js"></script>
+	<script type="text/javascript" src="{{STATIC_URL}}js/mammals/grid.js"></script>
 	{{ block.super }}
 {% endblock %}
 

@@ -63,9 +63,9 @@ function display_next_specimen() {
     } else {
         current = nextElem.id.substr(16);
         replaceChildNodes("pollen-image", IMG({
-            'src': '/site_media/images/paleoecology/pollen/' + images[current][0]
+            'src': '/media/images/paleoecology/pollen/' + images[current][0]
         }, null));
-        $("pollen-image-large").src = '/site_media/images/paleoecology/pollen/' + images[current][2];
+        $("pollen-image-large").src = '/media/images/paleoecology/pollen/' + images[current][2];
         $('pollen-choice').value = $('image' + current + '-name').innerHTML;
     
         // scroll div to the desired element
@@ -131,9 +131,9 @@ function goto_specimen(e) {
     var id = e.src().id;   // imageX
     current = parseInt(id.substr(5), 10);
     replaceChildNodes("pollen-image", IMG({
-        'src': '/site_media/images/paleoecology/pollen/' + images[current][0]
+        'src': '/media/images/paleoecology/pollen/' + images[current][0]
     }, null));
-    $("pollen-image-large").src = '/site_media/images/paleoecology/pollen/' + images[current][2];
+    $("pollen-image-large").src = '/media/images/paleoecology/pollen/' + images[current][2];
     $('pollen-choice').value = $('image' + current + '-name').innerHTML;
 }
 
@@ -148,7 +148,7 @@ function setup_zoo() {
     for (var i = 0; i < images.length; i++) {
         var img = IMG({
             'id': 'image' + i,
-            'src': '/site_media/images/paleoecology/pollen/' + images[i][0]
+            'src': '/media/images/paleoecology/pollen/' + images[i][0]
         }, null);
         connect(img, "onclick", goto_specimen);
         var namediv = DIV({

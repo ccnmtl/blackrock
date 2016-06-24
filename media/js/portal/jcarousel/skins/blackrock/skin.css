@@ -93,11 +93,11 @@
 }
 
 .jcarousel-clip .dl_navigation li a.jcarousel-pause {
-    background: url("/site_media/images/portal/pause.png") no-repeat transparent;
+    background: url("/media/images/portal/pause.png") no-repeat transparent;
 }
 
 .jcarousel-clip .dl_navigation li a.jcarousel-play {
-    background: url("/site_media/images/portal/play.png") no-repeat transparent;
+    background: url("/media/images/portal/play.png") no-repeat transparent;
 }
 
 .jcarousel-clip .nav li {

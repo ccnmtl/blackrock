@@ -4,10 +4,10 @@
 
 {% block js %}
    {{ block.super }}
-    <script type="text/javascript" src="/site_media/js/respiration/foresthelpers.js"></script> 
-    <script type="text/javascript" src="/site_media/js/respiration/scenario.js"></script> 
-    <script type="text/javascript" src="/site_media/js/respiration/species.js"></script>
-    <script type="text/javascript" src="/site_media/js/respiration/forestgraph.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/respiration/foresthelpers.js"></script> 
+    <script type="text/javascript" src="{{STATIC_URL}}js/respiration/scenario.js"></script> 
+    <script type="text/javascript" src="{{STATIC_URL}}js/respiration/species.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/respiration/forestgraph.js"></script>
     <script type="text/javascript">
     
         addLoadEvent(function() {

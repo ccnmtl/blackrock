@@ -8,9 +8,9 @@
 
 
 {% block js %}
-    <script type="text/javascript" src="/site_media/js/mammals/map_colors.js"></script>
-    <script type="text/javascript" src="/site_media/js/mammals/grid_and_block.js"></script>
-    <script type="text/javascript" src="/site_media/js/mammals/block.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/mammals/map_colors.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/mammals/grid_and_block.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/mammals/block.js"></script>
     {{ block.super }}
 {% endblock %}
 

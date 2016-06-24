@@ -377,7 +377,7 @@ div#core-unzoomed {
   height: 606px;
   width: 60px;
   float: left;
-  background-image: url(/site_media/images/paleoecology/coresample/wholecore.png);
+  background-image: url(/media/images/paleoecology/coresample/wholecore.png);
   background-repeat: no-repeat;
   background-position: center bottom;
 }
@@ -416,7 +416,7 @@ div.core-slice.core-slice-clay {
 div.core-slice.core-slice-blank
 {
 	background-color: #cdcdcd;
-	background-image: url(/site_media/images/paleoecology/coresample/blank_slice.png);
+	background-image: url(/media/images/paleoecology/coresample/blank_slice.png);
 	background-repeat: no-repeat;
 	background-position: center center;
 }

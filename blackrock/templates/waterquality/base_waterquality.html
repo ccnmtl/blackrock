@@ -1,28 +1,28 @@
 {% extends 'base.html' %}
 {% block css %}
-    <link rel="stylesheet" href="/site_media/js/libraries/jquery-ui-themes-1.8.12/themes/base/jquery-ui.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{STATIC_URL}}js/libraries/jquery-ui-themes-1.8.12/themes/base/jquery-ui.css" type="text/css" media="all" />
 	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 	
 	<style type="text/css">
-    @import "/site_media/css/waterquality/waterquality.css" ;
+    @import "{{STATIC_URL}}css/waterquality/waterquality.css" ;
     </style>
     
     <!--[if IE 8]>
     <style>
-    @import "/site_media/css/waterquality/waterquality_ie.css" ;
+    @import "{{STATIC_URL}}css/waterquality/waterquality_ie.css" ;
     </style>
     <![endif]-->    	
 	
 {% endblock %}
 {% block js %}
    {{ block.super }}
-	<script type="text/javascript" src="/site_media/js/libraries/jquery-1.6.min.js"></script>
-	<script type="text/javascript" src="/site_media/js/libraries/jquery-ui-1.8.12.min.js"></script>
-	<script type="text/javascript" src="/site_media/js/libraries/jquery.sharing/jquery.sharing.js"></script>
-    <script type="text/javascript" src="/site_media/js/libraries/sharing.js"></script>
-    <script type="text/javascript" src="/site_media/js/facebox.js"></script>
-    <script type="text/javascript" src="/site_media/js/highcharts.js"></script>
-    <script type="text/javascript" src="/site_media/js/modules/exporting.js"></script>
+	<script type="text/javascript" src="{{STATIC_URL}}js/libraries/jquery-1.6.min.js"></script>
+	<script type="text/javascript" src="{{STATIC_URL}}js/libraries/jquery-ui-1.8.12.min.js"></script>
+	<script type="text/javascript" src="{{STATIC_URL}}js/libraries/jquery.sharing/jquery.sharing.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/libraries/sharing.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/facebox.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/highcharts.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/modules/exporting.js"></script>
 {% endblock %}
 
 {% block masthead %}

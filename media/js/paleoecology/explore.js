@@ -62,7 +62,7 @@ function showResults(http_request) {
     var countString = '<br />';
     for (var i = 0; i < pollen.length; i++) {
         var imgString = '<div class="pollen-zoo-image core">' +
-            '<div id="pollen-image"><img src="/site_media/' +
+            '<div id="pollen-image"><img src="/media/' +
             'images/paleoecology/pollen/' +
             getImage(pollen[i]) + '"/></div>';
         countString += imgString + '<div class="imagename"><b>' + pollen[i] +

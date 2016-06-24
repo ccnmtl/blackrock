@@ -5,9 +5,9 @@
 
 {% block js %}
     {{ block.super }}
-    <script type="text/javascript" src="/site_media/js/mochikit/MochiKit/DragAndDrop.js"></script>
-    <script type="text/javascript" src="/site_media/js/respiration/species.js"></script>
-    <script type="text/javascript" src="/site_media/js/respiration/leaf-temp-leaf.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/mochikit/MochiKit/DragAndDrop.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/respiration/species.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/respiration/leaf-temp-leaf.js"></script>
     <script type="text/javascript">
         function calculateKelvin(elem, id) {
             var temperature = elem;
@@ -170,8 +170,8 @@
        </div>
 
      <div id="temp-slider">
-            <img id="leftslider" class="slider" src="/site_media/images/respiration/l-thumb-round.gif" alt="leftslider" />
-            <img id="rightslider" class="slider" src="/site_media/images/respiration/r-thumb-round.gif" alt="rightslider" />
+            <img id="leftslider" class="slider" src="{{STATIC_URL}}images/respiration/l-thumb-round.gif" alt="leftslider" />
+            <img id="rightslider" class="slider" src="{{STATIC_URL}}images/respiration/r-thumb-round.gif" alt="rightslider" />
             <span class="slider range"></span>
      </div>
      </div>
