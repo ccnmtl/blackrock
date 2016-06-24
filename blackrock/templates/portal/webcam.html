@@ -1,11 +1,13 @@
-<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}js/portal/imageflow/imageflow.css" />
+{% load staticfiles %}
 
-<script type="text/javascript" src="{{STATIC_URL}}js/portal/imageflow/imageflow.js"></script>
-<script type="text/javascript" src="{{STATIC_URL}}js/portal/blackrock_webcam.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'js/portal/imageflow/imageflow.css' %}" />
+
+<script type="text/javascript" src="{% static 'js/portal/imageflow/imageflow.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/portal/blackrock_webcam.js' %}"></script>
 
 <div id="forestcam">
   <div class="pagetitle">
-    <img src="{{STATIC_URL}}images/portal/nonmapicon_webcams.png" alt="record type icon" />
+    <img src="{% static 'images/portal/nonmapicon_webcams.png' %}" alt="record type icon" />
     <h3><a href="/portal/browse/portal/station/objects/3/">Science Center ForestCam</a></h3>
   </div>
     
@@ -17,7 +19,7 @@
     </div>
     <div class="box-content">
       <h4>Now Viewing: 
-      <input id="datepicker" type="text" value="Today" style="width: 100px">&nbsp;&nbsp;&nbsp;Change Date: &nbsp;<img id="calendar_icon" style="vertical-align:middle;" src="{{STATIC_URL}}images/portal/calendar.gif" alt="calendar icon"/></h4>
+      <input id="datepicker" type="text" value="Today" style="width: 100px">&nbsp;&nbsp;&nbsp;Change Date: &nbsp;<img id="calendar_icon" style="vertical-align:middle;" src="{% static 'images/portal/calendar.gif' %}" alt="calendar icon"/></h4>
         <center>
           <div class="big-still">
             <img src="" id="current_image"></img>
@@ -45,21 +47,21 @@
         <div style="float: left; margin: 0px 5px; width: 31%;">
           <a class="select_video current_video" onclick="return switchvideo(this, 'sunrise');">
             <h5>Sunrise</h5>
-            <img src="{{STATIC_URL}}images/portal/forestcam/poster_sunrise.png" style="width: 100%; height: auto;"></img>
+            <img src="{% static 'images/portal/forestcam/poster_sunrise.png' %}" style="width: 100%; height: auto;"></img>
           </a>
         </div>
                 
         <div style="float: left; margin: 0px 5px; width: 31%;">
           <a class="select_video" onclick="return switchvideo(this, 'snow');">
             <h5>Snow Melting</h5>
-            <img src="{{STATIC_URL}}images/portal/forestcam/poster_snow.png" style="width: 100%; height: auto;"></img>
+            <img src="{% static 'images/portal/forestcam/poster_snow.png' %}" style="width: 100%; height: auto;"></img>
           </a>
         </div>
                 
         <div style="float: left; margin: 0px 0px 0px 5px; width: 31%;">
           <a class="select_video" onclick="return switchvideo(this, 'showers');">
             <h5>April Showers</h5>
-            <img src="{{STATIC_URL}}images/portal/forestcam/poster_showers.png" style="width: 100%; height: auto;"></img>
+            <img src="{% static 'images/portal/forestcam/poster_showers.png' %}" style="width: 100%; height: auto;"></img>
           </a>
         </div>
       </div>
@@ -71,17 +73,17 @@
       
         <!-- Sunrise -->
         <div id="sunrise" style="display: none;" class="video">
-          <iframe width="480" height="384" src="https://surelink.ccnmtl.columbia.edu/video/?player=download_mp4_v3&file=projects/mp4/virtualforest_time_lapse01_glare.mp4&width=480&height=360&poster=https://blackrock.ccnmtl.columbia.edu{{STATIC_URL}}images/portal/webcam/virtualforest_time_lapse01_glare.jpg&protection=5b9e4fe881b47f0a4ffcaa630dc4f0ca4d36d1e1"></iframe>
+          <iframe width="480" height="384" src="https://surelink.ccnmtl.columbia.edu/video/?player=download_mp4_v3&file=projects/mp4/virtualforest_time_lapse01_glare.mp4&width=480&height=360&poster=https://blackrock.ccnmtl.columbia.edu{% static 'images/portal/webcam/virtualforest_time_lapse01_glare.jpg' %}&protection=5b9e4fe881b47f0a4ffcaa630dc4f0ca4d36d1e1"></iframe>
         </div>    
                 
         <!-- Snow Melting -->
         <div id="snow" style="display: none" class="video">
-          <iframe width="480" height="384" src="https://surelink.ccnmtl.columbia.edu/video/?player=download_mp4_v3&file=projects/mp4/virtualforest_time_lapse03_snow_long.mp4&width=480&height=360&poster=https://blackrock.ccnmtl.columbia.edu{{STATIC_URL}}images/portal/webcam/virtualforest_time_lapse03_snow_long.jpg&protection=c0a8e54641fecf4f2d2daf1ffe96fc5b83c28dca"></iframe>
+          <iframe width="480" height="384" src="https://surelink.ccnmtl.columbia.edu/video/?player=download_mp4_v3&file=projects/mp4/virtualforest_time_lapse03_snow_long.mp4&width=480&height=360&poster=https://blackrock.ccnmtl.columbia.edu{% static 'images/portal/webcam/virtualforest_time_lapse03_snow_long.jpg' %}&protection=c0a8e54641fecf4f2d2daf1ffe96fc5b83c28dca"></iframe>
         </div>
         
         <!-- April Showers -->
         <div id="showers" style="display: none" class="video">
-          <iframe width="480" height="384" src="https://surelink.ccnmtl.columbia.edu/video/?player=download_mp4_v3&file=projects/mp4/virtualforest_time_lapse02_april_showers.mp4&width=480&height=360&poster=https://blackrock.ccnmtl.columbia.edu{{STATIC_URL}}images/portal/webcam/virtualforest_time_lapse02_april_showers.jpg&protection=3bf74c25d2c49a56a6d6c9612134a2d25fb3e1c1"></iframe>
+          <iframe width="480" height="384" src="https://surelink.ccnmtl.columbia.edu/video/?player=download_mp4_v3&file=projects/mp4/virtualforest_time_lapse02_april_showers.mp4&width=480&height=360&poster=https://blackrock.ccnmtl.columbia.edu{% static 'images/portal/webcam/virtualforest_time_lapse02_april_showers.jpg' %}&protection=3bf74c25d2c49a56a6d6c9612134a2d25fb3e1c1"></iframe>
           
         </div>
       </center>

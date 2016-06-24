@@ -1,5 +1,6 @@
 {% load portal %}
 {% load cache %}
+{% load staticfiles %}
 
 {% with 1 as search_nearby %}
 
@@ -51,38 +52,38 @@
             {% with object|facet_counts:"infrastructure" as infrastructure_counts %}
               <div>
                 <input type="checkbox" class="layer" id="viewpoints" value="Viewpoints" />
-                <img src="{{STATIC_URL}}images/portal/nonmapicon_viewpoints.png" alt="Viewpoints"/>
+                <img src="{% static 'images/portal/nonmapicon_viewpoints.png' %}" alt="Viewpoints"/>
                 Viewpoints
               </div>
               <div>
                 <input type="checkbox" class="layer" id="roads" value="Roads" />
-                <img src="{{STATIC_URL}}images/portal/nonmapicon_roads.png" alt="Forest Roads" />
+                <img src="{% static 'images/portal/nonmapicon_roads.png' %}" alt="Forest Roads" />
                 Roads/Parking Lots
               </div>
               <div>
                 <input type="checkbox" class="layer" id="trails" value="Trails" />
-                <img src="{{STATIC_URL}}images/portal/nonmapicon_trails.png" alt="Forest Trails"/>
+                <img src="{% static 'images/portal/nonmapicon_trails.png' %}" alt="Forest Trails"/>
                 Trails
               </div>
               <div>
                 <input type="checkbox" class="layer" id="buildings" value="Buildings" checked="checked" />
-                <img src="{{STATIC_URL}}images/portal/nonmapicon_buildings.png" alt="Buildings"/>
+                <img src="{% static 'images/portal/nonmapicon_buildings.png' %}" alt="Buildings"/>
                 Buildings
               </div>
               <div>
                 <input type="checkbox" class="facet infrastructure_option" id="idEnvironmentalMonitoring" value="Environmental Monitoring Stations" />
-                <img src="{{STATIC_URL}}images/portal/nonmapicon_environmentalmonitoringstations.png" alt="Environmental Monitoring"/>
+                <img src="{% static 'images/portal/nonmapicon_environmentalmonitoringstations.png' %}" alt="Environmental Monitoring"/>
                 Environmental Monitoring ({{infrastructure_counts.EnvironmentalMonitoringStations}})
               </div>
               <!-- checked="checked"  --> 
               <div style="display: none">
                 <input type="checkbox" class="facet" id="idLongtermPlots" value="Long-Term Plots" disabled="disabled" />
-                <img src="{{STATIC_URL}}images/portal/nonmapicon_longtermplots.png" alt="Long-Term Plots"/>
+                <img src="{% static 'images/portal/nonmapicon_longtermplots.png' %}" alt="Long-Term Plots"/>
                 Long-Term Plots ({{infrastructure_counts.LongTermPlots}})
               </div>
               <div>
                 <input type="checkbox" class="layer" id="webcams" value="Webcams" />
-                <img src="{{STATIC_URL}}images/portal/nonmapicon_webcams.png" alt="Webcams" />
+                <img src="{% static 'images/portal/nonmapicon_webcams.png' %}" alt="Webcams" />
                 Webcams  (1)
               </div>
             {% endwith %}
@@ -96,16 +97,16 @@
           <div style="display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active">
             <div>
               <input class="layer" id="ponds" value="Ponds" checked="checked" type="checkbox">
-              <img src="{{STATIC_URL}}images/portal/nonmapicon_ponds.png" alt="Ponds">
+              <img src="{% static 'images/portal/nonmapicon_ponds.png' %}" alt="Ponds">
               Ponds
             </div>
             <div>
               <input class="layer" id="streams" value="Streams" checked="checked" type="checkbox">
-              <img src="{{STATIC_URL}}images/portal/nonmapicon_streams.png" alt="Streams">
+              <img src="{% static 'images/portal/nonmapicon_streams.png' %}" alt="Streams">
               Streams
             </div>
             <div>
-              <input class="layer" id="peaks" value="Peaks" checked="checked" type="checkbox"><img src="{{STATIC_URL}}images/portal/nonmapicon_peaks.png" alt="Peaks">
+              <input class="layer" id="peaks" value="Peaks" checked="checked" type="checkbox"><img src="{% static 'images/portal/nonmapicon_peaks.png' %}" alt="Peaks">
               Peaks (6)
             </div>
           </div>
@@ -119,12 +120,12 @@
             {% with result|facet_counts:"featured" as featured_counts %}
               <div>
                 <input type="checkbox" class="facet featured_option" id="id_education" value="Education" />
-                <img src="{{STATIC_URL}}images/portal/nonmapicon_education.png" alt="Education" />
+                <img src="{% static 'images/portal/nonmapicon_education.png' %}" alt="Education" />
                 Education ({{featured_counts.FeaturedEducation}})
               </div>
               <div>
                 <input type="checkbox" class="facet featured_option" id="id_research" value="Research" />
-                <img src="{{STATIC_URL}}images/portal/nonmapicon_research.png" alt="Research" />
+                <img src="{% static 'images/portal/nonmapicon_research.png' %}" alt="Research" />
                 Research ({{featured_counts.FeaturedResearch}})
               </div>
             {% endwith %}
@@ -132,7 +133,7 @@
         </div>
         
             <div id="map_actions">
-              <a href="{{STATIC_URL}}kml/portal/blackrock.kml.zip">Download KML files</a>
+              <a href="{% static 'kml/portal/blackrock.kml.zip' %}">Download KML files</a>
             </div>
         </div>
         <div id="nearby_results"></div>
