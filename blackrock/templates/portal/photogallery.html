@@ -1,8 +1,8 @@
 {% load portal %}
 {% load staticfiles %}
 
-<link href="{{STATIC_URL}}js/portal/jcarousel/skins/blackrock/skin.css" media="screen" rel="stylesheet" type="text/css"/> 
-<script type="text/javascript" src="{{STATIC_URL}}js/portal/photogallery.js"></script>
+<link href="{% static 'js/portal/jcarousel/skins/blackrock/skin.css' %}" media="screen" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="{% static 'js/portal/photogallery.js' %}"></script>
     
 <div id="home_banner">
 
@@ -72,10 +72,10 @@
                         
                          <table class="left_image">
                          <tr>
-                          <td class="image_block"><div class="image_block_image"><img src="{{STATIC_URL}}images/portal/mammalsthumb.jpg" alt="Mammals Module" /></div></td>
+                          <td class="image_block"><div class="image_block_image"><img src="{% static 'images/portal/mammalsthumb.jpg' %}" alt="Mammals Module" /></div></td>
                           <td class="text_block">
                           <a href="/portal/browse/portal/learningactivity/objects/12/">Mammals and Habitats Module</a>
-                          <img src="{{STATIC_URL}}images/portal/toyotafoundation.png" id="portalToyota" alt="Toyota USA Foundation logo" />
+                          <img src="{% static 'images/portal/toyotafoundation.png' %}" id="portalToyota" alt="Toyota USA Foundation logo" />
                           Students become citizen researchers by taking part in a longitudinal study to identify Black Rock Forest mammals in various habitats. 
                           Over the years, these habitats will emerge and be represented as colorful overlays over the Forest map. This project was made possible thanks to a generous grant from the Toyota USA Foundation.
                         </td>
