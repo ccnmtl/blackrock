@@ -1,5 +1,6 @@
 {% load portal %}
 {% load cache %}
+{% load staticfiles %}
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -12,29 +13,29 @@
     {% block css %}{% endblock %}
     
     <style media="screen" type="text/css">
-      @import "{{STATIC_URL}}css/site.css" ;
-      @import "{{STATIC_URL}}css/style.css" ;
-      @import "{{STATIC_URL}}css/tiny_mce.css?version=1" ;
-      @import "{{STATIC_URL}}css/portal/style.css";
-      @import "{{STATIC_URL}}js/jquery-ui-1.8.11.custom/css/smoothness/jquery-ui-1.8.11.custom.css" ;
-      @import "{{STATIC_URL}}css/shield.css";
+      @import "{% static 'css/site.css' %}" ;
+      @import "{% static 'css/style.css' %}" ;
+      @import "{% static 'css/tiny_mce.css?version=1' %}" ;
+      @import "{% static 'css/portal/style.css' %}";
+      @import "{% static 'js/jquery-ui-1.8.11.custom/css/smoothness/jquery-ui-1.8.11.custom.css' %}" ;
+      @import "{% static 'css/shield.css' %}";
     </style>
 
     
     {% block js %}
-    <script type="text/javascript" src="{{STATIC_URL}}js/libraries/jquery-1.6.min.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/mochikit/MochiKit/MochiKit.js"></script> 
-    <script type="text/javascript" src="{{STATIC_URL}}js/mochikit/MochiKit/Signal.js"></script> 
-    <script type="text/javascript" src="{{STATIC_URL}}js/browserdetect.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/shield.js" type="text/javascript"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.8.11.custom/js/jquery-1.4.4.min.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.8.11.custom/js/jquery-ui-1.8.11.custom.min.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/flowplayer-3.1.4.min.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/libraries/jquery.sharing/jquery.sharing.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/libraries/sharing.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/portal/jcarousel/lib/jquery.jcarousel.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/portal/maps.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/portal/portal.js"></script>
+    <script type="text/javascript" src="{% static 'js/libraries/jquery-1.6.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/mochikit/MochiKit/MochiKit.js' %}"></script> 
+    <script type="text/javascript" src="{% static 'js/mochikit/MochiKit/Signal.js' %}"></script> 
+    <script type="text/javascript" src="{% static 'js/browserdetect.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/shield.js' %}" type="text/javascript"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-ui-1.8.11.custom/js/jquery-1.4.4.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-ui-1.8.11.custom/js/jquery-ui-1.8.11.custom.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/flowplayer-3.1.4.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/libraries/jquery.sharing/jquery.sharing.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/libraries/sharing.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/portal/jcarousel/lib/jquery.jcarousel.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/portal/maps.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/portal/portal.js' %}"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{settings.GOOGLE_MAP_API}}"></script>
  
     {% endblock %}
@@ -75,9 +76,9 @@
             
         <div id="sharing_container">
             <div id="sharing_actions"></div>
-            <img id="sharing_button" src="{{STATIC_URL}}images/portal/share_button.png" alt="share button" />
+            <img id="sharing_button" src="{% static 'images/portal/share_button.png' %}" alt="share button" />
             <div id="weather-widget">
-                <div id="weather-widget-tab"><img src="{{STATIC_URL}}images/portal/down_arrow.png" alt="Open Weather Widget" style="float: right;"/>Current Conditions &nbsp; &nbsp; </div>                
+                <div id="weather-widget-tab"><img src="{% static 'images/portal/down_arrow.png' %}" alt="Open Weather Widget" style="float: right;"/>Current Conditions &nbsp; &nbsp; </div>                
                 <div id="weather-widget-content">        
                     <div id="data">
                         <div class="weather-widget-title">Open Lowland Station</div>
