@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 
 {% block css %}
 <style type='text/css'>
-  @import "{{STATIC_URL}}css/mammals/style.css";
+  @import "{% static 'css/mammals/style.css' %}";
 </style> 
-<link rel="stylesheet" media="print" href="{{STATIC_URL}}css/mammals/print.css"/>
+<link rel="stylesheet" media="print" href="{% static 'css/mammals/print.css' %}"/>
 {% endblock %}
 
 
@@ -13,12 +14,12 @@
 
 {% block js %}
   {{block.super}}
-<script  type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.8.11.custom/js/jquery-1.4.4.min.js"></script>
-<script  type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.8.11.custom/js/jquery-ui-1.8.11.custom.min.js"></script>
-<script type="text/javascript" src="{{STATIC_URL}}js/libraries/jquery.sharing/jquery.sharing.js"></script>
-<script type="text/javascript" src="{{STATIC_URL}}js/libraries//sharing.js"></script>
+<script  type="text/javascript" src="{% static 'js/jquery-ui-1.8.11.custom/js/jquery-1.4.4.min.js' %}"></script>
+<script  type="text/javascript" src="{% static 'js/jquery-ui-1.8.11.custom/js/jquery-ui-1.8.11.custom.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/libraries/jquery.sharing/jquery.sharing.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/libraries//sharing.js' %}"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{settings.GOOGLE_MAP_API}}"></script>
-<script type="text/javascript" src="{{STATIC_URL}}js/mammals/maps.js"></script>
+<script type="text/javascript" src="{% static 'js/mammals/maps.js' %}"></script>
 {% endblock %}
 
 {% block masthead %}

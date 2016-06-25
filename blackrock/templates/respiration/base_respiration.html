@@ -1,11 +1,12 @@
 {% extends "base.html" %} 
 {% load render %}
+{% load staticfiles %}
 
 {% block title %}Tree Respiration{% endblock %}
 
 {% block css %} 
 <style type='text/css'>
-  @import "{{STATIC_URL}}css/respiration/style.css";
+  @import "{% static 'css/respiration/style.css' %}";
 </style> 
 <!--[if IE]>
 <style type='text/css'>
@@ -15,18 +16,18 @@
 {% endblock %} 
 
 {% block js %} 
-    <script type="text/javascript" src="{{STATIC_URL}}js/browserdetect.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/shield.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/libraries/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/libraries/jquery-ui-1.11.4.min.js"></script>  
-    <script type="text/javascript" src="{{STATIC_URL}}js/mochikit/MochiKit/MochiKit.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/mochikit/MochiKit/Signal.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/libraries/jquery.sharing/jquery.sharing.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/libraries/sharing.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/bluff/js-class.js"></script> 
-    <script type="text/javascript" src="{{STATIC_URL}}js/bluff/excanvas.js"></script> 
-    <script type="text/javascript" src="{{STATIC_URL}}js/bluff/bluff-src.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/respiration/graph.js"></script> 
+    <script type="text/javascript" src="{% static 'js/browserdetect.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/shield.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/libraries/jquery-1.11.2.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/libraries/jquery-ui-1.11.4.min.js' %}"></script>  
+    <script type="text/javascript" src="{% static 'js/mochikit/MochiKit/MochiKit.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/mochikit/MochiKit/Signal.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/libraries/jquery.sharing/jquery.sharing.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/libraries/sharing.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bluff/js-class.js' %}"></script> 
+    <script type="text/javascript" src="{% static 'js/bluff/excanvas.js' %}"></script> 
+    <script type="text/javascript" src="{% static 'js/bluff/bluff-src.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/respiration/graph.js' %}"></script> 
 
     <script type="text/javascript">
       function closePredefinedSpecies() {
