@@ -1,18 +1,13 @@
 from .models import Series, LimitedSeries, LimitedSeriesPair
 from .models import LimitedSeriesGroup
+from django.views.generic.base import View
+from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
 from django.shortcuts import get_object_or_404, render
 from datetime import datetime, timedelta
 import math
 from django.conf import settings
 import re
-
-
-def index(request):
-    return render(request, 'waterquality/index.html', dict())
-
-
-def teaching(request):
-    return render(request, 'waterquality/teaching.html', dict())
 
 
 def parse_date(s):
@@ -81,39 +76,41 @@ def remove_zeroes(data):
     return newdata
 
 
-def graphing_tool(request):
+class GraphingToolView(View):
     template_name = 'waterquality/graphing_tool.html'
-    data = dict()
-    graph_type = request.GET.get('type', None)
 
-    start, err = get_start_or_error(request.GET.get('start', None))
-    if err:
-        data['error'] = err
-        return render(request, template_name, data)
+    def get(self, request):
+        data = dict()
+        graph_type = request.GET.get('type', None)
 
-    end, err = get_end_or_error(request.GET.get('end', None))
-    if err:
-        data['error'] = err
-        return render(request, template_name, data)
+        start, err = get_start_or_error(request.GET.get('start', None))
+        if err:
+            data['error'] = err
+            return render(request, self.template_name, data)
 
-    data["start"] = start
-    data["end"] = end
+        end, err = get_end_or_error(request.GET.get('end', None))
+        if err:
+            data['error'] = err
+            return render(request, self.template_name, data)
 
-    if graph_type == 'time-series' or graph_type == 'scatter-plot':
-        data["lines"] = get_lines(request)
+        data["start"] = start
+        data["end"] = end
 
-    data = handle_timeseries(graph_type, data, request, start, end)
-    data = handle_boxplot(graph_type, data, request, start, end)
-    data = handle_scatterplot(graph_type, data, request, start, end)
+        if graph_type == 'time-series' or graph_type == 'scatter-plot':
+            data["lines"] = get_lines(request)
 
-    t = end - start
-    data['seconds'] = t.seconds
-    data['days'] = t.days
-    data['type'] = graph_type
-    data['graph_title'] = request.GET.get('title', "")[:50]
-    p = re.compile(r'\W+')
-    data['filename_base'] = p.sub('_', data['graph_title'])
-    return render(request, template_name, data)
+        data = handle_timeseries(graph_type, data, request, start, end)
+        data = handle_boxplot(graph_type, data, request, start, end)
+        data = handle_scatterplot(graph_type, data, request, start, end)
+
+        t = end - start
+        data['seconds'] = t.seconds
+        data['days'] = t.days
+        data['type'] = graph_type
+        data['graph_title'] = request.GET.get('title', "")[:50]
+        p = re.compile(r'\W+')
+        data['filename_base'] = p.sub('_', data['graph_title'])
+        return render(request, self.template_name, data)
 
 
 def handle_timeseries(graph_type, data, request, start, end):
@@ -220,52 +217,62 @@ def scatterplot_data(data, request, start, end):
     return data
 
 
-def browse(request):
-    return render(request, 'waterquality/browse.html',
-                  dict(series=Series.objects.all()))
+class BrowseView(ListView):
+    template_name = 'waterquality/browse.html'
+    model = Series
+    context_object_name = 'series'
 
 
-def series(request, id):
-    series = get_object_or_404(Series, id=id)
-    start = request.GET.get('start', False)
-    if not start:
-        start = series.start().timestamp
-    end = request.GET.get('end', False)
-    if not end:
-        end = series.end().timestamp
+class SeriesView(DetailView):
+    template_name = 'waterquality/series.html'
+    model = Series
 
-    lseries = LimitedSeries(series=series, start=start, end=end)
+    def get_context_data(self, **kwargs):
+        context = super(SeriesView, self).get_context_data(**kwargs)
+        series = self.object
+        start = self.request.GET.get('start', False)
+        if not start:
+            start = series.start().timestamp
+        end = self.request.GET.get('end', False)
+        if not end:
+            end = series.end().timestamp
 
-    return render(request, 'waterquality/series.html',
-                  dict(series=series, lseries=lseries))
-
-
-def series_all(request, id):
-    series = get_object_or_404(Series, id=id)
-    return render(request, 'waterquality/series_all.html',
-                  dict(series=series))
+        lseries = LimitedSeries(series=series, start=start, end=end)
+        context.update(dict(series=series, lseries=lseries))
+        return context
 
 
-def series_verify(request, id):
-    series = get_object_or_404(Series, id=id)
-    start_date = series.row_set.all()[0].timestamp
-    end_date = series.row_set.all().order_by("-timestamp")[0].timestamp
-    step_date = start_date
-    d = timedelta(hours=1)
-    missing = 0
-    found = 0
-    while step_date < end_date:
-        r = series.row_set.filter(timestamp=step_date)
-        if r.count() == 0:
-            missing += 1
-        else:
-            found += 1
-        step_date = step_date + d
+class SeriesAllView(DetailView):
+    template_name = 'waterquality/series_all.html'
+    model = Series
+    content_object_name = 'series'
 
-    return render(request, 'waterquality/series_verify.html',
-                  dict(
-                      missing=missing, found=found,
-                      total=series.row_set.all().count()))
+
+class SeriesVerifyView(DetailView):
+    template_name = 'waterquality/series_verify.html'
+    model = Series
+
+    def get_context_data(self, **kwargs):
+        context = super(SeriesVerifyView, self).get_context_data(**kwargs)
+        series = self.object
+        start_date = series.row_set.all()[0].timestamp
+        end_date = series.row_set.all().order_by("-timestamp")[0].timestamp
+        step_date = start_date
+        d = timedelta(hours=1)
+        missing = 0
+        found = 0
+        while step_date < end_date:
+            r = series.row_set.filter(timestamp=step_date)
+            if r.count() == 0:
+                missing += 1
+            else:
+                found += 1
+            step_date = step_date + d
+
+        context.update(dict(
+            missing=missing, found=found,
+            total=series.row_set.all().count()))
+        return context
 
 
 def get_default_start():
