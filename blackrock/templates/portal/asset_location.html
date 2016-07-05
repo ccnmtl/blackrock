@@ -1,4 +1,5 @@
 {% load portal %}
+{% load staticfiles %}
 
 {% comment %}
 
@@ -26,7 +27,7 @@ prefix -- Prefix for the identifier to prevent duplications
                     {% if current_location.latitude %}
                         <!--  Highlight this asset's first location -->
                         {% if audience %} 
-                            <a class="asset_icon" onclick="portalMapInstance.showMarkerInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}'); return false;"><img style="float: left; margin-right: 10px;" src="{{STATIC_URL}}images/portal/nonmapicon_{{audience|lower}}_{{icon_display_order}}.png" alt="{{icon_display_order}} map marker" /></a>
+                            <a class="asset_icon" onclick="portalMapInstance.showMarkerInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}'); return false;"><img style="float: left; margin-right: 10px;" src="{% static 'images/portal/' %}nonmapicon_{{audience|lower}}_{{icon_display_order}}.png" alt="{{icon_display_order}} map marker" /></a>
                         {% else %}
                             <a class="asset_icon" nclick="portalMapInstance.showMarkerInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}'); return false;"><img style="float: left; margin-right: 10px;" src="https://chart.googleapis.com/chart?chst=d_map_pin_letter&amp;chld={{icon_display_order}}|4A3404|FFFFFF" alt="{{icon_display_order}} map marker" /></a>
                         {% endif %}
@@ -42,7 +43,7 @@ prefix -- Prefix for the identifier to prevent duplications
     {% with current_object.location as current_location %}
         {% if includehighlight %}
             {% if audience %} 
-                <a class="asset_icon" onclick="portalMapInstance.showMarkerInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}'); return false;"><img style="float: left; margin-right: 10px;" src="{{STATIC_URL}}images/portal/nonmapicon_{{audience|lower}}_{{icon_display_order}}.png" alt="{{icon_display_order}} map marker" /></a>
+                <a class="asset_icon" onclick="portalMapInstance.showMarkerInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}'); return false;"><img style="float: left; margin-right: 10px;" src="{% static 'images/portal/' %}nonmapicon_{{audience|lower}}_{{icon_display_order}}.png" alt="{{icon_display_order}} map marker" /></a>
             {% else %}
                 <a class="asset_icon" onclick="portalMapInstance.showMarkerInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}'); return false;"><img style="float: left; margin-right: 10px;" src="https://chart.googleapis.com/chart?chst=d_map_pin_letter&amp;chld={{icon_display_order}}|4A3404|FFFFFF" alt="{{icon_display_order}} map marker" /></a>
             {% endif %}
@@ -55,7 +56,7 @@ prefix -- Prefix for the identifier to prevent duplications
 
 {% if current_object.latitude %}
     {% if audience %} 
-        <a class="asset_icon" onclick="portalMapInstance.showMarkerInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}'); return false;"><img style="float: left; margin-right: 10px;" src="{{STATIC_URL}}images/portal/nonmapicon_{{audience|lower}}_{{icon_display_order}}.png" alt="{{icon_display_order}} map marker" /></a>
+        <a class="asset_icon" onclick="portalMapInstance.showMarkerInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}'); return false;"><img style="float: left; margin-right: 10px;" src="{% static 'images/portal/' %}nonmapicon_{{audience|lower}}_{{icon_display_order}}.png" alt="{{icon_display_order}} map marker" /></a>
     {% else %}
         <a class="asset_icon" onclick="portalMapInstance.showMarkerInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}'); return false;"><img style="float: left; margin-right: 10px;" src="https://chart.googleapis.com/chart?chst=d_map_pin_letter&amp;chld={{icon_display_order}}|4A3404|FFFFFF" alt="{{icon_display_order}} map marker" /></a>
     {% endif %}
