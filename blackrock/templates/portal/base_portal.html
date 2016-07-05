@@ -9,19 +9,18 @@
     <title>
       The Virtual Forest Initiative: {% block title %}{% endblock %}
     </title>
-    
+
     {% block css %}{% endblock %}
-    
+
     <style media="screen" type="text/css">
       @import "{% static 'css/site.css' %}" ;
       @import "{% static 'css/style.css' %}" ;
-      @import "{% static 'css/tiny_mce.css?version=1' %}" ;
+      @import "{% static 'css/tiny_mce.css' %}" ;
       @import "{% static 'css/portal/style.css' %}";
       @import "{% static 'js/jquery-ui-1.8.11.custom/css/smoothness/jquery-ui-1.8.11.custom.css' %}" ;
       @import "{% static 'css/shield.css' %}";
     </style>
 
-    
     {% block js %}
     <script type="text/javascript" src="{% static 'js/libraries/jquery-1.6.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/mochikit/MochiKit/MochiKit.js' %}"></script> 
