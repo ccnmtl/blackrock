@@ -24,7 +24,7 @@
       <td id="left">
         <div id="asset-details">
           <div class="pagetitle">
-            <img src="{{STATIC_URL}}images/portal/nonmapicon_{{asset_klass|lower}}.png" alt="record type icon" />
+            <img src="{% static 'images/portal/' %}nonmapicon_{{asset_klass|lower}}.png" alt="record type icon" />
             <h3>{{current_object|display_name}}</h3>
           </div>
           {% with current_object|gallery as images %}

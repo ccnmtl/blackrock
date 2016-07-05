@@ -1,14 +1,15 @@
 {% load portal %}
+{% load staticfiles %}
 
  <div class="single_result">
      <!-- Name -->
      {% if icon_display_order %}
         <a class="display-name" href="{{current_object|detail_url}}">{{current_object|display_name}}</a>
-     {% else %}                 
+     {% else %}
      <table style="margin-bottom: 8px">
        <tr>
          <td style="vertical-align: middle">
-           <img src="{{STATIC_URL}}images/portal/nonmapicon_{{current_object|klass|lower}}.png" alt="record type icon" style="width: 25px; height: auto; margin-right: 5px;" />
+           <img src="{% static 'images/portal/' %}nonmapicon_{{current_object|klass|lower}}.png" alt="record type icon" style="width: 25px; height: auto; margin-right: 5px;" />
          </td>
          <td style="vertical-align: middle">
            <a class="display-name" href="{{current_object|detail_url}}">
