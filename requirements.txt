@@ -3,7 +3,7 @@
 # see: https://docs.djangoproject.com/en/dev/ref/contrib/gis/install/spatialite/#pysqlite2
 requirements/src/pysqlite-2.6.3.tar.gz
 Django==1.8.14
-pytz==2016.6
+pytz==2016.6.1
 resolver==0.2.1
 selector==0.10.1
 Paste==2.0.3
