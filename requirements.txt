@@ -71,7 +71,7 @@ django-googlecharts==1.0-alpha-1
 django-jenkins==0.19.0
 django-stagingcontext==0.1.0
 django-smoketest==1.0.0
-django-haystack==2.4.1
+django-haystack==2.5.0
 django-treebeard==4.0.1
 django-bootstrap-form==3.2.1
 django-bootstrap3==7.0.1
