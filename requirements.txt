@@ -54,7 +54,7 @@ wrapt==1.10.8
 wsgiref==0.1.2
 rcssmin==1.0.6
 rjsmin==1.0.12
-sqlparse==0.1.19
+sqlparse==0.2.0
 
 djangowind==0.15.0
 sorl==3.1
