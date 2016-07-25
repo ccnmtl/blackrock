@@ -56,6 +56,20 @@ rcssmin==1.0.6
 rjsmin==1.0.12
 sqlparse==0.2.0
 
+# ipython dependencies
+ipython_genutils==0.1.0
+decorator==4.0.10
+ptyprocess==0.5.1
+pexpect==4.2.0
+pathlib2==2.1.0
+pickleshare==0.7.2
+simplegeneric==0.8.1
+path.py==8.2.1
+backports.shutil_get_terminal_size==1.0.0
+traitlets==4.2.2
+ipython==4.2.0
+ipdb==0.10.1
+
 djangowind==0.15.0
 sorl==3.1
 tagging==0.3-pre
