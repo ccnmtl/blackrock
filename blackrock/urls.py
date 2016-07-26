@@ -31,6 +31,7 @@ urlpatterns = patterns(
     (r'^paleoecology/', include('blackrock.paleoecology.urls')),
     (r'^waterchemistry/', include('blackrock.waterquality.urls')),
     (r'^waterquality/', include('blackrock.waterquality.urls')),
+    (r'^treegrowth/', include('blackrock.treegrowth.urls')),
     (r'^blackrock_main/', include('blackrock.blackrock_main.urls')),
 
     # portal pagetree content

@@ -1,0 +1,18 @@
+{% extends 'treegrowth/base_treegrowth.html' %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumbs">
+        <li><a href="{% url 'treegrowth-index' %}" class="active">Home</a></li>
+        <li><a href="{% url 'treegrowth-graph' %}">Graphing Tool</a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div id="contentcontainer">
+        <h3>Welcome to the Tree Growth Module!</h3>
+
+        <div class="landingText">
+            {% lorem %}
+        </div>
+    </div>
+{% endblock %}

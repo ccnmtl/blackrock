@@ -39,6 +39,7 @@ PROJECT_APPS = [
     'blackrock.portal',
     'blackrock.respiration',
     'blackrock.sampler',
+    'blackrock.treegrowth',
     'blackrock.waterquality',
 ]
 
