@@ -1,3 +1,5 @@
+/* global Papa: true */
+
 (function() {
     // Fetching from cunix requires CORS
     // var CUNIX_BASE = 'https://www1.columbia.edu/sec/ccnmtl/projects/' +
@@ -6,45 +8,32 @@
     var FILENAME = 'Mnt_Misery_Hourly.csv';
 
     var initChart = function(data) {
-        $('#plot-container').highcharts({
-            title: {
-                text: 'Dendrometer Data'
+        $('#plot-container').highcharts('StockChart', {
+            rangeSelector: {
+                selected: 1
             },
             data: {
-                csv: data
+                rows: data
             },
-            chart: {
-                zoomType: 'x'
-            },
-            plotOptions: {
-                series: {
-                    marker: {
-                        enabled: false
-                    }
-                }
-            },
-            series: [{
-                lineWidth: 1
-            }, {
-                type: 'line',
-                color: '#c4392d',
-                negativeColor: '#5679c4',
-                fillOpacity: 0.5
-            }]
+            legend: {
+                enabled: true,
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            }
         });
     };
 
-    $(document).ready(function() {
-        $.ajax({
-            type: 'GET',
-            url: '/media/uploads/' + FILENAME,
-            dataType: 'text',
-            success: function(data) {
+    Papa.parse('/media/uploads/' + FILENAME, {
+        download: true,
+        complete: function(results, file) {
+            var data = results.data;
+            data.pop();
+
+            $(document).ready(function() {
                 initChart(data);
-            },
-            error: function(xhr, ajaxOptions, thrownError) {
-                alert('Status: ' + xhr.status + '    Error: ' + thrownError);
-            }
-        });
+            });
+        }
     });
 })();
