@@ -1,6 +1,6 @@
 import os.path
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.views.generic.base import TemplateView
 import django_databrowse
 
@@ -9,12 +9,11 @@ from blackrock.portal.search import PortalSearchView, PortalSearchForm
 
 media_root = os.path.join(os.path.dirname(__file__), "media")
 
-urlpatterns = patterns(
-    '',
-    (r'^media/(?P<path>.*)$', 'django.views.static.serve',
-     {'document_root': media_root}),
+urlpatterns = [
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
+        {'document_root': media_root}),
 
-    (r'^browse/(.*)', django_databrowse.site.root),
+    url(r'^browse/(.*)', django_databrowse.site.root),
 
     url(r'^search/',
         PortalSearchView(template="portal/search.html",
@@ -27,5 +26,5 @@ urlpatterns = patterns(
     url(r'^weather/$',
         TemplateView.as_view(template_name='portal/weather.html')),
 
-    (r'^(?P<path>.*)$', 'blackrock.portal.views.page')
-)
+    url(r'^(?P<path>.*)$', 'blackrock.portal.views.page')
+]
