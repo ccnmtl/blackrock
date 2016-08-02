@@ -4,7 +4,13 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib.auth.decorators import login_required
 from django.contrib.gis import admin
+from django.views.static import serve
 from pagetree.generic.views import EditView
+
+from blackrock.portal.views import (
+    admin_rebuild_index, admin_cdrs_import, admin_readercycle,
+)
+from blackrock.views import index
 
 
 admin.autodiscover()
@@ -15,16 +21,13 @@ urlpatterns = [
     url('^accounts/', include('djangowind.urls')),
     url(r'^smoketest/', include('smoketest.urls')),
     url(r'^pagetree/', include('pagetree.urls')),
-    url(r'^admin/portal/rebuild_index',
-        'blackrock.portal.views.admin_rebuild_index'),
-    url(r'^admin/portal/import_cdrs',
-        'blackrock.portal.views.admin_cdrs_import'),
-    url(r'^admin/portal/readercycle',
-        'blackrock.portal.views.admin_readercycle'),
+    url(r'^admin/portal/rebuild_index', admin_rebuild_index),
+    url(r'^admin/portal/import_cdrs', admin_cdrs_import),
+    url(r'^admin/portal/readercycle', admin_readercycle),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^site_media/(?P<path>.*)$', 'django.views.static.serve',
+    url(r'^site_media/(?P<path>.*)$', serve,
         {'document_root': site_media_root}),
-    url(r'^uploads/(?P<path>.*)$', 'django.views.static.serve',
+    url(r'^uploads/(?P<path>.*)$', serve,
         {'document_root': settings.MEDIA_ROOT}),
     url(r'^sampler/', include('blackrock.sampler.urls')),
     url(r'^respiration/', include('blackrock.respiration.urls')),
@@ -40,7 +43,7 @@ urlpatterns = [
         hierarchy_name="main", hierarchy_base="/"))),
     url(r'^portal/', include('blackrock.portal.urls')),
     url(r'^mammals/', include('blackrock.mammals.urls')),
-    url(r'^$', 'blackrock.views.index'),
-    url(r'^uploads/(?P<path>.*)$',
-        'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+    url(r'^$', index),
+    url(r'^uploads/(?P<path>.*)$', serve,
+        {'document_root': settings.MEDIA_ROOT}),
 ]
