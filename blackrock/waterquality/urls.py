@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.views.generic.base import TemplateView
 
 from .views import (
@@ -7,8 +7,7 @@ from .views import (
 )
 
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='waterquality/index.html'),
         name='waterchemistry-index'),
     url(r'^graph/$', GraphingToolView.as_view(),
@@ -23,4 +22,4 @@ urlpatterns = patterns(
     url(r'^teaching/$',
         TemplateView.as_view(template_name='waterquality/teaching.html'),
         name='waterchemistry-teaching'),
-)
+]

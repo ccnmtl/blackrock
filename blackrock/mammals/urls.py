@@ -1,95 +1,68 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 import os.path
-from blackrock.mammals.search import MammalSearchView, MammalSearchForm
+import django.views.static
+from django.contrib.auth.views import logout
+
+from .search import MammalSearchView, MammalSearchForm, ajax_search
+from .views import (
+    index, grid, grid_block, grid_square_csv, grid_square_print,
+    process_login, save_team_form, all_expeditions,
+    team_form, mammals_login, sandbox_grid, teaching_resources,
+    sightings, edit_sighting, create_sighting, new_expedition_ajax,
+    sandbox_grid_block, sighting, expedition, edit_expedition,
+    save_team_form_ajax, edit_expedition_ajax, save_expedition_animals,
+    expedition_animals, help,
+)
 
 media_root = os.path.join(os.path.dirname(__file__), "media")
 
-urlpatterns = patterns(
-    '',
-
-    (r'^media/(?P<path>.*)$', 'django.views.static.serve',
-     {'document_root': media_root}),
+urlpatterns = [
+    url(r'^media/(?P<path>.*)$', django.views.static.serve,
+        {'document_root': media_root}),
 
     # Research version:
-    (r'^$', 'blackrock.mammals.views.index'),
-    (r'^grid/$', 'blackrock.mammals.views.grid'),
-    (r'^grid_square/$',
-     'blackrock.mammals.views.grid_block'),
+    url(r'^$', index),
+    url(r'^grid/$', grid),
+    url(r'^grid_square/$', grid_block),
 
     # printer and csv versions of the grid square:
-    (r'^grid_square_csv/$',
-     'blackrock.mammals.views.grid_square_csv'),
-    (r'^grid_square_print/$',
-     'blackrock.mammals.views.grid_square_print'),
+    url(r'^grid_square_csv/$', grid_square_csv),
+    url(r'^grid_square_print/$', grid_square_print),
 
     # Sandbox version:
-    (r'^sandbox/$',
-     'blackrock.mammals.views.sandbox_grid'),
-    (r'^sandbox/grid/$',
-     'blackrock.mammals.views.sandbox_grid'),
-    (r'^sandbox/grid_square/$',
-     'blackrock.mammals.views.sandbox_grid_block'),
+    url(r'^sandbox/$', sandbox_grid),
+    url(r'^sandbox/grid/$', sandbox_grid),
+    url(r'^sandbox/grid_square/$', sandbox_grid_block),
 
+    url(r'^help/$', help),
+    url(r'^teaching/$', teaching_resources),
 
-    (r'^help/$',
-     'blackrock.mammals.views.help'),
-    (r'^teaching/$', 'blackrock.mammals.views.teaching_resources'),
+    url(r'^login/$', mammals_login),
 
+    url(r'^process_login/$', process_login),
+    url(r'^logout/$', logout, {'next_page': '/mammals/'}),
 
-    (r'^login/$',
-     'blackrock.mammals.views.mammals_login'),
+    url(r'^all_expeditions/$', all_expeditions),
+    url(r'^new_expedition_ajax/$', new_expedition_ajax),
+    url(r'^expedition/(?P<expedition_id>\d+)/$', expedition),
+    url(r'^edit_expedition/(?P<expedition_id>\d+)/$', edit_expedition),
+    url(r'^edit_expedition_ajax/$', edit_expedition_ajax),
 
-    (r'^process_login/$',
-     'blackrock.mammals.views.process_login'),
-    (r'^logout/$', 'django.contrib.auth.views.logout',
-     {'next_page': '/mammals/'}),
+    url(r'^sightings/$', sightings),
+    url(r'^create_sighting/$', create_sighting),
+    url(r'^sighting/(?P<sighting_id>\d+)/$', sighting),
+    url(r'^edit_sighting/$', edit_sighting),
 
-    (r'^all_expeditions/$',
-     'blackrock.mammals.views.all_expeditions'),
-
-
-    (r'^new_expedition_ajax/$',
-     'blackrock.mammals.views.new_expedition_ajax'),
-
-
-    (r'^expedition/(?P<expedition_id>\d+)/$',
-     'blackrock.mammals.views.expedition'),
-    (r'^edit_expedition/(?P<expedition_id>\d+)/$',
-     'blackrock.mammals.views.edit_expedition'),
-    (r'^edit_expedition_ajax/$',
-     'blackrock.mammals.views.edit_expedition_ajax'),
-
-
-    (r'^sightings/$', 'blackrock.mammals.views.sightings'),
-    (r'^create_sighting/$',
-     'blackrock.mammals.views.create_sighting'),
-    (r'^sighting/(?P<sighting_id>\d+)/$',
-     'blackrock.mammals.views.sighting'),
-    (r'^edit_sighting/$',
-     'blackrock.mammals.views.edit_sighting'),
-
-
-    (r'^expedition/(?P<expedition_id>\d+)/animals/$',
-     'blackrock.mammals.views.expedition_animals'),
-
-
-    (r'^save_expedition_animals/$',
-     'blackrock.mammals.views.save_expedition_animals'),
-
-
-    (r'^team_form/(?P<expedition_id>\d+)/(?P<team_letter>\w+)/$',
-     'blackrock.mammals.views.team_form'),
-
-
-    (r'^save_team_form/$',
-     'blackrock.mammals.views.save_team_form'),
-    (r'^save_team_form_ajax/$',
-     'blackrock.mammals.views.save_team_form_ajax'),
+    url(r'^expedition/(?P<expedition_id>\d+)/animals/$', expedition_animals),
+    url(r'^save_expedition_animals/$', save_expedition_animals),
+    url(r'^team_form/(?P<expedition_id>\d+)/(?P<team_letter>\w+)/$',
+        team_form),
+    url(r'^save_team_form/$', save_team_form),
+    url(r'^save_team_form_ajax/$', save_team_form_ajax),
 
     url(r'^search/',
         MammalSearchView(template="mammals/search.html",
                          form_class=MammalSearchForm), name='search'),
 
-    url(r'^ajax_search/$',
-        'blackrock.mammals.search.ajax_search'),
-)
+    url(r'^ajax_search/$', ajax_search),
+]

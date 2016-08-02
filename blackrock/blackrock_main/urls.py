@@ -1,8 +1,7 @@
-from django.conf.urls import patterns
+from django.conf.urls import url
+from .views import loadsolr_poll, previewsolr
 
-
-urlpatterns = patterns(
-    '',
-    (r'^loadsolrpoll$', 'blackrock.blackrock_main.views.loadsolr_poll'),
-    (r'^previewsolr$', 'blackrock.blackrock_main.views.previewsolr')
-)
+urlpatterns = [
+    url(r'^loadsolrpoll$', loadsolr_poll),
+    url(r'^previewsolr$', previewsolr),
+]
