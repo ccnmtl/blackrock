@@ -2,13 +2,13 @@
 {% load staticfiles %}
 
 {% block jquery %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src={% static 'js/libraries/jquery-3.1.0.min.js' %}></script>
 {% endblock %}
 
 {% block js %}
-    <script src="https://code.highcharts.com/stock/highstock.js"></script>
-    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src={% static 'js/libraries/highcharts/stock/highstock.js' %}></script>
+    <script src={% static 'js/libraries/highcharts/stock/modules/exporting.js' %}></script>
+    <script src={% static 'js/libraries/highcharts/modules/data.js' %}></script>
     <script src={% static 'js/libraries/highcharts/export-csv.js' %}></script>
     <script src={% static 'js/libraries/papaparse.min.js' %}></script>
     <script src={% static 'js/src/treegrowth/graph.js' %}></script>
