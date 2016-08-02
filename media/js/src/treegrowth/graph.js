@@ -10,6 +10,11 @@
             rangeSelector: {
                 selected: 1
             },
+            navigator: {
+                series: {
+                    includeInCSVExport: false
+                }
+            },
             data: {
                 rows: data
             },
