@@ -35,7 +35,7 @@ mccabe==0.5.2
 pycodestyle==2.0.0
 pyflakes==1.2.3
 configparser==3.5.0
-flake8==3.0.3
+flake8==3.0.4
 statsd==3.2.1
 six==1.10.0
 python-dateutil==2.5.3
