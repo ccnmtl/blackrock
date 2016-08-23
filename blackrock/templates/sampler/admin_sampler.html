@@ -1,3 +1,4 @@
+{% load staticfiles %}
 
     <form name="import_csv" action="../../sampler/import_csv" enctype="multipart/form-data" method="POST">
         <fieldset class="module aligned">
@@ -5,7 +6,7 @@
         
             <div style="color: #F00; font-weight: bold; margin: 5px 5px;" colspan="2"><div id="import_error"></div></div>
             <div style="color: #00F; font-weight: bold; margin: 5px 5px;" colspan="2"><div id="import_status"></div></div>
-            <div id="progress_indicator" style="display: none;">Loading...please wait<br /><img src="{{STATIC_URL}}images/progress.gif" /></div>
+            <div id="progress_indicator" style="display: none;">Loading...please wait<br /><img src="{% static 'images/progress.gif' %}" /></div>
         
             <div class="form-row">
                 <label for="id_csvfile" class="required">Filename:</label><input type="file" id="id_csvfile" name="csvfile" size="40"></input>

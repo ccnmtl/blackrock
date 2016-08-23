@@ -1,7 +1,9 @@
+{% load staticfiles %}
+
 <div class="gridselector">
   <div id="show_map_grid">
     <div class="checkbox"><input type="checkbox" id="id_gridOn" value="Show map grid" /></div>
-    <div class="legend"><img src="{{STATIC_URL}}images/mammals/habitat_map/habitat_grid.png" alt="" width="19" height="20" /></div>
+    <div class="legend"><img src="{% static 'images/mammals/habitat_map/habitat_grid.png' %}" alt="" width="19" height="20" /></div>
     <div class="title">Show map grid</div>
       </div>
     

@@ -1,10 +1,11 @@
 {% extends "respiration/base_respiration.html" %} 
 {% load extras %}
+{% load staticfiles %}
 {% block tabname %}tab-leaf{% endblock %} 
 
-  <script type="text/javascript" src="{{STATIC_URL}}js/mochikit/MochiKit/DragAndDrop.js"></script> 
-  <script type="text/javascript" src="{{STATIC_URL}}js/respiration/species.js"></script>
-  <script type="text/javascript" src="{{STATIC_URL}}js/respiration/leaf-temp-leaf.js"></script>
+  <script type="text/javascript" src="{% static 'js/mochikit/MochiKit/DragAndDrop.js' %}"></script> 
+  <script type="text/javascript" src="{% static 'js/respiration/species.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/respiration/leaf-temp-leaf.js' %}"></script>
   <script type="text/javascript">
     function calculateKelvin() {
       var result = parseFloat($('base-temp').value) + 273.15;
@@ -161,8 +162,8 @@ Respiration Rate Graph
       </div>
     
     <div id="temp-slider">
-	   <img id="leftslider" class="slider" src="{{STATIC_URL}}images/respiration/l-thumb-round.gif" alt="leftslider" />
-	   <img id="rightslider" class="slider" src="{{STATIC_URL}}images/respiration/r-thumb-round.gif" alt="rightslider" />
+	   <img id="leftslider" class="slider" src="{% static 'images/respiration/l-thumb-round.gif' %}" alt="leftslider" />
+	   <img id="rightslider" class="slider" src="{% static 'images/respiration/r-thumb-round.gif' %}" alt="rightslider" />
 	   <span class="slider range"></span>
     </div>
     </div>

@@ -1,11 +1,12 @@
 {% extends "mammals/base_mammals.html" %}
 {% load humanize %}
+{% load staticfiles %}
 {% block title %}Grid Block{% endblock %}
 {%block mammals_nav_expeditions%}class="active"{%endblock%}
 
 {% block js %}
-    <script type="text/javascript" src="{{STATIC_URL}}js/mammals/grid_and_block.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/mammals/block.js"></script>
+    <script type="text/javascript" src="{% static 'js/mammals/grid_and_block.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/mammals/block.js- %}"></script>
     {{ block.super }}
 {% endblock %}
 {% block css %}

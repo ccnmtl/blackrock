@@ -1,16 +1,18 @@
-{% extends "optimization/base_optimization.html" %} 
+{% extends "optimization/base_optimization.html" %}
+{% load staticfiles %}
+
 {% block bodyclass %}runoptimization{% endblock %}
 {% block tabname %}tab-leaf{% endblock %} 
 
 {% block js %}
   {{ block.super }}
-  <script type="text/javascript" src="{{STATIC_URL}}js/optimizaton/tablesort.js"></script>
-  <script type="text/javascript" src="{{STATIC_URL}}js/optimizaton/local_session.js"></script>
-  <script type="text/javascript" src="{{STATIC_URL}}js/optimizaton/sample_storage.js"></script>
-  <script type="text/javascript" src="{{STATIC_URL}}js/optimizaton/run.js"></script>
-  <script type="text/javascript" src="{{STATIC_URL}}js/optimizaton/toggles.js"></script>
-  <script type="text/javascript" src="{{STATIC_URL}}js/optimizaton/area.js"></script>
-  <script type="text/javascript" src="{{STATIC_URL}}js/optimizaton/map.js"></script>
+  <script type="text/javascript" src="{% static 'js/tablesort.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/local_session.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/optimization/sample_storage.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/optimization/run.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/optimization/toggles.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/optimization/area.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/optimization/map.js' %}"></script>
 {% endblock %}
 
 {% block content %}

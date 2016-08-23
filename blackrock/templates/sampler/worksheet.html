@@ -1,4 +1,5 @@
 {% extends "sampler/base_sampler.html" %}
+{% load staticfiles %}
 
 <!-- set active tab for breadcrumbs -->
 {% block tabname %}tab-worksheet{% endblock %}
@@ -7,8 +8,8 @@
   {{ block.super }}
   
   <style type="text/css">
-    @import '{{STATIC_URL}}css/sampler/transect.css';
-    @import '{{STATIC_URL}}css/sampler/worksheet.css';
+    @import "{% static 'css/sampler/transect.css' %}";
+    @import "{% static 'css/sampler/worksheet.css' %}";
   </style>
   
 {% endblock %}
@@ -32,7 +33,7 @@
   //addLoadEvent(adjustTrees);
 
   </script>
-  <script type="text/javascript" src="{{STATIC_URL}}js/sampler/worksheet.js"></script>
+  <script type="text/javascript" src="{% static 'js/sampler/worksheet.js' %}"></script>
   <script type="text/javascript">
     xOffset = {{x_offset}};
     yOffset = {{y_offset}};

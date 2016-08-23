@@ -1,13 +1,14 @@
 {% extends "admin/index.html" %} 
-{% load i18n admin_static%}
+{% load i18n %}
 {% load extras %}
+{% load staticfiles %}
 
 {% block title %}CDRS Data Importer | {% trans "Django Admin" %}{% endblock %}
  
 {% block extrastyle %}
     {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% static 'css/forms.css' %}"></link>
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/admin.css"></link>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin.css' %}"></link>
 {% endblock %}
 
 {% block extrahead %}
@@ -19,8 +20,8 @@
     <script type="text/javascript" src="/media/js/admin/CollapsedFieldsets.js"></script>
     <script type="text/javascript" src="/media/js/calendar.js"></script>
     <script type="text/javascript" src="/media/js/admin/DateTimeShortcuts.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/json2.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/admin.js"></script>
+    <script type="text/javascript" src="{% static 'js/json2.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/admin.js' %}"></script>
     
     <script type="text/javascript">
        addLoadEvent(previewSolr);
@@ -55,7 +56,7 @@
             <h2>Import Metadata from SOLR</h2>
             <div style="color: #F00; font-weight: bold; margin: 5px 5px;"><div id="solr_error"></div></div>
             <div style="color: #00F; font-weight: bold; margin: 5px 5px;"><div id="solr_status"></div></div>
-            <div id="solr_progress" class="progress_indicator" style="display: none; top: 116px;"><div>Loading...please wait<br /><img src="{{STATIC_URL}}images/progress.gif" /></div></div>
+            <div id="solr_progress" class="progress_indicator" style="display: none; top: 116px;"><div>Loading...please wait<br /><img src="{% static 'images/progress.gif' %}" /></div></div>
             
             <div class="form-row">
                <label class="required">Last Import Date:</label>

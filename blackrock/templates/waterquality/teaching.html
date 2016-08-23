@@ -1,5 +1,6 @@
 {% extends 'waterquality/base_waterquality.html' %}
 {% load render %}
+{% load staticfiles %}
 
 {% block css %}
    {{ block.super}}
@@ -11,7 +12,7 @@
 
 {% block js %}
    {{ block.super }}
-      <script type="text/javascript" src="{{STATIC_URL}}js/jquery.cycle.lite.js"></script>
+      <script type="text/javascript" src="{% static 'js/jquery.cycle.lite.js' %}"></script>
       <script type="text/javascript" type="text/javascript">
       $(document).ready(function() {
     $('.waterchemslideshow').cycle({

@@ -1,4 +1,5 @@
 {% extends "mammals/base_mammals.html" %}
+{% load staticfiles %}
 
 {% block title %}Mammals and Habitats{% endblock %}
 
@@ -8,9 +9,9 @@
 
 
 {% block js %}
-    <script type="text/javascript" src="{{STATIC_URL}}js/mammals/map_colors.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/mammals/grid_and_block.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/mammals/block.js"></script>
+    <script type="text/javascript" src="{% static 'js/mammals/map_colors.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/mammals/grid_and_block.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/mammals/block.js' %}"></script>
     {{ block.super }}
 {% endblock %}
 

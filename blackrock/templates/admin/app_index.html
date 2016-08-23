@@ -1,11 +1,12 @@
 {% extends "admin/index.html" %} 
-{% load i18n admin_static %}
+{% load i18n %}
 {% load extras %}
+{% load staticfiles %}
  
 {% block extrastyle %}
     {{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/admin.css"></link>
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin.css' %}"></link>
 {% endblock %}
 
 {% block extrahead %}
@@ -16,8 +17,8 @@
     <script type="text/javascript" src="/media/js/admin/CollapsedFieldsets.js"></script>
     <script type="text/javascript" src="/media/js/calendar.js"></script>
     <script type="text/javascript" src="/media/js/admin/DateTimeShortcuts.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/json2.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/admin.js"></script>
+    <script type="text/javascript" src="{% static 'js/json2.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/admin.js' %}"></script>
 {% endblock extrahead %}
 
 {% block branding %}

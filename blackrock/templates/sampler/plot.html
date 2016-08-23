@@ -1,4 +1,5 @@
 {% extends "sampler/base_sampler.html" %}
+{% load staticfiles %}
 
 <!-- set active tab for breadcrumbs -->
 {% block tabname %}tab-plot{% endblock %}
@@ -13,7 +14,7 @@
     });
   </script>
   
-  <script type="text/javascript" src="{{STATIC_URL}}js/sampler/plot.js"></script>
+  <script type="text/javascript" src="{% static 'js/sampler/plot.js' %}"></script>
 
   <script type="text/javascript">
     // set view to previous, if arguments were passed

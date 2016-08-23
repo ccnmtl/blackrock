@@ -1,17 +1,18 @@
 {% extends "mammals/base_mammals.html" %}
+{% load staticfiles %}
 
 {%block title %}Species and Habitat Map of Black Rock Forest{%endblock %}
 
 {% block js %}
 	{{ block.super }}
-	<script type="text/javascript" src="{{STATIC_URL}}js/mammals/habitat_map_style.js"></script>
-	<script type="text/javascript" src="{{STATIC_URL}}js/mammals/habitat_map_code.js"></script>
+	<script type="text/javascript" src="{% static 'js/mammals/habitat_map_style.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/mammals/habitat_map_code.js' %}"></script>
 {% endblock %}
 
 {% block css %}
     <style type='text/css'>
-        @import "{{STATIC_URL}}css/mammals/style.css";
-        @import "{{STATIC_URL}}js/jquery-ui-1.8.11.custom/css/smoothness/jquery-ui-1.8.11.custom.css";
+        @import "{% static 'css/mammals/style.css' %}";
+        @import "{% static 'js/jquery-ui-1.8.11.custom/css/smoothness/jquery-ui-1.8.11.custom.css' %}";
     </style>
 {% endblock %}
 

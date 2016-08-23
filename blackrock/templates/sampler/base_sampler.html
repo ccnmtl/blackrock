@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load extras %}
+{% load staticfiles %}
 
 {% block title %}Forest Sampling{% endblock %}
 
@@ -24,16 +25,16 @@
 
 {% block css %}
 <style type='text/css'>
-  @import "{{STATIC_URL}}css/sampler/plot.css";
-  @import "{{STATIC_URL}}css/sampler/style.css";
+  @import "{% static 'css/sampler/plot.css' %}";
+  @import "{% static 'css/sampler/style.css' %}";
 </style>
 {% endblock %}
 
 {% block js %}
   {{block.super}}
-  <script type="text/javascript" src="{{STATIC_URL}}js/mochikit/MochiKit/Visual.js"></script>
-  <script type="text/javascript" src="{{STATIC_URL}}js/mochikit/MochiKit/DragAndDrop.js"></script>
-  <script type="text/javascript" src="{{STATIC_URL}}js/sampler/shared.js"></script>
+  <script type="text/javascript" src="{% static 'js/mochikit/MochiKit/Visual.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/mochikit/MochiKit/DragAndDrop.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/sampler/shared.js' %}"></script>
   
 {% endblock %}
 

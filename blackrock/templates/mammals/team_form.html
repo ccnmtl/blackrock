@@ -1,18 +1,19 @@
 {% extends "mammals/base_mammals.html" %}
+{% load staticfiles %}
 {% block title %}Team Form{% endblock %}
 {% block js %}
     {{ block.super }}
-    <script type="text/javascript" src="{{STATIC_URL}}js/mammals/map_colors.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/mammals/grid_and_block.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/mammals/block.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/mammals/team_form.js"></script>
+    <script type="text/javascript" src="{% static 'js/mammals/map_colors.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/mammals/grid_and_block.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/mammals/block.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/mammals/team_form.js' %}"></script>
     <script type="text/javascript">jQuery (add_team_form_maps);</script>
 {% endblock %}
 
 {% block css %}
     {{ block.super }}
     <style media="screen" type="text/css">
-        @import "{{STATIC_URL}}css/mammals/team_form.css" ;
+        @import "{% static 'css/mammals/team_form.css' %}" ;
     </style>
 {% endblock %}
 {% block container %}
