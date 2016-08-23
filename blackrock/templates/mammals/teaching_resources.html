@@ -1,4 +1,5 @@
 {% extends "mammals/base_mammals.html" %}
+{% load staticfiles %}
 
 {% block title %}Mammals and Habitats{% endblock %}
 
@@ -9,13 +10,13 @@
     <h4>Documents for pre-forest trip activities</h4>
     <ul>
     <li>
-      <a href = "{{STATIC_URL}}pdf/mammals/Playground_Grid_Instructions.pdf" target="_blank">Playground Grid Instructions</a>
+      <a href = "{% static 'pdf/mammals/Playground_Grid_Instructions.pdf' %}" target="_blank">Playground Grid Instructions</a>
     </li>
     <li>
-      <a href = "{{STATIC_URL}}pdf/mammals/UsingCompass.pdf" target="_blank">Using a Compass</a>
+      <a href = "{% static 'pdf/mammals/UsingCompass.pdf' %}" target="_blank">Using a Compass</a>
     </li>
     <li>
-      <a href = "{{STATIC_URL}}pdf/mammals/MammalsDataCollectionSheet.pdf" target="_blank">Data Collection Sheet</a>
+      <a href = "{% static 'pdf/mammals/MammalsDataCollectionSheet.pdf' %}" target="_blank">Data Collection Sheet</a>
     </li>
     </ul>
 
@@ -24,19 +25,19 @@
 
     <ul>
     <li>
-      <a href = "{{STATIC_URL}}pdf/mammals/MammalsActivityInstructions.pdf" target="_blank">Activity Instructions</a>
+      <a href = "{% static 'pdf/mammals/MammalsActivityInstructions.pdf' %}" target="_blank">Activity Instructions</a>
     </li>
     <li>
-      <a href = "{{STATIC_URL}}pdf/mammals/MarkingFindingWaypoints.pdf" target="_blank">Marking and Finding Waypoints</a>
+      <a href = "{% static 'pdf/mammals/MarkingFindingWaypoints.pdf' %}" target="_blank">Marking and Finding Waypoints</a>
     </li>
     <li>
-      <a href = "{{STATIC_URL}}pdf/mammals/MammalsDataCollectionSheet.pdf" target="_blank">Data Collection Sheet</a>
+      <a href = "{% static 'pdf/mammals/MammalsDataCollectionSheet.pdf' %}" target="_blank">Data Collection Sheet</a>
     </li>
         <li>
-      <a href = "{{STATIC_URL}}pdf/mammals/BaitPreparationGuide.pdf" target="_blank">Bait Preparation Guide</a>
+      <a href = "{% static 'pdf/mammals/BaitPreparationGuide.pdf' %}" target="_blank">Bait Preparation Guide</a>
     </li>
     <li>
-      <a href = "{{STATIC_URL}}pdf/mammals/StudentDuffleBagChecklist.pdf" target="_blank">Student Duffle Bag Checklist</a>
+      <a href = "{% static 'pdf/mammals/StudentDuffleBagChecklist.pdf' %}" target="_blank">Student Duffle Bag Checklist</a>
     </li>
     </ul>
 
@@ -44,19 +45,19 @@
 
     <ul>
     <li>
-      <a href = "{{STATIC_URL}}pdf/mammals/MammalsActivityInstructions.pdf" target="_blank">Activity Instructions</a>
+      <a href = "{% static 'pdf/mammals/MammalsActivityInstructions.pdf' %}" target="_blank">Activity Instructions</a>
     </li>
     <li>
-      <a href = "{{STATIC_URL}}pdf/mammals/ResearchGridInstructions.pdf" target="_blank">Research Grid Instructions</a>
+      <a href = "{% static 'pdf/mammals/ResearchGridInstructions.pdf' %}" target="_blank">Research Grid Instructions</a>
     </li>
     <li>
-      <a href = "{{STATIC_URL}}pdf/mammals/TeacherDuffleBagChecklist.pdf" target="_blank">Teacher Duffle Bag Checklist</a>
+      <a href = "{% static 'pdf/mammals/TeacherDuffleBagChecklist.pdf' %}" target="_blank">Teacher Duffle Bag Checklist</a>
     </li>
         <li>
-      <a href = "{{STATIC_URL}}pdf/mammals/TreeIdentificationDichotomousKey.pdf" target="_blank">Dichotomous Key to Tree Identification</a>
+      <a href = "{% static 'pdf/mammals/TreeIdentificationDichotomousKey.pdf' %}" target="_blank">Dichotomous Key to Tree Identification</a>
     </li>
     <li>
-      <a href = "{{STATIC_URL}}pdf/mammals/ForestCommunitiesDichotomousKey.pdf" target="_blank">Dichotomous Key to Forest Community Types</a>
+      <a href = "{% static 'pdf/mammals/ForestCommunitiesDichotomousKey.pdf' %}" target="_blank">Dichotomous Key to Forest Community Types</a>
     </li>
     </ul>
 

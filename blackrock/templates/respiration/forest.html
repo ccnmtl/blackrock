@@ -1,13 +1,14 @@
 {% extends "respiration/base_respiration.html" %}
 {% load extras %}
+{% load staticfiles %}
 {% block tabname %}tab-canopy{% endblock %}
 
 {% block js %}
    {{ block.super }}
-    <script type="text/javascript" src="{{STATIC_URL}}js/respiration/foresthelpers.js"></script> 
-    <script type="text/javascript" src="{{STATIC_URL}}js/respiration/scenario.js"></script> 
-    <script type="text/javascript" src="{{STATIC_URL}}js/respiration/species.js"></script>
-    <script type="text/javascript" src="{{STATIC_URL}}js/respiration/forestgraph.js"></script>
+    <script type="text/javascript" src="{% static 'js/respiration/foresthelpers.js' %}"></script> 
+    <script type="text/javascript" src="{% static 'js/respiration/scenario.js' %}"></script> 
+    <script type="text/javascript" src="{% static 'js/respiration/species.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/respiration/forestgraph.js' %}"></script>
     <script type="text/javascript">
     
         addLoadEvent(function() {

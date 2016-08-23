@@ -1,15 +1,16 @@
 {% extends "admin/base.html" %}
 {% load i18n %}
+{% load staticfiles %}
 
 {% block title %}{{ title }} | {% trans "Django Admin" %}{% endblock %}
 
 {% block extrahead %}
-   <link rel="stylesheet" href="{{STATIC_URL}}css/admin.css" type="text/css" media="all" />
-   <link rel="stylesheet" href="{{STATIC_URL}}css/tiny_mce.css" type="text/css" media="all" />
-   <link rel="stylesheet" href="{{STATIC_URL}}js/jquery-ui-1.8.11.custom/css/smoothness/jquery-ui-1.8.11.custom.css" type="text/css" media="all" />
-   <script type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.8.11.custom/js/jquery-1.4.4.min.js"></script>
-   <script type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.8.11.custom/js/jquery-ui-1.8.11.custom.min.js"></script>
-   <script type="text/javascript" src="{{STATIC_URL}}js/tiny_mce/tiny_mce.js"></script>
+   <link rel="stylesheet" href="{% static 'css/admin.css' %}" type="text/css" media="all" />
+   <link rel="stylesheet" href="{% static 'css/tiny_mce.css' %}" type="text/css" media="all" />
+   <link rel="stylesheet" href="{% static 'js/jquery-ui-1.8.11.custom/css/smoothness/jquery-ui-1.8.11.custom.css' %}" type="text/css" media="all" />
+   <script type="text/javascript" src="{% static 'js/jquery-ui-1.8.11.custom/js/jquery-1.4.4.min.js' %}"></script>
+   <script type="text/javascript" src="{% static 'js/jquery-ui-1.8.11.custom/js/jquery-ui-1.8.11.custom.min.js' %}"></script>
+   <script type="text/javascript" src="{% static 'js/tiny_mce/tiny_mce.js' %}"></script>
   
   
    <script type="text/javascript">   
@@ -19,7 +20,7 @@
             mode : "textareas",
             width: "100%",
             theme : "advanced",
-            content_css : '{{STATIC_URL}}css/tiny_mce.css',
+            content_css : '{% static 'css/tiny_mce.css' %}',
             plugins : "safari,searchreplace,paste",
               
             // Theme options

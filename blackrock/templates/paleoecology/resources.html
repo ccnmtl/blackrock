@@ -1,4 +1,5 @@
-{% extends "paleoecology/base_paleoecology.html" %} 
+{% extends "paleoecology/base_paleoecology.html" %}
+{% load staticfiles %}
 {% load extras %}
 
 {% block pagetitle %}Teaching Resources{% endblock %}
@@ -16,16 +17,16 @@
     addLoadEvent(initNav);
   </script>
   
-  <script type="text/javascript" src="{{STATIC_URL}}js/paleoecology/interactive_key.js"></script>
-  <script type="text/javascript" src="{{STATIC_URL}}js/paleoecology/pollen_identification.js"></script>
+  <script type="text/javascript" src="{% static 'js/paleoecology/interactive_key.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/paleoecology/pollen_identification.js' %}"></script>
 {% endblock %}
 
 {% block container %}
 <h3>Teaching Resources</h3>
 
 <ul>
-<li><a href="{{STATIC_URL}}pdf/paleoecology/HudsonHighlandsHistory.pdf">Hudson Highlands history</a>
-<li><a href="{{STATIC_URL}}pdf/paleoecology/PaleoecologyLecture.pdf">Lecture slides</a></li>
-<li><a href="{{STATIC_URL}}pdf/paleoecology/PaleoecologyModuleQuestions.pdf">Guide to explore the module</a></li>
+<li><a href="{% static 'pdf/paleoecology/HudsonHighlandsHistory.pdf' %}">Hudson Highlands history</a>
+<li><a href="{% static 'pdf/paleoecology/PaleoecologyLecture.pdf' %}">Lecture slides</a></li>
+<li><a href="{% static 'pdf/paleoecology/PaleoecologyModuleQuestions.pdf' %}">Guide to explore the module</a></li>
 </ul>
 {% endblock %}

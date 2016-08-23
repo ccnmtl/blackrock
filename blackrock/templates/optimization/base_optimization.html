@@ -1,4 +1,5 @@
 {% extends "base.html" %} 
+{% load staticfiles %}
 
 {% block title %}
   Forest Sampling Optimization Tool 
@@ -6,7 +7,7 @@
 
 {% block css %} 
 	<style type='text/css'>
-	  @import "{{STATIC_URL}}css/optimization/style.css";
+	  @import "{% static 'css/optimization/style.css' %}";
 	</style> 
 	<!--[if IE]>
 	<style type='text/css'>
@@ -17,7 +18,7 @@
 
 {% block js %} 
   {{block.super}}
-  <script type="text/javascript" src="{{STATIC_URL}}js/libraries/OpenLayers-2.9.js"></script>
+  <script type="text/javascript" src="{% static 'js/libraries/OpenLayers-2.9.js' %}"></script>
 <!--script type="text/javascript">
   function setActiveTab() { addElementClass("{% block tabname %}tab-run{% endblock %}", "tab-selected"); }
   addLoadEvent(setActiveTab);

@@ -1,10 +1,11 @@
 {% extends 'waterquality/base_waterquality.html' %}
 {% load cycle from future %}
+{% load staticfiles %}
 
 {% block js %}
    {{ block.super }}
     <!--original style version here was 1.8.11  -->
-	<link rel="stylesheet" href="{{STATIC_URL}}js/libraries/jquery-ui-themes-1.8.12/themes/base/jquery-ui.css" type="text/css" media="all" /> 
+	<link rel="stylesheet" href="{% static 'js/libraries/jquery-ui-themes-1.8.12/themes/base/jquery-ui.css' %}" type="text/css" media="all" /> 
 
 	{% if not show_graph %}
 	<script type="text/javascript">
