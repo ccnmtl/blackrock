@@ -17,12 +17,11 @@
 {% endblock %} 
 
 {% block js %} 
-  {{block.super}}
-  <script type="text/javascript" src="{% static 'js/libraries/OpenLayers-2.9.js' %}"></script>
-<!--script type="text/javascript">
-  function setActiveTab() { addElementClass("{% block tabname %}tab-run{% endblock %}", "tab-selected"); }
-  addLoadEvent(setActiveTab);
-</script--> 
+    {{block.super}}
+    <script type="text/javascript" src="{% static 'js/libraries/OpenLayers-2.9.js' %}"></script>
+    <script>
+    OpenLayers.ImgPath = "{% static 'openlayers/img/' %}";
+    </script>
 {% endblock %} 
 
 {% block masthead %} 
