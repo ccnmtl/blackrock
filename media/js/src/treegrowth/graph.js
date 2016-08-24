@@ -1,11 +1,12 @@
 /* global Papa: true */
 
 (function() {
-    var BASE_URL = 'https://www1.columbia.edu/sec/ccnmtl/projects/' +
-        'blackrock/forestdata/processed_data/';
-    var FILENAME = 'Mnt_Misery_Table20.csv';
+    var DENDROMETER_PATH = 'https://www1.columbia.edu/sec/ccnmtl/projects/' +
+        'blackrock/forestdata/processed_data/Mnt_Misery_Table20.csv';
+    var ENVIRONMENTAL_PATH = 'https://www1.columbia.edu/sec/ccnmtl/projects/' +
+        'blackrock/forestdata/data/current/Lowland.csv';
 
-    var initChart = function(data) {
+    var initGraph = function(data) {
         $('#plot-container').highcharts('StockChart', {
             rangeSelector: {
                 selected: 1
@@ -28,15 +29,44 @@
         });
     };
 
-    Papa.parse(BASE_URL + FILENAME, {
-        download: true,
-        complete: function(results, file) {
-            var data = results.data;
-            data.pop();
+    /**
+     * Takes the paths of the dendrometer and environmental CSV files,
+     * downloads and parses these files, and initiates the graph.
+     */
+    var getData = function(dendrometerPath, environmentalPath) {
+        var $dendDfd = $.Deferred();
+        Papa.parse(dendrometerPath, {
+            download: true,
+            complete: function(results, file) {
+                var data = results.data;
+                data.pop();
+                $dendDfd.resolve(data);
+            },
+            error: function(e) {
+                $dendDfd.reject(e);
+            }
+        });
 
+        var $envDfd = $.Deferred();
+        Papa.parse(environmentalPath, {
+            download: true,
+            complete: function(results, file) {
+                var data = results.data;
+                data.pop();
+                $envDfd.resolve(data);
+            },
+            error: function(e) {
+                $envDfd.reject(e);
+            }
+        });
+
+        var promises = [$dendDfd];
+        $.when.apply(this, promises).then(function(dData, eData) {
             $(document).ready(function() {
-                initChart(data);
+                initGraph(dData);
             });
-        }
-    });
+        });
+    };
+
+    getData(DENDROMETER_PATH, ENVIRONMENTAL_PATH);
 })();
