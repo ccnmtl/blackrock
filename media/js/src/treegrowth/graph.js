@@ -99,8 +99,10 @@
      * downloads and parses these files, and initiates the graph.
      */
     var getData = function(dendrometerPath, environmentalPath) {
+        var timestamp = (new Date()).getTime();
+
         var $dendDfd = $.Deferred();
-        Papa.parse(dendrometerPath, {
+        Papa.parse(dendrometerPath + '?' + timestamp, {
             dynamicTyping: true,
             skipEmptyLines: true,
             download: true,
@@ -124,7 +126,7 @@
         });
 
         var $envDfd = $.Deferred();
-        Papa.parse(environmentalPath, {
+        Papa.parse(environmentalPath + '?' + timestamp, {
             dynamicTyping: true,
             skipEmptyLines: true,
             download: true,
