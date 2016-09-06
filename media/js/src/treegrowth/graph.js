@@ -12,18 +12,18 @@
      * example:
      *
      * input: [
-     *    { timestamp: 100, a: 2, b: 4 },
-     *    { timestamp: 101, a: 3, b: 1 },
-     *    { timestamp: 102, a: 6, b: 2 },
-     *    { timestamp: 103, a: 9, b: 3 }
+     *    [ 100, 2, 4 ],
+     *    [ 101, 3, 1 ],
+     *    [ 102, 6, 2 ],
+     *    [ 103, 9, 3 ]
      * ]
      *
      * output: [
      *     [
-     *         [ 100, a: 2 ],
-     *         [ 101, a: 3 ],
-     *         [ 102, a: 6 ],
-     *         [ 103, a: 9 ]
+     *         [ 100, 2 ],
+     *         [ 101, 3 ],
+     *         [ 102, 6 ],
+     *         [ 103, 9 ]
      *     ],
      *     [
      *         [ 100, 4 ],
@@ -52,6 +52,26 @@
             }
         }
         return newData;
+    };
+
+    var parseDate = function(s) {
+        var b = s.split(/\D+/);
+        return new Date(b[0], parseInt(b[1]) - 1, b[2], b[3], b[4], b[5]);
+    };
+
+    /**
+     * Convert the first column of each row to its unix timestamp.
+     */
+    var convertToUnixTimestamps = function(data) {
+        for (var i = 0; i < data.length; i++) {
+            var date = Date.parse(data[i][0]);
+            if (isNaN(date)) {
+                // Safari has trouble parsing the date!
+                date = parseDate(data[i][0]);
+            }
+            data[i][0] = date;
+        }
+        return data;
     };
 
     var initGraph = function(data) {
@@ -113,10 +133,7 @@
                 // Remove header row
                 data.shift();
 
-                // Convert to unix timestamps
-                for (var i = 0; i < data.length; i++) {
-                    data[i][0] = new Date(data[i][0]).getTime();
-                }
+                data = convertToUnixTimestamps(data);
 
                 $dendDfd.resolve(splitData(data));
             },
@@ -136,10 +153,7 @@
                 // Remove header row
                 data.shift();
 
-                // Convert to unix timestamps
-                for (var i = 0; i < data.length; i++) {
-                    data[i][0] = new Date(data[i][0]).getTime();
-                }
+                data = convertToUnixTimestamps(data);
 
                 $envDfd.resolve(splitData(data));
             },
