@@ -76,6 +76,7 @@
 
     var initGraph = function(data) {
         var seriesOptions = [];
+        var yAxes = [];
         var headers = [
             'Red_Oak_1_AVG', 'Red_Oak_2_AVG',
             'Red_Oak_3_AVG', 'Red_Oak_4_AVG',
@@ -91,7 +92,14 @@
             }
             seriesOptions.push({
                 name: name,
-                data: data[i]
+                data: data[i],
+                yAxis: i
+            });
+            yAxes.push({
+                title: {
+                    text: name
+                },
+                visible: false
             });
         }
         $('#plot-container').highcharts('StockChart', {
@@ -110,6 +118,7 @@
                 verticalAlign: 'middle',
                 borderWidth: 0
             },
+            yAxis: yAxes,
             series: seriesOptions
         });
     };
