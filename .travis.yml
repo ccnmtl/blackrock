@@ -5,6 +5,7 @@ python:
 install:
   - ./bootstrap.py
 script:
+  - make jstest
   - make
 notifications:
   slack: ccnmtl:GizSNscLWJLldjQrffB8mwgm
