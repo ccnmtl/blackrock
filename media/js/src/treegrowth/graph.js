@@ -1,3 +1,4 @@
+/* jshint esversion: 6 */
 /* global Papa: true, Treegrowth: true */
 
 (function() {
@@ -22,19 +23,80 @@
             if (i < headers.length) {
                 name = headers[i];
             }
-            seriesOptions.push({
-                name: name,
-                data: data[i],
-                yAxis: i
-            });
-            yAxes.push({
-                title: {
-                    text: name
-                },
-                visible: false
-            });
+
+            var series = {};
+            var yAxis = {};
+            if (name === 'Site STD DEV') {
+                var stdDevData = [];
+                for (var j = 0; j < data[i].length; j += 4) {
+                    var group = [];
+                    try {
+                        group = [
+                            data[i][j][0],
+                            data[i][j][1],
+                            data[i][j + 1][1],
+                            data[i][j + 2][1],
+                            data[i][j + 3][1]
+                        ];
+                    } catch (e) {
+                        continue;
+                    }
+
+                    var values = group.slice(1);
+                    var max = Math.max(...values);
+                    var min = Math.min(...values);
+
+                    var candlestick = [
+                        group[0], // timestamp
+                        group[1], // open
+                        max,
+                        min,
+                        group[group.length - 1] // close
+                    ];
+                    stdDevData.push(candlestick);
+                }
+                series = {
+                    type: 'candlestick',
+                    name: name,
+                    data: stdDevData,
+                    yAxis: i,
+                    dataGrouping: {
+                        units: [
+                            ['hour', [1, 8, 16]],
+                            ['day', [1, 7]]
+                        ]
+                    }
+                };
+                yAxis = {
+                    title: {
+                        text: name
+                    },
+                    top: '65%',
+                    height: '35%',
+                    visible: false
+                };
+            } else {
+                series = {
+                    name: name,
+                    data: data[i],
+                    yAxis: i
+                };
+                yAxis = {
+                    title: {
+                        text: name
+                    },
+                    height: '65%',
+                    visible: false
+                };
+            }
+
+            seriesOptions.push(series);
+            yAxes.push(yAxis);
         }
         $('#plot-container').highcharts('StockChart', {
+            chart: {
+                height: 600
+            },
             rangeSelector: {
                 selected: 1
             },
