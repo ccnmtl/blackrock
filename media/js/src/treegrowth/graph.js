@@ -81,6 +81,30 @@
                     data: data[i],
                     yAxis: i
                 };
+
+                // Environmental data has units
+                if (name === 'AvgTEMP_C') {
+                    series.tooltip = {
+                        valueSuffix: '°C'
+                    };
+                } else if (name === 'AvgVP') {
+                    series.tooltip = {
+                        valueSuffix: ' kPa'
+                    };
+                } else if (name === 'TotalRain') {
+                    series.tooltip = {
+                        valueSuffix: ' mm'
+                    };
+                } else if (name === 'SoilM_5cm') {
+                    series.tooltip = {
+                        valueSuffix: ' VWC'
+                    };
+                } else if (name === 'AvgPAR_Den') {
+                    series.tooltip = {
+                        valueSuffix: ' umol/s/m²'
+                    };
+                }
+
                 yAxis = {
                     title: {
                         text: name
