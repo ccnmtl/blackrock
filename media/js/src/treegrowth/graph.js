@@ -2,10 +2,11 @@
 /* global Papa: true, Treegrowth: true */
 
 (function() {
-    var DENDROMETER_PATH = 'https://www1.columbia.edu/sec/ccnmtl/projects/' +
-        'blackrock/forestdata/processed_data/Mnt_Misery_Table20.csv';
-    var ENVIRONMENTAL_PATH = 'https://www1.columbia.edu/sec/ccnmtl/projects/' +
-        'blackrock/forestdata/processed_data/Lowland.csv';
+    var BASE_PATH = 'https://www1.columbia.edu/sec/ccnmtl/projects/' +
+        'blackrock/forestdata/processed_data/';
+    var MNT_MISERY_DATA = BASE_PATH + 'Mnt_Misery_Table20.csv';
+    var WHITE_OAK_DATA = BASE_PATH + 'White_Oak_Table20.csv';
+    var ENV_DATA = BASE_PATH + 'Lowland.csv';
 
     var initGraph = function(data) {
         var seriesOptions = [];
@@ -141,61 +142,51 @@
         });
     };
 
+    var downloadAndParse = function($promise, path) {
+        var timestamp = (new Date()).getTime();
+        Papa.parse(path + '?' + timestamp, {
+            dynamicTyping: true,
+            skipEmptyLines: true,
+            download: true,
+            complete: function(results, file) {
+                var data = results.data;
+
+                // Remove header row
+                data.shift();
+
+                data = Treegrowth.convertToUnixTimestamps(data);
+
+                $promise.resolve(Treegrowth.splitData(data));
+            },
+            error: function(e) {
+                $promise.reject(e);
+            }
+        });
+    };
+
     /**
      * Takes the paths of the dendrometer and environmental CSV files,
      * downloads and parses these files, and initiates the graph.
      */
-    var getData = function(dendrometerPath, environmentalPath) {
+    var getData = function(mntMiseryPath, whiteOakPath, environmentalPath) {
         var timestamp = (new Date()).getTime();
 
-        var $dendDfd = $.Deferred();
-        Papa.parse(dendrometerPath + '?' + timestamp, {
-            dynamicTyping: true,
-            skipEmptyLines: true,
-            download: true,
-            //header: true,
-            complete: function(results, file) {
-                var data = results.data;
+        var $dfd1 = $.Deferred();
+        downloadAndParse($dfd1, mntMiseryPath);
 
-                // Remove header row
-                data.shift();
+        var $dfd2 = $.Deferred();
+        downloadAndParse($dfd2, whiteOakPath);
 
-                data = Treegrowth.convertToUnixTimestamps(data);
+        var $dfd3 = $.Deferred();
+        downloadAndParse($dfd3, environmentalPath);
 
-                $dendDfd.resolve(Treegrowth.splitData(data));
-            },
-            error: function(e) {
-                $dendDfd.reject(e);
-            }
-        });
-
-        var $envDfd = $.Deferred();
-        Papa.parse(environmentalPath + '?' + timestamp, {
-            dynamicTyping: true,
-            skipEmptyLines: true,
-            download: true,
-            complete: function(results, file) {
-                var data = results.data;
-
-                // Remove header row
-                data.shift();
-
-                data = Treegrowth.convertToUnixTimestamps(data);
-
-                $envDfd.resolve(Treegrowth.splitData(data));
-            },
-            error: function(e) {
-                $envDfd.reject(e);
-            }
-        });
-
-        var promises = [$dendDfd, $envDfd];
-        $.when.apply(this, promises).then(function(dData, eData) {
+        var promises = [$dfd1, $dfd2, $dfd3];
+        $.when.apply(this, promises).then(function(d1, d2, d3) {
             $(document).ready(function() {
-                initGraph(dData.concat(eData));
+                initGraph(d1.concat(d3));
             });
         });
     };
 
-    getData(DENDROMETER_PATH, ENVIRONMENTAL_PATH);
+    getData(MNT_MISERY_DATA, WHITE_OAK_DATA, ENV_DATA);
 })();
