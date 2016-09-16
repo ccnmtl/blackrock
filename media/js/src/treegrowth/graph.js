@@ -16,6 +16,10 @@
             'Red_Oak_3_AVG', 'Red_Oak_4_AVG',
             'Red_Oak_5_AVG',
             'Site AVG', 'Site STD DEV',
+            'White_Oak_1_AVG', 'White_Oak_2_AVG',
+            'White_Oak_3_AVG', 'White_Oak_4_AVG',
+            'White_Oak_5_AVG',
+            'Site AVG', 'Site STD DEV',
             'AvgTEMP_C', 'AvgVP', 'TotalRain',
             'SoilM_5cm', 'AvgPAR_Den'
         ];
@@ -183,7 +187,7 @@
         var promises = [$dfd1, $dfd2, $dfd3];
         $.when.apply(this, promises).then(function(d1, d2, d3) {
             $(document).ready(function() {
-                initGraph(d1.concat(d3));
+                initGraph(d1.concat(d2).concat(d3));
             });
         });
     };
