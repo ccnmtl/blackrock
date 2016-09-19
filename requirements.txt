@@ -42,7 +42,7 @@ python-dateutil==2.5.3
 fake-factory==0.6.0
 contextlib2==0.5.4
 argparse==1.4.0
-cffi==1.8.2
+cffi==1.8.3
 colorama==0.3.7
 cryptography==1.5
 enum34==1.1.6
