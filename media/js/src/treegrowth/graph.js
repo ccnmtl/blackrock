@@ -158,7 +158,7 @@
                 // Remove header row
                 data.shift();
 
-                data = Treegrowth.convertToUnixTimestamps(data);
+                data = Treegrowth.convertToMilliseconds(data);
 
                 $promise.resolve(Treegrowth.splitData(data));
             },

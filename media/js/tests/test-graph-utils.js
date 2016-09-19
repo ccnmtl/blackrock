@@ -10,11 +10,10 @@ describe('parseDate', function() {
             '2017-03-07 08:20:00'
         ];
 
-        for (var i = 0; i < dates.length; i++) {
-            assert.strictEqual(
-                Date.parse(dates[i]),
-                Treegrowth.parseDate(dates[i]));
-        }
+        assert.strictEqual(Treegrowth.parseDate(dates[0]), 815101200000);
+        assert.strictEqual(Treegrowth.parseDate(dates[1]), 1472691600000);
+        assert.strictEqual(Treegrowth.parseDate(dates[2]), 1475113713000);
+        assert.strictEqual(Treegrowth.parseDate(dates[3]), 1488874800000);
     });
 });
 

@@ -55,21 +55,16 @@ if (typeof Treegrowth === 'undefined') {
 
     var parseDate = function(s) {
         var b = s.split(/\D+/);
-        var date = Date.parse(
-            new Date(b[0], parseInt(b[1]) - 1, b[2], b[3], b[4], b[5]));
+        var date = Date.UTC(b[0], parseInt(b[1]) - 1, b[2], b[3], b[4], b[5]);
         return date;
     };
 
     /**
-     * Convert the first column of each row to its unix timestamp.
+     * Convert the first column of each row to an integer timestamp.
      */
-    var convertToUnixTimestamps = function(data) {
+    var convertToMilliseconds = function(data) {
         for (var i = 0; i < data.length; i++) {
-            var date = Date.parse(data[i][0]);
-            if (isNaN(date)) {
-                // Safari has trouble parsing the date!
-                date = parseDate(data[i][0]);
-            }
+            var date = parseDate(data[i][0]);
             data[i][0] = date;
         }
         return data;
@@ -77,7 +72,7 @@ if (typeof Treegrowth === 'undefined') {
 
     Treegrowth.splitData = splitData;
     Treegrowth.parseDate = parseDate;
-    Treegrowth.convertToUnixTimestamps = convertToUnixTimestamps;
+    Treegrowth.convertToMilliseconds = convertToMilliseconds;
 })();
 
 if (typeof exports !== 'undefined') {
