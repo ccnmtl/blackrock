@@ -79,10 +79,18 @@
                     visible: false
                 };
             } else {
+                var isVisible = true;
+                if (name.indexOf('Red_Oak_') > -1 ||
+                    name.indexOf('White_Oak_') > -1
+                   ) {
+                    isVisible = false;
+                }
+
                 series = {
                     name: name,
                     data: data[i],
-                    yAxis: i
+                    yAxis: i,
+                    visible: isVisible
                 };
 
                 // Environmental data has units
