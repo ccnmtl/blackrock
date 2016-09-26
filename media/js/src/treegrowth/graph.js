@@ -76,6 +76,8 @@
                     title: {
                         text: name
                     },
+                    top: '65%',
+                    height: '35%',
                     visible: false
                 };
             } else {
@@ -120,6 +122,7 @@
                     title: {
                         text: name
                     },
+                    height: '65%',
                     visible: false
                 };
             }
@@ -128,6 +131,9 @@
             yAxes.push(yAxis);
         }
         $('#plot-container').highcharts('StockChart', {
+            chart: {
+                height: 600
+            },
             rangeSelector: {
                 selected: 1
             },
