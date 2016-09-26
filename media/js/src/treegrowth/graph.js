@@ -23,6 +23,18 @@
             'AvgTEMP_C', 'AvgVP', 'TotalRain',
             'SoilM_5cm', 'AvgPAR_Den'
         ];
+        var newHeaderNames = [
+            'BRFS1 Oak 1', 'BRFS1 Oak 2',
+            'BRFS1 Oak 3', 'BRFS1 Oak 4',
+            'BRFS1 Oak 5',
+            'BRF Site 1 AVG', 'BRF Site 1 STD DEV',
+            'BRFS2 Oak 1', 'BRFS2 Oak 2',
+            'BRFS2 Oak 3', 'BRFS2 Oak 4',
+            'BRFS2 Oak 5',
+            'BRF Site 2 AVG', 'BRF Site 2 STD DEV',
+            'BRF AvgTEMP_C', 'BRF AvgVP', 'BRF TotalRain',
+            'BRF SoilM_5cm', 'BRF AvgPAR_Den'
+        ];
         for (var i = 0; i < data.length; i++) {
             var name = 'Series ' + (i + 1);
             if (i < headers.length) {
@@ -62,7 +74,7 @@
                 }
                 series = {
                     type: 'candlestick',
-                    name: name,
+                    name: newHeaderNames[i],
                     data: stdDevData,
                     yAxis: i,
                     dataGrouping: {
@@ -89,7 +101,7 @@
                 }
 
                 series = {
-                    name: name,
+                    name: newHeaderNames[i],
                     data: data[i],
                     yAxis: i,
                     visible: isVisible
