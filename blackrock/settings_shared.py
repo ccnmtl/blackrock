@@ -43,9 +43,9 @@ PROJECT_APPS = [
     'blackrock.waterquality',
 ]
 
-TEMPLATE_CONTEXT_PROCESSORS += [  # noqa
-    'blackrock.blackrock_main.views.django_settings',
-]
+TEMPLATES[0]['OPTIONS']['context_processors'].append(  # noqa
+    'blackrock.blackrock_main.views.django_settings'
+)
 
 MIDDLEWARE_CLASSES += [  # noqa
     'blackrock.portal.middleware.ValueErrorMiddleware',
