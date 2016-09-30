@@ -38,14 +38,14 @@ class BasicViewTest(TestCase):
     def test_process_login_get_fail(self):
         response = self.c.get('/mammals/process_login/')
         self.assertEqual(response.status_code, 302)
-        redirect = "mammals/login/"
+        redirect = "/mammals/login/"
         self.assertRedirects(response, redirect)
 
     # (r'^process_login/$',     'blackrock.mammals.views.process_login'),
     def test_process_login_post_fail(self):
         response = self.c.post('/mammals/process_login/')
         self.assertEqual(response.status_code, 302)
-        redirect = "mammals/login/"
+        redirect = "/mammals/login/"
         self.assertRedirects(response, redirect)
 
     def test_process_login_auth_fail(self):

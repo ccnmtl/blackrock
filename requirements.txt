@@ -2,7 +2,7 @@
 # local pysqlite that is configured to load C extensions
 # see: https://docs.djangoproject.com/en/dev/ref/contrib/gis/install/spatialite/#pysqlite2
 requirements/src/pysqlite-2.6.3.tar.gz
-Django==1.8.15
+Django==1.9.10
 pytz==2016.6.1
 resolver==0.2.1
 selector==0.10.1
@@ -77,16 +77,17 @@ ipdb==0.10.1
 djangowind==0.16.0
 sorl==3.1
 tagging==0.3-pre
-template_utils==0.4p2
 django-indexer==0.3.0
 django-templatetag-sugar==1.0
 django-statsd-mozilla==0.3.16
 django-paging==0.2.5
 django-appconf==1.0.2
+
 django-compressor==2.1
 raven==5.27.1
-django-googlecharts==1.0-alpha-1
 django-jenkins==0.110.0
+django-googlecharts==1.1.2-ccnmtl
+
 django-stagingcontext==0.1.0
 django-smoketest==1.0.0
 django-haystack==2.5.0
@@ -96,7 +97,7 @@ django-bootstrap3==7.1.0
 django-markwhat==1.5
 django-pagetree==1.2.4
 django-pageblocks==1.0.4
-django-databrowse==2014.9.26
+django-databrowse==2016.2.26-ccnmtl
 factory_boy==2.7.0
 django-debug-toolbar==1.5
 gunicorn==19.6.0

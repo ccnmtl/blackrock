@@ -7,16 +7,17 @@ from pysolr import Solr, SolrError
 from time import strptime
 from datetime import date
 from decimal import Decimal
+from django.apps import apps
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.gis.measure import D  # D is a shortcut for Distance
 from django.core import management
 from django.core.cache import cache
-from django.db.models import get_model, DateField
+from django.db.models import DateField
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext, Context
-from django.utils.tzinfo import FixedOffset
+from django.utils.timezone import FixedOffset
 from django.contrib.gis.geos import fromstr
 from pagetree.models import Hierarchy
 from blackrock.portal.models import Location, DataSet, Audience
@@ -62,7 +63,7 @@ def page(request, path):
 
     if asset_type and asset_id:
         try:
-            model = get_model("portal", asset_type)
+            model = apps.get_model("portal", asset_type)
             context['selected'] = model.objects.get(id=asset_id)
         except:
             msg = "We were unable to locate a <b>%s</b> at this address."
@@ -195,7 +196,7 @@ def process_metadata(result):
 
     for field in dataset._meta.many_to_many:
         if field.name in values.keys():
-            related_model = get_model("portal", field.name)
+            related_model = apps.get_model("portal", field.name)
             for v in values[field.name]:
                 if field.name == 'url':
                     v = settings.CDRS_SOLR_FILEURL + v
