@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.utils.timezone import FixedOffset
+from django.utils.tzinfo import FixedOffset
 from pysolr import Solr
 import urllib
 

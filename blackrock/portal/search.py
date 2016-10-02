@@ -1,5 +1,5 @@
 from django import forms
-from django.apps import apps
+from django.db.models import get_model
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 from haystack.forms import SearchForm
@@ -130,7 +130,7 @@ def get_facet_display_name(key):
         display_name = x.display_name
     except:
         try:
-            model = apps.get_model("portal", key)
+            model = get_model("portal", key)
             if model:
                 display_name = capfirst(
                     model._meta.verbose_name)
