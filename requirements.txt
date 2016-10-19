@@ -16,7 +16,7 @@ Markdown==2.6.7
 pyenchant==1.6.7
 uuid==1.30
 psycopg2==2.6.2
-Pillow==3.4.1
+Pillow==3.4.2
 requests==2.11.1
 pysolr==3.5.0
 gdata==2.0.14
