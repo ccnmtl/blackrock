@@ -93,7 +93,7 @@ django-haystack==2.5.1
 django-treebeard==4.1.0
 django-bootstrap-form==3.2.1
 django-bootstrap3==7.1.0
-django-markwhat==1.5
+django-markwhat==1.5.1
 django-pagetree==1.2.4
 django-pageblocks==1.0.4
 django-databrowse==2016.2.26-ccnmtl
