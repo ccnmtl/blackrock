@@ -1,5 +1,3 @@
-import os.path
-
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib.auth.decorators import login_required
@@ -15,8 +13,6 @@ from blackrock.views import index
 
 admin.autodiscover()
 
-site_media_root = os.path.join(os.path.dirname(__file__), "../media")
-
 urlpatterns = [
     url('^accounts/', include('djangowind.urls')),
     url(r'^smoketest/', include('smoketest.urls')),
@@ -25,8 +21,6 @@ urlpatterns = [
     url(r'^admin/portal/import_cdrs', admin_cdrs_import),
     url(r'^admin/portal/readercycle', admin_readercycle),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^site_media/(?P<path>.*)$', serve,
-        {'document_root': site_media_root}),
     url(r'^uploads/(?P<path>.*)$', serve,
         {'document_root': settings.MEDIA_ROOT}),
     url(r'^sampler/', include('blackrock.sampler.urls')),
