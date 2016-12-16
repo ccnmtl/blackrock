@@ -1,5 +1,3 @@
-import os.path
-
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib.auth.decorators import login_required
