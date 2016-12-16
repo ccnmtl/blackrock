@@ -31,7 +31,7 @@
     .edit-container {
         margin: 20px 30px;
     }
-    
+
     .edit-container h1 {
         margin-bottom: 30px;
     }
@@ -40,7 +40,6 @@
 
 
 
-{% compress js %}
 <script type="text/javascript">
 var saveOrderOfChildren = function() {
     var url = "{% url 'reorder-section-children' section.id %}?";
@@ -100,8 +99,6 @@ $(function() {
   $("#edit-blocks-tab").disableSelection();
 });
 </script>
-
-{% endcompress %}
 {% endblock %}
 
 {% block moduletabs %}
