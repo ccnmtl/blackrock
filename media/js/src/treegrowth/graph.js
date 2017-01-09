@@ -139,15 +139,22 @@
                 };
             }
 
-            series.tooltip = {
-                pointFormatter: function() {
-                    var val = +this.y.toFixed(3);
-                    return '<span style="color:{' + this.color + '}">' +
-                        '\u25CF</span> ' + this.series.name + ': ' +
-                        '<strong>' + val + '</strong>' +
-                        '<br/>';
+            var pointFormatter = function() {
+                var unit = '';
+                if (this.series.options.tooltip.valueSuffix) {
+                    unit = this.series.options.tooltip.valueSuffix;
                 }
+                var val = +this.y.toFixed(3);
+                return '<span style="color:{' + this.color + '}">' +
+                    '\u25CF</span> ' + this.series.name + ': ' +
+                    '<strong>' + val + ' ' + unit +
+                    '</strong>' +
+                    '<br/>';
             };
+            if (!series.tooltip) {
+                series.tooltip = {};
+            }
+            series.tooltip.pointFormatter = pointFormatter;
 
             seriesOptions.push(series);
             yAxes.push(yAxis);
