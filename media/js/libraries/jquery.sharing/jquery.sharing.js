@@ -126,7 +126,7 @@ $('#my_div img').ImageZoom();
 	$.fn.Sharing.defaults = {
 		'text': 'Sharing: ',
 		'links': 'facebook,delicious,googlebookmarks,twitter,orkut,linkedin,digg,live',
-		'image_dir': '/img/sharing/',
+		'image_dir': STATIC_URL + '/img/sharing/',
 		'url': '', // default is the current url
 		'image': '', // default is without image. Just some websites support images
 		'title': '' // default is blank. Just some websites support titles
