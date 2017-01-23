@@ -152,26 +152,22 @@ if (!Portal.MapMarker) {
                 var infraIcon = infrastructure[0];
                 infraIcon = infraIcon.replace(/ /g, "");
                 infraIcon = infraIcon.replace("-", "");
-                iconUrl = 'https://' + location.hostname + ':' + location.port +
-                    "/media/images/portal/mapicon_" +
+                iconUrl = STATIC_URL + "images/portal/mapicon_" +
                     infraIcon.toLowerCase() + '.png';
             } else if (featured && featured.length) {
                 var featuredIcon = featured[0];
                 featuredIcon = featuredIcon.replace("Featured ", "");
-                iconUrl = 'https://' + location.hostname + ':' + location.port +
-                        "/media/images/portal/mapicon_" +
+                iconUrl = STATIC_URL + "images/portal/mapicon_" +
                         featuredIcon.toLowerCase() + '.png';
             } else if (iconName) {
                 if (iconName.indexOf("https:") === 0) {
                     iconUrl = iconName;
                 } else {
-                    iconUrl = 'https://' + location.hostname + ':' +
-                        location.port + "/media/images/portal/" +
+                    iconUrl = STATIC_URL + "images/portal/" +
                         iconName;
                 }
             } else {
-                iconUrl = 'https://' + location.hostname + ':' +
-                    location.port + "/media/images/portal/mapicon_main.png";
+                iconUrl = STATIC_URL + "images/portal/mapicon_main.png";
             }
 
             self.latlng = new google.maps.LatLng(lat, lng);

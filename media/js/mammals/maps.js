@@ -143,18 +143,20 @@ if (!Portal.MapMarker) {
                 var iconName = infrastructure[0];
                 iconName = iconName.replace(/ /g, "");
                 iconName = iconName.replace("-", "");
-                iconUrl = 'http://' + location.hostname + ':' + location.port + "/portal/media/images/mapicon_" + iconName.toLowerCase() + '.png';
+                iconUrl = STATIC_URL + "images/portal/mapicon_" +
+                    iconName.toLowerCase() + '.png';
             } else if (featured && featured.length) {
                 var iconName = featured[0];
                 iconName = iconName.replace("Featured ", "");
-                iconUrl = 'http://' + location.hostname + ':' + location.port + "/portal/media/images/mapicon_" + iconName.toLowerCase() + '.png';
+                iconUrl = STATIC_URL + "images/portal/mapicon_" +
+                    iconName.toLowerCase() + '.png';
             } else if (iconName) {
                 if (iconName.indexOf("http:") === 0)
                     iconUrl = iconName;
                 else
-                    iconUrl = 'http://' + location.hostname + ':' + location.port + "/portal/media/images/" + iconName;
+                    iconUrl = STATIC_URL + "images/portal/" + iconName;
             } else {
-                iconUrl = 'http://' + location.hostname + ':' + location.port + "/portal/media/images/mapicon_main.png";
+                iconUrl = STATIC_URL + "images/portal/mapicon_main.png";
             }
 
             self.latlng = new google.maps.LatLng(lat, lng);
