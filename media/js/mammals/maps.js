@@ -406,9 +406,11 @@ if (!Portal.Map) {
             var options = getElementsByTagAndClassName("input", "layer");
             forEach(options,
                     function(option) {
-                        var kmllayer = new Portal.Layer(option.id, "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/" + option.id + ".kml?grrrr=" + randomnumber, true);
+                        var url = STATIC_URL + "kml/" + option.id +
+                            ".kml?grrrr=" + randomnumber;
+                        var kmllayer = new Portal.Layer(option.id, url, true);
                         self.layers[option.id] = kmllayer;
-                        
+
                         connect(option, 'onclick', function(evt) {
                             self.events.signal(Portal, 'toggleLayer');
                          });
@@ -423,7 +425,9 @@ if (!Portal.Map) {
                     });
                 
 
-            var boundary = new Portal.Layer("brfboundary", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/brfboundary.kml?newcachebuster=" + randomnumber, false);
+            var baseUrl = STATIC_URL +
+                "kml/brfboundary.kml?newcachebuster=" + randomnumber;
+            var boundary = new Portal.Layer("brfboundary", baseUrl, false);
             boundary.instance.setMap(self.mapInstance);
 
             
