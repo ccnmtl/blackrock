@@ -179,7 +179,11 @@
                 borderWidth: 0
             },
             yAxis: yAxes,
-            series: seriesOptions
+            series: seriesOptions,
+            exporting: {
+                sourceWidth: 1024,
+                sourceHeight: 768
+            }
         });
     };
 
