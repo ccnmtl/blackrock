@@ -164,7 +164,26 @@
                 height: 600
             },
             rangeSelector: {
-                selected: 1
+                selected: 0,
+                buttons: [{
+                    type: 'week',
+                    count: 1,
+                    text: '1w'
+                }, {
+                    type: 'month',
+                    count: 1,
+                    text: '1m'
+                }, {
+                    type: 'month',
+                    count: 3,
+                    text: '3m'
+                }, {
+                    type: 'ytd',
+                    text: 'YTD'
+                }, {
+                    type: 'all',
+                    text: 'All'
+                }]
             },
             navigator: {
                 series: {
