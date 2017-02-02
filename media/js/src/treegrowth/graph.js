@@ -161,7 +161,21 @@
         }
         $('#plot-container').highcharts('StockChart', {
             chart: {
-                height: 600
+                height: 600,
+                plotBackgroundColor: {
+                    linearGradient: {
+                        x1: 0,
+                        y1: 0,
+                        x2: 0,
+                        y2: 1
+                    },
+                    stops: [
+                        [0, 'rgb(255, 255, 255)'],
+                        [0.65, 'rgb(255, 255, 255)'],
+                        [0.65, 'rgb(240, 240, 255)'],
+                        [1, 'rgb(240, 240, 255)']
+                    ]
+                }
             },
             rangeSelector: {
                 selected: 0,
