@@ -73,6 +73,7 @@
                     stdDevData.push(candlestick);
                 }
                 series = {
+                    showInNavigator: false,
                     type: 'candlestick',
                     name: newHeaderNames[i],
                     data: stdDevData,
@@ -100,7 +101,13 @@
                     isVisible = false;
                 }
 
+                var showInNavigator = false;
+                if (i === 5) {
+                    showInNavigator = true;
+                }
+
                 series = {
+                    showInNavigator: showInNavigator,
                     name: newHeaderNames[i],
                     data: data[i],
                     yAxis: i,
@@ -196,6 +203,9 @@
                 align: 'right',
                 verticalAlign: 'middle',
                 borderWidth: 0
+            },
+            scrollbar: {
+                enabled: false
             },
             xAxis: {
                 dateTimeLabelFormats: {
