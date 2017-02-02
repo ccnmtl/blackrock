@@ -178,6 +178,12 @@
                 verticalAlign: 'middle',
                 borderWidth: 0
             },
+            xAxis: {
+                dateTimeLabelFormats: {
+                    day: '%e %b',
+                    week: '%e %b'
+                }
+            },
             yAxis: yAxes,
             series: seriesOptions,
             exporting: {
