@@ -184,6 +184,16 @@
                     ]
                 }
             },
+            colors: [
+                // Site 1
+                '#FF8A80', '#EA80FC', '#FF1744', '#D500F9', '#C51162',
+                '#E91E63', '#880E4F',
+                // Site 2
+                '#80D8FF', '#A7FFEB', '#00B0FF', '#1DE9B6', '#00B8D4',
+                '#00BCD4', '#006064',
+                // Environmental data
+                '#FF9800', '#FDD835', '#3D5AFE', '#795548', '#757575'
+            ],
             rangeSelector: {
                 selected: 0,
                 buttons: [{
