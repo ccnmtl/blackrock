@@ -7,8 +7,10 @@
     var MNT_MISERY_DATA = BASE_PATH + 'Mnt_Misery_Table20.csv';
     var WHITE_OAK_DATA = BASE_PATH + 'White_Oak_Table20.csv';
     var ENV_DATA = BASE_PATH + 'Lowland.csv';
+    var graphData = null;
 
     var initGraph = function(data) {
+        graphData = data;
         var seriesOptions = [];
         var yAxes = [];
         var headers = [
@@ -244,7 +246,20 @@
             series: seriesOptions,
             exporting: {
                 sourceWidth: 1024,
-                sourceHeight: 768
+                sourceHeight: 768,
+                buttons: {
+                    customButton: {
+                        y: 36,
+                        align: 'right',
+                        text: 'Reset selections',
+                        theme: {
+                            stroke: '#cccccc'
+                        },
+                        onclick: function() {
+                            initGraph(graphData);
+                        }
+                    }
+                }
             }
         });
     };
