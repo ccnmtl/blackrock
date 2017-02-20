@@ -1,3 +1,14 @@
 .graph-note {
     margin-left: 10px;
 }
+
+img.treegrowth-banner {
+    max-width: 100%;
+}
+
+img.treegrowth-right {
+    display: block;
+    float: right;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}

@@ -1,4 +1,5 @@
 {% extends 'treegrowth/base_treegrowth.html' %}
+{% load static %}
 
 {% block breadcrumbs %}
     <ul class="breadcrumbs">
@@ -9,9 +10,55 @@
 
 {% block content %}
     <div id="contentcontainer">
+        <img class="treegrowth-banner"
+             src="{% static 'images/treegrowth/treegrowth-banner.jpg' %}">
+
         <h3>Welcome to the Tree Growth Module!</h3>
 
-        <div class="landingText">
-        </div>
+        <img class="treegrowth-right"
+             width="400"
+             height="533.33"
+             src="{% static 'images/treegrowth/dendrometer.jpg' %}">
+
+        <p>
+            The tree growth graphing tool is a resource for
+            instructors looking to develop students' data
+            interpretation and analysis skills using real-time tree
+            growth and environmental data from Black Rock Forest.
+        </p>
+        <p>
+            In the Summer of 2016, 5 point dendrometers were installed
+            on oak trees in each of two sites in Black Rock
+            Forest. The dendrometers monitor changes in the diameters
+            of the tree stems, 1.4 meters off the ground.  We are
+            measuring the diameter every 60 seconds and then recording
+            the 20 minute average. Environmental conditions at Black
+            Rock Forest including air temperature, total rain, soil
+            moisture and atmospheric vapor pressure, are also recorded
+            nearby on the same 20 minute intervals. These real-time
+            measurements are collected and displayed on the tree
+            growth graphing tool, making it possible to "watch trees
+            grow" and relate the changes to the ambient and antecedent
+            environmental conditions.
+        </p>
+        <p>
+            Highlights of the tool include:
+            <ul>
+                <li>
+                    Manipulating which variables are displayed by the
+                    graphing tool, including the growth of individual
+                    trees and average tree growth for each site.
+                </li>
+                <li>Changing the time interval displayed.</li>
+                <li>Downloading the graph as an image file or PDF.</li>
+                <li>Downloading data tables for further analysis.</li>
+            </ul>
+        </p>
+        <p>
+            The tree growth graphing tool was developed in
+            collaboration with Dr. Kevin Griffin and Dr. Matt Palmer
+            at Columbia University.
+        </p>
+
     </div>
 {% endblock %}
