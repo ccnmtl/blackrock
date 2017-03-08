@@ -14,3 +14,8 @@ include *.mk
 makemessages: check jenkins
 	$(MANAGE) makemessages -l es --ignore="ve" --ignore="login.html" --ignore="password*.html"
 	$(MANAGE) compilemessages
+
+eslint: $(JS_SENTINAL)
+	$(NODE_MODULES)/.bin/eslint $(JS_FILES)
+
+.PHONY: makemessages eslint
