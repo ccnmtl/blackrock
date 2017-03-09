@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load static %}
 
 <!DOCTYPE html>
 <head>
@@ -40,7 +40,12 @@
     {% block overlay %}{% endblock %}
 
 <div id="masthead_top">
-<a href="http://welcome.ccnmtl.columbia.edu/"><span id="ccnmtl"></span></a>
+    <a href="http://ctl.columbia.edu/">
+        <img id="ctl_logo"
+             width="200"
+             class="img-responsive"
+             src="{% static 'images/ctl-logo-white.png' %}">
+    </a>
 <a href="/"><span id="brf"></span></a>
 </div>
 
