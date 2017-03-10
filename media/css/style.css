@@ -46,16 +46,13 @@ h1#masthead a
     display: block;
 }
 
-#ccnmtl
-{
-	margin: 15px;
-	padding: 0;
-	background-image: url(../images/logo_ccnmtl.gif);
-	background-repeat: no-repeat;
-	width: 105px;
-	height: 41px;
-	float: right;
-	background-color: #1F2A1E;
+img#ctl_logo {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 15px;
+    padding: 0;
+    float: right;
 }
 
 #wrapper
