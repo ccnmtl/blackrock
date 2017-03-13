@@ -228,8 +228,6 @@
      * downloads and parses these files, and initiates the graph.
      */
     var getData = function(mntMiseryPath, whiteOakPath, environmentalPath) {
-        var timestamp = (new Date()).getTime();
-
         var $dfd1 = $.Deferred();
         downloadAndParse($dfd1, mntMiseryPath);
 
