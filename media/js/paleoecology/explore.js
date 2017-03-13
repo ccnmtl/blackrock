@@ -2,22 +2,25 @@ var visible = null;
 var global_http_request;
 
 var images = [
-    ['Abies (Fir)', 'Alnus (Alder)', 'Asteraceae (Ragweed & herbs)',
-     'Betula (Birch)', 'Carya (Hickory)',
-     'Castanea dentata (American Chestnut)',
-     'Cyperaceae (Sedge)', 'Fagus grandifolia (American Beech)',
-     'Fraxinus (Ash)', 'Gramineae (Grasses)', 'Ostrya/Carpinus',
-     'Picea (Spruce)',
-     'Pinus (Pine)', 'Quercus (Oak)', 'Tsuga canadensis (Eastern Hemlock)'],
-    ['id02.jpg', 'id03.jpg', 'id04.jpg', 'id05.jpg', 'id08.jpg', 'id09.jpg',
-     'id10.jpg', 'id11.jpg', 'id12.jpg', 'id13.jpg', 'id14.jpg', 'id16.jpg',
-     'id18.jpg', 'id19.jpg', 'id21.jpg']
+    [
+        'Abies (Fir)', 'Alnus (Alder)', 'Asteraceae (Ragweed & herbs)',
+        'Betula (Birch)', 'Carya (Hickory)',
+        'Castanea dentata (American Chestnut)',
+        'Cyperaceae (Sedge)', 'Fagus grandifolia (American Beech)',
+        'Fraxinus (Ash)', 'Gramineae (Grasses)', 'Ostrya/Carpinus',
+        'Picea (Spruce)',
+        'Pinus (Pine)', 'Quercus (Oak)', 'Tsuga canadensis (Eastern Hemlock)'],
+    [
+        'id02.jpg', 'id03.jpg', 'id04.jpg', 'id05.jpg', 'id08.jpg', 'id09.jpg',
+        'id10.jpg', 'id11.jpg', 'id12.jpg', 'id13.jpg', 'id14.jpg', 'id16.jpg',
+        'id18.jpg', 'id19.jpg', 'id21.jpg']
 ];
 
 //colors for pie charts (need 16 colors, 15 pollen types + 'other')
-var colors = ['A6CEE3', '1F78B4', 'B2DF8A', '33A02C', 'FB9A99', 'E31A1C',
-              'FDBF6F', 'FF7F00', 'CAB2D6', '6A3D9A', 'FFD700',
-              'A0522D', '336633', '696969', 'A9A9A9', 'EBEBEB'];
+var colors = [
+    'A6CEE3', '1F78B4', 'B2DF8A', '33A02C', 'FB9A99', 'E31A1C',
+    'FDBF6F', 'FF7F00', 'CAB2D6', '6A3D9A', 'FFD700',
+    'A0522D', '336633', '696969', 'A9A9A9', 'EBEBEB'];
 
 function getImage(name) {
     for (var idx = 0; idx < images[0].length; idx++) {
