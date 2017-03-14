@@ -4,6 +4,19 @@ module.exports = {
         "jquery": true
     },
     "extends": "eslint:recommended",
+    "globals": {
+        "addLoadEvent": true,
+        "connect": true,
+        "doXHR": true,
+        "evalJSON": true,
+        "forEach": true,
+        "getElementsByTagAndClassName": true,
+        "hasElementClass": true,
+        "hideElement": true,
+        "log": true,
+        "removeElementClass": true,
+        "showElement": true
+    },
     "rules": {
         "indent": [
             "error",

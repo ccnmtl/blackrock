@@ -7,7 +7,7 @@ JS_FILES=media/js/paleoecology/explore.js media/js/src
 
 MAX_COMPLEXITY=7
 
-all: jenkins
+all: eslint jenkins
 
 include *.mk
 

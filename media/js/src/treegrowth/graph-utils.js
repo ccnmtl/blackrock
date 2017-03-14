@@ -42,7 +42,6 @@ if (typeof Treegrowth === 'undefined') {
                     newData.push([]);
                 }
                 if (!newData[j - 1]) {
-                    console.error('splitData error:', newData);
                     continue;
                 }
                 newData[j - 1].push([
