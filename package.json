@@ -16,7 +16,7 @@
     "url": "https://github.com/ccnmtl/blackrock/issues"
   },
   "devDependencies": {
-    "eslint": "~3.17.1",
+    "eslint": "~3.18.0",
     "jscs": "~3.0.7",
     "jshint": "~2.9.3",
     "mocha": "~3.2.0"
