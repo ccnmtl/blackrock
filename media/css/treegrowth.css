@@ -12,3 +12,16 @@ img.treegrowth-right {
     margin-left: 20px;
     margin-bottom: 20px;
 }
+
+#plot-container {
+    min-height: 300px;
+}
+
+#plot-container .loader .ball-pulse {
+    margin-top: 150px;
+    text-align: center;
+}
+
+.loader .ball-pulse > div {
+    background-color: #000;
+}

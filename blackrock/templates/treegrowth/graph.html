@@ -23,7 +23,16 @@
 {% endblock %}
 
 {% block content %}
-    <div id="plot-container"></div>
+    <link href="{% static 'css/loaders.min.css' %}" media="all" rel="stylesheet" />
+    <div id="plot-container">
+        <div class="loader">
+            <div class="loader-inner ball-pulse">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
     <small class="graph-note">
         The navigator graph displays the Site 1 AVG.
     </small>
