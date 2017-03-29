@@ -85,15 +85,15 @@
     settings: {
       opacity      : 0.2,
       overlay      : true,
-      loadingImage : '/media/img/loading.gif',
-      closeImage   : '/media/img/closelabel.png',
+      loadingImage : STATIC_URL + 'img/loading.gif',
+      closeImage   : STATIC_URL + 'img/closelabel.png',
       imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
       faceboxHtml  : '\
     <div id="facebox" style="display:none;"> \
       <div class="popup"> \
         <div class="content"> \
         </div> \
-        <a href="#" class="close"><img src="/media/img/closelabel.png" title="close" class="close_image" /></a> \
+        <a href="#" class="close"><img src="' + STATIC_URL + 'img/closelabel.png" title="close" class="close_image" /></a> \
       </div> \
     </div>'
     },

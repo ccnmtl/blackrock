@@ -1,3 +1,5 @@
+/* global STATIC_URL */
+
 var visible = null;
 var global_http_request;
 
@@ -65,7 +67,7 @@ function showResults(http_request) {
     var countString = '<br />';
     for (var i = 0; i < pollen.length; i++) {
         var imgString = '<div class="pollen-zoo-image core">' +
-            '<div id="pollen-image"><img src="/media/' +
+            '<div id="pollen-image"><img src="' + STATIC_URL +
             'images/paleoecology/pollen/' +
             getImage(pollen[i]) + '"/></div>';
         countString += imgString + '<div class="imagename"><b>' + pollen[i] +
