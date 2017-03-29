@@ -70,6 +70,7 @@ INSTALLED_APPS += [  # noqa
     'blackrock.waterquality',
     'blackrock.mammals',
     'bootstrapform',
+    'django_extensions',
     'django.contrib.humanize'
 ]
 
