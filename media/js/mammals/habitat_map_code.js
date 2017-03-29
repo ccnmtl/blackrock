@@ -342,7 +342,7 @@ function add_show_square_mouseout (rect, thing) {
 
 
 function draw_disk_html (disk_path) {
-    return "<img class='habitat_legend_disk' src='" + disk_path + "'/>" ;
+    return "<img class='habitat_legend_disk' src='" + STATIC_URL + disk_path + "'/>" ;
 }
 
 function show_little_habitat_disks() {
