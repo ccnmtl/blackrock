@@ -1,6 +1,6 @@
 from blackrock.sampler.models import Tree, Location
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 import csv
 import math
 
@@ -66,7 +66,7 @@ def import_csv_table(table, id_idx, species_idx, x_idx, y_idx, dbh_idx):
 
 
 def index(request):
-    return render_to_response('sampler/index.html')
+    return render(request, 'sampler/index.html')
 
 
 def plot(request):
@@ -93,7 +93,7 @@ def plot(request):
                    'max_y': max_y,
                    })
 
-    return render_to_response('sampler/plot.html', arglist)
+    return render(request, 'sampler/plot.html', arglist)
 
 
 def transect(request):
@@ -145,22 +145,22 @@ def transect(request):
         xlocs[tree.id] = new_x
         ylocs[tree.id] = new_y
 
-    return render_to_response('sampler/transect.html', {
-                              'trees': tree_list,
-                              'scale': scale,
-                              'x_offset': x_offset,
-                              'y_offset': y_offset,
-                              'xlocs': xlocs,
-                              'ylocs': ylocs,
-                              'plot_w': request.POST['plot-w'],
-                              'plot_h': request.POST['plot-h'],
-                              'view_height': view_height,
-                              'view_width': view_width,
-                              'transect_start_x': transect_start_x,
-                              'transect_start_y': transect_start_y,
-                              'transect_end_x': transect_end_x,
-                              'transect_end_y': transect_end_y,
-                              })
+    return render(request, 'sampler/transect.html', {
+        'trees': tree_list,
+        'scale': scale,
+        'x_offset': x_offset,
+        'y_offset': y_offset,
+        'xlocs': xlocs,
+        'ylocs': ylocs,
+        'plot_w': request.POST['plot-w'],
+        'plot_h': request.POST['plot-h'],
+        'view_height': view_height,
+        'view_width': view_width,
+        'transect_start_x': transect_start_x,
+        'transect_start_y': transect_start_y,
+        'transect_end_x': transect_end_x,
+        'transect_end_y': transect_end_y,
+    })
 
 
 def calculate_theta(x1, x2, y1, y2):
@@ -235,23 +235,23 @@ def worksheet(request):
         xlocs[tree.id] = new_x  # + 30
         ylocs[tree.id] = new_y  # + 16
 
-    return render_to_response('sampler/worksheet.html', {
-                              'trees': tree_list,
-                              'xlocs': xlocs,
-                              'ylocs': ylocs,
-                              'range': range(1, 21),
-                              'transect_start_x': x1,
-                              'transect_start_y': y1,
-                              'transect_end_x': x2,
-                              'transect_end_y': y2,
-                              'scale': scale,
-                              'x_offset': x_offset,
-                              'y_offset': y_offset,
-                              'plot_w': request.POST['plot-w'],
-                              'plot_h': request.POST['plot-h'],
-                              'view_height': view_height,
-                              'view_width': view_width,
-                              })
+    return render(request, 'sampler/worksheet.html', {
+        'trees': tree_list,
+        'xlocs': xlocs,
+        'ylocs': ylocs,
+        'range': range(1, 21),
+        'transect_start_x': x1,
+        'transect_start_y': y1,
+        'transect_end_x': x2,
+        'transect_end_y': y2,
+        'scale': scale,
+        'x_offset': x_offset,
+        'y_offset': y_offset,
+        'plot_w': request.POST['plot-w'],
+        'plot_h': request.POST['plot-h'],
+        'view_height': view_height,
+        'view_width': view_width,
+    })
 
 
 def adjust_theta_by_quadrant(theta, x1, x2, y1, y2):
@@ -292,4 +292,4 @@ def export_csv(request):
 
 
 def csv_info(request):
-    return render_to_response('sampler/csvinfo.html')
+    return render(request, 'sampler/csvinfo.html')

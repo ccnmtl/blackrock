@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, \
     PageNotAnInteger
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
 from re import match
@@ -49,7 +49,8 @@ class rendered_with(object):
         def rendered_func(request, *args, **kwargs):
             items = func(request, *args, **kwargs)
             if isinstance(items, dict):
-                return render_to_response(
+                return render(
+                    request,
                     self.template_name, items,
                     context_instance=RequestContext(request))
             else:

@@ -3,7 +3,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
 from django.core.cache import cache
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.template import RequestContext
 from pysolr import Solr
 import csv
@@ -14,7 +14,7 @@ import json
 
 def index(request, admin_msg=""):
     ctx = RequestContext(request, {'admin_messages': admin_msg})
-    return render_to_response('paleoecology/index.html', context_instance=ctx)
+    return render(request, 'paleoecology/index.html', context_instance=ctx)
 
 
 def explore(request):
@@ -30,10 +30,10 @@ def explore(request):
 
     samples = [float(sample.depth) for sample in samples]
 
-    return render_to_response('paleoecology/core-explore.html',
-                              {'samples': samples,
-                               'cores': cores,
-                               'intervals': intervals})
+    return render(request, 'paleoecology/core-explore.html',
+                  {'samples': samples,
+                   'cores': cores,
+                   'intervals': intervals})
 
 
 def getpercents(request):
