@@ -92,15 +92,15 @@ function lat_lng_from_point(point ) {
 function addTrails (mapObj) {
     var self = mapObj;
     
-    var trails_kmllayer = new Portal.Layer("trails", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/trails.kml", true);
+    var trails_kmllayer = new Portal.Layer("trails", STATIC_URL + "kml/portal/trails.kml", true);
     self.layers["trails"] = trails_kmllayer;
     trails_kmllayer.instance.setMap(self.mapInstance);
     
-    var roads_kmllayer = new Portal.Layer("roads", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/roads.kml", true);
+    var roads_kmllayer = new Portal.Layer("roads", STATIC_URL + "kml/portal/roads.kml", true);
     self.layers["roads"] = roads_kmllayer;
     roads_kmllayer.instance.setMap(self.mapInstance);
     
-    var buildings_kmllayer = new Portal.Layer("roads", "http://blackrock.ccnmtl.columbia.edu/portal/media/kml/buildings.kml", true);
+    var buildings_kmllayer = new Portal.Layer("roads", STATIC_URL + "kml/portal/buildings.kml", true);
     self.layers["buildings"] = buildings_kmllayer;
     buildings_kmllayer.instance.setMap(self.mapInstance);
     
