@@ -7,7 +7,7 @@ from django.core.cache import cache
 from django.db import connection
 from django.http import HttpResponse, HttpResponseRedirect, \
     HttpResponseForbidden
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.template import RequestContext
 from json import dumps
 from django.utils.tzinfo import FixedOffset
@@ -21,8 +21,8 @@ import urllib
 
 def index(request, admin_msg=""):
     ctx = RequestContext(request, {'admin_messages': admin_msg})
-    return render_to_response('respiration/index.html',
-                              context_instance=ctx)
+    return render(request, 'respiration/index.html',
+                  context_instance=ctx)
 
 
 def leaf(request):
@@ -63,10 +63,10 @@ def leaf(request):
             species['percent'] = request.POST[s + '-percent']
             myspecies.append(species)
 
-    return render_to_response(
-        'respiration/leaf.html', {'numspecies': len(myspecies),
-                                  'specieslist': myspecies,
-                                  'scenario_options': scenario_options})
+    return render(request, 'respiration/leaf.html', {
+        'numspecies': len(myspecies),
+        'specieslist': myspecies,
+        'scenario_options': scenario_options})
 
 
 def forest(request):
@@ -107,7 +107,7 @@ def forest(request):
 
     myspecies = get_myspecies(specieslist, request)
 
-    return render_to_response('respiration/forest.html', {
+    return render(request, 'respiration/forest.html', {
         'stations': station_names,
         'years': year_options,
         'numspecies': len(myspecies),

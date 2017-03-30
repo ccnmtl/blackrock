@@ -14,7 +14,7 @@ from django.core import management
 from django.core.cache import cache
 from django.db.models import get_model, DateField
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.template import RequestContext, Context
 from django.utils.tzinfo import FixedOffset
 from django.contrib.gis.geos import fromstr
@@ -33,9 +33,9 @@ class rendered_with(object):
             items = func(request, *args, **kwargs)
             if isinstance(items, type({})):
                 ctx = RequestContext(request)
-                return render_to_response(self.template_name,
-                                          items,
-                                          context_instance=ctx)
+                return render(request, self.template_name,
+                              items,
+                              context_instance=ctx)
             else:
                 return items
 
@@ -229,7 +229,7 @@ def process_dataset_meta_fields(dataset, values):
 @user_passes_test(lambda u: u.is_staff)
 def admin_cdrs_import(request):
     if (request.method != 'POST'):
-        return render_to_response('portal/admin_cdrs.html', {})
+        return render(request, 'portal/admin_cdrs.html', {})
 
     created = 0
     updated = 0
@@ -314,7 +314,7 @@ def admin_rebuild_index(request):
         sys.stdout = sys.__stdout__
         ctx['results'] = the_buffer.getvalue().split('\n')[1:-2]
 
-    return render_to_response('portal/admin_solr.html', context_instance=ctx)
+    return render(request, 'portal/admin_solr.html', context_instance=ctx)
 
 
 def admin_readercycle(request):

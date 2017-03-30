@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http import HttpResponseBadRequest
 from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from blackrock.optimization.models import Tree, Plot
 import csv
 import math
@@ -56,12 +56,12 @@ class Species:
 
 
 def index(request, admin_msg=""):
-    return render_to_response('optimization/index.html',
-                              context_instance=RequestContext(request))
+    return render(request, 'optimization/index.html',
+                  context_instance=RequestContext(request))
 
 
 def run(request):
-    return render_to_response('optimization/run.html')
+    return render(request, 'optimization/run.html')
 
 
 def calculate(request):
@@ -728,4 +728,4 @@ def tree_png(request):
 def test(request):
     trees = Tree.objects.all()
     Plot.objects.get(name="Mount Misery Plot")
-    return render_to_response("optimization/test.html", {'trees': trees})
+    return render(request, "optimization/test.html", {'trees': trees})
