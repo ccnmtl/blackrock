@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http import HttpResponseBadRequest
 from django.template import RequestContext
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from blackrock.optimization.models import Tree, Plot
 import csv
 import math
@@ -73,7 +73,7 @@ def calculate(request):
     size = float(request.REQUEST['size'])
     arrangement = request.REQUEST['plotArrangement']
 
-    parent = Plot.objects.get(name=DEFAULT_PLOT)
+    parent = get_object_or_404(Plot, name=DEFAULT_PLOT)
     results = {
         'input': {
             'num_plots': num_plots,
@@ -480,7 +480,7 @@ def trees_csv(request):
     ])
 
     results = json.loads(request.POST['results'])
-    parent = Plot.objects.get(name=DEFAULT_PLOT)
+    parent = get_object_or_404(Plot, name=DEFAULT_PLOT)
 
     sample = RandomSample(results['input']['shape'],
                           results['input']['size'],
@@ -691,7 +691,7 @@ def import_csv_table(table, id_idx, species_idx, x_idx, y_idx, dbh_idx, p):
 
 
 def tree_png(request):
-    parent = Plot.objects.get(name=DEFAULT_PLOT)
+    parent = get_object_or_404(Plot, name=DEFAULT_PLOT)
     image_margin = 10  # solves problem of error range in the MULTIPLIER
     x_delta = float(parent.width) * MULTIPLIER
     y_delta = float(parent.height) * MULTIPLIER
