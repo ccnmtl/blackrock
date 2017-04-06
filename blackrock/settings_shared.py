@@ -6,6 +6,8 @@ project = 'blackrock'
 base = os.path.dirname(__file__)
 locals().update(common(project=project, base=base))
 
+SPATIALITE_LIBRARY_PATH = 'mod_spatialite'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
