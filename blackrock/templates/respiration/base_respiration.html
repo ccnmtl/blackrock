@@ -4,15 +4,8 @@
 
 {% block title %}Tree Respiration{% endblock %}
 
-{% block css %} 
-<style type='text/css'>
-  @import "{% static 'css/respiration/style.css' %}";
-</style> 
-<!--[if IE]>
-<style type='text/css'>
-  @import "{% static '/css/respiration/style_ie.css' %}";
-</style> 
-<![endif]-->
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/respiration/style.css' %}" media="screen" />
 {% endblock %} 
 
 {% block js %} 
