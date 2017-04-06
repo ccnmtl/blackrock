@@ -113,7 +113,7 @@ MAX_DATA_COUNT = 12000
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://wwwappdev.cc.columbia.edu/ccnmtl/solr/blackrock_portal',
+        'URL': 'http://localhost:8080/solr/blackrock_portal',
         'TIMEOUT': 60 * 5,
         'INCLUDE_SPELLING': True,
         'BATCH_SIZE': 10,
