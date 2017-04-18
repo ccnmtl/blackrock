@@ -1,3 +1,4 @@
+import platform
 import os.path
 import sys
 from ccnmtlsettings.shared import common
@@ -6,7 +7,15 @@ project = 'blackrock'
 base = os.path.dirname(__file__)
 locals().update(common(project=project, base=base))
 
-SPATIALITE_LIBRARY_PATH = 'mod_spatialite'
+if platform.linux_distribution()[1] != '14.04':
+    # 15.04 and later need this set, but it breaks
+    # on trusty.
+    # yeah, it's not really going to work on non-Ubuntu
+    # systems either, but I don't know a good way to
+    # check for the specific issue. Anyone not running
+    # ubuntu will just need to set this to the
+    # appropriate value in their local_settings.py
+    SPATIALITE_LIBRARY_PATH = 'mod_spatialite'
 
 DATABASES = {
     'default': {
