@@ -7,6 +7,6 @@ install:
   - ./bootstrap.py
 script:
   - make jstest
-  - make
+  - make jenkins
 notifications:
   slack: ccnmtl:GizSNscLWJLldjQrffB8mwgm
