@@ -73,7 +73,7 @@ prompt_toolkit==1.0.14
 pygments==2.2.0
 scandir==1.5
 ipython==5.3.0
-ipdb==0.10.2
+ipdb==0.10.3
 
 djangowind==1.0.0
 sorl==3.1
