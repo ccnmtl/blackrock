@@ -40,7 +40,7 @@ statsd==3.2.1
 six==1.10.0
 python-dateutil==2.6.0
 Faker==0.7.11
-contextlib2==0.5.4
+contextlib2==0.5.5
 argparse==1.4.0
 cffi==1.10.0
 colorama==0.3.8
