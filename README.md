@@ -40,3 +40,15 @@ blackrock=# drop table geometry_columns;
 blackrock=# create extension postgis;
 ```
 Then you should be able to run the migrations. I'm guessing this happens because of a version mis-match between the postgres/postgis used to export the database, and the versions in the local environment. This happened to me on Ubuntu 16.04.
+
+DOCKER-COMPOSE
+--------------
+
+If you have docker-compose installed, you can do:
+
+    $ make build
+    $ docker-compose up                # C-c it after postgis
+                                       # initializes itself (there will be a bunch of errors from the web
+                                       # container in the meantime)
+    $ docker-compose run web migrate   # to set up database schema
+    $ docker-compose up
