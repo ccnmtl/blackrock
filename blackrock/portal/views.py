@@ -56,9 +56,13 @@ def page(request, path):
     asset_type = request.GET.get('type', None)
     asset_id = request.GET.get('id', None)
 
+    root = None
+    if len(ancestors) > 0:
+        root = ancestors[0]
+
     context = dict(section=section,
                    module=module,
-                   root=ancestors[0])
+                   root=root)
 
     if asset_type and asset_id:
         try:
