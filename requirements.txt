@@ -17,7 +17,7 @@ pyenchant==1.6.7
 uuid==1.30
 psycopg2==2.7.1
 Pillow==4.1.1
-requests==2.13.0
+requests==2.14.2
 pysolr==3.6.0
 gdata==2.0.14
 django-tinymce==2.6.0
