@@ -1,4 +1,3 @@
---index-url https://pypi.ccnmtl.columbia.edu/
 # local pysqlite that is configured to load C extensions
 # see: https://docs.djangoproject.com/en/dev/ref/contrib/gis/install/spatialite/#pysqlite2
 requirements/src/pysqlite-2.6.3.tar.gz
@@ -9,8 +8,7 @@ selector==0.10.1
 Paste==2.0.3
 PasteDeploy==1.5.2
 PasteScript==2.0.2
-cdap==1.0
-httplib2==0.10.2
+httplib2==0.10.3
 feedparser==5.2.1
 Markdown==2.6.8
 pyenchant==1.6.7
@@ -19,7 +17,7 @@ psycopg2==2.7.1
 Pillow==4.1.1
 requests==2.14.2
 pysolr==3.6.0
-gdata==2.0.14
+requirements/src/gdata-2.0.14.tar.gz
 django-tinymce==2.6.0
 BeautifulSoup==3.2.1
 coverage==4.4.1
@@ -76,8 +74,8 @@ ipython==5.3.0
 ipdb==0.10.3
 
 djangowind==1.0.0
-sorl==3.1
-tagging==0.3-pre
+requirements/src/sorl-3.1.tar.gz
+requirements/src/tagging-0.3-pre.tar.gz
 template_utils==0.4p2
 django-indexer==0.3.0
 django-templatetag-sugar==1.0
@@ -86,7 +84,7 @@ django-paging==0.2.5
 django-appconf==1.0.2
 django-compressor==2.1.1
 raven==6.1.0
-django-googlecharts==1.0-alpha-1
+requirements/src/django-googlecharts-1.0-alpha-1.tar.gz
 django-jenkins==0.110.0
 django-stagingcontext==0.1.0
 django-smoketest==1.0.0
@@ -99,8 +97,8 @@ django-bootstrap-form==3.2.1
 django-bootstrap3==8.2.3
 django-markwhat==1.5.1
 django-pagetree==1.3.2
-django-pageblocks==1.0.4
-django-databrowse==2017.02.14ccnmtl
+django-pageblocks==1.1.0
+requirements/src/django-databrowse-2017.02.14ccnmtl.tar.gz
 factory_boy==2.8.1
 
 django-debug-toolbar==1.8
