@@ -54,3 +54,5 @@ If you have docker-compose installed, you can do:
                                        # container in the meantime)
     $ docker-compose run web migrate   # to set up database schema
     $ docker-compose up
+
+trivial change to test requires.io
