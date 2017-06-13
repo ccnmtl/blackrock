@@ -20,6 +20,7 @@ class GetBreakdownCount(TemplateTagNode):
     def execute_query(self, id_within_facet, facet, breakdown):
         return 'hi'
 
+
 register.tag('get_breakdown_count', GetBreakdownCount.process_tag)
 
 """{% load mammals_templatetags %}

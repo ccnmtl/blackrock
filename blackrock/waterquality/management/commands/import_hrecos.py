@@ -11,6 +11,7 @@ def get_datetime(row):
     hour = int(row[1].split(":")[0])
     return "%s %02d:00:00" % (date, hour)
 
+
 BLACKOUT_DATES = [
     (9, [10, 11, 15, 16, 18, 21]),
     (10, [20, 23, 24, 25, 30]),

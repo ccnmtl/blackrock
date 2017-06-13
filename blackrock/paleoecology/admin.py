@@ -17,6 +17,7 @@ class PollenTypeAdmin(admin.ModelAdmin):
     list_display = ('name', 'type')
     ordering = ('name',)
 
+
 admin.site.register(CoreSample, CoreSampleAdmin)
 admin.site.register(PollenSample, PollenSampleAdmin)
 admin.site.register(PollenType, PollenTypeAdmin)

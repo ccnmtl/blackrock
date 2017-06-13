@@ -163,6 +163,7 @@ def getsum(request):
     json = '{"total": %s}' % round(total_mol, 2)
     return HttpResponse(json, content_type="application/javascript")
 
+
 _filters = 'station start end year'.split()
 
 

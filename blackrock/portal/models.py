@@ -209,6 +209,7 @@ def update_location_geometry(sender, **kwargs):
     obj = kwargs['instance']
     obj.latlong = "POINT(%s %s)" % (obj.latitude, obj.longitude)
 
+
 pre_save.connect(update_location_geometry, sender=Location)
 
 
