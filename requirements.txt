@@ -15,7 +15,7 @@ pyenchant==1.6.8
 uuid==1.30
 psycopg2==2.7.1
 Pillow==4.1.1
-requests==2.14.2
+requests==2.17.3
 pysolr==3.6.0
 requirements/src/gdata-2.0.14.tar.gz
 django-tinymce==2.6.0
