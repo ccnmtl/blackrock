@@ -21,7 +21,7 @@ idna==2.5
 urllib3==1.21.1
 certifi==2017.4.17
 
-requests==2.17.3
+requests==2.18.0
 pysolr==3.6.0
 requirements/src/gdata-2.0.14.tar.gz
 django-tinymce==2.6.0
