@@ -19,4 +19,5 @@ notifications:
 addons:
   apt:
     packages:
+      - enchant
       - libgdal-dev
