@@ -197,6 +197,13 @@
                         }
                     }
                 }
+            },
+            plotOptions: {
+                line: {
+                    dataGrouping: {
+                        enabled: false
+                    }
+                }
             }
         });
     };
