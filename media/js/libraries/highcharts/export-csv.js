@@ -3,7 +3,7 @@
  *
  * Author:   Torstein Honsi
  * Licence:  MIT
- * Version:  1.4.6
+ * Version:  1.4.8
  */
 /*global Highcharts, window, document, Blob */
 (function (factory) {
@@ -24,8 +24,7 @@
     Highcharts.setOptions({
         lang: {
             downloadCSV: 'Download CSV',
-            downloadXLS: 'Download XLS',
-            viewData: 'View data table'
+            downloadXLS: 'Download XLS'
         }
     });
 
@@ -68,21 +67,21 @@
                 xAxisIndex = Highcharts.inArray(series.xAxis, xAxes),
                 j;
 
-            // Build a lookup for X axis index and the position of the first
-            // series that belongs to that X axis. Includes -1 for non-axis
-            // series types like pies.
-            if (!Highcharts.find(xAxisIndices, function (index) {
-                return index[0] === xAxisIndex;
-            })) {
-                xAxisIndices.push([xAxisIndex, i]);
-            }
-
             // Map the categories for value axes
             each(pointArrayMap, function (prop) {
                 categoryMap[prop] = (series[prop + 'Axis'] && series[prop + 'Axis'].categories) || [];
             });
 
             if (series.options.includeInCSVExport !== false && series.visible !== false) { // #55
+
+                // Build a lookup for X axis index and the position of the first
+                // series that belongs to that X axis. Includes -1 for non-axis
+                // series types like pies.
+                if (!Highcharts.find(xAxisIndices, function (index) {
+                    return index[0] === xAxisIndex;
+                })) {
+                    xAxisIndices.push([xAxisIndex, i]);
+                }
 
                 // Add the column headers, usually the same as series names
                 j = 0;
@@ -286,7 +285,6 @@
         } else if (downloadAttrSupported) {
             a = document.createElement('a');
             a.href = href;
-            a.target = '_blank';
             a.download = name + '.' + extension;
             chart.container.append(a); // #111
             a.click();
@@ -381,6 +379,9 @@
     }
     if (seriesTypes.mapbubble) {
         seriesTypes.mapbubble.prototype.exportKey = 'name';
+    }
+    if (seriesTypes.treemap) {
+        seriesTypes.treemap.prototype.exportKey = 'name';
     }
 
 });
