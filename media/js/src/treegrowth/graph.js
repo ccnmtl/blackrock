@@ -168,7 +168,15 @@
                 borderWidth: 0,
                 title: {
                     text: 'Black Rock Forest'
-                }
+                },
+                labelFormatter: function() {
+                    if (this.name.match(/S\d Oak/)) {
+                        return '<div style="margin-left: 14px;">' +
+                            this.name + '</div>';
+                    }
+                    return '<div>' + this.name + '</div>';
+                },
+                useHTML: true
             },
             scrollbar: {
                 enabled: false
