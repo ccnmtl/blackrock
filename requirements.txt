@@ -14,7 +14,7 @@ Markdown==2.6.8
 pyenchant==1.6.8
 uuid==1.30
 psycopg2==2.7.1
-Pillow==4.1.1
+Pillow==4.2.0
 
 chardet==3.0.4
 idna==2.5
