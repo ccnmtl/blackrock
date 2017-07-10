@@ -42,7 +42,7 @@ configparser==3.5.0
 flake8==3.3.0
 statsd==3.2.1
 six==1.10.0
-python-dateutil==2.6.0
+python-dateutil==2.6.1
 Faker==0.7.17
 contextlib2==0.5.5
 argparse==1.4.0
