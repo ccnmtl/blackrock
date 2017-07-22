@@ -13,7 +13,7 @@ feedparser==5.2.1
 Markdown==2.6.8
 pyenchant==1.6.11
 uuid==1.30
-psycopg2==2.7.1
+psycopg2==2.7.2
 Pillow==4.2.1
 
 chardet==3.0.4
