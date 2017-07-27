@@ -39,10 +39,12 @@
             'SoilM_5cm', 'AvgPAR_Den'
         ];
 
-        // Remove Site 1 STD DEV
-        data.splice(6, 1);
-        // Remove Site 2 STD DEV
-        data.splice(12, 1);
+        if (data.length === 19) {
+            // Remove Site 1 STD DEV
+            data.splice(6, 1);
+            // Remove Site 2 STD DEV
+            data.splice(12, 1);
+        }
 
         for (var i = 0; i < data.length; i++) {
             var name = 'Series ' + (i + 1);
@@ -230,8 +232,10 @@
             'Pine 1', 'Pine 2', 'Pine 3', 'Site AVG'
         ];
 
-        // Remove STD DEV
-        data.splice(7, 1);
+        if (data.length === 8) {
+            // Remove STD DEV
+            data.splice(7, 1);
+        }
 
         for (var i = 0; i < data.length; i++) {
             var name = 'Series ' + (i + 1);
