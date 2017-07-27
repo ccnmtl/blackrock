@@ -7,9 +7,10 @@
     var MNT_MISERY_DATA = BASE_PATH + 'Mnt_Misery_Table20.csv';
     var WHITE_OAK_DATA = BASE_PATH + 'White_Oak_Table20.csv';
     var ENV_DATA = BASE_PATH + 'Lowland.csv';
+    var MAILLEYS_MILL_DATA = BASE_PATH + 'Mailley\'s_Mill_Table20Min.csv';
     var graphData = null;
 
-    var initGraph = function(data) {
+    var initMainGraph = function(data) {
         graphData = data;
         var seriesOptions = [];
         var yAxes = [];
@@ -201,10 +202,139 @@
                             stroke: '#cccccc'
                         },
                         onclick: function() {
-                            initGraph(graphData);
+                            initMainGraph(graphData);
                         }
                     }
                 }
+            },
+            plotOptions: {
+                line: {
+                    dataGrouping: {
+                        enabled: false
+                    }
+                }
+            }
+        });
+    };
+
+    var initMailleysMillGraph = function(data) {
+        var seriesOptions = [];
+        var yAxes = [];
+        var headers = [
+            'Hemlock_1_AVG', 'Hemlock_2_AVG', 'Hemlock_3_AVG',
+            'Pine_1_AVG', 'Pine_2_AVG', 'Pine_3_AVG',
+            'Site AVG'
+        ];
+        var newHeaderNames = [
+            'Hemlock 1', 'Hemlock 2', 'Hemlock 3',
+            'Pine 1', 'Pine 2', 'Pine 3', 'Site AVG'
+        ];
+
+        // Remove STD DEV
+        data.splice(7, 1);
+
+        for (var i = 0; i < data.length; i++) {
+            var name = 'Series ' + (i + 1);
+            if (i < headers.length) {
+                name = headers[i];
+            }
+
+            var series = {};
+            var yAxis = {};
+
+            series = {
+                name: newHeaderNames[i],
+                data: data[i],
+                yAxis: i
+            };
+
+            yAxis = {
+                visible: false
+            };
+
+            var pointFormatter = function() {
+                var unit = '';
+                if (this.series.options.tooltip.valueSuffix) {
+                    unit = this.series.options.tooltip.valueSuffix;
+                }
+                var val = +this.y.toFixed(3);
+                return '<span style="color:{' + this.color + '}">' +
+                    '\u25CF</span> ' + this.series.name + ': ' +
+                    '<strong>' + val + ' ' + unit +
+                    '</strong>' +
+                    '<br/>';
+            };
+            if (!series.tooltip) {
+                series.tooltip = {};
+            }
+            series.tooltip.pointFormatter = pointFormatter;
+
+            seriesOptions.push(series);
+            yAxes.push(yAxis);
+        }
+        $('#mailleys-mill-plot-container').highcharts('StockChart', {
+            chart: {
+                height: 440
+            },
+            rangeSelector: {
+                selected: 0,
+                buttons: [{
+                    type: 'week',
+                    count: 1,
+                    text: '1w'
+                }, {
+                    type: 'month',
+                    count: 1,
+                    text: '1m'
+                }, {
+                    type: 'month',
+                    count: 3,
+                    text: '3m'
+                }, {
+                    type: 'ytd',
+                    text: 'YTD'
+                }, {
+                    type: 'all',
+                    text: 'All'
+                }]
+            },
+            navigator: {
+                series: {
+                    includeInCSVExport: false
+                }
+            },
+            legend: {
+                enabled: true,
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0,
+                title: {
+                    text: 'Mailley\'s Mill'
+                },
+                labelFormatter: function() {
+                    if (this.name.match(/S\d Oak/)) {
+                        return '<div style="margin-left: 14px;">' +
+                            this.name + '</div>';
+                    }
+                    return '<div>' + this.name + '</div>';
+                },
+                useHTML: true
+            },
+            scrollbar: {
+                enabled: false
+            },
+            xAxis: {
+                dateTimeLabelFormats: {
+                    day: '%e %b',
+                    week: '%e %b'
+                }
+            },
+            yAxis: yAxes,
+            series: seriesOptions,
+            exporting: {
+                sourceWidth: 1024,
+                sourceHeight: 768
             },
             plotOptions: {
                 line: {
@@ -242,7 +372,9 @@
      * Takes the paths of the dendrometer and environmental CSV files,
      * downloads and parses these files, and initiates the graph.
      */
-    var getData = function(mntMiseryPath, whiteOakPath, environmentalPath) {
+    var getData = function(
+        mntMiseryPath, whiteOakPath, environmentalPath, mailleysMillData
+    ) {
         var $dfd1 = $.Deferred();
         downloadAndParse($dfd1, mntMiseryPath);
 
@@ -255,10 +387,19 @@
         var promises = [$dfd1, $dfd2, $dfd3];
         $.when.apply(this, promises).then(function(d1, d2, d3) {
             $(document).ready(function() {
-                initGraph(d1.concat(d2).concat(d3));
+                initMainGraph(d1.concat(d2).concat(d3));
+            });
+        });
+
+        var $dfd4 = $.Deferred();
+        downloadAndParse($dfd4, mailleysMillData);
+
+        $dfd4.then(function(data) {
+            $(document).ready(function() {
+                initMailleysMillGraph(data);
             });
         });
     };
 
-    getData(MNT_MISERY_DATA, WHITE_OAK_DATA, ENV_DATA);
+    getData(MNT_MISERY_DATA, WHITE_OAK_DATA, ENV_DATA, MAILLEYS_MILL_DATA);
 })();
