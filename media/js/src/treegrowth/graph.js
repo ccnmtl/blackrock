@@ -338,7 +338,20 @@
             series: seriesOptions,
             exporting: {
                 sourceWidth: 1024,
-                sourceHeight: 768
+                sourceHeight: 768,
+                buttons: {
+                    customButton: {
+                        y: 36,
+                        align: 'right',
+                        text: 'Reset selections',
+                        theme: {
+                            stroke: '#cccccc'
+                        },
+                        onclick: function() {
+                            initMailleysMillGraph(data);
+                        }
+                    }
+                }
             },
             plotOptions: {
                 line: {
