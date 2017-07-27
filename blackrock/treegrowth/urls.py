@@ -9,4 +9,7 @@ urlpatterns = [
     url(r'^graph/$',
         TemplateView.as_view(template_name='treegrowth/graph.html'),
         name='treegrowth-graph'),
+    url(r'^notes/$',
+        TemplateView.as_view(template_name='treegrowth/notes.html'),
+        name='treegrowth-notes'),
 ]

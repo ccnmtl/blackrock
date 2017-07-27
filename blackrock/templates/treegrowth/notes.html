@@ -1,0 +1,20 @@
+{% extends 'treegrowth/base_treegrowth.html' %}
+{% load static %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumbs">
+        <li><a href="{% url 'treegrowth-index' %}">Home</a></li>
+        <li><a href="{% url 'treegrowth-graph' %}">Graphing Tool</a></li>
+        <li><a href="{% url 'treegrowth-notes' %}" class="active">Graph Info</a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div id="contentcontainer">
+        <h3>Graph Info</h3>
+
+        <p>
+
+        </p>
+    </div>
+{% endblock %}
