@@ -222,11 +222,6 @@
     var initMailleysMillGraph = function(data) {
         var seriesOptions = [];
         var yAxes = [];
-        var headers = [
-            'Hemlock_1_AVG', 'Hemlock_2_AVG', 'Hemlock_3_AVG',
-            'Pine_1_AVG', 'Pine_2_AVG', 'Pine_3_AVG',
-            'Site AVG'
-        ];
         var newHeaderNames = [
             'Hemlock 1', 'Hemlock 2', 'Hemlock 3',
             'Pine 1', 'Pine 2', 'Pine 3', 'Site AVG'
@@ -238,11 +233,6 @@
         }
 
         for (var i = 0; i < data.length; i++) {
-            var name = 'Series ' + (i + 1);
-            if (i < headers.length) {
-                name = headers[i];
-            }
-
             var series = {};
             var yAxis = {};
 
