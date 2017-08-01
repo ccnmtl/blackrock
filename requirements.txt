@@ -111,7 +111,7 @@ django-debug-toolbar==1.8
 gunicorn==19.7.1
 
 boto==2.48.0
-django-storages==1.6.4
+django-storages==1.6.5
 django-cacheds3storage==0.1.2
 django-impersonate==1.1
 django-waffle==0.12.0
