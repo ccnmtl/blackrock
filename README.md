@@ -24,7 +24,7 @@ Ubuntu 14.04:
 - `python-spatialite2`
 
 Homebrew (Mac OS X):
-[Instructions here](https://docs.djangoproject.com/en/1.9/ref/contrib/gis/install/spatialite/#homebrew)
+[Instructions here](https://docs.djangoproject.com/en/dev/ref/contrib/gis/install/spatialite/#homebrew)
 
 If you get a "library not found" error when running `make test`, add
 a line to `local_settings.py`, as documented [here](https://docs.djangoproject.com/en/dev/ref/contrib/gis/install/spatialite/#installing-spatialite):
