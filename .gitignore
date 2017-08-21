@@ -19,3 +19,4 @@ reports
 .idea
 node_modules
 wheelhouse
+package-lock.json
