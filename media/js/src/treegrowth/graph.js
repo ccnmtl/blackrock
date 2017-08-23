@@ -10,9 +10,6 @@
     var MAILLEYS_MILL_DATA = BASE_PATH + 'Mailley\'s_Mill_Table20Min.csv';
     var graphData = null;
 
-    var MAIN_DATA_WITH_STDDEV_COLUMN_COUNT = 19;
-    var MAILLEYS_DATA_WITH_STDDEV_COLUMN_COUNT = 8;
-
     var initMainGraph = function(data) {
         graphData = data;
         var seriesOptions = [];
@@ -41,16 +38,6 @@
             'AvgTEMP_C', 'AvgVP', 'TotalRain',
             'SoilM_5cm', 'AvgPAR_Den'
         ];
-
-        // TODO: This step can be removed once I remove the standard
-        // deviation column from the processed CSV data:
-        // https://github.com/ccnmtl/blackrock_fetcher/blob/master/blackrock_data_processor.py#L142
-        if (data.length === MAIN_DATA_WITH_STDDEV_COLUMN_COUNT) {
-            // Remove Site 1 STD DEV
-            data.splice(6, 1);
-            // Remove Site 2 STD DEV
-            data.splice(12, 1);
-        }
 
         for (var i = 0; i < data.length; i++) {
             var name = 'Series ' + (i + 1);
@@ -232,11 +219,6 @@
             'Hemlock 1', 'Hemlock 2', 'Hemlock 3',
             'Pine 1', 'Pine 2', 'Pine 3', 'Site AVG'
         ];
-
-        if (data.length === MAILLEYS_DATA_WITH_STDDEV_COLUMN_COUNT) {
-            // Remove STD DEV
-            data.splice(7, 1);
-        }
 
         for (var i = 0; i < data.length; i++) {
             var series = {};
