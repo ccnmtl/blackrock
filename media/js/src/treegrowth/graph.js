@@ -64,9 +64,19 @@
                 showInNavigator: showInNavigator,
                 name: newHeaderNames[i],
                 data: data[i],
-                yAxis: i,
                 visible: isVisible
             };
+
+            // Don't use separate y-axes for the trees that we're
+            // calculating an absolute RDH (radius at dendrometer
+            // height) for. And add units.
+            if (newHeaderNames[i].match(/^S\d Oak \d$/)) {
+                series.tooltip = {
+                    valueSuffix: ' deltaRDH (μm)'
+                };
+            } else {
+                series.yAxis = i;
+            }
 
             // Environmental data has units
             if (name === 'AvgTEMP_C') {
