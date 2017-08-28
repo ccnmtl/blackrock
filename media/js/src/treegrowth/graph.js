@@ -8,10 +8,8 @@
     var WHITE_OAK_DATA = BASE_PATH + 'White_Oak_Table20.csv';
     var ENV_DATA = BASE_PATH + 'Lowland.csv';
     var MAILLEYS_MILL_DATA = BASE_PATH + 'Mailley\'s_Mill_Table20Min.csv';
-    var graphData = null;
 
     var initMainGraph = function(data) {
-        graphData = data;
         var seriesOptions = [];
         var yAxes = [];
         var headers = [
@@ -207,7 +205,7 @@
                             stroke: '#cccccc'
                         },
                         onclick: function() {
-                            initMainGraph(graphData);
+                            initMainGraph(data);
                         }
                     }
                 }
@@ -227,7 +225,9 @@
         var yAxes = [];
         var newHeaderNames = [
             'Hemlock 1', 'Hemlock 2', 'Hemlock 3',
-            'Pine 1', 'Pine 2', 'Pine 3', 'Site AVG'
+            'Pine 1', 'Pine 2', 'Pine 3', 'Site AVG',
+            'AvgTEMP_C', 'AvgVP', 'TotalRain',
+            'SoilM_5cm', 'AvgPAR_Den'
         ];
 
         for (var i = 0; i < data.length; i++) {
@@ -399,9 +399,10 @@
         var $dfd4 = $.Deferred();
         downloadAndParse($dfd4, mailleysMillData);
 
-        $dfd4.then(function(data) {
+        var promises2 = [$dfd4, $dfd3];
+        $.when.apply(this, promises2).then(function(d1, d2) {
             $(document).ready(function() {
-                initMailleysMillGraph(data);
+                initMailleysMillGraph(d1.concat(d2));
             });
         });
     };
