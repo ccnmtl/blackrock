@@ -7,7 +7,7 @@ JS_FILES=media/js/paleoecology/explore.js media/js/src
 
 MAX_COMPLEXITY=7
 
-all: eslint jenkins
+all: jenkins
 
 include *.mk
 
@@ -15,4 +15,4 @@ makemessages: check jenkins
 	$(MANAGE) makemessages -l es --ignore="ve" --ignore="login.html" --ignore="password*.html"
 	$(MANAGE) compilemessages
 
-.PHONY: makemessages eslint
+.PHONY: makemessages
