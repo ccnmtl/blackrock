@@ -69,9 +69,33 @@ if (typeof Treegrowth === 'undefined') {
         return data;
     };
 
+    /**
+     * Returns the CSV data with the given column indices removed.
+     */
+    var removeColumns = function(data, indices) {
+        indices.sort(function(a, b) {
+            return a - b;
+        });
+        indices.reverse();
+
+        indices.forEach(function(x) {
+            data.splice(x, 1);
+        });
+    };
+
+    var removeHeaderRows = function(data) {
+        data.forEach(function(column) {
+            column.shift();
+            column.shift();
+            column.shift();
+        });
+    };
+
     Treegrowth.splitData = splitData;
     Treegrowth.parseDate = parseDate;
     Treegrowth.convertToMilliseconds = convertToMilliseconds;
+    Treegrowth.removeColumns = removeColumns;
+    Treegrowth.removeHeaderRows = removeHeaderRows;
 })();
 
 if (typeof exports !== 'undefined') {
