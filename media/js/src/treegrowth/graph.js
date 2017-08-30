@@ -47,9 +47,10 @@
             var yAxis = {};
 
             var isVisible = true;
-            if (name.indexOf('Red_Oak_') > -1 ||
-                name.indexOf('White_Oak_') > -1
-               ) {
+            if (
+                name.indexOf('Red_Oak_') > -1 ||
+                    name.indexOf('White_Oak_') > -1
+            ) {
                 isVisible = false;
             }
 
