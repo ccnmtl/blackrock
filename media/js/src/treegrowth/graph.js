@@ -9,6 +9,11 @@
     var ENV_DATA = BASE_PATH + 'Lowland.csv';
     var MAILLEYS_MILL_DATA = BASE_PATH + 'Mailley\'s_Mill_Table20Min.csv';
 
+    // We're not doing any processing on the stream data, so it's not
+    // in the processed_data directory.
+    var STREAM_DATA = 'https://www1.columbia.edu/sec/ccnmtl/projects/' +
+        'blackrock/forestdata/data/current/Stream_Station_Hourly.dat';
+
     var initMainGraph = function(data) {
         var seriesOptions = [];
         var yAxes = [];
@@ -352,6 +357,140 @@
         });
     };
 
+    var initStreamGraph = function(data) {
+        var seriesOptions = [];
+        var yAxes = [];
+        var headers = [
+            'Cond', 'Water_Temp', 'DO',
+            'pH', 'Liters_pS'
+        ];
+
+        // Some pre-processing is necessary because I'm not processing
+        // this data in python.
+        var removeColIndices = [];
+        for (var j = 0; j < data.length; j++) {
+            var colName = data[j][0][1];
+            if (headers.indexOf(colName) < 0) {
+                removeColIndices.push(j);
+            }
+        }
+        Treegrowth.removeColumns(data, removeColIndices);
+        Treegrowth.removeHeaderRows(data);
+
+        for (var i = 0; i < data.length; i++) {
+            var series = {};
+            var yAxis = {};
+
+            series = {
+                name: headers[i],
+                data: data[i],
+                yAxis: i
+            };
+
+            yAxis = {
+                visible: false
+            };
+
+            var pointFormatter = function() {
+                var unit = '';
+                if (this.series.options.tooltip.valueSuffix) {
+                    unit = this.series.options.tooltip.valueSuffix;
+                }
+                var val = +this.y.toFixed(3);
+                return '<span style="color:{' + this.color + '}">' +
+                    '\u25CF</span> ' + this.series.name + ': ' +
+                    '<strong>' + val + ' ' + unit +
+                    '</strong>' +
+                    '<br/>';
+            };
+            if (!series.tooltip) {
+                series.tooltip = {};
+            }
+            series.tooltip.pointFormatter = pointFormatter;
+
+            seriesOptions.push(series);
+            yAxes.push(yAxis);
+        }
+        $('#stream-plot-container').highcharts('StockChart', {
+            chart: {
+                height: 440
+            },
+            rangeSelector: {
+                selected: 0,
+                buttons: [{
+                    type: 'week',
+                    count: 1,
+                    text: '1w'
+                }, {
+                    type: 'month',
+                    count: 1,
+                    text: '1m'
+                }, {
+                    type: 'month',
+                    count: 3,
+                    text: '3m'
+                }, {
+                    type: 'ytd',
+                    text: 'YTD'
+                }, {
+                    type: 'all',
+                    text: 'All'
+                }]
+            },
+            navigator: {
+                series: {
+                    includeInCSVExport: false
+                }
+            },
+            legend: {
+                enabled: true,
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0,
+                title: {
+                    text: 'Stream Data'
+                },
+                useHTML: true
+            },
+            scrollbar: {
+                enabled: false
+            },
+            xAxis: {
+                dateTimeLabelFormats: {
+                    day: '%e %b',
+                    week: '%e %b'
+                }
+            },
+            yAxis: yAxes,
+            series: seriesOptions,
+            exporting: {
+                sourceWidth: 1024,
+                sourceHeight: 768,
+                buttons: {
+                    customButton: {
+                        y: 36,
+                        align: 'right',
+                        text: 'Reset selections',
+                        theme: {
+                            stroke: '#cccccc'
+                        },
+                        onclick: function() {
+                            initStreamGraph(data);
+                        }
+                    }
+                }
+            },
+            plotOptions: {
+                line: {
+                    dataGrouping: {
+                        enabled: false
+                    }
+                }
+            }
+        });
+    };
+
     var downloadAndParse = function($promise, path) {
         var timestamp = (new Date()).getTime();
         Papa.parse(path + '?' + timestamp, {
@@ -379,7 +518,8 @@
      * downloads and parses these files, and initiates the graph.
      */
     var getData = function(
-        mntMiseryPath, whiteOakPath, environmentalPath, mailleysMillData
+        mntMiseryPath, whiteOakPath, environmentalPath, mailleysMillData,
+        streamData
     ) {
         var $dfd1 = $.Deferred();
         downloadAndParse($dfd1, mntMiseryPath);
@@ -406,7 +546,17 @@
                 initMailleysMillGraph(d1.concat(d2));
             });
         });
+
+        var $dfd5 = $.Deferred();
+        downloadAndParse($dfd5, streamData);
+        $dfd5.then(function(data) {
+            $(document).ready(function() {
+                initStreamGraph(data);
+            });
+        });
     };
 
-    getData(MNT_MISERY_DATA, WHITE_OAK_DATA, ENV_DATA, MAILLEYS_MILL_DATA);
+    getData(
+        MNT_MISERY_DATA, WHITE_OAK_DATA, ENV_DATA, MAILLEYS_MILL_DATA,
+        STREAM_DATA);
 })();
