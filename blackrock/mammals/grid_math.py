@@ -100,7 +100,7 @@ def length_of_transect(heading_in_radians, side_of_square):
 
 
 def pick_transect_heading():
-    return uniform(0, pi * 2)
+    return uniform(0, pi * 2)  # nosec
 
 # angles are meant to be in radians
 
@@ -202,7 +202,7 @@ def minimum_distance_between_points(transect_length,
 
 
 def triangular_random(length):
-    return triangular(0, length, length)
+    return triangular(0, length, length)  # nosec
 
 
 def radians_to_degrees(angle):

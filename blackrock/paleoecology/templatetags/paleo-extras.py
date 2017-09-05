@@ -6,7 +6,7 @@ register = template.Library()
 def hash(h, key):
     try:
         return h[key]
-    except:
+    except KeyError:
         pass
 
 

@@ -256,7 +256,7 @@ class GridSquare (models.Model):
             b_row = self.row + 1
             b_column = alphabet[(self.column - 1)]
             return "%d%s" % (b_row, b_column)
-        except:
+        except IndexError:
             pass
         return '**'
 
