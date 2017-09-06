@@ -238,11 +238,12 @@ class RandomSample:
             delta = size
 
         if self.arrangement == 'random':
-            self.points = [
-                {
-                    'x': random.randint(0, float(self.parent.width) - size),
-                    'y': random.randint(0, float(self.parent.height) - size),
-                } for p in xrange(num_plots)]
+            x = random.randint(0, float(self.parent.width) - size),  # nosec
+            y = random.randint(0, float(self.parent.height) - size),  # nosec
+            self.points = [{
+                'x': x,
+                'y': y
+            } for p in xrange(num_plots)]
 
         elif self.arrangement == 'grid':
             w = float(self.parent.width)

@@ -1,8 +1,11 @@
-from blackrock.sampler.models import Tree, Location
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
 import csv
 import math
+
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render
+from django.utils.datastructures import MultiValueDictKeyError
+
+from blackrock.sampler.models import Tree, Location
 
 
 def import_csv(request):
@@ -80,7 +83,7 @@ def plot(request):
                    'plot_h': request.POST['plot-h'],
                    'plot_w': request.POST['plot-w'],
                    }
-    except:
+    except MultiValueDictKeyError:
         pass
 
     tree_list = Tree.objects.all()
@@ -118,7 +121,7 @@ def transect(request):
         transect_start_y = request.POST['transect-start-y']
         transect_end_x = request.POST['transect-end-x']
         transect_end_y = request.POST['transect-end-y']
-    except:
+    except MultiValueDictKeyError:
         pass
 
     # find trees that are in the selected view
@@ -196,7 +199,7 @@ def worksheet(request):
         view_height = request.POST['view-height']
         view_width = request.POST['view-width']
         plot_h = request.POST['plot-h']
-    except:
+    except MultiValueDictKeyError:
         # need to display error: "Please choose a plot area first."
         return HttpResponseRedirect("plot")
 

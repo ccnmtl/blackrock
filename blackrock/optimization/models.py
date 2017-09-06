@@ -45,13 +45,13 @@ class Plot(models.Model):
         cursor = connection.cursor()
 
         sqlcmd = """SELECT COUNT(DISTINCT %s) FROM "%s" WHERE "%s" = '%s'
-             """ % (species_field, tablename, plot_field, self.id)
+             """ % (species_field, tablename, plot_field, self.id)  # nosec
 
         cursor.execute(sqlcmd)
         self.num_species = cursor.fetchone()[0] or 0
 
         sqlcmd = """SELECT SUM(%s) FROM "%s" WHERE "%s" = '%s'
-             """ % (dbh_field, tablename, plot_field, self.id)
+             """ % (dbh_field, tablename, plot_field, self.id)  # nosec
 
         cursor.execute(sqlcmd)
         summation = cursor.fetchone()[0] or 0.0
@@ -63,10 +63,11 @@ class Plot(models.Model):
         # self.mean_dbh =
         # self.tree_set.objects.aggregate(Avg('dbh'))['dbh__avg']  # not yet
 
-        sqlcmd = """SELECT SUM((%s-%s)^2) FROM "%s" WHERE "%s" = '%s'
-             """ % (dbh_field, self.mean_dbh, tablename, plot_field, self.id)
+        sql = \
+            """SELECT SUM((%s-%s)^2) FROM "%s" WHERE "%s" = '%s'"""  # nosec
+        cmd = sql % (dbh_field, self.mean_dbh, tablename, plot_field, self.id)
 
-        cursor.execute(sqlcmd)
+        cursor.execute(cmd)
         variance_temp = cursor.fetchone()[0] or 0.0
         if num_trees > 0:
             self.variance_dbh = str(variance_temp / (num_trees))

@@ -1,3 +1,19 @@
+import csv
+from datetime import datetime
+import json
+from re import match
+from string import uppercase
+
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import user_passes_test
+from django.core.paginator import Paginator, InvalidPage, EmptyPage, \
+    PageNotAnInteger
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render
+from django.template import RequestContext
+from django.utils.datastructures import MultiValueDictKeyError
+from django.views.decorators.csrf import csrf_protect
+
 from blackrock.mammals.grid_math import to_lat_long, set_up_block, \
     pick_transect_angles, length_of_transect, radians_to_degrees, \
     walk_transect, minimum_distance_between_points, pick_new_distance, \
@@ -9,19 +25,6 @@ from blackrock.mammals.models import GridSquare, \
     ExpeditionOvernightPrecipitation, ExpeditionOvernightPrecipitationType, \
     ExpeditionCloudCover, Illumination, AnimalSex, AnimalAge, \
     AnimalScaleUsed, Bait, TrapType, Animal
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import user_passes_test
-from django.core.paginator import Paginator, InvalidPage, EmptyPage, \
-    PageNotAnInteger
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
-from django.template import RequestContext
-from django.views.decorators.csrf import csrf_protect
-from re import match
-from string import uppercase
-import csv
-from datetime import datetime
-import json
 
 
 def get_float(request, name, default):
@@ -490,28 +493,28 @@ def update_sighting_date(the_sighting, rp):
         date_list = [int(i) for i in rp['date'].split('/')]
         the_sighting.date = datetime(
             date_list[2], date_list[0], date_list[1])
-    except:
+    except (IndexError, MultiValueDictKeyError):
         pass
 
 
 def update_sighting_species(the_sighting, rp):
     try:
         the_sighting.species = Species.objects.get(pk=rp['species_id'])
-    except:
+    except (MultiValueDictKeyError, Species.DoesNotExist):
         pass
 
 
 def update_sighting_location(the_sighting, rp):
     try:
         the_sighting.set_lat_long([float(rp['lat']), float(rp['lon'])])
-    except ValueError:
+    except MultiValueDictKeyError:
         pass  # if it's empty  we don't care .
 
 
 def update_sighting_habitat(the_sighting, rp):
     try:
         the_sighting.habitat = Habitat.objects.get(pk=rp['habitat_id'])
-    except:
+    except (MultiValueDictKeyError, Habitat.DoesNotExist):
         pass
 
 
@@ -519,21 +522,21 @@ def update_sighting_observation_type(the_sighting, rp):
     try:
         the_sighting.observation_type = ObservationType.objects.get(
             pk=rp['observation_type_id'])
-    except:
+    except (MultiValueDictKeyError, ObservationType.DoesNotExist):
         pass
 
 
 def update_sighting_observers(the_sighting, rp):
     try:
         the_sighting.observers = rp['observers']
-    except:
+    except MultiValueDictKeyError:
         pass
 
 
 def update_sighting_notes(the_sighting, rp):
     try:
         the_sighting.notes = rp['notes']
-    except:
+    except MultiValueDictKeyError:
         pass
 
 

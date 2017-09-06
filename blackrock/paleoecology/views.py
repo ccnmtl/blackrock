@@ -48,11 +48,13 @@ def getpercents(request):
     percents = []
     counts = []
     otherpct = 100
+
     try:
         names, percents, counts = zip(*results)
         otherpct = 100 - sum([float(i) for i in percents])
-    except:
+    except ValueError:
         pass
+
     results = {'depth': depth, 'pollen': names, 'percents': percents,
                'counts': counts, 'other': otherpct}
 

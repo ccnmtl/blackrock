@@ -1,6 +1,10 @@
-from blackrock.blackrock_main.models import LastImportDate
-from blackrock.blackrock_main.solr import SolrUtilities
+import csv
+import datetime
 from decimal import Decimal, ROUND_HALF_UP
+from json import dumps
+import time
+import urllib
+
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
 from django.core.cache import cache
@@ -9,14 +13,13 @@ from django.http import HttpResponse, HttpResponseRedirect, \
     HttpResponseForbidden
 from django.shortcuts import render
 from django.template import RequestContext
-from json import dumps
+from django.utils.datastructures import MultiValueDictKeyError
 from django.utils.tzinfo import FixedOffset
 from pysolr import Solr
+
+from blackrock.blackrock_main.models import LastImportDate
+from blackrock.blackrock_main.solr import SolrUtilities
 from blackrock.respiration.models import Temperature, StationMapping
-import csv
-import datetime
-import time
-import urllib
 
 
 def index(request, admin_msg=""):
@@ -43,13 +46,13 @@ def leaf(request):
         scenario_options['startdate'] = request.POST['scenario1-startdate']
         scenario_options['enddate'] = request.POST['scenario1-enddate']
         scenario_options['deltat'] = request.POST['scenario1-delta-t']
-    except:
+    except MultiValueDictKeyError:
         pass
 
     specieslist = []
     try:
         specieslist = request.POST['scenario1-species'].split(",")
-    except:
+    except (MultiValueDictKeyError, AttributeError):
         pass
 
     myspecies = []
@@ -96,13 +99,13 @@ def forest(request):
         scenario_options['startdate'] = request.POST['scenario1-startdate']
         scenario_options['enddate'] = request.POST['scenario1-enddate']
         scenario_options['deltat'] = request.POST['scenario1-delta-t']
-    except:
+    except MultiValueDictKeyError:
         pass
 
     specieslist = []
     try:
         specieslist = request.POST['specieslist'].split(",")
-    except:
+    except (MultiValueDictKeyError, AttributeError):
         pass
 
     myspecies = get_myspecies(specieslist, request)
