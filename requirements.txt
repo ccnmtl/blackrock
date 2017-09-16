@@ -46,7 +46,7 @@ python-dateutil==2.6.1
 Faker==0.8.3
 contextlib2==0.5.5
 argparse==1.4.0
-cffi==1.10.0
+cffi==1.11.0
 colorama==0.3.9
 cryptography==2.0.3
 enum34==1.1.6
