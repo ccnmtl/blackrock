@@ -5,16 +5,22 @@
     <ul class="breadcrumbs">
         <li><a href="{% url 'treegrowth-index' %}">Home</a></li>
         <li><a href="{% url 'treegrowth-graph' %}">Graphing Tool</a></li>
-        <li><a href="{% url 'treegrowth-notes' %}" class="active">Graph Info</a></li>
+        <li><a href="{% url 'treegrowth-notes' %}" class="active">Graph Notes</a></li>
     </ul>
 {% endblock %}
 
 {% block content %}
     <div id="contentcontainer">
-        <h3>Graph Info</h3>
+        <h3>Graph Notes</h3>
 
         <p>
+            <a class="twitter-timeline"
+               href="https://twitter.com/VirtForestNotes">
+                Tweets by VirtForestNotes
+            </a>
+            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+            Here we'll post updates about the status of our data.
         </p>
     </div>
 {% endblock %}
