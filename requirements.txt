@@ -33,7 +33,7 @@ ndg-httpsclient==0.4.3
 djangohelpers==0.19
 logilab-common==1.4.1
 logilab-astng==0.24.3
-pylint==1.7.2
+pylint==1.7.3
 pep8==1.7.0
 mccabe==0.6.1
 pycodestyle==2.3.1
