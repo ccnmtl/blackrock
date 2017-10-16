@@ -43,7 +43,8 @@ flake8==3.4.1
 statsd==3.2.1
 six==1.11.0
 python-dateutil==2.6.1
-Faker==0.8.4
+Unidecode==0.04.21
+Faker==0.8.5
 contextlib2==0.5.5
 argparse==1.4.0
 cffi==1.11.2
