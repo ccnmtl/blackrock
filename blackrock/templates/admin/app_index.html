@@ -39,11 +39,6 @@
 
 {% block content %}
 
-  {% ifequal app_list.0.name "Sampler" %}
-    {% include "sampler/admin_sampler.html" %}
-    {{ block.super }}
-  {% endifequal %}
-  
   {% ifequal app_list.0.name "Respiration" %}
     {% include "respiration/admin_respiration.html" %}
     {{ block.super }}

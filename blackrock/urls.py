@@ -23,7 +23,6 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^uploads/(?P<path>.*)$', serve,
         {'document_root': settings.MEDIA_ROOT}),
-    url(r'^sampler/', include('blackrock.sampler.urls')),
     url(r'^respiration/', include('blackrock.respiration.urls')),
     url(r'^optimization/', include('blackrock.optimization.urls')),
     url(r'^paleoecology/', include('blackrock.paleoecology.urls')),
