@@ -49,7 +49,6 @@ PROJECT_APPS = [
     'blackrock.paleoecology',
     'blackrock.portal',
     'blackrock.respiration',
-    'blackrock.sampler',
     'blackrock.treegrowth',
     'blackrock.waterquality',
 ]
@@ -65,7 +64,6 @@ MIDDLEWARE_CLASSES += [  # noqa
 INSTALLED_APPS += [  # noqa
     'sorl.thumbnail',
     'django.contrib.gis',
-    'blackrock.sampler',
     'blackrock.respiration',
     'blackrock.optimization',
     'blackrock.paleoecology',

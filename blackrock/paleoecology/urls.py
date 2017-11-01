@@ -4,8 +4,8 @@ import django.views.static
 from django.conf.urls import url
 from django.views.generic.base import TemplateView
 
-from .views import (
-    index, explore, getpercents, loadcounts, loadpercents, loadsolr
+from blackrock.paleoecology.views import (
+    index, explore, getpercents
 )
 
 media_root = os.path.join(os.path.dirname(__file__), "media")
@@ -22,8 +22,5 @@ urlpatterns = [
     url(r'^media/(?P<path>.*)$', django.views.static.serve,
         {'document_root': media_root}),
     url(r'^data/(?P<path>.*)$', django.views.static.serve,
-        {'document_root': data_root}),
-    url(r'^loadcounts$', loadcounts),
-    url(r'^loadpercents$', loadpercents),
-    url(r'^loadsolr$', loadsolr)
+        {'document_root': data_root})
 ]
