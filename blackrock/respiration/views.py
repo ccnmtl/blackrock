@@ -130,7 +130,7 @@ def get_myspecies(specieslist, request):
             species['R0'] = request.POST[s + '-R0']
             try:
                 species['percent'] = request.POST[s + '-percent']
-            except:
+            except (MultiValueDictKeyError, KeyError):
                 species['percent'] = ''
             myspecies.append(species)
     return myspecies
@@ -145,7 +145,7 @@ def getsum(request):
     deltaT = 0.0
     try:
         deltaT = float(request.REQUEST['delta'])
-    except:
+    except (MultiValueDictKeyError, ValueError):
         deltaT = 0.0
 
     start = request.REQUEST['start']
@@ -397,7 +397,7 @@ def _utc_to_est(date_string):
         # and do not take dst into account
         est = utc.astimezone(FixedOffset(-300))
         return est
-    except:
+    except ValueError:
         return None
 
 

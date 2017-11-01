@@ -1,27 +1,30 @@
-import json
-import re
 import StringIO
-import sys
-import urllib
-from pysolr import Solr, SolrError
-from time import strptime
 from datetime import date
 from decimal import Decimal
+import json
+import re
+import sys
+from time import strptime
+import urllib
+
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.gis.geos import fromstr
 from django.contrib.gis.measure import D  # D is a shortcut for Distance
 from django.core import management
 from django.core.cache import cache
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import get_model, DateField
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import RequestContext, Context
 from django.utils.tzinfo import FixedOffset
-from django.contrib.gis.geos import fromstr
 from pagetree.models import Hierarchy
-from blackrock.portal.models import Location, DataSet, Audience
+from pysolr import Solr, SolrError
+
 from blackrock.blackrock_main.models import LastImportDate
 from blackrock.blackrock_main.solr import SolrUtilities
+from blackrock.portal.models import Location, DataSet, Audience
 
 
 class rendered_with(object):
@@ -68,7 +71,7 @@ def page(request, path):
         try:
             model = get_model("portal", asset_type)
             context['selected'] = model.objects.get(id=asset_id)
-        except:
+        except ObjectDoesNotExist:
             msg = "We were unable to locate a <b>%s</b> at this address."
             context['error'] = msg % (asset_type)
 
