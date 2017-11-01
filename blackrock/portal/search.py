@@ -128,7 +128,7 @@ def get_facet_display_name(key):
     try:
         x = Facet.objects.get(name=key)
         display_name = x.display_name
-    except:
+    except Facet.DoesNotExist:
         try:
             model = get_model("portal", key)
             if model:

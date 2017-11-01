@@ -20,7 +20,7 @@ def get_start_or_error(start):
         return get_default_start(), None
     try:
         return parse_date(start), None
-    except:
+    except (ValueError, AttributeError):
         return None, "invalid start date: %s" % start
 
 
@@ -29,7 +29,7 @@ def get_end_or_error(end):
         return get_default_end(), None
     try:
         return parse_date(end), None
-    except:
+    except (ValueError, AttributeError):
         return None, "invalid end date: %s" % end
 
 
@@ -42,8 +42,8 @@ def get_lines(request):
             v = request.GET.get(k, '')  # why ''?
             if v:
                 n = k[len("line_value_"):]
-                l = request.GET.get("line_label_%s" % n)
-                lines.append(dict(label=l, value=v, n=int(n)))
+                label = request.GET.get("line_label_%s" % n)
+                lines.append(dict(label=label, value=v, n=int(n)))
     return lines
 
 

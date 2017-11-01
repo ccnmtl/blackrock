@@ -19,8 +19,8 @@ class TestBoringPages(TestCase):
 
 def series_factory():
     site = Site.objects.create(name="test")
-    l = Location.objects.create(name="test", site=site)
-    return Series.objects.create(name="test", location=l)
+    loc = Location.objects.create(name="test", site=site)
+    return Series.objects.create(name="test", location=loc)
 
 
 class TestSeriesViews(TestCase):

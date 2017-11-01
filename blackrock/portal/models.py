@@ -601,7 +601,7 @@ class AssetList(models.Model):
         try:
             m = re.search("audience:\w*", self.search_criteria)
             return m.group(0).split(":")[1].lower()
-        except:
+        except AttributeError:
             return None
 
 

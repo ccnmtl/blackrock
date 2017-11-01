@@ -14,14 +14,14 @@ class SiteTest(TestCase):
 class LocationTest(TestCase):
     def test_unicode(self):
         s = Site.objects.create(name="test")
-        l = Location.objects.create(name="test", site=s)
-        self.assertEqual(str(l), "test")
+        loc = Location.objects.create(name="test", site=s)
+        self.assertEqual(str(loc), "test")
 
 
 def series_factory():
     site = Site.objects.create(name="test")
-    l = Location.objects.create(name="test", site=site)
-    return Series.objects.create(name="test", location=l)
+    loc = Location.objects.create(name="test", site=site)
+    return Series.objects.create(name="test", location=loc)
 
 
 class SeriesTest(TestCase):

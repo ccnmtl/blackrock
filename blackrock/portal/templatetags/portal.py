@@ -60,7 +60,7 @@ def facet_counts(obj, facetName):
             key = key.replace('-', '')
             counts[key] = x[1]
         return counts
-    except:
+    except KeyError:
         return None
 
 
@@ -108,7 +108,7 @@ def infrastructure_counts(obj):
             key = key.replace('-', '')
             infrastructure_counts[key] = infrastructure[1]
         return infrastructure_counts
-    except:
+    except KeyError:
         return None
 
 
@@ -126,7 +126,7 @@ def featured_counts(obj):
             key = key.replace('-', '')
             featured_counts[key] = featured[1]
         return featured_counts
-    except:
+    except KeyError:
         return None
 
 
