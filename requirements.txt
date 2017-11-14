@@ -108,7 +108,7 @@ django-pageblocks==1.2.0 # pyup: <2.0
 requirements/src/django-databrowse-2017.02.14ccnmtl.tar.gz
 factory_boy==2.9.2
 
-django-debug-toolbar==1.8
+django-debug-toolbar==1.9
 gunicorn==19.7.1
 
 boto==2.48.0
