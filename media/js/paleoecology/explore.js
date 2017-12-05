@@ -99,7 +99,9 @@ function showResults(http_request) {
     // eslint-disable-next-line scanjs-rules/assign_to_src
     $('sample-chart-' + depth).src = chartSrc;
     // eslint-disable-next-line no-unsafe-innerhtml/no-unsafe-innerhtml
-    divPercents.innerHTML = countString;
+    divPercents.innerHTML = '';
+    // eslint-disable-next-line no-unsafe-innerhtml/no-unsafe-innerhtml
+    divCounts.innerHTML = countString;
 }
 
 function showError(http_request) {
