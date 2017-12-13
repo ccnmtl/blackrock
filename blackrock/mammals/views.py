@@ -10,7 +10,6 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage, \
     PageNotAnInteger
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from django.template import RequestContext
 from django.utils.datastructures import MultiValueDictKeyError
 from django.views.decorators.csrf import csrf_protect
 
@@ -54,8 +53,7 @@ class rendered_with(object):
             if isinstance(items, dict):
                 return render(
                     request,
-                    self.template_name, items,
-                    context_instance=RequestContext(request))
+                    self.template_name, items, {})
             else:
                 return items
         return rendered_func

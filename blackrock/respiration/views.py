@@ -12,7 +12,6 @@ from django.db import connection
 from django.http import HttpResponse, HttpResponseRedirect, \
     HttpResponseForbidden
 from django.shortcuts import render
-from django.template import RequestContext
 from django.utils.datastructures import MultiValueDictKeyError
 from django.utils.timezone import FixedOffset
 from pysolr import Solr
@@ -23,9 +22,8 @@ from blackrock.respiration.models import Temperature, StationMapping
 
 
 def index(request, admin_msg=""):
-    ctx = RequestContext(request, {'admin_messages': admin_msg})
-    return render(request, 'respiration/index.html',
-                  context_instance=ctx)
+    ctx = {'admin_messages': admin_msg}
+    return render(request, 'respiration/index.html', ctx)
 
 
 def leaf(request):
