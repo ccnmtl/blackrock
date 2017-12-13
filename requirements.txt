@@ -11,6 +11,7 @@ Markdown==2.6.10
 pyenchant==2.0.0
 uuid==1.30
 psycopg2==2.7.3.2
+pysqlite==2.8.3
 Pillow==4.3.0
 
 chardet==3.0.4
