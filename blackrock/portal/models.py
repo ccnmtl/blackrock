@@ -1,7 +1,7 @@
 from datetime import datetime
 from django import forms
 from django.conf import settings
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.gis.db import models
 from django.db.models.signals import pre_save
 from pagetree.models import PageBlock
@@ -532,7 +532,7 @@ class ForestStory(models.Model):
 
 
 class AssetList(models.Model):
-    pageblocks = generic.GenericRelation(
+    pageblocks = GenericRelation(
         PageBlock)
     search_criteria = models.TextField()
     template_file = "portal/assetlist.html"
@@ -606,7 +606,7 @@ class AssetList(models.Model):
 
 
 class FeaturedAsset(models.Model):
-    pageblocks = generic.GenericRelation(
+    pageblocks = GenericRelation(
         PageBlock)
     audience = models.ForeignKey(Audience)
     detailed_display = models.BooleanField(default=False)
@@ -725,7 +725,7 @@ class PhotoGalleryItem(models.Model):
 
 
 class PhotoGallery(models.Model):
-    pageblocks = generic.GenericRelation(
+    pageblocks = GenericRelation(
         PageBlock)
     template_file = "portal/photogallery.html"
     display_name = "Photo Gallery"
@@ -771,7 +771,7 @@ class PhotoGalleryForm(forms.ModelForm):
 
 
 class Webcam(models.Model):
-    pageblocks = generic.GenericRelation(
+    pageblocks = GenericRelation(
         PageBlock)
     template_file = "portal/webcam.html"
     display_name = "Webcam"
@@ -810,7 +810,7 @@ class WebcamForm(forms.ModelForm):
 
 
 class InteractiveMap(models.Model):
-    pageblocks = generic.GenericRelation(
+    pageblocks = GenericRelation(
         PageBlock)
     template_file = "portal/interactive_map.html"
     display_name = "Interactive Map"

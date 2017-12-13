@@ -18,34 +18,34 @@ class BasicViewTest(TestCase):
     def test_help(self):
         response = self.c.get('/mammals/help/')
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed('mammals/index.html')
+        self.assertTemplateUsed('/mammals/index.html')
         self.assertEqual(type(response), HttpResponse)
 
     # (r'^teaching/$', 'blackrock.mammals.views.teaching_resources'),
     def test_teaching(self):
         response = self.c.get('/mammals/teaching/')
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed('mammals/teaching_resources.html')
+        self.assertTemplateUsed('/mammals/teaching_resources.html')
         self.assertEqual(type(response), HttpResponse)
 
     # (r'^login/$',     'blackrock.mammals.views.mammals_login'),
     def test_login(self):
         response = self.c.get('/mammals/login/')
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed('mammals/login.html')
+        self.assertTemplateUsed('/mammals/login.html')
 
     # (r'^process_login/$',     'blackrock.mammals.views.process_login'),
     def test_process_login_get_fail(self):
         response = self.c.get('/mammals/process_login/')
         self.assertEqual(response.status_code, 302)
-        redirect = "mammals/login/"
+        redirect = "/mammals/login/"
         self.assertRedirects(response, redirect)
 
     # (r'^process_login/$',     'blackrock.mammals.views.process_login'),
     def test_process_login_post_fail(self):
         response = self.c.post('/mammals/process_login/')
         self.assertEqual(response.status_code, 302)
-        redirect = "mammals/login/"
+        redirect = "/mammals/login/"
         self.assertRedirects(response, redirect)
 
     def test_process_login_auth_fail(self):
