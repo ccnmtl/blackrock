@@ -14,7 +14,7 @@ from django.http import HttpResponse, HttpResponseRedirect, \
 from django.shortcuts import render
 from django.template import RequestContext
 from django.utils.datastructures import MultiValueDictKeyError
-from django.utils.tzinfo import FixedOffset
+from django.utils.timezone import FixedOffset
 from pysolr import Solr
 
 from blackrock.blackrock_main.models import LastImportDate

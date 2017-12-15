@@ -75,7 +75,6 @@ INSTALLED_APPS += [  # noqa
     'tinymce',
     'pagetree',
     'pageblocks',
-    'template_utils',
     'blackrock.waterquality',
     'blackrock.mammals',
     'bootstrapform',
