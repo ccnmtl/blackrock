@@ -20,7 +20,7 @@ urllib3==1.22
 certifi==2017.11.5
 
 requests==2.18.4
-pysolr==3.6.0
+pysolr==3.7.0
 requirements/src/gdata-2.0.14.tar.gz
 django-tinymce==2.6.0
 BeautifulSoup==3.2.1
