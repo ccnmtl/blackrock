@@ -139,27 +139,27 @@ def get_myspecies(specieslist, request):
 def getsum(request):
     if request.method != 'POST':
         return HttpResponseRedirect("/respiration/")
-    R0 = float(request.REQUEST['R0'])
-    E0 = float(request.REQUEST['E0'])
-    T0 = float(request.REQUEST['t0'])
+    R0 = float(request.POST.get('R0'))
+    E0 = float(request.POST.get('E0'))
+    T0 = float(request.POST.get('t0'))
     deltaT = 0.0
     try:
-        deltaT = float(request.REQUEST['delta'])
+        deltaT = float(request.POST('delta'))
     except (MultiValueDictKeyError, ValueError):
         deltaT = 0.0
 
-    start = request.REQUEST['start']
+    start = request.POST.get('start')
     startpieces = start.split('/')
     startfinal = datetime.datetime(
         int(startpieces[2]), int(startpieces[0]), int(startpieces[1]))
-    end = request.REQUEST['end']
+    end = request.POST.get('end')
     endpieces = end.split('/')
     # we add 1 day so we can do < enddate and include all values for the end
     # date (start and end date are both inclusive)
     endfinal = datetime.datetime(int(endpieces[2]), int(
         endpieces[0]), int(endpieces[1])) + datetime.timedelta(days=1)
 
-    station = request.REQUEST['station']
+    station = request.POST('station')
     (total, tm) = Temperature.arrhenius_sum(
         E0, R0, T0, deltaT, startfinal, endfinal, station)
     total_mol = total / 1000000
