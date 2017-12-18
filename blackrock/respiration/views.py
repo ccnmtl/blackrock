@@ -144,7 +144,7 @@ def getsum(request):
     T0 = float(request.POST.get('t0'))
     deltaT = 0.0
     try:
-        deltaT = float(request.POST('delta'))
+        deltaT = float(request.POST.get('delta'))
     except (MultiValueDictKeyError, ValueError):
         deltaT = 0.0
 
@@ -159,7 +159,7 @@ def getsum(request):
     endfinal = datetime.datetime(int(endpieces[2]), int(
         endpieces[0]), int(endpieces[1])) + datetime.timedelta(days=1)
 
-    station = request.POST('station')
+    station = request.POST.get('station')
     (total, tm) = Temperature.arrhenius_sum(
         E0, R0, T0, deltaT, startfinal, endfinal, station)
     total_mol = total / 1000000
