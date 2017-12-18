@@ -68,10 +68,10 @@ def calculate(request):
     if request.method != 'POST':
         return HttpResponseRedirect("/respiration/")
 
-    num_plots = int(request.REQUEST['numPlots'])
-    shape = request.REQUEST['shape']
-    size = float(request.REQUEST['size'])
-    arrangement = request.REQUEST['plotArrangement']
+    num_plots = int(request.POST.get('numPlots'))
+    shape = request.POST.get('shape')
+    size = float(request.POST.get('size'))
+    arrangement = request.POST.get('plotArrangement')
 
     parent = get_object_or_404(Plot, name=DEFAULT_PLOT)
     results = {

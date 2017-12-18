@@ -30,7 +30,10 @@ def explore(request):
 
 
 def getpercents(request):
-    depth = request.REQUEST['depth']
+    depth = request.GET.get('depth', None)
+    if not depth:
+        depth = request.POST.get('depth', None)
+
     samples = PollenSample.objects.filter(core_sample__depth=depth)
     samples = samples.filter(percentage__isnull=False)
     samples.exclude(percentage=0).order_by('pollen__name')
