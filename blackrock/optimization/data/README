@@ -1,0 +1,9 @@
+The optimization module expects data from the Mount Misery Plot. This can be loaded as a fixure:
+
+./manage.py loaddata optimization.json
+
+OR
+
+through the admin console using the optimization.csv file
+
+https://blackrock.ccnmtl.columbia.edu/admin/optimization/
