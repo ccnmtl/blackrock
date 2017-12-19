@@ -23,7 +23,23 @@ module.exports = {
         "hideElement": true,
         "log": true,
         "removeElementClass": true,
-        "showElement": true
+        "showElement": true,
+        "getFirstParentByTagAndClassName": true,
+        "getFirstElementByTagAndClassName": true,
+        "Draggable": true,
+        "bind": true,
+        "getElementPosition": true,
+        "getElement": true,
+        "getElementDimensions": true,
+        "addElementClass": true,
+        "removeElement": true,
+        "disconnectAll": true,
+        "DIV": true,
+        "appendChildNodes": true,
+        "setStyle": true,
+        "partial": true,
+        "replaceChildNodes": true,
+        "OPTION": true
     },
     "rules": {
         "indent": [
@@ -46,6 +62,14 @@ module.exports = {
             "error",
             "always"
         ],
+        "max-len": [2, {"code": 80, "tabWidth": 4, "ignoreUrls": true}],
+        "space-before-function-paren": ["error", "never"],
+        "space-in-parens": ["error", "never"],
+        "no-trailing-spaces": ["error"],
+        "key-spacing": ["error", { "beforeColon": false }],
+        "func-call-spacing": ["error", "never"],
+        "keyword-spacing": ["error", {"before": true, "after": true }],
+
         /** no-unsafe-innerhtml rule **/
         "no-unsafe-innerhtml/no-unsafe-innerhtml" : 2,
 
@@ -62,7 +86,7 @@ module.exports = {
         "scanjs-rules/call_addEventListener": 1,
         "scanjs-rules/call_addEventListener_deviceproximity": 1,
         "scanjs-rules/call_addEventListener_message": 1,
-        "scanjs-rules/call_connect": 1,
+        "scanjs-rules/call_connect": 0,
         "scanjs-rules/call_eval": 1,
         "scanjs-rules/call_execScript": 1,
         "scanjs-rules/call_hide": 0, /* hide used often. overly cautious */
