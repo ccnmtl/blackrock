@@ -1,13 +1,12 @@
 from blackrock.paleoecology.models import PollenSample, CoreSample
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.template import RequestContext
 import json
 
 
 def index(request, admin_msg=""):
-    ctx = RequestContext(request, {'admin_messages': admin_msg})
-    return render(request, 'paleoecology/index.html', context_instance=ctx)
+    ctx = {'admin_messages': admin_msg}
+    return render(request, 'paleoecology/index.html', ctx)
 
 
 def explore(request):

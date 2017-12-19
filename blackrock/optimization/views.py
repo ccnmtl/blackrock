@@ -1,6 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http import HttpResponseBadRequest
-from django.template import RequestContext
 from django.shortcuts import render, get_object_or_404
 from blackrock.optimization.models import Tree, Plot
 import csv
@@ -56,8 +55,7 @@ class Species:
 
 
 def index(request, admin_msg=""):
-    return render(request, 'optimization/index.html',
-                  context_instance=RequestContext(request))
+    return render(request, 'optimization/index.html', {})
 
 
 def run(request):

@@ -18,7 +18,6 @@ from django.apps import apps
 from django.db.models import DateField
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.template import RequestContext, Context
 from django.utils.timezone import FixedOffset
 from pagetree.models import Hierarchy
 from pysolr import Solr, SolrError
@@ -36,10 +35,8 @@ class rendered_with(object):
         def rendered_func(request, *args, **kwargs):
             items = func(request, *args, **kwargs)
             if isinstance(items, type({})):
-                ctx = RequestContext(request)
                 return render(request, self.template_name,
-                              items,
-                              context_instance=ctx)
+                              items, {})
             else:
                 return items
 
@@ -315,7 +312,7 @@ def import_classification_query(import_classification, last_import_date):
 
 @user_passes_test(lambda u: u.is_staff)
 def admin_rebuild_index(request):
-    ctx = Context({'server': settings.HAYSTACK_CONNECTIONS['default']['URL']})
+    ctx = {'server': settings.HAYSTACK_CONNECTIONS['default']['URL']}
 
     if (request.method == 'POST'):
         sys.stdout = the_buffer = StringIO.StringIO()
@@ -323,7 +320,7 @@ def admin_rebuild_index(request):
         sys.stdout = sys.__stdout__
         ctx['results'] = the_buffer.getvalue().split('\n')[1:-2]
 
-    return render(request, 'portal/admin_solr.html', context_instance=ctx)
+    return render(request, 'portal/admin_solr.html', ctx)
 
 
 def admin_readercycle(request):
