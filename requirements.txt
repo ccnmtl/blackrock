@@ -22,7 +22,7 @@ certifi==2017.11.5
 requests==2.18.4
 pysolr==3.7.0
 requirements/src/gdata-2.0.14.tar.gz
-django-tinymce==2.6.0
+django-tinymce==2.7.0
 BeautifulSoup==3.2.1
 coverage==4.4.2
 pyasn1==0.4.2
