@@ -238,8 +238,8 @@ class RandomSample:
             delta = size
 
         if self.arrangement == 'random':
-            x = random.randint(0, float(self.parent.width) - size),  # nosec
-            y = random.randint(0, float(self.parent.height) - size),  # nosec
+            x = random.randint(0, float(self.parent.width) - size)
+            y = random.randint(0, float(self.parent.height) - size)
             self.points = [{
                 'x': x,
                 'y': y
