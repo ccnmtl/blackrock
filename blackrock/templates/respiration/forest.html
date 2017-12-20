@@ -10,7 +10,7 @@
     <script type="text/javascript" src="{% static 'js/respiration/species.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/respiration/forestgraph.js' %}"></script>
     <script type="text/javascript">
-    
+
         addLoadEvent(function() {
         {% for station in stations %}
             addYears("{{station}}", {{years|hash:station}});
@@ -19,9 +19,8 @@
         initYearHelper(); // foresthelpers.js
         initSpeciesModule(); // species.js
         initScenarioModule(); // scenario.js
-        setupForest();      
+        setupForest();
       });
-    
   </script>
 
 {% endblock %}
@@ -35,7 +34,7 @@
 {% block leftlegend %}
     <div id="forestgraph">
       <input id="graph_button" type="button" value="Graph &gt;&gt;" onclick="javascript:forestGraph();" />
-      <input id="print_button" type="button" value="Print" onclick="javascript:window.print()" />      
+      <input id="print_button" type="button" value="Print" onclick="javascript:window.print()" />
     </div>
     <h3>Set Scenario Variables</h3>
 {% endblock %}
