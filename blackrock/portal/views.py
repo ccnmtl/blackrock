@@ -7,6 +7,7 @@ import sys
 from time import strptime
 import urllib
 
+from django.apps import apps
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.gis.geos import fromstr
@@ -14,7 +15,6 @@ from django.contrib.gis.measure import D  # D is a shortcut for Distance
 from django.core import management
 from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
-from django.apps import apps
 from django.db.models import DateField
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -69,7 +69,7 @@ def page(request, path):
         try:
             model = apps.get_model("portal", asset_type)
             context['selected'] = model.objects.get(id=asset_id)
-        except ObjectDoesNotExist:
+        except (ObjectDoesNotExist, LookupError):
             msg = "We were unable to locate a <b>%s</b> at this address."
             context['error'] = msg % (asset_type)
 
