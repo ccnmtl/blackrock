@@ -7,6 +7,7 @@ import sys
 from time import strptime
 import urllib
 
+from django.apps import apps
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.gis.geos import fromstr
@@ -14,7 +15,6 @@ from django.contrib.gis.measure import D  # D is a shortcut for Distance
 from django.core import management
 from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
-from django.apps import apps
 from django.db.models import DateField
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -24,7 +24,8 @@ from pysolr import Solr, SolrError
 
 from blackrock.blackrock_main.models import LastImportDate
 from blackrock.blackrock_main.solr import SolrUtilities
-from blackrock.portal.models import Location, DataSet, Audience
+from blackrock.portal.models import Location, DataSet, Audience, \
+    get_all_related_objects
 
 
 class rendered_with(object):
@@ -88,7 +89,7 @@ def nearby(request, latitude, longitude):
 
     a = []
     for loc in qs:
-        all_related = loc._meta.get_all_related_objects()
+        all_related = get_all_related_objects(loc)
         for obj in all_related:
             for instance in getattr(loc, obj.get_accessor_name()).all():
                 if len(a) < 10:
