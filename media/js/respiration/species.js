@@ -43,16 +43,14 @@
             // how does this associate the species with a scenario
             scenario = document;
             speciesList.push('species' + numSpecies);
-        }
-        else {
+        } else {
             // get scenario, if there is one
             scenario =
                 getFirstParentByTagAndClassName(elem, 'div', 'scenario');
             if (!scenario) {
                 scenario = document;
                 speciesList.push('species' + numSpecies);
-            }
-            else if (scenario.id == 'scenario1') {
+            } else if (scenario.id == 'scenario1') {
                 speciesList.push('species' + numSpecies);
             }
         }
@@ -83,8 +81,7 @@
         for (var i=1; i<=leafSpecies; i++) {
             if (i > 1) {
                 addSpecies();
-            }
-            else {
+            } else {
                 speciesList.push('species'+i);
             }
             $('species'+i+'-name').value =
@@ -96,7 +93,9 @@
             $('species'+i+'-E0').value =
                 $('leaf-species' + i + '-E0').value;
         }
-        if (leafSpecies === 0) {setDefaults(); }
+        if (leafSpecies === 0) {
+            setDefaults();
+        }
     }
 
     function setDefaults() {
@@ -241,8 +240,7 @@
         try {
             sliders = getElementsByTagAndClassName(
                 null, 'slider','temp-slider');
-        }
-        catch (err) {
+        } catch (err) {
             return;  // no sliders; don't initialize this part
         }
         this.input_low = $('temp_low');
@@ -422,8 +420,7 @@
         if (src.id == 'unfreeze') {
             this.freeze = false;
             hideElement(src);
-        }
-        else {
+        } else {
             this.graphCursor(evt,true);
             this.freeze = true;
             showElement('unfreeze');

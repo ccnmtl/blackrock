@@ -69,6 +69,7 @@ module.exports = {
         "key-spacing": ["error", { "beforeColon": false }],
         "func-call-spacing": ["error", "never"],
         "keyword-spacing": ["error", {"before": true, "after": true }],
+        "brace-style": ["error", "1tbs"],
 
         /** no-unsafe-innerhtml rule **/
         "no-unsafe-innerhtml/no-unsafe-innerhtml" : 2,
