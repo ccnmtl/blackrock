@@ -39,7 +39,13 @@ module.exports = {
         "setStyle": true,
         "partial": true,
         "replaceChildNodes": true,
-        "OPTION": true
+        "OPTION": true,
+        "getStyle": true,
+        "TD": true,
+        "IMG": true,
+        "OpenLayers": true,
+        "TR": true,
+        "insertSiblingNodesBefore": true
     },
     "rules": {
         "indent": [
