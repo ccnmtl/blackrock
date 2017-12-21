@@ -77,10 +77,10 @@
     }
 
     function initSpecies() {
-        var leafSpecies = $('leaf-numspecies').value;
+        var leafSpecies = parseInt($('leaf-numspecies').value);
         speciesList = [];
         // change to see if jenkins will build
-        for (var i=1; i<=leafSpecies; i++) {
+        for (var i = 1; i <= leafSpecies; i++) {
             if (i > 1) {
                 addSpecies();
             }
@@ -96,7 +96,9 @@
             $('species'+i+'-E0').value =
                 $('leaf-species' + i + '-E0').value;
         }
-        if (leafSpecies === 0) {setDefaults(); }
+        if (leafSpecies === 0) {
+            setDefaults();
+        }
     }
 
     function setDefaults() {

@@ -30,8 +30,6 @@ LeafGraphData.prototype.updateSpecies = function(species_id) {
     this.species[species_id].kelvin = $(species_id + '-kelvin').value;
     this.species[species_id].R0 = $(species_id + '-R0').value;
     this.species[species_id].E0 = $(species_id + '-E0').value;
-    $(species_id + '-swatch').style.backgroundColor =
-        this.species[species_id].color;
     //works as advertised
 };
 
