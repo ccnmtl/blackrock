@@ -70,7 +70,7 @@ def page(request, path):
         try:
             model = apps.get_model("portal", asset_type)
             context['selected'] = model.objects.get(id=asset_id)
-        except (ObjectDoesNotExist, LookupError):
+        except (ObjectDoesNotExist, LookupError, ValueError):
             msg = "We were unable to locate a <b>%s</b> at this address."
             context['error'] = msg % (asset_type)
 
