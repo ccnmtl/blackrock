@@ -17,9 +17,13 @@ function ForestGraphData() {
 
 var ForestData = new ForestGraphData();
 
-function showError() { setStyle('error', {'display': 'block'}); }
+function showError() {
+    setStyle('error', {'display': 'block'});
+}
 
-function clearError() { setStyle('error', {'display': 'none'}); }
+function clearError() {
+    setStyle('error', {'display': 'none'});
+}
 
 function errorHighlight(elem) {
     addElementClass(elem, 'errorHighlight');
@@ -46,7 +50,9 @@ function isLeapYear(year) {
 
 function isValidMMDD(str, leapyear) {
     var bits = str.split(/[/,-]/);
-    if (bits.length != 2) { return false; }
+    if (bits.length != 2) {
+        return false;
+    }
     var month = bits[0];
     var day = bits[1];
     if (month === '' || day === '') {
@@ -64,7 +70,9 @@ function isValidMMDD(str, leapyear) {
     }
     if (month === 2) {
         maxday = 28;   // need to check for leapyears
-        if (leapyear) { maxday = 29; }
+        if (leapyear) {
+            maxday = 29;
+        }
     }
     if (day < 0 || day > maxday) {
         return false;
