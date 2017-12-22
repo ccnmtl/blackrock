@@ -46,6 +46,9 @@ module.exports = {
         "OpenLayers": true,
         "TR": true,
         "insertSiblingNodesBefore": true
+        "google": true,
+        "STATIC_URL": true,
+        "MochiKit": true
     },
     "rules": {
         "indent": [

@@ -1,16 +1,18 @@
+/* eslint-disable security/detect-non-literal-fs-filename */
+
 if (typeof Portal === 'undefined') {
     var Portal = {};
 }
 
 if (!Portal.Base) {
     Portal.Base = {
-        'Observer': function () {
+        'Observer': function() {
             // the real work is done by connect/signal stuff below
             // this just keeps track of the stuff that needs to be destroyed
             var _listeners = {};
             var _named_listeners = {};
             var _nextListener = 0;
-            this.addListener = function (obj, slot) {
+            this.addListener = function(obj, slot) {
                 if (slot && _named_listeners[slot]) {
                     this.removeListener(slot);
                     _named_listeners[slot] = obj;
@@ -20,15 +22,15 @@ if (!Portal.Base) {
                     return _nextListener;
                 }
             };
-            this.removeListener = function (slot_or_pos) {
+            this.removeListener = function(slot_or_pos) {
                 var stor = (_named_listeners[slot_or_pos]) ? _named_listeners
-                        : _listeners;
+                    : _listeners;
                 if (stor[slot_or_pos]) {
                     stor[slot_or_pos].disconnect();
                     delete stor[slot_or_pos];
                 }
             };
-            this.clearListeners = function () {
+            this.clearListeners = function() {
                 for (var a in _named_listeners) {
                     if (_named_listeners.hasOwnProperty(a)) {
                         this.removeListener(a);
@@ -51,71 +53,70 @@ if (!Portal.Base) {
 if (!Portal.Base.Events) {
     if (typeof MochiKit !== 'undefined') {
         Portal.Base.Events = {
-            'connect': function (subject, event, self, func) {
+            'connect': function(subject, event, self, func) {
                 if (typeof subject.nodeType !== 'undefined' ||
                     subject === window ||
                     subject === document) {
                     event = 'on' + event;
                 }
-                var disc = MochiKit.Signal.connect(subject, event, self, func);
+                var disc =
+                    MochiKit.Signal.connect(subject, event, self, func);
                 return {
-                    disconnect: function () {
+                    disconnect: function() {
                         MochiKit.Signal.disconnect(disc);
                     }
                 };
             },
-            'signal': function (subject, event, param) {
+            'signal': function(subject, event, param) {
                 MochiKit.Signal.signal(subject, event, param);
             }
         };
-    } // mochikit
-    else if (typeof jQuery !== 'undefined') {
+    } else if (typeof jQuery !== 'undefined') {
         Portal.Base.Events = {
-            'connect': function (subject, event, self, func) {
-                var disc = jQuery(subject).bind(event, function () {
+            'connect': function(subject, event, self, func) {
+                var disc = jQuery(subject).bind(event, function() {
                     func.call(self, event, this);
                 });
                 return {
-                    disconnect: function () {
+                    disconnect: function() {
                         disc.unbind(event);
                     }
                 };
             },
-            'signal': function (subject, event) {
+            'signal': function(subject, event) {
                 jQuery(subject).trigger(event);
             }
         };
-    } // jquery
-    else {
-        throw Error("Use a framework, Dude! MochiKit, jQuery, YUI, whatever!");
+    } else {
+        throw Error('Use a framework');
     }
 }
 
 if (!Portal.Layer) {
-    Portal.Layer = function (identifier, fileName, clickable) {
+    Portal.Layer = function(identifier, fileName, clickable) {
         var self = this;
         Portal.Base.Observer.apply(this, arguments); // inherit events
 
         self.identifier = identifier;
 
         var myOptions = {
-            preserveViewport: "true",
+            preserveViewport: 'true',
             suppressInfoWindows: true,
             clickable: clickable
         };
         self.instance = new google.maps.KmlLayer(fileName, myOptions);
 
         google.maps.event.addListener(self.instance, 'click',
-                function (kmlEvent) {
-                    self.events.signal(Portal, 'kmlClicked', kmlEvent);
-                });
+            function(kmlEvent) {
+                self.events.signal(Portal, 'kmlClicked', kmlEvent);
+            });
 
-        this.isVisible = function () {
+        this.isVisible = function() {
             return self.instance.map !== null &&
                 self.instance.map !== undefined;
         };
 
-        this.shouldBeVisible = function () {
+        this.shouldBeVisible = function() {
             var element = document.getElementById(self.identifier);
             return element.checked;
         };
@@ -123,7 +124,7 @@ if (!Portal.Layer) {
 }
 
 if (!Portal.MapMarker) {
-    Portal.MapMarker = function () {
+    Portal.MapMarker = function() {
         var self = this;
 
         Portal.Base.Observer.apply(this, arguments); // inherit events
@@ -134,10 +135,10 @@ if (!Portal.MapMarker) {
         self.marker = null;
         self.latlng = null;
 
-        this.create = function (mapInstance, assetIdentifier, name,
-                                description, lat, lng, featured,
-                                infrastructure, iconName, zIndex) {
-            
+        this.create = function(mapInstance, assetIdentifier, name,
+            description, lat, lng, featured,
+            infrastructure, iconName, zIndex) {
+
             self.assetIdentifier = assetIdentifier;
             self.description = description;
             self.featured = featured;
@@ -150,24 +151,24 @@ if (!Portal.MapMarker) {
             var iconUrl = '';
             if (infrastructure && infrastructure.length) {
                 var infraIcon = infrastructure[0];
-                infraIcon = infraIcon.replace(/ /g, "");
-                infraIcon = infraIcon.replace("-", "");
-                iconUrl = STATIC_URL + "images/portal/mapicon_" +
+                infraIcon = infraIcon.replace(/ /g, '');
+                infraIcon = infraIcon.replace('-', '');
+                iconUrl = STATIC_URL + 'images/portal/mapicon_' +
                     infraIcon.toLowerCase() + '.png';
             } else if (featured && featured.length) {
                 var featuredIcon = featured[0];
-                featuredIcon = featuredIcon.replace("Featured ", "");
-                iconUrl = STATIC_URL + "images/portal/mapicon_" +
+                featuredIcon = featuredIcon.replace('Featured ', '');
+                iconUrl = STATIC_URL + 'images/portal/mapicon_' +
                         featuredIcon.toLowerCase() + '.png';
             } else if (iconName) {
-                if (iconName.indexOf("https:") === 0) {
+                if (iconName.indexOf('https:') === 0) {
                     iconUrl = iconName;
                 } else {
-                    iconUrl = STATIC_URL + "images/portal/" +
+                    iconUrl = STATIC_URL + 'images/portal/' +
                         iconName;
                 }
             } else {
-                iconUrl = STATIC_URL + "images/portal/mapicon_main.png";
+                iconUrl = STATIC_URL + 'images/portal/mapicon_main.png';
             }
 
             self.latlng = new google.maps.LatLng(lat, lng);
@@ -180,38 +181,38 @@ if (!Portal.MapMarker) {
                 zIndex: zIndex
             });
 
-            google.maps.event.addListener(self.marker, 'click', function () {
+            google.maps.event.addListener(self.marker, 'click', function() {
                 self.events.signal(Portal, 'markerClicked',
-                        self.assetIdentifier);
+                    self.assetIdentifier);
             });
 
             return self.latlng;
         };
 
-        this.isVisible = function () {
+        this.isVisible = function() {
             return self.marker.map !== null &&
                 self.marker.map !== undefined;
         };
 
-        this.shouldBeVisible = function () {
+        this.shouldBeVisible = function() {
             var visible = false;
             var options = null;
             var values = null;
 
             if (self.infrastructure && self.infrastructure.length) {
-                options = getElementsByTagAndClassName("input",
-                        "infrastructure_option");
+                options = getElementsByTagAndClassName('input',
+                    'infrastructure_option');
                 values = self.infrastructure;
             } else if (self.featured && self.featured.length) {
-                options = getElementsByTagAndClassName("input",
-                        "featured_option");
+                options = getElementsByTagAndClassName('input',
+                    'featured_option');
                 values = self.featured;
             } else {
                 visible = true;
             }
 
             if (options) {
-                forEach(options, function (option) {
+                forEach(options, function(option) {
                     if (option.checked) {
                         for (var i = 0; i < values.length; i++) {
                             if (option.value === values[i]) {
@@ -228,7 +229,7 @@ if (!Portal.MapMarker) {
 }
 
 if (!Portal.Map) {
-    Portal.Map = function () {
+    Portal.Map = function() {
         var self = this;
 
         Portal.Base.Observer.apply(this, arguments); // inherit events
@@ -239,13 +240,13 @@ if (!Portal.Map) {
         self.infoWindow = null;
         self.layers = {};
 
-        this.hideInfoWindow = function () {
+        this.hideInfoWindow = function() {
             if (self.infowindow) {
                 self.infowindow.close();
             }
         };
 
-        this.showLayerInfoWindow = function (kmlEvent) {
+        this.showLayerInfoWindow = function(kmlEvent) {
             if (self.infowindow) {
                 self.infowindow.close();
             }
@@ -255,29 +256,34 @@ if (!Portal.Map) {
             // @todo -- client-side templates?
             if (kmlEvent.featureData.name) {
                 description =
-                    '<div class="callout"><span class="callout-display-name">' +
+                    '<div class="callout">' +
+                    '<span class="callout-display-name">' +
                     kmlEvent.featureData.name + '</span>';
                 if (kmlEvent.featureData.description) {
                     description += '<div class="callout-asset-types">' +
                         kmlEvent.featureData.description + '</div>';
                 }
                 description +=
-                    '<a class="callout-summary-link" onclick="portalMapInstance.search(' +
-                        kmlEvent.latLng.lat() + ', ' + kmlEvent.latLng.lng() +
-                        ', \'' + escape(kmlEvent.featureData.name) +
-                        '\')">Search nearby</a></div>';
+                    '<a class="callout-summary-link" ' +
+                    'onclick="portalMapInstance.search(' +
+                    kmlEvent.latLng.lat() + ', ' +
+                    kmlEvent.latLng.lng() +
+                    ', \'' + escape(kmlEvent.featureData.name) +
+                    '\')">Search nearby</a></div>';
             } else if (kmlEvent.featureData.description) {
-                var title = kmlEvent.featureData.description.replace("_blank",
-                        "_self");
+                var title = kmlEvent.featureData.description.replace(
+                    '_blank', '_self');
                 description = '<div class="callout"><div>' +
                     title + '</div><br />';
-                title = title.replace(/(<([^>]+)>)/ig, "");
+                title = title.replace(/(<([^>]+)>)/ig, '');
                 description +=
-                    '<a class="callout-summary-link" onclick="portalMapInstance.search(' +
-                        kmlEvent.latLng.lat() + ', ' + kmlEvent.latLng.lng() +
-                        ', \'' + escape(title) + '\')">Search nearby</a></div>';
+                    '<a class="callout-summary-link" ' +
+                    'onclick="portalMapInstance.search(' +
+                    kmlEvent.latLng.lat() + ', ' + kmlEvent.latLng.lng() +
+                    ', \'' + escape(title) + '\')">Search nearby</a></div>';
             } else {
-                description = kmlEvent.latLng.lat() + ', ' + kmlEvent.latLng.lng();
+                description = kmlEvent.latLng.lat() +
+                    ', ' + kmlEvent.latLng.lng();
             }
 
             var params = {
@@ -292,7 +298,7 @@ if (!Portal.Map) {
             self.infowindow.open(self.mapInstance);
         };
 
-        this.showMarkerInfoWindow = function (asset_identifier) {
+        this.showMarkerInfoWindow = function(asset_identifier) {
             var location = self.locations[asset_identifier];
             if (!location) {
                 location = self.search_results[asset_identifier];
@@ -319,13 +325,13 @@ if (!Portal.Map) {
             }
         };
 
-        this.toggleFacet = function () {
+        this.toggleFacet = function() {
             for (var assetIdentifier in self.locations) {
                 if (self.locations.hasOwnProperty(assetIdentifier)) {
                     var location = self.locations[assetIdentifier];
                     var visible = location.isVisible();
                     var shouldBeVisible = location.shouldBeVisible();
-    
+
                     if (shouldBeVisible && !visible) {
                         location.marker.setMap(self.mapInstance);
                     } else if (!shouldBeVisible && visible) {
@@ -335,13 +341,13 @@ if (!Portal.Map) {
             }
         };
 
-        this.toggleLayer = function () {
+        this.toggleLayer = function() {
             for (var identifier in self.layers) {
                 if (self.layers.hasOwnProperty(identifier)) {
                     var layer = self.layers[identifier];
                     var visible = layer.isVisible();
                     var shouldBeVisible = layer.shouldBeVisible();
-    
+
                     if (shouldBeVisible && !visible) {
                         layer.instance.setMap(self.mapInstance);
                     } else if (!shouldBeVisible && visible) {
@@ -351,28 +357,28 @@ if (!Portal.Map) {
             }
         };
 
-        this.initMarkers = function (className, zIndexBoost, fitBounds) {
+        this.initMarkers = function(className, zIndexBoost, fitBounds) {
             // iterate over locations within the page,
             // and add the requested markers
             var bounds = new google.maps.LatLngBounds();
             var a = {};
-            var elements = getElementsByTagAndClassName("div", className);
+            var elements = getElementsByTagAndClassName('div', className);
             var zIndex = 100 + zIndexBoost;
-            forEach(elements, function (elem) {
+            forEach(elements, function(elem) {
                 var assetIdentifier = getFirstElementByTagAndClassName(
-                        null, "asset_identifier", elem).value;
+                    null, 'asset_identifier', elem).value;
                 var name = document.getElementById(assetIdentifier +
-                    "-name").value;
+                    '-name').value;
                 var description = document.getElementById(assetIdentifier +
-                    "-description").innerHTML;
+                    '-description').innerHTML;
                 var latitude = document.getElementById(assetIdentifier +
-                    "-latitude").value;
+                    '-latitude').value;
                 var longitude = document.getElementById(assetIdentifier +
-                    "-longitude").value;
+                    '-longitude').value;
 
                 var iconname = null;
                 var property = document.getElementById(assetIdentifier +
-                    "-iconname");
+                    '-iconname');
                 if (property && property.value.length > 0) {
                     iconname = property.value;
                 }
@@ -381,22 +387,22 @@ if (!Portal.Map) {
                 var infrastructure = null;
 
                 property = document.getElementById(assetIdentifier +
-                    "-infrastructure");
+                    '-infrastructure');
                 if (property && property.value.length > 0) {
-                    infrastructure = property.value.split(",");
+                    infrastructure = property.value.split(',');
                 }
 
                 property = document.getElementById(assetIdentifier +
-                    "-featured");
+                    '-featured');
                 if (property && property.value.length > 0) {
-                    featured = property.value.split(",");
+                    featured = property.value.split(',');
                 }
 
                 var marker = new Portal.MapMarker();
                 var latlng = marker.create(self.mapInstance,
-                        assetIdentifier, name, description, latitude,
-                        longitude, featured, infrastructure, iconname,
-                        zIndex);
+                    assetIdentifier, name, description, latitude,
+                    longitude, featured, infrastructure, iconname,
+                    zIndex);
 
                 a[assetIdentifier] = marker;
                 bounds.extend(latlng);
@@ -408,14 +414,14 @@ if (!Portal.Map) {
                 // http://stackoverflow.com/questions/3334729/
                 // google-maps-v3-fitbounds-zoom-too-close-for-single-marker
                 if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
-                   var extendPoint1 = new google.maps.LatLng(
-                       bounds.getNorthEast().lat() + 0.01,
-                       bounds.getNorthEast().lng() + 0.01);
-                   var extendPoint2 = new google.maps.LatLng(
-                       bounds.getNorthEast().lat() - 0.01,
-                       bounds.getNorthEast().lng() - 0.01);
-                   bounds.extend(extendPoint1);
-                   bounds.extend(extendPoint2);
+                    var extendPoint1 = new google.maps.LatLng(
+                        bounds.getNorthEast().lat() + 0.01,
+                        bounds.getNorthEast().lng() + 0.01);
+                    var extendPoint2 = new google.maps.LatLng(
+                        bounds.getNorthEast().lat() - 0.01,
+                        bounds.getNorthEast().lng() - 0.01);
+                    bounds.extend(extendPoint1);
+                    bounds.extend(extendPoint2);
                 }
                 self.mapInstance.fitBounds(bounds);
             }
@@ -423,7 +429,8 @@ if (!Portal.Map) {
             return a;
         };
 
-        this.search = function (lat, long, title) {
+        // eslint-disable-next-line scanjs-rules/assign_to_search
+        this.search = function(lat, long, title) {
             for (var result in self.search_results) {
                 if (self.search_results.hasOwnProperty(result)) {
                     var location = self.search_results[result];
@@ -432,37 +439,41 @@ if (!Portal.Map) {
             }
             self.search_results = {};
 
-            document.getElementById("map_filters").style.display = "none";
+            document.getElementById('map_filters').style.display = 'none';
 
-            var nearby_results = document.getElementById("nearby_results");
+            var nearby_results = document.getElementById('nearby_results');
 
-            jQuery(nearby_results).show('fast', function () {
+            /* eslint-disable no-unsafe-innerhtml/no-unsafe-innerhtml */
+            jQuery(nearby_results).show('fast', function() {
                 var url = '/portal/nearby/' + lat + '/' + long + '/';
                 var request = doXHR(url);
-                request.addCallback(function (response) {
+                request.addCallback(function(response) {
                     nearby_results.innerHTML = response.responseText;
-                    document.getElementById("nearby_asset").innerHTML = unescape(title);
-                    self.search_results = self.initMarkers("nearby", 0, true);
+                    document.getElementById('nearby_asset').innerHTML =
+                        unescape(title);
+                    self.search_results =
+                        self.initMarkers('nearby', 0, true);
 
-                    var listener = google.maps.event.addListenerOnce(
+                    google.maps.event.addListenerOnce(
                         self.mapInstance,
-                        "idle",
-                        function () {
+                        'idle',
+                        function() {
                             var center = new google.maps.LatLng(
-                                    lat,
-                                    long);
+                                lat,
+                                long);
                             self.mapInstance.setCenter(center);
                         });
 
                 });
             });
+            /* eslint-enable no-unsafe-innerhtml/no-unsafe-innerhtml */
         };
 
-        this.closeSearch = function () {
-            document.getElementById("map_filters").style.display = "block";
-            var nearby_results = document.getElementById("nearby_results");
-            nearby_results.innerHTML = "";
-            nearby_results.style.display = "none";
+        this.closeSearch = function() {
+            document.getElementById('map_filters').style.display = 'block';
+            var nearby_results = document.getElementById('nearby_results');
+            nearby_results.innerHTML = '';
+            nearby_results.style.display = 'none';
 
             for (var result in self.search_results) {
                 if (self.search_results.hasOwnProperty(result)) {
@@ -474,13 +485,13 @@ if (!Portal.Map) {
             self.center();
         };
 
-        this.center = function () {
+        this.center = function() {
             var latlng = new google.maps.LatLng(41.397459, -74.021848);
             self.mapInstance.setCenter(latlng);
             self.mapInstance.setZoom(13);
         };
 
-        this.markerCount = function (myobj) {
+        this.markerCount = function(myobj) {
             var count = 0;
             for (var k in myobj) {
                 if (myobj.hasOwnProperty(k)) {
@@ -490,8 +501,8 @@ if (!Portal.Map) {
             return count;
         };
 
-        this.init = function () {
-            if (!document.getElementById("map_canvas")) {
+        this.init = function() {
+            if (!document.getElementById('map_canvas')) {
                 return;
             }
 
@@ -503,7 +514,7 @@ if (!Portal.Map) {
                 mapTypeId: google.maps.MapTypeId.TERRAIN
             };
 
-            var elt = document.getElementById("map_canvas");
+            var elt = document.getElementById('map_canvas');
             self.mapInstance = new google.maps.Map(elt, myOptions);
 
             self.events.connect(Portal, 'markerClicked', self,
@@ -514,52 +525,53 @@ if (!Portal.Map) {
             self.events.connect(Portal, 'toggleLayer', self, 'toggleLayer');
 
             var randomnumber = Math.floor(Math.random() * 100000);
-            var options = getElementsByTagAndClassName("input", "layer");
-            forEach(options, function (option) {
+            var options = getElementsByTagAndClassName('input', 'layer');
+            forEach(options, function(option) {
                 var kmllayer = new Portal.Layer(option.id,
-                        STATIC_URL + "kml/portal/" +
-                    option.id + ".kml?version=" + randomnumber, true);
+                    STATIC_URL + 'kml/portal/' +
+                    option.id + '.kml?version=' + randomnumber, true);
                 self.layers[option.id] = kmllayer;
 
-                connect(option, 'onclick', function (evt) {
+                connect(option, 'onclick', function(evt) {
                     self.events.signal(Portal, 'toggleLayer');
                 });
             });
 
-            options = getElementsByTagAndClassName("input", "facet");
-            forEach(options, function (option) {
-                connect(option, 'onclick', function (evt) {
+            options = getElementsByTagAndClassName('input', 'facet');
+            forEach(options, function(option) {
+                connect(option, 'onclick', function(evt) {
                     self.events.signal(Portal, 'toggleFacet');
                 });
             });
 
-            self.locations = self.initMarkers("geocode", 0, false);
-            var detail_locations = self.initMarkers("geocode_detail", 0, true);
+            self.locations = self.initMarkers('geocode', 0, false);
+            var detail_locations = self.initMarkers(
+                'geocode_detail', 0, true);
             for (var key in detail_locations) {
                 if (detail_locations.hasOwnProperty(key)) {
                     self.locations[key] = detail_locations[key];
                 }
             }
 
-            self.selected = self.initMarkers("geoselected", 0, true);
+            self.selected = self.initMarkers('geoselected', 0, true);
             if (self.markerCount(self.selected)) {
-                var listener = google.maps.event.addListenerOnce(
-                        self.mapInstance, "idle", function () {
-                            self.mapInstance.setZoom(14);
+                google.maps.event.addListenerOnce(
+                    self.mapInstance, 'idle', function() {
+                        self.mapInstance.setZoom(14);
 
-                            for (var s in self.selected) {
-                                if (self.selected.hasOwnProperty(s)) {
-                                    self.showMarkerInfoWindow(s);
-                                }
+                        for (var s in self.selected) {
+                            if (self.selected.hasOwnProperty(s)) {
+                                self.showMarkerInfoWindow(s);
                             }
-                        });
+                        }
+                    });
             }
 
             var url_base = STATIC_URL +
-                "kml/portal/brfboundary.kml?newcachebuster=";
+                'kml/portal/brfboundary.kml?newcachebuster=';
 
             var boundary = new Portal.Layer(
-                "brfboundary", url_base + randomnumber, false);
+                'brfboundary', url_base + randomnumber, false);
             boundary.instance.setMap(self.mapInstance);
 
             self.toggleLayer();
@@ -568,9 +580,7 @@ if (!Portal.Map) {
 }
 
 var portalMapInstance = null;
-addLoadEvent(function () {
+addLoadEvent(function() {
     portalMapInstance = new Portal.Map();
     portalMapInstance.init();
-
-    var latlng = new google.maps.LatLng(41.397459, -74.021848);
 });
