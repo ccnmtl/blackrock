@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.core.urlresolvers import RegexURLResolver
+from django.urls.resolvers import RegexURLResolver
 import sys
 
 
