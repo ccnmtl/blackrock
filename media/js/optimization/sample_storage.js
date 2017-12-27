@@ -1,52 +1,55 @@
+/* global Stor: true */
+/* exported SampleStorage */
+
 var SampleStorage = (new (
-function () {
-    if (!window.JSON || !window.Stor) {
-        throw Error("we need a modern browser to store stuff");
-    }
-    var self = this;
-    this.nsINDEX = 'ALL_SAMPLES';
-    this.nsSAMPLE = 'SAMPLE_';
-    this.nsFOREST = 'FOREST'; //summary forest 'actual' data 
-    
-    this.addSample = function(summary, results) {
-        var index = self.samples.push(summary) -1;
-        Stor.set(self.nsSAMPLE + index, JSON.stringify(results));
-        Stor.set(self.nsINDEX, JSON.stringify(self.samples));
-        return index;
-    };
+    function() {
+        if (!window.JSON || !window.Stor) {
+            throw Error('we need a modern browser to store stuff');
+        }
+        var self = this;
+        this.nsINDEX = 'ALL_SAMPLES';
+        this.nsSAMPLE = 'SAMPLE_';
+        this.nsFOREST = 'FOREST'; //summary forest 'actual' data
 
-    this.getSample = function(index) {
-        return JSON.parse(Stor.get(self.nsSAMPLE + index,'false'));
-    };
-    this.getSampleRaw = function(index) {
-        return Stor.get(self.nsSAMPLE + index,'');
-    };
+        this.addSample = function(summary, results) {
+            var index = self.samples.push(summary) -1;
+            Stor.set(self.nsSAMPLE + index, JSON.stringify(results));
+            Stor.set(self.nsINDEX, JSON.stringify(self.samples));
+            return index;
+        };
 
-    this.deleteSample = function(index) {
-        Stor.del(self.nsSAMPLE + index);
-        self.samples[index] = false;
-        Stor.set(self.nsINDEX, JSON.stringify(self.samples));        
-    };
+        this.getSample = function(index) {
+            return JSON.parse(Stor.get(self.nsSAMPLE + index,'false'));
+        };
+        this.getSampleRaw = function(index) {
+            return Stor.get(self.nsSAMPLE + index,'');
+        };
 
-    this.setForest = function(results) {
-        var summary = [
-            'FOREST',
-            0,0,0,0,
-            results['actual-area'],
-            0,0,0,0,
-            results['actual-species'],
-            results['actual-count'],
-            results['actual-dbh'],
-            results['actual-variance-dbh'],
-            results['actual-density'],
-            results['actual-basal']
-        ];
-        Stor.set(self.nsFOREST, JSON.stringify(summary));
-    };
+        this.deleteSample = function(index) {
+            Stor.del(self.nsSAMPLE + index);
+            self.samples[index] = false;
+            Stor.set(self.nsINDEX, JSON.stringify(self.samples));
+        };
 
-    this.getForest = function() {
-        return JSON.parse(Stor.get(self.nsFOREST,'[]'));
-    };
+        this.setForest = function(results) {
+            var summary = [
+                'FOREST',
+                0,0,0,0,
+                results['actual-area'],
+                0,0,0,0,
+                results['actual-species'],
+                results['actual-count'],
+                results['actual-dbh'],
+                results['actual-variance-dbh'],
+                results['actual-density'],
+                results['actual-basal']
+            ];
+            Stor.set(self.nsFOREST, JSON.stringify(summary));
+        };
 
-    this.samples = JSON.parse(Stor.get(this.nsINDEX,'[]'));
-})());
+        this.getForest = function() {
+            return JSON.parse(Stor.get(self.nsFOREST,'[]'));
+        };
+
+        this.samples = JSON.parse(Stor.get(this.nsINDEX,'[]'));
+    })());
