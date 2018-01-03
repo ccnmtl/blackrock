@@ -30,6 +30,13 @@ div.tab-selected {
 	border-bottom: 3px white solid;
 }
 
+div.tab-survey {
+    z-index: 100;
+    float: right;
+    margin: -5px 5px 0 0;
+    cursor: pointer;
+}
+
 div#top-box {
 	margin: 70px 350px 0px 30px;
 	border: 1px solid red;
@@ -456,3 +463,19 @@ div.morphology-term .title {
     font-weight: bold;
 }
 
+.btn-paleoecology {
+    background-color: #833c3b;
+    color: #fff;
+    border-radius: 4px;
+    border: none;
+    padding: 5px 10px;
+    margin: 1em .5em;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.btn-paleoecology:hover {
+    background-color: #743534;
+}
+
+.btn-

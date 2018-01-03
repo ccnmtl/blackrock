@@ -34,41 +34,46 @@ Paleoecology: {% block pagetitle %}{% endblock %}
 
 {% block content %} 
 <div id="content">
-	<div id="tab-bar">
+    <div id="tab-bar">
+        <div class="tab-survey">
+            <a class="btn-paleoecology"
+                target="_blank"
+                href="https://docs.google.com/forms/d/e/1FAIpQLSdQET9fcq2avuRnVrRScopwwD9tTh8nE0TG0SZ1s9B0R6rbrQ/viewform?usp=sf_link">
+                Take Survey
+            </a>
+        </div>
         <div class="tab" id="tab-resources">
             Teaching Resources
         </div>
-    	<div class="tab" id="tab-coresample">
-    		Sediment Sampling
-    	</div>
-    	
-    	<div class="tab" id="tab-identification">
-    		Pollen Identification
-    	</div>
-	</div>
-	
+        <div class="tab" id="tab-coresample">
+            Sediment Sampling
+        </div>
+        <div class="tab" id="tab-identification">
+            Pollen Identification
+        </div>
+
+    </div>
 <div id="container">
 {% block container %}
-	
+
   {% block instructions %}
   {% endblock %}
 
-	<div id="left">
-		{% block left %} 
-		LEFT PANE REPORTING FOR DUTY 
-		{% endblock %} 
-	</div>
-	
+    <div id="left">
+        {% block left %} 
+        LEFT PANE REPORTING FOR DUTY 
+        {% endblock %} 
+    </div>
 
-	<div id="right">
-	    {% block right %} 
-		RIGHT PANE SIR YES SIR 
-	    {% endblock %} 
-	</div>
-	
-	{% block bottombuttons %}
-	{% endblock %}
-	
+    <div id="right">
+        {% block right %} 
+        RIGHT PANE SIR YES SIR 
+        {% endblock %} 
+    </div>
+
+    {% block bottombuttons %}
+    {% endblock %}
+
 {% endblock %}
 </div>
 <!-- end div "container" -->
