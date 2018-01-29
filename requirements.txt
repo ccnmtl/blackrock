@@ -27,7 +27,7 @@ BeautifulSoup==3.2.1
 coverage==4.4.2
 pyasn1==0.4.2
 pyOpenSSL==17.5.0
-ndg-httpsclient==0.4.3
+ndg-httpsclient==0.4.4
 djangohelpers==0.19
 logilab-common==1.4.1
 logilab-astng==0.24.3
