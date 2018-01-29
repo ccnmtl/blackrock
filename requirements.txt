@@ -103,7 +103,7 @@ django-markwhat==1.6.0
 django-pagetree==1.4.1
 django-pageblocks==1.2.0 # pyup: <2.0 
 requirements/src/django-databrowse-2017.12.18ccnmtl.tar.gz
-factory_boy==2.9.2
+factory_boy==2.10.0
 
 django-debug-toolbar==1.9.1
 gunicorn==19.7.1
