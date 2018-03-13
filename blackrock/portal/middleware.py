@@ -15,15 +15,21 @@ def resolver(request):
 
 
 class ValueErrorMiddleware(object):
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        return self.get_response(request)
+
     def process_exception(self, request, exception):
         # Get the exception info now, in case another exception is thrown
         # later.
         if isinstance(exception, ValueError) and \
             len(exception.args) > 0 and \
                 exception.args[0].startswith('invalid literal for int()'):
-            return self.handleValueError(request, exception)
+            return self.handle_value_error(request, exception)
 
-    def handleValueError(self, request, exception):
+    def handle_value_error(self, request, exception):
         exc_info = sys.exc_info()
         if settings.DEBUG:
             from django.views import debug
