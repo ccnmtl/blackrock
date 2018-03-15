@@ -57,7 +57,7 @@ TEMPLATES[0]['OPTIONS']['context_processors'].append(  # noqa
     'blackrock.blackrock_main.views.django_settings'
 )
 
-MIDDLEWARE_CLASSES += [  # noqa
+MIDDLEWARE += [  # noqa
     'blackrock.portal.middleware.ValueErrorMiddleware',
 ]
 
