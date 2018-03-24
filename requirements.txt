@@ -40,7 +40,7 @@ configparser==3.5.0
 flake8==3.5.0
 statsd==3.2.2
 six==1.11.0
-python-dateutil==2.7.0
+python-dateutil==2.7.1
 text-unidecode==1.2  # for faker
 Faker==0.8.12
 contextlib2==0.5.5
