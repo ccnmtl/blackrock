@@ -95,7 +95,7 @@ django-smoketest==1.1.0
 
 django-treebeard==4.2.1
 
-django-haystack==2.8.0
+django-haystack==2.8.1
 
 django-bootstrap-form==3.4
 django-bootstrap3==9.1.0
