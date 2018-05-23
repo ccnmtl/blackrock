@@ -53,6 +53,9 @@ if (typeof Treegrowth === 'undefined') {
     };
 
     var parseDate = function(s) {
+        if (s === null) {
+            s = '';
+        }
         var b = s.split(/\D+/);
         var date = Date.UTC(b[0], parseInt(b[1]) - 1, b[2], b[3], b[4], b[5]);
         return date;
