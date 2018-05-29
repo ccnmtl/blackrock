@@ -64,7 +64,7 @@ sqlparse==0.2.4
 ipython_genutils==0.2.0
 decorator==4.2.1
 ptyprocess==0.5.2
-pexpect==4.5.0
+pexpect==4.6.0
 pathlib2==2.3.2
 pickleshare==0.7.4
 simplegeneric==0.8.1
