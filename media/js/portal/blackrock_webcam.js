@@ -1,3 +1,4 @@
+/* global ImageFlow */
 /* eslint-disable security/detect-non-literal-fs-filename */
 /* eslint-disable security/detect-non-literal-regexp, no-useless-escape */
 /*******************************************************************************
@@ -113,6 +114,7 @@ function get_webcam_image_array(start_date, start_month, start_year,
     return imageObjArray;
 }
 
+// eslint-disable-next-line no-unused-vars
 function draw_image_flow(start_date, start_month, start_year, start_hour,
     start_minute) {
     jQuery('#webcam-flow').empty();
