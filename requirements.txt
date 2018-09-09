@@ -98,7 +98,7 @@ django-haystack==2.8.1
 
 django-bootstrap-form==3.4
 django-bootstrap3==11.0.0
-django-markwhat==1.6.0
+django-markwhat==1.6.1
 django-pagetree==1.4.1
 django-pageblocks==1.2.0 # pyup: <2.0 
 requirements/src/django-databrowse-2017.12.18ccnmtl.tar.gz
