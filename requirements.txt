@@ -7,7 +7,7 @@ PasteDeploy==1.5.2
 PasteScript==2.0.2
 httplib2==0.11.3
 feedparser==5.2.1
-Markdown==2.6.11
+Markdown==3.0
 pyenchant==2.0.0
 psycopg2==2.7.5
 pysqlite==2.8.3
