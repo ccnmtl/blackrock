@@ -105,7 +105,7 @@ requirements/src/django-databrowse-2017.12.18ccnmtl.tar.gz
 factory_boy==2.11.1
 
 django-debug-toolbar==1.10.1
-gunicorn==19.8.1
+gunicorn==19.9.0
 
 boto==2.49.0
 django-storages==1.7.1
