@@ -92,7 +92,7 @@ django-jenkins==0.110.0
 django-stagingcontext==0.1.0
 django-smoketest==1.1.0
 
-django-treebeard==4.2.1
+django-treebeard==4.3
 
 django-haystack==2.8.1
 
