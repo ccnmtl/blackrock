@@ -6,6 +6,7 @@ APP=blackrock
 JS_FILES=media/js/paleoecology/explore.js media/js/src media/js/respiration/ media/js/optimization media/js/portal/blackrock_webcam.js media/js/portal/maps.js media/js/portal/object_detail.js media/js/portal/photogallery.js media/js/portal/portal.js
 
 MAX_COMPLEXITY=7
+FLAKE8_IGNORE=W605
 
 all: jenkins
 
