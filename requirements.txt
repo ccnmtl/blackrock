@@ -23,7 +23,7 @@ pysolr==3.8.1
 requirements/src/gdata-2.0.14.tar.gz
 django-tinymce==2.6.0  # pyup: <2.7.0
 BeautifulSoup==3.2.1
-coverage==4.5.1
+coverage==4.5.2
 pyasn1==0.4.4
 pyOpenSSL==18.0.0
 ndg-httpsclient==0.5.1
