@@ -37,7 +37,7 @@ def get_lines(request):
     lines = []
     # iterating over QueryDict for keys starting with line_value
     # and using v to get value
-    for k in request.GET.keys():
+    for k in list(request.GET.keys()):
         if k.startswith("line_value_"):
             v = request.GET.get(k, '')  # why ''?
             if v:
@@ -205,7 +205,7 @@ def scatterplot_data(data, request, start, end):
                                              start=start,
                                              end=end,
                                              skip_zeroes=skip_zeroes)
-        data["data"] = zip(ind_data, dep_data)
+        data["data"] = list(zip(ind_data, dep_data))
         if skip_zeroes:
             data["data"] = remove_zeroes(data)
         data["independent"] = ind_series

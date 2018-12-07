@@ -136,7 +136,7 @@ class SightingIndex(indexes.SearchIndex, indexes.Indexable):
         return Sighting
 
     def prepare_name(self, obj):
-        return obj.__unicode__()
+        return str(obj)
 
     def prepare_species_id(self, obj):
         if obj.species:

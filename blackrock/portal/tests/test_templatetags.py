@@ -14,11 +14,11 @@ class TestPortalTags(TestCase):
 
         audience_name = "Featured %s" + audience.name
         facet = FacetFactory(name=audience_name)
-        self.assertEquals(display_name(facet), "Sample Facet Display")
+        self.assertEqual(display_name(facet), "Sample Facet Display")
 
         fa = FeaturedAsset(audience=audience, asset_region=RegionFactory())
-        self.assertEquals(fa.audience, audience)
-        self.assertEquals(display_name(fa), "Featured Asset")
+        self.assertEqual(fa.audience, audience)
+        self.assertEqual(display_name(fa), "Featured Asset")
 
-        self.assertEquals(display_name(PersonFactory()),
-                          "John Doe")
+        self.assertEqual(display_name(PersonFactory()),
+                         "John Doe")

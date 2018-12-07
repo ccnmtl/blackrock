@@ -1,5 +1,5 @@
 # flake8: noqa
-from settings_shared import *
+from blackrock.settings_shared import *
 from ccnmtlsettings.production import common
 
 locals().update(
@@ -23,6 +23,6 @@ DATABASES = {
 }
 
 try:
-    from local_settings import *
+    from blackrock.local_settings import *
 except ImportError:
     pass

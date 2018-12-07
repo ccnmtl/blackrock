@@ -13,9 +13,9 @@ class TestPortalModels(TestCase):
         self.pollen_sample.save()
 
     def test_the_unis(self):
-        self.assertEquals(unicode(self.core_sample),
-                          str(self.core_sample.depth))
-        self.assertEquals(unicode(self.pollen_type),
-                          self.pollen_type.display_name)
-        self.assertEquals(unicode(self.pollen_sample),
-                          u'2.6 cm: 0 grains of  (0%)')
+        self.assertEqual(str(self.core_sample),
+                         str(self.core_sample.depth))
+        self.assertEqual(str(self.pollen_type),
+                         self.pollen_type.display_name)
+        self.assertEqual(str(self.pollen_sample),
+                         '2.6 cm: 0 grains of  (0%)')

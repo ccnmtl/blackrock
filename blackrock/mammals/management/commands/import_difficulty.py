@@ -60,9 +60,9 @@ class Command(BaseCommand):
             for j in range(0, 27):
                 the_square = GridSquare.objects.get(row=i, column=j)
                 if the_square.display_this_square:
-                    print i, j
-                    print the_square.battleship_coords()
-                    print access_difficulty_table[i][j]
+                    print(i, j)
+                    print(the_square.battleship_coords())
+                    print(access_difficulty_table[i][j])
                     the_square.access_difficulty = access_difficulty_table[
                         i][j]
                     the_square.save()
