@@ -18,7 +18,7 @@ idna==2.8
 urllib3==1.24.1
 certifi==2018.11.29
 
-requests==2.20.1
+requests==2.21.0
 pysolr==3.8.1
 requirements/src/gdata-2.0.14.tar.gz
 django-tinymce==2.6.0  # pyup: <2.7.0
