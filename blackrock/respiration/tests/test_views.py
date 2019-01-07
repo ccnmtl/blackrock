@@ -52,7 +52,7 @@ class ImportTestCases(TestCase):
 
         # test existing data
         qs = Temperature.objects.filter(station='Test Station')
-        self.assertEquals(qs.count(), 0)
+        self.assertEqual(qs.count(), 0)
 
         # Submitting files is a special case. To POST a file,
         # you need only provide the file field name as a key, and a file handle
@@ -66,59 +66,61 @@ class ImportTestCases(TestCase):
             '/respiration/loadcsv', {'delete': 'on', 'csvfile': f})
         f.close()
 
-        self.assertEquals(response.status_code, 302)
-        self.assertEquals(
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(
             Temperature.objects.filter(station='Test Station').count(), 48)
-        self.assertEquals(
+        self.assertEqual(
             Temperature.objects.filter(station='Another Station').count(), 24)
 
         # spotcheck
         qs = Temperature.objects.filter(
             station='Test Station',
             date=datetime.datetime(1996, 12, 31, 00, 00))
-        self.assertEquals(qs.count(), 1)
-        self.assertEquals(qs[0].reading, -0.72)
+        self.assertEqual(qs.count(), 1)
+        self.assertEqual(qs[0].reading, -0.72)
 
         # new station with invalid temp, after valid temps, should register as
         # 0 not, the other station's old temp
         qs = Temperature.objects.filter(
             station='Another Station',
             date=datetime.datetime(1997, 1, 1, 00, 00))
-        self.assertEquals(qs.count(), 1)
-        self.assertEquals(qs[0].reading, 0)
+        self.assertEqual(qs.count(), 1)
+        self.assertEqual(qs[0].reading, 0)
 
         # Check duplicate handling
         qs = Temperature.objects.filter(
             station='Test Station', date=datetime.datetime(1997, 1, 1, 23, 00))
-        self.assertEquals(qs.count(), 1)
-        self.assertEquals(qs[0].reading, -0.16)
+        self.assertEqual(qs.count(), 1)
+        self.assertEqual(qs[0].reading, -0.16)
 
         qs = Temperature.objects.filter(
             station='Test Station', date=datetime.datetime(1997, 1, 1, 22, 00))
-        self.assertEquals(qs.count(), 1)
-        self.assertEquals(qs[0].reading, -8.0)
+        self.assertEqual(qs.count(), 1)
+        self.assertEqual(qs[0].reading, -8.0)
 
         # Substituting last valid temp when temp is invalid
         qs = Temperature.objects.filter(
             station='Test Station',
             date=datetime.datetime(1996, 12, 31, 23, 00))
-        self.assertEquals(qs.count(), 1)
-        self.assertEquals(qs[0].reading, -2.16)
+        self.assertEqual(qs.count(), 1)
+        self.assertEqual(qs[0].reading, -2.16)
 
         qs = Temperature.objects.filter(
             station='Test Station', date=datetime.datetime(1997, 1, 1, 00, 00))
-        self.assertEquals(qs.count(), 1)
-        self.assertEquals(qs[0].reading, -2.16)
+        self.assertEqual(qs.count(), 1)
+        self.assertEqual(qs[0].reading, -2.16)
 
         qs = Temperature.objects.filter(
-            station='Test Station', date=datetime.datetime(1997, 1, 1, 01, 00))
-        self.assertEquals(qs.count(), 1)
-        self.assertEquals(qs[0].reading, -2.16)
+            station='Test Station',
+            date=datetime.datetime(1997, 1, 1, 0o1, 00))
+        self.assertEqual(qs.count(), 1)
+        self.assertEqual(qs[0].reading, -2.16)
 
         qs = Temperature.objects.filter(
-            station='Test Station', date=datetime.datetime(1997, 1, 1, 02, 00))
-        self.assertEquals(qs.count(), 1)
-        self.assertEquals(qs[0].reading, -1.06)
+            station='Test Station',
+            date=datetime.datetime(1997, 1, 1, 0o2, 00))
+        self.assertEqual(qs.count(), 1)
+        self.assertEqual(qs[0].reading, -1.06)
 
     def test_solr_import_set(self):
         Temperature.objects.get_or_create(
@@ -155,6 +157,6 @@ class ImportTestCases(TestCase):
         response = self.client.post('/respiration/loadsolr', data)
 
         new_json = json.loads(response.content)
-        self.assertEquals(new_json['complete'], True)
+        self.assertEqual(new_json['complete'], True)
 
         self.assertTrue('solr_complete' in cache)

@@ -1,5 +1,5 @@
 # flake8: noqa
-from settings_shared import *
+from blackrock.settings_shared import *
 import os
 
 # required settings:

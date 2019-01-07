@@ -1,11 +1,15 @@
-import StringIO
+import io
 from datetime import date
 from decimal import Decimal
 import json
 import re
 import sys
 from time import strptime
-import urllib
+
+try:
+    from urllib.parse import unquote
+except ImportError:
+    from urllib import unquote
 
 from django.apps import apps
 from django.conf import settings
@@ -111,11 +115,11 @@ def process_datasets(xmldoc):
 
 
 def process_date(date_string):
-    if re.match('\d\d\d\d-\d\d?-\d\d?', date_string):
+    if re.match(r'\d\d\d\d-\d\d?-\d\d?', date_string):
         t = strptime(date_string, '%Y-%m-%d')
-    elif re.match('\d\d\d\d-\d\d?', date_string):
+    elif re.match(r'\d\d\d\d-\d\d?', date_string):
         t = strptime(date_string, '%Y-%m')
-    elif re.match('\d\d\d\d', date_string):
+    elif re.match(r'\d\d\d\d', date_string):
         t = strptime(date_string, '%Y')
 
     if t:
@@ -145,7 +149,7 @@ _dataset_field_map = {
 
 
 def _is_dirty(original_state, new_state):
-    for key, value in original_state.iteritems():
+    for key, value in original_state.items():
         if new_state[key] is not None and value != new_state[key]:
             return True
     return False
@@ -163,8 +167,8 @@ def process_location(values):
 
 def process_fieldnames(result):
     values = {}
-    for key, value in result.items():
-        if value and key in _dataset_field_map.keys():
+    for key, value in list(result.items()):
+        if value and key in list(_dataset_field_map.keys()):
             fieldname = _dataset_field_map[key]
             if fieldname not in values:
                 values[fieldname] = []
@@ -201,7 +205,7 @@ def process_metadata(result):
     save_if_created(created, dataset)
 
     for field in dataset._meta.many_to_many:
-        if field.name in values.keys():
+        if field.name in list(values.keys()):
             related_model = apps.et_model("portal", field.name)
             for v in values[field.name]:
                 if field.name == 'url':
@@ -224,7 +228,7 @@ def save_if_dirty(original_state, dataset):
 
 def process_dataset_meta_fields(dataset, values):
     for field in dataset._meta.fields:
-        if field.name in values.keys():
+        if field.name in list(values.keys()):
             if isinstance(field, DateField):
                 value = process_date(values[field.name][0])
             else:
@@ -246,14 +250,14 @@ def admin_cdrs_import(request):
     collection_id = request.POST.get('collection_id', '')
     import_classification = request.POST.get('import_classification', '')
     dt = request.POST.get('last_import_date', '')
-    tm = urllib.unquote(request.POST.get('last_import_time', '00:00'))
+    tm = unquote(request.POST.get('last_import_time', '00:00'))
     options = {'qt': 'forest-data'}
     last_import_date = LastImportDate.get_last_import_date(dt, tm, application)
 
     q = import_classification_query(import_classification, last_import_date)
 
     try:
-        collections = urllib.unquote(collection_id).split(",")
+        collections = unquote(collection_id).split(",")
         for c in collections:
             # Get list of datasets in each collection id
             created, updated = get_collection_datasets(
@@ -266,7 +270,7 @@ def admin_cdrs_import(request):
         cache.set('solr_import_time', lid.strftime('%H:%M:%S'))
         cache.set('solr_created', created)
         cache.set('solr_updated', updated)
-    except Exception, e:
+    except Exception as e:
         cache.set('solr_error', str(e))
 
     cache.set('solr_complete', True)
@@ -316,7 +320,7 @@ def admin_rebuild_index(request):
     ctx = {'server': settings.HAYSTACK_CONNECTIONS['default']['URL']}
 
     if (request.method == 'POST'):
-        sys.stdout = the_buffer = StringIO.StringIO()
+        sys.stdout = the_buffer = io.StringIO()
         management.call_command('rebuild_index', interactive=False)
         sys.stdout = sys.__stdout__
         ctx['results'] = the_buffer.getvalue().split('\n')[1:-2]
@@ -330,6 +334,6 @@ def admin_readercycle(request):
         solr = Solr(solr_url)
         solr.readercycle()
         return HttpResponse("Cycled")
-    except (IOError, SolrError), e:
+    except (IOError, SolrError) as e:
         msg = "Failed to cycle Solr %s %s" % (solr_url, e)
         return HttpResponse(msg)

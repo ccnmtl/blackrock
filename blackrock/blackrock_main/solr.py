@@ -1,7 +1,11 @@
 from django.conf import settings
 from django.utils.timezone import FixedOffset
 from pysolr import Solr
-import urllib
+
+try:
+    from urllib import unquote
+except ImportError:
+    from urllib.parse import unquote
 
 
 class SolrUtilities:
@@ -28,16 +32,16 @@ class SolrUtilities:
             options['fq'] += ' AND last_modified:[' + \
                 utc.strftime('%Y-%m-%dT%H:%M:%SZ') + ' TO NOW]'
 
-        import_classification = urllib.unquote(import_classification)
+        import_classification = unquote(import_classification)
 
-        collections = urllib.unquote(collection_id).split(",")
+        collections = unquote(collection_id).split(",")
         for c in collections:
             # Get list of datasets in each collection id
             options['collection_id'] = c
 
             results = solr_conn.search('*:*', **options)
             facets = results.facets["facet_fields"]["import_classifications"]
-            for key, value in facets.items():
+            for key, value in list(facets.items()):
                 if key == import_classification:
                     record_count += value
                     break

@@ -5,7 +5,11 @@ from django.contrib.auth.decorators import user_passes_test
 from django.core.cache import cache
 from django.http import HttpResponse
 import json
-import urllib
+
+try:
+    from urllib import unquote
+except ImportError:
+    from urllib.parse import unquote
 
 
 # returns important setting information for all web pages.
@@ -60,7 +64,7 @@ def previewsolr(request):
     collection_id = request.POST.get('collection_id', '')
     import_classification = request.POST.get('import_classification', '')
     dt = request.POST.get('last_import_date', '')
-    tm = urllib.unquote(request.POST.get('last_import_time', '00:00'))
+    tm = unquote(request.POST.get('last_import_time', '00:00'))
 
     last_import_date = LastImportDate.get_last_import_date(dt, tm, application)
     response['record_count'] = solr.get_count_by_lastmodified(

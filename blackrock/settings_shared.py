@@ -7,8 +7,12 @@ project = 'blackrock'
 base = os.path.dirname(__file__)
 locals().update(common(project=project, base=base))
 
-if platform.linux_distribution()[0] == 'Ubuntu':
-    if platform.linux_distribution()[1] == '16.04':
+if (
+        platform.linux_distribution()[0] == 'Ubuntu' or
+        platform.linux_distribution()[0] == 'debian'):
+    if (
+            platform.linux_distribution()[1] == '16.04' or
+            platform.linux_distribution()[1] == 'buster/sid'):
         # 15.04 and later need this set, but it breaks
         # on trusty.
         # yeah, it's not really going to work on non-Ubuntu

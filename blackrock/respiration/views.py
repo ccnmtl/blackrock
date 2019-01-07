@@ -3,7 +3,11 @@ import datetime
 from decimal import Decimal, ROUND_HALF_UP
 from json import dumps
 import time
-import urllib
+
+try:
+    from urllib.parse import unquote
+except ImportError:
+    from urllib import unquote
 
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
@@ -172,7 +176,7 @@ def getcsv(request):
 
     filters = dict((f, request.GET.get(f)) for f in _filters)
 
-    if sum(bool(f) for f in filters.values()) != len(filters):
+    if sum(bool(f) for f in list(filters.values())) != len(filters):
         if not request.user.is_staff:
             msg = "you must provide a station, a year and a season range"
             return HttpResponseForbidden(msg)
@@ -228,7 +232,7 @@ def loadcsv(request):
 
     table = csv.reader(fh)
 
-    headers = table.next()
+    headers = next(table)
 
     (station_idx, year_idx, day_idx, hour_idx, temp_idx,
      response) = header_indices(headers)
@@ -424,7 +428,7 @@ def loadsolr(request):
     collection_id = request.POST.get('collection_id', '')
     import_classification = request.POST.get('import_classification', '')
     dt = request.POST.get('last_import_date', '')
-    tm = urllib.unquote(request.POST.get('last_import_time', '00:00'))
+    tm = unquote(request.POST.get('last_import_time', '00:00'))
     limit_records = int(request.POST.get('limit_records', '0'))
 
     solr = Solr(settings.CDRS_SOLR_URL)
@@ -481,7 +485,7 @@ def loadsolr(request):
         cache.set('solr_created', created_count)
         cache.set('solr_updated', updated_count)
 
-    except Exception, e:
+    except Exception as e:
         cache.set('solr_error', str(e))
 
     cache.set('solr_complete', True)

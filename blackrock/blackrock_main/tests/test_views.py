@@ -9,7 +9,7 @@ class SimpleViewTest(TestCase):
     def test_index(self):
         # it should redirect us somewhere.
         response = self.c.get("/")
-        self.assertEquals(response.status_code, 302)
+        self.assertEqual(response.status_code, 302)
         # for now, we don't care where. really, we
         # are just making sure it's not a 500 error
         # at this point

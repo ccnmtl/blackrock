@@ -14,7 +14,7 @@ class TestOptimizationModels(TestCase):
         self.tree_uni.save()
 
     def test_uni(self):
-        self.assertEquals(unicode(self.plot_uni),
-                          self.plot_uni.name)
-        self.assertEquals(unicode(self.tree_uni),
-                          "Tree %d" % self.tree_uni.id)
+        self.assertEqual(str(self.plot_uni),
+                         self.plot_uni.name)
+        self.assertEqual(str(self.tree_uni),
+                         "Tree %d" % self.tree_uni.id)
