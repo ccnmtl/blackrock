@@ -11,8 +11,7 @@ Markdown==2.6.11
 pyenchant==2.0.0
 psycopg2==2.7.6.1
 
-# This is built-in in python 3: https://docs.python.org/3/library/sqlite3.html
-pysqlite==2.8.3; python_version < '3.0'
+pysqlite==2.8.3
 
 Pillow==5.4.1
 
