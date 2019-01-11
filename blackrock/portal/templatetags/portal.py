@@ -160,7 +160,7 @@ def display_name(obj):
 def search_name(obj):
     display_name = getattr(obj, "display_name", None)
     if (display_name and
-        isinstance(display_name, types.UnicodeType) and
+        isinstance(display_name, str) and
             len(obj.display_name) > 0):
         return obj.display_name
     else:
@@ -221,7 +221,7 @@ def value_from_settings(parser, token):
         tag_name, var = token.split_contents()
     except ValueError:
         msg = "%r tag requires a single argument"
-        raise template.TemplateSyntaxError, msg % token.contents.split()[0]
+        raise template.TemplateSyntaxError(msg % token.contents.split()[0])
     return ValueFromSettings(var)
 
 

@@ -1,25 +1,29 @@
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 
 
+@python_2_unicode_compatible
 class Site(models.Model):
     name = models.CharField(max_length=256)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class Location(models.Model):
     name = models.CharField(max_length=256)
     site = models.ForeignKey(Site)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class Series(models.Model):
     name = models.CharField(max_length=256)
     location = models.ForeignKey(Location)
-    units = models.CharField(max_length=256, blank=True, default=u"")
+    units = models.CharField(max_length=256, blank=True, default="")
     ordinality = models.IntegerField(default=0)
 
     class Meta:
@@ -28,7 +32,7 @@ class Series(models.Model):
     def get_absolute_url(self):
         return "/series/%d/" % self.id
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def count(self):

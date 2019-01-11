@@ -17,7 +17,7 @@ admin.site.register(GridPoint, GridPointAdmin)
 
 class GridSquareAdmin (admin.ModelAdmin):
     list_filter = ('display_this_square', 'row', 'column',)
-    list_display = ('__unicode__', 'display_this_square',
+    list_display = ('__str__', 'display_this_square',
                     'center', 'row', 'column', 'access_difficulty',)
     fields = ('row', 'column', 'display_this_square', 'access_difficulty',
               'center', 'NW_corner', 'NE_corner', 'SW_corner', 'SE_corner', )
@@ -178,7 +178,7 @@ admin.site.register(ObservationType, ObservationTypeAdmin)
 
 
 class ExpeditionAdmin (admin.ModelAdmin):
-    list_display = ('__unicode__', 'number_of_students',
+    list_display = ('__str__', 'number_of_students',
                     'grade_level', 'grid_square', 'school', 'real')
     fields = (
         'number_of_students',

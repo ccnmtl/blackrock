@@ -1,11 +1,13 @@
 from django.contrib.gis.db import models
 # from django.db.models import Avg # not yet
 from django.db import connection
+from django.utils.encoding import python_2_unicode_compatible
 
 
+@python_2_unicode_compatible
 class Plot(models.Model):
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     name = models.CharField(max_length=100)
@@ -79,9 +81,10 @@ class Plot(models.Model):
         return
 
 
+@python_2_unicode_compatible
 class Tree(models.Model):
 
-    def __unicode__(self):
+    def __str__(self):
         # return "Tree %d (%.2fcm %s at (%.2f,%.2f))" % (self.id, self.dbh,
         # self.species, self.location)
         return "Tree %d" % self.id

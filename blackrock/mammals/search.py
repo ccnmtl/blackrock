@@ -6,7 +6,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 from json import dumps
 from haystack.forms import SearchForm
 from haystack.views import SearchView
-from types import ListType
 
 
 def my_counter(L):
@@ -192,12 +191,12 @@ class MammalSearchView(SearchView):
         # print "Extra context"
         extra = super(MammalSearchView, self).extra_context()
         if hasattr(self, "results"):
-            if type(self.results) is ListType and len(self.results) < 1:
+            if isinstance(self.results, list) and len(self.results) < 1:
                 extra["count"] = -1
             else:
                 extra["count"] = len(self.results)
         query = ''
-        for param, value in self.request.GET.items():
+        for param, value in list(self.request.GET.items()):
             if param != 'page':
                 query += '%s=%s&' % (param, value)
 
