@@ -11,12 +11,12 @@ class TestOptimizationViews(TestCase):
 
     def test_index(self):
         self.response = self.c.get('')
-        self.assertEquals(self.response.status_code,  302)
+        self.assertEqual(self.response.status_code,  302)
         self.assertTemplateUsed('optimization/index.html')
 
     def test_run(self):
         self.response = self.c.get('/respiration/')
-        self.assertEquals(self.response.status_code,  200)
+        self.assertEqual(self.response.status_code,  200)
         self.assertTemplateUsed('optimization/run.html')
 
     def test_calculate(self):

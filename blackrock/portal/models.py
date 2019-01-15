@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.gis.db import models
 from django.db.models.signals import pre_save
+from django.utils.encoding import python_2_unicode_compatible
 from pagetree.models import PageBlock
 import re
 
@@ -12,16 +13,18 @@ MAX_DISPLAY_LENGTH = 50
 
 
 # Static Lookup Tables
+@python_2_unicode_compatible
 class Audience(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
     class Meta:
         ordering = ['name']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class DigitalFormat(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
@@ -34,10 +37,11 @@ class DigitalFormat(models.Model):
     class Meta:
         ordering = ['name']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class Facet(models.Model):
     name = models.CharField(max_length=50)
     display_name = models.CharField(max_length=100)
@@ -50,93 +54,102 @@ class Facet(models.Model):
         unique_together = (("name", "facet"),)
         ordering = ['display_name']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.display_name
 
     def solr_name(self):
         return self.facet.replace(' ', '_').lower()
 
 
+@python_2_unicode_compatible
 class Institution(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
     class Meta:
         ordering = ['name']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class LocationSubtype(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
     class Meta:
         ordering = ['name']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class LocationType(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
     class Meta:
         ordering = ['name']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class PersonType(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
     class Meta:
         ordering = ['name']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class PublicationType(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
     class Meta:
         ordering = ['name']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class RegionType(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
     class Meta:
         ordering = ['name']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class RightsType(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
     class Meta:
         ordering = ['name']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class Tag(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
     class Meta:
         ordering = ['name']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class Url(models.Model):
     name = models.URLField()
     display_name = models.CharField(max_length=100)
@@ -144,7 +157,7 @@ class Url(models.Model):
     class Meta:
         ordering = ['name']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def document(self):
@@ -153,6 +166,7 @@ class Url(models.Model):
 
 
 # Base Assets
+@python_2_unicode_compatible
 class DigitalObject(models.Model):
     name = models.CharField(max_length=500)
     description = models.TextField(null=True, blank=True)
@@ -171,7 +185,7 @@ class DigitalObject(models.Model):
 
     markup = models.TextField(null=True, blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -179,6 +193,7 @@ class DigitalObject(models.Model):
         ordering = ['name']
 
 
+@python_2_unicode_compatible
 class Location(models.Model):
     name = models.CharField(max_length=500)
     description = models.TextField(null=True, blank=True)
@@ -198,7 +213,7 @@ class Location(models.Model):
     created_date = models.DateTimeField('created_date', default=datetime.now)
     modified_date = models.DateTimeField('modified_date', default=datetime.now)
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s (%.6f,%.6f)" % (self.name, self.latitude, self.longitude)
 
     class Meta:
@@ -213,6 +228,7 @@ def update_location_geometry(sender, **kwargs):
 pre_save.connect(update_location_geometry, sender=Location)
 
 
+@python_2_unicode_compatible
 class Station(models.Model):
     name = models.CharField(max_length=500)
     description = models.TextField(null=True, blank=True)
@@ -251,7 +267,7 @@ class Station(models.Model):
                 assets.append(p)
         return assets
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -260,6 +276,7 @@ class Station(models.Model):
         verbose_name_plural = "Stations"
 
 
+@python_2_unicode_compatible
 class Region(models.Model):
     name = models.CharField(max_length=500)
     description = models.TextField(null=True, blank=True)
@@ -298,10 +315,11 @@ class Region(models.Model):
     class Meta:
         ordering = ['name']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class Person(models.Model):
     full_name = models.CharField(max_length=500)
     first_name = models.CharField(max_length=250)
@@ -324,7 +342,7 @@ class Person(models.Model):
     created_date = models.DateTimeField('created_date', default=datetime.now)
     modified_date = models.DateTimeField('modified_date', default=datetime.now)
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s, %s" % (self.last_name, self.first_name)
 
     def name(self):
@@ -342,6 +360,7 @@ class Person(models.Model):
         verbose_name_plural = "People"
 
 
+@python_2_unicode_compatible
 class DataSet(models.Model):
     name = models.CharField(max_length=500)
     description = models.TextField(null=True, blank=True)
@@ -363,7 +382,7 @@ class DataSet(models.Model):
     created_date = models.DateTimeField('created_date', default=datetime.now)
     modified_date = models.DateTimeField('modified_date', default=datetime.now)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def station(self):
@@ -377,6 +396,7 @@ class DataSet(models.Model):
         ordering = ['name']
 
 
+@python_2_unicode_compatible
 class Publication(models.Model):
     name = models.CharField(max_length=500, unique=True)
     citation = models.CharField(max_length=500)
@@ -397,7 +417,7 @@ class Publication(models.Model):
     created_date = models.DateTimeField('created_date', default=datetime.now)
     modified_date = models.DateTimeField('modified_date', default=datetime.now)
 
-    def __unicode__(self):
+    def __str__(self):
         if len(self.name) > 25:
             return "%s..." % self.name[0:25]
         else:
@@ -407,6 +427,7 @@ class Publication(models.Model):
         ordering = ['name']
 
 
+@python_2_unicode_compatible
 class ResearchProject(models.Model):
     name = models.CharField(max_length=500)
     description = models.TextField(null=True, blank=True)
@@ -430,7 +451,7 @@ class ResearchProject(models.Model):
     created_date = models.DateTimeField('created_date', default=datetime.now)
     modified_date = models.DateTimeField('modified_date', default=datetime.now)
 
-    def __unicode__(self):
+    def __str__(self):
         if len(self.name) > MAX_DISPLAY_LENGTH:
             return "%s..." % self.name[0:MAX_DISPLAY_LENGTH]
         else:
@@ -446,6 +467,7 @@ class ResearchProject(models.Model):
         return extra
 
 
+@python_2_unicode_compatible
 class LearningActivity(models.Model):
     name = models.CharField(max_length=500)
     description = models.TextField(null=True, blank=True)
@@ -473,7 +495,7 @@ class LearningActivity(models.Model):
         verbose_name_plural = "Learning Activities"
         ordering = ['name']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def related_ex(self):
@@ -483,6 +505,7 @@ class LearningActivity(models.Model):
         return extra
 
 
+@python_2_unicode_compatible
 class ForestStory(models.Model):
     name = models.CharField(max_length=500)
     display_name = models.CharField(max_length=500)
@@ -519,7 +542,7 @@ class ForestStory(models.Model):
         verbose_name_plural = "Forest Stories"
         ordering = ['display_name']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def related_ex(self):
@@ -531,6 +554,7 @@ class ForestStory(models.Model):
         return extra
 
 
+@python_2_unicode_compatible
 class AssetList(models.Model):
     pageblocks = GenericRelation(
         PageBlock)
@@ -541,8 +565,8 @@ class AssetList(models.Model):
     def pageblock(self):
         return self.pageblocks.all()[0]
 
-    def __unicode__(self):
-        return unicode(self.pageblock())
+    def __str__(self):
+        return str(self.pageblock())
 
     def needs_submit(self):
         return False
@@ -599,12 +623,13 @@ class AssetList(models.Model):
 
     def audience(self):
         try:
-            m = re.search("audience:\w*", self.search_criteria)
+            m = re.search(r"audience:\w*", self.search_criteria)
             return m.group(0).split(":")[1].lower()
         except AttributeError:
             return None
 
 
+@python_2_unicode_compatible
 class FeaturedAsset(models.Model):
     pageblocks = GenericRelation(
         PageBlock)
@@ -632,7 +657,7 @@ class FeaturedAsset(models.Model):
     def pageblock(self):
         return self.pageblocks.all()[0]
 
-    def __unicode__(self):
+    def __str__(self):
         return self.asset().name
 
     def needs_submit(self):
@@ -697,7 +722,7 @@ class FeaturedAssetForm(forms.ModelForm):
         # get it that way
 
         asset_count = 0
-        for field_name, val in self.cleaned_data.items():
+        for field_name, val in list(self.cleaned_data.items()):
             if "asset_" in field_name and val is not None:
                 asset_count += 1
 
@@ -709,6 +734,7 @@ class FeaturedAssetForm(forms.ModelForm):
         return self.cleaned_data
 
 
+@python_2_unicode_compatible
 class PhotoGalleryItem(models.Model):
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=500)
@@ -720,10 +746,11 @@ class PhotoGalleryItem(models.Model):
     class Meta:
         ordering = ('position',)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
 
+@python_2_unicode_compatible
 class PhotoGallery(models.Model):
     pageblocks = GenericRelation(
         PageBlock)
@@ -734,8 +761,8 @@ class PhotoGallery(models.Model):
     def pageblock(self):
         return self.pageblocks.all()[0]
 
-    def __unicode__(self):
-        return unicode(self.pageblock())
+    def __str__(self):
+        return str(self.pageblock())
 
     def needs_submit(self):
         return False
@@ -770,6 +797,7 @@ class PhotoGalleryForm(forms.ModelForm):
         exclude = ()
 
 
+@python_2_unicode_compatible
 class Webcam(models.Model):
     pageblocks = GenericRelation(
         PageBlock)
@@ -779,8 +807,8 @@ class Webcam(models.Model):
     def pageblock(self):
         return self.pageblocks.all()[0]
 
-    def __unicode__(self):
-        return unicode(self.pageblock())
+    def __str__(self):
+        return str(self.pageblock())
 
     def needs_submit(self):
         return False
@@ -809,6 +837,7 @@ class WebcamForm(forms.ModelForm):
         exclude = ()
 
 
+@python_2_unicode_compatible
 class InteractiveMap(models.Model):
     pageblocks = GenericRelation(
         PageBlock)
@@ -818,8 +847,8 @@ class InteractiveMap(models.Model):
     def pageblock(self):
         return self.pageblocks.all()[0]
 
-    def __unicode__(self):
-        return unicode(self.pageblock())
+    def __str__(self):
+        return str(self.pageblock())
 
     def needs_submit(self):
         return False

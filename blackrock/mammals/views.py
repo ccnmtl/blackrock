@@ -2,7 +2,7 @@ import csv
 from datetime import datetime
 import json
 from re import match
-from string import uppercase
+import string
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import user_passes_test
@@ -391,7 +391,7 @@ def pick_transects(center, side_of_square, number_of_transects,
     for t in sorted_transects:
         transect_index += 1
         t['transect_id'] = transect_index
-        t['team_letter'] = uppercase[transect_index - 1]
+        t['team_letter'] = string.ascii_uppercase[transect_index - 1]
         point_index_2 = 0
         for p in t['points']:
             point_index += 1
@@ -697,7 +697,7 @@ def process_edit_expedition(request, expedition_id):
         'overnight_precipitation_type': 'overnight_precipitation_type_id'
     }
 
-    for the_key, thing_to_update in form_map_environment.iteritems():
+    for the_key, thing_to_update in form_map_environment.items():
         if the_key in rp:
             setattr(exp, thing_to_update, int(rp[the_key]))
             exp.save()
@@ -853,12 +853,12 @@ def process_notes_about_location(rp, point):
 def process_point(point, rp, form_map, form_map_booleans):
     process_student_names(rp, point)
 
-    for the_key, thing_to_update in form_map.iteritems():
+    for the_key, thing_to_update in form_map.items():
         rp_key = '%s_%d' % (the_key, point.id)
         if rp_key in rp and rp[rp_key] != 'None':
             setattr(point, '%s' % thing_to_update, rp[rp_key])
             point.save()
-    for the_key, thing_to_update in form_map_booleans.iteritems():
+    for the_key, thing_to_update in form_map_booleans.items():
         rp_key = '%s_%d' % (the_key, point.id)
         if rp_key in rp and rp[rp_key] != 'None':
             setattr(point, '%s' %
@@ -878,7 +878,7 @@ def process_point(point, rp, form_map, form_map_booleans):
     # 2) Are they both accurate to 5 decimals?
     # 3) Are they within a certain distance of the original lat and lon (no
     # interest in points in another country.
-    match_string = '(\-)?(\d){2}\.(\d){5}'
+    match_string = r'(\-)?(\d){2}\.(\d){5}'
 
     # if your coordinate string doesn't match the above, you have a nice
     # day.

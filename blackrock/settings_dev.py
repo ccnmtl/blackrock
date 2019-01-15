@@ -1,5 +1,5 @@
 # flake8: noqa
-from settings_shared import *
+from blackrock.settings_shared import *
 
 DATABASE_ENGINE = 'postgresql_psycopg2'
 
@@ -41,13 +41,13 @@ if 'migrate' not in sys.argv:
     from raven.contrib.django.handlers import SentryHandler
     logger = logging.getLogger()
     # ensure we havent already registered the handler
-    if SentryHandler not in map(type, logger.handlers):
+    if SentryHandler not in list(map(type, logger.handlers)):
         logger.addHandler(SentryHandler())
         logger = logging.getLogger('sentry.errors')
         logger.propagate = False
         logger.addHandler(logging.StreamHandler())
 
 try:
-    from local_settings import *
+    from blackrock.local_settings import *
 except ImportError:
     pass

@@ -5,7 +5,6 @@ from django.utils.translation import ugettext_lazy as _
 from haystack.forms import SearchForm
 from haystack.views import SearchView
 from blackrock.portal.models import Facet
-from types import ListType
 
 
 def default_type_choices(site=None):
@@ -144,14 +143,14 @@ class PortalSearchView(SearchView):
     def extra_context(self):
         extra = super(PortalSearchView, self).extra_context()
         if hasattr(self, "results"):
-            if type(self.results) is ListType and len(self.results) < 1:
+            if isinstance(self.results, list) and len(self.results) < 1:
                 extra["count"] = -1
             else:
                 extra["count"] = len(self.results)
 
         # Send down our current parameters minus page number
         query = ''
-        for param, value in self.request.GET.items():
+        for param, value in list(self.request.GET.items()):
             if param != 'page':
                 query += '%s=%s&' % (param, value)
         extra['query'] = query

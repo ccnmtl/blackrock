@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django.test import TestCase
 from blackrock.waterquality.models import Site, Location, Series, Row
 from blackrock.waterquality.models import LimitedSeries, LimitedSeriesGroup
@@ -6,13 +8,13 @@ from datetime import datetime
 
 
 class SiteTest(TestCase):
-    def test__unicode(self):
+    def test_str(self):
         s = Site.objects.create(name="test")
         self.assertEqual(str(s), "test")
 
 
 class LocationTest(TestCase):
-    def test_unicode(self):
+    def test_str(self):
         s = Site.objects.create(name="test")
         loc = Location.objects.create(name="test", site=s)
         self.assertEqual(str(loc), "test")

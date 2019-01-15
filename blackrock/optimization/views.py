@@ -241,7 +241,7 @@ class RandomSample:
             self.points = [{
                 'x': x,
                 'y': y
-            } for p in xrange(num_plots)]
+            } for p in range(num_plots)]
 
         elif self.arrangement == 'grid':
             w = float(self.parent.width)
@@ -257,7 +257,7 @@ class RandomSample:
             # floor cuts the remainder--maybe we should be using it somehow
             plots_across = math.floor(w/(size+delta))
 
-            self.choices = random.sample(xrange(int(plots_avail)), num_plots)
+            self.choices = random.sample(range(int(plots_avail)), num_plots)
             self.points = [
                 {
                     'x': (p % plots_across * (size + delta)) + delta,
@@ -450,7 +450,7 @@ def sample_plot(sample, point, p_index):
 
 def json2csv(request):
     response = HttpResponse(content_type='text/csv')
-    filename = re.split('\W', request.POST.get('filename', 'results'), 1)[0]
+    filename = re.split(r'\W', request.POST.get('filename', 'results'), 1)[0]
     response['Content-Disposition'] = 'attachment; filename=%s.csv' % filename
 
     if request.POST['results'] == '':
@@ -466,7 +466,7 @@ def json2csv(request):
 
 def trees_csv(request):
     response = HttpResponse(content_type='text/csv')
-    sample_num = re.split('\W', request.POST.get('sample_num', '0'), 1)[0]
+    sample_num = re.split(r'\W', request.POST.get('sample_num', '0'), 1)[0]
     response['Content-Disposition'] = (
         'attachment; filename=trees_sample_%s.csv' % sample_num)
 
@@ -514,8 +514,8 @@ def export_csv(request):
         return trees_csv(request)
 
     results = json.loads(request.POST['results'])
-    sample_num = re.split('\W', request.POST.get('sample_num', '0'), 1)[0]
-    type = re.split('\W', type, 1)[0]
+    sample_num = re.split(r'\W', request.POST.get('sample_num', '0'), 1)[0]
+    type = re.split(r'\W', type, 1)[0]
 
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = (
@@ -649,7 +649,7 @@ def loadcsv(request):
     p.save()
 
     table = csv.reader(fh)
-    header = table.next()
+    header = next(table)
 
     (id_idx, species_idx, x_idx, y_idx, dbh_idx) = header_indices(header)
 

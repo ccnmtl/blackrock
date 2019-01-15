@@ -45,7 +45,7 @@ def getpercents(request):
     otherpct = 100
 
     try:
-        names, percents, counts = zip(*results)
+        names, percents, counts = list(zip(*results))
         otherpct = 100 - sum([float(i) for i in percents])
     except ValueError:
         pass

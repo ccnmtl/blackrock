@@ -71,6 +71,6 @@ class Command(BaseCommand):
                         Row.objects.create(series=series,
                                            timestamp=datetime,
                                            value=datum)
-                    except Exception, e:
+                    except Exception as e:
                         print "error with %s" % datum
                         print str(e)

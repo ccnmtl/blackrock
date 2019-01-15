@@ -1,4 +1,7 @@
+from __future__ import unicode_literals
+
 from django.test import TestCase
+from django.utils.encoding import smart_text
 from blackrock.respiration.models import Temperature, StationMapping
 import datetime
 
@@ -23,27 +26,27 @@ class ModelTestCases(TestCase):
             date=datetime.datetime(2008, 8, 1, 1, 00),
             reading=1.1)
 
-        self.assertEquals(
+        self.assertEqual(
             Temperature.objects.filter(station='Open Lowland').count(), 2)
-        self.assertEquals(
+        self.assertEqual(
             Temperature.objects.filter(station='Ridgetop').count(), 1)
-        self.assertEquals(
+        self.assertEqual(
             Temperature.objects.filter(station='Fire Tower').count(), 1)
 
     def test_selective_delete(self):
         # All Data
         self._a_little_test_data()
-        self.assertEquals(Temperature.selective_delete(None, None, None), 4)
-        self.assertEquals(Temperature.objects.all().count(), 0)
+        self.assertEqual(Temperature.selective_delete(None, None, None), 4)
+        self.assertEqual(Temperature.objects.all().count(), 0)
 
         # One Station, no date range
         self._a_little_test_data()
         Temperature.selective_delete('Open Lowland', None, None)
-        self.assertEquals(
+        self.assertEqual(
             Temperature.objects.filter(station='Open Lowland').count(), 0)
-        self.assertEquals(
+        self.assertEqual(
             Temperature.objects.filter(station='Ridgetop').count(), 1)
-        self.assertEquals(
+        self.assertEqual(
             Temperature.objects.filter(station='Fire Tower').count(), 1)
 
         # One Station, date range
@@ -51,18 +54,18 @@ class ModelTestCases(TestCase):
         Temperature.selective_delete('Open Lowland', datetime.datetime(
             2008, 1, 1), datetime.datetime(2008, 12, 31))
         qs = Temperature.objects.filter(station='Open Lowland')
-        self.assertEquals(qs.count(), 1)
-        self.assertEquals(qs[0].date, datetime.datetime(1997, 1, 1, 1, 00))
-        self.assertEquals(
+        self.assertEqual(qs.count(), 1)
+        self.assertEqual(qs[0].date, datetime.datetime(1997, 1, 1, 1, 00))
+        self.assertEqual(
             Temperature.objects.filter(station='Ridgetop').count(), 1)
-        self.assertEquals(
+        self.assertEqual(
             Temperature.objects.filter(station='Fire Tower').count(), 1)
 
     def test_station_mapping(self):
         self.station_mapping = StationMapping(station="new station",
                                               abbreviation="ns")
-        self.assertEquals(
-            unicode(self.station_mapping),
+        self.assertEqual(
+            str(self.station_mapping),
             "%s (%s)" % (self.station_mapping.station,
                          self.station_mapping.abbreviation))
 
@@ -70,8 +73,8 @@ class ModelTestCases(TestCase):
         self.temperature = Temperature(
             station='Open Lowland',
             date=datetime.datetime(1997, 1, 1, 1, 00))
-        self.assertEquals(
-            unicode(self.temperature),
+        self.assertEqual(
+            str(self.temperature),
             "%s: [No reading] at %s station" % (
                 self.temperature.date, self.temperature.station))
 
@@ -79,9 +82,9 @@ class ModelTestCases(TestCase):
         self.temperature_2 = Temperature(
             station='Open Lowland',
             date=datetime.datetime(1997, 1, 1, 1, 00), reading=1.1)
-        self.assertEquals(
-            unicode(self.temperature_2),
-            u"%s: %.2f\xb0 C at %s station" % (
+        self.assertEqual(
+            smart_text(self.temperature_2),
+            "%s: %.2f\xb0 C at %s station" % (
                 self.temperature_2.date,
                 self.temperature_2.reading,
                 self.temperature_2.station))

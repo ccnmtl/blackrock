@@ -3,9 +3,11 @@ from blackrock.mammals.grid_math import to_lat_long, set_up_block, \
 from datetime import datetime
 from django.contrib.auth.models import User
 from django.contrib.gis.db import models
+from django.utils.encoding import python_2_unicode_compatible
 import json
 
 
+@python_2_unicode_compatible
 class GridPoint(models.Model):
 
     """ A point in the grid used to sample the forest. Each square is defined
@@ -25,7 +27,7 @@ class GridPoint(models.Model):
     def set_lat_long(self, coords):
         self.geo_point = "POINT(%s %s)" % (coords[0], coords[1])
 
-    def __unicode__(self):
+    def __str__(self):
         return self.gps_coords()
 
     def gps_coords(self):
@@ -53,9 +55,10 @@ class GridPoint(models.Model):
         return dir(self)
 
 
+@python_2_unicode_compatible
 class GradeLevel (models.Model):
 
-    def __unicode__(self):
+    def __str__(self):
         return self.label
     label = models.CharField(
         blank=True, help_text="The name of the grade level", max_length=256)
@@ -64,9 +67,10 @@ class GradeLevel (models.Model):
         return dir(self)
 
 
-class Bait (models.Model):
+@python_2_unicode_compatible
+class Bait(models.Model):
 
-    def __unicode__(self):
+    def __str__(self):
         return self.bait_name
     bait_name = models.CharField(
         blank=True, help_text="Label for the type of bait", max_length=256)
@@ -80,9 +84,10 @@ class Bait (models.Model):
         return dir(self)
 
 
+@python_2_unicode_compatible
 class Species(models.Model):
 
-    def __unicode__(self):
+    def __str__(self):
         return self.common_name
 
     latin_name = models.CharField(
@@ -102,9 +107,10 @@ class Species(models.Model):
         return dir(self)
 
 
-class LabelMenu (models.Model):
+@python_2_unicode_compatible
+class LabelMenu(models.Model):
 
-    def __unicode__(self):
+    def __str__(self):
         return self.label
     label = models.CharField(blank=True, null=True, max_length=256)
 
@@ -121,9 +127,10 @@ class AnimalScaleUsed (LabelMenu):
     pass
 
 
+@python_2_unicode_compatible
 class Animal(models.Model):
 
-    def __unicode__(self):
+    def __str__(self):
         return self.species.common_name
 
     species = models.ForeignKey(Species, null=True, blank=True)
@@ -159,11 +166,12 @@ class Animal(models.Model):
         return dir(self)
 
 
-class Trap (models.Model):
+@python_2_unicode_compatible
+class Trap(models.Model):
 
     """It's a trap!"""
 
-    def __unicode__(self):
+    def __str__(self):
         return self.trap_string
 
     trap_string = models.CharField(
@@ -178,9 +186,10 @@ class Trap (models.Model):
         return dir(self)
 
 
-class Habitat (models.Model):
+@python_2_unicode_compatible
+class Habitat(models.Model):
 
-    def __unicode__(self):
+    def __str__(self):
         return self.label
 
     class Meta:
@@ -202,7 +211,8 @@ class Habitat (models.Model):
         return dir(self)
 
 
-class GridSquare (models.Model):
+@python_2_unicode_compatible
+class GridSquare(models.Model):
 
     """ A square in the grid used to sample the forest.
     Each square has four points. Contiguous squares will,
@@ -232,7 +242,7 @@ class GridSquare (models.Model):
     # don't show all the squares
     display_this_square = models.BooleanField(default=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return "Row %d, column %d" % (self.row, self.column)
 
     row = models.IntegerField()
@@ -335,9 +345,10 @@ class TrapType (LabelMenu):
         ordering = ['label']
 
 
-class School (models.Model):
+@python_2_unicode_compatible
+class School(models.Model):
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -370,10 +381,11 @@ class School (models.Model):
         max_length=256)
 
 
-class Expedition (models.Model):
+@python_2_unicode_compatible
+class Expedition(models.Model):
 
-    def __unicode__(self):
-        return u"Expedition %d started on %s" % (
+    def __str__(self):
+        return "Expedition %d started on %s" % (
             self.id, self.start_date_of_expedition.strftime("%m/%d/%y"))
 
     def get_absolute_url(self):
@@ -497,7 +509,7 @@ class Expedition (models.Model):
             the_other_id = 0
             the_id = the_id + 1
             the_points = [
-                point for point, x in points_and_letters.iteritems()
+                point for point, x in points_and_letters.items()
                 if x == letter]
             a_point = the_points[0]
             transect_points = [a.recreate_point_obj() for a in the_points]
@@ -532,6 +544,7 @@ class Expedition (models.Model):
         return json.dumps(self.transects())
 
 
+@python_2_unicode_compatible
 class TrapLocation(models.Model):
 
     @classmethod
@@ -697,7 +710,7 @@ class TrapLocation(models.Model):
         # if this breaks again.
         self.actual_point = "POINT(%s %s)" % (coords[0], coords[1])
 
-    def __unicode__(self):
+    def __str__(self):
         return self.gps_coords()
 
     def suggested_gps_coords(self):
