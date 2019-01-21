@@ -23,7 +23,7 @@ certifi==2018.11.29
 requests==2.21.0
 pysolr==3.8.1
 requirements/src/gdata-2.0.14.tar.gz
-django-tinymce==2.6.0  # pyup: <2.7.0
+django-tinymce==2.6.1  # pyup: <2.7.0
 coverage==4.5.2
 pyasn1==0.4.5
 pyOpenSSL==18.0.0
