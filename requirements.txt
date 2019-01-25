@@ -36,7 +36,7 @@ pep8==1.7.1
 mccabe==0.6.1
 pycodestyle==2.4.0
 pyflakes==2.0.0
-configparser==3.5.0
+configparser==3.7.1
 flake8==3.6.0
 statsd==3.3.0
 six==1.12.0
