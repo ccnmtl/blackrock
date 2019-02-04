@@ -77,7 +77,7 @@ def featured(obj):
 
 @register.filter('featured_assets')
 def featured_assets(obj):
-            # Get all assets with valid "infrastructure" facets
+    # Get all assets with valid "infrastructure" facets
     sqs = SearchQuerySet()
     sqs = sqs.facet("featured")
     sqs = sqs.narrow("featured:[* TO *]")
@@ -86,7 +86,7 @@ def featured_assets(obj):
 
 @register.filter('infrastructure_assets')
 def infrastructure_assets(obj):
-            # Get all assets with valid "infrastructure" facets
+    # Get all assets with valid "infrastructure" facets
     sqs = SearchQuerySet()
     sqs = sqs.facet("infrastructure")
     sqs = sqs.narrow("infrastructure:[* TO *]")
