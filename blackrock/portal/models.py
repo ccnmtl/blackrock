@@ -596,7 +596,7 @@ class AssetList(models.Model):
 
         results = SearchQuerySet()
         for facet in Facet.asset_facets:
-                results = results.facet(facet)
+            results = results.facet(facet)
 
         types = self.search_criteria.split(';')
         for t in types:
