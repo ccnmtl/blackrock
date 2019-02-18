@@ -1,4 +1,4 @@
-/* global console: true, exports: true */
+/* global exports: true */
 
 if (typeof Treegrowth === 'undefined') {
     var Treegrowth = {};
