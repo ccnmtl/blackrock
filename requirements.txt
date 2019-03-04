@@ -2,7 +2,7 @@ Django==1.11.20 # pyup: <2.0
 pytz==2018.9
 resolver==0.2.1
 selector==0.10.1
-Paste==3.0.6
+Paste==3.0.7
 PasteDeploy==2.0.1
 PasteScript==3.0.0
 httplib2==0.12.1
@@ -35,7 +35,7 @@ pylint==1.9.4 # pyup: <2.0.0
 pep8==1.7.1
 mccabe==0.6.1
 pycodestyle==2.5.0
-pyflakes==2.1.0
+pyflakes==2.1.1
 configparser==3.7.3
 flake8==3.7.7
 statsd==3.3.0
@@ -47,7 +47,7 @@ contextlib2==0.5.5
 argparse==1.4.0
 cffi==1.12.2
 colorama==0.4.1
-cryptography==2.5
+cryptography==2.6.1
 enum34==1.1.6; python_version < '3.4'
 idna==2.8
 ipaddress==1.0.22
@@ -119,7 +119,7 @@ typing==3.6.6 # needed for django-extensions
 
 ccnmtlsettings==1.5.0
 
-pbr==5.1.2
+pbr==5.1.3
 pyyaml==5.1b3
 stevedore>=1.20.0 # Apache-2.0
 bandit==1.5.1
