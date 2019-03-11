@@ -57,7 +57,7 @@ pycparser==2.19
 wrapt==1.11.1
 rcssmin==1.0.6
 rjsmin==1.0.12
-sqlparse==0.2.4
+sqlparse==0.3.0
 
 # ipython dependencies
 ipython_genutils==0.2.0
