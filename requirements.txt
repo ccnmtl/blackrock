@@ -61,7 +61,7 @@ sqlparse==0.3.0
 
 # ipython dependencies
 ipython_genutils==0.2.0
-decorator==4.3.2
+decorator==4.4.0
 ptyprocess==0.6.0
 pexpect==4.6.0
 pathlib2==2.3.3
