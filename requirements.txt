@@ -9,7 +9,7 @@ httplib2==0.12.1
 feedparser==5.2.1
 Markdown==2.6.11 # pyup: < 3
 pyenchant==2.0.0
-psycopg2==2.8.1
+psycopg2==2.8.2
 
 pysqlite==2.8.3
 
