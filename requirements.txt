@@ -45,7 +45,7 @@ text-unidecode==1.2  # for faker
 Faker==1.0.5
 contextlib2==0.5.5
 argparse==1.4.0
-cffi==1.12.2
+cffi==1.12.3
 colorama==0.4.1
 cryptography==2.6.1
 enum34==1.1.6; python_version < '3.4'
