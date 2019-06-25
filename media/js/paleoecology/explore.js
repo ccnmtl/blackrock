@@ -1,5 +1,3 @@
-/* global STATIC_URL */
-
 var visible = null;
 var global_http_request;
 

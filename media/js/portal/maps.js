@@ -32,12 +32,13 @@ if (!Portal.Base) {
             };
             this.clearListeners = function() {
                 for (var a in _named_listeners) {
-                    if (_named_listeners.hasOwnProperty(a)) {
+                    if (Object.prototype.hasOwnProperty.call(
+                        _named_listeners, a)) {
                         this.removeListener(a);
                     }
                 }
                 for (var b in _listeners) {
-                    if (_listeners.hasOwnProperty(b)) {
+                    if (Object.prototype.hasOwnProperty.call(_listeners, b)) {
                         this.removeListener(b);
                     }
                 }
@@ -327,7 +328,8 @@ if (!Portal.Map) {
 
         this.toggleFacet = function() {
             for (var assetIdentifier in self.locations) {
-                if (self.locations.hasOwnProperty(assetIdentifier)) {
+                if (Object.prototype.hasOwnProperty.call(self.locations,
+                    assetIdentifier)) {
                     var location = self.locations[assetIdentifier];
                     var visible = location.isVisible();
                     var shouldBeVisible = location.shouldBeVisible();
@@ -343,7 +345,8 @@ if (!Portal.Map) {
 
         this.toggleLayer = function() {
             for (var identifier in self.layers) {
-                if (self.layers.hasOwnProperty(identifier)) {
+                if (Object.prototype.hasOwnProperty.call(self.layers,
+                    identifier)) {
                     var layer = self.layers[identifier];
                     var visible = layer.isVisible();
                     var shouldBeVisible = layer.shouldBeVisible();
@@ -432,7 +435,8 @@ if (!Portal.Map) {
         // eslint-disable-next-line scanjs-rules/assign_to_search
         this.search = function(lat, long, title) {
             for (var result in self.search_results) {
-                if (self.search_results.hasOwnProperty(result)) {
+                if (Object.prototype.hasOwnProperty.call(self.search_results,
+                    result)) {
                     var location = self.search_results[result];
                     location.marker.setMap(null);
                 }
@@ -476,7 +480,8 @@ if (!Portal.Map) {
             nearby_results.style.display = 'none';
 
             for (var result in self.search_results) {
-                if (self.search_results.hasOwnProperty(result)) {
+                if (Object.prototype.hasOwnProperty.call(self.search_results,
+                    result)) {
                     var location = self.search_results[result];
                     location.marker.setMap(null);
                 }
@@ -494,7 +499,7 @@ if (!Portal.Map) {
         this.markerCount = function(myobj) {
             var count = 0;
             for (var k in myobj) {
-                if (myobj.hasOwnProperty(k)) {
+                if (Object.prototype.hasOwnProperty.call(myobj, k)) {
                     count++;
                 }
             }
@@ -548,7 +553,8 @@ if (!Portal.Map) {
             var detail_locations = self.initMarkers(
                 'geocode_detail', 0, true);
             for (var key in detail_locations) {
-                if (detail_locations.hasOwnProperty(key)) {
+                if (Object.prototype.hasOwnProperty.call(detail_locations,
+                    key)) {
                     self.locations[key] = detail_locations[key];
                 }
             }
@@ -560,7 +566,8 @@ if (!Portal.Map) {
                         self.mapInstance.setZoom(14);
 
                         for (var s in self.selected) {
-                            if (self.selected.hasOwnProperty(s)) {
+                            if (Object.prototype.hasOwnProperty.call(
+                                self.selected, s)) {
                                 self.showMarkerInfoWindow(s);
                             }
                         }

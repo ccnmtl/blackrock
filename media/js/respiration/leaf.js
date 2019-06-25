@@ -1,4 +1,4 @@
-/* global initNav: true, initSpeciesModule: true, setup: true */
+/* global initSpeciesModule: true, setup: true */
 /* global getSpeciesList: true */
 
 function formSubmit() {
