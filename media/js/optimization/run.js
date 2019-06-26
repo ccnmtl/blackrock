@@ -1,4 +1,4 @@
-/* global SampleStorage: true, serializeJSON: global, SampleMap: true  */
+/* global SampleStorage: true, serializeJSON: true, SampleMap: true  */
 /* global Highlight: true, toggle: true, queryString: true */
 /* global TableSortCasts: true */
 /* exported getcsv, SampleHistory, reset, deleteSample */
