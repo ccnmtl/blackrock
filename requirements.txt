@@ -1,23 +1,23 @@
-Django==1.11.20 # pyup: <2.0
+Django==1.11.22 # pyup: <2.0
 pytz==2019.1
 resolver==0.2.1
 selector==0.10.1
 Paste==3.0.8
 PasteDeploy==2.0.1
 PasteScript==3.1.0
-httplib2==0.12.3
+httplib2==0.13.0
 feedparser==5.2.1
 Markdown==2.6.11 # pyup: < 3
 pyenchant==2.0.0
-psycopg2==2.8.2
+psycopg2==2.8.3
 
 pysqlite==2.8.3
 
-Pillow==6.0.0
+Pillow==6.1.0
 
 chardet==3.0.4
 idna==2.8
-urllib3==1.25
+urllib3==1.25.3
 certifi==2019.6.16
 
 requests==2.21.0
