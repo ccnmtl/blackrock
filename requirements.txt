@@ -18,7 +18,7 @@ Pillow==6.0.0
 chardet==3.0.4
 idna==2.8
 urllib3==1.25
-certifi==2019.3.9
+certifi==2019.6.16
 
 requests==2.21.0
 pysolr==3.8.1
