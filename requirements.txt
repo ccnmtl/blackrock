@@ -1,26 +1,26 @@
-Django==1.11.20 # pyup: <2.0
+Django==1.11.22 # pyup: <2.0
 pytz==2019.1
 resolver==0.2.1
 selector==0.10.1
 Paste==3.0.8
 PasteDeploy==2.0.1
 PasteScript==3.1.0
-httplib2==0.12.3
+httplib2==0.13.0
 feedparser==5.2.1
 Markdown==2.6.11 # pyup: < 3
 pyenchant==2.0.0
-psycopg2==2.8.2
+psycopg2==2.8.3
 
 pysqlite==2.8.3
 
-Pillow==6.0.0
+Pillow==6.1.0
 
 chardet==3.0.4
 idna==2.8
-urllib3==1.25
-certifi==2019.3.9
+urllib3==1.25.3
+certifi==2019.6.16
 
-requests==2.21.0
+requests==2.22.0
 pysolr==3.8.1
 requirements/src/gdata-2.0.14.tar.gz
 django-tinymce==2.6.1  # pyup: <2.7.0
@@ -42,19 +42,19 @@ statsd==3.3.0
 six==1.12.0
 python-dateutil==2.8.0
 text-unidecode==1.2  # for faker
-Faker==1.0.5
+Faker==1.0.7
 contextlib2==0.5.5
 argparse==1.4.0
 cffi==1.12.3
 colorama==0.4.1
-cryptography==2.6.1
+cryptography==2.7
 enum34==1.1.6; python_version < '3.4'
 idna==2.8
 ipaddress==1.0.22
-lazy-object-proxy==1.3.1
+lazy-object-proxy==1.4.1
 nose==1.3.7
 pycparser==2.19
-wrapt==1.11.1
+wrapt==1.11.2
 rcssmin==1.0.6
 rjsmin==1.0.12
 sqlparse==0.3.0
@@ -64,7 +64,7 @@ ipython_genutils==0.2.0
 decorator==4.4.0
 ptyprocess==0.6.0
 pexpect==4.7.0
-pathlib2==2.3.3
+pathlib2==2.3.4
 pickleshare==0.7.5
 simplegeneric==0.8.1
 path.py==11.5.2 # pyup: <12
@@ -72,7 +72,7 @@ backports.shutil_get_terminal_size==1.0.0
 traitlets==4.3.2
 wcwidth==0.1.7
 prompt_toolkit==2.0.9
-pygments==2.3.1
+pygments==2.4.2
 scandir==1.10.0
 ipython==5.8.0 # pyup: < 6.0.0
 ipdb==0.12
@@ -85,7 +85,7 @@ django-templatetag-sugar==1.0
 django-statsd-mozilla==0.4.0
 django-paging==0.2.5
 django-appconf==1.0.3
-django-compressor==2.2
+django-compressor==2.3
 raven==6.10.0
 requirements/src/django_googlecharts-1.1ctl-py2.py3-none-any.whl
 django-jenkins==0.110.0
@@ -102,27 +102,27 @@ django-markwhat==1.6.1
 django-pagetree==1.4.1
 django-pageblocks==1.2.0 # pyup: <2.0 
 requirements/src/django_databrowse-2018.12.10ccnmtl-py2.py3-none-any.whl
-factory_boy==2.11.1
+factory_boy==2.12.0
 
-django-debug-toolbar==1.11
+django-debug-toolbar==1.11 # pyup <2.0
 gunicorn==19.9.0
 
 boto==2.49.0
 django-storages==1.7.1
 django-cacheds3storage==0.2.1
-django-impersonate==1.4
-django-waffle==0.16.0
+django-impersonate==1.4.1
+django-waffle==0.17.0
 django-ga-context==0.1.0
 django-smtp-ssl==1.0
-django-extensions==2.1.6
-typing==3.6.6 # needed for django-extensions
+django-extensions==2.1.9
+typing==3.7.4 # needed for django-extensions
 
 ccnmtlsettings==1.5.0
 
-pbr==5.1.3
-pyyaml==5.1
+pbr==5.4.0
+pyyaml==5.1.1
 stevedore>=1.20.0 # Apache-2.0
-bandit==1.5.1
+bandit==1.6.2
 
 functools32==3.2.3-2; python_version < '3'
 entrypoints==0.3
