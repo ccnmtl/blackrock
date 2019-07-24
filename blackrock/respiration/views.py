@@ -1,4 +1,5 @@
 import csv
+import codecs
 import datetime
 from decimal import Decimal, ROUND_HALF_UP
 from json import dumps
@@ -230,7 +231,7 @@ def loadcsv(request):
 
     # TODO: error checking (correct file type, etc.)
 
-    table = csv.reader(fh)
+    table = csv.reader(codecs.iterdecode(fh, 'utf-8'))
 
     headers = next(table)
 
@@ -288,7 +289,7 @@ def load_table(table, station_idx, year_idx, day_idx, hour_idx, temp_idx,
 
         # adjust hour from "military" to 0-23, and 2400 becomes 0 of
         # the next day
-        normalized_hour = int(hour) / 100 - 1
+        normalized_hour = int(hour) // 100 - 1
         # if normalized_hour == 24:
         #  normalized_hour = 0
         # julian_days = int(julian_days) + 1

@@ -8,7 +8,7 @@ class Command(BaseCommand):
     help = ''
 
     def handle(self, *args, **options):
-        print "AVERAGING HARLEM DATA TO HOURLY"
+        print("AVERAGING HARLEM DATA TO HOURLY")
         # use the BRF Stream as canonical for timestamps
         brf = Site.objects.get(name="BRF")
         stream = Location.objects.get(name="Stream", site=brf)
