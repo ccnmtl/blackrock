@@ -38,8 +38,8 @@ def process_row(row, columns, series_objects):
                 timestamp=datetime,
                 value=datum)
         except Exception as e:
-            print "error with %s" % datum
-            print str(e)
+            print(("error with %s" % datum))
+            print((str(e)))
 
 
 class Command(BaseCommand):
@@ -47,7 +47,7 @@ class Command(BaseCommand):
     help = ''
 
     def handle(self, *args, **options):
-        print "importing HRECOS data"
+        print("importing HRECOS data")
         (site, created) = Site.objects.get_or_create(name='Hudson')
         (location, created) = Location.objects.get_or_create(
             name='HRECOS', site=site)
@@ -72,7 +72,7 @@ class Command(BaseCommand):
             (series, created) = Series.objects.get_or_create(
                 name=name, location=location, units=unit)
             if not created:
-                print "clearing out %s" % name
+                print("clearing out %s" % name)
                 series.row_set.all().delete()
 
             series_objects[column] = series

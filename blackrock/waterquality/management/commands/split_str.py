@@ -32,8 +32,8 @@ class Command(BaseCommand):
                                    "w")) for c in columns]
         for row in reader:
             datetime = fixdatetime(row[1], row[2], row[3])
-            print datetime
+            print(datetime)
             for ((idx), writer) in zip(columns, writers):
                 columnname = all_columns[idx]
-                print "-%s: %s" % (columnname, row[idx])
+                print("-%s: %s" % (columnname, row[idx]))
                 writer.writerow([datetime, row[idx]])

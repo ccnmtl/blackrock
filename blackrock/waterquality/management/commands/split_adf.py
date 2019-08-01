@@ -6,7 +6,7 @@ months = dict(Jan=1, Feb=2, Mar=3, Apr=4, May=5, Jun=6, Jul=7, Aug=8,
 
 
 def fixdatetime(date):
-    print date
+    print(date)
     (d, mon, y) = date.split("-")
     m = months[mon]
     return "%d-%02d-%02d" % (2000 + int(y), int(m), int(d))
@@ -40,8 +40,8 @@ class Command(BaseCommand):
                                    "w")) for c in columns]
         for row in reader:
             datetime = fixdatetime(row[date_col])
-            print datetime
+            print(datetime)
             for ((idx), writer) in zip(columns, writers):
                 columnname = all_columns[idx]
-                print "-%s: %s" % (columnname, row[idx])
+                print("-%s: %s" % (columnname, row[idx]))
                 writer.writerow([datetime, row[idx]])

@@ -7,7 +7,7 @@ class Command(BaseCommand):
     help = ''
 
     def handle(self, *args, **options):
-        print "TRIMMING HARLEM DATA TO MAIN DATE RANGE"
+        print("TRIMMING HARLEM DATA TO MAIN DATE RANGE")
         (site, created) = Site.objects.get_or_create(name='Harlem')
         (location, created) = Location.objects.get_or_create(
             name='River', site=site)

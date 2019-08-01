@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from blackrock.respiration.models import Temperature, StationMapping
 import datetime
+from io import open
 import os.path
 import json
 from django.core.cache import cache
@@ -61,66 +62,70 @@ class ImportTestCases(TestCase):
         # (i.e., field and field_file required by Django's FileField.
         test_data_file = os.path.join(
             os.path.dirname(__file__), "test_respiration.csv")
-        f = open(test_data_file)
-        response = self.client.post(
-            '/respiration/loadcsv', {'delete': 'on', 'csvfile': f})
-        f.close()
+        with open(test_data_file, 'rt', encoding='utf-8') as f:
+            response = self.client.post(
+                '/respiration/loadcsv', {'delete': 'on', 'csvfile': f})
+            f.close()
 
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(
-            Temperature.objects.filter(station='Test Station').count(), 48)
-        self.assertEqual(
-            Temperature.objects.filter(station='Another Station').count(), 24)
+            self.assertEqual(response.status_code, 302)
+            self.assertEqual(
+                Temperature.objects.filter(station='Test Station').count(), 48)
+            self.assertEqual(
+                Temperature.objects.filter(station='Another Station').count(),
+                24)
 
-        # spotcheck
-        qs = Temperature.objects.filter(
-            station='Test Station',
-            date=datetime.datetime(1996, 12, 31, 00, 00))
-        self.assertEqual(qs.count(), 1)
-        self.assertEqual(qs[0].reading, -0.72)
+            # spotcheck
+            qs = Temperature.objects.filter(
+                station='Test Station',
+                date=datetime.datetime(1996, 12, 31, 00, 00))
+            self.assertEqual(qs.count(), 1)
+            self.assertEqual(qs[0].reading, -0.72)
 
-        # new station with invalid temp, after valid temps, should register as
-        # 0 not, the other station's old temp
-        qs = Temperature.objects.filter(
-            station='Another Station',
-            date=datetime.datetime(1997, 1, 1, 00, 00))
-        self.assertEqual(qs.count(), 1)
-        self.assertEqual(qs[0].reading, 0)
+            # new station with invalid temp, after valid temps, should
+            # register as 0 not, the other station's old temp
+            qs = Temperature.objects.filter(
+                station='Another Station',
+                date=datetime.datetime(1997, 1, 1, 00, 00))
+            self.assertEqual(qs.count(), 1)
+            self.assertEqual(qs[0].reading, 0)
 
-        # Check duplicate handling
-        qs = Temperature.objects.filter(
-            station='Test Station', date=datetime.datetime(1997, 1, 1, 23, 00))
-        self.assertEqual(qs.count(), 1)
-        self.assertEqual(qs[0].reading, -0.16)
+            # Check duplicate handling
+            qs = Temperature.objects.filter(
+                station='Test Station',
+                date=datetime.datetime(1997, 1, 1, 23, 00))
+            self.assertEqual(qs.count(), 1)
+            self.assertEqual(qs[0].reading, -0.16)
 
-        qs = Temperature.objects.filter(
-            station='Test Station', date=datetime.datetime(1997, 1, 1, 22, 00))
-        self.assertEqual(qs.count(), 1)
-        self.assertEqual(qs[0].reading, -8.0)
+            qs = Temperature.objects.filter(
+                station='Test Station',
+                date=datetime.datetime(1997, 1, 1, 22, 00))
+            self.assertEqual(qs.count(), 1)
+            self.assertEqual(qs[0].reading, -8.0)
 
-        # Substituting last valid temp when temp is invalid
-        qs = Temperature.objects.filter(
-            station='Test Station',
-            date=datetime.datetime(1996, 12, 31, 23, 00))
-        self.assertEqual(qs.count(), 1)
-        self.assertEqual(qs[0].reading, -2.16)
+            # Substituting last valid temp when temp is invalid
+            qs = Temperature.objects.filter(
+                station='Test Station',
+                date=datetime.datetime(1996, 12, 31, 23, 00))
+            self.assertEqual(qs.count(), 1)
+            self.assertEqual(qs[0].reading, -2.16)
 
-        qs = Temperature.objects.filter(
-            station='Test Station', date=datetime.datetime(1997, 1, 1, 00, 00))
-        self.assertEqual(qs.count(), 1)
-        self.assertEqual(qs[0].reading, -2.16)
+            qs = Temperature.objects.filter(
+                station='Test Station',
+                date=datetime.datetime(1997, 1, 1, 00, 00))
+            self.assertEqual(qs.count(), 1)
+            self.assertEqual(qs[0].reading, -2.16)
 
-        qs = Temperature.objects.filter(
-            station='Test Station',
-            date=datetime.datetime(1997, 1, 1, 0o1, 00))
-        self.assertEqual(qs.count(), 1)
-        self.assertEqual(qs[0].reading, -2.16)
+            qs = Temperature.objects.filter(
+                station='Test Station',
+                date=datetime.datetime(1997, 1, 1, 0o1, 00))
+            self.assertEqual(qs.count(), 1)
+            self.assertEqual(qs[0].reading, -2.16)
 
-        qs = Temperature.objects.filter(
-            station='Test Station',
-            date=datetime.datetime(1997, 1, 1, 0o2, 00))
-        self.assertEqual(qs.count(), 1)
-        self.assertEqual(qs[0].reading, -1.06)
+            qs = Temperature.objects.filter(
+                station='Test Station',
+                date=datetime.datetime(1997, 1, 1, 0o2, 00))
+            self.assertEqual(qs.count(), 1)
+            self.assertEqual(qs[0].reading, -1.06)
 
     def test_solr_import_set(self):
         Temperature.objects.get_or_create(

@@ -525,7 +525,7 @@ class Expedition(models.Model):
             transect_length = length_of_transect(
                 trig_radians_angle, side_of_square)
 
-            magnetic_north = a.transect_bearing_wrt_magnetic_north()
+            magnetic_north = a_point.transect_bearing_wrt_magnetic_north()
 
             transect_info = {
                 'transect_id': the_id,

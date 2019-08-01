@@ -636,7 +636,7 @@ def loadcsv(request):
         # return an HttpResponse of some sort
         return
     fh = request.FILES['csvfile']
-    if file == '':
+    if fh == '':
         # TODO: error checking (correct file type, etc.)
         return HttpResponse('No csv file specified')
 
