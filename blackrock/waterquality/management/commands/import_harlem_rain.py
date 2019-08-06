@@ -16,7 +16,7 @@ class Command(BaseCommand):
     help = ''
 
     def handle(self, *args, **options):
-        print "importing Harlem River Rainfall data"
+        print("importing Harlem River Rainfall data")
         (site, created) = Site.objects.get_or_create(name='Harlem')
         (location, created) = Location.objects.get_or_create(
             name='River', site=site)

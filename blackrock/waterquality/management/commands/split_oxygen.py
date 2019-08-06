@@ -19,7 +19,7 @@ class Command(BaseCommand):
                    for c in columns]
         for row in reader:
             datetime = fixdatetime(row[0], row[1])
-            print datetime
+            print(datetime)
             for ((columnname, idx), writer) in zip(columns, writers):
-                print "-%s: %s" % (columnname, row[idx])
+                print("-%s: %s" % (columnname, row[idx]))
                 writer.writerow([datetime, row[idx]])

@@ -9,7 +9,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         for series in Series.objects.all():
-            print "series: %s" % series.name
+            print("series: %s" % series.name)
             start = series.start()
             end = series.end()
             d = timedelta(hours=1)
@@ -17,7 +17,7 @@ class Command(BaseCommand):
             while timestamp < end.timestamp:
                 r = series.row_set.filter(timestamp=timestamp)
                 if r.count() != 1:
-                    print series.name, series.id, timestamp, r.count()
+                    print(series.name, series.id, timestamp, r.count())
                     for rr in r:
-                        print rr.id, rr.value
+                        print(rr.id, rr.value)
                 timestamp = timestamp + d

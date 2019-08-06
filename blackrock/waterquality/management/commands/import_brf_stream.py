@@ -23,7 +23,7 @@ def prep_the_series(columns, units, names, location):
         (series, created) = Series.objects.get_or_create(
             name=name, location=location, units=unit)
         if not created:
-            print "clearing out %s" % name
+            print("clearing out %s" % name)
             series.row_set.all().delete()
         series_objects[column] = series
     return series_objects
@@ -34,7 +34,7 @@ class Command(BaseCommand):
     help = ''
 
     def handle(self, *args, **options):
-        print "importing BRF Stream data"
+        print("importing BRF Stream data")
         (site, created) = Site.objects.get_or_create(name='BRF')
         (location, created) = Location.objects.get_or_create(
             name='Stream', site=site)
@@ -66,5 +66,5 @@ class Command(BaseCommand):
                                            timestamp=datetime,
                                            value=datum)
                     except Exception as e:
-                        print "error with %s" % datum
-                        print str(e)
+                        print("error with %s" % datum)
+                        print(str(e))

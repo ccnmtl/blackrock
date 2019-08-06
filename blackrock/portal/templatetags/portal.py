@@ -209,9 +209,7 @@ def related(object):
     if hasattr(object.instance, 'related_ex'):
         related.extend(object.instance.related_ex())
 
-    related.sort(cmp=lambda x, y: cmp(display_name(x), display_name(y)))
-
-    return related
+    return sorted(related, key=display_name)
 
 
 @register.tag

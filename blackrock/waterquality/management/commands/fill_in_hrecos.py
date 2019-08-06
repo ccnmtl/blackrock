@@ -31,10 +31,10 @@ class Command(BaseCommand):
         d = timedelta(hours=1)
         (missing, found) = make_rows(series, step_date, end_date, d)
 
-        print "filled in %d" % missing
-        print "total: %d" % series.row_set.all().count()
+        print("filled in %d" % missing)
+        print("total: %d" % series.row_set.all().count())
 
-        print "checking for duplicates now..."
+        print("checking for duplicates now...")
         step_date = start_date
         duplicates = 0
         zero = Decimal("0.0")
@@ -50,13 +50,13 @@ class Command(BaseCommand):
                     if row.value != zero:
                         has_non_zero = True
                 if not has_non_zero:
-                    print "all zeros. delete all but first"
+                    print("all zeros. delete all but first")
                     for row in r[1:]:
                         row.delete()
                 else:
                     clear_out_any_zero_values(r, zero)
             step_date = step_date + d
-        print "duplicates found: %d" % duplicates
+        print("duplicates found: %d" % duplicates)
 
 
 def clear_out_any_zero_values(r, zero):

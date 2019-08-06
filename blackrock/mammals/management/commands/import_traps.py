@@ -22,7 +22,7 @@ test_expedition_ids = []
 def read_csv_data(file_name):
     """read the csv data"""
     data = reader(open(file_name))
-    fields = data.next()
+    fields = next(data)
     result = {}
     for row in data:
         items = zip(fields, row)
@@ -106,7 +106,7 @@ def guess_bait(values):
 
 def create_points(data):
     for id, values in data.iteritems():
-        print values
+        print(values)
         new_point = TrapLocation()
         exp = Expedition.objects.get(id=values['exp_id'])
 
