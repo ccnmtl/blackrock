@@ -42,7 +42,7 @@ statsd==3.3.0
 six==1.12.0
 python-dateutil==2.8.0
 text-unidecode==1.2  # for faker
-Faker==2.0.0
+Faker==2.0.1
 contextlib2==0.5.5
 argparse==1.4.0
 cffi==1.12.3
