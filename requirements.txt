@@ -11,8 +11,6 @@ Markdown==2.6.11 # pyup: < 3
 pyenchant==2.0.0
 psycopg2==2.8.3
 
-pysqlite==2.8.3; python_version < '3'
-
 Pillow==6.1.0
 
 chardet==3.0.4
@@ -48,7 +46,6 @@ argparse==1.4.0
 cffi==1.12.3
 colorama==0.4.1
 cryptography==2.7
-enum34==1.1.6; python_version < '3.4'
 idna==2.8
 ipaddress==1.0.22
 lazy-object-proxy==1.4.2
@@ -107,7 +104,6 @@ factory_boy==2.12.0
 django-debug-toolbar==1.11 # pyup: <2.0
 gunicorn==19.9.0
 
-futures==3.2.0; python_version < '3'
 s3transfer==0.2.1
 jmespath==0.9.4
 botocore>=1.12.194,<1.13.0
@@ -120,7 +116,6 @@ django-waffle==0.17.0
 django-ga-context==0.1.0
 django-smtp-ssl==1.0
 django-extensions==2.1.9
-typing==3.7.4.1; python_version < '3.5'
 
 ccnmtlsettings==1.5.0
 
@@ -129,6 +124,5 @@ pyyaml==5.1.2
 stevedore>=1.20.0 # Apache-2.0
 bandit==1.6.2
 
-functools32==3.2.3-2; python_version < '3'
 entrypoints==0.3
 distro==1.4.0
