@@ -246,6 +246,20 @@
                 yAxis: i
             };
 
+            // Don't use separate y-axes for the trees that we're
+            // calculating an absolute RDH (radius at dendrometer
+            // height) for. And add units.
+            if (
+                newHeaderNames[i].match(/^Hemlock \d$/) ||
+                newHeaderNames[i].match(/^Pine \d$/)
+            ) {
+                series.tooltip = {
+                    valueSuffix: ' deltaRDH (μm)'
+                };
+            } else {
+                series.yAxis = i;
+            }
+
             yAxis = {
                 visible: false
             };
