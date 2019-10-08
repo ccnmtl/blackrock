@@ -1,5 +1,26 @@
 /* jshint esversion: 6 */
-/* global Papa: true, Treegrowth: true */
+/* global Highcharts: true, Papa: true, Treegrowth: true */
+
+// Plugin to only run export-data on the visible range
+// From: https://github.com/highcharts/highcharts/
+//         issues/7913#issuecomment-371052869
+(function(H) {
+    H.wrap(H.Chart.prototype, 'getDataRows', function(
+        proceed, multiLevelHeaders
+    ) {
+        var rows = proceed.call(this, multiLevelHeaders),
+            xMin = this.xAxis[0].min,
+            xMax = this.xAxis[0].max;
+
+        rows = rows.filter(function(row) {
+            return typeof row.x !== 'number' ||
+                (row.x >= xMin && row.x <= xMax);
+        });
+
+        return rows;
+    });
+
+}(Highcharts));
 
 (function() {
     var BASE_PATH = 'https://www1.columbia.edu/sec/ccnmtl/projects/' +
