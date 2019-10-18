@@ -47,7 +47,7 @@ cffi==1.13.0
 colorama==0.4.1
 cryptography==2.8
 idna==2.8
-ipaddress==1.0.22
+ipaddress==1.0.23
 lazy-object-proxy==1.4.2
 nose==1.3.7
 pycparser==2.19
