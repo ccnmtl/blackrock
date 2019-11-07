@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 from django.db import migrations, models
 import datetime
 import django.contrib.gis.db.models.fields
+import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
@@ -73,7 +74,7 @@ class Migration(migrations.Migration):
                 ('modified_date', models.DateTimeField(default=datetime.datetime.now, verbose_name=b'modified_date')),
                 ('markup', models.TextField(null=True, blank=True)),
                 ('audience', models.ManyToManyField(to='portal.Audience', blank=True)),
-                ('digital_format', models.ForeignKey(to='portal.DigitalFormat')),
+                ('digital_format', models.ForeignKey(to='portal.DigitalFormat', on_delete=django.db.models.deletion.CASCADE)),
             ],
             options={
                 'ordering': ['name'],
@@ -97,8 +98,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('detailed_display', models.BooleanField(default=False)),
-                ('asset_dataset', models.ForeignKey(blank=True, to='portal.DataSet', null=True)),
-                ('asset_digitalobject', models.ForeignKey(blank=True, to='portal.DigitalObject', null=True)),
+                ('asset_dataset', models.ForeignKey(blank=True, to='portal.DataSet', null=True, on_delete=django.db.models.deletion.SET_NULL)),
+                ('asset_digitalobject', models.ForeignKey(blank=True, to='portal.DigitalObject', null=True, on_delete=django.db.models.deletion.SET_NULL)),
             ],
         ),
         migrations.CreateModel(
@@ -114,7 +115,7 @@ class Migration(migrations.Migration):
                 ('audience', models.ManyToManyField(to='portal.Audience', blank=True)),
                 ('dataset', models.ManyToManyField(to='portal.DataSet', blank=True)),
                 ('digital_object', models.ManyToManyField(to='portal.DigitalObject', blank=True)),
-                ('display_image', models.ForeignKey(related_name='foreststory_display_image', blank=True, to='portal.DigitalObject', null=True)),
+                ('display_image', models.ForeignKey(related_name='foreststory_display_image', blank=True, to='portal.DigitalObject', null=True, on_delete=django.db.models.deletion.SET_NULL)),
                 ('facet', models.ManyToManyField(to='portal.Facet')),
             ],
             options={
@@ -167,7 +168,7 @@ class Migration(migrations.Migration):
                 ('created_date', models.DateTimeField(default=datetime.datetime.now, verbose_name=b'created_date')),
                 ('modified_date', models.DateTimeField(default=datetime.datetime.now, verbose_name=b'modified_date')),
                 ('audience', models.ManyToManyField(to='portal.Audience', blank=True)),
-                ('display_image', models.ForeignKey(blank=True, to='portal.DigitalObject', null=True)),
+                ('display_image', models.ForeignKey(blank=True, to='portal.DigitalObject', null=True, on_delete=django.db.models.deletion.SET_NULL)),
                 ('facet', models.ManyToManyField(to='portal.Facet')),
             ],
             options={
@@ -210,7 +211,7 @@ class Migration(migrations.Migration):
                 ('created_date', models.DateTimeField(default=datetime.datetime.now, verbose_name=b'created_date')),
                 ('modified_date', models.DateTimeField(default=datetime.datetime.now, verbose_name=b'modified_date')),
                 ('audience', models.ManyToManyField(to='portal.Audience', blank=True)),
-                ('display_image', models.ForeignKey(blank=True, to='portal.DigitalObject', null=True)),
+                ('display_image', models.ForeignKey(blank=True, to='portal.DigitalObject', null=True, on_delete=django.db.models.deletion.SET_NULL)),
                 ('facet', models.ManyToManyField(to='portal.Facet')),
                 ('institution', models.ManyToManyField(to='portal.Institution')),
             ],
@@ -244,7 +245,7 @@ class Migration(migrations.Migration):
                 ('description', models.CharField(max_length=500)),
                 ('action', models.URLField()),
                 ('position', models.IntegerField()),
-                ('image', models.ForeignKey(related_name='gallery_display_image', blank=True, to='portal.DigitalObject', null=True)),
+                ('image', models.ForeignKey(related_name='gallery_display_image', blank=True, to='portal.DigitalObject', null=True, on_delete=django.db.models.deletion.SET_NULL)),
             ],
             options={
                 'ordering': ('position',),
@@ -263,7 +264,7 @@ class Migration(migrations.Migration):
                 ('created_date', models.DateTimeField(default=datetime.datetime.now, verbose_name=b'created_date')),
                 ('modified_date', models.DateTimeField(default=datetime.datetime.now, verbose_name=b'modified_date')),
                 ('audience', models.ManyToManyField(to='portal.Audience', blank=True)),
-                ('display_image', models.ForeignKey(blank=True, to='portal.DigitalObject', null=True)),
+                ('display_image', models.ForeignKey(blank=True, to='portal.DigitalObject', null=True, on_delete=django.db.models.deletion.SET_NULL)),
                 ('facet', models.ManyToManyField(to='portal.Facet')),
                 ('person', models.ManyToManyField(to='portal.Person', blank=True)),
             ],
@@ -290,7 +291,7 @@ class Migration(migrations.Migration):
                 ('created_date', models.DateTimeField(default=datetime.datetime.now, verbose_name=b'created_date')),
                 ('modified_date', models.DateTimeField(default=datetime.datetime.now, verbose_name=b'modified_date')),
                 ('audience', models.ManyToManyField(to='portal.Audience', blank=True)),
-                ('display_image', models.ForeignKey(blank=True, to='portal.DigitalObject', null=True)),
+                ('display_image', models.ForeignKey(blank=True, to='portal.DigitalObject', null=True, on_delete=django.db.models.deletion.SET_NULL)),
                 ('facet', models.ManyToManyField(to='portal.Facet')),
                 ('location', models.ManyToManyField(to='portal.Location', blank=True)),
             ],
@@ -322,9 +323,9 @@ class Migration(migrations.Migration):
                 ('audience', models.ManyToManyField(to='portal.Audience', blank=True)),
                 ('dataset', models.ManyToManyField(to='portal.DataSet', blank=True)),
                 ('digital_object', models.ManyToManyField(to='portal.DigitalObject', blank=True)),
-                ('display_image', models.ForeignKey(related_name='researchproject_display_image', blank=True, to='portal.DigitalObject', null=True)),
+                ('display_image', models.ForeignKey(related_name='researchproject_display_image', blank=True, to='portal.DigitalObject', null=True, on_delete=django.db.models.deletion.SET_NULL)),
                 ('facet', models.ManyToManyField(to='portal.Facet')),
-                ('location', models.ForeignKey(blank=True, to='portal.Location', null=True)),
+                ('location', models.ForeignKey(blank=True, to='portal.Location', null=True, on_delete=django.db.models.deletion.SET_NULL)),
                 ('person', models.ManyToManyField(to='portal.Person', blank=True)),
                 ('publication', models.ManyToManyField(to='portal.Publication', blank=True)),
             ],
@@ -355,9 +356,9 @@ class Migration(migrations.Migration):
                 ('modified_date', models.DateTimeField(default=datetime.datetime.now, verbose_name=b'modified_date')),
                 ('audience', models.ManyToManyField(to='portal.Audience', blank=True)),
                 ('digital_object', models.ManyToManyField(related_name='station_digital_object', to='portal.DigitalObject', blank=True)),
-                ('display_image', models.ForeignKey(blank=True, to='portal.DigitalObject', null=True)),
+                ('display_image', models.ForeignKey(blank=True, to='portal.DigitalObject', null=True, on_delete=django.db.models.deletion.SET_NULL)),
                 ('facet', models.ManyToManyField(to='portal.Facet')),
-                ('location', models.ForeignKey(to='portal.Location')),
+                ('location', models.ForeignKey(to='portal.Location', on_delete=django.db.models.deletion.CASCADE)),
             ],
             options={
                 'ordering': ['name'],
@@ -480,7 +481,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='learningactivity',
             name='display_image',
-            field=models.ForeignKey(related_name='learningactivity_display_image', blank=True, to='portal.DigitalObject', null=True),
+            field=models.ForeignKey(related_name='learningactivity_display_image', blank=True, to='portal.DigitalObject', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='learningactivity',
@@ -490,7 +491,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='learningactivity',
             name='location',
-            field=models.ForeignKey(blank=True, to='portal.Location', null=True),
+            field=models.ForeignKey(blank=True, to='portal.Location', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='learningactivity',
@@ -515,7 +516,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='foreststory',
             name='location',
-            field=models.ForeignKey(blank=True, to='portal.Location', null=True),
+            field=models.ForeignKey(blank=True, to='portal.Location', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='foreststory',
@@ -550,47 +551,47 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='featuredasset',
             name='asset_forest_story',
-            field=models.ForeignKey(blank=True, to='portal.ForestStory', null=True),
+            field=models.ForeignKey(blank=True, to='portal.ForestStory', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='featuredasset',
             name='asset_learning_activity',
-            field=models.ForeignKey(blank=True, to='portal.LearningActivity', null=True),
+            field=models.ForeignKey(blank=True, to='portal.LearningActivity', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='featuredasset',
             name='asset_location',
-            field=models.ForeignKey(blank=True, to='portal.Location', null=True),
+            field=models.ForeignKey(blank=True, to='portal.Location', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='featuredasset',
             name='asset_person',
-            field=models.ForeignKey(blank=True, to='portal.Person', null=True),
+            field=models.ForeignKey(blank=True, to='portal.Person', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='featuredasset',
             name='asset_publication',
-            field=models.ForeignKey(blank=True, to='portal.Publication', null=True),
+            field=models.ForeignKey(blank=True, to='portal.Publication', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='featuredasset',
             name='asset_region',
-            field=models.ForeignKey(blank=True, to='portal.Region', null=True),
+            field=models.ForeignKey(blank=True, to='portal.Region', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='featuredasset',
             name='asset_research_project',
-            field=models.ForeignKey(blank=True, to='portal.ResearchProject', null=True),
+            field=models.ForeignKey(blank=True, to='portal.ResearchProject', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='featuredasset',
             name='asset_station',
-            field=models.ForeignKey(blank=True, to='portal.Station', null=True),
+            field=models.ForeignKey(blank=True, to='portal.Station', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='featuredasset',
             name='audience',
-            field=models.ForeignKey(to='portal.Audience'),
+            field=models.ForeignKey(to='portal.Audience', on_delete=django.db.models.deletion.CASCADE),
         ),
         migrations.AlterUniqueTogether(
             name='facet',
@@ -609,7 +610,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='dataset',
             name='display_image',
-            field=models.ForeignKey(blank=True, to='portal.DigitalObject', null=True),
+            field=models.ForeignKey(blank=True, to='portal.DigitalObject', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='dataset',
@@ -619,7 +620,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='dataset',
             name='location',
-            field=models.ForeignKey(to='portal.Location'),
+            field=models.ForeignKey(to='portal.Location', on_delete=django.db.models.deletion.CASCADE),
         ),
         migrations.AddField(
             model_name='dataset',

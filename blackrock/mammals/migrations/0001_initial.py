@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 from django.db import migrations, models
 import django.contrib.gis.db.models.fields
 import django.db.models.deletion
+import django.db.models.deletion
 from django.conf import settings
 
 
@@ -57,7 +58,7 @@ class Migration(migrations.Migration):
                 ('number_of_students', models.IntegerField(default=0, help_text=b'How many students participated')),
                 ('field_notes', models.CharField(max_length=1024, null=True, blank=True)),
                 ('overnight_temperature_int', models.IntegerField(default=0, help_text=b'Overnight Temperature')),
-                ('created_by', models.ForeignKey(related_name='expeditions_created', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('created_by', models.ForeignKey(related_name='expeditions_created', blank=True, to=settings.AUTH_USER_MODEL, null=True, on_delete=django.db.models.deletion.SET_NULL)),
             ],
             options={
                 'ordering': ['-end_date_of_expedition'],
@@ -86,11 +87,11 @@ class Migration(migrations.Migration):
                 ('column', models.IntegerField()),
                 ('access_difficulty', models.IntegerField(default=0, help_text=b'is the overall difficulty and length of time for a group\n        of students to get to the square from the Science Center.', verbose_name=b'Access Difficulty')),
                 ('terrain_difficulty', models.IntegerField(default=0, help_text=b'How rough the terrain is on this square.', verbose_name=b'Terrain Difficulty')),
-                ('NE_corner', models.ForeignKey(related_name='square_to_my_SW', verbose_name=b'Northeast corner', to='mammals.GridPoint')),
-                ('NW_corner', models.ForeignKey(related_name='square_to_my_SE', verbose_name=b'Northwest corner', to='mammals.GridPoint')),
-                ('SE_corner', models.ForeignKey(related_name='square_to_my_NW', verbose_name=b'Southeast corner', to='mammals.GridPoint')),
-                ('SW_corner', models.ForeignKey(related_name='square_to_my_NE', verbose_name=b'Southwest corner', to='mammals.GridPoint')),
-                ('center', models.ForeignKey(related_name='square_i_am_in', verbose_name=b'Center point', to='mammals.GridPoint')),
+                ('NE_corner', models.ForeignKey(related_name='square_to_my_SW', verbose_name=b'Northeast corner', to='mammals.GridPoint', on_delete=django.db.models.deletion.CASCADE)),
+                ('NW_corner', models.ForeignKey(related_name='square_to_my_SE', verbose_name=b'Northwest corner', to='mammals.GridPoint', on_delete=django.db.models.deletion.CASCADE)),
+                ('SE_corner', models.ForeignKey(related_name='square_to_my_NW', verbose_name=b'Southeast corner', to='mammals.GridPoint', on_delete=django.db.models.deletion.CASCADE)),
+                ('SW_corner', models.ForeignKey(related_name='square_to_my_NE', verbose_name=b'Southwest corner', to='mammals.GridPoint', on_delete=django.db.models.deletion.CASCADE)),
+                ('center', models.ForeignKey(related_name='square_i_am_in', verbose_name=b'Center point', to='mammals.GridPoint', on_delete=django.db.models.deletion.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -140,7 +141,7 @@ class Migration(migrations.Migration):
                 ('observers', models.TextField(default=None, help_text=b'Initials of the people who made the observation.', null=True, blank=True)),
                 ('how_many_observed', models.IntegerField(default=None, help_text=b'How many animals were observed, if applicable.', null=True, blank=True)),
                 ('notes', models.TextField(default=None, help_text=b'Notes about the location', null=True, blank=True)),
-                ('habitat', models.ForeignKey(blank=True, to='mammals.Habitat', help_text=b'What habitat best describes this location?', null=True)),
+                ('habitat', models.ForeignKey(blank=True, to='mammals.Habitat', help_text=b'What habitat best describes this location?', null=True, on_delete=django.db.models.deletion.SET_NULL)),
             ],
         ),
         migrations.CreateModel(
@@ -184,84 +185,84 @@ class Migration(migrations.Migration):
                 ('student_names', models.TextField(help_text=b'Names of the students responsible for this location\n        (this would be filled in, if at all, by the instructor after the\n        students have left the forest.', max_length=256, null=True, blank=True)),
                 ('animal', models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, blank=True, to='mammals.Animal', help_text=b'Any animals caught', null=True)),
                 ('bait', models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, blank=True, to='mammals.Bait', help_text=b'Any bait used', null=True)),
-                ('expedition', models.ForeignKey(blank=True, to='mammals.Expedition', null=True)),
+                ('expedition', models.ForeignKey(blank=True, to='mammals.Expedition', null=True, on_delete=django.db.models.deletion.SET_NULL)),
                 ('habitat', models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, blank=True, to='mammals.Habitat', help_text=b'What habitat best describes this location?', null=True)),
             ],
         ),
         migrations.CreateModel(
             name='AnimalAge',
             fields=[
-                ('labelmenu_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='mammals.LabelMenu')),
+                ('labelmenu_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='mammals.LabelMenu', on_delete=django.db.models.deletion.CASCADE)),
             ],
             bases=('mammals.labelmenu',),
         ),
         migrations.CreateModel(
             name='AnimalScaleUsed',
             fields=[
-                ('labelmenu_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='mammals.LabelMenu')),
+                ('labelmenu_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='mammals.LabelMenu', on_delete=django.db.models.deletion.CASCADE)),
             ],
             bases=('mammals.labelmenu',),
         ),
         migrations.CreateModel(
             name='AnimalSex',
             fields=[
-                ('labelmenu_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='mammals.LabelMenu')),
+                ('labelmenu_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='mammals.LabelMenu', on_delete=django.db.models.deletion.CASCADE)),
             ],
             bases=('mammals.labelmenu',),
         ),
         migrations.CreateModel(
             name='ExpeditionCloudCover',
             fields=[
-                ('labelmenu_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='mammals.LabelMenu')),
+                ('labelmenu_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='mammals.LabelMenu', on_delete=django.db.models.deletion.CASCADE)),
             ],
             bases=('mammals.labelmenu',),
         ),
         migrations.CreateModel(
             name='ExpeditionMoonPhase',
             fields=[
-                ('labelmenu_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='mammals.LabelMenu')),
+                ('labelmenu_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='mammals.LabelMenu', on_delete=django.db.models.deletion.CASCADE)),
             ],
             bases=('mammals.labelmenu',),
         ),
         migrations.CreateModel(
             name='ExpeditionOvernightPrecipitation',
             fields=[
-                ('labelmenu_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='mammals.LabelMenu')),
+                ('labelmenu_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='mammals.LabelMenu', on_delete=django.db.models.deletion.CASCADE)),
             ],
             bases=('mammals.labelmenu',),
         ),
         migrations.CreateModel(
             name='ExpeditionOvernightPrecipitationType',
             fields=[
-                ('labelmenu_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='mammals.LabelMenu')),
+                ('labelmenu_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='mammals.LabelMenu', on_delete=django.db.models.deletion.CASCADE)),
             ],
             bases=('mammals.labelmenu',),
         ),
         migrations.CreateModel(
             name='ExpeditionOvernightTemperature',
             fields=[
-                ('labelmenu_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='mammals.LabelMenu')),
+                ('labelmenu_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='mammals.LabelMenu', on_delete=django.db.models.deletion.CASCADE)),
             ],
             bases=('mammals.labelmenu',),
         ),
         migrations.CreateModel(
             name='Illumination',
             fields=[
-                ('labelmenu_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='mammals.LabelMenu')),
+                ('labelmenu_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='mammals.LabelMenu', on_delete=django.db.models.deletion.CASCADE)),
             ],
             bases=('mammals.labelmenu',),
         ),
         migrations.CreateModel(
             name='ObservationType',
             fields=[
-                ('labelmenu_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='mammals.LabelMenu')),
+                ('labelmenu_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='mammals.LabelMenu', on_delete=django.db.models.deletion.CASCADE)),
             ],
             bases=('mammals.labelmenu',),
         ),
         migrations.CreateModel(
             name='TrapType',
             fields=[
-                ('labelmenu_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='mammals.LabelMenu')),
+                ('labelmenu_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='mammals.LabelMenu', on_delete=django.db.models.deletion.CASCADE)),
             ],
             options={
                 'ordering': ['label'],
@@ -271,37 +272,37 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='sighting',
             name='species',
-            field=models.ForeignKey(blank=True, to='mammals.Species', help_text=b'Best guess at species.', null=True),
+            field=models.ForeignKey(blank=True, to='mammals.Species', help_text=b'Best guess at species.', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='expedition',
             name='grade_level',
-            field=models.ForeignKey(blank=True, to='mammals.GradeLevel', null=True),
+            field=models.ForeignKey(blank=True, to='mammals.GradeLevel', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='expedition',
             name='grid_square',
-            field=models.ForeignKey(related_name='Grid Square+', verbose_name=b'Grid Square used for this expedition', blank=True, to='mammals.GridSquare', null=True),
+            field=models.ForeignKey(related_name='Grid Square+', verbose_name=b'Grid Square used for this expedition', blank=True, to='mammals.GridSquare', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='expedition',
             name='school',
-            field=models.ForeignKey(blank=True, to='mammals.School', null=True),
+            field=models.ForeignKey(blank=True, to='mammals.School', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='animal',
             name='species',
-            field=models.ForeignKey(blank=True, to='mammals.Species', null=True),
+            field=models.ForeignKey(blank=True, to='mammals.Species', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='traplocation',
             name='trap_type',
-            field=models.ForeignKey(blank=True, to='mammals.TrapType', help_text=b'Which type of trap, if any, was left at this location.', null=True),
+            field=models.ForeignKey(blank=True, to='mammals.TrapType', help_text=b'Which type of trap, if any, was left at this location.', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='sighting',
             name='observation_type',
-            field=models.ForeignKey(blank=True, to='mammals.ObservationType', help_text=b'e.g. sighting, camera-trapped, etc.', null=True),
+            field=models.ForeignKey(blank=True, to='mammals.ObservationType', help_text=b'e.g. sighting, camera-trapped, etc.', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AlterUniqueTogether(
             name='gridsquare',
@@ -310,46 +311,46 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='expedition',
             name='cloud_cover',
-            field=models.ForeignKey(related_name='exp_cloudcover', blank=True, to='mammals.ExpeditionCloudCover', null=True),
+            field=models.ForeignKey(related_name='exp_cloudcover', blank=True, to='mammals.ExpeditionCloudCover', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='expedition',
             name='illumination',
-            field=models.ForeignKey(related_name='exp_illumination', blank=True, to='mammals.Illumination', null=True),
+            field=models.ForeignKey(related_name='exp_illumination', blank=True, to='mammals.Illumination', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='expedition',
             name='moon_phase',
-            field=models.ForeignKey(related_name='exp_moon_phase', blank=True, to='mammals.ExpeditionMoonPhase', null=True),
+            field=models.ForeignKey(related_name='exp_moon_phase', blank=True, to='mammals.ExpeditionMoonPhase', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='expedition',
             name='overnight_precipitation',
-            field=models.ForeignKey(related_name='exp_precipitation', blank=True, to='mammals.ExpeditionOvernightPrecipitation', null=True),
+            field=models.ForeignKey(related_name='exp_precipitation', blank=True, to='mammals.ExpeditionOvernightPrecipitation', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='expedition',
             name='overnight_precipitation_type',
-            field=models.ForeignKey(related_name='exp_precipitation_type', blank=True, to='mammals.ExpeditionOvernightPrecipitationType', null=True),
+            field=models.ForeignKey(related_name='exp_precipitation_type', blank=True, to='mammals.ExpeditionOvernightPrecipitationType', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='expedition',
             name='overnight_temperature',
-            field=models.ForeignKey(related_name='exp_temperature', blank=True, to='mammals.ExpeditionOvernightTemperature', null=True),
+            field=models.ForeignKey(related_name='exp_temperature', blank=True, to='mammals.ExpeditionOvernightTemperature', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='animal',
             name='age',
-            field=models.ForeignKey(related_name='animals_this_age', verbose_name=b'Age of this animal', blank=True, to='mammals.AnimalAge', null=True),
+            field=models.ForeignKey(related_name='animals_this_age', verbose_name=b'Age of this animal', blank=True, to='mammals.AnimalAge', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='animal',
             name='scale_used',
-            field=models.ForeignKey(related_name='animals_this_scale_used', verbose_name=b'Scale used to weigh this animal', blank=True, to='mammals.AnimalScaleUsed', null=True),
+            field=models.ForeignKey(related_name='animals_this_scale_used', verbose_name=b'Scale used to weigh this animal', blank=True, to='mammals.AnimalScaleUsed', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
         migrations.AddField(
             model_name='animal',
             name='sex',
-            field=models.ForeignKey(related_name='animals_this_sex', verbose_name=b'Sex of this animal', blank=True, to='mammals.AnimalSex', null=True),
+            field=models.ForeignKey(related_name='animals_this_sex', verbose_name=b'Sex of this animal', blank=True, to='mammals.AnimalSex', null=True, on_delete=django.db.models.deletion.SET_NULL),
         ),
     ]

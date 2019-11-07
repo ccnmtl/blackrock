@@ -13,7 +13,7 @@ class Site(models.Model):
 @python_2_unicode_compatible
 class Location(models.Model):
     name = models.CharField(max_length=256)
-    site = models.ForeignKey(Site)
+    site = models.ForeignKey(Site, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -22,7 +22,7 @@ class Location(models.Model):
 @python_2_unicode_compatible
 class Series(models.Model):
     name = models.CharField(max_length=256)
-    location = models.ForeignKey(Location)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)
     units = models.CharField(max_length=256, blank=True, default="")
     ordinality = models.IntegerField(default=0)
 
@@ -260,7 +260,7 @@ class LimitedSeriesPair(object):
 
 
 class Row(models.Model):
-    series = models.ForeignKey(Series)
+    series = models.ForeignKey(Series, on_delete=models.CASCADE)
     timestamp = models.DateTimeField()
     value = models.DecimalField(null=True, max_digits=19, decimal_places=10)
 

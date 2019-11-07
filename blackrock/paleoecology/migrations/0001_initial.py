@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
+import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
@@ -25,7 +26,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('percentage', models.DecimalField(null=True, max_digits=5, decimal_places=2)),
                 ('count', models.DecimalField(null=True, max_digits=5, decimal_places=2)),
-                ('core_sample', models.ForeignKey(to='paleoecology.CoreSample')),
+                ('core_sample', models.ForeignKey(to='paleoecology.CoreSample', on_delete=django.db.models.deletion.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -40,6 +41,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='pollensample',
             name='pollen',
-            field=models.ForeignKey(to='paleoecology.PollenType'),
+            field=models.ForeignKey(to='paleoecology.PollenType', on_delete=django.db.models.deletion.CASCADE),
         ),
     ]
