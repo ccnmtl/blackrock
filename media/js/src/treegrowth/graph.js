@@ -252,7 +252,9 @@
         var yAxes = [];
         var newHeaderNames = [
             'Hemlock 1', 'Hemlock 2', 'Hemlock 3',
-            'Pine 1', 'Pine 2', 'Pine 3', 'Site AVG',
+            'Hemlock AVG',
+            'Pine 1', 'Pine 2', 'Pine 3',
+            'Pine AVG',
             'AvgTEMP_C', 'AvgVP', 'TotalRain',
             'SoilM_5cm', 'AvgPAR_Den'
         ];
@@ -261,10 +263,17 @@
             var series = {};
             var yAxis = {};
 
+            var name = newHeaderNames[i];
+            var isVisible = true;
+            if (name.match(/^Hemlock \d/) || name.match(/^Pine \d/)) {
+                isVisible = false;
+            }
+
             series = {
-                name: newHeaderNames[i],
+                name: name,
                 data: data[i],
-                yAxis: i
+                yAxis: i,
+                visible: isVisible
             };
 
             yAxis = {
