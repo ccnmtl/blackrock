@@ -15,8 +15,8 @@ Pillow==6.2.1
 
 chardet==3.0.4
 idna==2.8
-urllib3==1.25.6
-certifi==2019.9.11
+urllib3==1.25.6  # sentry-sdk
+certifi==2019.9.11  # sentry-sdk
 
 requests==2.22.0
 pysolr==3.8.1
@@ -84,6 +84,7 @@ django-paging==0.2.5
 django-appconf==1.0.3
 django-compressor==2.3
 raven==6.10.0
+sentry-sdk==0.13.2
 requirements/src/django_googlecharts-1.3ctl-py2.py3-none-any.whl
 django-jenkins==0.110.0
 django-stagingcontext==0.1.0
