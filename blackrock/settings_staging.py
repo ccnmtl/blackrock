@@ -32,8 +32,8 @@ except ImportError:
 
 
 if hasattr(settings, 'SENTRY_DSN'):
-￼   sentry_sdk.init(
-￼       dsn=SENTRY_DSN,
-￼       integrations=[DjangoIntegration()],
-￼       debug=True,
-￼   )
+    sentry_sdk.init(
+        dsn=SENTRY_DSN,
+        integrations=[DjangoIntegration()],
+        debug=True,
+    )
