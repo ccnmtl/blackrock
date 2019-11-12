@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
+import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
@@ -36,7 +37,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=256)),
                 ('units', models.CharField(default='', max_length=256, blank=True)),
                 ('ordinality', models.IntegerField(default=0)),
-                ('location', models.ForeignKey(to='waterquality.Location')),
+                ('location', models.ForeignKey(to='waterquality.Location', on_delete=django.db.models.deletion.CASCADE)),
             ],
             options={
                 'ordering': ['ordinality'],
@@ -52,11 +53,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='row',
             name='series',
-            field=models.ForeignKey(to='waterquality.Series'),
+            field=models.ForeignKey(to='waterquality.Series', on_delete=django.db.models.deletion.CASCADE),
         ),
         migrations.AddField(
             model_name='location',
             name='site',
-            field=models.ForeignKey(to='waterquality.Site'),
+            field=models.ForeignKey(to='waterquality.Site', on_delete=django.db.models.deletion.CASCADE),
         ),
     ]

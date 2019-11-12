@@ -3,6 +3,7 @@ from django import forms
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.gis.db import models
+from django.db.models import Manager
 from django.db.models.signals import pre_save
 from django.utils.encoding import python_2_unicode_compatible
 from pagetree.models import PageBlock
@@ -170,7 +171,7 @@ class Url(models.Model):
 class DigitalObject(models.Model):
     name = models.CharField(max_length=500)
     description = models.TextField(null=True, blank=True)
-    digital_format = models.ForeignKey(DigitalFormat)
+    digital_format = models.ForeignKey(DigitalFormat, on_delete=models.CASCADE)
     file = models.FileField(
         upload_to="portal/%Y/%m/%d/", null=True, blank=True)
     url = models.URLField(null=True, blank=True)
@@ -203,10 +204,11 @@ class Location(models.Model):
     latitude = models.DecimalField(max_digits=18, decimal_places=10)
     longitude = models.DecimalField(max_digits=18, decimal_places=10)
     latlong = models.PointField(null=True, blank=True)
-    objects = models.GeoManager()
+    objects = Manager()
 
     audience = models.ManyToManyField(Audience, blank=True)
-    display_image = models.ForeignKey(DigitalObject, null=True, blank=True)
+    display_image = models.ForeignKey(DigitalObject, null=True, blank=True,
+                                      on_delete=models.SET_NULL)
     facet = models.ManyToManyField(Facet)
     tag = models.ManyToManyField(Tag, blank=True)
 
@@ -234,10 +236,11 @@ class Station(models.Model):
     description = models.TextField(null=True, blank=True)
     access_means = models.TextField(null=True, blank=True)
     activation_date = models.DateField('activation_date')
-    location = models.ForeignKey(Location)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)
 
     audience = models.ManyToManyField(Audience, blank=True)
-    display_image = models.ForeignKey(DigitalObject, null=True, blank=True)
+    display_image = models.ForeignKey(DigitalObject, null=True, blank=True,
+                                      on_delete=models.SET_NULL)
     digital_object = models.ManyToManyField(
         DigitalObject, blank=True,
         related_name="station_digital_object")  # for extra images & resources
@@ -284,7 +287,8 @@ class Region(models.Model):
     region_type = models.ManyToManyField(RegionType)
 
     audience = models.ManyToManyField(Audience, blank=True)
-    display_image = models.ForeignKey(DigitalObject, null=True, blank=True)
+    display_image = models.ForeignKey(DigitalObject, null=True, blank=True,
+                                      on_delete=models.SET_NULL)
     facet = models.ManyToManyField(Facet)
     tag = models.ManyToManyField(Tag, blank=True)
 
@@ -335,7 +339,8 @@ class Person(models.Model):
     url = models.URLField(null=True, blank=True)
 
     audience = models.ManyToManyField(Audience, blank=True)
-    display_image = models.ForeignKey(DigitalObject, null=True, blank=True)
+    display_image = models.ForeignKey(DigitalObject, null=True, blank=True,
+                                      on_delete=models.SET_NULL)
     facet = models.ManyToManyField(Facet)
     tag = models.ManyToManyField(Tag, blank=True)
 
@@ -373,9 +378,10 @@ class DataSet(models.Model):
         max_length=50, unique=True, null=True, blank=True)
 
     audience = models.ManyToManyField(Audience, blank=True)
-    display_image = models.ForeignKey(DigitalObject, null=True, blank=True)
+    display_image = models.ForeignKey(DigitalObject, null=True, blank=True,
+                                      on_delete=models.SET_NULL)
     facet = models.ManyToManyField(Facet)
-    location = models.ForeignKey(Location)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)
     person = models.ManyToManyField(Person, blank=True)
     tag = models.ManyToManyField(Tag, blank=True)
 
@@ -409,7 +415,8 @@ class Publication(models.Model):
     doi_citation = models.TextField(null=True, blank=True)
 
     audience = models.ManyToManyField(Audience, blank=True)
-    display_image = models.ForeignKey(DigitalObject, null=True, blank=True)
+    display_image = models.ForeignKey(DigitalObject, null=True, blank=True,
+                                      on_delete=models.SET_NULL)
     facet = models.ManyToManyField(Facet)
     person = models.ManyToManyField(Person, blank=True)
     tag = models.ManyToManyField(Tag, blank=True)
@@ -441,9 +448,11 @@ class ResearchProject(models.Model):
         DigitalObject, blank=True)
     display_image = models.ForeignKey(
         DigitalObject, null=True, blank=True,
-        related_name="researchproject_display_image")
+        related_name="researchproject_display_image",
+        on_delete=models.SET_NULL)
     facet = models.ManyToManyField(Facet)
-    location = models.ForeignKey(Location, null=True, blank=True)
+    location = models.ForeignKey(Location, null=True, blank=True,
+                                 on_delete=models.SET_NULL)
     person = models.ManyToManyField(Person, blank=True)
     publication = models.ManyToManyField(Publication, blank=True)
     tag = models.ManyToManyField(Tag, blank=True)
@@ -481,9 +490,11 @@ class LearningActivity(models.Model):
         DigitalObject, blank=True)
     display_image = models.ForeignKey(
         DigitalObject, null=True, blank=True,
-        related_name="learningactivity_display_image")
+        related_name="learningactivity_display_image",
+        on_delete=models.SET_NULL)
     facet = models.ManyToManyField(Facet)
-    location = models.ForeignKey(Location, null=True, blank=True)
+    location = models.ForeignKey(Location, null=True, blank=True,
+                                 on_delete=models.SET_NULL)
     person = models.ManyToManyField(Person, blank=True)
     tag = models.ManyToManyField(Tag, blank=True)
 
@@ -520,11 +531,13 @@ class ForestStory(models.Model):
         DigitalObject, blank=True)
     display_image = models.ForeignKey(
         DigitalObject, null=True, blank=True,
-        related_name="foreststory_display_image")
+        related_name="foreststory_display_image",
+        on_delete=models.SET_NULL)
     facet = models.ManyToManyField(Facet)
     learning_activity = models.ManyToManyField(
         LearningActivity, blank=True)
-    location = models.ForeignKey(Location, null=True, blank=True)
+    location = models.ForeignKey(Location, null=True, blank=True,
+                                 on_delete=models.SET_NULL)
     person = models.ManyToManyField(Person, blank=True)
     publication = models.ManyToManyField(Publication, blank=True)
     research_project = models.ManyToManyField(
@@ -633,23 +646,40 @@ class AssetList(models.Model):
 class FeaturedAsset(models.Model):
     pageblocks = GenericRelation(
         PageBlock)
-    audience = models.ForeignKey(Audience)
+    audience = models.ForeignKey(Audience, on_delete=models.CASCADE)
     detailed_display = models.BooleanField(default=False)
 
     # pick one
-    asset_location = models.ForeignKey(Location, null=True, blank=True)
-    asset_station = models.ForeignKey(Station, null=True, blank=True)
-    asset_region = models.ForeignKey(Region, null=True, blank=True)
-    asset_person = models.ForeignKey(Person, null=True, blank=True)
+    asset_location = models.ForeignKey(
+        Location, null=True, blank=True,
+        on_delete=models.SET_NULL)
+    asset_station = models.ForeignKey(
+        Station, null=True, blank=True,
+        on_delete=models.SET_NULL)
+    asset_region = models.ForeignKey(
+        Region, null=True, blank=True,
+        on_delete=models.SET_NULL)
+    asset_person = models.ForeignKey(
+        Person, null=True, blank=True,
+        on_delete=models.SET_NULL)
     asset_digitalobject = models.ForeignKey(
-        DigitalObject, null=True, blank=True)
-    asset_publication = models.ForeignKey(Publication, null=True, blank=True)
-    asset_dataset = models.ForeignKey(DataSet, null=True, blank=True)
+        DigitalObject, null=True, blank=True,
+        on_delete=models.SET_NULL)
+    asset_publication = models.ForeignKey(
+        Publication, null=True, blank=True,
+        on_delete=models.SET_NULL)
+    asset_dataset = models.ForeignKey(
+        DataSet, null=True, blank=True,
+        on_delete=models.SET_NULL)
     asset_research_project = models.ForeignKey(
-        ResearchProject, null=True, blank=True)
+        ResearchProject, null=True, blank=True,
+        on_delete=models.SET_NULL)
     asset_learning_activity = models.ForeignKey(
-        LearningActivity, null=True, blank=True)
-    asset_forest_story = models.ForeignKey(ForestStory, null=True, blank=True)
+        LearningActivity, null=True, blank=True,
+        on_delete=models.SET_NULL)
+    asset_forest_story = models.ForeignKey(
+        ForestStory, null=True, blank=True,
+        on_delete=models.SET_NULL)
 
     template_file = "portal/featuredasset.html"
     display_name = "Featured Asset"
@@ -740,7 +770,8 @@ class PhotoGalleryItem(models.Model):
     description = models.CharField(max_length=500)
     action = models.URLField()
     image = models.ForeignKey(DigitalObject, null=True, blank=True,
-                              related_name="gallery_display_image")
+                              related_name="gallery_display_image",
+                              on_delete=models.SET_NULL)
     position = models.IntegerField()
 
     class Meta:

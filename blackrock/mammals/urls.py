@@ -1,7 +1,7 @@
 from django.conf.urls import url
 import os.path
 import django.views.static
-from django.contrib.auth.views import logout
+from django.contrib.auth.views import LogoutView
 
 from .search import MammalSearchView, MammalSearchForm, ajax_search
 from .views import (
@@ -40,7 +40,7 @@ urlpatterns = [
     url(r'^login/$', mammals_login),
 
     url(r'^process_login/$', process_login),
-    url(r'^logout/$', logout, {'next_page': '/mammals/'}),
+    url(r'^logout/$', LogoutView.as_view(), {'next_page': '/mammals/'}),
 
     url(r'^all_expeditions/$', all_expeditions),
     url(r'^new_expedition_ajax/$', new_expedition_ajax),

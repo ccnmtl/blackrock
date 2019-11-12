@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 
 from django.db import migrations, models
 import django.contrib.gis.db.models.fields
+import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
@@ -35,7 +36,7 @@ class Migration(migrations.Migration):
                 ('species', models.CharField(max_length=100)),
                 ('dbh', models.DecimalField(max_digits=10, decimal_places=2)),
                 ('location', django.contrib.gis.db.models.fields.PointField(srid=4326)),
-                ('plot', models.ForeignKey(to='optimization.Plot')),
+                ('plot', models.ForeignKey(to='optimization.Plot', on_delete=django.db.models.deletion.CASCADE)),
             ],
         ),
     ]

@@ -3,6 +3,7 @@ from blackrock.mammals.grid_math import to_lat_long, set_up_block, \
 from datetime import datetime
 from django.contrib.auth.models import User
 from django.contrib.gis.db import models
+from django.db.models import Manager
 from django.utils.encoding import python_2_unicode_compatible
 import json
 
@@ -15,7 +16,7 @@ class GridPoint(models.Model):
     different squares, which violates DRY. So I'm denormalizing."""
 
     geo_point = models.PointField(null=True, blank=True)
-    objects = models.GeoManager()
+    objects = Manager()
 
     @classmethod
     def create(self, coords):
@@ -133,20 +134,25 @@ class Animal(models.Model):
     def __str__(self):
         return self.species.common_name
 
-    species = models.ForeignKey(Species, null=True, blank=True)
+    species = models.ForeignKey(
+        Species, null=True, blank=True,
+        on_delete=models.SET_NULL)
     description = models.TextField(
         blank=True, help_text="age / sex / other notes")
 
     sex = models.ForeignKey(AnimalSex, null=True, blank=True,
                             verbose_name="Sex of this animal",
-                            related_name="animals_this_sex")
+                            related_name="animals_this_sex",
+                            on_delete=models.SET_NULL)
     age = models.ForeignKey(AnimalAge, null=True, blank=True,
                             verbose_name="Age of this animal",
-                            related_name="animals_this_age")
+                            related_name="animals_this_age",
+                            on_delete=models.SET_NULL)
     scale_used = models.ForeignKey(
         AnimalScaleUsed, null=True, blank=True,
         verbose_name="Scale used to weigh this animal",
-        related_name="animals_this_scale_used")
+        related_name="animals_this_scale_used",
+        on_delete=models.SET_NULL)
 
     tag_number = models.CharField(
         blank=True, null=True, max_length=256, default='')
@@ -225,19 +231,24 @@ class GridSquare(models.Model):
 
     NW_corner = models.ForeignKey(GridPoint, null=False, blank=False,
                                   related_name="square_to_my_SE",
-                                  verbose_name="Northwest corner")
+                                  verbose_name="Northwest corner",
+                                  on_delete=models.CASCADE)
     NE_corner = models.ForeignKey(GridPoint, null=False, blank=False,
                                   related_name="square_to_my_SW",
-                                  verbose_name="Northeast corner")
+                                  verbose_name="Northeast corner",
+                                  on_delete=models.CASCADE)
     SW_corner = models.ForeignKey(GridPoint, null=False, blank=False,
                                   related_name="square_to_my_NE",
-                                  verbose_name="Southwest corner")
+                                  verbose_name="Southwest corner",
+                                  on_delete=models.CASCADE)
     SE_corner = models.ForeignKey(GridPoint, null=False, blank=False,
                                   related_name="square_to_my_NW",
-                                  verbose_name="Southeast corner")
+                                  verbose_name="Southeast corner",
+                                  on_delete=models.CASCADE)
     center = models.ForeignKey(
         GridPoint, null=False, blank=False, related_name="square_i_am_in",
-        verbose_name="Center point")
+        verbose_name="Center point",
+        on_delete=models.CASCADE)
 
     # don't show all the squares
     display_this_square = models.BooleanField(default=False)
@@ -417,10 +428,12 @@ class Expedition(models.Model):
         default=True, help_text="Is this expedition real or just a test?")
     created_on = models.DateTimeField(auto_now_add=True, null=False)
     created_by = models.ForeignKey(
-        User, blank=True, null=True, related_name='expeditions_created')
+        User, blank=True, null=True, related_name='expeditions_created',
+        on_delete=models.SET_NULL)
     notes_about_this_expedition = models.TextField(
         blank=True, help_text="Notes about this expedition")
-    school = models.ForeignKey(School, blank=True, null=True)
+    school = models.ForeignKey(School, blank=True, null=True,
+                               on_delete=models.SET_NULL)
     school_contact_1_name = models.CharField(
         blank=True, help_text="First contact @ the school -- name",
         max_length=256)
@@ -432,33 +445,41 @@ class Expedition(models.Model):
         max_length=256)
     number_of_students = models.IntegerField(
         help_text="How many students participated", default=0)
-    grade_level = models.ForeignKey(GradeLevel, null=True, blank=True)
+    grade_level = models.ForeignKey(GradeLevel, null=True, blank=True,
+                                    on_delete=models.SET_NULL)
     grid_square = models.ForeignKey(
         GridSquare, null=True, blank=True, related_name="Grid Square+",
-        verbose_name="Grid Square used for this expedition")
+        verbose_name="Grid Square used for this expedition",
+        on_delete=models.SET_NULL)
 
     field_notes = models.CharField(blank=True, null=True, max_length=1024)
     cloud_cover = models.ForeignKey(
         ExpeditionCloudCover, null=True, blank=True,
-        related_name="exp_cloudcover")
+        related_name="exp_cloudcover",
+        on_delete=models.SET_NULL)
     overnight_temperature = models.ForeignKey(
         ExpeditionOvernightTemperature, null=True, blank=True,
-        related_name="exp_temperature")
+        related_name="exp_temperature",
+        on_delete=models.SET_NULL)
 
     overnight_temperature_int = models.IntegerField(
         help_text="Overnight Temperature", default=0)
 
     overnight_precipitation = models.ForeignKey(
         ExpeditionOvernightPrecipitation, null=True, blank=True,
-        related_name="exp_precipitation")
+        related_name="exp_precipitation",
+        on_delete=models.SET_NULL)
     overnight_precipitation_type = models.ForeignKey(
         ExpeditionOvernightPrecipitationType, null=True, blank=True,
-        related_name="exp_precipitation_type")
+        related_name="exp_precipitation_type",
+        on_delete=models.SET_NULL)
     moon_phase = models.ForeignKey(
         ExpeditionMoonPhase, null=True, blank=True,
-        related_name="exp_moon_phase")
+        related_name="exp_moon_phase",
+        on_delete=models.SET_NULL)
     illumination = models.ForeignKey(
-        Illumination, null=True, blank=True, related_name="exp_illumination")
+        Illumination, null=True, blank=True, related_name="exp_illumination",
+        on_delete=models.SET_NULL)
 
     def dir(self):
         return dir(self)
@@ -573,17 +594,19 @@ class TrapLocation(models.Model):
         return result
 
     """ A location you might decide to set a trap."""
-    expedition = models.ForeignKey(Expedition, null=True, blank=True)
+    expedition = models.ForeignKey(Expedition, null=True, blank=True,
+                                   on_delete=models.SET_NULL)
 
     suggested_point = models.PointField(null=True, blank=True)
 
     actual_point = models.PointField(null=True, blank=True)
-    objects = models.GeoManager()
+    objects = Manager()
 
     # instead we're linking directly to the type of trap.
     trap_type = models.ForeignKey(
         TrapType, null=True, blank=True,
-        help_text="Which type of trap, if any, was left at this location.")
+        help_text="Which type of trap, if any, was left at this location.",
+        on_delete=models.SET_NULL)
 
     understory = models.TextField(
         blank=True, null=True, default='', help_text="Understory")
@@ -828,17 +851,20 @@ class ObservationType (LabelMenu):
 class Sighting(models.Model):
     location = models.PointField(
         null=True, blank=True, help_text="Where the animal was seen")
-    objects = models.GeoManager()
+    objects = Manager()
     species = models.ForeignKey(
-        Species, null=True, blank=True, help_text="Best guess at species.")
+        Species, null=True, blank=True, help_text="Best guess at species.",
+        on_delete=models.SET_NULL)
     habitat = models.ForeignKey(
         Habitat, null=True, blank=True,
-        help_text="What habitat best describes this location?")
+        help_text="What habitat best describes this location?",
+        on_delete=models.SET_NULL)
     date = models.DateTimeField(
         auto_now_add=True, null=True, help_text="Where the animal was seen")
     observation_type = models.ForeignKey(
         ObservationType, null=True, blank=True,
-        help_text="e.g. sighting, camera-trapped, etc.")
+        help_text="e.g. sighting, camera-trapped, etc.",
+        on_delete=models.SET_NULL)
     observers = models.TextField(
         blank=True, null=True,
         help_text="Initials of the people who made the observation.",

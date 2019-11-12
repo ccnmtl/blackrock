@@ -37,8 +37,8 @@ class PollenType(models.Model):
 
 @python_2_unicode_compatible
 class PollenSample(models.Model):
-    core_sample = models.ForeignKey(CoreSample)
-    pollen = models.ForeignKey(PollenType)
+    core_sample = models.ForeignKey(CoreSample, on_delete=models.CASCADE)
+    pollen = models.ForeignKey(PollenType, on_delete=models.CASCADE)
 
     def __str__(self):
         return "%s cm: %s grains of %s (%s%%)" % (self.core_sample.depth,

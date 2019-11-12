@@ -1,6 +1,7 @@
 from django.contrib.gis.db import models
 # from django.db.models import Avg # not yet
 from django.db import connection
+from django.db.models import Manager
 from django.utils.encoding import python_2_unicode_compatible
 
 
@@ -30,7 +31,7 @@ class Plot(models.Model):
 
     # GIS layer
     NW_corner = models.PointField()
-    objects = models.GeoManager()
+    objects = Manager()
 
     def precalc(self):
         # calculate and store population density, basal area, other values
@@ -93,8 +94,8 @@ class Tree(models.Model):
     species = models.CharField(max_length=100)
     dbh = models.DecimalField(max_digits=10, decimal_places=2)
 
-    plot = models.ForeignKey(Plot)
+    plot = models.ForeignKey(Plot, on_delete=models.CASCADE)
 
     # GIS layer
     location = models.PointField()
-    objects = models.GeoManager()
+    objects = Manager()

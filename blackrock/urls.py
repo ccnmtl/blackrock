@@ -20,7 +20,7 @@ urlpatterns = [
     url(r'^admin/portal/rebuild_index', admin_rebuild_index),
     url(r'^admin/portal/import_cdrs', admin_cdrs_import),
     url(r'^admin/portal/readercycle', admin_readercycle),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
     url(r'^uploads/(?P<path>.*)$', serve,
         {'document_root': settings.MEDIA_ROOT}),
     url(r'^respiration/', include('blackrock.respiration.urls')),
