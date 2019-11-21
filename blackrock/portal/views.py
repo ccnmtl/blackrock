@@ -1,20 +1,20 @@
-import io
 from datetime import date
 from decimal import Decimal
+import io
 import json
 import re
 import sys
 from time import strptime
 
-try:
-    from urllib.parse import unquote
-except ImportError:
-    from urllib import unquote
-
+from blackrock.blackrock_main.models import LastImportDate
+from blackrock.blackrock_main.solr import SolrUtilities
+from blackrock.portal.models import Location, DataSet, Audience, \
+    get_all_related_objects
 from django.apps import apps
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.gis.geos import fromstr
+from django.contrib.gis.db.models.functions import Distance
 from django.contrib.gis.measure import D  # D is a shortcut for Distance
 from django.core import management
 from django.core.cache import cache
@@ -26,10 +26,11 @@ from django.utils.timezone import FixedOffset
 from pagetree.models import Hierarchy
 from pysolr import Solr, SolrError
 
-from blackrock.blackrock_main.models import LastImportDate
-from blackrock.blackrock_main.solr import SolrUtilities
-from blackrock.portal.models import Location, DataSet, Audience, \
-    get_all_related_objects
+
+try:
+    from urllib.parse import unquote
+except ImportError:
+    from urllib import unquote
 
 
 class rendered_with(object):
@@ -89,7 +90,7 @@ def nearby(request, latitude, longitude):
     pnt = fromstr(point, srid=4326)
 
     qs = Location.objects.filter(latlong__distance_lte=(
-        pnt, D(mi=.15))).distance(pnt).order_by('distance')
+        pnt, D(mi=.15))).annotate(distance=Distance('latlong', pnt))
 
     a = []
     for loc in qs:
