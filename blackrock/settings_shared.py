@@ -71,6 +71,9 @@ TEMPLATES[0]['OPTIONS']['context_processors'].append(  # noqa
 
 MIDDLEWARE += [  # noqa
     'blackrock.portal.middleware.ValueErrorMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
 ]
 
 INSTALLED_APPS += [  # noqa
@@ -127,6 +130,12 @@ FIVE_HOURS = 60 * 60 * 5
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_COOKIE_AGE = FIVE_HOURS
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = True
 
 MAX_DATA_COUNT = 12000
 
