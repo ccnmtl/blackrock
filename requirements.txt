@@ -68,7 +68,7 @@ path.py==11.5.2 # pyup: <12
 backports.shutil_get_terminal_size==1.0.0
 traitlets==4.3.3
 wcwidth==0.1.7
-prompt_toolkit==3.0.0
+prompt_toolkit==3.0.2
 pygments==2.4.2
 scandir==1.10.0
 ipython==5.8.0 # pyup: < 6.0.0
