@@ -118,7 +118,7 @@ django-ga-context==0.1.0
 django-smtp-ssl==1.0
 django-extensions==2.2.5
 
-ccnmtlsettings==1.6.0
+ccnmtlsettings==1.7.0
 
 pbr==5.4.4
 pyyaml==5.1.2
