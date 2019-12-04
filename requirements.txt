@@ -16,7 +16,7 @@ Pillow==6.2.1
 chardet==3.0.4
 idna==2.8
 urllib3==1.25.7  # sentry-sdk
-certifi==2019.9.11  # sentry-sdk
+certifi==2019.11.28  # sentry-sdk
 
 requests==2.22.0
 pysolr==3.8.1
@@ -27,7 +27,7 @@ pyasn1==0.4.8
 pyOpenSSL==19.1.0
 ndg-httpsclient==0.5.1
 requirements/src/djangohelpers-0.20-py2.py3-none-any.whl
-logilab-common==1.4.4
+logilab-common==1.5.1
 logilab-astng==0.24.3
 pylint==2.4.4
 pep8==1.7.1
@@ -69,7 +69,7 @@ backports.shutil_get_terminal_size==1.0.0
 traitlets==4.3.3
 wcwidth==0.1.7
 prompt_toolkit==3.0.2
-pygments==2.4.2
+pygments==2.5.2
 scandir==1.10.0
 ipython==5.8.0 # pyup: < 6.0.0
 ipdb==0.12.2
@@ -103,7 +103,7 @@ requirements/src/django_databrowse-2019.11.22ctl-py2.py3-none-any.whl
 factory_boy==2.12.0
 
 django-debug-toolbar==1.11 # pyup: <2.0
-gunicorn==20.0.3
+gunicorn==20.0.4
 
 s3transfer==0.2.1
 jmespath==0.9.4
@@ -118,7 +118,7 @@ django-ga-context==0.1.0
 django-smtp-ssl==1.0
 django-extensions==2.2.5
 
-ccnmtlsettings==1.6.0
+ccnmtlsettings==1.7.0
 
 pbr==5.4.4
 pyyaml==5.1.2
