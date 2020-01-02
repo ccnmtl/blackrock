@@ -67,7 +67,7 @@ simplegeneric==0.8.1
 path.py==11.5.2 # pyup: <12
 backports.shutil_get_terminal_size==1.0.0
 traitlets==4.3.3
-wcwidth==0.1.7
+wcwidth==0.1.8
 prompt_toolkit==3.0.2
 pygments==2.5.2
 scandir==1.10.0
