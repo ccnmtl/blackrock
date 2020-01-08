@@ -41,7 +41,7 @@
 
 {% block left %}
   <div id="error">Some errors occurred while graphing.  You might want to double-check the boxes highlighted in red.</div>
-  <form id="leaf-form" name="leaf-form" action="leaf" method="post">
+  <form id="leaf-form" name="leaf-form" action="leaf" method="post">{% csrf_token %}
     <input type="hidden" name="leaf-numspecies" id="leaf-numspecies" class="leafdata" value="{{ numspecies }}" />
     {% for species in specieslist %}
       <input type="hidden" name="leaf-species{{forloop.counter}}-name" id="leaf-species{{forloop.counter}}-name" value='{{species|hash:"name"}}' />
@@ -59,7 +59,7 @@
       Scenario List 
     </div>
     <div id="scenariobox">
-      <form id="scenario1-form" name="scenario1-form" action="leaf" method="post">
+      <form id="scenario1-form" name="scenario1-form" action="leaf" method="post">{% csrf_token %}
         <input type="hidden" name="scenario1-species" id="scenario1-species" value="" />
         <div class="scenario" id="scenario1">
 	      <div class="scenariotitle">

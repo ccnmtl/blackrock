@@ -1,15 +1,13 @@
-import csv
 import codecs
+import csv
 import datetime
 from decimal import Decimal, ROUND_HALF_UP
 from json import dumps
 import time
 
-try:
-    from urllib.parse import unquote
-except ImportError:
-    from urllib import unquote
-
+from blackrock.blackrock_main.models import LastImportDate
+from blackrock.blackrock_main.solr import SolrUtilities
+from blackrock.respiration.models import Temperature, StationMapping
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
 from django.core.cache import cache
@@ -19,11 +17,14 @@ from django.http import HttpResponse, HttpResponseRedirect, \
 from django.shortcuts import render
 from django.utils.datastructures import MultiValueDictKeyError
 from django.utils.timezone import FixedOffset
+from django.views.decorators.csrf import csrf_exempt
 from pysolr import Solr
 
-from blackrock.blackrock_main.models import LastImportDate
-from blackrock.blackrock_main.solr import SolrUtilities
-from blackrock.respiration.models import Temperature, StationMapping
+
+try:
+    from urllib.parse import unquote
+except ImportError:
+    from urllib import unquote
 
 
 def index(request, admin_msg=""):
@@ -139,6 +140,7 @@ def get_myspecies(specieslist, request):
     return myspecies
 
 
+@csrf_exempt
 def getsum(request):
     if request.method != 'POST':
         return HttpResponseRedirect("/respiration/")

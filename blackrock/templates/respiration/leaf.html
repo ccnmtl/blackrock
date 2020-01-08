@@ -61,7 +61,7 @@
       <input type="hidden" name="leaf-species{{forloop.counter}}-percent" id="leaf-species{{forloop.counter}}-percent" value='{{species|hash:"percent"}}' />
     {% endfor %}
 
-    <form id="leaf-form" name="leaf-form" action="forest" method="post">
+    <form id="leaf-form" name="leaf-form" action="forest" method="post">{% csrf_token %}
       <input type="hidden" id="specieslist" name="specieslist" value="" />
       <input type="hidden" id="scenario1-name" name="scenario1-name" value='{{scenario_options|hash:"name"}}' />
       <input type="hidden" id="scenario1-year" name="scenario1-year" value='{{scenario_options|hash:"year"}}' />

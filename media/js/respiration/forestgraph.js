@@ -61,11 +61,13 @@ function isValidMMDD(str, leapyear) {
     if (isNaN(month) || isNaN(day)) {
         return false;
     }
+    month = parseInt(month, 10);
+    day = parseInt(day, 10);
     if (month < 1 || month > 12) {
         return false;
     }
     var maxday = 31;
-    if (month in {4: '', 6: '', 9: '', 11: ''}) {
+    if ([4, 6, 9, 11].indexOf(month) > -1) {
         maxday = 30;
     }
     if (month === 2) {
