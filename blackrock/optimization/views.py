@@ -1,13 +1,16 @@
+import csv
+import json
+import math
+import random
+import re
+
+from blackrock.optimization.models import Tree, Plot
+from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
 from django.http import HttpResponseBadRequest
 from django.shortcuts import render, get_object_or_404
-from blackrock.optimization.models import Tree, Plot
-import csv
-import math
-import random
-import json
-from django.db.models import Q
-import re
+from django.views.decorators.csrf import csrf_exempt
+
 
 NW_corner = 'POINT(-74.025 41.39)'
 MULTIPLIER = 0.001   # to convert meters into degrees
@@ -62,6 +65,7 @@ def run(request):
     return render(request, 'optimization/run.html')
 
 
+@csrf_exempt
 def calculate(request):
     if request.method != 'POST':
         return HttpResponseRedirect("/respiration/")
