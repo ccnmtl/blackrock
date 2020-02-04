@@ -1,7 +1,9 @@
+import json
+
 from blackrock.paleoecology.models import PollenSample, CoreSample
 from django.http import HttpResponse
 from django.shortcuts import render
-import json
+from django.views.decorators.csrf import csrf_exempt
 
 
 def index(request, admin_msg=""):
@@ -28,6 +30,7 @@ def explore(request):
                    'intervals': intervals})
 
 
+@csrf_exempt
 def getpercents(request):
     depth = request.GET.get('depth', None)
     if not depth:
