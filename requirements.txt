@@ -72,7 +72,7 @@ prompt_toolkit==3.0.3
 pygments==2.5.2
 scandir==1.10.0
 ipython==5.9.0 # pyup: < 6.0.0
-ipdb==0.12.3
+ipdb==0.13.2
 
 djangowind==1.2.3
 requirements/src/sorl-3.2ctl-py2.py3-none-any.whl
