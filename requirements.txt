@@ -71,7 +71,7 @@ wcwidth==0.1.9
 pygments==2.6.1
 prompt_toolkit==3.0.5
 scandir==1.10.0
-ipython==5.9.0 # pyup: < 6.0.0
+ipython==5.10.0 # pyup: < 6.0.0
 ipdb==0.13.2
 
 djangowind==1.2.3
