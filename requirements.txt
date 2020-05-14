@@ -27,12 +27,12 @@ pyasn1==0.4.8
 pyOpenSSL==19.1.0
 ndg-httpsclient==0.5.1
 requirements/src/djangohelpers-0.20-py2.py3-none-any.whl
-logilab-common==1.5.2
+logilab-common==1.6.2
 logilab-astng==0.24.3
 pylint==2.5.2
 pep8==1.7.1
 mccabe==0.6.1
-pycodestyle==2.5.0
+pycodestyle==2.6.0
 pyflakes==2.2.0
 configparser==5.0.0
 flake8==3.7.9
@@ -40,7 +40,7 @@ statsd==3.3.0
 six==1.14.0
 python-dateutil==2.8.1
 text-unidecode==1.3  # for faker
-Faker==4.0.3
+Faker==4.1.0
 contextlib2==0.6.0.post1
 argparse==1.4.0
 cffi==1.14.0
@@ -107,7 +107,7 @@ gunicorn==20.0.4
 
 s3transfer==0.3.3
 jmespath==0.10.0
-botocore>=1.15.0,<1.16.0
+botocore>=1.15.0,<1.17.0
 boto3>=1.12.0,<1.14.0
 urllib3==1.25.9
 django-storages==1.8 # pyup: <1.9
