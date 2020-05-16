@@ -297,22 +297,22 @@ class Region(models.Model):
 
     def research_projects(self):
         assets = []
-        for l in self.location.all():
-            for p in l.researchproject_set.all():
+        for loc in self.location.all():
+            for p in loc.researchproject_set.all():
                 assets.append(p)
         return assets
 
     def learning_activities(self):
         assets = []
-        for l in self.location.all():
-            for p in l.learningactivity_set.all():
+        for loc in self.location.all():
+            for p in loc.learningactivity_set.all():
                 assets.append(p)
         return assets
 
     def datasets(self):
         assets = []
-        for l in self.location.all():
-            for p in l.dataset_set.all():
+        for loc in self.location.all():
+            for p in loc.dataset_set.all():
                 assets.append(p)
         return assets
 

@@ -1,4 +1,4 @@
-Django==2.2.12 # pyup: < 3
+Django==2.2.12,<3
 pytz==2020.1
 resolver==0.2.1
 selector==0.10.1
@@ -7,7 +7,7 @@ PasteDeploy==2.1.0
 PasteScript==3.2.0
 httplib2==0.17.3
 feedparser==5.2.1
-Markdown==2.6.11 # pyup: < 3
+Markdown==3.2.2 # pyup: < 3
 pyenchant==3.0.1
 psycopg2==2.8.5
 
@@ -21,21 +21,23 @@ certifi==2020.4.5.1  # sentry-sdk
 requests==2.23.0
 pysolr==3.9.0
 requirements/src/gdata-2.0.14.tar.gz
-django-tinymce==2.6.1  # pyup: <2.7.0
+django-tinymce==3.0.2  # pyup: <2.7.0
 coverage==5.1
 pyasn1==0.4.8
 pyOpenSSL==19.1.0
 ndg-httpsclient==0.5.1
 requirements/src/djangohelpers-0.20-py2.py3-none-any.whl
-logilab-common==1.6.2
+logilab-common==1.6.3
 logilab-astng==0.24.3
 pylint==2.5.2
 pep8==1.7.1
 mccabe==0.6.1
-pycodestyle==2.5.0
+pycodestyle==2.6.0
 pyflakes==2.2.0
 configparser==5.0.0
-flake8==3.7.9
+importlib-metadata==1.6.0  # for flake8
+zipp==3.1.0  # for flake8
+flake8==3.8.1
 statsd==3.3.0
 six==1.14.0
 python-dateutil==2.8.1
@@ -66,7 +68,7 @@ django-paging==0.2.5
 django-appconf==1.0.4
 django-compressor==2.4
 raven==6.10.0
-sentry-sdk==0.14.3
+sentry-sdk==0.14.4
 requirements/src/django_googlecharts-1.3ctl-py2.py3-none-any.whl
 
 django-stagingcontext==0.1.0
@@ -84,11 +86,11 @@ django-pageblocks==1.2.0 # pyup: <2.0
 requirements/src/django_databrowse-2019.12.05ctl-py2.py3-none-any.whl
 factory_boy==2.12.0
 
-django-debug-toolbar==1.11 # pyup: <2.0
+django-debug-toolbar==2.2 # pyup: <2.0
 gunicorn==20.0.4
 
 s3transfer==0.3.3
-jmespath==0.9.5
+jmespath==0.10.0
 botocore>=1.15.0,<1.17.0
 boto3>=1.12.0,<1.14.0
 urllib3==1.25.9
