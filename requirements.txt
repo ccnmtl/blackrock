@@ -16,7 +16,7 @@ Pillow==7.1.2
 chardet==3.0.4
 idna==2.9
 urllib3==1.25.9  # sentry-sdk
-certifi==2020.4.5.1  # sentry-sdk
+certifi==2020.4.5.2  # sentry-sdk
 
 requests==2.23.0
 pysolr==3.9.0
