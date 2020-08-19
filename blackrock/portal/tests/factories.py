@@ -5,14 +5,14 @@ from blackrock.portal.models import (
     PhotoGallery, Webcam, InteractiveMap, ForestStory)
 
 
-class AudienceFactory(factory.DjangoModelFactory):
+class AudienceFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Audience
 
     name = factory.Sequence(lambda n: "audience%03d" % n)
 
 
-class FacetFactory(factory.DjangoModelFactory):
+class FacetFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Facet
 
@@ -21,12 +21,12 @@ class FacetFactory(factory.DjangoModelFactory):
     facet = "a facet"
 
 
-class RegionFactory(factory.DjangoModelFactory):
+class RegionFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Region
 
 
-class PersonFactory(factory.DjangoModelFactory):
+class PersonFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Person
 
@@ -35,31 +35,31 @@ class PersonFactory(factory.DjangoModelFactory):
     last_name = "Doe"
 
 
-class AssetListFactory(factory.DjangoModelFactory):
+class AssetListFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = AssetList
 
 
-class FeaturedAssetFactory(factory.DjangoModelFactory):
+class FeaturedAssetFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = FeaturedAsset
 
 
-class PhotoGalleryFactory(factory.DjangoModelFactory):
+class PhotoGalleryFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = PhotoGallery
 
 
-class WebCamFactory(factory.DjangoModelFactory):
+class WebCamFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Webcam
 
 
-class InteractiveMapFactory(factory.DjangoModelFactory):
+class InteractiveMapFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = InteractiveMap
 
 
-class ForestStoryFactory(factory.DjangoModelFactory):
+class ForestStoryFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = ForestStory
