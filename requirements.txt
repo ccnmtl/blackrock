@@ -75,7 +75,7 @@ requirements/src/django_googlecharts-1.3ctl-py2.py3-none-any.whl
 django-stagingcontext==0.1.0
 django-smoketest==1.1.2
 
-django-treebeard==4.5
+django-treebeard==4.5.1
 
 django-haystack==3.0
 
