@@ -82,7 +82,7 @@ django-haystack==3.0
 django-bootstrap-form==3.4
 django-bootstrap3==14.2.0
 django-markwhat==1.6.2
-django-pagetree==1.4.2
+django-pagetree==1.4.3
 django-pageblocks==1.2.0 # pyup: <2.0 
 requirements/src/django_databrowse-2019.12.05ctl-py2.py3-none-any.whl
 factory_boy==3.2.0
