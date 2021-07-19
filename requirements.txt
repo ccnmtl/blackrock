@@ -18,7 +18,7 @@ idna==3.2
 urllib3==1.26.6  # sentry-sdk
 certifi==2021.5.30  # sentry-sdk
 
-requests==2.25.1
+requests==2.26.0
 pysolr==3.9.0
 requirements/src/gdata-2.0.14.tar.gz
 django-tinymce==3.3.0  # pyup: <2.7.0
