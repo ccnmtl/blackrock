@@ -36,7 +36,7 @@ pycodestyle==2.7.0
 pyflakes==2.3.1
 configparser==5.0.2
 importlib-metadata==4.7.1  # for flake8
-typing_extensions==3.10.0.0
+typing_extensions==3.10.0.1
 zipp==3.5.0  # for flake8
 flake8==3.9.2
 statsd==3.3.0
