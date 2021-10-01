@@ -65,15 +65,12 @@ PROJECT_APPS = [
     'blackrock.waterquality',
 ]
 
-TEMPLATES[0]['OPTIONS']['context_processors'].append(  # noqa
-    'blackrock.blackrock_main.views.django_settings'
-)
-
 MIDDLEWARE += [  # noqa
     'blackrock.portal.middleware.ValueErrorMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django_cas_ng.middleware.CASMiddleware',
 ]
 
 INSTALLED_APPS += [  # noqa
@@ -94,8 +91,11 @@ INSTALLED_APPS += [  # noqa
     'blackrock.mammals',
     'bootstrapform',
     'django_extensions',
+    'django_cas_ng',
     'django.contrib.humanize'
 ]
+
+INSTALLED_APPS.remove('djangowind') # noqa
 
 # Pageblocks/Pagetree settings
 PAGEBLOCKS = [
@@ -154,3 +154,39 @@ CDRS_SOLR_FILEURL = \
     'http://solrdev.cul.columbia.edu:8080/solr/blackrock/files/'
 
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'django_cas_ng.backends.CASBackend'
+]
+
+CAS_SERVER_URL = 'https://cas.columbia.edu/cas/'
+CAS_VERSION = '3'
+CAS_ADMIN_REDIRECT = False
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(base, "templates"),
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
+                # list if you haven't customized them:
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.template.context_processors.request',
+                'django.contrib.messages.context_processors.messages',
+                'stagingcontext.staging_processor',
+                'gacontext.ga_processor',
+                'django.template.context_processors.csrf',
+                'blackrock.blackrock_main.views.django_settings'
+            ],
+        },
+    },
+]

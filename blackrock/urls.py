@@ -1,20 +1,25 @@
-from django.conf import settings
-from django.conf.urls import include, url
-from django.contrib.auth.decorators import login_required
-from django.contrib.gis import admin
-from django.views.static import serve
-from pagetree.generic.views import EditView
-
 from blackrock.portal.views import (
     admin_rebuild_index, admin_cdrs_import, admin_readercycle,
 )
 from blackrock.views import index
+from django.conf import settings
+from django.conf.urls import include, url
+from django.contrib.auth.decorators import login_required
+from django.contrib.gis import admin
+from django.urls import path
+from django.views.static import serve
+from django_cas_ng import views as cas_views
+from pagetree.generic.views import EditView
 
 
 admin.autodiscover()
 
 urlpatterns = [
-    url('^accounts/', include('djangowind.urls')),
+    url(r'^accounts/', include('django.contrib.auth.urls')),
+    path('cas/login', cas_views.LoginView.as_view(),
+         name='cas_ng_login'),
+    path('cas/logout', cas_views.LogoutView.as_view(),
+         name='cas_ng_logout'),
     url(r'^smoketest/', include('smoketest.urls')),
     url(r'^pagetree/', include('pagetree.urls')),
     url(r'^admin/portal/rebuild_index', admin_rebuild_index),
