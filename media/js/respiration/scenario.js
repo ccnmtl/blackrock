@@ -26,7 +26,6 @@
         addElementClass(newDiv, 'scenario');
         appendChildNodes('scenariobox', newDiv);
         numScenarios++;
-        // eslint-disable-next-line no-unsafe-innerhtml/no-unsafe-innerhtml
         newDiv.innerHTML =
             html.replace(/scenario1/g, 'scenario' + numScenarios);
         newDiv.id = 'scenario' + numScenarios;
@@ -39,12 +38,10 @@
             incNumSpecies();
             var n = getNumSpecies();
             elem.id = 'species' + n;
-            /* eslint-disable no-unsafe-innerhtml/no-unsafe-innerhtml */
             elem.innerHTML =
                 elem.innerHTML.replace(/species\d/g, elem.id);
             elem.innerHTML =
                 elem.innerHTML.replace(/Your Tree #\d/g, 'Your Tree #' + n);
-            /* eslint-enable no-unsafe-innerhtml/no-unsafe-innerhtml */
             global.EquationHighlighter.initSpecies(elem);
         });
 

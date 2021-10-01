@@ -337,13 +337,11 @@ function calculateKelvin(elem, id) {
     var result = parseFloat(elem) + 273.15;
     var kelvin = document.getElementById(kl);
 
-    /* eslint-disable no-unsafe-innerhtml/no-unsafe-innerhtml */
     if (isNaN(result)) {
         kelvin.innerHTML = '';
     } else {
         kelvin.innerHTML = result;
     }
-    /* eslint-enable no-unsafe-innerhtml/no-unsafe-innerhtml */
 }
 
 function makeExportLink(a) {
@@ -353,7 +351,6 @@ function makeExportLink(a) {
     var end = document.getElementById(id + '-enddate').value;
     var station = document.getElementById(id + '-fieldstation').value;
 
-    // eslint-disable-next-line scanjs-rules/assign_to_href
     a.href = '/respiration/getcsv?year=' + year + '&start=' + start +
         '&end=' + end + '&station=' + station;
 }

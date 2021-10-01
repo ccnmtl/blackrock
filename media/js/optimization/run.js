@@ -137,7 +137,6 @@ function showResultsInfo(results, new_row, run_num) {
     csvform['sample_num'].value = run_num;
     $('csvbutton').disabled = false;
 
-    /* eslint-disable no-unsafe-innerhtml/no-unsafe-innerhtml */
     $('results-area').innerHTML = results['sample-area'];
     $('results-species').innerHTML = results['sample-species'];
     $('results-count').innerHTML = results['sample-count'];
@@ -165,7 +164,6 @@ function showResultsInfo(results, new_row, run_num) {
     var visualized_map = new SampleMap({id: 'results-map',
         bounds: results.sample.bounds,
         onSelect: function(e) {
-            // eslint-disable-next-line scanjs-rules/assign_to_location
             document.location = '#plot'+e.feature.plotname;
         },
         onHover: function(e) {
@@ -183,7 +181,6 @@ function showResultsInfo(results, new_row, run_num) {
     }
     showElement('results');
     setStyle('details', {'display': 'block'});
-    /* eslint-enable no-unsafe-innerhtml/no-unsafe-innerhtml */
 }
 
 function dictlen(d) {
@@ -204,7 +201,6 @@ function showError(http_request) {
         var json = evalJSON(http_request.req.responseText);
         custom = json.error || '';
     } catch (e) {/*pass*/}
-    // eslint-disable-next-line no-unsafe-innerhtml/no-unsafe-innerhtml
     $('customerror').innerHTML = custom;
 
     showElement('errormessage');
@@ -219,7 +215,6 @@ function showPlotInfo(plotNumber, results) {
     var id = 'plot' + plotNumber;
     var name = 'PLOT ' + plotNumber;
 
-    /* eslint-disable no-unsafe-innerhtml/no-unsafe-innerhtml */
     if (plotNumber > 0) {
         var newDiv = DIV();
         addElementClass(newDiv, 'plot-wrapper');
@@ -267,7 +262,6 @@ function showPlotInfo(plotNumber, results) {
             getFirstElementByTagAndClassName('*', 'toggle-control', id);
         connect(togglectrl, 'onclick', toggle);
     }
-    /* eslint-enable no-unsafe-innerhtml/no-unsafe-innerhtml */
 }
 
 function reset() {
@@ -415,7 +409,6 @@ function deleteSample(run_num) {
 }
 
 function addSampleSummaryRow(run_num, summary_ary) {
-    /* eslint-disable no-unsafe-innerhtml/no-unsafe-innerhtml */
     var tr = document.createElement('tr');
     tr.id = 'samplerun-'+run_num;
 
@@ -437,7 +430,6 @@ function addSampleSummaryRow(run_num, summary_ary) {
     connect(tr, 'onclick', function(evt) {
         showResultsInfo(SampleStorage.getSample(run_num - 1), tr, run_num);
     });
-    /* eslint-enable no-unsafe-innerhtml/no-unsafe-innerhtml */
     return tr;
 }
 

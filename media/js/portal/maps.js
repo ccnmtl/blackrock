@@ -432,7 +432,6 @@ if (!Portal.Map) {
             return a;
         };
 
-        // eslint-disable-next-line scanjs-rules/assign_to_search
         this.search = function(lat, long, title) {
             for (var result in self.search_results) {
                 if (Object.prototype.hasOwnProperty.call(self.search_results,
@@ -447,7 +446,6 @@ if (!Portal.Map) {
 
             var nearby_results = document.getElementById('nearby_results');
 
-            /* eslint-disable no-unsafe-innerhtml/no-unsafe-innerhtml */
             jQuery(nearby_results).show('fast', function() {
                 var url = '/portal/nearby/' + lat + '/' + long + '/';
                 var request = doXHR(url);
@@ -470,7 +468,6 @@ if (!Portal.Map) {
 
                 });
             });
-            /* eslint-enable no-unsafe-innerhtml/no-unsafe-innerhtml */
         };
 
         this.closeSearch = function() {
