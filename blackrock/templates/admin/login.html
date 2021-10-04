@@ -36,13 +36,14 @@
 <p class="errornote">{{ error_message }}</p>
 {% endif %}
 <div id="content-main">
-<form method="get" action="https://cas.columbia.edu/cas/login">
-<input type="hidden" name="destination" value="https://{{ request.get_host }}/accounts/caslogin/?next=/admin/&this_is_the_login_form=1" />
+<form method="get" action="/cas/login">
+<input type="hidden" name="next" value="{{next|default:'/'}}" />
 <p>If you have a Columbia UNI, you already have an account and can
 login through CAS with it</p>
 <input type="submit" value="Here" />
 </form>
 
+{% if debug %}
 <p>otherwise: </p>
 
 <form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
@@ -65,6 +66,7 @@ login through CAS with it</p>
     <label>&nbsp;</label><input type="submit" value="{% trans 'Log in' %}" />
   </div>
 </form>
+{% endif %}
 
 <script type="text/javascript">
 document.getElementById('id_username').focus()

@@ -59,7 +59,6 @@ rcssmin==1.0.6
 rjsmin==1.1.0
 sqlparse==0.4.2
 
-djangowind==1.2.3
 requirements/src/sorl-3.2ctl-py2.py3-none-any.whl
 requirements/src/tagging-0.3-pre.tar.gz
 django-indexer==0.3.0
@@ -114,3 +113,8 @@ bandit==1.7.0
 
 entrypoints==0.3
 distro==1.6.0
+
+python-cas==1.6.0
+django-cas-ng==4.2.1
+
+lxml==4.6.3
