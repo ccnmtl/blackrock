@@ -10,7 +10,6 @@ function showArea() {
         area =
             Math.round(numPlots * Math.PI * (size * size) * 100) / 100;
     }
-    // eslint-disable-next-line no-unsafe-innerhtml/no-unsafe-innerhtml
     $('plotArea').innerHTML = area;
 }
 

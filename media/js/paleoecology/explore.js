@@ -59,7 +59,6 @@ function showResults(http_request) {
         var imgSrc = baseURL + '&chs=200x200&chco=' + colors[15] +
             '&chd=t:100&chdl=Other (100%)&chdlp=bv';
 
-        // eslint-disable-next-line scanjs-rules/assign_to_src
         $('sample-chart-' + depth).src = imgSrc;
         return;
     }
@@ -94,11 +93,8 @@ function showResults(http_request) {
     var chartSrc = baseURL + '&' + chartColors + '&' + chartSize + '&' +
         chartData + '&' + chartLabels;
 
-    // eslint-disable-next-line scanjs-rules/assign_to_src
     $('sample-chart-' + depth).src = chartSrc;
-    // eslint-disable-next-line no-unsafe-innerhtml/no-unsafe-innerhtml
     divPercents.innerHTML = '';
-    // eslint-disable-next-line no-unsafe-innerhtml/no-unsafe-innerhtml
     divCounts.innerHTML = countString;
 }
 
@@ -137,7 +133,6 @@ function showSample(e) {
 
 function setupCore() {
     forEach(getElementsByTagAndClassName('div', 'core-slice'), function(elem) {
-        // eslint-disable-next-line scanjs-rules/call_connect
         connect(elem, 'onclick', showSample);
     });
 }

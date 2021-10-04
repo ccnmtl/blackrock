@@ -62,7 +62,6 @@
         var newDiv = DIV();
         addElementClass(newDiv, 'species');
         appendChildNodes(parent, newDiv);
-        // eslint-disable-next-line no-unsafe-innerhtml/no-unsafe-innerhtml
         newDiv.innerHTML = html.replace(/species1/g, 'species' + numSpecies);
         newDiv.id = 'species' + numSpecies;
         var namediv = getFirstElementByTagAndClassName(
@@ -404,14 +403,12 @@
         if (this.temp >= 0) {
             this.graph_cursor.style.left = (pos_x) + 'px';
             var self = this;
-            /* eslint-disable scanjs-rules/call_setTimeout */
             setTimeout(function() {
                 self.updateCursorVals();
             }, 10);
             setTimeout(function() {
                 showElement(self.graph_cursor);
             }, 10);
-            /* eslint-enable scanjs-rules/call_setTimeout */
         }
     };
 
@@ -588,9 +585,7 @@
 
             var eltKelvin = getFirstElementByTagAndClassName(
                 'span', 'k-zero', parent=parent);
-            /* eslint-disable no-unsafe-innerhtml/no-unsafe-innerhtml */
             eltKelvin.innerHTML = predefinedSpecies[elt.id].k;
-            /* eslint-enable no-unsafe-innerhtml/no-unsafe-innerhtml */
 
             var eltRZero = getFirstElementByTagAndClassName(
                 'input', 'r-zero', parent=parent);
