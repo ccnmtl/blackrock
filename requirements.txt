@@ -115,6 +115,6 @@ entrypoints==0.3
 distro==1.6.0
 
 python-cas==1.6.0
-django-cas-ng==4.2.1
+requirements/src/django_cas_ng-4.2.2ctl-py2.py3-none-any.whl
 
 lxml==4.6.3
