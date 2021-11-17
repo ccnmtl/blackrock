@@ -7,7 +7,7 @@ PasteDeploy==2.1.1
 PasteScript==3.2.1
 httplib2==0.20.2
 feedparser==6.0.8
-Markdown==3.3.4 # pyup: < 3
+Markdown==3.3.5 # pyup: < 3
 pyenchant==3.2.2
 psycopg2==2.8.6
 
