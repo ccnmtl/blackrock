@@ -31,7 +31,7 @@ logilab-common==1.8.3
 astroid==2.9.3
 pylint==2.12.2
 pep8==1.7.1
-mccabe==0.6.1
+mccabe==0.7.0
 pycodestyle==2.8.0
 pyflakes==2.4.0
 configparser==5.2.0
