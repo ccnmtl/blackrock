@@ -22,7 +22,7 @@ requests==2.27.1
 pysolr==3.9.0
 requirements/src/gdata-2.0.14.tar.gz
 django-tinymce==3.4.0  # pyup: <2.7.0
-coverage==6.2
+coverage==6.3
 pyasn1==0.4.8
 pyOpenSSL==22.0.0
 ndg-httpsclient==0.5.1
