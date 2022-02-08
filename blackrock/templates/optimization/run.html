@@ -23,7 +23,7 @@
 			<div class="runtable" id="run-interface">
 			<div class="sampling_param">
 				<h2>Run Parameters</h2>
-				<form name="runform" id='runform'>
+				<form name="runform" id='runform'>{% csrf_token %}
 				<table border="0" cellspacing="0" cellpadding="0">
 					<thead>
 					<tr>
@@ -74,12 +74,12 @@
 </div>
 			<div class="sampling_history">
 				<!-- FORM -->
-				<form method="post" action="json2csv">
+				<form method="post" action="json2csv">{% csrf_token %}
                                   <input type="hidden" name="filename" value="results" />
                                   <input type="hidden" name="results" value="" />
                                   <h2>Sampling history <span class="heading-addendum">(stored in your web browser)</span><span class="csvsummary"><span class="heading-addendum">CSV download:</span> <input type="button" value="Summary" onclick="SampleHistory.csv.summary(this);this.form.submit();" /> <input type="button" value="Detail" onclick="SampleHistory.csv.details(this);this.form.submit();" /></span></h2>
                                   </form>
-                                <form id="trees_csv_form" method="post" action="trees_csv">
+                                <form id="trees_csv_form" method="post" action="trees_csv">{% csrf_token %}
                                   <input type="hidden" name="results" value="" />
                                   <input type="hidden" name="type" value="trees" />
                                   <input type="hidden" name="sample_num" value="0" />
@@ -138,16 +138,10 @@
 	<div class="visualclear"></div><!-- "visualclear" -->
 	
 	</div><!-- "container" -->
-
-
-
-
-
-
 <div id="results" class="container">
 <h3>
 <div id="csv">
-  <form id="csvform" action="csv" method="post">
+  <form id="csvform" action="csv" method="post">{% csrf_token %}
     CSV download:
     <input type="hidden" name="results" id="form-results" />
     <input type="hidden" name="sample_num" id="0" />
