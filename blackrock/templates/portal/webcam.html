@@ -50,14 +50,12 @@
             <img src="{% static 'images/portal/forestcam/poster_sunrise.png' %}" style="width: 100%; height: auto;"></img>
           </a>
         </div>
-                
         <div style="float: left; margin: 0px 5px; width: 31%;">
           <a class="select_video" onclick="return switchvideo(this, 'snow');">
             <h5>Snow Melting</h5>
             <img src="{% static 'images/portal/forestcam/poster_snow.png' %}" style="width: 100%; height: auto;"></img>
           </a>
         </div>
-                
         <div style="float: left; margin: 0px 0px 0px 5px; width: 31%;">
           <a class="select_video" onclick="return switchvideo(this, 'showers');">
             <h5>April Showers</h5>
@@ -69,24 +67,21 @@
       <br class="clear" />
 
       <center>
-
-      
         <!-- Sunrise -->
         <div id="sunrise" style="display: none;" class="video">
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/EDJBCDfs2dA?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>    
-                
+          <iframe width="560" height="315" src="https://youtube.com/embed/by4bTCBNac8?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+
         <!-- Snow Melting -->
         <div id="snow" style="display: none" class="video">
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/m0drmV--WIs?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <iframe width="560" height="315" src="https://youtube.com/embed/SeP6kHipqXU?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
-        
+
         <!-- April Showers -->
         <div id="showers" style="display: none" class="video">
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/-ol6-5Km0VM?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <iframe width="560" height="315" src="https://youtube.com/embed/1NsiI7UcjfQ?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
       </center>
-            
       <br class="clear" />
     </div>
   </div>
@@ -100,7 +95,7 @@
             // we only have good pics starting in Feb 2012
             minDate: new Date(2012, 2 - 1, 11),
             maxDate: "+0",
-            
+
             // onSelect - load the photos from that day
             onSelect: function(dateText, inst) {
                 var pickedDate = jQuery(this).datepicker('getDate');
@@ -110,12 +105,6 @@
         });
 
         draw_image_flow();
-
-        var height = jQuery("div#forestcam div#left").innerHeight();
-        jQuery("div#forestcam div#right").css("height", height + "px");
-
-        
-        
         jQuery("#calendar_icon").click(function() { jQuery("#datepicker").datepicker("show"); });
     });
 
