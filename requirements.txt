@@ -27,7 +27,7 @@ pyasn1==0.4.8
 pyOpenSSL==22.0.0
 ndg-httpsclient==0.5.1
 requirements/src/djangohelpers-0.22-py2.py3-none-any.whl
-logilab-common==1.8.3
+logilab-common==1.9.1
 astroid==2.11.0
 pylint==2.12.2
 pep8==1.7.1
