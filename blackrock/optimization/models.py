@@ -47,14 +47,19 @@ class Plot(models.Model):
 
         cursor = connection.cursor()
 
-        sqlcmd = """SELECT COUNT(DISTINCT %s) FROM "%s" WHERE "%s" = '%s'
-             """ % (species_field, tablename, plot_field, self.id)  # nosec
+        sqlcmd = (
+            'SELECT COUNT(DISTINCT '  # nosec
+            '%s) FROM "%s" WHERE "%s" = \'%s\''  # nosec
+            % (species_field, tablename, plot_field, self.id)  # nosec
+        )
 
         cursor.execute(sqlcmd)
         self.num_species = cursor.fetchone()[0] or 0
 
-        sqlcmd = """SELECT SUM(%s) FROM "%s" WHERE "%s" = '%s'
-             """ % (dbh_field, tablename, plot_field, self.id)  # nosec
+        sqlcmd = (
+            'SELECT SUM(%s) FROM "%s" WHERE "%s" = \'%s\''  # nosec
+            % (dbh_field, tablename, plot_field, self.id)  # nosec
+        )
 
         cursor.execute(sqlcmd)
         summation = cursor.fetchone()[0] or 0.0
@@ -66,8 +71,7 @@ class Plot(models.Model):
         # self.mean_dbh =
         # self.tree_set.objects.aggregate(Avg('dbh'))['dbh__avg']  # not yet
 
-        sql = \
-            """SELECT SUM((%s-%s)^2) FROM "%s" WHERE "%s" = '%s'"""  # nosec
+        sql = 'SELECT SUM((%s-%s)^2) FROM "%s" WHERE "%s" = \'%s\''  # nosec
         cmd = sql % (dbh_field, self.mean_dbh, tablename, plot_field, self.id)
 
         cursor.execute(cmd)
