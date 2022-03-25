@@ -72,19 +72,21 @@ class Temperature(models.Model):
 
         cursor = connection.cursor()
         # might need to filter station here or something, too
-        sqlcmd = """SELECT sum(exp(%f*(1/%f - 1/("%s"+273.15+%f)) /%f))
-              FROM "%s" WHERE "%s" >= '%s' AND "%s" < '%s'
-              AND "%s" IS NOT NULL and "%s"='%s'
-              """ % (e0, t0, reading_field, delta_t, Rg,  # nosec
-                     tablename,
-                     date_field,
-                     start_date.strftime('%m/%d/%Y'),
-                     date_field,
-                     end_date.strftime('%m/%d/%Y'),
-                     precalc_field,
-                     station_field,
-                     station,  # beware SQL injection!!!
-                     )  # nosec
+        sqlcmd = (
+            'SELECT sum(exp(%f*(1/%f - 1/("%s"+273.15+%f)) /%f))'  # nosec
+            'FROM "%s" WHERE "%s" >= \'%s\' AND "%s" < \'%s\''  # nosec
+            'AND "%s" IS NOT NULL and "%s"=\'%s\'' % (
+                e0, t0, reading_field, delta_t, Rg,  # nosec
+                tablename,
+                date_field,
+                start_date.strftime('%m/%d/%Y'),
+                date_field,
+                end_date.strftime('%m/%d/%Y'),
+                precalc_field,
+                station_field,
+                station,  # beware SQL injection!!!
+            )  # nosec
+        )
         cursor.execute(sqlcmd)
         summation = cursor.fetchone()[0] or 0.0
 
