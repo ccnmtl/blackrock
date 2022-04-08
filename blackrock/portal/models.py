@@ -5,7 +5,6 @@ from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.gis.db import models
 from django.db.models import Manager
 from django.db.models.signals import pre_save
-from django.utils.encoding import python_2_unicode_compatible
 from pagetree.models import PageBlock
 import re
 
@@ -14,7 +13,6 @@ MAX_DISPLAY_LENGTH = 50
 
 
 # Static Lookup Tables
-@python_2_unicode_compatible
 class Audience(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
@@ -25,7 +23,6 @@ class Audience(models.Model):
         return self.name
 
 
-@python_2_unicode_compatible
 class DigitalFormat(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
@@ -42,7 +39,6 @@ class DigitalFormat(models.Model):
         return self.name
 
 
-@python_2_unicode_compatible
 class Facet(models.Model):
     name = models.CharField(max_length=50)
     display_name = models.CharField(max_length=100)
@@ -62,7 +58,6 @@ class Facet(models.Model):
         return self.facet.replace(' ', '_').lower()
 
 
-@python_2_unicode_compatible
 class Institution(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
@@ -73,7 +68,6 @@ class Institution(models.Model):
         return self.name
 
 
-@python_2_unicode_compatible
 class LocationSubtype(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
@@ -84,7 +78,6 @@ class LocationSubtype(models.Model):
         return self.name
 
 
-@python_2_unicode_compatible
 class LocationType(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
@@ -95,7 +88,6 @@ class LocationType(models.Model):
         return self.name
 
 
-@python_2_unicode_compatible
 class PersonType(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
@@ -106,7 +98,6 @@ class PersonType(models.Model):
         return self.name
 
 
-@python_2_unicode_compatible
 class PublicationType(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
@@ -117,7 +108,6 @@ class PublicationType(models.Model):
         return self.name
 
 
-@python_2_unicode_compatible
 class RegionType(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
@@ -128,7 +118,6 @@ class RegionType(models.Model):
         return self.name
 
 
-@python_2_unicode_compatible
 class RightsType(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
@@ -139,7 +128,6 @@ class RightsType(models.Model):
         return self.name
 
 
-@python_2_unicode_compatible
 class Tag(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
@@ -150,7 +138,6 @@ class Tag(models.Model):
         return self.name
 
 
-@python_2_unicode_compatible
 class Url(models.Model):
     name = models.URLField()
     display_name = models.CharField(max_length=100)
@@ -167,7 +154,6 @@ class Url(models.Model):
 
 
 # Base Assets
-@python_2_unicode_compatible
 class DigitalObject(models.Model):
     name = models.CharField(max_length=500)
     description = models.TextField(null=True, blank=True)
@@ -194,7 +180,6 @@ class DigitalObject(models.Model):
         ordering = ['name']
 
 
-@python_2_unicode_compatible
 class Location(models.Model):
     name = models.CharField(max_length=500)
     description = models.TextField(null=True, blank=True)
@@ -230,7 +215,6 @@ def update_location_geometry(sender, **kwargs):
 pre_save.connect(update_location_geometry, sender=Location)
 
 
-@python_2_unicode_compatible
 class Station(models.Model):
     name = models.CharField(max_length=500)
     description = models.TextField(null=True, blank=True)
@@ -279,7 +263,6 @@ class Station(models.Model):
         verbose_name_plural = "Stations"
 
 
-@python_2_unicode_compatible
 class Region(models.Model):
     name = models.CharField(max_length=500)
     description = models.TextField(null=True, blank=True)
@@ -323,7 +306,6 @@ class Region(models.Model):
         return self.name
 
 
-@python_2_unicode_compatible
 class Person(models.Model):
     full_name = models.CharField(max_length=500)
     first_name = models.CharField(max_length=250)
@@ -365,7 +347,6 @@ class Person(models.Model):
         verbose_name_plural = "People"
 
 
-@python_2_unicode_compatible
 class DataSet(models.Model):
     name = models.CharField(max_length=500)
     description = models.TextField(null=True, blank=True)
@@ -402,7 +383,6 @@ class DataSet(models.Model):
         ordering = ['name']
 
 
-@python_2_unicode_compatible
 class Publication(models.Model):
     name = models.CharField(max_length=500, unique=True)
     citation = models.CharField(max_length=500)
@@ -434,7 +414,6 @@ class Publication(models.Model):
         ordering = ['name']
 
 
-@python_2_unicode_compatible
 class ResearchProject(models.Model):
     name = models.CharField(max_length=500)
     description = models.TextField(null=True, blank=True)
@@ -476,7 +455,6 @@ class ResearchProject(models.Model):
         return extra
 
 
-@python_2_unicode_compatible
 class LearningActivity(models.Model):
     name = models.CharField(max_length=500)
     description = models.TextField(null=True, blank=True)
@@ -516,7 +494,6 @@ class LearningActivity(models.Model):
         return extra
 
 
-@python_2_unicode_compatible
 class ForestStory(models.Model):
     name = models.CharField(max_length=500)
     display_name = models.CharField(max_length=500)
@@ -567,7 +544,6 @@ class ForestStory(models.Model):
         return extra
 
 
-@python_2_unicode_compatible
 class AssetList(models.Model):
     pageblocks = GenericRelation(
         PageBlock)
@@ -642,7 +618,6 @@ class AssetList(models.Model):
             return None
 
 
-@python_2_unicode_compatible
 class FeaturedAsset(models.Model):
     pageblocks = GenericRelation(
         PageBlock)
@@ -764,7 +739,6 @@ class FeaturedAssetForm(forms.ModelForm):
         return self.cleaned_data
 
 
-@python_2_unicode_compatible
 class PhotoGalleryItem(models.Model):
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=500)
@@ -781,7 +755,6 @@ class PhotoGalleryItem(models.Model):
         return self.title
 
 
-@python_2_unicode_compatible
 class PhotoGallery(models.Model):
     pageblocks = GenericRelation(
         PageBlock)
@@ -828,7 +801,6 @@ class PhotoGalleryForm(forms.ModelForm):
         exclude = ()
 
 
-@python_2_unicode_compatible
 class Webcam(models.Model):
     pageblocks = GenericRelation(
         PageBlock)
@@ -868,7 +840,6 @@ class WebcamForm(forms.ModelForm):
         exclude = ()
 
 
-@python_2_unicode_compatible
 class InteractiveMap(models.Model):
     pageblocks = GenericRelation(
         PageBlock)

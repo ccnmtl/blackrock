@@ -1,9 +1,7 @@
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 
 
 # one "slice" of the core, containing multiple samples of pollen
-@python_2_unicode_compatible
 class CoreSample(models.Model):
     def __str__(self):
         return str(self.depth)
@@ -13,7 +11,6 @@ class CoreSample(models.Model):
     radiocarbon_years = models.IntegerField(default=0)
 
 
-@python_2_unicode_compatible
 class PollenType(models.Model):
     name = models.CharField(max_length=100, null=False, unique=True)
 
@@ -35,7 +32,6 @@ class PollenType(models.Model):
                                     default="")
 
 
-@python_2_unicode_compatible
 class PollenSample(models.Model):
     core_sample = models.ForeignKey(CoreSample, on_delete=models.CASCADE)
     pollen = models.ForeignKey(PollenType, on_delete=models.CASCADE)

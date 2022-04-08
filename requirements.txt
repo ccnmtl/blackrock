@@ -1,4 +1,4 @@
-Django>=2.2.12,<3
+Django>=3.2.12,<4
 pytz==2022.1
 resolver==0.2.1
 selector==0.10.1
@@ -83,7 +83,7 @@ django-bootstrap3==21.1
 django-markwhat==1.6.2
 django-pagetree==1.4.3
 django-pageblocks==1.2.0 # pyup: <2.0 
-requirements/src/django_databrowse-2019.12.05ctl-py2.py3-none-any.whl
+requirements/src/django_databrowse-2022.04.08ctl-py2.py3-none-any.whl 
 factory_boy==3.2.1
 
 django-debug-toolbar==3.2.4 # pyup: <2.0
@@ -118,3 +118,4 @@ python-cas==1.6.0
 requirements/src/django_cas_ng-4.2.2ctl-py2.py3-none-any.whl
 
 lxml==4.8.0
+asgiref==3.4.1

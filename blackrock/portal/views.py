@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timezone
 from decimal import Decimal
 import io
 import json
@@ -6,15 +6,11 @@ import re
 import sys
 from time import strptime
 
-from blackrock.blackrock_main.models import LastImportDate
-from blackrock.blackrock_main.solr import SolrUtilities
-from blackrock.portal.models import Location, DataSet, Audience, \
-    get_all_related_objects
 from django.apps import apps
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
-from django.contrib.gis.geos import fromstr
 from django.contrib.gis.db.models.functions import Distance
+from django.contrib.gis.geos import fromstr
 from django.contrib.gis.measure import D  # D is a shortcut for Distance
 from django.core import management
 from django.core.cache import cache
@@ -22,9 +18,14 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import DateField
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.utils.timezone import FixedOffset
+from django.views.generic.base import TemplateView
 from pagetree.models import Hierarchy
 from pysolr import Solr, SolrError
+
+from blackrock.blackrock_main.models import LastImportDate
+from blackrock.blackrock_main.solr import SolrUtilities
+from blackrock.portal.models import Location, DataSet, Audience, \
+    get_all_related_objects
 
 
 try:
@@ -49,37 +50,42 @@ class rendered_with(object):
         return rendered_func
 
 
-@rendered_with('portal/page.html')
-def page(request, path):
-    h = Hierarchy.get_hierarchy('main')
-    current_root = h.get_section_from_path(path)
-    section = h.get_first_leaf(current_root)
-    ancestors = section.get_ancestors()
+class PortalPageView(TemplateView):
+    template_name = 'portal/page.html'
 
-    module = None
-    if not section.is_root() and len(ancestors) > 1:
-        module = ancestors[1]
+    def get_context_data(self, **kwargs):
+        ctx = TemplateView.get_context_data(self, **kwargs)
+        path = kwargs.get('path', '')
 
-    asset_type = request.GET.get('type', None)
-    asset_id = request.GET.get('id', None)
+        h = Hierarchy.get_hierarchy('main')
+        current_root = h.get_section_from_path(path)
+        section = h.get_first_leaf(current_root)
+        ancestors = section.get_ancestors()
 
-    root = None
-    if len(ancestors) > 0:
-        root = ancestors[0]
+        module = None
+        if not section.is_root() and len(ancestors) > 1:
+            module = ancestors[1]
 
-    context = dict(section=section,
-                   module=module,
-                   root=root)
+        asset_type = self.request.GET.get('type', None)
+        asset_id = self.request.GET.get('id', None)
 
-    if asset_type and asset_id:
-        try:
-            model = apps.get_model("portal", asset_type)
-            context['selected'] = model.objects.get(id=asset_id)
-        except (ObjectDoesNotExist, LookupError, ValueError):
-            msg = "We were unable to locate a <b>%s</b> at this address."
-            context['error'] = msg % (asset_type)
+        root = None
+        if len(ancestors) > 0:
+            root = ancestors[0]
 
-    return context
+        ctx['section'] = section
+        ctx['module'] = module
+        ctx['root'] = root
+
+        if asset_type and asset_id:
+            try:
+                model = apps.get_model("portal", asset_type)
+                ctx['selected'] = model.objects.get(id=asset_id)
+            except (ObjectDoesNotExist, LookupError, ValueError):
+                msg = "We were unable to locate a <b>%s</b> at this address."
+                ctx['error'] = msg % (asset_type)
+
+        return ctx
 
 
 @rendered_with('portal/nearby.html')
@@ -310,7 +316,7 @@ def import_classification_query(import_classification, last_import_date):
     q = 'import_classifications:"' + import_classification + '"'
 
     if last_import_date:
-        utc = last_import_date.astimezone(FixedOffset(0))
+        utc = last_import_date.astimezone(timezone(0))
         q += ' AND last_modified:[' + utc.strftime(
             '%Y-%m-%dT%H:%M:%SZ') + ' TO NOW]'
     return q
