@@ -16,7 +16,6 @@ from django.http import HttpResponse, HttpResponseRedirect, \
     HttpResponseForbidden
 from django.shortcuts import render
 from django.utils.datastructures import MultiValueDictKeyError
-from django.utils.timezone import FixedOffset
 from django.views.decorators.csrf import csrf_exempt
 from pysolr import Solr
 
@@ -397,10 +396,10 @@ def _utc_to_est(date_string):
     try:
         t = time.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
         utc = datetime.datetime(
-            t[0], t[1], t[2], t[3], t[4], t[5], tzinfo=FixedOffset(0))
+            t[0], t[1], t[2], t[3], t[4], t[5], tzinfo=datetime.timezone(0))
         # UTC -5 hours. Solr dates are always EST
         # and do not take dst into account
-        est = utc.astimezone(FixedOffset(-300))
+        est = utc.astimezone(datetime.timezone(-5))
         return est
     except ValueError:
         return None
@@ -515,7 +514,7 @@ def import_classifications_query(import_classification, last_import_date):
         'OR record_subject:"Array ID 101")'
 
     if last_import_date:
-        utc = last_import_date.astimezone(FixedOffset(0))
+        utc = last_import_date.astimezone(datetime.timezone(0))
         q += ' AND last_modified:[' + utc.strftime(
             '%Y-%m-%dT%H:%M:%SZ') + ' TO NOW]'
     return q

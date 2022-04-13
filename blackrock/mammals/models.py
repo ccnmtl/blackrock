@@ -4,11 +4,9 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from django.contrib.gis.db import models
 from django.db.models import Manager
-from django.utils.encoding import python_2_unicode_compatible
 import json
 
 
-@python_2_unicode_compatible
 class GridPoint(models.Model):
 
     """ A point in the grid used to sample the forest. Each square is defined
@@ -56,7 +54,6 @@ class GridPoint(models.Model):
         return dir(self)
 
 
-@python_2_unicode_compatible
 class GradeLevel (models.Model):
 
     def __str__(self):
@@ -68,7 +65,6 @@ class GradeLevel (models.Model):
         return dir(self)
 
 
-@python_2_unicode_compatible
 class Bait(models.Model):
 
     def __str__(self):
@@ -85,7 +81,6 @@ class Bait(models.Model):
         return dir(self)
 
 
-@python_2_unicode_compatible
 class Species(models.Model):
 
     def __str__(self):
@@ -108,7 +103,6 @@ class Species(models.Model):
         return dir(self)
 
 
-@python_2_unicode_compatible
 class LabelMenu(models.Model):
 
     def __str__(self):
@@ -128,7 +122,6 @@ class AnimalScaleUsed (LabelMenu):
     pass
 
 
-@python_2_unicode_compatible
 class Animal(models.Model):
 
     def __str__(self):
@@ -172,7 +165,6 @@ class Animal(models.Model):
         return dir(self)
 
 
-@python_2_unicode_compatible
 class Trap(models.Model):
 
     """It's a trap!"""
@@ -192,7 +184,6 @@ class Trap(models.Model):
         return dir(self)
 
 
-@python_2_unicode_compatible
 class Habitat(models.Model):
 
     def __str__(self):
@@ -217,7 +208,6 @@ class Habitat(models.Model):
         return dir(self)
 
 
-@python_2_unicode_compatible
 class GridSquare(models.Model):
 
     """ A square in the grid used to sample the forest.
@@ -356,7 +346,6 @@ class TrapType (LabelMenu):
         ordering = ['label']
 
 
-@python_2_unicode_compatible
 class School(models.Model):
 
     def __str__(self):
@@ -392,7 +381,6 @@ class School(models.Model):
         max_length=256)
 
 
-@python_2_unicode_compatible
 class Expedition(models.Model):
 
     def __str__(self):
@@ -565,7 +553,6 @@ class Expedition(models.Model):
         return json.dumps(self.transects())
 
 
-@python_2_unicode_compatible
 class TrapLocation(models.Model):
 
     @classmethod

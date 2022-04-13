@@ -2,10 +2,8 @@ from django.contrib.gis.db import models
 # from django.db.models import Avg # not yet
 from django.db import connection
 from django.db.models import Manager
-from django.utils.encoding import python_2_unicode_compatible
 
 
-@python_2_unicode_compatible
 class Plot(models.Model):
 
     def __str__(self):
@@ -86,7 +84,6 @@ class Plot(models.Model):
         return
 
 
-@python_2_unicode_compatible
 class Tree(models.Model):
 
     def __str__(self):

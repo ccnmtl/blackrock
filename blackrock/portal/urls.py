@@ -1,13 +1,14 @@
 import os.path
-import django.views.static
 
 from django.conf.urls import url
 from django.views.generic.base import TemplateView
+import django.views.static
 import django_databrowse
 
 from blackrock.portal.search import PortalSearchView, PortalSearchForm
 
-from .views import page, nearby
+from blackrock.portal.views import PortalPageView, nearby
+
 
 media_root = os.path.join(os.path.dirname(__file__), "media")
 
@@ -22,5 +23,5 @@ urlpatterns = [
         nearby),
     url(r'^weather/$', TemplateView.as_view(
         template_name='portal/weather.html')),
-    url(r'^(?P<path>.*)$', page)
+    url(r'^(?P<path>.*)$', PortalPageView.as_view())
 ]

@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.utils.timezone import FixedOffset
+from datetime import timezone
 from pysolr import Solr
 
 try:
@@ -28,7 +28,7 @@ class SolrUtilities:
         }
 
         if last_import_date:
-            utc = last_import_date.astimezone(FixedOffset(0))
+            utc = last_import_date.astimezone(timezone(0))
             options['fq'] += ' AND last_modified:[' + \
                 utc.strftime('%Y-%m-%dT%H:%M:%SZ') + ' TO NOW]'
 

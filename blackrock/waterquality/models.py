@@ -1,8 +1,6 @@
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 
 
-@python_2_unicode_compatible
 class Site(models.Model):
     name = models.CharField(max_length=256)
 
@@ -10,7 +8,6 @@ class Site(models.Model):
         return self.name
 
 
-@python_2_unicode_compatible
 class Location(models.Model):
     name = models.CharField(max_length=256)
     site = models.ForeignKey(Site, on_delete=models.CASCADE)
@@ -19,7 +16,6 @@ class Location(models.Model):
         return self.name
 
 
-@python_2_unicode_compatible
 class Series(models.Model):
     name = models.CharField(max_length=256)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)

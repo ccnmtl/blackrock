@@ -1,14 +1,12 @@
 # coding:utf-8 (this comment allows us to use the degree symbol)
 from __future__ import unicode_literals
 
-from django.utils.encoding import python_2_unicode_compatible
 from django.db import models, connection
 from time import time
 
 Rg = 8.314
 
 
-@python_2_unicode_compatible
 class StationMapping(models.Model):
     abbreviation = models.CharField(max_length=5)
     station = models.CharField(max_length=50, unique=True)
@@ -17,7 +15,6 @@ class StationMapping(models.Model):
         return "%s (%s)" % (self.station, self.abbreviation)
 
 
-@python_2_unicode_compatible
 class Temperature(models.Model):
     def __str__(self):
         if self.reading is None:
