@@ -159,15 +159,19 @@ def display_name(obj):
 @register.filter('search_name')
 def search_name(obj):
     display_name = getattr(obj, "display_name", None)
+    name = getattr(obj, "name", None)
+
     if (display_name and
         isinstance(display_name, str) and
             len(obj.display_name) > 0):
         return obj.display_name
-    else:
-        if isinstance(obj.name, types.MethodType):
-            return obj.name()
+    elif name:
+        if isinstance(name, types.MethodType):
+            return name()
         else:
-            return obj.name
+            return name
+    else:
+        return str(obj)
 
 
 @register.filter('gallery')

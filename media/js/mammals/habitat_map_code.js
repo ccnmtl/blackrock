@@ -399,6 +399,32 @@ function addTrails (mapObj) {
     var buildings_kmllayer = new Portal.Layer("roads", STATIC_URL + "kml/portal/buildings.kml", true);
     self.layers["buildings"] = buildings_kmllayer;
     buildings_kmllayer.instance.setMap(self.mapInstance);
-    
 }
 
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+function ajaxSetup() {
+    // setup some ajax progress indicator
+    $('html').ajaxStart(function() {
+        $(this).addClass('busy');
+    });
+    $('html').ajaxStop(function() {
+        $(this).removeClass('busy');
+    });
+
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type)) {
+                const token = $('meta[name="csrf-token"]')
+                    .attr('content');
+                xhr.setRequestHeader('X-CSRFToken', token);
+            }
+        }
+    });
+}
+
+ajaxSetup();

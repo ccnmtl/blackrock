@@ -14,6 +14,7 @@
         @import "{% static 'css/mammals/style.css' %}";
         @import "{% static 'js/jquery-ui-1.8.11.custom/css/smoothness/jquery-ui-1.8.11.custom.css' %}";
     </style>
+    <meta name="csrf-token" content="{{csrf_token}}">
 {% endblock %}
 
 {%block mammals_nav_search%}class="active"{%endblock%}

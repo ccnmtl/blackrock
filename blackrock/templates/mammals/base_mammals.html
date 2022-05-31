@@ -1,16 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block css %}
 <style type='text/css'>
   @import "{% static 'css/mammals/style.css' %}";
-</style> 
+</style>
 <link rel="stylesheet" media="print" href="{% static 'css/mammals/print.css' %}"/>
 {% endblock %}
-
-
-
 
 {% block js %}
   {{block.super}}

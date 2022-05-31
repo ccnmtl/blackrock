@@ -42,27 +42,9 @@ def get_int(request, name, default):
         return default
 
 
-class rendered_with(object):
-
-    def __init__(self, template_name):
-        self.template_name = template_name
-
-    def __call__(self, func):
-        def rendered_func(request, *args, **kwargs):
-            items = func(request, *args, **kwargs)
-            if isinstance(items, dict):
-                return render(
-                    request,
-                    self.template_name, items, {})
-            else:
-                return items
-        return rendered_func
-
-
 @csrf_protect
-@rendered_with('mammals/login.html')
 def mammals_login(request):
-    return {}
+    return render(request, 'mammals/login.html', {})
 
 
 @csrf_protect
@@ -85,7 +67,6 @@ def process_login(request):
 
 
 @csrf_protect
-@rendered_with('mammals/sandbox_grid.html')
 def sandbox_grid(request):
     """"YES SANDBOX."""""
     default_lat = 41.400
@@ -135,7 +116,7 @@ def sandbox_grid(request):
                 height_in_blocks - i - 1) * width_in_blocks + j + 1
             grid_json.append(block)
 
-    return {
+    ctx = {
         'grid_json': json.dumps(grid_json),
         'grid_center_y': grid_center_y,
         'grid_center_x': grid_center_x,
@@ -144,10 +125,10 @@ def sandbox_grid(request):
         'block_size_in_m': block_size_in_m,
         'sandbox': True
     }
+    return render(request, 'mammals/sandbox_grid.html', ctx)
 
 
 @csrf_protect
-@rendered_with('mammals/grid_block.html')
 def sandbox_grid_block(request):
     """YES SANDBOX"""
     default_lat = 41.400
@@ -198,7 +179,7 @@ def sandbox_grid_block(request):
         0] - (block_height / 2), block_center[1] - (block_width / 2)
     block = set_up_block(bottom_left, block_height, block_width)
 
-    return {
+    ctx = {
         # degrees
         # meters
         # degrees
@@ -218,12 +199,12 @@ def sandbox_grid_block(request):
         'transects': transects,
         'show_save_button': False
     }
+    return render(request, 'mammals/grid_block.html', ctx)
 
 
 # RESEARCH_GRID:
 
 @csrf_protect
-@rendered_with('mammals/grid.html')
 def grid(request):
     """"NOT SANDBOX."""""
     grid = [gs.info_for_display()
@@ -241,7 +222,7 @@ def grid(request):
         selected_block = GridSquare.objects.get(
             id=selected_block_database_id)
 
-    return {
+    ctx = {
         # TODO: remove
         'grid_json': json.dumps(grid),
         'grid_center_y': 41.400,
@@ -252,10 +233,10 @@ def grid(request):
         'selected_block': selected_block,
         'sandbox': False
     }
+    return render(request, 'mammals/grid.html', ctx)
 
 
 @csrf_protect
-@rendered_with('mammals/grid_block.html')
 def grid_block(request):
     """"NOT SANDBOX."""""
     default_lat = 41.400
@@ -302,7 +283,7 @@ def grid_block(request):
     can_enter_data = \
         whether_this_user_can_see_mammals_module_data_entry(request.user)
 
-    return {
+    ctx = {
         # TODO: fix this -- incomplete refactor. These two variables refer to
         # exactly the same thing: the database ID of the square we selected.
         # END TODO
@@ -330,21 +311,19 @@ def grid_block(request):
         'height_in_blocks': height_in_blocks,
         'width_in_blocks': width_in_blocks
     }
+    return render(request, 'mammals/grid_block.html', ctx)
 
 
-@rendered_with('mammals/index.html')
 def index(request):
-    return {}
+    return render(request, 'mammals/index.html', {})
 
 
-@rendered_with('mammals/teaching_resources.html')
 def teaching_resources(request):
-    return {}
+    return render(request, 'mammals/teaching_resources.html', {})
 
 
-@rendered_with('mammals/help.html')
 def help(request):
-    return {}
+    return render(request, 'mammals/help.html', {})
 
 
 def pick_transects(center, side_of_square, number_of_transects,
@@ -447,19 +426,18 @@ def grid_square_csv(request):
 
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry,
                   login_url='/mammals/login/')
-@rendered_with('mammals/sightings.html')
 def sightings(request):
     if request.method != "GET":
         return HttpResponse('GET requests only, please.')
     pass
 
     sightings = Sighting.objects.all()
-    return {'sightings': sightings}
+    ctx = {'sightings': sightings}
+    return render(request, 'mammals/sightings.html', ctx)
 
 
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry,
                   login_url='/mammals/login/')
-@rendered_with('mammals/sighting.html')
 def create_sighting(request):
     if request.method != "GET":
         return HttpResponse('GET requests only, please.')
@@ -470,7 +448,6 @@ def create_sighting(request):
 
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry,
                   login_url='/mammals/login/')
-@rendered_with('mammals/sighting.html')
 @csrf_protect
 def sighting(request, sighting_id):
     if request.method != "GET":
@@ -478,12 +455,13 @@ def sighting(request, sighting_id):
 
     the_sighting = Sighting.objects.get(pk=sighting_id)
 
-    return {
+    ctx = {
         'habitats': Habitat.objects.all(),
         'species': Species.objects.all(),
         'observation_types': ObservationType.objects.all(),
         'sighting': the_sighting,
     }
+    return render(request, 'mammals/sighting.html', ctx)
 
 
 def update_sighting_date(the_sighting, rp):
@@ -588,7 +566,6 @@ def new_expedition_ajax(request):
 
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry,
                   login_url='/mammals/login/')
-@rendered_with('mammals/expedition.html')
 def expedition(request, expedition_id):
     exp = Expedition.objects.get(id=expedition_id)
     grades = GradeLevel.objects.all()
@@ -599,7 +576,7 @@ def expedition(request, expedition_id):
     overnight_precipitations = ExpeditionOvernightPrecipitation.objects.all()
     precipitation_types = ExpeditionOvernightPrecipitationType.objects.all()
 
-    return {
+    ctx = {
         'expedition': exp,
         'grades': grades,
         'schools': School.objects.all(),
@@ -611,9 +588,9 @@ def expedition(request, expedition_id):
         'illuminations': Illumination.objects.all(),
         'hours': hours, 'minutes': minutes
     }
+    return render(request, 'mammals/expedition.html', ctx)
 
 
-@rendered_with('mammals/expedition.html')
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry,
                   login_url='/mammals/login/')
 def edit_expedition(request, expedition_id):
@@ -704,12 +681,11 @@ def process_edit_expedition(request, expedition_id):
 
 
 @csrf_protect
-@rendered_with('mammals/expedition_animals.html')
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry,
                   login_url='/mammals/login/')
 def expedition_animals(request, expedition_id):
     exp = Expedition.objects.get(id=expedition_id)
-    return {
+    ctx = {
         'expedition': exp,
         'sexes': AnimalSex.objects.all(),
         'species': Species.objects.all(),
@@ -717,9 +693,9 @@ def expedition_animals(request, expedition_id):
         'scales': AnimalScaleUsed.objects.all(),
         'schools': School.objects.all()
     }
+    return render(request, 'mammals/expedition_animals.html', ctx)
 
 
-@rendered_with('mammals/all_expeditions.html')
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry,
                   login_url='/mammals/login/')
 def all_expeditions(request):
@@ -739,15 +715,15 @@ def all_expeditions(request):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         expeditions = paginator.page(paginator.num_pages)
-    return {
+    ctx = {
         'expeditions': expeditions,
     }
+    return render(request, 'mammals/all_expeditions.html', ctx)
 
 
 @csrf_protect
 @user_passes_test(whether_this_user_can_see_mammals_module_data_entry,
                   login_url='/mammals/login/')
-@rendered_with('mammals/team_form.html')
 def team_form(request, expedition_id, team_letter):
     baits = Bait.objects.all()
     species = Species.objects.all()
@@ -757,7 +733,7 @@ def team_form(request, expedition_id, team_letter):
     exp = Expedition.objects.get(id=expedition_id)
     team_points = exp.team_points(team_letter)
     student_names = team_points[0].student_names
-    return {
+    ctx = {
         'expedition': exp,
         'baits': baits,
         'habitats': habitats,
@@ -768,6 +744,7 @@ def team_form(request, expedition_id, team_letter):
         'team_points': team_points,
         'student_names': student_names
     }
+    return render(request, 'mammals/team_form.html', ctx)
 
 
 def deal_with_animals(point, rp):
@@ -1021,7 +998,6 @@ def delete_point_animal_if_needed(point, rp):
 
 
 @csrf_protect
-@rendered_with('mammals/grid_square_print.html')
 def grid_square_print(request):
 
     transects_json = request.POST.get('transects_json')
@@ -1043,4 +1019,4 @@ def grid_square_print(request):
             id=selected_block_database_id)
         result['selected_block'] = selected_block
 
-    return result
+    return render(request, 'mammals/grid_square_print.html', result)
