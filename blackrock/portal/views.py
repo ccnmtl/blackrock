@@ -17,8 +17,11 @@ from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import DateField
 from django.http import HttpResponse
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls.base import reverse
 from django.views.generic.base import TemplateView
+import django_databrowse
 from pagetree.models import Hierarchy
 from pysolr import Solr, SolrError
 
@@ -86,6 +89,15 @@ class PortalPageView(TemplateView):
                 ctx['error'] = msg % (asset_type)
 
         return ctx
+
+
+def portal_databrowse(request, url):
+    url = url.rstrip('/')  # Trim trailing slash, if it exists.
+
+    if 'objects' in url:
+        return django_databrowse.site.root(request, url)
+    else:
+        return HttpResponseRedirect(reverse('portal-search'))
 
 
 @rendered_with('portal/nearby.html')
