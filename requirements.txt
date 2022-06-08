@@ -11,7 +11,7 @@ Markdown==3.3.6 # pyup: < 3
 pyenchant==3.2.2
 psycopg2<2.9
 
-Pillow==9.1.0
+Pillow==9.1.1
 
 chardet==4.0.0
 idna==3.3
@@ -29,7 +29,7 @@ ndg-httpsclient==0.5.1
 requirements/src/djangohelpers-0.22-py2.py3-none-any.whl
 logilab-common==1.9.2
 astroid==2.11.0
-pylint==2.13.3
+pylint==2.14.0
 pep8==1.7.1
 mccabe==0.7.0
 pycodestyle==2.8.0
@@ -92,14 +92,14 @@ gunicorn==20.1.0
 s3transfer==0.5.1
 jmespath==1.0.0
 
-botocore>=1.15.0,<1.27.0
+botocore>=1.15.0,<1.28.0
 boto3>=1.12.0,<1.25.0
 
 urllib3==1.26.8
 django-storages==1.12.3
 django-cacheds3storage==0.2.2
 django-impersonate==1.8.1
-django-waffle==2.4.1
+django-waffle==2.5.0
 django-ga-context==0.1.0
 django-smtp-ssl==1.0
 django-extensions==3.1.5
