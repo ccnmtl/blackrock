@@ -11,7 +11,7 @@ Markdown==3.3.6 # pyup: < 3
 pyenchant==3.2.2
 psycopg2<2.9
 
-Pillow==9.1.1
+Pillow==9.2.0
 
 chardet==5.0.0
 idna==3.3
