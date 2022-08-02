@@ -60,7 +60,7 @@ def leaf(request):
 
     myspecies = []
     for s in specieslist:
-        if(s != ""):
+        if (s != ""):
             species = {}
             species['name'] = request.POST[s + '-name']
             species['basetemp'] = request.POST[s + '-base-temp']
@@ -125,7 +125,7 @@ def forest(request):
 def get_myspecies(specieslist, request):
     myspecies = []
     for s in specieslist:
-        if(s != ""):
+        if (s != ""):
             species = {}
             species['basetemp'] = request.POST[s + '-base-temp']
             species['name'] = request.POST[s + '-name']
