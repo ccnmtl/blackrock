@@ -426,7 +426,7 @@ def sample_plot(sample, point, p_index):
         # shortcut -- if there is only 1 species, use the plot results
         species_name = Species.get(species, species)
 
-        if(tree_count == results['count']):
+        if (tree_count == results['count']):
             species_totals[i] = {
                 'name': species_name, 'count': tree_count,
                 'dbh': results['dbh'],
