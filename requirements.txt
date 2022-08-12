@@ -79,7 +79,7 @@ django-treebeard==4.5.1
 django-haystack==3.2.1
 
 django-bootstrap-form==3.4
-django-bootstrap3==21.1
+django-bootstrap3==22.1
 django-markwhat==1.6.2
 django-pagetree==1.4.3
 django-pageblocks==1.2.0 # pyup: <2.0 
