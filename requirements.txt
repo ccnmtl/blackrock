@@ -48,7 +48,7 @@ contextlib2==21.6.0
 argparse==1.4.0
 cffi==1.15.0
 colorama==0.4.4
-cryptography==37.0.2
+cryptography==38.0.0
 idna==3.3
 ipaddress==1.0.23
 lazy-object-proxy==1.7.1
