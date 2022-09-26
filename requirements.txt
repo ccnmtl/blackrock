@@ -24,7 +24,7 @@ requirements/src/gdata-2.0.14.tar.gz
 django-tinymce==3.5.0  # pyup: <2.7.0
 coverage==6.4
 pyasn1==0.4.8
-pyOpenSSL==22.0.0
+pyOpenSSL==22.1.0
 ndg-httpsclient==0.5.1
 requirements/src/djangohelpers-0.22-py2.py3-none-any.whl
 logilab-common==1.9.2
