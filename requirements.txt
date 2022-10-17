@@ -3,7 +3,7 @@ pytz==2022.4
 resolver==0.2.1
 selector==0.10.1
 Paste==3.5.0
-PasteDeploy==2.1.1
+PasteDeploy==3.0
 PasteScript==3.2.1
 httplib2==0.20.4
 feedparser==6.0.8
