@@ -1,4 +1,5 @@
 from django.contrib.gis.db import models
+from django.contrib.gis.geos import Point
 # from django.db.models import Avg # not yet
 from django.db import connection
 from django.db.models import Manager
@@ -28,7 +29,7 @@ class Plot(models.Model):
         max_digits=10, decimal_places=2, null=True)
 
     # GIS layer
-    NW_corner = models.PointField()
+    NW_corner = models.PointField(default=Point())
     objects = Manager()
 
     def precalc(self):
@@ -98,5 +99,5 @@ class Tree(models.Model):
     plot = models.ForeignKey(Plot, on_delete=models.CASCADE)
 
     # GIS layer
-    location = models.PointField()
+    location = models.PointField(default=Point())
     objects = Manager()
