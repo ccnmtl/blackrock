@@ -5,7 +5,7 @@ selector==0.10.1
 Paste==3.5.0
 PasteDeploy==3.0
 PasteScript==3.2.1
-httplib2==0.20.4
+httplib2==0.21.0
 feedparser==6.0.8
 Markdown==3.4.1 # pyup: < 3
 pyenchant==3.2.2
