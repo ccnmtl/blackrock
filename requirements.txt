@@ -13,7 +13,7 @@ psycopg2==2.9.3
 
 Pillow==9.3.0
 
-chardet==5.0.0
+chardet==5.1.0
 idna==3.4
 urllib3==1.26.8  # sentry-sdk
 certifi==2022.9.14  # sentry-sdk
