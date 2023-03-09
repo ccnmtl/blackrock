@@ -29,7 +29,7 @@ ndg-httpsclient==0.5.1
 requirements/src/djangohelpers-0.22-py2.py3-none-any.whl
 logilab-common==1.9.2
 astroid==2.15.0
-pylint==2.16.0
+pylint==2.17.0
 pep8==1.7.1
 mccabe==0.7.0
 pycodestyle==2.10.0
