@@ -57,7 +57,7 @@ pycparser==2.21
 wrapt==1.15.0
 rcssmin==1.1.0
 rjsmin==1.2.0
-sqlparse==0.4.2
+sqlparse==0.4.4
 
 requirements/src/sorl-3.2ctl-py2.py3-none-any.whl
 requirements/src/tagging-0.3-pre.tar.gz
