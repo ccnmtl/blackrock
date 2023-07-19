@@ -84,7 +84,7 @@ django-markwhat==1.6.2
 django-pagetree==1.4.3
 django-pageblocks==1.2.0 # pyup: <2.0 
 requirements/src/django_databrowse-2022.04.08ctl-py2.py3-none-any.whl 
-factory_boy==3.2.1
+factory_boy==3.3.0
 
 django-debug-toolbar==4.1.0 # pyup: <2.0
 gunicorn==21.1.0
