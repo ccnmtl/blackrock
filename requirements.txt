@@ -87,7 +87,7 @@ requirements/src/django_databrowse-2022.04.08ctl-py2.py3-none-any.whl
 factory_boy==3.3.0
 
 django-debug-toolbar==4.1.0 # pyup: <2.0
-gunicorn==21.1.0
+gunicorn==21.2.0
 
 s3transfer==0.6.0
 jmespath==1.0.0
