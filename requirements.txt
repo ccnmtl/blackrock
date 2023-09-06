@@ -115,7 +115,7 @@ entrypoints==0.4
 distro==1.8.0
 
 python-cas==1.6.0
-django-cas-ng==4.3.0
+django-cas-ng==5.0.0
 
 lxml==4.9.1
 asgiref==3.7.1
