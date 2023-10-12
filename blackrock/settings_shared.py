@@ -7,25 +7,8 @@ project = 'blackrock'
 base = os.path.dirname(__file__)
 locals().update(common(project=project, base=base))
 
-if 'ubuntu' in distro.linux_distribution()[0].lower():
-    if distro.linux_distribution()[1] == '16.04':
-        # 15.04 and later need this set, but it breaks
-        # on trusty.
-        SPATIALITE_LIBRARY_PATH = 'mod_spatialite'
-    elif distro.linux_distribution()[1] == '18.04':
-        # On Debian testing/buster, I had to do the following:
-        # * Install the sqlite3 and libsqlite3-mod-spatialite packages.
-        # * Add the following to writlarge/local_settings.py:
-        # SPATIALITE_LIBRARY_PATH ˘˘=
-        # django docs might be slightly out of date here, or just not
-        # '/usr/lib/x86_64-linux-gnu/mod_spatialite.so' I think the
-        # cover all the cases.
-        #
-        # I've found that Ubuntu 18.04 also works with this full path
-        # to the library file, but not 'mod_spatialite'. I'll raise
-        # this issue with Django.
-        SPATIALITE_LIBRARY_PATH = '/usr/lib/x86_64-linux-gnu/mod_spatialite.so'
-elif 'debian' in distro.linux_distribution()[0].lower():
+if 'ubuntu' in distro.linux_distribution()[0].lower() \
+   or 'debian' in distro.linux_distribution()[0].lower():
     SPATIALITE_LIBRARY_PATH = '/usr/lib/x86_64-linux-gnu/mod_spatialite.so'
 
 
