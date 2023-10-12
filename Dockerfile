@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
 		libxml2-dev \
 		libxslt1-dev \
 		python-dev \
-		python-pysqlite2 \
+		sqlite3 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -17,10 +17,10 @@ RUN cd /node && npm install && touch /node/node_modules/sentinal
 
 # build virtualenv and run tests
 ADD wheelhouse /wheelhouse
-RUN /ve/bin/pip install --no-index -f /wheelhouse -r /wheelhouse/requirements.txt \
-    && rm -rf /wheelhouse && touch /ve/sentinal
 WORKDIR /app
 COPY . /app/
+RUN /ve/bin/pip install --no-index -f /wheelhouse -r /wheelhouse/requirements.txt \
+    && rm -rf /wheelhouse && touch /ve/sentinal
 RUN VE=/ve/ MANAGE="/ve/bin/python manage.py" NODE_MODULES=/node/node_modules/ make
 
 EXPOSE 8000
