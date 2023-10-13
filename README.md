@@ -8,20 +8,16 @@ The Virtual Forest Initiative supports and enhances research, education, and com
 
 REQUIREMENTS
 ------------
-Python 3.6
-Postgres  
-SOLR 5.x
+* Python 3.11
+* PostgreSQL
+* Apache Solr
 
 ## SpatiaLite requirement ##
 To run the tests, you need SpatiaLite installed for SQLite. Here's the
 packages you need, depending on your OS:
 
-Ubuntu 16.04:
+Debian/Ubuntu:
 - `libsqlite3-mod-spatialite`
-
-Ubuntu 14.04:
-- `libspatialite-dev`
-- `python-spatialite2`
 
 Homebrew (Mac OS X):
 [Instructions here](https://docs.djangoproject.com/en/dev/ref/contrib/gis/install/spatialite/#homebrew)
@@ -40,17 +36,3 @@ blackrock=# drop table geometry_columns;
 blackrock=# create extension postgis;
 ```
 Then you should be able to run the migrations. I'm guessing this happens because of a version mis-match between the postgres/postgis used to export the database, and the versions in the local environment. This happened to me on Ubuntu 16.04.
-
-DOCKER-COMPOSE
---------------
-
-If you have docker-compose installed, you can do:
-
-    $ make build
-    $ docker-compose up                # C-c it after postgis
-                                       # initializes itself (there will be a bunch of errors from the web
-                                       # container in the meantime)
-    $ docker-compose run web migrate   # to set up database schema
-    $ docker-compose up
-
-trivial change to test requires.io
