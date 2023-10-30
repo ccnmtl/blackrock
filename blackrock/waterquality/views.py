@@ -3,6 +3,7 @@ from .models import LimitedSeriesGroup
 from django.views.generic.base import View
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+from django.utils.timezone import is_naive, make_aware
 from django.shortcuts import get_object_or_404, render
 from datetime import datetime, timedelta
 import math
@@ -92,6 +93,12 @@ class GraphingToolView(View):
         if err:
             data['error'] = err
             return render(request, self.template_name, data)
+
+        if is_naive(start):
+            start = make_aware(start)
+
+        if is_naive(end):
+            end = make_aware(end)
 
         data["start"] = start
         data["end"] = end

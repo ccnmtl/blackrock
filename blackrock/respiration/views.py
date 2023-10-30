@@ -10,6 +10,7 @@ from blackrock.blackrock_main.solr import SolrUtilities
 from blackrock.respiration.models import Temperature, StationMapping
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
+from django.utils.timezone import make_aware
 from django.core.cache import cache
 from django.db import connection
 from django.http import HttpResponse, HttpResponseRedirect, \
@@ -287,6 +288,7 @@ def load_table(table, station_idx, year_idx, day_idx, hour_idx, temp_idx,
         julian_days = row[day_idx]
         hour = row[hour_idx]
         temp = row[temp_idx]
+        print(station, year, julian_days, hour, temp)
 
         # adjust hour from "military" to 0-23, and 2400 becomes 0 of
         # the next day
@@ -296,9 +298,18 @@ def load_table(table, station_idx, year_idx, day_idx, hour_idx, temp_idx,
         # julian_days = int(julian_days) + 1
 
         delta = datetime.timedelta(days=int(julian_days) - 1)
-        dt = datetime.datetime(
-            year=int(year), month=1, day=1, hour=normalized_hour)
+
+        # Make this timezone-aware, based on the current timezone (EST).
+        dt = datetime.datetime(year=int(year), month=1, day=1, hour=normalized_hour)
+
+        estdelta = datetime.timedelta(hours=5)
+        dt = dt + estdelta
+
         dt = dt + delta
+        print(dt)
+        dt = make_aware(dt)
+        print(dt)
+
 
         (next_expected_timestamp,
          last_valid_temp,
@@ -395,12 +406,9 @@ def ensure_valid_temp(temp, last_valid_temp, station, prev_station):
 def _utc_to_est(date_string):
     try:
         t = time.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
-        utc = datetime.datetime(
-            t[0], t[1], t[2], t[3], t[4], t[5], tzinfo=datetime.timezone(0))
-        # UTC -5 hours. Solr dates are always EST
-        # and do not take dst into account
-        est = utc.astimezone(datetime.timezone(-5))
-        return est
+        aware = make_aware(datetime.datetime(
+            t[0], t[1], t[2], t[3], t[4], t[5], tzinfo=datetime.timezone(0)))
+        return aware
     except ValueError:
         return None
 

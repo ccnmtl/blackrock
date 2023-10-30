@@ -1,7 +1,7 @@
 # flake8: noqa
 from django.conf import settings
 from blackrock.settings_shared import *
-from ccnmtlsettings.production import common
+from ctlsettings.production import common
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 

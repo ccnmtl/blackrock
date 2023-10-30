@@ -54,10 +54,4 @@ if AWS_S3_CUSTOM_DOMAIN:
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
     S3_URL = 'https://%s/' % AWS_S3_CUSTOM_DOMAIN
     # static data, e.g. css, js, etc.
-    STATICFILES_STORAGE = 'cacheds3storage.CompressorS3BotoStorage'
     STATIC_URL = 'https://%s/media/' % AWS_S3_CUSTOM_DOMAIN
-    COMPRESS_ENABLED = True
-    COMPRESS_OFFLINE = True
-    COMPRESS_ROOT = STATIC_ROOT
-    COMPRESS_URL = STATIC_URL
-    COMPRESS_STORAGE = 'cacheds3storage.CompressorS3BotoStorage'

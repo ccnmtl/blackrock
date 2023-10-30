@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.test import TestCase
+from django.utils.timezone import make_aware
 from blackrock.waterquality.models import Site, Location, Series, Row
 from blackrock.waterquality.models import LimitedSeries, LimitedSeriesGroup
 from blackrock.waterquality.models import LimitedSeriesPair
@@ -163,8 +164,8 @@ class LimitedSeriesTest(TestCase):
             Row.objects.create(series=s, timestamp=datetime.now(), value=5.0)]
         ls = LimitedSeries(s)
         self.assertEqual(ls.max_points, 5)
-        self.assertEqual(ls.start, rows[0].timestamp)
-        self.assertEqual(ls.end, rows[-1].timestamp)
+        self.assertEqual(ls.start, make_aware(rows[0].timestamp))
+        self.assertEqual(ls.end, make_aware(rows[-1].timestamp))
 
     def test_create(self):
         s = series_factory()
