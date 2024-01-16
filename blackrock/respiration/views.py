@@ -300,17 +300,19 @@ def load_table(table, station_idx, year_idx, day_idx, hour_idx, temp_idx,
         delta = datetime.timedelta(days=int(julian_days) - 1)
 
         # Make this timezone-aware, based on the current timezone (EST).
-        dt = datetime.datetime(year=int(year), month=1, day=1, hour=normalized_hour)
+        dt = datetime.datetime(
+            year=int(year),
+            month=1,
+            day=1,
+            hour=normalized_hour
+        )
 
         estdelta = datetime.timedelta(hours=5)
         dt = dt + estdelta
-
         dt = dt + delta
         print(dt)
         dt = make_aware(dt)
         print(dt)
-
-
         (next_expected_timestamp,
          last_valid_temp,
          prev_station,
