@@ -12,6 +12,7 @@ locals().update(
         STATIC_ROOT=STATIC_ROOT,
         INSTALLED_APPS=INSTALLED_APPS,
         s3static=True,
+        s3prefix='ccnmtl'
     ))
 
 DATABASES = {
