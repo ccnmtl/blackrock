@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.test import TestCase
 from django.utils.encoding import smart_text
+from django.utils.timezone import make_aware
 from blackrock.respiration.models import Temperature, StationMapping
 import datetime
 
@@ -55,7 +56,9 @@ class ModelTestCases(TestCase):
             2008, 1, 1), datetime.datetime(2008, 12, 31))
         qs = Temperature.objects.filter(station='Open Lowland')
         self.assertEqual(qs.count(), 1)
-        self.assertEqual(qs[0].date, datetime.datetime(1997, 1, 1, 1, 00))
+        self.assertEqual(
+            qs[0].date,
+            make_aware(datetime.datetime(1997, 1, 1, 1, 00)))
         self.assertEqual(
             Temperature.objects.filter(station='Ridgetop').count(), 1)
         self.assertEqual(

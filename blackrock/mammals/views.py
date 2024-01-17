@@ -1,5 +1,6 @@
 import csv
 from datetime import datetime
+from django.utils import timezone
 import json
 from re import match
 import string
@@ -556,9 +557,9 @@ def new_expedition_ajax(request):
         the_new_expedition = Expedition.create_from_obj(obj, request.user)
         the_new_expedition.grid_square = GridSquare.objects.get(
             id=grid_square_id)
-        the_new_expedition.start_date_of_expedition = datetime.now()
+        the_new_expedition.start_date_of_expedition = timezone.now()
         # TODO add timedelta (1 day) to the end.
-        the_new_expedition.end_date_of_expedition = datetime.now()
+        the_new_expedition.end_date_of_expedition = timezone.now()
         the_new_expedition.save()
     msg = '%d' % the_new_expedition.id
     return HttpResponse(msg)

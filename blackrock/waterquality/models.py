@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class Site(models.Model):
@@ -257,7 +258,7 @@ class LimitedSeriesPair(object):
 
 class Row(models.Model):
     series = models.ForeignKey(Series, on_delete=models.CASCADE)
-    timestamp = models.DateTimeField()
+    timestamp = models.DateTimeField(default=timezone.now)
     value = models.DecimalField(null=True, max_digits=19, decimal_places=10)
 
     class Meta:

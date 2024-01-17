@@ -1,5 +1,4 @@
 {% extends "pagetree/base_pagetree.html" %}
-{% load compress %}
 {% load bootstrap %}
 {% load render %}
 {% block title %}{{section.label}} (edit){% endblock %}
@@ -18,7 +17,6 @@
 
 
 
-{% compress css %}
 <style type="text/css">
     .draghandle {float: left;}
     #children-order-list {list-style-type: none; margin: 0; padding: 0;}
@@ -35,10 +33,7 @@
     .edit-container h1 {
         margin-bottom: 30px;
     }
-    </style>
-{% endcompress %}
-
-
+</style>
 
 <script type="text/javascript">
 var saveOrderOfChildren = function() {

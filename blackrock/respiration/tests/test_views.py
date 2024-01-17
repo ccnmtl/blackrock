@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
+from django.utils.timezone import make_aware
 from blackrock.respiration.models import Temperature, StationMapping
 import datetime
 from io import open
@@ -75,71 +76,111 @@ class ImportTestCases(TestCase):
                 24)
 
             # spotcheck
+            my_date = datetime.datetime(1996, 12, 31, 0, 0)
             qs = Temperature.objects.filter(
                 station='Test Station',
-                date=datetime.datetime(1996, 12, 31, 00, 00))
+                date__year=my_date.year,
+                date__month=my_date.month,
+                date__day=my_date.day,
+                date__hour=my_date.hour,
+                date__minute=my_date.minute)
             self.assertEqual(qs.count(), 1)
             self.assertEqual(qs[0].reading, -0.72)
 
             # new station with invalid temp, after valid temps, should
             # register as 0 not, the other station's old temp
+            my_date = make_aware(datetime.datetime(1997, 1, 1, 0, 0))
             qs = Temperature.objects.filter(
                 station='Another Station',
-                date=datetime.datetime(1997, 1, 1, 00, 00))
+                date__year=my_date.year,
+                date__month=my_date.month,
+                date__day=my_date.day,
+                date__hour=my_date.hour,
+                date__minute=my_date.minute)
             self.assertEqual(qs.count(), 1)
             self.assertEqual(qs[0].reading, 0)
 
             # Check duplicate handling
+            my_date = make_aware(datetime.datetime(1997, 1, 1, 23, 0))
             qs = Temperature.objects.filter(
                 station='Test Station',
-                date=datetime.datetime(1997, 1, 1, 23, 00))
+                date__year=my_date.year,
+                date__month=my_date.month,
+                date__day=my_date.day,
+                date__hour=my_date.hour,
+                date__minute=my_date.minute)
             self.assertEqual(qs.count(), 1)
             self.assertEqual(qs[0].reading, -0.16)
 
+            my_date = make_aware(datetime.datetime(1997, 1, 1, 22, 0))
             qs = Temperature.objects.filter(
                 station='Test Station',
-                date=datetime.datetime(1997, 1, 1, 22, 00))
+                date__year=my_date.year,
+                date__month=my_date.month,
+                date__day=my_date.day,
+                date__hour=my_date.hour,
+                date__minute=my_date.minute)
             self.assertEqual(qs.count(), 1)
             self.assertEqual(qs[0].reading, -8.0)
 
             # Substituting last valid temp when temp is invalid
+            my_date = make_aware(datetime.datetime(1996, 12, 31, 23, 0))
             qs = Temperature.objects.filter(
                 station='Test Station',
-                date=datetime.datetime(1996, 12, 31, 23, 00))
+                date__year=my_date.year,
+                date__month=my_date.month,
+                date__day=my_date.day,
+                date__hour=my_date.hour,
+                date__minute=my_date.minute)
             self.assertEqual(qs.count(), 1)
             self.assertEqual(qs[0].reading, -2.16)
 
+            my_date = make_aware(datetime.datetime(1997, 1, 1, 0, 0))
             qs = Temperature.objects.filter(
                 station='Test Station',
-                date=datetime.datetime(1997, 1, 1, 00, 00))
+                date__year=my_date.year,
+                date__month=my_date.month,
+                date__day=my_date.day,
+                date__hour=my_date.hour,
+                date__minute=my_date.minute)
             self.assertEqual(qs.count(), 1)
             self.assertEqual(qs[0].reading, -2.16)
 
+            my_date = make_aware(datetime.datetime(1997, 1, 1, 0o1, 0))
             qs = Temperature.objects.filter(
                 station='Test Station',
-                date=datetime.datetime(1997, 1, 1, 0o1, 00))
+                date__year=my_date.year,
+                date__month=my_date.month,
+                date__day=my_date.day,
+                date__hour=my_date.hour,
+                date__minute=my_date.minute)
             self.assertEqual(qs.count(), 1)
             self.assertEqual(qs[0].reading, -2.16)
 
+            my_date = make_aware(datetime.datetime(1997, 1, 1, 0o2, 0))
             qs = Temperature.objects.filter(
                 station='Test Station',
-                date=datetime.datetime(1997, 1, 1, 0o2, 00))
+                date__year=my_date.year,
+                date__month=my_date.month,
+                date__day=my_date.day,
+                date__hour=my_date.hour,
+                date__minute=my_date.minute)
             self.assertEqual(qs.count(), 1)
             self.assertEqual(qs[0].reading, -1.06)
 
     def test_solr_import_set(self):
         Temperature.objects.get_or_create(
             station='Ridgetop',
-            date=datetime.datetime(1997, 1, 1, 1, 00), reading=1.1)
+            date=datetime.datetime(1997, 1, 1, 1, 0), reading=1.1)
         Temperature.objects.get_or_create(
             station='Ridgetop',
-            date=datetime.datetime(2009, 1, 1, 1, 00), reading=1.1)
+            date=datetime.datetime(2009, 1, 1, 1, 0), reading=1.1)
         Temperature.objects.get_or_create(
             station='Ridgetop',
-            date=datetime.datetime(2009, 7, 1, 1, 00), reading=1.1)
+            date=datetime.datetime(2009, 7, 1, 1, 0), reading=1.1)
         Temperature.objects.get_or_create(
             station='Ridgetop',
-            date=datetime.datetime(2009, 8, 1, 1, 00), reading=1.1)
+            date=datetime.datetime(2009, 8, 1, 1, 0), reading=1.1)
 
         StationMapping.objects.get_or_create(
             station="Open Lowland", abbreviation="OL")

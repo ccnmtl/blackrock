@@ -3,7 +3,7 @@ from blackrock.mammals.models import GridPoint, Expedition, Habitat
 from blackrock.mammals.models import TrapLocation, ObservationType, School
 from blackrock.mammals.models import GridSquare
 from django.test import TestCase
-from datetime import datetime
+from django.utils import timezone
 
 
 class TestMoreMammalModels(TestCase):
@@ -51,8 +51,8 @@ class TestMoreMammalModels(TestCase):
                                weight_in_grams=15)
         self.animal_3.save()
         self.another_expedition = Expedition(
-            start_date_of_expedition=datetime.now(),
-            end_date_of_expedition=datetime.now())
+            start_date_of_expedition=timezone.now(),
+            end_date_of_expedition=timezone.now())
         self.another_expedition.save()
         self.habitat = Habitat(label="habitat label",
                                blurb="this is a habitat",
@@ -88,7 +88,7 @@ class TestMoreMammalModels(TestCase):
         self.trap_4.save()
         self.another_expedition.save()
         self.timed_expedition = Expedition(
-            end_date_of_expedition=datetime.now())
+            end_date_of_expedition=timezone.now())
         self.timed_expedition.save()
         self.time_trap = TrapLocation(expedition=self.timed_expedition,
                                       team_letter="team name here",
@@ -98,7 +98,7 @@ class TestMoreMammalModels(TestCase):
                                       animal=self.animal_1)
         self.time_trap.save()
         self.new_sighting = Sighting(species=self.species,
-                                     date=datetime.now())
+                                     date=timezone.now())
         self.new_sighting.save()
         self.grid_point_nw = GridPoint()
         self.grid_point_nw.save()
@@ -518,7 +518,7 @@ class TestMoreMammalModels(TestCase):
         self.assertIsNone(self.time_trap.school_if_any())
 
     def test_sightings_date_for_solr(self):
-        self.new_sighting = Sighting(species=self.species, date=datetime.now())
+        self.new_sighting = Sighting(species=self.species, date=timezone.now())
         self.new_sighting.save()
         self.assertIsNotNone(self.new_sighting.date_for_solr())
 

@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.test.client import Client
 from blackrock.waterquality.models import Site, Location, Series, Row
-from datetime import datetime
+from django.utils import timezone
 
 
 class TestBoringPages(TestCase):
@@ -28,11 +28,11 @@ class TestSeriesViews(TestCase):
         self.c = Client()
         self.s = series_factory()
         self.r1 = Row.objects.create(
-            series=self.s, timestamp=datetime.now(), value=1.0)
-        Row.objects.create(series=self.s, timestamp=datetime.now(), value=2.0)
-        Row.objects.create(series=self.s, timestamp=datetime.now(), value=3.0)
+            series=self.s, timestamp=timezone.now(), value=1.0)
+        Row.objects.create(series=self.s, timestamp=timezone.now(), value=2.0)
+        Row.objects.create(series=self.s, timestamp=timezone.now(), value=3.0)
         self.r2 = Row.objects.create(
-            series=self.s, timestamp=datetime.now(), value=4.0)
+            series=self.s, timestamp=timezone.now(), value=4.0)
 
     def test_browse(self):
         r = self.c.get("/waterquality/browse/")
@@ -63,18 +63,18 @@ class TestGraph(TestCase):
         self.c = Client()
         self.s = series_factory()
         self.r1 = Row.objects.create(
-            series=self.s, timestamp=datetime.now(), value=1.0)
-        Row.objects.create(series=self.s, timestamp=datetime.now(), value=2.0)
-        Row.objects.create(series=self.s, timestamp=datetime.now(), value=3.0)
+            series=self.s, timestamp=timezone.now(), value=1.0)
+        Row.objects.create(series=self.s, timestamp=timezone.now(), value=2.0)
+        Row.objects.create(series=self.s, timestamp=timezone.now(), value=3.0)
         self.r2 = Row.objects.create(
-            series=self.s, timestamp=datetime.now(), value=4.0)
+            series=self.s, timestamp=timezone.now(), value=4.0)
 
         self.s2 = series_factory()
-        Row.objects.create(series=self.s2, timestamp=datetime.now(), value=7.0)
-        Row.objects.create(series=self.s2, timestamp=datetime.now(), value=8.0)
-        Row.objects.create(series=self.s2, timestamp=datetime.now(), value=0.0)
+        Row.objects.create(series=self.s2, timestamp=timezone.now(), value=7.0)
+        Row.objects.create(series=self.s2, timestamp=timezone.now(), value=8.0)
+        Row.objects.create(series=self.s2, timestamp=timezone.now(), value=0.0)
         Row.objects.create(
-            series=self.s2, timestamp=datetime.now(), value=10.0)
+            series=self.s2, timestamp=timezone.now(), value=10.0)
 
     def test_simple(self):
         r = self.c.get("/waterquality/graph/")

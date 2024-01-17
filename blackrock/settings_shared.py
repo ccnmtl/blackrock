@@ -1,7 +1,7 @@
 import distro
 import os.path
 import sys
-from ccnmtlsettings.shared import common
+from ctlsettings.shared import common
 
 project = 'blackrock'
 base = os.path.dirname(__file__)
@@ -50,10 +50,7 @@ PROJECT_APPS = [
 
 MIDDLEWARE += [  # noqa
     'blackrock.portal.middleware.ValueErrorMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django_cas_ng.middleware.CASMiddleware',
 ]
 
 INSTALLED_APPS += [  # noqa
@@ -74,11 +71,8 @@ INSTALLED_APPS += [  # noqa
     'blackrock.mammals',
     'bootstrapform',
     'django_extensions',
-    'django_cas_ng',
     'django.contrib.humanize'
 ]
-
-INSTALLED_APPS.remove('djangowind') # noqa
 
 # Pageblocks/Pagetree settings
 PAGEBLOCKS = [
@@ -137,24 +131,6 @@ CDRS_SOLR_FILEURL = \
     'http://solrdev.cul.columbia.edu:8080/solr/blackrock/files/'
 
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
-
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'django_cas_ng.backends.CASBackend'
-]
-
-CAS_SERVER_URL = 'https://cas.columbia.edu/cas/'
-CAS_VERSION = '3'
-CAS_ADMIN_REDIRECT = False
-
-# Translate CUIT's CAS user attributes to the Django user model.
-# https://cuit.columbia.edu/content/cas-3-ticket-validation-response
-CAS_APPLY_ATTRIBUTES_TO_USER = True
-CAS_RENAME_ATTRIBUTES = {
-    'givenName': 'first_name',
-    'lastName': 'last_name',
-    'mail': 'email',
-}
 
 TEMPLATES = [
     {

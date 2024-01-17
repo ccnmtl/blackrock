@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
                 ('num_species', models.IntegerField(null=True)),
                 ('mean_dbh', models.DecimalField(null=True, max_digits=10, decimal_places=2)),
                 ('variance_dbh', models.DecimalField(null=True, max_digits=10, decimal_places=2)),
-                ('NW_corner', django.contrib.gis.db.models.fields.PointField(srid=4326)),
+                ('NW_corner', django.contrib.gis.db.models.fields.PointField(default=django.contrib.gis.geos.point.Point(), srid=4326)),
             ],
         ),
         migrations.CreateModel(
@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
                 ('id', models.IntegerField(serialize=False, primary_key=True)),
                 ('species', models.CharField(max_length=100)),
                 ('dbh', models.DecimalField(max_digits=10, decimal_places=2)),
-                ('location', django.contrib.gis.db.models.fields.PointField(srid=4326)),
+                ('location', django.contrib.gis.db.models.fields.PointField(default=django.contrib.gis.geos.point.Point(), srid=4326)),
                 ('plot', models.ForeignKey(to='optimization.Plot', on_delete=django.db.models.deletion.CASCADE)),
             ],
         ),
