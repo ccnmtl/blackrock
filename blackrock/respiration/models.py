@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models, connection
 from time import time
+from django.utils import timezone
 
 Rg = 8.314
 
@@ -25,7 +26,7 @@ class Temperature(models.Model):
             return msg % (self.date, self.reading, self.station)
 
     station = models.CharField(max_length=50, unique_for_date="date")
-    date = models.DateTimeField()
+    date = models.DateTimeField(default=timezone.now)
     reading = models.FloatField(null=True, blank=True)
     precalc = models.FloatField(null=True, blank=True)
 

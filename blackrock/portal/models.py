@@ -1,4 +1,5 @@
 from datetime import datetime
+from django.utils import timezone
 from django import forms
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
@@ -167,8 +168,8 @@ class DigitalObject(models.Model):
     facet = models.ManyToManyField(Facet)
     tag = models.ManyToManyField(Tag, blank=True)
 
-    created_date = models.DateTimeField('created_date', default=datetime.now)
-    modified_date = models.DateTimeField('modified_date', default=datetime.now)
+    created_date = models.DateTimeField('created_date', default=timezone.now)
+    modified_date = models.DateTimeField('modified_date', default=timezone.now)
 
     markup = models.TextField(null=True, blank=True)
 
@@ -197,8 +198,8 @@ class Location(models.Model):
     facet = models.ManyToManyField(Facet)
     tag = models.ManyToManyField(Tag, blank=True)
 
-    created_date = models.DateTimeField('created_date', default=datetime.now)
-    modified_date = models.DateTimeField('modified_date', default=datetime.now)
+    created_date = models.DateTimeField('created_date', default=timezone.now)
+    modified_date = models.DateTimeField('modified_date', default=timezone.now)
 
     def __str__(self):
         return "%s (%.6f,%.6f)" % (self.name, self.latitude, self.longitude)
@@ -231,8 +232,8 @@ class Station(models.Model):
     facet = models.ManyToManyField(Facet)
     tag = models.ManyToManyField(Tag, blank=True)
 
-    created_date = models.DateTimeField('created_date', default=datetime.now)
-    modified_date = models.DateTimeField('modified_date', default=datetime.now)
+    created_date = models.DateTimeField('created_date', default=timezone.now)
+    modified_date = models.DateTimeField('modified_date', default=timezone.now)
 
     def related_ex(self):
         extra = []
@@ -275,8 +276,8 @@ class Region(models.Model):
     facet = models.ManyToManyField(Facet)
     tag = models.ManyToManyField(Tag, blank=True)
 
-    created_date = models.DateTimeField('created_date', default=datetime.now)
-    modified_date = models.DateTimeField('modified_date', default=datetime.now)
+    created_date = models.DateTimeField('created_date', default=timezone.now)
+    modified_date = models.DateTimeField('modified_date', default=timezone.now)
 
     def research_projects(self):
         assets = []
@@ -326,8 +327,8 @@ class Person(models.Model):
     facet = models.ManyToManyField(Facet)
     tag = models.ManyToManyField(Tag, blank=True)
 
-    created_date = models.DateTimeField('created_date', default=datetime.now)
-    modified_date = models.DateTimeField('modified_date', default=datetime.now)
+    created_date = models.DateTimeField('created_date', default=timezone.now)
+    modified_date = models.DateTimeField('modified_date', default=timezone.now)
 
     def __str__(self):
         return "%s, %s" % (self.last_name, self.first_name)
@@ -366,8 +367,8 @@ class DataSet(models.Model):
     person = models.ManyToManyField(Person, blank=True)
     tag = models.ManyToManyField(Tag, blank=True)
 
-    created_date = models.DateTimeField('created_date', default=datetime.now)
-    modified_date = models.DateTimeField('modified_date', default=datetime.now)
+    created_date = models.DateTimeField('created_date', default=timezone.now)
+    modified_date = models.DateTimeField('modified_date', default=timezone.now)
 
     def __str__(self):
         return self.name
@@ -401,8 +402,8 @@ class Publication(models.Model):
     person = models.ManyToManyField(Person, blank=True)
     tag = models.ManyToManyField(Tag, blank=True)
 
-    created_date = models.DateTimeField('created_date', default=datetime.now)
-    modified_date = models.DateTimeField('modified_date', default=datetime.now)
+    created_date = models.DateTimeField('created_date', default=timezone.now)
+    modified_date = models.DateTimeField('modified_date', default=timezone.now)
 
     def __str__(self):
         if len(self.name) > 25:
@@ -436,8 +437,8 @@ class ResearchProject(models.Model):
     publication = models.ManyToManyField(Publication, blank=True)
     tag = models.ManyToManyField(Tag, blank=True)
 
-    created_date = models.DateTimeField('created_date', default=datetime.now)
-    modified_date = models.DateTimeField('modified_date', default=datetime.now)
+    created_date = models.DateTimeField('created_date', default=timezone.now)
+    modified_date = models.DateTimeField('modified_date', default=timezone.now)
 
     def __str__(self):
         if len(self.name) > MAX_DISPLAY_LENGTH:
@@ -476,8 +477,8 @@ class LearningActivity(models.Model):
     person = models.ManyToManyField(Person, blank=True)
     tag = models.ManyToManyField(Tag, blank=True)
 
-    created_date = models.DateTimeField('created_date', default=datetime.now)
-    modified_date = models.DateTimeField('modified_date', default=datetime.now)
+    created_date = models.DateTimeField('created_date', default=timezone.now)
+    modified_date = models.DateTimeField('modified_date', default=timezone.now)
 
     class Meta:
         verbose_name = "Learning Activity"
@@ -524,8 +525,8 @@ class ForestStory(models.Model):
         related_name="foreststory_related_station")
     tag = models.ManyToManyField(Tag, blank=True)
 
-    created_date = models.DateTimeField('created_date', default=datetime.now)
-    modified_date = models.DateTimeField('modified_date', default=datetime.now)
+    created_date = models.DateTimeField('created_date', default=timezone.now)
+    modified_date = models.DateTimeField('modified_date', default=timezone.now)
 
     class Meta:
         verbose_name = "Forest Story"

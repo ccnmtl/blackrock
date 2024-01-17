@@ -313,6 +313,7 @@ def load_table(table, station_idx, year_idx, day_idx, hour_idx, temp_idx,
         print(dt)
         dt = make_aware(dt)
         print(dt)
+
         (next_expected_timestamp,
          last_valid_temp,
          prev_station,
@@ -408,8 +409,8 @@ def ensure_valid_temp(temp, last_valid_temp, station, prev_station):
 def _utc_to_est(date_string):
     try:
         t = time.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
-        aware = make_aware(datetime.datetime(
-            t[0], t[1], t[2], t[3], t[4], t[5], tzinfo=datetime.timezone(0)))
+        aware = datetime.datetime(
+            t[0], t[1], t[2], t[3], t[4], t[5], tzinfo=datetime.timezone(0))
         return aware
     except ValueError:
         return None

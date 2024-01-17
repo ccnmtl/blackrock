@@ -1,6 +1,6 @@
 from blackrock.mammals.grid_math import to_lat_long, set_up_block, \
     positive_radians, degrees_to_radians, length_of_transect, walk_transect
-from datetime import datetime
+from django.utils import timezone
 from django.contrib.auth.models import User
 from django.contrib.gis.db import models
 from django.db.models import Manager
@@ -488,7 +488,7 @@ class Expedition(models.Model):
 
     def set_end_time_if_none(self):
         if self.end_date_of_expedition is None:
-            self.end_date_of_expedition = datetime.now()
+            self.end_date_of_expedition = timezone.now()
             self.save()
 
     def end_minute_string(self):

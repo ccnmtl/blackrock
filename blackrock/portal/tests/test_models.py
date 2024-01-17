@@ -1,4 +1,4 @@
-from datetime import datetime
+from django.utils import timezone
 from django.test import TestCase
 from blackrock.portal.models import (
     Audience, DigitalFormat, Facet, Institution, LocationSubtype,
@@ -56,7 +56,7 @@ class TestPortalModels(TestCase):
         self.station = Station(name="station name",
                                description="this is a station object",
                                access_means="you can walk there!",
-                               activation_date=datetime.now(),
+                               activation_date=timezone.now(),
                                location=self.location)
         self.station.save()
         self.person = Person(
@@ -77,7 +77,7 @@ class TestPortalModels(TestCase):
         self.publication.save()
         self.dataset = DataSet(name="data set",
                                description="This is a data set.",
-                               collection_start_date=datetime.now(),
+                               collection_start_date=timezone.now(),
                                location=self.location)
         self.dataset.save()
         self.rights_type = RightsType(name="Rights Type Name")
@@ -88,14 +88,14 @@ class TestPortalModels(TestCase):
             name="Learning Activity Name")
         self.learning_activity.save()
         self.research_project_normal_name = ResearchProject(
-            name="This is normal name", start_date=datetime.now())
+            name="This is normal name", start_date=timezone.now())
         self.research_project_normal_name.save()
         self.research_project_long_name = ResearchProject(
             name=("This is a research project with an extrememly "
                   "long name, this name is more like a description "
                   "because the user did not follow the directions "
                   "for entering a propername."),
-            start_date=datetime.now())
+            start_date=timezone.now())
         self.research_project_long_name.save()
         self.forest_story = ForestStory(name="Name of Forest Story")
         self.forest_story.save()
@@ -199,7 +199,7 @@ class TestPortalModels(TestCase):
         self.new_none_dataset = DataSet(
             name="data set",
             description="This is a data set.",
-            collection_start_date=datetime.now(),
+            collection_start_date=timezone.now(),
             location=self.new_none_data_set_location)
         self.new_none_dataset.save()
         self.assertIsNone(self.new_none_dataset.station())
@@ -212,12 +212,12 @@ class TestPortalModels(TestCase):
             name="New Station",
             description="this is a another station object",
             access_means="you can walk there!",
-            activation_date=datetime.now(),
+            activation_date=timezone.now(),
             location=self.location)
         self.data_set_station.save()
         self.new_dataset = DataSet(name="data set",
                                    description="This is a data set.",
-                                   collection_start_date=datetime.now(),
+                                   collection_start_date=timezone.now(),
                                    location=self.location)
         self.new_dataset.save()
         self.data_set_location.station_set.add(self.data_set_station)
@@ -311,15 +311,15 @@ class TestPortalModels(TestCase):
         self.research_project_1 = ResearchProject(
             name="Research Project 1",
             description="This is a test research project.",
-            start_date=datetime.now())
+            start_date=timezone.now())
         self.research_project_2 = ResearchProject(
             name="Research Project 2",
             description="This is a test research project.",
-            start_date=datetime.now())
+            start_date=timezone.now())
         self.research_project_3 = ResearchProject(
             name="Research Project 3",
             description="This is a test research project.",
-            start_date=datetime.now())
+            start_date=timezone.now())
         self.research_project_1.save()
         self.research_project_2.save()
         self.research_project_3.save()
@@ -339,13 +339,13 @@ class TestPortalModels(TestCase):
         self.reg_dataset_1 = DataSet(
             name="region test data set",
             description="This is a data set.",
-            collection_start_date=datetime.now(),
+            collection_start_date=timezone.now(),
             location=self.reg_location)
         self.reg_dataset_1.save()
         self.reg_dataset_2 = DataSet(
             name="another region test data set",
             description="This is a data set.",
-            collection_start_date=datetime.now(),
+            collection_start_date=timezone.now(),
             location=self.reg_location)
         self.reg_dataset_2.save()
         self.reg_region = Region(
@@ -367,18 +367,18 @@ class TestPortalModels(TestCase):
         self.rp_dataset_1 = DataSet(
             name="dataset test",
             description="This is a data set.",
-            collection_start_date=datetime.now(),
+            collection_start_date=timezone.now(),
             location=self.test_location)
         self.rp_dataset_1.save()
         self.rp_dataset_2 = DataSet(
             name="dataset test",
             description="This is a data set.",
-            collection_start_date=datetime.now(),
+            collection_start_date=timezone.now(),
             location=self.test_location)
         self.rp_dataset_2.save()
 
         self.research_project_dataset = ResearchProject(
-            name="dataset test", start_date=datetime.now())
+            name="dataset test", start_date=timezone.now())
         self.research_project_dataset.save()
 
         self.rp_dataset_1.researchproject_set.add(
@@ -399,13 +399,13 @@ class TestPortalModels(TestCase):
         self.la_dataset_1 = DataSet(
             name="dataset test",
             description="This is a data set.",
-            collection_start_date=datetime.now(),
+            collection_start_date=timezone.now(),
             location=self.test_location)
         self.la_dataset_1.save()
         self.la_dataset_2 = DataSet(
             name="dataset test",
             description="This is a data set.",
-            collection_start_date=datetime.now(),
+            collection_start_date=timezone.now(),
             location=self.test_location)
         self.la_dataset_2.save()
 
@@ -430,13 +430,13 @@ class TestPortalModels(TestCase):
         self.fs_dataset_1 = DataSet(
             name="dataset test",
             description="This is a data set.",
-            collection_start_date=datetime.now(),
+            collection_start_date=timezone.now(),
             location=self.test_location)
         self.fs_dataset_1.save()
         self.fs_dataset_2 = DataSet(
             name="dataset test",
             description="This is a data set.",
-            collection_start_date=datetime.now(),
+            collection_start_date=timezone.now(),
             location=self.test_location)
         self.fs_dataset_2.save()
 

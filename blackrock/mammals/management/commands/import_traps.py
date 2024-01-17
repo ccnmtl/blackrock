@@ -2,7 +2,7 @@ from blackrock.mammals.models import Expedition, Habitat, Bait, TrapLocation, \
     GridSquare, Species, Animal
 from csv import reader
 from django.core.management.base import BaseCommand
-import datetime
+from django.utils import timezone
 
 
 class Command(BaseCommand):
@@ -60,8 +60,8 @@ def new_expeditions():
     for eid in test_expedition_ids:
         the_new_expedition = Expedition()
         the_new_expedition.id = int(eid)
-        the_new_expedition.start_date_of_expedition = datetime.now()
-        the_new_expedition.created_on = datetime.now()
+        the_new_expedition.start_date_of_expedition = timezone.now()
+        the_new_expedition.created_on = timezone.now()
         the_new_expedition.save()
 
 
