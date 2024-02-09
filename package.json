@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "eslint": "~8.56.0",
-    "mocha": "~10.2.0",
+    "mocha": "~10.3.0",
     "eslint-plugin-security": "^2.1.0"
   },
   "eslintConfig": {
