@@ -519,23 +519,23 @@
 	   chart = new Highcharts.Chart({
 		 chart: {
 		    renderTo: 'chart-container',
-	{% ifequal type "scatter-plot" %}
+	{% if type == "scatter-plot" %}
 		    defaultSeriesType: 'scatter',
-	{% endifequal %}
+	{% endif %}
 		    spacingRight: 20
 		 },
 		  title: {
 		    text: '{{graph_title}}'
 		 },
-	{% ifequal type "time-series" %}
+	{% if type == "time-series" %}
 		 xAxis: {
 		    type: 'datetime',
 		    title: {
 			  text: null
 		    }
 		 },
-	{% endifequal %}
-	{% ifequal type "scatter-plot" %}
+	{% endif %}
+	{% if type == "scatter-plot" %}
 		 xAxis: {
 		    title: {
 			  enabled: true,
@@ -551,14 +551,14 @@
 		    }
 		 },
 	
-	{% endifequal %}
+	{% endif %}
 		 tooltip: {
         xDateFormat: '%H:%M %A, %b %e, %Y',
-	{% ifequal type "time-series" %}
+	{% if type == "time-series" %}
 		    shared: true               
 	{% else %}
 	            shared: false
-	{% endifequal %}
+	{% endif %}
 		 },
 		 legend: {
 		    enabled: true
@@ -609,7 +609,7 @@
 		    }
 	
 		 },
-	{% ifequal type "time-series" %}
+	{% if type == "time-series" %}
 		 series: [
 	{% for set in datasets %}
 		  {
@@ -641,9 +641,9 @@
 	
 	{% endfor %} 
 		 ],
-	{% endifequal %}
+	{% endif %}
 	
-	{% ifequal type "scatter-plot" %}
+	{% if type == "scatter-plot" %}
 		 series: [{
 		    name: '{{dependent.name}} vs {{independent.name}}',
 		    color: 'rgba(223, 83, 83, .5)',
@@ -690,7 +690,7 @@
 	
 	 ],
 	
-	{% endifequal %}
+	{% endif %}
 		 exporting: {
 		    enabled: true,
         filename: '{{filename_base}}'
@@ -762,7 +762,7 @@
 	
 	<fieldset>
 
-	{% ifequal type "time-series" %}
+	{% if type == "time-series" %}
 	
 	
 		
@@ -784,9 +784,9 @@
 			</div>
 
 	
-	{% endifequal %}
+	{% endif %}
 	
-	{% ifequal type "box-plot" %}
+	{% if type == "box-plot" %}
 
 		
 			<legend>Step 2: <span class="selected">You've selected "box plot."</span> Now, choose your data set and give it some parameters.</legend>
@@ -808,9 +808,9 @@
 
 	
 	
-	{% endifequal %}
+	{% endif %}
 	
-	{% ifequal type "scatter-plot" %}
+	{% if type == "scatter-plot" %}
 	
 		
 			<legend>Step 2: <span class="selected">You've selected "scatter plot."</span> Now, choose your data set and give it some parameters.</legend>
@@ -849,7 +849,7 @@
 			</div>
 
 	
-	{% endifequal %}
+	{% endif %}
 	
 			<div class="form-element">
 			
@@ -865,7 +865,7 @@
 			
 			</div>
 
-	{% ifnotequal type "box-plot" %}
+	{% if type == "box-plot" %}
 
 	<!-- start of edit -->
 	<div><input type="button" class="click" id="clickme" name="type" value="Add Another Box" /></div>
@@ -942,7 +942,7 @@
 
 
 	<!-- end of edit -->
-	{% endifnotequal %}
+	{% endif %}
 		</fieldset>
 
 

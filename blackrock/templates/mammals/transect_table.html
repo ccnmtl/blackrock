@@ -18,10 +18,10 @@
             <td class="get_row_top_from_here point_{{point.point_id}}" >{{point.distance|floatformat:0}}</td>
             
             
-            {%ifequal printer_friendly 'True' %}
+            {%if printer_friendly == 'True' %}
                 <td class="suggested_td">{{point.point.0|floatformat:5}}</td>
                 <td class="suggested_td">{{point.point.1|floatformat:5}}</td>
-            {%endifequal %}
+            {%endif %}
             <!-- need this to do a bit of magic with the interaction between transects and scroll-->
             <td class="top_px_number point_{{point.point_id}}" ></td>
         </tr>

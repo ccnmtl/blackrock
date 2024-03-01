@@ -33,14 +33,14 @@
     <td  > 
        <select  id = "sex" name = "sex_{{al.id}}">
         {% for sex in sexes %}
-            <option value = "{{sex.id}}" {%ifequal an.sex_id sex.id %}selected{%endifequal%}>{{sex}}</option>
+            <option value = "{{sex.id}}" {%if an.sex_id == sex.id %}selected{%endif%}>{{sex}}</option>
         {%endfor %}
         </select>
     </td> 
     <td  > 
        <select  id = "age" name = "age_{{al.id}}">
         {% for age in ages %}
-            <option value = "{{age.id}}" {%ifequal an.age_id age.id %}selected{%endifequal%}>{{age}}</option>
+            <option value = "{{age.id}}" {%if an.age_id == age.id %}selected{%endif%}>{{age}}</option>
         {%endfor %}
         </select>
     </td> 
@@ -53,7 +53,7 @@
     <td  > 
        <select  id = "scale_used" name = "scale_used_{{al.id}}">
             {% for scale_used in scales %}
-                <option value = "{{scale_used.id}}" {%ifequal an.scale_used_id scale_used.id %}selected{%endifequal%}>{{scale_used}}</option>
+                <option value = "{{scale_used.id}}" {%if an.scale_used_id == scale_used.id %}selected{%endif%}>{{scale_used}}</option>
             {%endfor %}
         </select>
     </td>

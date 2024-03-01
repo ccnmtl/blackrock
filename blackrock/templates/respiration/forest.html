@@ -157,9 +157,9 @@
 		          <select id="scenario1-fieldstation" name="scenario1-fieldstation" class="fieldstation-select">
 		          {% for station in stations %}
   		          <option value="{{ station }}"
-			      {% ifequal station selectedstation %}
+			      {% if station == selectedstation %}
 			      selected
-			      {% endifequal %}
+			      {% endif %}
 			      >{{station}}
 		          </option>
 		          {% endfor %}

@@ -232,9 +232,9 @@
 <td id="center"> 
     {% if current_object.location.latitude or current_object.latitude %}
        <div id="map_canvas"></div>
-    {% else %}{% ifequal asset_klass "ForestStory" %}
+    {% else %}{% if asset_klass == "ForestStory" %}
        <div id="map_canvas"></div>
-    {% endifequal%}{% endif %}
+    {% endif %}{% endif %}
     
     {% with object|related as all_related %}
     {% if all_related %}

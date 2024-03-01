@@ -23,7 +23,7 @@ prefix -- Prefix for the identifier to prevent duplications
     {% for l in current_object.location.all %}
         {% with l as current_location %}
             {% if includehighlight %}
-                {% ifequal forloop.counter 1 %}
+                {% if forloop.counter == 1 %}
                     {% if current_location.latitude %}
                         <!--  Highlight this asset's first location -->
                         {% if audience %} 
@@ -32,7 +32,7 @@ prefix -- Prefix for the identifier to prevent duplications
                             <a class="asset_icon" nclick="portalMapInstance.showMarkerInfoWindow('{{prefix}}{{current_object|klass}}-{{current_object.id}}-{{current_location.id}}'); return false;"><img style="float: left; margin-right: 10px;" src="https://chart.googleapis.com/chart?chst=d_map_pin_letter&amp;chld={{icon_display_order}}|4A3404|FFFFFF" alt="{{icon_display_order}} map marker" /></a>
                         {% endif %}
                      {% endif %}
-                {% endifequal %}
+                {% endif %}
             {% endif %}
             {% if geocode_class %}
                 {% include "portal/asset_geocode.html" %}

@@ -2,11 +2,11 @@
 {% load portal %}
 
 {% block title %}
-    {% ifequal module.label "Home" %}
+    {% if module.label == "Home" %}
         {{module.label}}
     {% else %}
         {{module.label}} {{section.label}}
-    {% endifequal %}
+    {% endif %}
 {% endblock %}
 
 {% block js %}

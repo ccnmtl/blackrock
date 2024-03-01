@@ -1,7 +1,7 @@
 from django import forms
 from django.apps import apps
 from django.utils.text import capfirst
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from haystack.forms import SearchForm
 from haystack.views import SearchView
 from blackrock.portal.models import Facet

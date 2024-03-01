@@ -55,9 +55,9 @@
     There are currently no modules enabled.
   {% endif %}
 {% else %}
-  {% ifequal num_public_apps 0 %}
+  {% if num_public_apps == 0 %}
     There are currently no modules enabled.
-  {% endifequal %}
+  {% endif %}
 {% endif %}
 
 </div>
