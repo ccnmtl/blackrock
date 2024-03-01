@@ -1,4 +1,4 @@
-Django>=3.2.14,<4
+Django>=4.2.10,<5
 pytz==2024.1
 resolver==0.2.1
 selector==0.10.1
@@ -57,7 +57,7 @@ pycparser==2.21
 wrapt==1.16.0
 sqlparse==0.4.4
 
-requirements/src/sorl-3.3-py2.py3-none-any.whl
+requirements/src/sorl-3.4-py3-none-any.whl
 requirements/src/tagging-0.3-pre.tar.gz
 django-indexer==0.3.0
 django-templatetag-sugar==1.0
@@ -80,7 +80,7 @@ django-bootstrap3==23.6
 django-markwhat==1.6.2
 django-pagetree==1.5.0
 django-pageblocks==1.2.0 # pyup: <2.0 
-requirements/src/django_databrowse-2022.04.08ctl-py2.py3-none-any.whl 
+requirements/src/django_databrowse-2024.3.5-py2.py3-none-any.whl
 factory_boy==3.3.0
 
 django-debug-toolbar==4.3.0 # pyup: <2.0

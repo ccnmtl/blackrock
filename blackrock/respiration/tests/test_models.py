@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 from django.test import TestCase
-from django.utils.encoding import smart_text
+from django.utils.encoding import smart_bytes
 from django.utils.timezone import make_aware
 from blackrock.respiration.models import Temperature, StationMapping
 import datetime
@@ -86,7 +86,7 @@ class ModelTestCases(TestCase):
             station='Open Lowland',
             date=datetime.datetime(1997, 1, 1, 1, 00), reading=1.1)
         self.assertEqual(
-            smart_text(self.temperature_2),
+            smart_bytes(self.temperature_2),
             "%s: %.2f\xb0 C at %s station" % (
                 self.temperature_2.date,
                 self.temperature_2.reading,
