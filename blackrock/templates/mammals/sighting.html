@@ -66,7 +66,7 @@
                     <select id="species_id" name="species_id">
                         <option value="None"></option>
                         {% for species in species %}
-                            <option value = "{{species.id}}"  {%ifequal sighting.species_id species.id %} selected{%endifequal%}   >{{species}}</option>
+                            <option value = "{{species.id}}"  {%if sighting.species_id == species.id %} selected{%endif%}   >{{species}}</option>
                         {%endfor %}
                     </select>
                 </td>
@@ -79,7 +79,7 @@
                     <select id="habitat_id" name="habitat_id">
                         <option value="None"></option>
                         {% for habitat in habitats %}
-                            <option value = "{{habitat.id}}"  {%ifequal sighting.habitat_id habitat.id %} selected{%endifequal%}   >{{habitat}}</option>
+                            <option value = "{{habitat.id}}"  {%if sighting.habitat_id == habitat.id %} selected{%endif%}   >{{habitat}}</option>
                         {%endfor %}
                     </select>
                 </td>
@@ -92,7 +92,7 @@
                     <select id="observation_type_id" name="observation_type_id">
                         <option value="None"></option>
                         {% for observation_type in observation_types %}
-                            <option value = "{{observation_type.id}}"  {%ifequal sighting.observation_type_id observation_type.id %} selected{%endifequal%}   >{{observation_type}}</option>
+                            <option value = "{{observation_type.id}}"  {%if sighting.observation_type_id == observation_type.id %} selected{%endif%}   >{{observation_type}}</option>
                         {%endfor %}
                     </select>
                 </td>

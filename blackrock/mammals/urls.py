@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import path, re_path
 import os.path
 import django.views.static
 from django.contrib.auth.views import LogoutView
@@ -17,52 +17,53 @@ from .views import (
 media_root = os.path.join(os.path.dirname(__file__), "media")
 
 urlpatterns = [
-    url(r'^media/(?P<path>.*)$', django.views.static.serve,
-        {'document_root': media_root}),
+    re_path(r'^media/(?P<path>.*)$', django.views.static.serve,
+            {'document_root': media_root}),
 
     # Research version:
-    url(r'^$', index),
-    url(r'^grid/$', grid),
-    url(r'^grid_square/$', grid_block),
+    path('', index),
+    path('grid/', grid),
+    path('grid_square/', grid_block),
 
     # printer and csv versions of the grid square:
-    url(r'^grid_square_csv/$', grid_square_csv),
-    url(r'^grid_square_print/$', grid_square_print),
+    path('grid_square_csv/', grid_square_csv),
+    path('grid_square_print/', grid_square_print),
 
     # Sandbox version:
-    url(r'^sandbox/$', sandbox_grid),
-    url(r'^sandbox/grid/$', sandbox_grid),
-    url(r'^sandbox/grid_square/$', sandbox_grid_block),
+    path('sandbox/', sandbox_grid),
+    path('sandbox/grid/', sandbox_grid),
+    path('sandbox/grid_square/', sandbox_grid_block),
 
-    url(r'^help/$', help),
-    url(r'^teaching/$', teaching_resources),
+    path('help/', help),
+    path('teaching/', teaching_resources),
 
-    url(r'^login/$', mammals_login),
+    path('login/', mammals_login),
 
-    url(r'^process_login/$', process_login),
-    url(r'^logout/$', LogoutView.as_view(), {'next_page': '/mammals/'}),
+    path('process_login/', process_login),
+    path('logout/', LogoutView.as_view(), {'next_page': '/mammals/'}),
 
-    url(r'^all_expeditions/$', all_expeditions),
-    url(r'^new_expedition_ajax/$', new_expedition_ajax),
-    url(r'^expedition/(?P<expedition_id>\d+)/$', expedition),
-    url(r'^edit_expedition/(?P<expedition_id>\d+)/$', edit_expedition),
-    url(r'^edit_expedition_ajax/$', edit_expedition_ajax),
+    path('all_expeditions/', all_expeditions),
+    path('new_expedition_ajax/', new_expedition_ajax),
+    re_path(r'^expedition/(?P<expedition_id>\d+)/$', expedition),
+    re_path(r'^edit_expedition/(?P<expedition_id>\d+)/$', edit_expedition),
+    path('edit_expedition_ajax/', edit_expedition_ajax),
 
-    url(r'^sightings/$', sightings),
-    url(r'^create_sighting/$', create_sighting),
-    url(r'^sighting/(?P<sighting_id>\d+)/$', sighting),
-    url(r'^edit_sighting/$', edit_sighting),
+    path('sightings/', sightings),
+    path('create_sighting/', create_sighting),
+    re_path(r'^sighting/(?P<sighting_id>\d+)/$', sighting),
+    path('edit_sighting/', edit_sighting),
 
-    url(r'^expedition/(?P<expedition_id>\d+)/animals/$', expedition_animals),
-    url(r'^save_expedition_animals/$', save_expedition_animals),
-    url(r'^team_form/(?P<expedition_id>\d+)/(?P<team_letter>\w+)/$',
-        team_form),
-    url(r'^save_team_form/$', save_team_form),
-    url(r'^save_team_form_ajax/$', save_team_form_ajax),
+    re_path(r'^expedition/(?P<expedition_id>\d+)/animals/$',
+            expedition_animals),
+    path('save_expedition_animals/', save_expedition_animals),
+    re_path(r'^team_form/(?P<expedition_id>\d+)/(?P<team_letter>\w+)/$',
+            team_form),
+    path('save_team_form/', save_team_form),
+    path('save_team_form_ajax/', save_team_form_ajax),
 
-    url(r'^search/',
-        MammalSearchView(template="mammals/search.html",
-                         form_class=MammalSearchForm), name='search'),
+    path('search/',
+         MammalSearchView(template="mammals/search.html",
+                          form_class=MammalSearchForm), name='search'),
 
-    url(r'^ajax_search/$', ajax_search),
+    path('ajax_search/', ajax_search),
 ]

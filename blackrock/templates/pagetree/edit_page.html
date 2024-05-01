@@ -100,7 +100,7 @@ $(function() {
 
 <ul class="nav navbar-nav">
   {% for section in modules %}
-  <li{% ifequal section.id module.id %} class="active"{% endifequal %}><a href="{{section.get_edit_url}}">{{section.label}}</a></li>
+  <li{% if section.id == module.id %} class="active"{% endif %}><a href="{{section.get_edit_url}}">{{section.label}}</a></li>
   {% endfor %}
 </ul>
 
@@ -142,7 +142,7 @@ $(function() {
             <ul>
                 {% for s in root.get_descendants %}
                     <li class="menu" style="list-style: none; line-height: 150%">
-                        <a href="{{s.get_edit_url}}">{{s.label}}</a>{% ifequal s section %} <span class="glyphicon glyphicon-hand-left"></span>{% endifequal %}
+                        <a href="{{s.get_edit_url}}">{{s.label}}</a>{% if s == section %} <span class="glyphicon glyphicon-hand-left"></span>{% endif %}
                         {% if s.get_children %}
                             <ul>
                         {% else %}{% if s.is_last_child %}

@@ -39,23 +39,23 @@
 
 {% block content %}
 
-  {% ifequal app_list.0.name "Respiration" %}
+  {% if app_list.0.name == "Respiration" %}
     {% include "respiration/admin_respiration.html" %}
     {{ block.super }}
-  {% endifequal %}
+  {% endif %}
   
-  {% ifequal app_list.0.name "Optimization" %}
+  {% if app_list.0.name == "Optimization" %}
     {% include "optimization/admin_optimization.html" %}
     {{ block.super }}
-  {% endifequal %}
+  {% endif %}
   
-  {% ifequal app_list.0.name "Paleoecology" %}
+  {% if app_list.0.name == "Paleoecology" %}
     {{ block.super }}
-  {% endifequal %}
+  {% endif %}
   
-  {% ifequal app_list.0.name "Portal" %}
+  {% if app_list.0.name == "Portal" %}
     {% include "portal/admin_portal.html" %}
-  {% endifequal %}
+  {% endif %}
   
 {% endblock %}
 

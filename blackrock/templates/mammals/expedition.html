@@ -51,7 +51,7 @@
                     <td >
                         <select name="grade" id = "grade">
                             {% for grade in grades %}
-                                <option value = "{{grade.id}}" {%ifequal expedition.grade_level_id grade.id %} selected{%endifequal%}>{{grade.label}}</option>
+                                <option value = "{{grade.id}}" {%if expedition.grade_level_id == grade.id %} selected{%endif%}>{{grade.label}}</option>
                             {%endfor %}
                         </select>
                     </td>
@@ -64,7 +64,7 @@
                         <select name="school" id = "school">
                                 <option value = "None">None selected</option>
                                 {% for school in schools %}
-                                    <option value = "{{school.id}}" {%ifequal expedition.school_id school.id %} selected{%endifequal%}>{{school.name}}</option>
+                                    <option value = "{{school.id}}" {%if expedition.school_id == school.id %} selected{%endif%}>{{school.name}}</option>
                                 {%endfor %}
                         </select>
                     </td> 
@@ -116,7 +116,7 @@
                         <td  > 
                             <select id="overnight_temperature" name="overnight_temperature">
                                 {% for temp in overnight_temperatures %}
-                                    <option value = "{{temp.id}}" {%ifequal expedition.overnight_temperature_id temp.id %} selected{%endifequal%}>{{temp}}</option>
+                                    <option value = "{{temp.id}}" {%if expedition.overnight_temperature_id == temp.id %} selected{%endif%}>{{temp}}</option>
                                 {%endfor %}
                             </select> &deg; C
                         </td> 
@@ -130,14 +130,14 @@
                         <td  > 
                             <select id = "expedition_hour_string" name = "expedition_hour_string">
                                 {% for hour in hours %}
-                            <option value="{{hour}}" {%ifequal expedition.end_hour_string hour%} selected{%endifequal%}>{{hour}}</option>
+                            <option value="{{hour}}" {%if expedition.end_hour_string == hour%} selected{%endif%}>{{hour}}</option>
                                 {%endfor %}
                             </select>
                          :
                          
                             <select id = "expedition_minute_string" name = "expedition_minute_string">
                                 {% for minute in minutes %}
-                                <option value="{{minute}}" {%ifequal expedition.end_minute_string minute %} selected{%endifequal%}>{{minute}}</option>
+                                <option value="{{minute}}" {%if expedition.end_minute_string == minute %} selected{%endif%}>{{minute}}</option>
                                 {%endfor %}
                             </select>
             
@@ -162,7 +162,7 @@
                         <td  > 
                             <select id = "moon_phase" name = "moon_phase">
                                 {% for moon_phase in moon_phases %}
-                                    <option value = "{{moon_phase.id}}" {%ifequal expedition.moon_phase_id moon_phase.id %} selected{%endifequal%}>{{moon_phase}}</option>
+                                    <option value = "{{moon_phase.id}}" {%if expedition.moon_phase_id == moon_phase.id %} selected{%endif%}>{{moon_phase}}</option>
                                 {%endfor %}
                             </select>
                         </td> 
@@ -175,7 +175,7 @@
                         <td  > 
                             <select  id = "cloud_cover" name = "cloud_cover">
                                 {% for cloud_cover in cloud_covers %}
-                                    <option value = "{{cloud_cover.id}}" {%ifequal expedition.cloud_cover.id  cloud_cover.id%} selected{%endifequal%}>{{cloud_cover}}</option>
+                                    <option value = "{{cloud_cover.id}}" {%if expedition.cloud_cover.id == cloud_cover.id%} selected{%endif%}>{{cloud_cover}}</option>
                                 {%endfor %}
                             </select>
                         </td>
@@ -187,7 +187,7 @@
                         <td  > 
                             <select  id = "overnight_precipitation" name = "overnight_precipitation">
                             {% for pr in overnight_precipitations %}
-                                <option value = "{{pr.id}}" {%ifequal expedition.overnight_precipitation_id pr.id %} selected{%endifequal%}>{{pr}}</option>
+                                <option value = "{{pr.id}}" {%if expedition.overnight_precipitation_id == pr.id %} selected{%endif%}>{{pr}}</option>
                             {%endfor %}
                             </select>
                         </td> 
@@ -199,7 +199,7 @@
                         <td  > 
                             <select  id = "overnight_precipitation_type" name = "overnight_precipitation_type">
                             {% for prt in overnight_precipitation_types %}
-                                <option value = "{{prt.id}}" {%ifequal expedition.overnight_precipitation_type_id prt.id %} selected{%endifequal%}>{{prt}}</option>
+                                <option value = "{{prt.id}}" {%if expedition.overnight_precipitation_type_id == prt.id %} selected{%endif%}>{{prt}}</option>
                             {%endfor %}
                             </select>
                         </td> 

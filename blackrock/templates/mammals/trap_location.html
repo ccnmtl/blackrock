@@ -75,7 +75,7 @@
     </span>
     <select id="trap_type_{{point.id}}" name="trap_type_{{point.id}}">
         {% for trap_type in trap_types %}
-            <option value = "{{trap_type.id}}"{%ifequal point.trap_type_id trap_type.id %} selected{%endifequal%}>{{trap_type}}</option>
+            <option value = "{{trap_type.id}}"{%if point.trap_type_id == trap_type.id %} selected{%endif%}>{{trap_type}}</option>
         {%endfor %}
     </select>
 </div>
@@ -90,7 +90,7 @@
     
     <option value="None">No bait placed in trap</option>
     {% for b in baits %}
-        <option value = "{{b.id}}"{%ifequal point.bait_id b.id %} selected{%endifequal%}>{{b}}</option>
+        <option value = "{{b.id}}"{%if point.bait_id == b.id %} selected{%endif%}>{{b}}</option>
     {%endfor %}
     </select>
 </div>
@@ -118,7 +118,7 @@
             <option value="None">Trap empty</option>
             {% endif %}
             {% for species in species %}
-                <option value = "{{species.id}}"  {%ifequal point.animal.species_id species.id %} selected{%endifequal%}   >{{species}}</option>
+                <option value = "{{species.id}}"  {%if point.animal.species_id == species.id %} selected{%endif%}   >{{species}}</option>
             {%endfor %}
     </select>
 </div>
@@ -133,7 +133,7 @@
         
         <option value="None">None recorded</option>
         {% for habitat in habitats %}
-            <option value = "{{habitat.id}}" {%ifequal point.habitat_id habitat.id %} selected{%endifequal%} >{{habitat}}</option>
+            <option value = "{{habitat.id}}" {%if point.habitat_id == habitat.id %} selected{%endif%} >{{habitat}}</option>
         {%endfor %}
     </select>
 </div>

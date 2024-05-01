@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import path, re_path
 import os.path
 import django.views.static
 from .views import (
@@ -9,17 +9,17 @@ from .views import (
 media_root = os.path.join(os.path.dirname(__file__), "media")
 
 urlpatterns = [
-    url(r'^$', index),
-    url(r'^run$', run),
-    url(r'^calculate$', calculate),
-    url(r'^trees.png$', tree_png),
+    path('', index),
+    path('run', run),
+    path('calculate', calculate),
+    path('trees.png', tree_png),
 
-    url(r'^csv$', export_csv),
-    url(r'^json2csv$', json2csv),
-    url(r'^trees_csv$', trees_csv),
+    path('csv', export_csv),
+    path('json2csv', json2csv),
+    path('trees_csv', trees_csv),
 
-    url(r'^test$', test),
-    url(r'^loadcsv$', loadcsv),
-    url(r'^media/(?P<path>.*)$', django.views.static.serve,
-        {'document_root': media_root}),
+    path('test', test),
+    path('loadcsv', loadcsv),
+    re_path(r'^media/(?P<path>.*)$', django.views.static.serve,
+            {'document_root': media_root}),
 ]

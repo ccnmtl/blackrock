@@ -1,14 +1,14 @@
 <ul>
 {% for s in current.get_children %}
-  {% ifnotequal s.slug hidden %}
-    {% ifequal s.id current.id %}
+  {% if s.slug != hidden %}
+    {% if s.id == current.id %}
     {% else %}
-       {% ifequal s.id selected.id %}
+       {% if s.id == selected.id %}
           <li class="selected {% if audience %}{{s.slug}}{% endif %}">{{s.label}}</li>
        {% else %}   
           <li class="{% if audience %}{{s.slug}}{% endif %}"><a href="{{menu_base}}/portal{{s.get_absolute_url}}">{{s.label}}</a></li>
-       {% endifequal %}
-    {% endifequal %}
-  {% endifnotequal %}
+       {% endif %}
+    {% endif %}
+  {% endif %}
 {% endfor %}
 </ul>
