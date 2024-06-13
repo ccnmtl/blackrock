@@ -75,6 +75,7 @@ django-smoketest==1.2.0
 django-treebeard==4.7
 
 django-haystack==3.2.1
+packaging==24.1 # for django-haystack
 
 django-bootstrap-form==3.4
 django-bootstrap3==24.2
