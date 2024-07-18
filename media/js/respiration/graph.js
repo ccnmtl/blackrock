@@ -82,6 +82,7 @@ LeafGraphData.prototype.arrhenius = function(species_id, t_a) {
 };
 
 
+// eslint-disable-next-line no-unused-vars
 function leafGraph() {
     // have to re-init, because g.clear() doesn't reset legend
     if ($('plotGraph') === null) {
@@ -154,6 +155,7 @@ function initGraph() {
     return g;
 }
 
+// eslint-disable-next-line no-unused-vars
 function setup() {
     var g = initGraph();
     g.draw();

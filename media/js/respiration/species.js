@@ -239,6 +239,7 @@
         try {
             sliders = getElementsByTagAndClassName(
                 null, 'slider','temp-slider');
+        // eslint-disable-next-line no-unused-vars
         } catch (err) {
             return;  // no sliders; don't initialize this part
         }

@@ -1,4 +1,3 @@
-/* eslint-disable security/detect-non-literal-fs-filename */
 
 if (typeof Portal === 'undefined') {
     var Portal = {};
