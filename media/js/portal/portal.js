@@ -1,5 +1,6 @@
 /* exported getDisplayHour, getDisplayDate, getVisibleContentHeight */
 
+// eslint-disable-next-line no-unused-vars
 function getDisplayHour() {
     var now = new Date();
     var hour = now.getHours();
@@ -17,6 +18,7 @@ function getDisplayHour() {
     return hour + '' + ap;
 }
 
+// eslint-disable-next-line no-unused-vars
 function getDisplayDate(mydate) {
     var now = mydate;
     if (now === undefined) {
@@ -30,6 +32,7 @@ function getDisplayDate(mydate) {
     return month + '/' + day + '/' + now.getFullYear();
 }
 
+// eslint-disable-next-line no-unused-vars
 function getVisibleContentHeight() {
     var viewportheight;
 
