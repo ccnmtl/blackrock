@@ -9,6 +9,7 @@ addLoadEvent(function(){
     }
 });
 
+// eslint-disable-next-line no-unused-vars
 function SampleMap(options) {
     var self = this;
     this.init = function() {

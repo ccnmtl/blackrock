@@ -1,4 +1,5 @@
 /* global SampleStorage: true, serializeJSON: true, SampleMap: true  */
+// eslint-disable-next-line no-redeclare
 /* global Highlight: true, toggle: true, queryString: true */
 /* global TableSortCasts: true */
 /* exported getcsv, SampleHistory, reset, deleteSample */
@@ -6,6 +7,7 @@
 var global_http_request;
 
 // used in run.html
+// eslint-disable-next-line no-unused-vars
 function getcsv() {
     if (!   $('form-results').value) {
         return false;
@@ -13,6 +15,7 @@ function getcsv() {
     $('csvform').submit();
 }
 
+// eslint-disable-next-line no-unused-vars
 var SampleHistory = new (function() {
     this.csv = {
         summary: function(button) {
@@ -200,6 +203,7 @@ function showError(http_request) {
     try {
         var json = evalJSON(http_request.req.responseText);
         custom = json.error || '';
+    // eslint-disable-next-line no-unused-vars
     } catch (e) {/*pass*/}
     $('customerror').innerHTML = custom;
 
@@ -264,6 +268,7 @@ function showPlotInfo(plotNumber, results) {
     }
 }
 
+// eslint-disable-next-line no-unused-vars
 function reset() {
     setStyle('errormessage', {'display': 'none'});
     setStyle('waitmessage', {'display': 'none'});
@@ -403,6 +408,7 @@ function updateShapeLabel(e) {
     }
 }
 
+// eslint-disable-next-line no-unused-vars
 function deleteSample(run_num) {
     SampleStorage.deleteSample(run_num-1);
     removeElement('samplerun-'+run_num);

@@ -1,6 +1,7 @@
 /* global Stor: true */
 /* exported SampleStorage */
 
+// eslint-disable-next-line no-unused-vars
 var SampleStorage = (new (
     function() {
         if (!window.JSON || !window.Stor) {

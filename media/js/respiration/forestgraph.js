@@ -214,6 +214,7 @@ function initForestGraph() {
 }
 
 /* Called onclick of the graph button */
+// eslint-disable-next-line no-unused-vars
 function forestGraph() {
     // have to re-init, because g.clear() doesn't reset legend
     var g = new initForestGraph();
@@ -277,7 +278,6 @@ function forestGraph() {
                         'headers': headers
                     });
 
-                    // eslint-disable-next-line no-inner-declarations
                     function my_callback(
                         scenario_num, scid, percent, http_request) {
 
@@ -321,6 +321,7 @@ function forestGraph() {
     });
 }
 
+// eslint-disable-next-line no-unused-vars
 function setupForest() {
     var g = initGraph();
     g.draw();
@@ -331,6 +332,7 @@ LeafGraphData.prototype.updateFields = function() {
     return;
 };
 
+// eslint-disable-next-line no-unused-vars
 function calculateKelvin(elem, id) {
     var k = id.split('-');
     var kl = k[0] + '-kelvin';
@@ -344,6 +346,7 @@ function calculateKelvin(elem, id) {
     }
 }
 
+// eslint-disable-next-line no-unused-vars
 function makeExportLink(a) {
     var id = id.split('-')[0];
     var year = document.getElementById(id + '-year').value;

@@ -4,6 +4,7 @@
 var stations = Array();
 var years = Array();
 
+// eslint-disable-next-line no-unused-vars
 function addYears(stationName, yearlist) {
     stations.push(stationName);
     years.push(yearlist);
@@ -34,6 +35,7 @@ function updateYears(e) {
     }
 }
 
+// eslint-disable-next-line no-unused-vars
 function initYearHelper() {
     var elts = getElementsByTagAndClassName('select', 'fieldstation-select');
     forEach(elts, function(elem) {
@@ -73,6 +75,7 @@ function submitForm() {
     return false;
 }
 
+// eslint-disable-next-line no-unused-vars
 function initNav() {
     connect('tab-leaf', 'onclick', submitForm);
     forEach(getElementsByTagAndClassName('div', 'toggler'), function(elem) {
