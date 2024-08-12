@@ -86,7 +86,7 @@ requirements/src/django_databrowse-2024.3.5-py2.py3-none-any.whl
 factory_boy==3.3.0
 
 django-debug-toolbar==4.4.1 # pyup: <2.0
-gunicorn==22.0.0
+gunicorn==23.0.0
 
 s3transfer==0.10.0
 jmespath==1.0.0
