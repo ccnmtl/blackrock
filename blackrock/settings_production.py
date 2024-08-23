@@ -1,9 +1,8 @@
 # flake8: noqa
 from django.conf import settings
+from ctlsettings.production import common, init_sentry
 from blackrock.settings_shared import *
-from ctlsettings.production import common
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
+
 
 locals().update(
     common(
@@ -33,7 +32,4 @@ except ImportError:
 
 
 if hasattr(settings, 'SENTRY_DSN'):
-    sentry_sdk.init(
-        dsn=SENTRY_DSN,
-        integrations=[DjangoIntegration()],
-    )
+    init_sentry(SENTRY_DSN)  # noqa F405
