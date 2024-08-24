@@ -1,7 +1,7 @@
 # flake8: noqa
 from django.conf import settings
-from ctlsettings.production import common, init_sentry
 from blackrock.settings_shared import *
+from ctlsettings.production import common, init_sentry
 
 
 locals().update(
