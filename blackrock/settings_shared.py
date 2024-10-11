@@ -72,7 +72,6 @@ INSTALLED_APPS += [  # noqa
     'bootstrapform',
     'django_extensions',
     'django.contrib.humanize',
-    'ctlsettings',
 ]
 
 # Pageblocks/Pagetree settings
