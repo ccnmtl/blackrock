@@ -10,6 +10,9 @@
         @import "{% static 'css/style.css' %}";
         @import "{% static 'css/shield.css' %}";
     </style>
+
+    {% include "ctlsettings/sentry_js.html" %}
+
     <script>var STATIC_URL = "{{STATIC_URL}}";</script>
 
     {% block css %}{% endblock %}
