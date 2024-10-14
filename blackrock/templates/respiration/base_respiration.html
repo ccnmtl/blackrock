@@ -10,7 +10,6 @@
 
 {% block js %} 
     <script type="text/javascript" src="{% static 'js/browserdetect.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/shield.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libraries/jquery-1.11.2.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libraries/jquery-ui-1.11.4.min.js' %}"></script>  
     <script type="text/javascript" src="{% static 'js/mochikit/MochiKit/MochiKit.js' %}"></script>
@@ -121,11 +120,3 @@
         {% endblock %}
     </div> <!-- end div "container" -->    
 {% endblock %}
-
-{% block script_footer %}    
-    <script type="text/javascript">
-        /* Select from list: Chrome, Firefox, Safari, MSIE */
-        shieldbrowser({"Chrome": 1, "Firefox": 3.6, "Safari": 4, "MSIE": 9});
-
-    </script>
-{% endblock %} 

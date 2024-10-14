@@ -8,7 +8,6 @@
     <style media="screen" type="text/css">
         @import "{% static 'css/site.css' %}";
         @import "{% static 'css/style.css' %}";
-        @import "{% static 'css/shield.css' %}";
     </style>
 
     {% include "ctlsettings/sentry_js.html" %}
@@ -30,7 +29,6 @@
     <script src="{% static 'js/mochikit/MochiKit/MochiKit.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/mochikit/MochiKit/Signal.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/browserdetect.js' %}" type="text/javascript" language="javascript"></script>
-    <script src="{% static 'js/shield.js' %}" type="text/javascript" language="javascript"></script>
     {% endblock %}
 
     {% block feeds %}{% endblock %}
@@ -41,7 +39,7 @@
     <script src="https://search.sites.columbia.edu/cu-privacy-notice/cu-privacy-notice.js"></script>
 </head>
 <body class="{% block bodyclass %}{% endblock %}">
-    <div id="shieldbox"></div>
+
     {% block overlay %}{% endblock %}
 
 <div id="masthead_top">

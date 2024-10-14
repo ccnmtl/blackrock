@@ -17,7 +17,6 @@
       @import "{% static 'css/tiny_mce.css' %}" ;
       @import "{% static 'css/portal/style.css' %}";
       @import "{% static 'js/jquery-ui-1.8.11.custom/css/smoothness/jquery-ui-1.8.11.custom.css' %}" ;
-      @import "{% static 'css/shield.css' %}";
     </style>
 
     {% include "ctlsettings/sentry_js.html" %}
@@ -29,7 +28,6 @@
     <script type="text/javascript" src="{% static 'js/mochikit/MochiKit/MochiKit.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/mochikit/MochiKit/Signal.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/browserdetect.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/shield.js' %}" type="text/javascript"></script>
     <script type="text/javascript" src="{% static 'js/jquery-ui-1.8.11.custom/js/jquery-1.4.4.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jquery-ui-1.8.11.custom/js/jquery-ui-1.8.11.custom.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/flowplayer-3.1.4.min.js' %}"></script>
@@ -50,7 +48,6 @@
     <script src="https://search.sites.columbia.edu/cu-privacy-notice/cu-privacy-notice.js"></script>
 </head>
 <body>
-    <div id="shieldbox"></div>
     <div id="masthead_top">
         <a href="http://ctl.columbia.edu/">
             <img id="ctl_logo"
@@ -162,9 +159,6 @@
     }
 
     jQuery(document).ready(function() {
-        /* Select from list: Chrome, Firefox, Safari, MSIE */
-        shieldbrowser({"Chrome": 1, "Firefox": 3.6, "Safari": 4, "MSIE": 7 });
-
         var bits = window.location.pathname.split('/')
         if (bits.length > 2) {
             if (bits[2] == "") {
