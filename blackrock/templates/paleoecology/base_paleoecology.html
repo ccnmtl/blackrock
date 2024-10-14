@@ -21,7 +21,6 @@ Paleoecology: {% block pagetitle %}{% endblock %}
     <script src="{% static 'js/mochikit/MochiKit/MochiKit.js' %}" type="text/javascript"></script> 
     <script src="{% static 'js/mochikit/MochiKit/Signal.js' %}" type="text/javascript"></script> 
     <script src="{% static 'js/browserdetect.js' %}" type="text/javascript" language="javascript"></script>
-    <script src="{% static 'js/shield.js' %}" type="text/javascript" language="javascript"></script>
     <script type="text/javascript">
       function setActiveTab() { addElementClass("{% block tabname %}tab-identification{% endblock %}", "tab-selected"); }
       addLoadEvent(setActiveTab);
@@ -78,11 +77,4 @@ Paleoecology: {% block pagetitle %}{% endblock %}
 </div>
 <!-- end div "container" -->
 </div>
-{% endblock %} 
-
-{% block script_footer %}    
-    <script type="text/javascript">
-        /* Select from list: Chrome, Firefox, Safari, MSIE */
-        shieldbrowser({"Chrome": 1, "Firefox": 3.6, "Safari": 4, "MSIE": 8 });
-    </script>
-{% endblock %} 
+{% endblock %}
