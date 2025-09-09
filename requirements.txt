@@ -47,7 +47,7 @@ text-unidecode==1.3  # for faker
 Faker==37.6.0
 contextlib2==21.6.0
 argparse==1.4.0
-cffi==1.17.0
+cffi==2.0.0
 colorama==0.4.4
 cryptography==45.0.2
 idna==3.10
