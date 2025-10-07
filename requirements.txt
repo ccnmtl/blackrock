@@ -29,7 +29,7 @@ pyOpenSSL==25.3.0
 ndg-httpsclient==0.5.1
 requirements/src/djangohelpers-0.22-py2.py3-none-any.whl
 logilab-common==2.1.0
-astroid==3.3.8
+astroid==4.0.0
 pylint==3.3.4
 pep8==1.7.1
 mccabe==0.7.0
