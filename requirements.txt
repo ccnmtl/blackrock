@@ -22,7 +22,7 @@ certifi==2025.10.5  # sentry-sdk
 requests==2.32.4
 pysolr==3.10.0
 requirements/src/gdata-2.0.14.tar.gz
-django-tinymce==4.1.0  # pyup: <2.7.0
+django-tinymce==5.0.0  # pyup: <2.7.0
 coverage==7.11.0
 pyasn1==0.6.0
 pyOpenSSL==25.3.0
