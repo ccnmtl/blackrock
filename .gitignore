@@ -13,7 +13,6 @@ x/*
 .settings/
 uploads/
 *.DS_Store
-.coverage
 blackrock.db
 reports
 .idea
