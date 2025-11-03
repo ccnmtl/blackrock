@@ -51,6 +51,7 @@ PROJECT_APPS = [
 MIDDLEWARE += [  # noqa
     'blackrock.portal.middleware.ValueErrorMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 INSTALLED_APPS += [  # noqa
@@ -72,6 +73,7 @@ INSTALLED_APPS += [  # noqa
     'bootstrapform',
     'django_extensions',
     'django.contrib.humanize',
+    'debug_toolbar',
 ]
 
 # Pageblocks/Pagetree settings
