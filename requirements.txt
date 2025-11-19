@@ -65,7 +65,7 @@ django-statsd-mozilla==0.4.0
 django-paging==0.2.5
 django-appconf==1.2.0
 raven==6.10.0
-sentry-sdk==2.44.0
+sentry-sdk==2.45.0
 requirements/src/django_googlecharts-1.5-py2.py3-none-any.whl
 
 django-stagingcontext==0.1.0
