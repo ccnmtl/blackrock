@@ -115,4 +115,4 @@ python-cas==1.7.1
 django-cas-ng==5.1.0
 
 lxml==6.0.0
-asgiref==3.10.0
+asgiref==3.11.0
