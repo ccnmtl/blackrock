@@ -16,7 +16,7 @@ Pillow==12.0.0
 
 chardet==5.2.0
 idna==3.11
-urllib3==2.5.0  # sentry-sdk
+urllib3==2.6.0  # sentry-sdk
 certifi==2025.11.12  # sentry-sdk
 
 requests==2.32.4
@@ -93,7 +93,7 @@ jmespath==1.0.0
 boto3>=1.12.0,<1.43.0
 botocore>=1.15.0,<1.42.0
 
-urllib3==2.5.0
+urllib3==2.6.0
 django-storages==1.14.2
 django-impersonate==1.9.1
 django-ga-context==0.1.0
