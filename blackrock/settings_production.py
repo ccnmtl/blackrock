@@ -21,7 +21,7 @@ DATABASES = {
         'HOST': '',
         'PORT': 6432,
         'USER': '',
-        'PASSWORD': '',
+        'PASSWORD': '',  # nosec
     }
 }
 
