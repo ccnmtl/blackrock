@@ -261,7 +261,8 @@ class RandomSample:
             # floor cuts the remainder--maybe we should be using it somehow
             plots_across = math.floor(w/(size+delta))
 
-            self.choices = random.sample(range(int(plots_avail)), num_plots)
+            self.choices = random.sample(
+                range(int(plots_avail)), num_plots)  # nosec
             self.points = [
                 {
                     'x': (p % plots_across * (size + delta)) + delta,

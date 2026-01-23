@@ -51,7 +51,7 @@ class BasicViewTest(TestCase):
     def test_process_login_auth_fail(self):
         request = self.factory.post('/mammals/process_login/',
                                     {"username": "username",
-                                     "password": "password"})
+                                     "password": "password"})  # nosec
         response = process_login(request)
         self.assertEqual(response.status_code, 403)
 
