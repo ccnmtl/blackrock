@@ -1,5 +1,5 @@
 /* global ImageFlow */
-/* eslint-disable security/detect-non-literal-regexp, no-useless-escape */
+/* eslint-disable no-useless-escape */
 /*******************************************************************************
  *
  * constructs an array of the blackrock static web cam images that we pull in
