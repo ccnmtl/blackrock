@@ -1,5 +1,5 @@
 Django>=5.2,<6
-pytz==2025.2
+pytz==2026.1.post1
 resolver==0.2.1
 selector==0.10.1
 Paste==3.10.0
