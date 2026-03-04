@@ -148,6 +148,7 @@ if (!Portal.MapMarker) {
                 return null;
             }
 
+            // eslint-disable-next-line no-useless-assignment
             var iconUrl = '';
             if (infrastructure && infrastructure.length) {
                 var infraIcon = infrastructure[0];
