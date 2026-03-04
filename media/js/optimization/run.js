@@ -395,6 +395,7 @@ function calculate() {
 }
 
 function updateShapeLabel(e) {
+    // eslint-disable-next-line no-useless-assignment
     var shape = 'square';
     if (e.src)
         shape = e.src().value;

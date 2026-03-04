@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-assignment */
 /* global LeafData: true, leafGraph: true */
 /* exported incNumSpecies, getNumSpecies, setSpeciesList */
 

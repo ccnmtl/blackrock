@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-assignment */
 /* jshint esversion: 6 */
 /* global Highcharts: true, Papa: true, Treegrowth: true */
 
