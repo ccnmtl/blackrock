@@ -9,19 +9,19 @@
 {% endblock %} 
 
 {% block js %} 
-    <script type="text/javascript" src="{% static 'js/browserdetect.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/libraries/jquery-1.11.2.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/libraries/jquery-ui-1.11.4.min.js' %}"></script>  
-    <script type="text/javascript" src="{% static 'js/mochikit/MochiKit/MochiKit.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/mochikit/MochiKit/Signal.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/libraries/jquery.sharing/jquery.sharing.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/libraries/sharing.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/bluff/js-class.js' %}"></script> 
-    <script type="text/javascript" src="{% static 'js/bluff/excanvas.js' %}"></script> 
-    <script type="text/javascript" src="{% static 'js/bluff/bluff-src.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/respiration/graph.js' %}"></script> 
+    <script crossorigin="anonymous" src="{% static 'js/browserdetect.js' %}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/libraries/jquery-1.11.2.min.js' %}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/libraries/jquery-ui-1.11.4.min.js' %}"></script>  
+    <script crossorigin="anonymous" src="{% static 'js/mochikit/MochiKit/MochiKit.js' %}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/mochikit/MochiKit/Signal.js' %}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/libraries/jquery.sharing/jquery.sharing.js' %}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/libraries/sharing.js' %}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/bluff/js-class.js' %}"></script> 
+    <script crossorigin="anonymous" src="{% static 'js/bluff/excanvas.js' %}"></script> 
+    <script crossorigin="anonymous" src="{% static 'js/bluff/bluff-src.js' %}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/respiration/graph.js' %}"></script> 
 
-    <script type="text/javascript">
+    <script>
       function closePredefinedSpecies() {
           jQuery('.species-predefined-list:visible').hide();
       }

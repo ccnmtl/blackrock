@@ -2,8 +2,8 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'js/portal/imageflow/imageflow.css' %}" />
 
-<script type="text/javascript" src="{% static 'js/portal/imageflow/imageflow.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/portal/blackrock_webcam.js' %}"></script>
+<script crossorigin="anonymous" src="{% static 'js/portal/imageflow/imageflow.js' %}"></script>
+<script crossorigin="anonymous" src="{% static 'js/portal/blackrock_webcam.js' %}"></script>
 
 <div id="forestcam">
   <div class="pagetitle">
@@ -88,7 +88,7 @@
   <div style="clear: both">
 </div>
  
-<script type="text/javascript">
+<script>
     jQuery(document).ready(function() {
 
         jQuery("#datepicker").datepicker({
