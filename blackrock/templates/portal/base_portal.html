@@ -24,19 +24,19 @@
     <script>var STATIC_URL = "{{STATIC_URL}}";</script>
 
     {% block js %}
-    <script type="text/javascript" src="{% static 'js/libraries/jquery-1.6.4.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/mochikit/MochiKit/MochiKit.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/mochikit/MochiKit/Signal.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/browserdetect.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/jquery-ui-1.8.11.custom/js/jquery-1.4.4.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/jquery-ui-1.8.11.custom/js/jquery-ui-1.8.11.custom.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/flowplayer-3.1.4.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/libraries/jquery.sharing/jquery.sharing.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/libraries/sharing.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/portal/jcarousel/lib/jquery.jcarousel.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/portal/maps.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/portal/portal.js' %}"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{settings.GOOGLE_MAP_API}}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/libraries/jquery-1.6.4.min.js' %}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/mochikit/MochiKit/MochiKit.js' %}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/mochikit/MochiKit/Signal.js' %}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/browserdetect.js' %}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/jquery-ui-1.8.11.custom/js/jquery-1.4.4.min.js' %}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/jquery-ui-1.8.11.custom/js/jquery-ui-1.8.11.custom.min.js' %}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/flowplayer-3.1.4.min.js' %}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/libraries/jquery.sharing/jquery.sharing.js' %}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/libraries/sharing.js' %}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/portal/jcarousel/lib/jquery.jcarousel.js' %}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/portal/maps.js' %}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/portal/portal.js' %}"></script>
+    <script crossorigin="anonymous" src="https://maps.googleapis.com/maps/api/js?key={{settings.GOOGLE_MAP_API}}"></script>
 
     {% endblock %}
 
@@ -145,7 +145,7 @@
     </div>
 {% endif %}
 
-<script type="text/javascript">
+<script>
 
     function clearDefaultText() {
         // Clear the Ghost Text if it is still set.

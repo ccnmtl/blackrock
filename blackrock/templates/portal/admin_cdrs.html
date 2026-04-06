@@ -14,16 +14,16 @@
 {% block extrahead %}
     {{ block.super }}
     <!-- I do not see the javascript listed here in portal/js or media/js... core, calendar, and the admin directory with javascript appear to be missing... -->
-    <script type="text/javascript" src="/admin/jsi18n/"></script>
-    <script type="text/javascript" src="/media/js/core.js"></script>
-    <script type="text/javascript" src="/media/js/admin/RelatedObjectLookups.js"></script>
-    <script type="text/javascript" src="/media/js/admin/CollapsedFieldsets.js"></script>
-    <script type="text/javascript" src="/media/js/calendar.js"></script>
-    <script type="text/javascript" src="/media/js/admin/DateTimeShortcuts.js"></script>
-    <script type="text/javascript" src="{% static 'js/json2.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/admin.js' %}"></script>
+    <script src="/admin/jsi18n/"></script>
+    <script src="/media/js/core.js"></script>
+    <script src="/media/js/admin/RelatedObjectLookups.js"></script>
+    <script src="/media/js/admin/CollapsedFieldsets.js"></script>
+    <script src="/media/js/calendar.js"></script>
+    <script src="/media/js/admin/DateTimeShortcuts.js"></script>
+    <script crossorigin="anonymous" src="{% static 'js/json2.js' %}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/admin.js' %}"></script>
     
-    <script type="text/javascript">
+    <script>
        addLoadEvent(previewSolr);
     </script>
 {% endblock %}

@@ -18,7 +18,7 @@
 
 {% block js %} 
     {{block.super}}
-    <script type="text/javascript" src="{% static 'js/libraries/OpenLayers-2.9.js' %}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/libraries/OpenLayers-2.9.js' %}"></script>
     <script>
     OpenLayers.ImgPath = "{% static 'openlayers/img/' %}";
     </script>
