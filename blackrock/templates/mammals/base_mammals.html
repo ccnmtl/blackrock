@@ -10,12 +10,12 @@
 
 {% block js %}
   {{block.super}}
-<script  type="text/javascript" src="{% static 'js/jquery-ui-1.8.11.custom/js/jquery-1.4.4.min.js' %}"></script>
-<script  type="text/javascript" src="{% static 'js/jquery-ui-1.8.11.custom/js/jquery-ui-1.8.11.custom.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/libraries/jquery.sharing/jquery.sharing.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/libraries//sharing.js' %}"></script>
+<script crossorigin="anonymous" src="{% static 'js/jquery-ui-1.8.11.custom/js/jquery-1.4.4.min.js' %}"></script>
+<script crossorigin="anonymous" src="{% static 'js/jquery-ui-1.8.11.custom/js/jquery-ui-1.8.11.custom.min.js' %}"></script>
+<script crossorigin="anonymous" src="{% static 'js/libraries/jquery.sharing/jquery.sharing.js' %}"></script>
+<script crossorigin="anonymous" src="{% static 'js/libraries//sharing.js' %}"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{settings.GOOGLE_MAP_API}}"></script>
-<script type="text/javascript" src="{% static 'js/mammals/maps.js' %}"></script>
+<script crossorigin="anonymous" src="{% static 'js/mammals/maps.js' %}"></script>
 {% endblock %}
 
 {% block masthead %}

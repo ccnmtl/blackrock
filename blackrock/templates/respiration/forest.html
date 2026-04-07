@@ -5,10 +5,10 @@
 
 {% block js %}
    {{ block.super }}
-    <script type="text/javascript" src="{% static 'js/respiration/foresthelpers.js' %}"></script> 
-    <script type="text/javascript" src="{% static 'js/respiration/scenario.js' %}"></script> 
-    <script type="text/javascript" src="{% static 'js/respiration/species.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/respiration/forestgraph.js' %}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/respiration/foresthelpers.js' %}"></script> 
+    <script crossorigin="anonymous" src="{% static 'js/respiration/scenario.js' %}"></script> 
+    <script crossorigin="anonymous" src="{% static 'js/respiration/species.js' %}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/respiration/forestgraph.js' %}"></script>
     <script type="text/javascript">
 
         addLoadEvent(function() {

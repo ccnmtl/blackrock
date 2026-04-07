@@ -3,11 +3,11 @@
 {% block title %}Team Form{% endblock %}
 {% block js %}
     {{ block.super }}
-    <script type="text/javascript" src="{% static 'js/mammals/map_colors.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/mammals/grid_and_block.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/mammals/block.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/mammals/team_form.js' %}"></script>
-    <script type="text/javascript">jQuery (add_team_form_maps);</script>
+    <script crossorigin="anonymous" src="{% static 'js/mammals/map_colors.js' %}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/mammals/grid_and_block.js' %}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/mammals/block.js' %}"></script>
+    <script crossorigin="anonymous" src="{% static 'js/mammals/team_form.js' %}"></script>
+    <script>jQuery (add_team_form_maps);</script>
 {% endblock %}
 
 {% block css %}
