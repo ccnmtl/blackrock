@@ -1,4 +1,4 @@
-Django>=5.2,<6
+Django>=6.0.5,<7
 pytz==2026.2
 resolver==0.2.1
 selector==0.10.1
