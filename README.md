@@ -8,7 +8,7 @@ The Virtual Forest Initiative supports and enhances research, education, and com
 
 REQUIREMENTS
 ------------
-* Python 3.11
+* Python 3
 * PostgreSQL
 * Apache Solr
 
